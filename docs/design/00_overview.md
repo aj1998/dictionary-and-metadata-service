@@ -117,7 +117,7 @@ dictionary-and-metadata-service/
 |---|---|---|---|
 | `jainkosh.org/wiki/Category:<letter>` then per-keyword pages | Live HTML (MediaWiki) | Manual trigger, batched per-letter | Keyword + Definitions + initial Topics |
 | `nikkyjain.github.io` (local clone) | Static HTML per shastra | Manual trigger, per shastra | Shastra metadata + Gathas (Prakrit/Sanskrit/Hindi) + word-meaning maps |
-| `vyakaran_vishleshan/<shastra>/*.png` | PNG scans (rules in `rules/`) | Future, manual | Word-by-word breakdowns per gatha |
+| `samples/vyakaran_vishleshan/<shastra>/*.png` | PNG scans (rules in `rules/`) | Future, manual | Word-by-word breakdowns per gatha |
 | (**enrichment**) `cataloguesearch-chat` candidate topics DB | Read-only pull (cron) | Daily | `topic_candidates` rows for admin review |
 
 ## Out of Scope

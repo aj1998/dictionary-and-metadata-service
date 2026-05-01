@@ -43,7 +43,7 @@ def neo4j_container():
 ## Canonical fixtures
 
 ### `fixtures/jainkosh/आत्मा.html`
-Copy of `sample_html_jainkosh_pages/आत्मा.html` (already in repo). The parser must produce `golden/आत्मा.json`:
+Copy of `samples/sample_html_jainkosh_pages/आत्मा.html` (already in repo). The parser must produce `golden/आत्मा.json`:
 
 ```json
 {
@@ -85,7 +85,7 @@ Copy of `sample_html_jainkosh_pages/आत्मा.html` (already in repo). The
 Same approach. Golden: `golden/पर्याय.json`.
 
 ### `fixtures/nj/pravachansaar_index_partial.html`
-A trimmed copy of `sample_html_granths_nj/pravachansaar/html/index.html` containing the title block, adhikaar index, and gathas 037–040 (so we test multi-gatha extraction without bloating the fixture). Golden: `golden/pravachansaar_039.json`:
+A trimmed copy of `samples/sample_html_granths_nj/pravachansaar/html/index.html` containing the title block, adhikaar index, and gathas 037–040 (so we test multi-gatha extraction without bloating the fixture). Golden: `golden/pravachansaar_039.json`:
 
 ```json
 {

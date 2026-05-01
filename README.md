@@ -143,9 +143,10 @@ dictionary-and-metadata-service/
 ├── workers/                   # (future) ingestion + enrichment Celery workers
 ├── ui/                        # (future) Next.js public + admin apps
 ├── parser_configs/            # YAML/JSON scraper rules
-├── sample_html_granths_nj/    # Sample nikkyjain HTML for parser development
-├── sample_html_jainkosh_pages/# Sample JainKosh HTML for parser development
-├── vyakaran_vishleshan/       # Scanned images for future OCR
+├── samples
+│   └── sample_html_granths_nj/    # Sample nikkyjain HTML for parser development
+│   └── sample_html_jainkosh_pages/# Sample JainKosh HTML for parser development
+│   └── vyakaran_vishleshan/       # Scanned images for future OCR
 ├── alembic.ini
 └── pyproject.toml
 ```

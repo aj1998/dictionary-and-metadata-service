@@ -255,7 +255,7 @@ python -m workers.ingestion.jainkosh.orchestrator \
 ## Definition of Done
 
 - [ ] `parser_configs/jainkosh.yaml` validated against a JSON-schema in `parser_configs/_schemas/jainkosh.schema.json`.
-- [ ] Parser passes golden tests on `sample_html_jainkosh_pages/आत्मा.html` and `पर्याय.html` — emitted `KeywordExtract` matches `tests/golden/आत्मा.json`.
+- [ ] Parser passes golden tests on `samples/sample_html_jainkosh_pages/आत्मा.html` and `पर्याय.html` — emitted `KeywordExtract` matches `tests/golden/आत्मा.json`.
 - [ ] Re-running the orchestrator twice with identical inputs produces zero net DB changes after second approval (idempotent).
 - [ ] Rate-limit honored (single-threaded sleep-based throttle).
 - [ ] All scraped HTML written to `data/raw/jainkosh/<run_ts>/`.

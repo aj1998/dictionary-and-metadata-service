@@ -4,7 +4,7 @@ This module is **stubbed for v1**. It documents the I/O contract so that when OC
 
 ## Source
 
-`vyakaran_vishleshan/<shastra_slug>/*.png` — scanned pages of vyakaran-vishleshan books (e.g. by Kamalchand Sogani Ji on Pravachansaar). Each PNG corresponds to a page that contains:
+`samples/vyakaran_vishleshan/<shastra_slug>/*.png` — scanned pages of vyakaran-vishleshan books (e.g. by Kamalchand Sogani Ji on Pravachansaar). Each PNG corresponds to a page that contains:
 
 - Word-by-word Sanskrit/Prakrit grammatical breakdown of a gatha
 - Tables of declensions / conjugations
@@ -65,7 +65,7 @@ For each PNG processed, produce one `ocr_pages` Mongo document:
   "shastra_natural_key": "pravachansaar",
   "gatha_natural_key": "pravachansaar:001",
   "page": 1,
-  "image_path": "vyakaran_vishleshan/pravachansaar/gatha1.png",
+  "image_path": "samples/vyakaran_vishleshan/pravachansaar/gatha1.png",
   "ocr_engine": "tesseract-5.x-hin+san",
   "ocr_text": [{"lang": "hin", "script": "Deva", "text": "..."}],
   "tables": [{"rows": [["...", "..."]], "bbox": [0,0,100,100], "confidence": 0.91}],
@@ -97,8 +97,8 @@ version: 0.1.0-stub
 source: vyakaran_vishleshan
 shastra_natural_key: pravachansaar
 input:
-  pages_glob: "vyakaran_vishleshan/pravachansaar/*.png"
-  rules_glob: "vyakaran_vishleshan/pravachansaar/rules/*.png"
+  pages_glob: "samples/vyakaran_vishleshan/pravachansaar/*.png"
+  rules_glob: "samples/vyakaran_vishleshan/pravachansaar/rules/*.png"
 gatha_inference:
   # how to map filename → gatha_number; placeholder
   filename_pattern: 'gatha(?P<num>\d+)\.png'
@@ -119,6 +119,6 @@ review:
 
 - [ ] `OCREngine` protocol and `OCRPageResult` Pydantic model are implemented and importable.
 - [ ] `TesseractEngine` exists and returns `status="not_implemented"` (intentional stub).
-- [ ] Orchestrator walks `vyakaran_vishleshan/pravachansaar/*.png`, creates `ingestion_runs` rows, and inserts `ocr_pages` Mongo docs in `not_implemented` state.
+- [ ] Orchestrator walks `samples/vyakaran_vishleshan/pravachansaar/*.png`, creates `ingestion_runs` rows, and inserts `ocr_pages` Mongo docs in `not_implemented` state.
 - [ ] Admin UI page for reviewing OCR rows exists (placeholder, see `13_*`).
 - [ ] No production traffic depends on this module yet.

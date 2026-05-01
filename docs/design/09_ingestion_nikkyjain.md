@@ -4,7 +4,7 @@ Reads `nikkyjain.github.io` HTML files from a **local clone** (no scraping). Ext
 
 ## Source structure (observed)
 
-`sample_html_granths_nj/<shastra_slug>/html/index.html` is one big HTML file containing:
+`samples/sample_html_granths_nj/<shastra_slug>/html/index.html` is one big HTML file containing:
 
 - Title block: `<div class="hdr1">प्रवचनसार</div>`, author `<font size=20>- कुन्दकुन्दाचार्य</font>`.
 - Top-level adhikaar index: `table.adhikarIndex` with `<a href='#ad1'>...</a>`.
