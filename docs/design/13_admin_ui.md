@@ -17,7 +17,7 @@ Internal control plane for the service. Lives in the same Next.js app as the pub
 |---|---|---|
 | `/admin` | Dashboard: counts, recent runs, queue depth | metadata + ingestion + dictionary services |
 | `/admin/parser-configs` | List / view active parser config files; show checksum + version history | Postgres `parser_configs` |
-| `/admin/ingest` | Trigger ingestion (jainkosh letter, nikkyjain shastra, vyakaran shastra); view live progress | Celery + Postgres `ingestion_runs` |
+| `/admin/ingest` | Trigger ingestion (jainkosh letter, nj shastra, vyakaran shastra); view live progress | Celery + Postgres `ingestion_runs` |
 | `/admin/ingest/runs/[run_id]` | Run detail: stats, errors, iterator state, raw HTML browser | Postgres + filesystem |
 | `/admin/review-queue` | Pending parsed entities awaiting approval. Bulk approve/reject. | Postgres `ingestion_review_queue` |
 | `/admin/review-queue/[id]` | Single entity review — diff vs existing if any, side-by-side preview, blocks visualization | + Mongo |
@@ -35,7 +35,7 @@ Internal control plane for the service. Lives in the same Next.js app as the pub
 
 ### `/admin/review-queue`
 ```
-[ Source: ▼ all | jainkosh | nikkyjain | vyakaran ]
+[ Source: ▼ all | jainkosh | nj | vyakaran ]
 [ Status: ▼ pending | approved | rejected ] [ Run: ▼ all | <run_id> ]
 
 Bulk: [Approve selected]  [Reject selected]  [Reason: ____ ]

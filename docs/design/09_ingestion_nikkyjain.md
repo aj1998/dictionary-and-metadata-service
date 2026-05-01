@@ -4,7 +4,7 @@ Reads `nikkyjain.github.io` HTML files from a **local clone** (no scraping). Ext
 
 ## Source structure (observed)
 
-`sample_html_granths/<shastra_slug>/html/index.html` is one big HTML file containing:
+`sample_html_granths_nj/<shastra_slug>/html/index.html` is one big HTML file containing:
 
 - Title block: `<div class="hdr1">प्रवचनसार</div>`, author `<font size=20>- कुन्दकुन्दाचार्य</font>`.
 - Top-level adhikaar index: `table.adhikarIndex` with `<a href='#ad1'>...</a>`.
@@ -18,7 +18,7 @@ Reads `nikkyjain.github.io` HTML files from a **local clone** (no scraping). Ext
 
 There is **no** Sanskrit chhaya in `pravachansaar` index.html samples. Where Sanskrit is present (other shastras), the parser config selector handles it.
 
-## Parser config (`parser_configs/nikkyjain/pravachansaar.yaml`)
+## Parser config (`parser_configs/nj/pravachansaar.yaml`)
 
 ```yaml
 version: 1.0.0
@@ -62,12 +62,12 @@ review:
   auto_approve: false
 ```
 
-A separate config file per shastra under `parser_configs/nikkyjain/`. Shared selectors are loaded from `parser_configs/nikkyjain/_base.yaml` and merged.
+A separate config file per shastra under `parser_configs/nj/`. Shared selectors are loaded from `parser_configs/nj/_base.yaml` and merged.
 
 ## Job structure
 
 ```
-workers/ingestion/nikkyjain/
+workers/ingestion/gatha_parser_nj/
 ├── orchestrator.py
 ├── parse_index.py        # adhikaar + gatha numbers
 ├── parse_gatha.py        # one gatha block → GathaExtract
@@ -82,7 +82,7 @@ workers/ingestion/nikkyjain/
 ## Pipeline
 
 ```
-Celery task: nikkyjain.ingest_shastra(run_id, shastra_slug='pravachansaar')
+Celery task: gatha_parser_nj.ingest_shastra(run_id, shastra_slug='pravachansaar')
   1. Load shastra config, register parser_config row, create ingestion_run
   2. Read index.html from local path
   3. Upsert author + shastra rows directly into Postgres (low ambiguity)
@@ -107,7 +107,7 @@ On admin approve:
           pg.attach_keyword_to_gatha(gatha_id, keyword_natural_key)
       for tp in heading_topics:
           pg.upsert_topic(natural_key=..., parent_keyword=None,
-                          source='nikkyjain', display_text=heading)
+                          source='nj', display_text=heading)
           neo4j.sync_topic(...)
           neo4j.add_edge(Gatha → Topic, MENTIONS_TOPIC)
     COMMIT
@@ -147,7 +147,7 @@ class GathaExtract(BaseModel):
 ## Parser pseudocode
 
 ```python
-def parse_index(html: str, cfg: NikkyjainConfig) -> ShastraIndex:
+def parse_index(html: str, cfg: NJConfig) -> ShastraIndex:
     tree = HTMLParser(html)
     title = clean(tree.css_first(cfg.selectors.shastra_title).text())
     author = clean(tree.css_first(cfg.selectors.author_name).text()).lstrip("- ").strip()
@@ -242,8 +242,8 @@ This is a deliberate v1 heuristic. Better matching (e.g. multi-word keywords lik
 ## Heading-based topic seeding
 
 Each gatha heading (e.g. `भूत-भावि पर्यायों की असद्भूत--अविद्यमान संज्ञा है`) becomes a **topic** with:
-- `natural_key`: `nikkyjain:{shastra}:{gatha_number}:{slug(heading)}`
-- `source`: `nikkyjain`
+- `natural_key`: `nj:{shastra}:{gatha_number}:{slug(heading)}`
+- `source`: `nj`
 - `parent_keyword_id`: NULL (no parent keyword for heading-derived topics)
 - `display_text`: the heading
 - `MENTIONS_TOPIC` edge from the gatha node.
@@ -253,8 +253,8 @@ This is per the user's note: "Add gatha headings (extracted from nikkyjain.githu
 ## Running it
 
 ```bash
-python -m workers.ingestion.nikkyjain.orchestrator \
-  --config parser_configs/nikkyjain/pravachansaar.yaml \
+python -m workers.ingestion.gatha_parser_nj.orchestrator \
+  --config parser_configs/gatha_parser_nj/pravachansaar.yaml \
   --triggered-by admin@example.com
 ```
 

@@ -31,7 +31,8 @@ Original Prakrit gatha text.
     {"lang": "pra", "script": "Deva",
      "text": "जे णेव हि संजाया जे खलु णट्‌ठा भवीय पज्जया ।\nते होंति असब्भूदा पज्जाया णाणपच्चक्खा ॥39॥"}
   ],
-  "raw_html_fragment": "<div class='gatha'>...</div>",     // optional, for debug
+  "is_kalash": "true|false" // is gatha a kalash (special commentary gathas added by teekakars)
+  "raw_html_fragment": "<div class='gatha'>...</div>",     // for debug
   "ingestion_run_id": "uuid",
   "created_at": ISODate(...),
   "updated_at": ISODate(...)

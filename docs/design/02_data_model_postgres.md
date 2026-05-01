@@ -22,7 +22,7 @@ CREATE EXTENSION IF NOT EXISTS btree_gin;
 ## Enums
 
 ```sql
-CREATE TYPE author_kind AS ENUM ('acharya', 'gyaani', 'scholar');
+CREATE TYPE author_kind AS ENUM ('acharya', 'gyaani', 'scholar', 'unknown');
 
 CREATE TYPE anuyoga_kind AS ENUM (
   'prathmanuyoga',     -- प्रथमानुयोग
@@ -33,9 +33,10 @@ CREATE TYPE anuyoga_kind AS ENUM (
 
 CREATE TYPE ingestion_source AS ENUM (
   'jainkosh',
-  'nikkyjain',
+  'nj', -- nikkyjain
   'vyakaran_vishleshan',
-  'chat_candidate'
+  'cataloguesearch',
+  'cataloguesearch-chat' -- enrichment
 );
 
 CREATE TYPE ingestion_run_status AS ENUM (
@@ -112,17 +113,18 @@ CREATE TABLE book_anuyogas (
 
 ### `teekas`
 
-A Teeka is a commentary on a Shastra by another Gyaani.
+A Teeka is a commentary on a Shastra by another Gyaani. A shastra will have atleast one entry in teeka table even if we don't have teekakar details
 
 ```sql
 CREATE TABLE teekas (
   id                          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   natural_key                 TEXT NOT NULL UNIQUE,    -- e.g. 'pravachansaar:amritchandra'
   shastra_id                  UUID NOT NULL REFERENCES shastras(id) ON DELETE CASCADE,
-  teekakar_id                 UUID NOT NULL REFERENCES authors(id),
+  teekakar_id                 UUID REFERENCES authors(id)
   publisher                   JSONB,                   -- multilingual
   translator                  JSONB,
-  cataloguesearch_shastra_id  TEXT,                    -- foreign ref into cataloguesearch (renamed from "Swalakshya Teeka Name/Id")
+  editor                      JSONB,
+  cataloguesearch_shastra_id  TEXT,                    -- foreign ref into cataloguesearch
   public_url                  TEXT,
   publisher_url               TEXT,
   created_at                  TIMESTAMPTZ NOT NULL DEFAULT now(),
@@ -143,6 +145,7 @@ CREATE TABLE books (
   shastra_id    UUID REFERENCES shastras(id) ON DELETE SET NULL,    -- optional
   publisher     JSONB,
   translator    JSONB,
+  editor        JSONB,
   public_url    TEXT,
   publisher_url TEXT,
   created_at    TIMESTAMPTZ NOT NULL DEFAULT now(),
@@ -162,6 +165,8 @@ CREATE TABLE pravachans (
   shastra_id    UUID REFERENCES shastras(id) ON DELETE SET NULL,
   speaker_id    UUID REFERENCES authors(id),
   publisher     JSONB,
+  translator    JSONB,
+  editor        JSONB,
   public_url    TEXT,
   publisher_url TEXT,
   created_at    TIMESTAMPTZ NOT NULL DEFAULT now(),
@@ -261,7 +266,7 @@ CREATE TABLE topic_mentions (
   id                          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   topic_id                    UUID NOT NULL REFERENCES topics(id) ON DELETE CASCADE,
 
-  -- exactly one of the following groupings should be non-null:
+  -- atleast one of the following groupings should be non-null:
   teeka_id                    UUID REFERENCES teekas(id),
   gatha_id                    UUID REFERENCES gathas(id),
   book_id                     UUID REFERENCES books(id),
@@ -333,7 +338,7 @@ Each parsed entity awaits admin approval before it's promoted to public-visible.
 CREATE TABLE ingestion_review_queue (
   id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   ingestion_run_id  UUID NOT NULL REFERENCES ingestion_runs(id) ON DELETE CASCADE,
-  entity_type       TEXT NOT NULL,             -- 'keyword' | 'topic' | 'gatha' | 'shastra' | 'teeka'
+  entity_type       TEXT NOT NULL,             -- 'letter' | 'keyword' | 'topic' | 'gatha' | 'shastra' | 'teeka'
   entity_natural_key TEXT NOT NULL,
   proposed_payload  JSONB NOT NULL,            -- the would-be row (postgres + mongo + graph fragments)
   diff_against_existing JSONB,                 -- nullable, computed if entity already exists

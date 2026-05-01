@@ -95,7 +95,7 @@ This is a high-information page. Rendered Hindi-first; switch panels (not tabs) 
 ```
 
 ### `/topics` — topic browser
-- Filters: source (jainkosh, nikkyjain, chat_candidate), parent keyword.
+- Filters: source (jainkosh, nj, chat_candidate), parent keyword.
 - Search.
 - Cards per topic with heading, parent keyword, mention count.
 
@@ -136,7 +136,7 @@ results:
 Calls `POST /v1/graphrag/topics` with `caller="public-ui"`.
 
 ### `/about`
-Static page describing the project and acknowledging sources (jainkosh, nikkyjain, vyakaran-vishleshan authors).
+Static page describing the project and acknowledging sources (jainkosh, nj, vyakaran-vishleshan authors).
 
 ## Frontend stack
 

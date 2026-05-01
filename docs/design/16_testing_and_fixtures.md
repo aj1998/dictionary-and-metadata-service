@@ -84,8 +84,8 @@ Copy of `sample_html_jainkosh_pages/आत्मा.html` (already in repo). The
 ### `fixtures/jainkosh/पर्याय.html`
 Same approach. Golden: `golden/पर्याय.json`.
 
-### `fixtures/nikkyjain/pravachansaar_index_partial.html`
-A trimmed copy of `sample_html_granths/pravachansaar/html/index.html` containing the title block, adhikaar index, and gathas 037–040 (so we test multi-gatha extraction without bloating the fixture). Golden: `golden/pravachansaar_039.json`:
+### `fixtures/nj/pravachansaar_index_partial.html`
+A trimmed copy of `sample_html_granths_nj/pravachansaar/html/index.html` containing the title block, adhikaar index, and gathas 037–040 (so we test multi-gatha extraction without bloating the fixture). Golden: `golden/pravachansaar_039.json`:
 
 ```json
 {
@@ -188,7 +188,7 @@ A loader `tests/seed_graph_loader.py` materializes this into Postgres + Mongo + 
 - `test_alias_mining.py`: `देखें` link produces an alias entry; respx mocks the redirect API.
 - `test_orchestrator_idempotent.py`: ingest → approve → ingest again → 0 net DB changes.
 
-### `09 ingestion_nikkyjain`
+### `09 ingestion_gatha_parser`
 - `test_parse_index.py`: title, author, ≥ 270 gatha anchors detected on full sample.
 - `test_parse_gatha.py`: gatha 039 matches golden.
 - `test_heading_topic.py`: heading topic node created with correct `natural_key`.

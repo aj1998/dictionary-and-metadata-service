@@ -4,8 +4,8 @@
 
 Build a structured, knowledge-graph-backed retrieval service for Jain texts that complements the existing vector/BM25 retriever (`cataloguesearch`) and the LLM chat layer (`cataloguesearch-chat`). It owns:
 
-- **Master Metadata** — authors, shastras, teekas, books, pravachans, anuyogas (in Postgres).
-- **Dictionary content** — gathas (Prakrit/Sanskrit/Hindi), word-to-meaning maps, keyword definitions, topic extracts (in MongoDB).
+- **Master Metadata** — authors, shastras, teekas, books, pravachans, anuyogas, URLs (in Postgres).
+- **Dictionary content** — gathas (Prakrit/Sanskrit/Hindi/Gujarati), word-to-meaning maps, keywords index, keyword definitions, topic extracts, gatha to keyword/topic relations (in MongoDB).
 - **Topic Knowledge Graph** — keyword↔topic↔topic relations, used for graph-based retrieval (in Neo4j).
 
 It exposes:
@@ -37,7 +37,7 @@ Postgres is the **source of truth for IDs**. Every entity in Mongo or Neo4j has 
 
 ## Tech Stack
 
-- **Language**: Python 3.12
+- **Language**: Python 3.12 (.venv virtualenv)
 - **Web**: FastAPI + Uvicorn, Pydantic v2 models
 - **ORM**: SQLAlchemy 2 (async) + Alembic (migrations)
 - **Mongo client**: Motor (async)
@@ -55,27 +55,29 @@ Postgres is the **source of truth for IDs**. Every entity in Mongo or Neo4j has 
                         │  Admin UI       │
                         │ (Next.js)       │
                         └──────┬──────────┘
-                               │ trigger ingest, review queues
+                               │ trigger ingest, review topic ingestion queues
                                ▼
 ┌─────────┐ scrape  ┌──────────────────────────────────────┐
 │jainkosh │◄────────│  ingestion workers (Celery)          │
 └─────────┘         │  - jainkosh parser                   │
-┌─────────┐ read    │  - nikkyjain parser                  │
-│nikkyjain│◄────────│  - vyakaran OCR (future)             │
-│ (local) │         │  - chat-candidate puller (cron)      │
+┌─────────┐ scrape  │  - gatha parser (nj/cataloguesearch) │
+│nj(local)│◄────────│  - vyakaran OCR (future)             │
+│ CS OCRs │         │                                      │
+│         │         │  enrichment workers (Celery)         │
+│         │         │  - chat-candidate puller (cron)      │
 └─────────┘         └────┬──────────┬──────────┬───────────┘
                          ▼          ▼          ▼
                    ┌─────────┐ ┌────────┐ ┌─────────┐
                    │Postgres │ │ Mongo  │ │ Neo4j   │
                    └────┬────┘ └───┬────┘ └────┬────┘
                         │          │           │
-                ┌───────┴──────────┴───────────┴─────────┐
-                │  metadata-svc  dictionary-svc  query-svc│
+                ┌───────┴──────────┴───────────┴──────────┐
+                │ metadata-svc  dictionary-svc  query-svc │
                 └────┬─────────────────┬──────────────┬───┘
                      │                 │              │
                      ▼                 ▼              ▼
                  Public UI          Public UI    cataloguesearch-chat
-              (shastra browse)  (dictionary)    (GraphRAG context)
+              (shastra browse)    (dictionary)    (GraphRAG context)
 ```
 
 ## Repository Layout
@@ -85,9 +87,7 @@ dictionary-and-metadata-service/
 ├── docs/                          # This documentation set
 ├── parser_configs/                # YAML/JSON parser rules (versioned)
 │   ├── jainkosh.yaml
-│   ├── nikkyjain/
-│   │   ├── pravachansaar.yaml
-│   │   └── samaysaar.yaml
+│   ├── gatha_parser.yaml
 │   └── vyakaran_vishleshan/       # future
 ├── services/
 │   ├── metadata_service/
@@ -96,7 +96,7 @@ dictionary-and-metadata-service/
 ├── workers/
 │   ├── ingestion/
 │   │   ├── jainkosh.py
-│   │   ├── nikkyjain.py
+│   │   ├── gatha_parser.py.      # from nikkyjain.github.io and cataloguesearch OCRs (future)
 │   │   └── vyakaran_ocr.py
 │   └── enrichment/
 │       └── chat_candidate_puller.py
@@ -118,7 +118,7 @@ dictionary-and-metadata-service/
 | `jainkosh.org/wiki/Category:<letter>` then per-keyword pages | Live HTML (MediaWiki) | Manual trigger, batched per-letter | Keyword + Definitions + initial Topics |
 | `nikkyjain.github.io` (local clone) | Static HTML per shastra | Manual trigger, per shastra | Shastra metadata + Gathas (Prakrit/Sanskrit/Hindi) + word-meaning maps |
 | `vyakaran_vishleshan/<shastra>/*.png` | PNG scans (rules in `rules/`) | Future, manual | Word-by-word breakdowns per gatha |
-| `cataloguesearch-chat` candidate topics DB | Read-only pull (cron) | Daily | `topic_candidates` rows for admin review |
+| (**enrichment**) `cataloguesearch-chat` candidate topics DB | Read-only pull (cron) | Daily | `topic_candidates` rows for admin review |
 
 ## Out of Scope
 
