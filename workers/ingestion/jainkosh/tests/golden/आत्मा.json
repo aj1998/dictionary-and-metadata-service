@@ -18,11 +18,13 @@
                 "references": [
                   {
                     "text": "धवला पुस्तक 13/5,5,50/282/9",
-                    "raw_html": "<span class=\"GRef\">धवला पुस्तक 13/5,5,50/282/9</span>"
+                    "raw_html": "<span class=\"GRef\">धवला पुस्तक 13/5,5,50/282/9</span>",
+                    "parsed": null
                   }
                 ],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": null,
                 "target_topic_path": null,
                 "target_url": null,
@@ -42,11 +44,13 @@
                 "references": [
                   {
                     "text": "समयसार / आत्मख्याति गाथा 8",
-                    "raw_html": "<span class=\"GRef\">समयसार / आत्मख्याति गाथा 8</span>"
+                    "raw_html": "<span class=\"GRef\">समयसार / आत्मख्याति गाथा 8</span>",
+                    "parsed": null
                   }
                 ],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": null,
                 "target_topic_path": null,
                 "target_url": null,
@@ -66,11 +70,13 @@
                 "references": [
                   {
                     "text": "द्रव्यसंग्रह/ टीका 14/46/",
-                    "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह/ टीका 14/46/ </span>"
+                    "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह/ टीका 14/46/ </span>",
+                    "parsed": null
                   }
                 ],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": null,
                 "target_topic_path": null,
                 "target_url": null,
@@ -90,11 +96,13 @@
                 "references": [
                   {
                     "text": "द्रव्यसंग्रह / मूल या टीका गाथा 57/267",
-                    "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह / मूल या टीका गाथा 57/267</span>"
+                    "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह / मूल या टीका गाथा 57/267</span>",
+                    "parsed": null
                   }
                 ],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": null,
                 "target_topic_path": null,
                 "target_url": null,
@@ -117,19 +125,24 @@
             "parent_natural_key": null,
             "is_leaf": true,
             "is_synthetic": false,
+            "label_topic_seed": false,
+            "source_subkind": null,
+            "idempotency_contract": {},
             "blocks": [
               {
                 "kind": "prakrit_text",
-                "text_devanagari": "तिपयारो सो अप्पा परमिंतरबाहरो दु हेऊणं। तत्थ परो झाइज्जइ अंतोवाएण चयहि बहिरप्पा ॥4॥",
+                "text_devanagari": "तिपयारो सो अप्पा परमिंतरबाहरो दु हेऊणं। तत्थ परो झाइज्जइ अंतोवाएण चयहि बहिरप्पा॥4॥",
                 "hindi_translation": "सो आत्मा प्राणीनिके तीन प्रकार है-अंतरात्मा, बहिरात्मा और परमात्मा। तहाँ अंतरात्मा के उपाय करि बहिरात्मा को छोड़कर परमात्मा को ध्याओ।",
                 "references": [
                   {
                     "text": "मोक्षपाहुड़ / मूल या टीका गाथा 4",
-                    "raw_html": "<span class=\"GRef\">मोक्षपाहुड़ / मूल या टीका गाथा 4</span>"
+                    "raw_html": "<span class=\"GRef\">मोक्षपाहुड़ / मूल या टीका गाथा 4</span>",
+                    "parsed": null
                   }
                 ],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": null,
                 "target_topic_path": null,
                 "target_url": null,
@@ -138,36 +151,43 @@
               },
               {
                 "kind": "prakrit_text",
-                "text_devanagari": "जीवा हवंति तिविहा बहिरप्पा तह य अंतरप्पा य परमप्पा वि य दुविहा अरहंता तह य सिद्धा य ॥192॥",
+                "text_devanagari": "जीवा हवंति तिविहा बहिरप्पा तह य अंतरप्पा य परमप्पा वि य दुविहा अरहंता तह य सिद्धा य॥192॥",
                 "hindi_translation": "जीव तीन प्रकार के हैं-बहिरात्मा, अंतरात्मा तथा परमात्मा। परमात्मा के भी दो भेद हैं-अरहंत और सिद्ध।",
                 "references": [
                   {
                     "text": "( समाधिशतक / मूल या टीका गाथा 4)",
-                    "raw_html": "<span class=\"GRef\">( समाधिशतक / मूल या टीका गाथा 4)</span>"
+                    "raw_html": "<span class=\"GRef\">( समाधिशतक / मूल या टीका गाथा 4)</span>",
+                    "parsed": null
                   },
                   {
                     "text": "( ज्ञानार्णव अधिकार 32/5/317)",
-                    "raw_html": "<span class=\"GRef\">( ज्ञानार्णव अधिकार 32/5/317)</span>"
+                    "raw_html": "<span class=\"GRef\">( ज्ञानार्णव अधिकार 32/5/317)</span>",
+                    "parsed": null
                   },
                   {
                     "text": "( ज्ञानसार श्लोक 29)",
-                    "raw_html": "<span class=\"GRef\">( ज्ञानसार श्लोक 29)</span>"
+                    "raw_html": "<span class=\"GRef\">( ज्ञानसार श्लोक 29)</span>",
+                    "parsed": null
                   },
                   {
                     "text": "(परमात्मप्रकाश / मूल या टीका अधिकार 1/11)",
-                    "raw_html": "<span class=\"GRef\">(परमात्मप्रकाश / मूल या टीका अधिकार 1/11)</span>"
+                    "raw_html": "<span class=\"GRef\">(परमात्मप्रकाश / मूल या टीका अधिकार 1/11)</span>",
+                    "parsed": null
                   },
                   {
                     "text": "(द्रव्यसंग्रह / मूल या टीका गाथा 14/46)",
-                    "raw_html": "<span class=\"GRef\">(द्रव्यसंग्रह / मूल या टीका गाथा 14/46)</span>"
+                    "raw_html": "<span class=\"GRef\">(द्रव्यसंग्रह / मूल या टीका गाथा 14/46)</span>",
+                    "parsed": null
                   },
                   {
                     "text": "कार्तिकेयानुप्रेक्षा/मूल/192",
-                    "raw_html": "<span class=\"GRef\">कार्तिकेयानुप्रेक्षा/मूल/192 </span>"
+                    "raw_html": "<span class=\"GRef\">कार्तिकेयानुप्रेक्षा/मूल/192 </span>",
+                    "parsed": null
                   }
                 ],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": null,
                 "target_topic_path": null,
                 "target_url": null,
@@ -185,8 +205,11 @@
             ],
             "natural_key": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद",
             "parent_natural_key": null,
-            "is_leaf": true,
+            "is_leaf": false,
             "is_synthetic": false,
+            "label_topic_seed": false,
+            "source_subkind": null,
+            "idempotency_contract": {},
             "blocks": [
               {
                 "kind": "sanskrit_text",
@@ -195,11 +218,13 @@
                 "references": [
                   {
                     "text": "द्रव्यसंग्रह / मूल या टीका गाथा 14/49/1",
-                    "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह / मूल या टीका गाथा 14/49/1</span>"
+                    "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह / मूल या टीका गाथा 14/49/1</span>",
+                    "parsed": null
                   }
                 ],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": null,
                 "target_topic_path": null,
                 "target_url": null,
@@ -208,11 +233,12 @@
               },
               {
                 "kind": "hindi_text",
-                "text_devanagari": "• बहिरात्मा, अंतरात्मा व परमात्मा - देखें वह वह नाम\n।",
+                "text_devanagari": "• बहिरात्मा, अंतरात्मा व परमात्मा।",
                 "hindi_translation": null,
                 "references": [],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": null,
                 "target_topic_path": null,
                 "target_url": null,
@@ -226,6 +252,7 @@
                 "references": [],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": "वह वह नाम",
                 "target_topic_path": null,
                 "target_url": "/w/index.php?title=%E0%A4%B5%E0%A4%B9_%E0%A4%B5%E0%A4%B9_%E0%A4%A8%E0%A4%BE%E0%A4%AE&action=edit&redlink=1",
@@ -233,7 +260,46 @@
                 "target_exists": false
               }
             ],
-            "children": []
+            "children": [
+              {
+                "topic_path": null,
+                "heading_text": "बहिरात्मा, अंतरात्मा व परमात्मा",
+                "heading_path": [
+                  "गुण स्थानों की अपेक्षा बहिरात्मा आदि भेद",
+                  "बहिरात्मा, अंतरात्मा व परमात्मा"
+                ],
+                "natural_key": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद:बहिरात्मा-अंतरात्मा-व-परमात्मा",
+                "parent_natural_key": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद",
+                "is_leaf": true,
+                "is_synthetic": true,
+                "label_topic_seed": true,
+                "source_subkind": "label_seed",
+                "idempotency_contract": {
+                  "conflict_key": [
+                    "natural_key"
+                  ],
+                  "on_conflict": "do_update",
+                  "fields_replace": [
+                    "display_text",
+                    "is_leaf",
+                    "is_synthetic",
+                    "parent_topic_natural_key",
+                    "topic_path",
+                    "source",
+                    "source_subkind"
+                  ],
+                  "fields_append": [],
+                  "fields_skip_if_set": [],
+                  "stores": [
+                    "postgres",
+                    "mongo:topic_extracts",
+                    "neo4j:Topic"
+                  ]
+                },
+                "blocks": [],
+                "children": []
+              }
+            ]
           },
           {
             "topic_path": "4",
@@ -243,21 +309,26 @@
             ],
             "natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन",
             "parent_natural_key": null,
-            "is_leaf": true,
+            "is_leaf": false,
             "is_synthetic": false,
+            "label_topic_seed": false,
+            "source_subkind": null,
+            "idempotency_contract": {},
             "blocks": [
               {
                 "kind": "sanskrit_text",
-                "text_devanagari": "बहिरंतः परश्चेति त्रिधात्मा सर्वदेहिषु। उपेयात्तत्र परमं मध्योपायाद् बहिस्त्यजेत् ॥4॥",
+                "text_devanagari": "बहिरंतः परश्चेति त्रिधात्मा सर्वदेहिषु। उपेयात्तत्र परमं मध्योपायाद् बहिस्त्यजेत्॥4॥",
                 "hindi_translation": "सर्व प्राणियों मे बहिरात्मा अंतरात्मा और परमात्मा इन तरह तीन प्रकार का आत्मा है। आत्मा के उन तीन भेदों में-से अंतरात्मा के उपाय-द्वारा परमात्मा को अंगीकार करें-अपनावें और बहिरात्मा को छोड़े।",
                 "references": [
                   {
                     "text": "समाधिशतक / मूल या टीका गाथा 4",
-                    "raw_html": "<span class=\"GRef\">समाधिशतक / मूल या टीका गाथा 4</span>"
+                    "raw_html": "<span class=\"GRef\">समाधिशतक / मूल या टीका गाथा 4</span>",
+                    "parsed": null
                   }
                 ],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": null,
                 "target_topic_path": null,
                 "target_url": null,
@@ -266,16 +337,18 @@
               },
               {
                 "kind": "prakrit_text",
-                "text_devanagari": "अप्पा तिविहु मुणेवि लहु मूढउ मेल्लहि भाउ। मुणि सण्णाणे णाणमउ जो परमप्प-सहाउ ॥12॥",
+                "text_devanagari": "अप्पा तिविहु मुणेवि लहु मूढउ मेल्लहि भाउ। मुणि सण्णाणे णाणमउ जो परमप्प-सहाउ॥12॥",
                 "hindi_translation": "हे प्रभाकर भट्ट, तू आत्मा को तीन प्रकार का जानकर बहिरात्म स्वरूप भाव को शीघ्र ही छोड़, और जो परमात्मा का स्वभाव है उसे स्वसंवेदन ज्ञान से अंतरात्मा होता हुआ जान। वह स्वभाव केवलज्ञान करि परिपूर्ण है।",
                 "references": [
                   {
                     "text": "परमात्मप्रकाश / मूल या टीका अधिकार 1/12/19",
-                    "raw_html": "<span class=\"GRef\">परमात्मप्रकाश / मूल या टीका अधिकार 1/12/19 </span>"
+                    "raw_html": "<span class=\"GRef\">परमात्मप्रकाश / मूल या टीका अधिकार 1/12/19 </span>",
+                    "parsed": null
                   }
                 ],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": null,
                 "target_topic_path": null,
                 "target_url": null,
@@ -289,11 +362,13 @@
                 "references": [
                   {
                     "text": "द्रव्यसंग्रह / मूल या टीका गाथा 14/46",
-                    "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह / मूल या टीका गाथा 14/46</span>"
+                    "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह / मूल या टीका गाथा 14/46</span>",
+                    "parsed": null
                   }
                 ],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": null,
                 "target_topic_path": null,
                 "target_url": null,
@@ -307,6 +382,7 @@
                 "references": [],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": null,
                 "target_topic_path": null,
                 "target_url": null,
@@ -320,6 +396,7 @@
                 "references": [],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": "जीव",
                 "target_topic_path": null,
                 "target_url": "/wiki/%E0%A4%9C%E0%A5%80%E0%A4%B5",
@@ -333,6 +410,7 @@
                 "references": [],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": null,
                 "target_topic_path": null,
                 "target_url": null,
@@ -346,6 +424,7 @@
                 "references": [],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": "प्रमाण",
                 "target_topic_path": "3.3",
                 "target_url": "/wiki/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%AE%E0%A4%BE%E0%A4%A3#3.3",
@@ -359,6 +438,7 @@
                 "references": [],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": null,
                 "target_topic_path": null,
                 "target_url": null,
@@ -372,6 +452,7 @@
                 "references": [],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": "मोक्षमार्ग",
                 "target_topic_path": "2.5",
                 "target_url": "/wiki/%E0%A4%AE%E0%A5%8B%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%AE%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%97#2.5",
@@ -379,9 +460,125 @@
                 "target_exists": true
               }
             ],
-            "children": []
+            "children": [
+              {
+                "topic_path": null,
+                "heading_text": "जीवको आत्मा कहनेकी विवक्षा",
+                "heading_path": [
+                  "एक आत्मा के तीन भेद करने का प्रयोजन",
+                  "जीवको आत्मा कहनेकी विवक्षा"
+                ],
+                "natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन:जीवको-आत्मा-कहनेकी-विवक्षा",
+                "parent_natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन",
+                "is_leaf": true,
+                "is_synthetic": true,
+                "label_topic_seed": true,
+                "source_subkind": "label_seed",
+                "idempotency_contract": {
+                  "conflict_key": [
+                    "natural_key"
+                  ],
+                  "on_conflict": "do_update",
+                  "fields_replace": [
+                    "display_text",
+                    "is_leaf",
+                    "is_synthetic",
+                    "parent_topic_natural_key",
+                    "topic_path",
+                    "source",
+                    "source_subkind"
+                  ],
+                  "fields_append": [],
+                  "fields_skip_if_set": [],
+                  "stores": [
+                    "postgres",
+                    "mongo:topic_extracts",
+                    "neo4j:Topic"
+                  ]
+                },
+                "blocks": [],
+                "children": []
+              },
+              {
+                "topic_path": null,
+                "heading_text": "आत्मा ही कथंचित प्रमाण है",
+                "heading_path": [
+                  "एक आत्मा के तीन भेद करने का प्रयोजन",
+                  "आत्मा ही कथंचित प्रमाण है"
+                ],
+                "natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन:आत्मा-ही-कथंचित-प्रमाण-है",
+                "parent_natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन",
+                "is_leaf": true,
+                "is_synthetic": true,
+                "label_topic_seed": true,
+                "source_subkind": "label_seed",
+                "idempotency_contract": {
+                  "conflict_key": [
+                    "natural_key"
+                  ],
+                  "on_conflict": "do_update",
+                  "fields_replace": [
+                    "display_text",
+                    "is_leaf",
+                    "is_synthetic",
+                    "parent_topic_natural_key",
+                    "topic_path",
+                    "source",
+                    "source_subkind"
+                  ],
+                  "fields_append": [],
+                  "fields_skip_if_set": [],
+                  "stores": [
+                    "postgres",
+                    "mongo:topic_extracts",
+                    "neo4j:Topic"
+                  ]
+                },
+                "blocks": [],
+                "children": []
+              },
+              {
+                "topic_path": null,
+                "heading_text": "शुद्धात्माके अपर नाम",
+                "heading_path": [
+                  "एक आत्मा के तीन भेद करने का प्रयोजन",
+                  "शुद्धात्माके अपर नाम"
+                ],
+                "natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन:शुद्धात्माके-अपर-नाम",
+                "parent_natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन",
+                "is_leaf": true,
+                "is_synthetic": true,
+                "label_topic_seed": true,
+                "source_subkind": "label_seed",
+                "idempotency_contract": {
+                  "conflict_key": [
+                    "natural_key"
+                  ],
+                  "on_conflict": "do_update",
+                  "fields_replace": [
+                    "display_text",
+                    "is_leaf",
+                    "is_synthetic",
+                    "parent_topic_natural_key",
+                    "topic_path",
+                    "source",
+                    "source_subkind"
+                  ],
+                  "fields_append": [],
+                  "fields_skip_if_set": [],
+                  "stores": [
+                    "postgres",
+                    "mongo:topic_extracts",
+                    "neo4j:Topic"
+                  ]
+                },
+                "blocks": [],
+                "children": []
+              }
+            ]
           }
         ],
+        "label_topic_seeds": [],
         "extra_blocks": []
       },
       {
@@ -394,20 +591,23 @@
             "blocks": [
               {
                 "kind": "hindi_text",
-                "text_devanagari": "(1) अतति इति इस व्यूत्पत्ति से नर, नारक आदि अनेक पर्यायों में गमनशील तथा उत्पाद, व्यय और ध्रौव्य इन तीन लक्षणों युक्त जीव द्रव्य । यह शरीर सबंध से रूपी और मुक्त दशा में रूप रहित या अमूर्त होता है । आत्मा अनादिकालीन मिथ्यात्व के उदय से स्वयं ही स्वयं को दुःख देता है । इसके दो भेद है― संसारी और मुक्त । संसारी और मुक्त दशाओं के कारण ही इसके तीन भेद भी हैं― बहिरात्मा, अंतरात्मा और परमात्मा । आत्मा के अस्तित्व और अनस्तित्व को लेकर राजा महाबल के जन्मोत्सव के समय स्वयं-बुद्ध, महामति, संभिन्नमति और शतमति नाम के दार्शनिक मंत्रियों ने अपने विचार प्रकट किये थे । महापुराण 5.13-87, 24.107,110, 46.193-195, 55.15, 67-5,\nवीरवर्द्धमान चरित्र 16.66",
+                "text_devanagari": "(1) अतति इति इस व्यूत्पत्ति से नर, नारक आदि अनेक पर्यायों में गमनशील तथा उत्पाद, व्यय और ध्रौव्य इन तीन लक्षणों युक्त जीव द्रव्य। यह शरीर सबंध से रूपी और मुक्त दशा में रूप रहित या अमूर्त होता है। आत्मा अनादिकालीन मिथ्यात्व के उदय से स्वयं ही स्वयं को दुःख देता है। इसके दो भेद है― संसारी और मुक्त। संसारी और मुक्त दशाओं के कारण ही इसके तीन भेद भी हैं― बहिरात्मा, अंतरात्मा और परमात्मा। आत्मा के अस्तित्व और अनस्तित्व को लेकर राजा महाबल के जन्मोत्सव के समय स्वयं-बुद्ध, महामति, संभिन्नमति और शतमति नाम के दार्शनिक मंत्रियों ने अपने विचार प्रकट किये थे।",
                 "hindi_translation": null,
                 "references": [
                   {
                     "text": "महापुराण 5.13-87, 24.107,110, 46.193-195, 55.15, 67-5,",
-                    "raw_html": "<span class=\"GRef\">महापुराण 5.13-87, 24.107,110, 46.193-195, 55.15, 67-5,  </span>"
+                    "raw_html": "<span class=\"GRef\">महापुराण 5.13-87, 24.107,110, 46.193-195, 55.15, 67-5,  </span>",
+                    "parsed": null
                   },
                   {
                     "text": "वीरवर्द्धमान चरित्र 16.66",
-                    "raw_html": "<span class=\"GRef\">वीरवर्द्धमान चरित्र 16.66 </span>"
+                    "raw_html": "<span class=\"GRef\">वीरवर्द्धमान चरित्र 16.66 </span>",
+                    "parsed": null
                   }
                 ],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": null,
                 "target_topic_path": null,
                 "target_url": null,
@@ -422,16 +622,18 @@
             "blocks": [
               {
                 "kind": "hindi_text",
-                "text_devanagari": "(2) सौधर्मेंद्र द्वारा स्तुत वृषभदेव का एक नाम । महापुराण 42. 113",
+                "text_devanagari": "(2) सौधर्मेंद्र द्वारा स्तुत वृषभदेव का एक नाम।",
                 "hindi_translation": null,
                 "references": [
                   {
                     "text": "महापुराण 42. 113",
-                    "raw_html": "<span class=\"GRef\">महापुराण 42. 113  </span>"
+                    "raw_html": "<span class=\"GRef\">महापुराण 42. 113  </span>",
+                    "parsed": null
                   }
                 ],
                 "is_orphan_translation": false,
                 "raw_html": null,
+                "table_rows": null,
                 "target_keyword": null,
                 "target_topic_path": null,
                 "target_url": null,
@@ -444,6 +646,7 @@
         ],
         "index_relations": [],
         "subsections": [],
+        "label_topic_seeds": [],
         "extra_blocks": []
       }
     ],
@@ -451,7 +654,7 @@
       "prev": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%B9%E0%A4%A4%E0%A5%8D%E0%A4%AF%E0%A4%BE",
       "next": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%81%E0%A4%B2"
     },
-    "parser_version": "jainkosh.rules/1.0.0",
+    "parser_version": "jainkosh.rules/1.1.0",
     "parsed_at": "2026-05-02T00:00:00",
     "warnings": []
   },
@@ -463,7 +666,26 @@
           "natural_key": "आत्मा",
           "display_text": "आत्मा",
           "source_url": "https://www.jainkosh.org/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE",
-          "definition_doc_ids": []
+          "definition_doc_ids": [],
+          "idempotency_contract": {
+            "conflict_key": [
+              "natural_key"
+            ],
+            "on_conflict": "do_update",
+            "fields_replace": [
+              "display_text",
+              "source_url"
+            ],
+            "fields_append": [
+              "definition_doc_ids"
+            ],
+            "fields_skip_if_set": [],
+            "stores": [
+              "postgres:keywords",
+              "mongo:keyword_definitions",
+              "neo4j:Keyword"
+            ]
+          }
         }
       ],
       "topics": [
@@ -482,7 +704,28 @@
           "source": "jainkosh",
           "parent_keyword_natural_key": "आत्मा",
           "is_leaf": true,
-          "is_synthetic": false
+          "is_synthetic": false,
+          "idempotency_contract": {
+            "conflict_key": [
+              "natural_key"
+            ],
+            "on_conflict": "do_update",
+            "fields_replace": [
+              "topic_path",
+              "display_text",
+              "parent_topic_natural_key",
+              "is_leaf",
+              "is_synthetic",
+              "source"
+            ],
+            "fields_append": [],
+            "fields_skip_if_set": [],
+            "stores": [
+              "postgres:topics",
+              "mongo:topic_extracts",
+              "neo4j:Topic"
+            ]
+          }
         },
         {
           "table": "topics",
@@ -498,8 +741,68 @@
           ],
           "source": "jainkosh",
           "parent_keyword_natural_key": "आत्मा",
+          "is_leaf": false,
+          "is_synthetic": false,
+          "idempotency_contract": {
+            "conflict_key": [
+              "natural_key"
+            ],
+            "on_conflict": "do_update",
+            "fields_replace": [
+              "topic_path",
+              "display_text",
+              "parent_topic_natural_key",
+              "is_leaf",
+              "is_synthetic",
+              "source"
+            ],
+            "fields_append": [],
+            "fields_skip_if_set": [],
+            "stores": [
+              "postgres:topics",
+              "mongo:topic_extracts",
+              "neo4j:Topic"
+            ]
+          }
+        },
+        {
+          "table": "topics",
+          "natural_key": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद:बहिरात्मा-अंतरात्मा-व-परमात्मा",
+          "topic_path": null,
+          "parent_topic_natural_key": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "बहिरात्मा, अंतरात्मा व परमात्मा"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "आत्मा",
           "is_leaf": true,
-          "is_synthetic": false
+          "is_synthetic": true,
+          "idempotency_contract": {
+            "conflict_key": [
+              "natural_key"
+            ],
+            "on_conflict": "do_update",
+            "fields_replace": [
+              "display_text",
+              "is_leaf",
+              "is_synthetic",
+              "parent_topic_natural_key",
+              "topic_path",
+              "source",
+              "source_subkind"
+            ],
+            "fields_append": [],
+            "fields_skip_if_set": [],
+            "stores": [
+              "postgres",
+              "mongo:topic_extracts",
+              "neo4j:Topic"
+            ]
+          }
         },
         {
           "table": "topics",
@@ -515,8 +818,146 @@
           ],
           "source": "jainkosh",
           "parent_keyword_natural_key": "आत्मा",
+          "is_leaf": false,
+          "is_synthetic": false,
+          "idempotency_contract": {
+            "conflict_key": [
+              "natural_key"
+            ],
+            "on_conflict": "do_update",
+            "fields_replace": [
+              "topic_path",
+              "display_text",
+              "parent_topic_natural_key",
+              "is_leaf",
+              "is_synthetic",
+              "source"
+            ],
+            "fields_append": [],
+            "fields_skip_if_set": [],
+            "stores": [
+              "postgres:topics",
+              "mongo:topic_extracts",
+              "neo4j:Topic"
+            ]
+          }
+        },
+        {
+          "table": "topics",
+          "natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन:जीवको-आत्मा-कहनेकी-विवक्षा",
+          "topic_path": null,
+          "parent_topic_natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "जीवको आत्मा कहनेकी विवक्षा"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "आत्मा",
           "is_leaf": true,
-          "is_synthetic": false
+          "is_synthetic": true,
+          "idempotency_contract": {
+            "conflict_key": [
+              "natural_key"
+            ],
+            "on_conflict": "do_update",
+            "fields_replace": [
+              "display_text",
+              "is_leaf",
+              "is_synthetic",
+              "parent_topic_natural_key",
+              "topic_path",
+              "source",
+              "source_subkind"
+            ],
+            "fields_append": [],
+            "fields_skip_if_set": [],
+            "stores": [
+              "postgres",
+              "mongo:topic_extracts",
+              "neo4j:Topic"
+            ]
+          }
+        },
+        {
+          "table": "topics",
+          "natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन:आत्मा-ही-कथंचित-प्रमाण-है",
+          "topic_path": null,
+          "parent_topic_natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "आत्मा ही कथंचित प्रमाण है"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "आत्मा",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "idempotency_contract": {
+            "conflict_key": [
+              "natural_key"
+            ],
+            "on_conflict": "do_update",
+            "fields_replace": [
+              "display_text",
+              "is_leaf",
+              "is_synthetic",
+              "parent_topic_natural_key",
+              "topic_path",
+              "source",
+              "source_subkind"
+            ],
+            "fields_append": [],
+            "fields_skip_if_set": [],
+            "stores": [
+              "postgres",
+              "mongo:topic_extracts",
+              "neo4j:Topic"
+            ]
+          }
+        },
+        {
+          "table": "topics",
+          "natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन:शुद्धात्माके-अपर-नाम",
+          "topic_path": null,
+          "parent_topic_natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "शुद्धात्माके अपर नाम"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "आत्मा",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "idempotency_contract": {
+            "conflict_key": [
+              "natural_key"
+            ],
+            "on_conflict": "do_update",
+            "fields_replace": [
+              "display_text",
+              "is_leaf",
+              "is_synthetic",
+              "parent_topic_natural_key",
+              "topic_path",
+              "source",
+              "source_subkind"
+            ],
+            "fields_append": [],
+            "fields_skip_if_set": [],
+            "stores": [
+              "postgres",
+              "mongo:topic_extracts",
+              "neo4j:Topic"
+            ]
+          }
         }
       ],
       "keyword_aliases": []
@@ -543,11 +984,13 @@
                       "references": [
                         {
                           "text": "धवला पुस्तक 13/5,5,50/282/9",
-                          "raw_html": "<span class=\"GRef\">धवला पुस्तक 13/5,5,50/282/9</span>"
+                          "raw_html": "<span class=\"GRef\">धवला पुस्तक 13/5,5,50/282/9</span>",
+                          "parsed": null
                         }
                       ],
                       "is_orphan_translation": false,
                       "raw_html": null,
+                      "table_rows": null,
                       "target_keyword": null,
                       "target_topic_path": null,
                       "target_url": null,
@@ -567,11 +1010,13 @@
                       "references": [
                         {
                           "text": "समयसार / आत्मख्याति गाथा 8",
-                          "raw_html": "<span class=\"GRef\">समयसार / आत्मख्याति गाथा 8</span>"
+                          "raw_html": "<span class=\"GRef\">समयसार / आत्मख्याति गाथा 8</span>",
+                          "parsed": null
                         }
                       ],
                       "is_orphan_translation": false,
                       "raw_html": null,
+                      "table_rows": null,
                       "target_keyword": null,
                       "target_topic_path": null,
                       "target_url": null,
@@ -591,11 +1036,13 @@
                       "references": [
                         {
                           "text": "द्रव्यसंग्रह/ टीका 14/46/",
-                          "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह/ टीका 14/46/ </span>"
+                          "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह/ टीका 14/46/ </span>",
+                          "parsed": null
                         }
                       ],
                       "is_orphan_translation": false,
                       "raw_html": null,
+                      "table_rows": null,
                       "target_keyword": null,
                       "target_topic_path": null,
                       "target_url": null,
@@ -615,11 +1062,13 @@
                       "references": [
                         {
                           "text": "द्रव्यसंग्रह / मूल या टीका गाथा 57/267",
-                          "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह / मूल या टीका गाथा 57/267</span>"
+                          "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह / मूल या टीका गाथा 57/267</span>",
+                          "parsed": null
                         }
                       ],
                       "is_orphan_translation": false,
                       "raw_html": null,
+                      "table_rows": null,
                       "target_keyword": null,
                       "target_topic_path": null,
                       "target_url": null,
@@ -630,50 +1079,7 @@
                   "raw_html": null
                 }
               ],
-              "subsection_tree": [
-                {
-                  "natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद",
-                  "topic_path": "2",
-                  "heading": [
-                    {
-                      "lang": "hin",
-                      "script": "Deva",
-                      "text": "आत्मा के बहिरात्मादि 3 भेद"
-                    }
-                  ],
-                  "is_leaf": true,
-                  "is_synthetic": false,
-                  "children": []
-                },
-                {
-                  "natural_key": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद",
-                  "topic_path": "3",
-                  "heading": [
-                    {
-                      "lang": "hin",
-                      "script": "Deva",
-                      "text": "गुण स्थानों की अपेक्षा बहिरात्मा आदि भेद"
-                    }
-                  ],
-                  "is_leaf": true,
-                  "is_synthetic": false,
-                  "children": []
-                },
-                {
-                  "natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन",
-                  "topic_path": "4",
-                  "heading": [
-                    {
-                      "lang": "hin",
-                      "script": "Deva",
-                      "text": "एक आत्मा के तीन भेद करने का प्रयोजन"
-                    }
-                  ],
-                  "is_leaf": true,
-                  "is_synthetic": false,
-                  "children": []
-                }
-              ],
+              "label_topic_seeds": [],
               "extra_blocks": [],
               "index_relations": []
             },
@@ -687,20 +1093,23 @@
                   "blocks": [
                     {
                       "kind": "hindi_text",
-                      "text_devanagari": "(1) अतति इति इस व्यूत्पत्ति से नर, नारक आदि अनेक पर्यायों में गमनशील तथा उत्पाद, व्यय और ध्रौव्य इन तीन लक्षणों युक्त जीव द्रव्य । यह शरीर सबंध से रूपी और मुक्त दशा में रूप रहित या अमूर्त होता है । आत्मा अनादिकालीन मिथ्यात्व के उदय से स्वयं ही स्वयं को दुःख देता है । इसके दो भेद है― संसारी और मुक्त । संसारी और मुक्त दशाओं के कारण ही इसके तीन भेद भी हैं― बहिरात्मा, अंतरात्मा और परमात्मा । आत्मा के अस्तित्व और अनस्तित्व को लेकर राजा महाबल के जन्मोत्सव के समय स्वयं-बुद्ध, महामति, संभिन्नमति और शतमति नाम के दार्शनिक मंत्रियों ने अपने विचार प्रकट किये थे । महापुराण 5.13-87, 24.107,110, 46.193-195, 55.15, 67-5,\nवीरवर्द्धमान चरित्र 16.66",
+                      "text_devanagari": "(1) अतति इति इस व्यूत्पत्ति से नर, नारक आदि अनेक पर्यायों में गमनशील तथा उत्पाद, व्यय और ध्रौव्य इन तीन लक्षणों युक्त जीव द्रव्य। यह शरीर सबंध से रूपी और मुक्त दशा में रूप रहित या अमूर्त होता है। आत्मा अनादिकालीन मिथ्यात्व के उदय से स्वयं ही स्वयं को दुःख देता है। इसके दो भेद है― संसारी और मुक्त। संसारी और मुक्त दशाओं के कारण ही इसके तीन भेद भी हैं― बहिरात्मा, अंतरात्मा और परमात्मा। आत्मा के अस्तित्व और अनस्तित्व को लेकर राजा महाबल के जन्मोत्सव के समय स्वयं-बुद्ध, महामति, संभिन्नमति और शतमति नाम के दार्शनिक मंत्रियों ने अपने विचार प्रकट किये थे।",
                       "hindi_translation": null,
                       "references": [
                         {
                           "text": "महापुराण 5.13-87, 24.107,110, 46.193-195, 55.15, 67-5,",
-                          "raw_html": "<span class=\"GRef\">महापुराण 5.13-87, 24.107,110, 46.193-195, 55.15, 67-5,  </span>"
+                          "raw_html": "<span class=\"GRef\">महापुराण 5.13-87, 24.107,110, 46.193-195, 55.15, 67-5,  </span>",
+                          "parsed": null
                         },
                         {
                           "text": "वीरवर्द्धमान चरित्र 16.66",
-                          "raw_html": "<span class=\"GRef\">वीरवर्द्धमान चरित्र 16.66 </span>"
+                          "raw_html": "<span class=\"GRef\">वीरवर्द्धमान चरित्र 16.66 </span>",
+                          "parsed": null
                         }
                       ],
                       "is_orphan_translation": false,
                       "raw_html": null,
+                      "table_rows": null,
                       "target_keyword": null,
                       "target_topic_path": null,
                       "target_url": null,
@@ -715,16 +1124,18 @@
                   "blocks": [
                     {
                       "kind": "hindi_text",
-                      "text_devanagari": "(2) सौधर्मेंद्र द्वारा स्तुत वृषभदेव का एक नाम । महापुराण 42. 113",
+                      "text_devanagari": "(2) सौधर्मेंद्र द्वारा स्तुत वृषभदेव का एक नाम।",
                       "hindi_translation": null,
                       "references": [
                         {
                           "text": "महापुराण 42. 113",
-                          "raw_html": "<span class=\"GRef\">महापुराण 42. 113  </span>"
+                          "raw_html": "<span class=\"GRef\">महापुराण 42. 113  </span>",
+                          "parsed": null
                         }
                       ],
                       "is_orphan_translation": false,
                       "raw_html": null,
+                      "table_rows": null,
                       "target_keyword": null,
                       "target_topic_path": null,
                       "target_url": null,
@@ -735,7 +1146,7 @@
                   "raw_html": null
                 }
               ],
-              "subsection_tree": [],
+              "label_topic_seeds": [],
               "extra_blocks": [],
               "index_relations": []
             }
@@ -760,16 +1171,18 @@
           "blocks": [
             {
               "kind": "prakrit_text",
-              "text_devanagari": "तिपयारो सो अप्पा परमिंतरबाहरो दु हेऊणं। तत्थ परो झाइज्जइ अंतोवाएण चयहि बहिरप्पा ॥4॥",
+              "text_devanagari": "तिपयारो सो अप्पा परमिंतरबाहरो दु हेऊणं। तत्थ परो झाइज्जइ अंतोवाएण चयहि बहिरप्पा॥4॥",
               "hindi_translation": "सो आत्मा प्राणीनिके तीन प्रकार है-अंतरात्मा, बहिरात्मा और परमात्मा। तहाँ अंतरात्मा के उपाय करि बहिरात्मा को छोड़कर परमात्मा को ध्याओ।",
               "references": [
                 {
                   "text": "मोक्षपाहुड़ / मूल या टीका गाथा 4",
-                  "raw_html": "<span class=\"GRef\">मोक्षपाहुड़ / मूल या टीका गाथा 4</span>"
+                  "raw_html": "<span class=\"GRef\">मोक्षपाहुड़ / मूल या टीका गाथा 4</span>",
+                  "parsed": null
                 }
               ],
               "is_orphan_translation": false,
               "raw_html": null,
+              "table_rows": null,
               "target_keyword": null,
               "target_topic_path": null,
               "target_url": null,
@@ -778,36 +1191,43 @@
             },
             {
               "kind": "prakrit_text",
-              "text_devanagari": "जीवा हवंति तिविहा बहिरप्पा तह य अंतरप्पा य परमप्पा वि य दुविहा अरहंता तह य सिद्धा य ॥192॥",
+              "text_devanagari": "जीवा हवंति तिविहा बहिरप्पा तह य अंतरप्पा य परमप्पा वि य दुविहा अरहंता तह य सिद्धा य॥192॥",
               "hindi_translation": "जीव तीन प्रकार के हैं-बहिरात्मा, अंतरात्मा तथा परमात्मा। परमात्मा के भी दो भेद हैं-अरहंत और सिद्ध।",
               "references": [
                 {
                   "text": "( समाधिशतक / मूल या टीका गाथा 4)",
-                  "raw_html": "<span class=\"GRef\">( समाधिशतक / मूल या टीका गाथा 4)</span>"
+                  "raw_html": "<span class=\"GRef\">( समाधिशतक / मूल या टीका गाथा 4)</span>",
+                  "parsed": null
                 },
                 {
                   "text": "( ज्ञानार्णव अधिकार 32/5/317)",
-                  "raw_html": "<span class=\"GRef\">( ज्ञानार्णव अधिकार 32/5/317)</span>"
+                  "raw_html": "<span class=\"GRef\">( ज्ञानार्णव अधिकार 32/5/317)</span>",
+                  "parsed": null
                 },
                 {
                   "text": "( ज्ञानसार श्लोक 29)",
-                  "raw_html": "<span class=\"GRef\">( ज्ञानसार श्लोक 29)</span>"
+                  "raw_html": "<span class=\"GRef\">( ज्ञानसार श्लोक 29)</span>",
+                  "parsed": null
                 },
                 {
                   "text": "(परमात्मप्रकाश / मूल या टीका अधिकार 1/11)",
-                  "raw_html": "<span class=\"GRef\">(परमात्मप्रकाश / मूल या टीका अधिकार 1/11)</span>"
+                  "raw_html": "<span class=\"GRef\">(परमात्मप्रकाश / मूल या टीका अधिकार 1/11)</span>",
+                  "parsed": null
                 },
                 {
                   "text": "(द्रव्यसंग्रह / मूल या टीका गाथा 14/46)",
-                  "raw_html": "<span class=\"GRef\">(द्रव्यसंग्रह / मूल या टीका गाथा 14/46)</span>"
+                  "raw_html": "<span class=\"GRef\">(द्रव्यसंग्रह / मूल या टीका गाथा 14/46)</span>",
+                  "parsed": null
                 },
                 {
                   "text": "कार्तिकेयानुप्रेक्षा/मूल/192",
-                  "raw_html": "<span class=\"GRef\">कार्तिकेयानुप्रेक्षा/मूल/192 </span>"
+                  "raw_html": "<span class=\"GRef\">कार्तिकेयानुप्रेक्षा/मूल/192 </span>",
+                  "parsed": null
                 }
               ],
               "is_orphan_translation": false,
               "raw_html": null,
+              "table_rows": null,
               "target_keyword": null,
               "target_topic_path": null,
               "target_url": null,
@@ -823,7 +1243,7 @@
           "natural_key": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद",
           "topic_path": "3",
           "parent_natural_key": null,
-          "is_leaf": true,
+          "is_leaf": false,
           "heading": [
             {
               "lang": "hin",
@@ -839,11 +1259,13 @@
               "references": [
                 {
                   "text": "द्रव्यसंग्रह / मूल या टीका गाथा 14/49/1",
-                  "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह / मूल या टीका गाथा 14/49/1</span>"
+                  "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह / मूल या टीका गाथा 14/49/1</span>",
+                  "parsed": null
                 }
               ],
               "is_orphan_translation": false,
               "raw_html": null,
+              "table_rows": null,
               "target_keyword": null,
               "target_topic_path": null,
               "target_url": null,
@@ -852,11 +1274,12 @@
             },
             {
               "kind": "hindi_text",
-              "text_devanagari": "• बहिरात्मा, अंतरात्मा व परमात्मा - देखें वह वह नाम\n।",
+              "text_devanagari": "• बहिरात्मा, अंतरात्मा व परमात्मा।",
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
               "raw_html": null,
+              "table_rows": null,
               "target_keyword": null,
               "target_topic_path": null,
               "target_url": null,
@@ -870,6 +1293,7 @@
               "references": [],
               "is_orphan_translation": false,
               "raw_html": null,
+              "table_rows": null,
               "target_keyword": "वह वह नाम",
               "target_topic_path": null,
               "target_url": "/w/index.php?title=%E0%A4%B5%E0%A4%B9_%E0%A4%B5%E0%A4%B9_%E0%A4%A8%E0%A4%BE%E0%A4%AE&action=edit&redlink=1",
@@ -882,10 +1306,27 @@
         },
         {
           "collection": "topic_extracts",
+          "natural_key": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद:बहिरात्मा-अंतरात्मा-व-परमात्मा",
+          "topic_path": null,
+          "parent_natural_key": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "बहिरात्मा, अंतरात्मा व परमात्मा"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE"
+        },
+        {
+          "collection": "topic_extracts",
           "natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन",
           "topic_path": "4",
           "parent_natural_key": null,
-          "is_leaf": true,
+          "is_leaf": false,
           "heading": [
             {
               "lang": "hin",
@@ -896,16 +1337,18 @@
           "blocks": [
             {
               "kind": "sanskrit_text",
-              "text_devanagari": "बहिरंतः परश्चेति त्रिधात्मा सर्वदेहिषु। उपेयात्तत्र परमं मध्योपायाद् बहिस्त्यजेत् ॥4॥",
+              "text_devanagari": "बहिरंतः परश्चेति त्रिधात्मा सर्वदेहिषु। उपेयात्तत्र परमं मध्योपायाद् बहिस्त्यजेत्॥4॥",
               "hindi_translation": "सर्व प्राणियों मे बहिरात्मा अंतरात्मा और परमात्मा इन तरह तीन प्रकार का आत्मा है। आत्मा के उन तीन भेदों में-से अंतरात्मा के उपाय-द्वारा परमात्मा को अंगीकार करें-अपनावें और बहिरात्मा को छोड़े।",
               "references": [
                 {
                   "text": "समाधिशतक / मूल या टीका गाथा 4",
-                  "raw_html": "<span class=\"GRef\">समाधिशतक / मूल या टीका गाथा 4</span>"
+                  "raw_html": "<span class=\"GRef\">समाधिशतक / मूल या टीका गाथा 4</span>",
+                  "parsed": null
                 }
               ],
               "is_orphan_translation": false,
               "raw_html": null,
+              "table_rows": null,
               "target_keyword": null,
               "target_topic_path": null,
               "target_url": null,
@@ -914,16 +1357,18 @@
             },
             {
               "kind": "prakrit_text",
-              "text_devanagari": "अप्पा तिविहु मुणेवि लहु मूढउ मेल्लहि भाउ। मुणि सण्णाणे णाणमउ जो परमप्प-सहाउ ॥12॥",
+              "text_devanagari": "अप्पा तिविहु मुणेवि लहु मूढउ मेल्लहि भाउ। मुणि सण्णाणे णाणमउ जो परमप्प-सहाउ॥12॥",
               "hindi_translation": "हे प्रभाकर भट्ट, तू आत्मा को तीन प्रकार का जानकर बहिरात्म स्वरूप भाव को शीघ्र ही छोड़, और जो परमात्मा का स्वभाव है उसे स्वसंवेदन ज्ञान से अंतरात्मा होता हुआ जान। वह स्वभाव केवलज्ञान करि परिपूर्ण है।",
               "references": [
                 {
                   "text": "परमात्मप्रकाश / मूल या टीका अधिकार 1/12/19",
-                  "raw_html": "<span class=\"GRef\">परमात्मप्रकाश / मूल या टीका अधिकार 1/12/19 </span>"
+                  "raw_html": "<span class=\"GRef\">परमात्मप्रकाश / मूल या टीका अधिकार 1/12/19 </span>",
+                  "parsed": null
                 }
               ],
               "is_orphan_translation": false,
               "raw_html": null,
+              "table_rows": null,
               "target_keyword": null,
               "target_topic_path": null,
               "target_url": null,
@@ -937,11 +1382,13 @@
               "references": [
                 {
                   "text": "द्रव्यसंग्रह / मूल या टीका गाथा 14/46",
-                  "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह / मूल या टीका गाथा 14/46</span>"
+                  "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह / मूल या टीका गाथा 14/46</span>",
+                  "parsed": null
                 }
               ],
               "is_orphan_translation": false,
               "raw_html": null,
+              "table_rows": null,
               "target_keyword": null,
               "target_topic_path": null,
               "target_url": null,
@@ -955,6 +1402,7 @@
               "references": [],
               "is_orphan_translation": false,
               "raw_html": null,
+              "table_rows": null,
               "target_keyword": null,
               "target_topic_path": null,
               "target_url": null,
@@ -968,6 +1416,7 @@
               "references": [],
               "is_orphan_translation": false,
               "raw_html": null,
+              "table_rows": null,
               "target_keyword": "जीव",
               "target_topic_path": null,
               "target_url": "/wiki/%E0%A4%9C%E0%A5%80%E0%A4%B5",
@@ -981,6 +1430,7 @@
               "references": [],
               "is_orphan_translation": false,
               "raw_html": null,
+              "table_rows": null,
               "target_keyword": null,
               "target_topic_path": null,
               "target_url": null,
@@ -994,6 +1444,7 @@
               "references": [],
               "is_orphan_translation": false,
               "raw_html": null,
+              "table_rows": null,
               "target_keyword": "प्रमाण",
               "target_topic_path": "3.3",
               "target_url": "/wiki/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%AE%E0%A4%BE%E0%A4%A3#3.3",
@@ -1007,6 +1458,7 @@
               "references": [],
               "is_orphan_translation": false,
               "raw_html": null,
+              "table_rows": null,
               "target_keyword": null,
               "target_topic_path": null,
               "target_url": null,
@@ -1020,6 +1472,7 @@
               "references": [],
               "is_orphan_translation": false,
               "raw_html": null,
+              "table_rows": null,
               "target_keyword": "मोक्षमार्ग",
               "target_topic_path": "2.5",
               "target_url": "/wiki/%E0%A4%AE%E0%A5%8B%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%AE%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%97#2.5",
@@ -1029,6 +1482,57 @@
           ],
           "source": "jainkosh",
           "source_url": "https://www.jainkosh.org/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE#4"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन:जीवको-आत्मा-कहनेकी-विवक्षा",
+          "topic_path": null,
+          "parent_natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "जीवको आत्मा कहनेकी विवक्षा"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन:आत्मा-ही-कथंचित-प्रमाण-है",
+          "topic_path": null,
+          "parent_natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "आत्मा ही कथंचित प्रमाण है"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन:शुद्धात्माके-अपर-नाम",
+          "topic_path": null,
+          "parent_natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "शुद्धात्माके अपर नाम"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE"
         }
       ]
     },
@@ -1061,6 +1565,17 @@
             "topic_path": "3",
             "parent_keyword_natural_key": "आत्मा",
             "source": "jainkosh",
+            "is_leaf": false
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद:बहिरात्मा-अंतरात्मा-व-परमात्मा",
+          "props": {
+            "display_text_hi": "बहिरात्मा, अंतरात्मा व परमात्मा",
+            "topic_path": null,
+            "parent_keyword_natural_key": "आत्मा",
+            "source": "jainkosh",
             "is_leaf": true
           }
         },
@@ -1070,6 +1585,39 @@
           "props": {
             "display_text_hi": "एक आत्मा के तीन भेद करने का प्रयोजन",
             "topic_path": "4",
+            "parent_keyword_natural_key": "आत्मा",
+            "source": "jainkosh",
+            "is_leaf": false
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन:जीवको-आत्मा-कहनेकी-विवक्षा",
+          "props": {
+            "display_text_hi": "जीवको आत्मा कहनेकी विवक्षा",
+            "topic_path": null,
+            "parent_keyword_natural_key": "आत्मा",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन:आत्मा-ही-कथंचित-प्रमाण-है",
+          "props": {
+            "display_text_hi": "आत्मा ही कथंचित प्रमाण है",
+            "topic_path": null,
+            "parent_keyword_natural_key": "आत्मा",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन:शुद्धात्माके-अपर-नाम",
+          "props": {
+            "display_text_hi": "शुद्धात्माके अपर नाम",
+            "topic_path": null,
             "parent_keyword_natural_key": "आत्मा",
             "source": "jainkosh",
             "is_leaf": true
@@ -1116,6 +1664,21 @@
           "to": {
             "label": "Keyword",
             "key": "वह वह नाम"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद:बहिरात्मा-अंतरात्मा-व-परमात्मा"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद"
           },
           "props": {
             "weight": 1.0,
@@ -1182,6 +1745,51 @@
               "parent_keyword": "मोक्षमार्ग",
               "topic_path": "2.5"
             }
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन:जीवको-आत्मा-कहनेकी-विवक्षा"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन:आत्मा-ही-कथंचित-प्रमाण-है"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन:शुद्धात्माके-अपर-नाम"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
           },
           "props": {
             "weight": 1.0,

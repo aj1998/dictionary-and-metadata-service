@@ -3,8 +3,8 @@
   "title": "JainkoshParserConfig",
   "type": "object",
   "required": ["version", "parser_rules_version", "normalization", "sections", "definitions",
-               "index", "block_classes", "reference", "translation_marker", "nested_span",
-               "table", "navigation", "emphasis", "headings", "slug", "bullet_strip",
+               "index", "block_classes", "reference", "ref_strip", "translation_marker", "nested_span",
+               "table", "redlink", "label_to_topic", "navigation", "emphasis", "headings", "slug", "bullet_strip",
                "blocks_to_drop_when_empty"],
   "additionalProperties": false,
   "properties": {
@@ -66,15 +66,22 @@
     "index": {
       "type": "object",
       "required": ["enabled_for", "outer_list_selector", "inner_anchor_ignore_selector",
-                   "see_also_list_selector", "see_also_text_pattern", "self_link_class"],
+                   "see_also_list_selector", "self_link_class"],
       "additionalProperties": false,
       "properties": {
         "enabled_for": {"type": "array", "items": {"type": "string"}},
         "outer_list_selector": {"type": "string"},
         "inner_anchor_ignore_selector": {"type": "string"},
         "see_also_list_selector": {"type": "string"},
-        "see_also_text_pattern": {"type": "string"},
-        "self_link_class": {"type": "string"}
+        "self_link_class": {"type": "string"},
+        "see_also_triggers": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 1
+        },
+        "see_also_window_chars": {"type": "integer", "minimum": 1, "maximum": 200},
+        "see_also_leading_punct_re": {"type": "string"},
+        "see_also_text_pattern": {"type": "string", "deprecated": true}
       }
     },
     "block_classes": {
@@ -87,7 +94,23 @@
       "additionalProperties": false,
       "properties": {
         "selector": {"type": "string"},
-        "strip_inner_anchors": {"type": "boolean"}
+        "strip_inner_anchors": {"type": "boolean"},
+        "parse_strategy": {
+          "type": "string",
+          "enum": ["text_only", "structured", "text_plus_structured"]
+        }
+      }
+    },
+    "ref_strip": {
+      "type": "object",
+      "required": ["enabled", "collapse_double_spaces", "collapse_orphan_parens", "collapse_orphan_brackets", "trim_trailing_chars"],
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {"type": "boolean"},
+        "collapse_double_spaces": {"type": "boolean"},
+        "collapse_orphan_parens": {"type": "boolean"},
+        "collapse_orphan_brackets": {"type": "boolean"},
+        "trim_trailing_chars": {"type": "string"}
       }
     },
     "translation_marker": {
@@ -97,7 +120,10 @@
       "properties": {
         "prefix": {"type": "string"},
         "source_kinds": {"type": "array", "items": {"type": "string"}},
-        "hindi_kinds": {"type": "array", "items": {"type": "string"}}
+        "hindi_kinds": {"type": "array", "items": {"type": "string"}},
+        "sibling_marker_enabled": {"type": "boolean"},
+        "sibling_marker_text_node_re": {"type": "string"},
+        "reference_ordering": {"type": "string", "enum": ["leading_then_inline", "document_order"]}
       }
     },
     "nested_span": {
@@ -116,7 +142,50 @@
       "properties": {
         "selector": {"type": "string"},
         "store_raw_html": {"type": "boolean"},
-        "attach_to": {"type": "string"}
+        "extraction_strategy": {
+          "type": "string",
+          "enum": ["raw_html_only", "raw_html_plus_rows"]
+        },
+        "attach_to": {"type": "string", "enum": ["current_subsection", "section_root"]},
+        "fallback_when_no_subsection": {"type": "string", "enum": ["section_root"]}
+      }
+    },
+    "redlink": {
+      "type": "object",
+      "required": ["enabled", "anchor_class", "title_marker_re", "href_marker_substring", "prose_strip"],
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {"type": "boolean"},
+        "anchor_class": {"type": "string"},
+        "title_marker_re": {"type": "string"},
+        "href_marker_substring": {"type": "string"},
+        "prose_strip": {
+          "type": "object",
+          "required": ["enabled", "connector_re"],
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {"type": "boolean"},
+            "connector_re": {"type": "string"}
+          }
+        }
+      }
+    },
+    "label_to_topic": {
+      "type": "object",
+      "required": ["enabled", "emit_for_redlink", "emit_for_wiki_link", "emit_for_self_link",
+                   "bullet_prefixes", "label_trim_chars", "attach_to", "is_synthetic", "is_leaf", "source_marker"],
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {"type": "boolean"},
+        "emit_for_redlink": {"type": "boolean"},
+        "emit_for_wiki_link": {"type": "boolean"},
+        "emit_for_self_link": {"type": "boolean"},
+        "bullet_prefixes": {"type": "array", "items": {"type": "string"}},
+        "label_trim_chars": {"type": "string"},
+        "attach_to": {"type": "string", "enum": ["current_subsection", "section_root"]},
+        "is_synthetic": {"type": "boolean"},
+        "is_leaf": {"type": "boolean"},
+        "source_marker": {"type": "string"}
       }
     },
     "navigation": {

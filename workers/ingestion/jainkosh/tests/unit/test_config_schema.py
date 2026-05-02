@@ -43,5 +43,32 @@ def test_missing_block_classes_fails(raw_config, schema):
 def test_load_config_succeeds():
     from workers.ingestion.jainkosh.config import load_config
     config = load_config()
-    assert config.version == "1.0.0"
+    assert config.version == "1.1.0"
     assert len(config.headings.variants) >= 4
+
+
+def test_index_has_see_also_triggers(raw_config, schema):
+    jsonschema.validate(raw_config, schema)
+    assert "see_also_triggers" in raw_config["index"]
+    assert isinstance(raw_config["index"]["see_also_triggers"], list)
+    assert len(raw_config["index"]["see_also_triggers"]) >= 1
+
+
+def test_index_has_see_also_window_chars(raw_config, schema):
+    jsonschema.validate(raw_config, schema)
+    assert "see_also_window_chars" in raw_config["index"]
+    assert isinstance(raw_config["index"]["see_also_window_chars"], int)
+
+
+def test_index_has_see_also_leading_punct_re(raw_config, schema):
+    jsonschema.validate(raw_config, schema)
+    assert "see_also_leading_punct_re" in raw_config["index"]
+    assert isinstance(raw_config["index"]["see_also_leading_punct_re"], str)
+
+
+def test_config_see_also_triggers_loaded(raw_config):
+    from workers.ingestion.jainkosh.config import load_config
+    config = load_config()
+    assert "देखें" in config.index.see_also_triggers
+    assert "विशेष देखें" in config.index.see_also_triggers
+    assert config.index.see_also_window_chars >= 1

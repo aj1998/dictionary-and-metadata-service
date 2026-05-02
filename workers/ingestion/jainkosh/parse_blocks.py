@@ -10,8 +10,8 @@ from selectolax.parser import Node
 from .config import JainkoshConfig
 from .models import Block, Reference
 from .normalize import normalize_text, nfc
-from .refs import extract_refs_from_node, is_leading_reference_node, extract_ref_text
-from .see_also import find_see_alsos_in_element, parse_anchor
+from .refs import extract_refs_from_node, is_leading_reference_node, strip_refs_from_text
+from .see_also import find_see_alsos_in_element, strip_dekhen_redlink_substring
 from .selectors import block_class_kind, is_gref_node, node_outer_html
 from .tables import extract_table_block
 
@@ -46,7 +46,7 @@ def make_block(node: Node, config: JainkoshConfig, *, current_keyword: str = "")
         return None
 
     if tag == "table":
-        return extract_table_block(node)
+        return extract_table_block(node, config)
 
     kind = block_class_kind(node, config)
 
@@ -62,16 +62,26 @@ def make_block(node: Node, config: JainkoshConfig, *, current_keyword: str = "")
         return None
 
     # Extract trailing GRef spans (inline references)
-    refs = []
-    for gref in node.css("span.GRef"):
-        ref_text = extract_ref_text(gref, config)
-        if ref_text:
-            refs.append(Reference(text=ref_text, raw_html=gref.html))
+    refs = extract_refs_from_node(node, config)
 
     # Check for see_also links
     see_alsos = find_see_alsos_in_element(
         node, config, current_keyword=current_keyword, as_index_relation=False
     )
+
+    if config.redlink.prose_strip.enabled:
+        for sa in see_alsos:
+            if isinstance(sa, Block) and sa.target_exists is False:
+                text = strip_dekhen_redlink_substring(
+                    text=text,
+                    anchor_text=sa.target_keyword or "",
+                    triggers=config.index.see_also_triggers,
+                    connector_re=config.redlink.prose_strip.connector_re,
+                )
+
+    text = strip_refs_from_text(text, refs, config)
+    if not text.strip():
+        return None
 
     block = Block(
         kind=kind,
@@ -107,6 +117,7 @@ def parse_block_stream(
     out: list[Block] = []
     pending_refs: list[Reference] = []
     last_block: Optional[Block] = None
+    prev_element: Optional[Node] = None
 
     for el in flatten_for_blocks(elements, config, current_keyword=current_keyword):
         tag = el.tag if hasattr(el, 'tag') else None
@@ -117,7 +128,7 @@ def parse_block_stream(
             continue
 
         if tag == "table":
-            tblock = extract_table_block(el)
+            tblock = extract_table_block(el, config)
             tblock.references.extend(pending_refs)
             pending_refs.clear()
             out.append(tblock)
@@ -130,6 +141,7 @@ def parse_block_stream(
 
         result = make_block(el, config, current_keyword=current_keyword)
         if result is None:
+            prev_element = el
             continue
 
         if isinstance(result, tuple):
@@ -138,17 +150,32 @@ def parse_block_stream(
             block = result
             see_alsos = []
 
-        last_block, pending_refs, out = _emit(
-            block, last_block, pending_refs, out, config
-        )
+        saw_sibling_eq = _has_eq_text_marker_between(prev_element, el, config)
+        if (
+            saw_sibling_eq
+            and last_block is not None
+            and last_block.kind in config.translation_marker.source_kinds
+            and block.kind in config.translation_marker.hindi_kinds
+        ):
+            last_block.hindi_translation = strip_refs_from_text(block.text_devanagari or "", block.references, config)
+            if config.translation_marker.reference_ordering == "leading_then_inline":
+                last_block.references = list(last_block.references) + list(pending_refs) + list(block.references)
+            else:
+                last_block.references = list(last_block.references) + list(block.references) + list(pending_refs)
+            pending_refs.clear()
+        else:
+            last_block, pending_refs, out = _emit(
+                block, last_block, pending_refs, out, config
+            )
 
         for sa in see_alsos:
             if isinstance(sa, Block):
                 out.append(sa)
+        prev_element = el
 
     # Trailing refs attach to last block
     if pending_refs and last_block is not None:
-        last_block.references.extend(pending_refs)
+        last_block.references = list(last_block.references) + list(pending_refs)
 
     return out
 
@@ -164,17 +191,60 @@ def _emit(
     if _is_translation_block(block, config):
         if last_block is not None and last_block.kind in config.translation_marker.source_kinds:
             last_block.hindi_translation = _strip_eq_prefix(block.text_devanagari or "")
-            last_block.references.extend(pending_refs)
+            if config.translation_marker.reference_ordering == "leading_then_inline":
+                last_block.references = list(last_block.references) + list(pending_refs) + list(block.references)
+            else:
+                last_block.references = list(last_block.references) + list(block.references) + list(pending_refs)
             pending_refs.clear()
             return last_block, pending_refs, out
         # Orphan translation
         block.is_orphan_translation = True
         block.text_devanagari = _strip_eq_prefix(block.text_devanagari or "")
 
-    block.references.extend(pending_refs)
+    block.references = list(pending_refs) + list(block.references)
     pending_refs.clear()
     out.append(block)
     return out[-1], pending_refs, out
+
+
+def _has_eq_text_marker_between(
+    previous: Optional[Node],
+    current: Node,
+    config: JainkoshConfig,
+) -> bool:
+    if not config.translation_marker.sibling_marker_enabled:
+        return False
+    if previous is None:
+        return False
+    prev_parent = previous.parent
+    cur_parent = current.parent
+    if prev_parent is None or cur_parent is None or not _same_node(prev_parent, cur_parent):
+        return False
+    text_parts: list[str] = []
+    marker_found = False
+    node = previous.next
+    while node is not None and not _same_node(node, current):
+        if (node.tag or "") not in ("-text", "#text"):
+            return False
+        txt = node.text(strip=False) or ""
+        if txt.strip():
+            text_parts.append(txt)
+            marker_found = True
+        node = node.next
+    if node is None or not marker_found:
+        return False
+    joined = "".join(text_parts)
+    return re.match(config.translation_marker.sibling_marker_text_node_re, joined) is not None
+
+
+def _same_node(left: Node, right: Node) -> bool:
+    if left is right:
+        return True
+    return (
+        (left.tag or "") == (right.tag or "")
+        and (left.html or "") == (right.html or "")
+        and dict(left.attributes) == dict(right.attributes)
+    )
 
 
 def has_nested_block(node: Node, config: JainkoshConfig) -> bool:

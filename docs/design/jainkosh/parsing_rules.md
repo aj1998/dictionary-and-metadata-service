@@ -115,6 +115,29 @@ class Definition:
     raw_html: str | None           # debug
 ```
 
+### 3.4 Idempotency contract on emitted entities
+
+Every row produced by the parser in the `would_write` envelope carries
+an `idempotency_contract` sub-object. It describes the conflict key
+and field-level merge policy so the orchestrator can perform truly
+idempotent upserts without reverse-engineering each store:
+
+```json
+{
+  "conflict_key": ["natural_key"],
+  "on_conflict": "do_update",
+  "fields_replace": ["display_text", "is_leaf", "…"],
+  "fields_append": [],
+  "fields_skip_if_set": [],
+  "stores": ["postgres:keywords", "mongo:keyword_definitions", "neo4j:Keyword"]
+}
+```
+
+The three canonical contracts (keyword, numeric-tree topic, label-seed
+topic) are defined in
+`parser_fix_spec_001/phase_3_redlink_prose_strip_and_label_to_synthetic_topic.md`
+§5. The parser emits them; the orchestrator honours them.
+
 ---
 
 ## 4. Topic index parsing
@@ -190,6 +213,33 @@ parsed for the path — always parse from the URL fragment.
 Every captured `IndexRelation` becomes a `RELATED_TO` edge in Neo4j.
 Direction: `source → target`. Source is either the keyword node or a
 topic node (per §4.2).
+
+### 4.5 Configurable `देखें` triggers and full-DOM scan
+
+The token that signals a see-also relation is **not** hard-coded to
+`देखें`. The trigger list is configurable in
+`parser_configs/jainkosh.yaml > index.see_also_triggers` (e.g.
+`["देखें", "विशेष देखें"]`). Pattern construction: triggers are sorted
+longest-first and joined into a regex alternation so `विशेष देखें`
+matches before `देखें`.
+
+The scanner uses a **full CSS `a`-element scan** of the entire index
+`<ol>` subtree (DFS), not a two-tier `<ol> → <li> → <ul>` walk. For
+each `<a>`, the parser walks up the ancestor chain collecting up to
+`index.see_also_window_chars` characters of preceding inline text; if
+the pattern matches, the anchor is a see-also target. This captures
+deeply nested `<ul>` entries that the old two-tier walker missed.
+
+Configurable knobs:
+
+| Key | Default | Meaning |
+|-----|---------|---------|
+| `see_also_triggers` | `["देखें"]` | List of trigger words |
+| `see_also_window_chars` | `40` | Max chars of preceding text to inspect |
+| `see_also_leading_punct_re` | `[(–\-।\s]*` | Punct allowed between label and trigger |
+
+The same trigger list and window are used for **inline** `देखें`
+detection in body blocks (§6.7).
 
 ---
 
@@ -288,6 +338,34 @@ text is wrapped in an in-page anchor. The body version is plain
 `<strong>भेद व लक्षण</strong>`. Always use the body version's text
 for slug + display. The index is parsed only for `<ul>` `देखें`
 relations.
+
+### 5.6 Label-before-`देखें` as synthetic topic seed
+
+When a `HindiText` prose block takes the shape
+`• <label> - देखें <X>` or `<label> - देखें <X>`, the text before
+the `देखें` trigger (stripped of leading bullet, trailing connector
+`–`/`-`, and surrounding whitespace/danda) becomes a **synthetic
+`Topic` seed**:
+
+- `Subsection.is_synthetic = True`
+- `Subsection.label_topic_seed = True`
+- `Subsection.topic_path = None` (no numeric path from HTML)
+- `Subsection.is_leaf = True`
+- `natural_key` = slug of the label appended to the parent's natural
+  key (or to the keyword alone if outside any subsection).
+
+The seed is attached as a child of the **current open subsection**
+when inside one, or to `PageSection.label_topic_seeds` (a separate
+list, to keep the numeric-path tree unambiguous) when at section root.
+
+Commas inside the label are **not delimiters** — the entire text is
+one topic name. The `see_also` relation for the anchor is still
+emitted independently.
+
+Configuration knobs: `label_to_topic.enabled`,
+`label_to_topic.emit_for_redlink`, `label_to_topic.emit_for_wiki_link`,
+`label_to_topic.emit_for_self_link`, `label_to_topic.bullet_prefixes`,
+`label_to_topic.label_trim_chars`.
 
 ---
 
@@ -389,13 +467,19 @@ spans into a sequential block stream. Configurable via
 ### 6.5 Tables
 
 Tables (`<table>`) are kept as raw HTML in a single
-`Block(kind="table", raw_html="…")`. Attachment:
+`Block(kind="table", raw_html="…")`. Attachment (controlled by
+`table.attach_to`, default `current_subsection`):
 
-- If the table appears **inside a subsection's body**, attach to that
-  subsection's `blocks`.
-- If the table appears **between top-level subsections** of a section
-  (e.g. द्रव्य L1263 between `<ol>` blocks), attach to the *section's*
-  `extra_blocks: list[Block]`. Do not pollute a real topic.
+- **Inside a subsection's body** → attach to that subsection's
+  `blocks`. This is the default for any `<table>` encountered after
+  the first heading in a section.
+- **Before any heading in the section** (truly orphan) → attach to the
+  section's `extra_blocks: list[Block]`. `extra_blocks` is reserved
+  for future use and is always present (possibly empty) in the
+  envelope.
+
+The old behaviour (all tables to `extra_blocks`) is recoverable by
+setting `table.attach_to: "section_root"` in YAML.
 
 ### 6.6 Adjacent-page navigation
 
@@ -411,8 +495,11 @@ into `KeywordParseResult.nav = {"prev": "/wiki/…", "next": "/wiki/…"}`.
 ### 6.7 Inline `देखें` extraction
 
 Any anchor whose **immediately preceding inline text** (within the
-same parent block, ≤ ~20 chars) matches `(?:[(–-]\s*)?देखें\s*$` is a
-**`see_also` block**. Patterns observed:
+same ancestor chain, up to `index.see_also_window_chars` chars,
+default 40) matches the configured trigger pattern (§4.5) is a
+**`see_also` block**. The trigger list is shared with the index
+scanner — adding a new trigger word to YAML covers both contexts
+automatically. Patterns observed:
 
 - `(देखें <a>X</a>)` — within a HindiText body
 - `–देखें <a>X</a>` — at the start of an index `<ul>` `<li>`
@@ -425,6 +512,14 @@ anchor are **not stripped** from the surrounding Hindi text — they
 remain in the `hindi_text` block so the prose reads naturally. The
 `see_also` block is *additionally* emitted alongside the hindi block,
 so the graph layer can build a `RELATED_TO` edge.
+
+**Redlink anchor**: when the anchor is a MediaWiki redlink
+(`class="new"`, `title` ends with `(page does not exist)`, or `href`
+contains `redlink=1`), the `see_also` block is emitted with
+`target_exists=false` AND the `देखें <redlink>` substring (plus its
+connector punctuation `–`/`-`) is removed from `text_devanagari`. If
+the block becomes empty after stripping, it is dropped. Configurable
+via `redlink.prose_strip.enabled`.
 
 ### 6.8 Inline emphasis (`<b>`, `<i>`, `<strong>`, `<em>`)
 
@@ -455,6 +550,48 @@ Applied to every text field after extraction:
 
 `<br/>` inside a block becomes `\n`. Multiple consecutive `<br/>`
 collapse to a single `\n`. Trailing `<br/>` is dropped.
+
+### 6.11 Sibling text-node `=` translation marker
+
+In addition to the HindiText-starts-with-`=` rule (§6.2), the parser
+also detects `=` as a **bare text node directly between two element
+siblings** in the same parent container. This covers the द्रव्य
+L724–759 case where:
+
+```html
+<span class="PrakritGatha">दवियदि …</span>
+=
+<span class="HindiText">उन-उन सद्भाव …</span>
+```
+
+When the text node matches `^\s*=\s*$`, the HindiText sibling is
+merged into the preceding source-language block as `hindi_translation`
+(same semantics as §6.2). Configurable via
+`translation_marker.sibling_marker_enabled` and
+`translation_marker.sibling_marker_text_node_re`.
+
+This also applies inside `_explode_nested_span` (§6.4) — `=` text
+nodes between nested siblings are treated identically.
+
+Reference ordering on the merged block: leading references first, then
+inline references in document order (`reference_ordering:
+"leading_then_inline"`).
+
+### 6.12 GRef text stripped from `text_devanagari`
+
+Inline `<span class="GRef">` nodes are extracted into `references[]`.
+Their visible text is **also removed** from `text_devanagari` (the
+ref-strip pass). Clean-up rules applied after each strip:
+
+- Collapse orphan `( )` and `[ ]` bracket pairs left behind.
+- Collapse runs of multiple spaces.
+- Remove space before a danda `।` / `॥`.
+- Strip leading/trailing chars listed in
+  `ref_strip.trim_trailing_chars` (default ` ।॥;,`).
+
+This rule applies to **all** block kinds that carry `text_devanagari`
+(sanskrit/prakrit/hindi text and gathas). Configurable via
+`ref_strip.enabled` and related knobs.
 
 ---
 
@@ -548,8 +685,15 @@ The parser MUST tag every output with the rules version it implements.
 Bump this version when any rule above changes:
 
 ```
-parser_rules_version = "jainkosh.rules/1.0.0"
+parser_rules_version = "jainkosh.rules/1.1.0"     # bumped from 1.0.0 in fix-spec-001
 ```
 
 This is written into `KeywordParseResult.parser_version` and into the
 ingestion run's `parser_configs.version` row in Postgres.
+
+### Changelog
+
+| Version | Changes |
+|---------|---------|
+| `1.0.0` | Initial rules. |
+| `1.1.0` | fix-spec-001: configurable `देखें` triggers + full-DFS index scan (§4.5); ref-strip from `text_devanagari` (§6.12); sibling `=` translation marker (§6.11); redlink prose-strip (§6.7); label→synthetic topic seeds (§5.6); tables attach to current subsection (§6.5); `IndexRelation` source path chain (Phase 5); idempotency contracts on all envelope rows (§3.4). See `parser_fix_spec_001/README.md`. |

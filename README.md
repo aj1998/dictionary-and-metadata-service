@@ -190,7 +190,7 @@ See [`docs/manual_testing/neo4j/testing.md`](docs/manual_testing/neo4j/testing.m
 
 ### ✅ Completed: JainKosh HTML Parser — parser-only stage (`docs/design/08_ingestion_jainkosh.md`)
 
-**Package**: `workers/ingestion/jainkosh/` — pure HTML→JSON parser, no DB writes.
+**Package**: `workers/ingestion/jainkosh/` — pure HTML→JSON parser, no DB writes. Currently at **v1.1.0** (fix-spec-001 applied; see `docs/design/jainkosh/parser_fix_spec_001/README.md`).
 
 #### What it does
 
@@ -211,35 +211,45 @@ Reads pre-saved HTML from `samples/sample_html_jainkosh_pages/` and produces a `
 | `parse_subsections.py` | Heading detection (V1–V4) + subsection tree assembly via full DFS |
 | `parse_blocks.py` | Block stream with translation marker absorption and nested-span flatten |
 | `parse_definitions.py` | `siddhantkosh` (GRef-boundary) and `puraankosh` (p[id]) definitions |
-| `refs.py` | GRef extraction (leading vs trailing) |
-| `see_also.py` | देखें detection (inline blocks and index relations) |
+| `refs.py` | GRef extraction (leading vs trailing); `strip_refs_from_text` (ref-strip pass) |
+| `see_also.py` | Configurable-trigger देखें detection (inline + index); redlink prose-strip |
 | `nav.py` | पूर्व पृष्ठ / अगला पृष्ठ detection and removal |
-| `tables.py` | Table → `Block(kind="table", raw_html=…)` |
+| `tables.py` | Table → `Block(kind="table", raw_html=…)`; `extraction_strategy` switch |
 | `envelope.py` | Builds the `would_write` dict (Postgres rows, Mongo docs, Neo4j nodes/edges) |
 | `cli.py` | `python -m workers.ingestion.jainkosh.cli parse <html> --out <json>` |
 
-#### Key implementation notes
+#### Key implementation notes (v1.1.0)
 
 - **Heading variant DFS**: `walk_and_collect_headings` uses a full pre-order DFS. When a block-class element (e.g. `<li class="HindiText">`) contains a V1 heading (`<strong id="N">`) as a direct child, the DFS recurses into it rather than emitting it as a block. This was the critical fix needed for deep पर्याय subsection trees (43 subsections, 3 levels).
+
+- **Full-DFS index scan**: `parse_index_relations` now does a flat `css("a")` scan over the entire `<ol>` subtree instead of a two-tier walk. Deeply nested `<ul>` देखें entries (e.g. द्रव्य's triple-nested relations) are now captured. Trigger list is configurable (`see_also_triggers: [देखें, विशेष देखें, …]`).
+
+- **Ref-strip pass**: GRef text is stripped from `text_devanagari` after extraction into `references[]`. Orphan bracket pairs and double spaces are collapsed.
+
+- **Sibling `=` translation marker**: bare `=` text nodes between sibling elements (e.g. inside `<li>`) pair a HindiText sibling as `hindi_translation` of the preceding source block — in addition to the existing HindiText-starts-with-`=` rule.
+
+- **Label→synthetic topic**: `• <label> - देखें X` prose emits a `Subsection(label_topic_seed=True, topic_path=None)` as a child of the current subsection, alongside the `see_also` block.
+
+- **Idempotency contracts**: every envelope row carries `idempotency_contract` describing the conflict key and field-level merge policy for the orchestrator.
 
 - **selectolax `iter()` vs `css("*")`**: `iter()` returns only *direct children*; `css("*")` traverses all descendants. `contains_heading()` and `has_nested_block()` use `css("*")`; structural recursion uses `iter()`.
 
 - **MediaWiki underscores**: `parse_anchor()` replaces `_` with space after URL-decoding (MediaWiki convention). `decode_keyword_from_url()` does not — the keyword URL itself uses Unicode directly.
 
-#### Parse results (sample pages)
+#### Parse results (sample pages, v1.1.0)
 
 | Page | SiddhantKosh defs | Index relations | Total subsections | Warnings |
 |------|-------------------|-----------------|-------------------|---------|
-| आत्मा | 4 | 0 | 3 | 0 |
-| द्रव्य | 1 | 21 | 58 | 0 |
-| पर्याय | 1 | 0 | 43 | 0 |
+| आत्मा | 4 | 0 | 7 | 0 |
+| द्रव्य | 1 | 26 | 67 | 0 |
+| पर्याय | 1 | 8 | 43 | 0 |
 
 #### Tests
 
 ```bash
 # No DB required — pure Python parser
 pip install selectolax PyYAML jsonschema pydantic
-python -m pytest workers/ingestion/jainkosh/tests/ -v  # 95 tests, all pass
+python -m pytest workers/ingestion/jainkosh/tests/ -v  # 129 tests, all pass
 ```
 
 See [`docs/manual_testing/jainkosh_parser.md`](docs/manual_testing/jainkosh_parser.md) for the full manual testing guide.

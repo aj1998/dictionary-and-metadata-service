@@ -12,17 +12,6 @@ def walk_subsection_tree(subsections: list[Subsection]):
         yield from walk_subsection_tree(sub.children)
 
 
-def _sub_to_summary(sub: Subsection) -> dict:
-    return {
-        "natural_key": sub.natural_key,
-        "topic_path": sub.topic_path,
-        "heading": [{"lang": "hin", "script": "Deva", "text": sub.heading_text}],
-        "is_leaf": sub.is_leaf,
-        "is_synthetic": sub.is_synthetic,
-        "children": [_sub_to_summary(c) for c in sub.children],
-    }
-
-
 def build_pg_fragment(result: KeywordParseResult) -> dict:
     keyword_row = {
         "table": "keywords",
@@ -30,6 +19,14 @@ def build_pg_fragment(result: KeywordParseResult) -> dict:
         "display_text": result.keyword,
         "source_url": result.source_url,
         "definition_doc_ids": [],
+        "idempotency_contract": {
+            "conflict_key": ["natural_key"],
+            "on_conflict": "do_update",
+            "fields_replace": ["display_text", "source_url"],
+            "fields_append": ["definition_doc_ids"],
+            "fields_skip_if_set": [],
+            "stores": ["postgres:keywords", "mongo:keyword_definitions", "neo4j:Keyword"],
+        },
     }
     topic_rows = []
     for sec in result.page_sections:
@@ -44,6 +41,17 @@ def build_pg_fragment(result: KeywordParseResult) -> dict:
                 "parent_keyword_natural_key": result.keyword,
                 "is_leaf": sub.is_leaf,
                 "is_synthetic": sub.is_synthetic,
+                "idempotency_contract": sub.idempotency_contract or {
+                    "conflict_key": ["natural_key"],
+                    "on_conflict": "do_update",
+                    "fields_replace": [
+                        "topic_path", "display_text", "parent_topic_natural_key",
+                        "is_leaf", "is_synthetic", "source",
+                    ],
+                    "fields_append": [],
+                    "fields_skip_if_set": [],
+                    "stores": ["postgres:topics", "mongo:topic_extracts", "neo4j:Topic"],
+                },
             })
     return {"keywords": [keyword_row], "topics": topic_rows, "keyword_aliases": []}
 
@@ -59,7 +67,7 @@ def build_mongo_fragment(result: KeywordParseResult) -> dict:
                 "section_kind": s.section_kind,
                 "h2_text": s.h2_text,
                 "definitions": [d.model_dump() for d in s.definitions],
-                "subsection_tree": [_sub_to_summary(t) for t in s.subsections],
+                "label_topic_seeds": [t.model_dump() for t in s.label_topic_seeds],
                 "extra_blocks": [b.model_dump() for b in s.extra_blocks],
                 "index_relations": [r.model_dump() for r in s.index_relations],
             }
@@ -220,17 +228,8 @@ def build_neo4j_fragment(result: KeywordParseResult) -> dict:
     # Index relations
     for sec in result.page_sections:
         for rel in sec.index_relations:
-            if rel.source_topic_path:
-                # Find the topic node for this source_topic_path
-                src_nk = None
-                for sub in walk_subsection_tree(sec.subsections):
-                    if sub.topic_path == rel.source_topic_path:
-                        src_nk = sub.natural_key
-                        break
-                if src_nk:
-                    src = ("Topic", src_nk)
-                else:
-                    src = ("Keyword", result.keyword)
+            if rel.source_topic_natural_key_chain:
+                src = ("Topic", rel.source_topic_natural_key_chain[-1])
             else:
                 src = ("Keyword", result.keyword)
 

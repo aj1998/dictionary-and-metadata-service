@@ -1,5 +1,5 @@
-version: "1.0.0"
-parser_rules_version: "jainkosh.rules/1.0.0"
+version: "1.1.0"
+parser_rules_version: "jainkosh.rules/1.1.0"
 
 normalization:
   nfc: true
@@ -29,8 +29,12 @@ index:
   outer_list_selector: "ol"
   inner_anchor_ignore_selector: "ol li a[href^='#']"
   see_also_list_selector: "ul"
-  see_also_text_pattern: '(?:[(–\-]\s*)?देखें\s*'
   self_link_class: "mw-selflink-fragment"
+  see_also_triggers:
+    - "विशेष देखें"
+    - "देखें"
+  see_also_window_chars: 40
+  see_also_leading_punct_re: '[(–\-।\s]*'
 
 block_classes:
   SanskritText: "sanskrit_text"
@@ -43,11 +47,22 @@ block_classes:
 reference:
   selector: "span.GRef"
   strip_inner_anchors: true
+  parse_strategy: "text_only"
+
+ref_strip:
+  enabled: true
+  collapse_double_spaces: true
+  collapse_orphan_parens: true
+  collapse_orphan_brackets: true
+  trim_trailing_chars: " ।॥;,"
 
 translation_marker:
   prefix: "="
   source_kinds: ["sanskrit_text", "sanskrit_gatha", "prakrit_text", "prakrit_gatha"]
   hindi_kinds: ["hindi_text", "hindi_gatha"]
+  sibling_marker_enabled: true
+  sibling_marker_text_node_re: '^\s*=\s*$'
+  reference_ordering: "leading_then_inline"
 
 nested_span:
   flatten: true
@@ -56,7 +71,30 @@ nested_span:
 table:
   selector: "table"
   store_raw_html: true
-  attach_to: "section_extra_blocks"
+  extraction_strategy: "raw_html_only"
+  attach_to: "current_subsection"
+  fallback_when_no_subsection: "section_root"
+
+redlink:
+  enabled: true
+  anchor_class: "new"
+  title_marker_re: '^.+\(page does not exist\)\s*$'
+  href_marker_substring: "redlink=1"
+  prose_strip:
+    enabled: true
+    connector_re: '\s*[\-–]\s*$'
+
+label_to_topic:
+  enabled: true
+  emit_for_redlink: true
+  emit_for_wiki_link: true
+  emit_for_self_link: true
+  bullet_prefixes: ["•", "·", "*", "-"]
+  label_trim_chars: " \t।॥"
+  attach_to: "current_subsection"
+  is_synthetic: true
+  is_leaf: true
+  source_marker: "label_seed"
 
 navigation:
   drop: true

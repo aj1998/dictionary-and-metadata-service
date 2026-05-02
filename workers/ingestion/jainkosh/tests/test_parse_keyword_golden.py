@@ -14,6 +14,25 @@ FROZEN = "2026-05-02T00:00:00Z"
 KEYWORDS = ["आत्मा", "द्रव्य", "पर्याय"]
 
 
+def test_keyword_definitions_has_no_subsection_tree():
+    from workers.ingestion.jainkosh.config import load_config
+    from workers.ingestion.jainkosh.envelope import build_envelope
+    from workers.ingestion.jainkosh.parse_keyword import parse_keyword_html
+
+    config = load_config()
+    with open(FIXTURE_DIR / "आत्मा.html", encoding="utf-8") as f:
+        html = f.read()
+
+    result = parse_keyword_html(html, "https://jainkosh.org/wiki/आत्मा", config)
+    env = build_envelope(result)
+    kdef = env.would_write["mongo"]["keyword_definitions"][0]
+    for ps in kdef["page_sections"]:
+        assert "subsection_tree" not in ps
+        assert "extra_blocks" in ps
+        assert "definitions" in ps
+        assert "index_relations" in ps
+
+
 def run_cli(args: list[str]) -> subprocess.CompletedProcess:
     return subprocess.run(
         [sys.executable, "-m", "workers.ingestion.jainkosh.cli"] + args,
@@ -133,9 +152,16 @@ def test_dravya_sanity():
         return t
     total = count_subs(siddhantkosh.subsections)
     assert total >= 50
-    # Has exactly 1 extra_block (table)
-    assert len(siddhantkosh.extra_blocks) == 1
-    assert siddhantkosh.extra_blocks[0].kind == "table"
+    # In phase-4, in-flow tables attach to subsection blocks.
+    assert len(siddhantkosh.extra_blocks) == 0
+    def has_table(subs):
+        for s in subs:
+            if any(b.kind == "table" for b in s.blocks):
+                return True
+            if has_table(s.children):
+                return True
+        return False
+    assert has_table(siddhantkosh.subsections)
 
 
 def test_paryay_sanity():

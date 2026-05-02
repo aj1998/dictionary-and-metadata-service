@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Literal, Optional
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 class Multilingual(BaseModel):
@@ -19,6 +19,19 @@ class Reference(BaseModel):
     model_config = ConfigDict(extra="forbid")
     text: str
     raw_html: Optional[str] = None
+    parsed: Optional["ParsedReference"] = None
+
+
+class ParsedReference(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    shastra: Optional[str] = None
+    teeka: Optional[str] = None
+    gatha: Optional[str] = None
+    chapter: Optional[str] = None
+    verse: Optional[str] = None
+    page: Optional[str] = None
+    line: Optional[str] = None
+    raw_components: list[str] = Field(default_factory=list)
 
 
 BlockKind = Literal[
@@ -40,6 +53,7 @@ class Block(BaseModel):
 
     # table
     raw_html: Optional[str] = None
+    table_rows: Optional[list[list[str]]] = None
 
     # see_also
     target_keyword: Optional[str] = None
@@ -58,13 +72,16 @@ class Definition(BaseModel):
 
 class Subsection(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    topic_path: str
+    topic_path: Optional[str] = None
     heading_text: str
     heading_path: list[str]
     natural_key: str
     parent_natural_key: Optional[str] = None
     is_leaf: bool
     is_synthetic: bool = False
+    label_topic_seed: bool = False
+    source_subkind: Optional[str] = None
+    idempotency_contract: dict = Field(default_factory=dict)
     blocks: list[Block]
     children: list["Subsection"]
 
@@ -81,6 +98,14 @@ class IndexRelation(BaseModel):
     is_self: bool = False
     target_exists: bool = True
     source_topic_path: Optional[str] = None
+    source_topic_path_chain: list[str] = Field(default_factory=list)
+    source_topic_natural_key_chain: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def _legacy_source_topic_path(self):
+        if self.source_topic_path is None and self.source_topic_path_chain:
+            self.source_topic_path = self.source_topic_path_chain[-1]
+        return self
 
 
 SectionKind = Literal["siddhantkosh", "puraankosh", "misc"]
@@ -94,6 +119,7 @@ class PageSection(BaseModel):
     definitions: list[Definition]
     index_relations: list[IndexRelation]
     subsections: list[Subsection]
+    label_topic_seeds: list[Subsection] = Field(default_factory=list)
     extra_blocks: list[Block] = Field(default_factory=list)
 
 

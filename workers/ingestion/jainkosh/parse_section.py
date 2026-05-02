@@ -26,17 +26,24 @@ def parse_section(
     config: JainkoshConfig,
 ) -> PageSection:
     """Parse a section's DOM elements into a PageSection."""
-    # Phase 1: split into pre_heading, index_ols, body, tables
+    # Phase 1: split into pre_heading, index_ols, body, orphan_tables
     pre_heading: list[Node] = []
     index_ols: list[Node] = []
     body: list[Node] = []
-    tables: list[Node] = []
+    orphan_tables: list[Node] = []
 
     seen_first_heading = False
 
     for el in elements:
         if el.tag == "table":
-            tables.append(el)
+            if config.table.attach_to == "section_root":
+                orphan_tables.append(el)
+            elif seen_first_heading:
+                body.append(el)
+            elif config.table.fallback_when_no_subsection == "section_root":
+                orphan_tables.append(el)
+            else:
+                body.append(el)
             continue
 
         if not seen_first_heading:
@@ -73,8 +80,8 @@ def parse_section(
     # Phase 4: subsections tree
     subsections = parse_subsections(body, keyword, config)
 
-    # Phase 5: section-level tables
-    extra_blocks = [extract_table_block(t) for t in tables]
+    # Phase 5: section-level tables (orphan only)
+    extra_blocks = [extract_table_block(t, config) for t in orphan_tables]
 
     return PageSection(
         section_kind=section_kind,
@@ -83,5 +90,6 @@ def parse_section(
         definitions=definitions,
         index_relations=index_relations,
         subsections=subsections,
+        label_topic_seeds=[],
         extra_blocks=extra_blocks,
     )

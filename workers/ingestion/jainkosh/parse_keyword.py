@@ -8,7 +8,7 @@ from typing import Optional
 from selectolax.parser import HTMLParser, Node
 
 from .config import JainkoshConfig
-from .models import KeywordParseResult, Nav, ParserWarning
+from .models import KeywordParseResult, Nav, PageSection, ParserWarning, Subsection
 from .nav import drop_nav_nodes, extract_nav
 from .normalize import decode_keyword_from_url, normalize_text
 from .parse_section import parse_section
@@ -44,6 +44,23 @@ def _collect_siblings_until_next_h2(h2: Node) -> list[Node]:
             elements.append(sibling)
         sibling = sibling.next
     return elements
+
+
+def _walk_subsection_tree(subsections: list[Subsection]):
+    for sub in subsections:
+        yield sub
+        yield from _walk_subsection_tree(sub.children)
+
+
+def _resolve_index_relation_natural_keys(section: PageSection) -> None:
+    path_to_nk: dict[str, str] = {}
+    for sub in _walk_subsection_tree(section.subsections):
+        if sub.topic_path is not None:
+            path_to_nk[sub.topic_path] = sub.natural_key
+    for rel in section.index_relations:
+        rel.source_topic_natural_key_chain = [
+            path_to_nk[p] for p in rel.source_topic_path_chain if p in path_to_nk
+        ]
 
 
 def parse_keyword_html(
@@ -83,6 +100,7 @@ def parse_keyword_html(
             keyword=keyword,
             config=config,
         )
+        _resolve_index_relation_natural_keys(section)
         page_sections.append(section)
 
     parsed_at = frozen_time if frozen_time is not None else datetime.now(timezone.utc)

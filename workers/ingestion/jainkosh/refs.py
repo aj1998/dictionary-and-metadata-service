@@ -8,7 +8,7 @@ from typing import Optional
 from selectolax.parser import Node
 
 from .config import JainkoshConfig
-from .models import Reference
+from .models import ParsedReference, Reference
 from .normalize import normalize_text
 from .selectors import is_gref_node
 
@@ -33,8 +33,15 @@ def extract_refs_from_node(node: Node, config: JainkoshConfig) -> list[Reference
     for gref in node.css("span.GRef"):
         text = extract_ref_text(gref, config)
         if text:
-            refs.append(Reference(text=text, raw_html=gref.html))
+            parsed = None
+            if config.reference.parse_strategy != "text_only":
+                parsed = parse_reference_text(text, config)
+            refs.append(Reference(text=text, raw_html=gref.html, parsed=parsed))
     return refs
+
+
+def parse_reference_text(text: str, config: JainkoshConfig) -> Optional[ParsedReference]:
+    return None
 
 
 def is_leading_reference_node(node: Node, config: JainkoshConfig) -> bool:
@@ -84,4 +91,23 @@ def is_leading_reference_node(node: Node, config: JainkoshConfig) -> bool:
     return not remaining
 
 
-import re
+def strip_refs_from_text(text: str, refs: list[Reference], config: JainkoshConfig) -> str:
+    """Remove inline reference text snippets from prose according to parser config."""
+    if not config.ref_strip.enabled:
+        return text
+    out = text
+    for ref in refs:
+        if ref.text:
+            out = out.replace(ref.text, " ")
+    if config.ref_strip.collapse_orphan_parens:
+        out = re.sub(r"\(\s*\)", "", out)
+    if config.ref_strip.collapse_orphan_brackets:
+        out = re.sub(r"\[\s*\]", "", out)
+    if config.ref_strip.collapse_double_spaces:
+        out = re.sub(r"[ \t]{2,}", " ", out)
+        out = re.sub(r"\s*\n\s*", "\n", out)
+    trim_chars = config.ref_strip.trim_trailing_chars
+    if trim_chars:
+        out = re.sub(r"^[" + re.escape(trim_chars) + r"]+", "", out)
+    out = re.sub(r"[ \t]+([।॥;,])", r"\1", out)
+    return out.strip()

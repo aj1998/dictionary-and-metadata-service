@@ -10,6 +10,7 @@ maintained in dedicated documents:
 - **Parsing rules** (DOM patterns, heading variants, definitions, references, `देखें` extraction, tables, nav): [`jainkosh/parsing_rules.md`](./jainkosh/parsing_rules.md)
 - **Parser implementation spec** (file layout, Pydantic models, YAML config, algorithms, tests, CLI): [`jainkosh/parser_spec.md`](./jainkosh/parser_spec.md)
 - **Schema additions** (Postgres `topics` columns, Mongo collection shapes, Neo4j properties): [`jainkosh/schema_updates.md`](./jainkosh/schema_updates.md)
+- **Parser fix spec 001** (phased corrections shipped in v1.1.0 — configurable triggers, ref-strip, sibling-`=`, redlink prose-strip, label→topic seeds, table attachment, IndexRelation chain, idempotency contracts): [`jainkosh/parser_fix_spec_001/README.md`](./jainkosh/parser_fix_spec_001/README.md)
 
 The remainder of *this* document covers only the orchestration pieces
 that wrap the parser: source discovery, fetching, rate-limiting,
@@ -96,10 +97,14 @@ Celery task: jainkosh.ingest_letter(run_id, letter='अ', config_path=...)
 On admin approve (one or many at once):
   apply_approved_keyword_payload(...)
     BEGIN
-      pg.upsert_keyword(...)  -> keyword_id
+      # Each envelope row carries an idempotency_contract dict (v1.1.0+).
+      # The orchestrator uses conflict_key + on_conflict + fields_replace/append
+      # to perform truly idempotent upserts — re-running with the same envelope
+      # produces zero net DB changes after the first approval.
+      pg.upsert_keyword(...)  -> keyword_id        # ON CONFLICT (natural_key) DO UPDATE
       mongo.upsert_keyword_definition(natural_key=keyword.natural_key, doc=...)
       pg.upsert_keyword_aliases(...)
-      for topic_seed in payload.topic_seeds:
+      for topic_seed in payload.topic_seeds:       # includes label-seed topics (is_synthetic=True)
           pg.upsert_topic(...)              -> topic_id
           mongo.upsert_topic_extract(natural_key=topic.natural_key, doc=...)
       neo4j.sync_keyword(...)
@@ -140,7 +145,13 @@ are documented in
 
 Two sources, both contribute to `keyword_aliases`:
 
-1. **`देखें` links**: any `<p class="HindiText">• <text> - देखें <a href="/wiki/Y">Y</a></p>` produces `text → Y` alias.
+1. **`देखें` links**: any prose block with a `देखें` (or `विशेष देखें`)
+   trigger produces a potential alias. The parser now also emits
+   label-before-`देखें` prose as **synthetic Topic seeds** (see
+   [`jainkosh/parsing_rules.md`](./jainkosh/parsing_rules.md) §5.6) —
+   these are NOT aliases of the current keyword; they are separate Topic
+   entities. Only the target keyword of the `see_also` block contributes
+   to `keyword_aliases`.
 2. **MediaWiki redirects**: query `https://www.jainkosh.org/w/api.php?action=query&list=backlinks&blfilterredir=redirects&bltitle=<keyword>&format=json` — each backlink with `redirect=true` is an alias of the current keyword.
 
 ## Storage of raw HTML
@@ -171,10 +182,11 @@ The Definition of Done for the parser-only stage lives in
 orchestrator-stage Definition of Done is below; it depends on
 parser-stage being green.
 
-- [ ] Parser-stage Definition of Done complete (per `jainkosh/parser_spec.md` §10).
+- [ ] Parser-stage Definition of Done complete (per `jainkosh/parser_spec.md` §10), including all fix-spec-001 items.
 - [ ] Schema updates applied (per `jainkosh/schema_updates.md` §7).
-- [ ] `parser_configs/jainkosh.yaml` validated against `parser_configs/_schemas/jainkosh.schema.json`.
-- [ ] Re-running the orchestrator twice with identical inputs produces zero net DB changes after second approval (idempotent).
+- [ ] `parser_configs/jainkosh.yaml` validates against `parser_configs/_schemas/jainkosh.schema.json` with v1.1.0 fields.
+- [ ] Re-running the orchestrator twice with identical inputs produces zero net DB changes after second approval (idempotent); `idempotency_contract` in each envelope row is the mechanism.
+- [ ] Label-seed topics (`is_synthetic=True`, `label_topic_seed=True`) are upserted using their `natural_key` as conflict key — they do not collide with numeric-tree topics.
 - [ ] Rate-limit honored (single-threaded sleep-based throttle).
 - [ ] All scraped HTML written to `data/raw/jainkosh/<run_ts>/`.
 - [ ] Admin can list, approve, reject items from `ingestion_review_queue` (see `13_admin_ui.md`).

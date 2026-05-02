@@ -13,6 +13,7 @@ from .normalize import normalize_text, nfc
 from .parse_blocks import parse_block_stream
 from .selectors import block_class_kind
 from .topic_keys import natural_key as compute_natural_key, parent_of, slug
+from .see_also import extract_label_before_trigger, find_see_also_candidates_in_element
 
 
 # ---------------------------------------------------------------------------
@@ -281,6 +282,11 @@ def parse_subsections(
 
         # Parse blocks
         blocks = parse_block_stream(content_els, config, current_keyword=keyword)
+        label_seed_candidates = extract_label_seed_candidates_from_elements(
+            content_els,
+            keyword=keyword,
+            config=config,
+        )
 
         # Check if synthetic was already created and replace it
         if topic_path in nodes and nodes[topic_path].is_synthetic:
@@ -291,6 +297,12 @@ def parse_subsections(
             synth.parent_natural_key = parent_nk
             synth.is_synthetic = False
             synth.blocks = blocks
+            _append_label_seed_children(
+                synth,
+                keyword,
+                config,
+                label_seed_candidates=label_seed_candidates,
+            )
         else:
             node = Subsection(
                 topic_path=topic_path,
@@ -302,6 +314,12 @@ def parse_subsections(
                 is_synthetic=False,
                 blocks=blocks,
                 children=[],
+            )
+            _append_label_seed_children(
+                node,
+                keyword,
+                config,
+                label_seed_candidates=label_seed_candidates,
             )
             nodes[topic_path] = node
             _attach_to_parent(node, parent_path, nodes, roots)
@@ -369,3 +387,169 @@ def _attach_to_parent(
             parent.children.append(node)
     elif node not in roots:
         roots.append(node)
+
+
+def _append_label_seed_children(
+    node: Subsection,
+    keyword: str,
+    config: JainkoshConfig,
+    *,
+    label_seed_candidates: Optional[list[str]] = None,
+) -> None:
+    seeds = extract_label_topic_seeds(
+        node.blocks,
+        parent_subsection=node,
+        keyword=keyword,
+        config=config,
+        label_seed_candidates=label_seed_candidates or [],
+    )
+    for seed in seeds:
+        if all(c.natural_key != seed.natural_key for c in node.children):
+            node.children.append(seed)
+    if seeds:
+        node.is_leaf = False
+
+
+def extract_label_topic_seeds(
+    blocks: list[Block],
+    *,
+    parent_subsection: Optional[Subsection],
+    keyword: str,
+    config: JainkoshConfig,
+    label_seed_candidates: list[str],
+) -> list[Subsection]:
+    if not config.label_to_topic.enabled:
+        return []
+    seeds: list[Subsection] = []
+    emitted_labels: set[str] = set()
+    for label in label_seed_candidates:
+        if not label or label in emitted_labels:
+            continue
+        emitted_labels.add(label)
+        seeds.append(
+            _make_label_seed_subsection(
+                label=label,
+                keyword=keyword,
+                parent=parent_subsection,
+                config=config,
+            )
+        )
+
+    emitted_in_block = bool(seeds)
+    for i, block in enumerate(blocks):
+        if block.kind != "see_also":
+            continue
+        if emitted_in_block:
+            continue
+        if not _should_emit_for_anchor(block, config):
+            continue
+        prose = _find_preceding_text_block(blocks, i)
+        if prose is None:
+            continue
+        label = extract_label_before_trigger(prose.text_devanagari or "", config)
+        if not label or label in emitted_labels:
+            continue
+        emitted_labels.add(label)
+        seeds.append(
+            _make_label_seed_subsection(
+                label=label,
+                keyword=keyword,
+                parent=parent_subsection,
+                config=config,
+            )
+        )
+        emitted_in_block = True
+    return seeds
+
+
+def extract_label_seed_candidates_from_elements(
+    elements: list[Node],
+    *,
+    keyword: str,
+    config: JainkoshConfig,
+) -> list[str]:
+    labels: list[str] = []
+    for el in elements:
+        for candidate in find_see_also_candidates_in_element(el, config, current_keyword=keyword):
+            block = Block(
+                kind="see_also",
+                target_keyword=candidate.get("target_keyword"),
+                target_topic_path=candidate.get("target_topic_path"),
+                target_url=candidate.get("target_url"),
+                is_self=bool(candidate.get("is_self", False)),
+                target_exists=bool(candidate.get("target_exists", True)),
+            )
+            if not _should_emit_for_anchor(block, config):
+                continue
+            label = _normalize_label_seed_text((candidate.get("label_text") or ""), config)
+            if label:
+                labels.append(label)
+                break
+    return labels
+
+
+def _normalize_label_seed_text(label: str, config: JainkoshConfig) -> str:
+    out = label
+    out = out.lstrip()
+    for bullet in config.label_to_topic.bullet_prefixes:
+        out = out.lstrip(bullet)
+    out = re.sub(r"[\-–]\s*$", "", out)
+    out = out.strip(config.label_to_topic.label_trim_chars + " \t\n")
+    return nfc(out)
+
+
+def _find_preceding_text_block(blocks: list[Block], see_also_index: int) -> Optional[Block]:
+    for i in range(see_also_index - 1, -1, -1):
+        block = blocks[i]
+        if block.kind in {"hindi_text", "hindi_gatha", "sanskrit_text", "sanskrit_gatha", "prakrit_text", "prakrit_gatha"}:
+            return block
+    return None
+
+
+def _should_emit_for_anchor(block: Block, config: JainkoshConfig) -> bool:
+    if block.target_exists is False and config.label_to_topic.emit_for_redlink:
+        return True
+    if block.is_self and config.label_to_topic.emit_for_self_link:
+        return True
+    if (not block.is_self) and block.target_exists and config.label_to_topic.emit_for_wiki_link:
+        return True
+    return False
+
+
+def _make_label_seed_subsection(
+    *,
+    label: str,
+    keyword: str,
+    parent: Optional[Subsection],
+    config: JainkoshConfig,
+) -> Subsection:
+    sl = slug(label, config)
+    if parent is not None:
+        nk = f"{parent.natural_key}:{sl}"
+    else:
+        nk = f"{keyword}:{sl}"
+    heading_path = (parent.heading_path if parent else []) + [label]
+    return Subsection(
+        topic_path=None,
+        heading_text=label,
+        heading_path=heading_path,
+        natural_key=nk,
+        parent_natural_key=(parent.natural_key if parent else None),
+        is_leaf=config.label_to_topic.is_leaf,
+        is_synthetic=config.label_to_topic.is_synthetic,
+        label_topic_seed=True,
+        source_subkind=config.label_to_topic.source_marker,
+        blocks=[],
+        children=[],
+        idempotency_contract={
+            "conflict_key": ["natural_key"],
+            "on_conflict": "do_update",
+            "fields_replace": [
+                "display_text", "is_leaf", "is_synthetic",
+                "parent_topic_natural_key", "topic_path", "source", "source_subkind",
+            ],
+            "fields_append": [],
+            "fields_skip_if_set": [],
+            "stores": ["postgres", "mongo:topic_extracts", "neo4j:Topic"],
+        },
+    )

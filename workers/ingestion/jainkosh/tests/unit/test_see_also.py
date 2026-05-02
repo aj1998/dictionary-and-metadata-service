@@ -4,8 +4,12 @@ import pytest
 from selectolax.parser import HTMLParser
 
 from workers.ingestion.jainkosh.config import load_config
+from workers.ingestion.jainkosh.parse_blocks import parse_block_stream
 from workers.ingestion.jainkosh.see_also import parse_anchor, find_see_alsos_in_element
 from workers.ingestion.jainkosh.models import Block, IndexRelation
+
+
+CFG = load_config()
 
 
 @pytest.fixture
@@ -16,6 +20,11 @@ def config():
 def parse_node(html: str, selector: str = "body > *"):
     tree = HTMLParser(f"<body>{html}</body>")
     return tree.css_first(selector)
+
+def parse_p_to_blocks(html: str, config):
+    tree = HTMLParser(f"<body>{html}</body>")
+    p = tree.css_first("p")
+    return parse_block_stream([p], config, current_keyword="आत्मा")
 
 
 class TestParseAnchor:
@@ -80,3 +89,82 @@ class TestFindSeeAlsos:
         node = parse_node(html, "p")
         results = find_see_alsos_in_element(node, config, current_keyword="आत्मा", as_index_relation=False)
         assert len(results) == 0
+
+
+@pytest.mark.parametrize("html, expected_trigger_count", [
+    ('<p class="HindiText">देखें <a href="/wiki/X">X</a></p>', 1),
+    ('<p class="HindiText">विशेष देखें <a href="/wiki/X">X</a></p>', 1),
+    (
+        '<ol><li><strong id="1">A</strong>'
+        '<ol><li><ul><li>परमाणु में कथंचित् सावयव निरवयवपना।।–देखें '
+        '<a href="/wiki/परमाणु">परमाणु</a></li></ul></li></ol>'
+        '</li></ol>',
+        1,
+    ),
+    (
+        '<p class="HindiText">A देखें <a href="/wiki/A">A</a> '
+        'और विशेष देखें <a href="/wiki/B">B</a></p>',
+        2,
+    ),
+])
+def test_see_also_triggers(html, expected_trigger_count):
+    tree = HTMLParser(html)
+    root = tree.css_first("p, ol")
+    results = find_see_alsos_in_element(root, CFG, current_keyword="X")
+    assert len(results) == expected_trigger_count
+
+
+@pytest.mark.parametrize("html, expected_count", [
+    # देखें with no following <a> — no relation
+    ('<p class="HindiText">देखें</p>', 0),
+    # Two anchors after one देखें — only the first is see_also
+    ('<p class="HindiText">देखें <a href="/wiki/X">X</a>, <a href="/wiki/Y">Y</a></p>', 1),
+    # Trigger inside anchor text — not a relation
+    ('<p class="HindiText">पाठ <a href="/wiki/X">देखें</a></p>', 0),
+    # en-dash before देखें, no space — matches
+    ('<p class="HindiText">पाठ।–देखें <a href="/wiki/X">X</a></p>', 1),
+    # विशेष देखें and देखें in same para — two relations
+    (
+        '<p class="HindiText">देखें <a href="/wiki/A">A</a> '
+        'और विशेष देखें <a href="/wiki/B">B</a></p>',
+        2,
+    ),
+])
+def test_see_also_edge_cases(html, expected_count):
+    tree = HTMLParser(html)
+    root = tree.css_first("p, ol")
+    results = find_see_alsos_in_element(root, CFG, current_keyword="X")
+    assert len(results) == expected_count
+
+
+def test_inline_visesh_dekhen_in_hindi_block():
+    html = (
+        '<p class="HindiText">पर्याय का स्वरूप (विशेष देखें '
+        '<a href="/wiki/अस्तिकाय">अस्तिकाय</a>)</p>'
+    )
+    tree = HTMLParser(html)
+    root = tree.css_first("p")
+    results = find_see_alsos_in_element(root, CFG, current_keyword="पर्याय")
+    see_alsos = [b for b in results if isinstance(b, Block) and b.kind == "see_also"]
+    assert len(see_alsos) == 1
+    assert see_alsos[0].target_keyword == "अस्तिकाय"
+
+
+def test_redlink_prose_stripped_but_relation_emitted():
+    html = ('<p class="HindiText">•\tबहिरात्मा, अंतरात्मा व परमात्मा - देखें '
+            '<a href="/w/index.php?title=%E0%A4%B5%E0%A4%B9_%E0%A4%B5%E0%A4%B9_%E0%A4%A8%E0%A4%BE%E0%A4%AE&amp;action=edit&amp;redlink=1" '
+            'class="new" title="वह वह नाम (page does not exist)">वह वह नाम</a></p>')
+    blocks = parse_p_to_blocks(html, CFG)
+
+    text_blocks = [b for b in blocks if b.kind == "hindi_text"]
+    see_also_blocks = [b for b in blocks if b.kind == "see_also"]
+
+    assert len(text_blocks) == 1
+    assert "देखें" not in (text_blocks[0].text_devanagari or "")
+    assert "वह वह नाम" not in (text_blocks[0].text_devanagari or "")
+    assert (text_blocks[0].text_devanagari or "").startswith("•")
+    assert (text_blocks[0].text_devanagari or "").endswith("परमात्मा")
+
+    assert len(see_also_blocks) == 1
+    assert see_also_blocks[0].target_keyword == "वह वह नाम"
+    assert see_also_blocks[0].target_exists is False

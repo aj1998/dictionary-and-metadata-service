@@ -11,6 +11,12 @@
 > see [`schema_updates.md`](./schema_updates.md). Pipeline / fetch /
 > alias mining: see [`../08_ingestion_jainkosh.md`](../08_ingestion_jainkosh.md).
 >
+> **Fixes applied in v1.1.0**: see
+> [`parser_fix_spec_001/README.md`](./parser_fix_spec_001/README.md)
+> for the full phased correction spec (configurable triggers, ref-strip,
+> sibling-`=` marker, redlink prose-strip, label→topic seeds, table
+> attachment, IndexRelation chain, idempotency contracts).
+>
 > Audience: any implementer (including small reasoning models) who has
 > not been part of the design conversation. Every decision is named.
 
@@ -116,8 +122,8 @@ must not require code changes.
 ### 3.1 Top-level shape
 
 ```yaml
-version: "1.0.0"
-parser_rules_version: "jainkosh.rules/1.0.0"        # mirrored into output
+version: "1.1.0"
+parser_rules_version: "jainkosh.rules/1.1.0"        # mirrored into output
 
 normalization:
   nfc: true
@@ -151,8 +157,15 @@ index:
   outer_list_selector: "ol"
   inner_anchor_ignore_selector: "ol li a[href^='#']"
   see_also_list_selector: "ul"
-  see_also_text_pattern: '(?:[(–\-]\s*)?देखें\s*'
   self_link_class: "mw-selflink-fragment"
+  # v1.1.0 — configurable trigger list (phase 1)
+  see_also_triggers:
+    - "देखें"
+    - "विशेष देखें"
+  see_also_window_chars: 40
+  see_also_leading_punct_re: '[(–\-।\s]*'
+  # deprecated; auto-built from above if absent
+  see_also_text_pattern: '(?:[(–\-]\s*)?(?:विशेष\s+)?देखें\s*'
 
 block_classes:
   # CSS class on a <p> or <span> → block kind
@@ -179,7 +192,9 @@ nested_span:
 table:
   selector: "table"
   store_raw_html: true
-  attach_to: "section_extra_blocks"   # or "current_subsection"
+  extraction_strategy: "raw_html_only"      # | "raw_html_plus_rows" (future)
+  attach_to: "current_subsection"           # v1.1.0 changed from "section_extra_blocks"
+  fallback_when_no_subsection: "section_root"
 
 navigation:
   drop: true
@@ -225,6 +240,46 @@ bullet_strip:
 blocks_to_drop_when_empty:
   - "p"        # <p><br/></p> after stripping
   - "div"
+
+# v1.1.0 additions (parser_fix_spec_001)
+ref_strip:
+  enabled: true
+  collapse_double_spaces: true
+  collapse_orphan_parens: true
+  collapse_orphan_brackets: true
+  trim_trailing_chars: " ।॥;,"
+
+translation_marker:
+  # (prefix, source_kinds, hindi_kinds already existed above)
+  sibling_marker_enabled: true
+  sibling_marker_text_node_re: '^\s*=\s*$'
+  reference_ordering: "leading_then_inline"
+
+redlink:
+  enabled: true
+  anchor_class: "new"
+  title_marker_re: '^.+\(page does not exist\)\s*$'
+  href_marker_substring: "redlink=1"
+  prose_strip:
+    enabled: true
+    connector_re: '\s*[\-–]\s*$'
+
+label_to_topic:
+  enabled: true
+  emit_for_redlink: true
+  emit_for_wiki_link: true
+  emit_for_self_link: true
+  bullet_prefixes: ["•", "·", "*", "-"]
+  label_trim_chars: " \t।॥"
+  attach_to: "current_subsection"
+  is_synthetic: true
+  is_leaf: true
+  source_marker: "label_seed"
+
+reference:
+  selector: "span.GRef"
+  strip_inner_anchors: true
+  parse_strategy: "text_only"    # | "structured" | "text_plus_structured" (future)
 ```
 
 Variant **V5** is intentionally **not** in `headings.variants` — V5
@@ -270,9 +325,22 @@ class Multilingual(BaseModel):
     script: str     # ISO-15924 ("Deva")
     text: str
 
+class ParsedReference(BaseModel):
+    """Reserved for future structured extraction (v1.1.0: always None)."""
+    model_config = ConfigDict(extra="forbid")
+    shastra: Optional[str] = None
+    teeka: Optional[str] = None
+    gatha: Optional[str] = None
+    chapter: Optional[str] = None
+    verse: Optional[str] = None
+    page: Optional[str] = None
+    line: Optional[str] = None
+    raw_components: list[str] = Field(default_factory=list)
+
 class Reference(BaseModel):
     text: str
     raw_html: Optional[str] = None     # for debug
+    parsed: Optional[ParsedReference] = None   # v1.1.0 template; always None until future phase
 
 # ----------------------- block -----------------------
 
@@ -300,6 +368,7 @@ class Block(BaseModel):
 
     # for kind == "table"
     raw_html: Optional[str] = None
+    table_rows: Optional[list[list[str]]] = None   # v1.1.0 template; populated when extraction_strategy="raw_html_plus_rows"
 
     # for kind == "see_also"
     target_keyword: Optional[str] = None
@@ -318,7 +387,7 @@ class Definition(BaseModel):
 # ----------------------- subsection (topic seed) -----------------------
 
 class Subsection(BaseModel):
-    topic_path: str                             # "1.1.3"; may be Roman like "II.3"
+    topic_path: Optional[str] = None            # "1.1.3"; None for label-seed topics (v1.1.0)
     heading_text: str                           # plain Devanagari, post-normalize
     heading_path: list[str]                     # e.g. ["द्रव्य के भेद व लक्षण", "द्रव्य का निरुक्त्यर्थ"]
     natural_key: str                            # "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-निरुक्त्यर्थ"
@@ -327,6 +396,10 @@ class Subsection(BaseModel):
     is_synthetic: bool = False                  # parent inferred but not declared in HTML
     blocks: list[Block]
     children: list["Subsection"]                # nested
+    # v1.1.0 — label-seed fields
+    label_topic_seed: bool = False              # True when synthesised from prose label before देखें
+    source_subkind: Optional[str] = None        # "label_seed" | None
+    idempotency_contract: dict = Field(default_factory=dict)   # upsert policy for orchestrator
 
 Subsection.model_rebuild()
 
@@ -341,7 +414,11 @@ class IndexRelation(BaseModel):
     target_exists: bool = True                  # false for redlinks
 
     # source of relation: None = keyword-level, "1" = top-level section 1, "1.1" = subsection
+    # DEPRECATED (v1.1.0): equals source_topic_path_chain[-1] if non-empty, else None. Remove in v1.2.0.
     source_topic_path: Optional[str] = None
+    # v1.1.0 — full ancestor chain
+    source_topic_path_chain: list[str] = Field(default_factory=list)           # e.g. ["1", "1.2"]
+    source_topic_natural_key_chain: list[str] = Field(default_factory=list)    # resolved natural keys
 
 # ----------------------- section -----------------------
 
@@ -354,7 +431,9 @@ class PageSection(BaseModel):
     definitions: list[Definition]               # see parsing_rules §3
     index_relations: list[IndexRelation]        # see parsing_rules §4
     subsections: list[Subsection]               # tree, top-level only
-    extra_blocks: list[Block] = Field(default_factory=list)   # tables between subsections (parsing_rules §6.5)
+    extra_blocks: list[Block] = Field(default_factory=list)   # orphan tables before first heading (parsing_rules §6.5)
+    # v1.1.0 — label-seed topics at section root (outside any numeric subsection)
+    label_topic_seeds: list[Subsection] = Field(default_factory=list)
 
 # ----------------------- top-level result -----------------------
 
@@ -863,7 +942,7 @@ def build_mongo_fragment(result):
                 "section_kind": s.section_kind,
                 "h2_text": s.h2_text,
                 "definitions": [d.model_dump() for d in s.definitions],
-                "subsection_tree": [sub_to_summary(t) for t in s.subsections],   # natural_keys only
+                # subsection_tree removed in v1.1.0 (phase 5); full tree lives in topic_extracts
                 "extra_blocks": [b.model_dump() for b in s.extra_blocks],
                 "index_relations": [r.model_dump() for r in s.index_relations],
             }
@@ -926,9 +1005,10 @@ def build_neo4j_fragment(result):
     # Index relations
     for sec in result.page_sections:
         for rel in sec.index_relations:
-            src = (("Topic", source_topic_natural_key_for(rel, result, sec))
-                   if rel.source_topic_path else
-                   ("Keyword", result.keyword))
+            if rel.source_topic_natural_key_chain:
+                src = ("Topic", rel.source_topic_natural_key_chain[-1])
+            else:
+                src = ("Keyword", result.keyword)
             edges.append(_index_relation_edge(rel, src, keyword=result.keyword))
 
     return {"nodes": dedupe(nodes), "edges": dedupe(edges)}
@@ -1136,13 +1216,20 @@ the golden test to fail (intentional). Empty list is the goal.
 - [ ] `parse_keyword_html` works end-to-end on all three samples.
 - [ ] `tests/golden/आत्मा.json`, `द्रव्य.json`, `पर्याय.json` are committed and human-reviewed.
 - [ ] Golden tests are byte-identical idempotent.
-- [ ] All 11 unit-test files pass.
+- [ ] All unit-test files pass (including `test_tables.py`, `test_see_also.py` phase-1/3 cases, `test_translation_marker.py` sibling-`=` cases, `test_refs.py` ref-strip cases).
 - [ ] CLI works: `python -m workers.ingestion.jainkosh.cli parse <html> --out <json> --frozen-time <ts>` produces the envelope.
-- [ ] Each emitted topic in the envelope has BOTH `natural_key` (slug path) AND `topic_path` (numeric).
-- [ ] Section-level `extra_blocks` carries the द्रव्य table (one entry).
-- [ ] Inline `देखें` produces a `Block(kind='see_also', …)` *plus* the surrounding `hindi_text` block stays intact.
+- [ ] Each emitted topic in the envelope has BOTH `natural_key` (slug path) AND `topic_path` (numeric or `null` for label seeds).
+- [ ] Tables attach to the current open subsection's `blocks`; only truly orphan tables land in `extra_blocks`.
+- [ ] Inline `देखें` and `विशेष देखें` both produce a `Block(kind='see_also', …)` via the configurable trigger list.
+- [ ] Redlink anchors: prose stripped from `text_devanagari`; `see_also` block emitted with `target_exists=false`.
+- [ ] Label-before-`देखें` produces a `Subsection` with `label_topic_seed=true`, `is_synthetic=true`, `topic_path=null`.
 - [ ] `<b>`/`<strong>` inside body text becomes `**…**` markdown.
-- [ ] `=` translation marker correctly absorbs Hindi blocks into the preceding source block in all three fixtures.
+- [ ] `=` translation marker: both leading-`=` (HindiText body) and sibling-`=` (text node) cases correctly absorb Hindi into the preceding source block.
+- [ ] GRef text absent from every `text_devanagari` field.
+- [ ] `IndexRelation.source_topic_path_chain` and `source_topic_natural_key_chain` populated on all relations.
+- [ ] `mongo.keyword_definitions.page_sections[*]` has no `subsection_tree` key; `extra_blocks` is present.
+- [ ] All envelope rows carry `idempotency_contract`.
+- [ ] `parser_rules_version: "jainkosh.rules/1.1.0"` in YAML and in every golden's `parser_version` field.
 - [ ] `KeywordParseResult.warnings` is empty for all three fixtures.
 - [ ] No part of the parser performs HTTP, DB writes, or filesystem writes beyond `--out`.
 
