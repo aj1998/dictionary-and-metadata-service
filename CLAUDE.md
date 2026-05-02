@@ -16,3 +16,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Pattern**: Functional components with named exports.
 - **Safety**: Do not modify database schemas or auth flows without an explicit approvals (if not asked by user in the start).
 - **Verification**: Every change must include a successful test run before completion
+
+### Token Consumption and Rate Limits Handling
+- Summarize and Compact the current conversation in between any task when you feel is the right time for doing that to save tokens. Ask the user once to confirm.
