@@ -188,6 +188,64 @@ See [`docs/manual_testing/neo4j/testing.md`](docs/manual_testing/neo4j/testing.m
 
 ---
 
+### ✅ Completed: JainKosh HTML Parser — parser-only stage (`docs/design/08_ingestion_jainkosh.md`)
+
+**Package**: `workers/ingestion/jainkosh/` — pure HTML→JSON parser, no DB writes.
+
+#### What it does
+
+Reads pre-saved HTML from `samples/sample_html_jainkosh_pages/` and produces a `WouldWriteEnvelope` JSON showing exactly what each store (Postgres / Mongo / Neo4j) would receive on approval.
+
+#### Modules
+
+| File | Purpose |
+|---|---|
+| `config.py` | Pydantic models for `parser_configs/jainkosh.yaml` + YAML loader with JSON Schema validation |
+| `models.py` | All Pydantic output types: `Block`, `Definition`, `Subsection`, `IndexRelation`, `PageSection`, `KeywordParseResult`, `WouldWriteEnvelope` |
+| `normalize.py` | NFC, ZWJ/ZWNJ strip, whitespace collapse, URL decode |
+| `topic_keys.py` | Devanagari-aware slugging, `natural_key()`, `parent_of()` |
+| `selectors.py` | CSS class → block kind mapping |
+| `parse_keyword.py` | Top-level entry: `parse_keyword_html(html, url, config)` |
+| `parse_section.py` | Splits one h2-section into pre_heading / index_ols / body / tables |
+| `parse_index.py` | Leading `<ol>/<ul>` index → `IndexRelation` list |
+| `parse_subsections.py` | Heading detection (V1–V4) + subsection tree assembly via full DFS |
+| `parse_blocks.py` | Block stream with translation marker absorption and nested-span flatten |
+| `parse_definitions.py` | `siddhantkosh` (GRef-boundary) and `puraankosh` (p[id]) definitions |
+| `refs.py` | GRef extraction (leading vs trailing) |
+| `see_also.py` | देखें detection (inline blocks and index relations) |
+| `nav.py` | पूर्व पृष्ठ / अगला पृष्ठ detection and removal |
+| `tables.py` | Table → `Block(kind="table", raw_html=…)` |
+| `envelope.py` | Builds the `would_write` dict (Postgres rows, Mongo docs, Neo4j nodes/edges) |
+| `cli.py` | `python -m workers.ingestion.jainkosh.cli parse <html> --out <json>` |
+
+#### Key implementation notes
+
+- **Heading variant DFS**: `walk_and_collect_headings` uses a full pre-order DFS. When a block-class element (e.g. `<li class="HindiText">`) contains a V1 heading (`<strong id="N">`) as a direct child, the DFS recurses into it rather than emitting it as a block. This was the critical fix needed for deep पर्याय subsection trees (43 subsections, 3 levels).
+
+- **selectolax `iter()` vs `css("*")`**: `iter()` returns only *direct children*; `css("*")` traverses all descendants. `contains_heading()` and `has_nested_block()` use `css("*")`; structural recursion uses `iter()`.
+
+- **MediaWiki underscores**: `parse_anchor()` replaces `_` with space after URL-decoding (MediaWiki convention). `decode_keyword_from_url()` does not — the keyword URL itself uses Unicode directly.
+
+#### Parse results (sample pages)
+
+| Page | SiddhantKosh defs | Index relations | Total subsections | Warnings |
+|------|-------------------|-----------------|-------------------|---------|
+| आत्मा | 4 | 0 | 3 | 0 |
+| द्रव्य | 1 | 21 | 58 | 0 |
+| पर्याय | 1 | 0 | 43 | 0 |
+
+#### Tests
+
+```bash
+# No DB required — pure Python parser
+pip install selectolax PyYAML jsonschema pydantic
+python -m pytest workers/ingestion/jainkosh/tests/ -v  # 95 tests, all pass
+```
+
+See [`docs/manual_testing/jainkosh_parser.md`](docs/manual_testing/jainkosh_parser.md) for the full manual testing guide.
+
+---
+
 ### 🔜 Not yet started
 
 Metadata-service API (`05`), dictionary-service API (`06`), ingestion workers (`08`, `09`), query engine (`12`), query-service API (`07`), enrichment loop (`11`), admin + public UIs (`13`, `14`), deployment (`15`).

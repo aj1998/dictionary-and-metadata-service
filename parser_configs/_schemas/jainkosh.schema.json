@@ -1,0 +1,192 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "JainkoshParserConfig",
+  "type": "object",
+  "required": ["version", "parser_rules_version", "normalization", "sections", "definitions",
+               "index", "block_classes", "reference", "translation_marker", "nested_span",
+               "table", "navigation", "emphasis", "headings", "slug", "bullet_strip",
+               "blocks_to_drop_when_empty"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {"type": "string"},
+    "parser_rules_version": {"type": "string"},
+    "normalization": {
+      "type": "object",
+      "required": ["nfc", "strip_zwj", "strip_zwnj", "collapse_whitespace", "br_to_newline"],
+      "additionalProperties": false,
+      "properties": {
+        "nfc": {"type": "boolean"},
+        "strip_zwj": {"type": "boolean"},
+        "strip_zwnj": {"type": "boolean"},
+        "collapse_whitespace": {"type": "boolean"},
+        "br_to_newline": {"type": "boolean"}
+      }
+    },
+    "sections": {
+      "type": "object",
+      "required": ["selector", "h2_headline_selector", "kinds", "default_kind"],
+      "additionalProperties": false,
+      "properties": {
+        "selector": {"type": "string"},
+        "h2_headline_selector": {"type": "string"},
+        "kinds": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "kind"],
+            "additionalProperties": false,
+            "properties": {
+              "id": {"type": "string"},
+              "kind": {"type": "string"}
+            }
+          }
+        },
+        "default_kind": {"type": "string"}
+      }
+    },
+    "definitions": {
+      "type": "object",
+      "required": ["siddhantkosh", "puraankosh"],
+      "additionalProperties": false,
+      "properties": {
+        "siddhantkosh": {
+          "type": "object",
+          "required": ["boundary"],
+          "additionalProperties": false,
+          "properties": {"boundary": {"type": "string"}}
+        },
+        "puraankosh": {
+          "type": "object",
+          "required": ["boundary"],
+          "additionalProperties": false,
+          "properties": {"boundary": {"type": "string"}}
+        }
+      }
+    },
+    "index": {
+      "type": "object",
+      "required": ["enabled_for", "outer_list_selector", "inner_anchor_ignore_selector",
+                   "see_also_list_selector", "see_also_text_pattern", "self_link_class"],
+      "additionalProperties": false,
+      "properties": {
+        "enabled_for": {"type": "array", "items": {"type": "string"}},
+        "outer_list_selector": {"type": "string"},
+        "inner_anchor_ignore_selector": {"type": "string"},
+        "see_also_list_selector": {"type": "string"},
+        "see_also_text_pattern": {"type": "string"},
+        "self_link_class": {"type": "string"}
+      }
+    },
+    "block_classes": {
+      "type": "object",
+      "additionalProperties": {"type": "string"}
+    },
+    "reference": {
+      "type": "object",
+      "required": ["selector", "strip_inner_anchors"],
+      "additionalProperties": false,
+      "properties": {
+        "selector": {"type": "string"},
+        "strip_inner_anchors": {"type": "boolean"}
+      }
+    },
+    "translation_marker": {
+      "type": "object",
+      "required": ["prefix", "source_kinds", "hindi_kinds"],
+      "additionalProperties": false,
+      "properties": {
+        "prefix": {"type": "string"},
+        "source_kinds": {"type": "array", "items": {"type": "string"}},
+        "hindi_kinds": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "nested_span": {
+      "type": "object",
+      "required": ["flatten", "outer_kinds"],
+      "additionalProperties": false,
+      "properties": {
+        "flatten": {"type": "boolean"},
+        "outer_kinds": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "table": {
+      "type": "object",
+      "required": ["selector", "store_raw_html", "attach_to"],
+      "additionalProperties": false,
+      "properties": {
+        "selector": {"type": "string"},
+        "store_raw_html": {"type": "boolean"},
+        "attach_to": {"type": "string"}
+      }
+    },
+    "navigation": {
+      "type": "object",
+      "required": ["drop", "prev_text", "next_text", "containing_tag"],
+      "additionalProperties": false,
+      "properties": {
+        "drop": {"type": "boolean"},
+        "prev_text": {"type": "string"},
+        "next_text": {"type": "string"},
+        "containing_tag": {"type": "string"}
+      }
+    },
+    "emphasis": {
+      "type": "object",
+      "required": ["bold_to_markdown", "italic_to_markdown"],
+      "additionalProperties": false,
+      "properties": {
+        "bold_to_markdown": {"type": "boolean"},
+        "italic_to_markdown": {"type": "boolean"}
+      }
+    },
+    "headings": {
+      "type": "object",
+      "required": ["variants"],
+      "additionalProperties": false,
+      "properties": {
+        "variants": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["name", "selector", "id_from", "heading_text"],
+            "additionalProperties": false,
+            "properties": {
+              "name": {"type": "string"},
+              "selector": {"type": "string"},
+              "id_from": {"type": "string"},
+              "heading_text": {"type": "string"},
+              "regex": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "slug": {
+      "type": "object",
+      "required": ["preserve_devanagari", "strip_chars", "whitespace_to",
+                   "collapse_dashes", "strip_v4_numeric_prefix"],
+      "additionalProperties": false,
+      "properties": {
+        "preserve_devanagari": {"type": "boolean"},
+        "strip_chars": {"type": "string"},
+        "whitespace_to": {"type": "string"},
+        "collapse_dashes": {"type": "boolean"},
+        "strip_v4_numeric_prefix": {"type": "boolean"}
+      }
+    },
+    "bullet_strip": {
+      "type": "object",
+      "required": ["prefixes", "trailing_punct"],
+      "additionalProperties": false,
+      "properties": {
+        "prefixes": {"type": "array", "items": {"type": "string"}},
+        "trailing_punct": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "blocks_to_drop_when_empty": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  }
+}

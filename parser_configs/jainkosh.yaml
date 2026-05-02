@@ -1,0 +1,104 @@
+version: "1.0.0"
+parser_rules_version: "jainkosh.rules/1.0.0"
+
+normalization:
+  nfc: true
+  strip_zwj: true
+  strip_zwnj: true
+  collapse_whitespace: true
+  br_to_newline: true
+
+sections:
+  selector: "div.mw-parser-output"
+  h2_headline_selector: "h2 span.mw-headline"
+  kinds:
+    - id: "सिद्धांतकोष_से"
+      kind: "siddhantkosh"
+    - id: "पुराणकोष_से"
+      kind: "puraankosh"
+  default_kind: "misc"
+
+definitions:
+  siddhantkosh:
+    boundary: "leading_reference_or_intro"
+  puraankosh:
+    boundary: "p_with_id_or_whole_block"
+
+index:
+  enabled_for: ["siddhantkosh"]
+  outer_list_selector: "ol"
+  inner_anchor_ignore_selector: "ol li a[href^='#']"
+  see_also_list_selector: "ul"
+  see_also_text_pattern: '(?:[(–\-]\s*)?देखें\s*'
+  self_link_class: "mw-selflink-fragment"
+
+block_classes:
+  SanskritText: "sanskrit_text"
+  SanskritGatha: "sanskrit_gatha"
+  PrakritText: "prakrit_text"
+  PrakritGatha: "prakrit_gatha"
+  HindiText: "hindi_text"
+  HindiGatha: "hindi_gatha"
+
+reference:
+  selector: "span.GRef"
+  strip_inner_anchors: true
+
+translation_marker:
+  prefix: "="
+  source_kinds: ["sanskrit_text", "sanskrit_gatha", "prakrit_text", "prakrit_gatha"]
+  hindi_kinds: ["hindi_text", "hindi_gatha"]
+
+nested_span:
+  flatten: true
+  outer_kinds: ["sanskrit_text", "prakrit_text", "hindi_text"]
+
+table:
+  selector: "table"
+  store_raw_html: true
+  attach_to: "section_extra_blocks"
+
+navigation:
+  drop: true
+  prev_text: "पूर्व पृष्ठ"
+  next_text: "अगला पृष्ठ"
+  containing_tag: "p"
+
+emphasis:
+  bold_to_markdown: true
+  italic_to_markdown: true
+
+headings:
+  variants:
+    - name: V1
+      selector: "strong[id]"
+      id_from: "self.attribute(id)"
+      heading_text: "self.text"
+    - name: V2
+      selector: "span.HindiText[id] > strong"
+      id_from: "parent.attribute(id)"
+      heading_text: "self.text"
+    - name: V3
+      selector: "li[id] > span.HindiText > strong"
+      id_from: "ancestor::li[1].attribute(id)"
+      heading_text: "self.text"
+    - name: V4
+      selector: "p.HindiText > b:only-child"
+      id_from: "regex_group(self.text, 'topic_path')"
+      heading_text: "regex_group(self.text, 'heading')"
+      regex: '^\s*(?P<topic_path>\d+(?:\.\d+)*)[.\s]+(?P<heading>.+?)\s*$'
+
+slug:
+  preserve_devanagari: true
+  strip_chars: "।॥.,;:!?()[]{}'\"`-"
+  whitespace_to: "-"
+  collapse_dashes: true
+  strip_v4_numeric_prefix: true
+
+bullet_strip:
+  prefixes: ["•", "·", "*", "-"]
+  trailing_punct: ["।", "॥"]
+
+blocks_to_drop_when_empty:
+  - "p"
+  - "div"

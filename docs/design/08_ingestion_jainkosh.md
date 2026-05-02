@@ -2,23 +2,38 @@
 
 Scrapes `jainkosh.org/wiki/Jain_dictionary` → per-letter category pages → per-keyword pages, parses each into a `keyword_definitions` Mongo doc + (optionally) child `topic_extracts` docs, lands them in the **review queue** for admin approval, then upserts on approval.
 
-## Source structure (observed from samples)
+## Parsing rules and parser implementation
+
+The HTML→JSON parsing rules and the parser implementation spec are
+maintained in dedicated documents:
+
+- **Parsing rules** (DOM patterns, heading variants, definitions, references, `देखें` extraction, tables, nav): [`jainkosh/parsing_rules.md`](./jainkosh/parsing_rules.md)
+- **Parser implementation spec** (file layout, Pydantic models, YAML config, algorithms, tests, CLI): [`jainkosh/parser_spec.md`](./jainkosh/parser_spec.md)
+- **Schema additions** (Postgres `topics` columns, Mongo collection shapes, Neo4j properties): [`jainkosh/schema_updates.md`](./jainkosh/schema_updates.md)
+
+The remainder of *this* document covers only the orchestration pieces
+that wrap the parser: source discovery, fetching, rate-limiting,
+snapshot writing, alias mining, the review queue, and apply-on-approve
+upserts. **Anything that contradicts the rules in
+[`jainkosh/parsing_rules.md`](./jainkosh/parsing_rules.md) — that
+file wins.**
+
+## Source discovery
 
 - Dictionary index: `https://www.jainkosh.org/wiki/Jain_dictionary` — links to per-letter Category pages (अ, आ, क …).
-- Category page (e.g. `https://www.jainkosh.org/wiki/Category:%E0%A4%85`) — alphabetical list of keywords.
-- Keyword page (e.g. `https://www.jainkosh.org/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE`) — MediaWiki-rendered article. Within `<div class="mw-parser-output">`:
-  - `<h2><span class="mw-headline" id="...">सिद्धांतकोष से</span></h2>` — top-level section.
-  - `<h2><span class="mw-headline" id="...">पुराणकोष से</span></h2>` — second top-level section.
-  - Within each section, **bold paragraphs** like `<p class="HindiText"><b>2. आत्मा के बहिरात्मादि 3 भेद</b></p>` mark **subsections** (these become **topic seeds**).
-  - Reference markers: `<span class="GRef">धवला पुस्तक 13/5,5,50/282/9</span>`.
-  - Body blocks: `<p class="SanskritText">…</p>`, `<p class="PrakritText">…</p>`, `<p class="HindiText">…</p>`.
-  - "देखें" links: `<p class="HindiText">• <X> - देखें <a href="/wiki/Y" …>Y</a></p>` — these mine into `keyword_aliases` of `Y`.
-  - Adjacent-page nav: `<a href="/wiki/...">पूर्व पृष्ठ</a>`, `<a href="/wiki/...">अगला पृष्ठ</a>`.
+- Category page (e.g. `https://www.jainkosh.org/wiki/Category:आ`) — alphabetical list of keywords.
+- Keyword page (e.g. `https://www.jainkosh.org/wiki/आत्मा`) — MediaWiki-rendered article; parsed by the rules in `jainkosh/parsing_rules.md`.
 
 ## Parser config (`parser_configs/jainkosh.yaml`)
 
+The parser-rules portion (heading variants, block classes, references,
+`देखें` patterns, etc.) is defined in
+[`jainkosh/parser_spec.md`](./jainkosh/parser_spec.md) §3. The
+orchestrator-only portion (fetch, rate limit, storage, alias mining
+toggles, review) lives in the same YAML file:
+
 ```yaml
-version: 1.0.0
+# Orchestrator-level keys (this doc):
 source: jainkosh
 seed_url: "https://www.jainkosh.org/wiki/Jain_dictionary"
 allowed_hosts: ["www.jainkosh.org", "jainkosh.org"]
@@ -32,30 +47,19 @@ fetch:
   backoff_seconds: [2, 5, 15]
 storage:
   raw_html_dir: "data/raw/jainkosh/{run_ts}"
-  mongo_store_raw_html: false  # disabled by default; use disk
-selectors:
+  mongo_store_raw_html: false
+discovery_selectors:
   letter_links: "a[href^='/wiki/Category:']"
   keyword_links_in_category: "div.mw-category a"
-  page_main: "div.mw-parser-output"
-  section_h2: "h2 > span.mw-headline"
-  subsection_bold_in_p: "p.HindiText > b"   # numbered headings like '2. आत्मा के बहिरात्मादि 3 भेद'
-  reference_span: "span.GRef"
-  see_also_link_in_p: "p.HindiText a[href^='/wiki/']"
-parsing:
-  block_classes:
-    SanskritText: sanskrit
-    PrakritText: prakrit
-    HindiText: hindi
-  topic_subsection_pattern: '^\s*\d+\.\s+(?P<heading>.+?)\s*$'   # extract heading from bold text
-  strip_zwj: true
-  strip_zwnj: true
-post_process:
-  derive_topic_natural_key: "jainkosh:{keyword}:{slug(heading)}"
-  alias_extraction:
-    from_see_also: true
-    from_redirects_via_api: true   # use ?action=raw&redirect=no via API to fetch redirect targets
+alias_extraction:
+  from_see_also: true
+  from_redirects_via_api: true
 review:
-  auto_approve: false   # always queue for human review in v1
+  auto_approve: false
+
+# Parser-rules portion: see jainkosh/parser_spec.md §3 for the full schema
+# (sections, block_classes, headings.variants[V1..V4], translation_marker,
+#  nested_span, table, navigation, emphasis, slug, etc.).
 ```
 
 ## Job structure
@@ -64,15 +68,13 @@ review:
 workers/ingestion/jainkosh/
 ├── orchestrator.py     # Celery entry point, drives fetch → parse → queue
 ├── fetch.py            # rate-limited httpx client, snapshot writer
-├── parse_index.py      # dictionary_index → letters → keyword URLs
-├── parse_keyword.py    # one keyword page → KeywordExtract
+├── discover.py         # dictionary_index → letters → keyword URLs
+├── parse_keyword.py    # one keyword page → KeywordParseResult (see jainkosh/parser_spec.md)
 ├── alias_mining.py     # 'देखें' links + redirect API
-├── models.py           # Pydantic intermediate types
-└── tests/
-    ├── fixtures/
-    │   ├── आत्मा.html
-    │   └── पर्याय.html
-    └── test_parse_keyword.py
+├── envelope.py         # would_write fragment builder
+├── models.py           # Pydantic intermediate types (defined in jainkosh/parser_spec.md §4)
+├── cli.py              # standalone parser CLI (see jainkosh/parser_spec.md §7)
+└── tests/              # see jainkosh/parser_spec.md §8
 ```
 
 ## Pipeline
@@ -106,123 +108,33 @@ On admin approve (one or many at once):
   set review_queue.status = approved
 ```
 
-## `KeywordExtract` (intermediate Pydantic)
+## Intermediate Pydantic types
+
+The complete `KeywordParseResult`, `WouldWriteEnvelope`,
+`Block`/`Subsection`/`PageSection`/`Definition`/`IndexRelation` models
+live in [`jainkosh/parser_spec.md`](./jainkosh/parser_spec.md) §4.
+The orchestrator consumes a `WouldWriteEnvelope` and is responsible
+for (a) writing the snapshot HTML to disk, (b) appending mined
+aliases, and (c) inserting the envelope into `ingestion_review_queue`
+as the proposed payload.
+
+## Parser
+
+The parser is implemented per [`jainkosh/parser_spec.md`](./jainkosh/parser_spec.md). Orchestrator code calls:
 
 ```python
-class Block(BaseModel):
-    kind: Literal["sanskrit", "prakrit", "hindi", "reference", "see_also"]
-    text: list[Multilingual] | None = None
-    ref_text: str | None = None
-    target_keyword: str | None = None
-    target_url: str | None = None
+from workers.ingestion.jainkosh.parse_keyword import parse_keyword_html
+from workers.ingestion.jainkosh.envelope import build_envelope
 
-class Subsection(BaseModel):
-    subsection_index: int
-    heading: list[Multilingual]
-    is_topic_seed: bool
-    topic_natural_key: str | None      # 'jainkosh:आत्मा:बहिरात्मादि-3-भेद'
-    blocks: list[Block]
-
-class PageSection(BaseModel):
-    section_index: int
-    section_kind: Literal["siddhantkosh", "puraankosh", "misc"]
-    heading: list[Multilingual]
-    subsections: list[Subsection]
-
-class KeywordExtract(BaseModel):
-    natural_key: str                  # NFC keyword text
-    source_url: str
-    page_sections: list[PageSection]
-    redirect_aliases: list[str]
+result = parse_keyword_html(html_bytes.decode("utf-8"), source_url, config)
+envelope = build_envelope(result)
+# envelope.would_write is what gets queued for review.
 ```
 
-## Parser pseudocode
-
-```python
-def parse_keyword_html(html: str, url: str, config: JainkoshConfig) -> KeywordExtract:
-    tree = HTMLParser(html)
-    main = tree.css_first(config.selectors.page_main)
-    keyword = nfc(extract_keyword_from_url(url))
-    page_sections = []
-    section_index = 0
-
-    for h2 in main.css(config.selectors.section_h2):
-        section_kind = classify_section(h2.text())  # by id 'सिद्धांतकोष_से' etc.
-        section = PageSection(section_index=section_index,
-                              section_kind=section_kind,
-                              heading=[ml_hi(h2.text())],
-                              subsections=[])
-        section_index += 1
-
-        # walk siblings until next h2
-        cur_subsection = None
-        sub_idx = 0
-        for sibling in walk_siblings_until(h2.parent, "h2"):
-            tag = sibling.tag
-            cls = sibling.attributes.get("class", "")
-
-            if tag == "p" and is_subsection_heading(sibling, config):
-                heading_text = extract_bold_heading(sibling, config.parsing.topic_subsection_pattern)
-                sub_idx += 1
-                cur_subsection = Subsection(
-                    subsection_index=sub_idx,
-                    heading=[ml_hi(heading_text)],
-                    is_topic_seed=True,
-                    topic_natural_key=f"jainkosh:{keyword}:{slug(heading_text)}",
-                    blocks=[],
-                )
-                section.subsections.append(cur_subsection)
-                continue
-
-            if cur_subsection is None:
-                # synthetic subsection 0 captures pre-heading content
-                cur_subsection = Subsection(
-                    subsection_index=0, heading=[ml_hi("intro")], is_topic_seed=False,
-                    topic_natural_key=None, blocks=[]
-                )
-                section.subsections.append(cur_subsection)
-
-            if tag == "p":
-                if "GRef" in extract_inner_classes(sibling):
-                    cur_subsection.blocks.append(
-                        Block(kind="reference", ref_text=clean(sibling.text()))
-                    )
-                elif cls == "SanskritText":
-                    cur_subsection.blocks.append(
-                        Block(kind="sanskrit",
-                              text=[Multilingual(lang="san", script="Deva", text=clean(sibling.text()))])
-                    )
-                elif cls == "PrakritText":
-                    cur_subsection.blocks.append(
-                        Block(kind="prakrit",
-                              text=[Multilingual(lang="pra", script="Deva", text=clean(sibling.text()))])
-                    )
-                elif cls == "HindiText":
-                    if has_see_also(sibling):
-                        for link in see_also_links(sibling):
-                            cur_subsection.blocks.append(
-                                Block(kind="see_also",
-                                      target_keyword=nfc(link.text), target_url=link.href)
-                            )
-                    else:
-                        cur_subsection.blocks.append(
-                            Block(kind="hindi",
-                                  text=[Multilingual(lang="hin", script="Deva", text=clean(sibling.text()))])
-                        )
-
-        page_sections.append(section)
-
-    redirect_aliases = mine_redirect_aliases(keyword, config)   # API call
-
-    return KeywordExtract(
-        natural_key=keyword,
-        source_url=url,
-        page_sections=page_sections,
-        redirect_aliases=redirect_aliases,
-    )
-```
-
-`slug(heading)` — lowercase ASCII-fold-where-applicable + replace whitespace with `-`. For Devanagari headings, we keep Devanagari letters but replace spaces with `-` and strip punctuation. Example: `आत्मा के बहिरात्मादि 3 भेद` → `आत्मा-के-बहिरात्मादि-3-भेद`. The full topic natural_key prepends `jainkosh:आत्मा:` (parent keyword) for global uniqueness.
+Slug rules and natural-key formats (e.g.
+`आत्मा-के-बहिरात्मादि-3-भेद`, `आत्मा:आत्मा-के-बहिरात्मादि-3-भेद`)
+are documented in
+[`jainkosh/parsing_rules.md`](./jainkosh/parsing_rules.md) §5.4.
 
 ## Alias mining
 
@@ -254,8 +166,14 @@ python -m workers.ingestion.jainkosh.orchestrator \
 
 ## Definition of Done
 
-- [ ] `parser_configs/jainkosh.yaml` validated against a JSON-schema in `parser_configs/_schemas/jainkosh.schema.json`.
-- [ ] Parser passes golden tests on `samples/sample_html_jainkosh_pages/आत्मा.html` and `पर्याय.html` — emitted `KeywordExtract` matches `tests/golden/आत्मा.json`.
+The Definition of Done for the parser-only stage lives in
+[`jainkosh/parser_spec.md`](./jainkosh/parser_spec.md) §10. The
+orchestrator-stage Definition of Done is below; it depends on
+parser-stage being green.
+
+- [ ] Parser-stage Definition of Done complete (per `jainkosh/parser_spec.md` §10).
+- [ ] Schema updates applied (per `jainkosh/schema_updates.md` §7).
+- [ ] `parser_configs/jainkosh.yaml` validated against `parser_configs/_schemas/jainkosh.schema.json`.
 - [ ] Re-running the orchestrator twice with identical inputs produces zero net DB changes after second approval (idempotent).
 - [ ] Rate-limit honored (single-threaded sleep-based throttle).
 - [ ] All scraped HTML written to `data/raw/jainkosh/<run_ts>/`.

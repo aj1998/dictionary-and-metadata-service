@@ -1,0 +1,340 @@
+"""Block stream parsing: converts DOM elements into Block objects."""
+
+from __future__ import annotations
+
+import re
+from typing import Optional, Iterator
+
+from selectolax.parser import Node
+
+from .config import JainkoshConfig
+from .models import Block, Reference
+from .normalize import normalize_text, nfc
+from .refs import extract_refs_from_node, is_leading_reference_node, extract_ref_text
+from .see_also import find_see_alsos_in_element, parse_anchor
+from .selectors import block_class_kind, is_gref_node, node_outer_html
+from .tables import extract_table_block
+
+
+def _render_inline(node: Node, config: JainkoshConfig) -> str:
+    """Render a node's inline content, converting <br> to \\n and emphasis to markdown."""
+    html = node.html or ""
+    # br → newline
+    html = re.sub(r"<br\s*/?>", "\n", html, flags=re.IGNORECASE)
+    # Bold/strong → markdown
+    if config.emphasis.bold_to_markdown:
+        html = re.sub(r"<strong>([^<]*)</strong>", r"**\1**", html)
+        html = re.sub(r"<b>([^<]*)</b>", r"**\1**", html)
+    # Italic/em → markdown
+    if config.emphasis.italic_to_markdown:
+        html = re.sub(r"<em>([^<]*)</em>", r"*\1*", html)
+        html = re.sub(r"<i>([^<]*)</i>", r"*\1*", html)
+    # Strip remaining HTML tags
+    text = re.sub(r"<[^>]+>", "", html)
+    # Normalize per-line
+    lines = text.split("\n")
+    lines = [normalize_text(line) for line in lines]
+    result = "\n".join(lines).strip()
+    result = re.sub(r"\n{2,}", "\n", result)
+    return result
+
+
+def make_block(node: Node, config: JainkoshConfig, *, current_keyword: str = "") -> Optional[Block]:
+    """Convert a single DOM element into a Block, or None if it should be dropped."""
+    tag = node.tag
+    if not tag or tag in ("-text", "#text", "script", "style"):
+        return None
+
+    if tag == "table":
+        return extract_table_block(node)
+
+    kind = block_class_kind(node, config)
+
+    if kind is None:
+        # Unknown block - emit warning-worthy but not crash
+        return None
+
+    # Get text content with inline rendering
+    text = _render_inline(node, config)
+
+    if not text:
+        # Drop empty blocks
+        return None
+
+    # Extract trailing GRef spans (inline references)
+    refs = []
+    for gref in node.css("span.GRef"):
+        ref_text = extract_ref_text(gref, config)
+        if ref_text:
+            refs.append(Reference(text=ref_text, raw_html=gref.html))
+
+    # Check for see_also links
+    see_alsos = find_see_alsos_in_element(
+        node, config, current_keyword=current_keyword, as_index_relation=False
+    )
+
+    block = Block(
+        kind=kind,
+        text_devanagari=text,
+        references=refs,
+    )
+
+    return block, see_alsos  # type: ignore[return-value]
+
+
+def _strip_eq_prefix(text: str) -> str:
+    """Remove the leading '=' translation marker and trim."""
+    if text.startswith("="):
+        text = text[1:].lstrip()
+    return text
+
+
+def _is_translation_block(block: Block, config: JainkoshConfig) -> bool:
+    return (
+        block.kind in config.translation_marker.hindi_kinds
+        and block.text_devanagari is not None
+        and block.text_devanagari.lstrip().startswith(config.translation_marker.prefix)
+    )
+
+
+def parse_block_stream(
+    elements: list[Node],
+    config: JainkoshConfig,
+    *,
+    current_keyword: str = "",
+) -> list[Block]:
+    """Parse a list of DOM elements into a block stream, handling translation markers."""
+    out: list[Block] = []
+    pending_refs: list[Reference] = []
+    last_block: Optional[Block] = None
+
+    for el in flatten_for_blocks(elements, config, current_keyword=current_keyword):
+        tag = el.tag if hasattr(el, 'tag') else None
+        if not tag:
+            continue
+
+        if tag in ("-text", "#text", "script", "style"):
+            continue
+
+        if tag == "table":
+            tblock = extract_table_block(el)
+            tblock.references.extend(pending_refs)
+            pending_refs.clear()
+            out.append(tblock)
+            last_block = tblock
+            continue
+
+        if is_leading_reference_node(el, config):
+            pending_refs.extend(extract_refs_from_node(el, config))
+            continue
+
+        result = make_block(el, config, current_keyword=current_keyword)
+        if result is None:
+            continue
+
+        if isinstance(result, tuple):
+            block, see_alsos = result
+        else:
+            block = result
+            see_alsos = []
+
+        last_block, pending_refs, out = _emit(
+            block, last_block, pending_refs, out, config
+        )
+
+        for sa in see_alsos:
+            if isinstance(sa, Block):
+                out.append(sa)
+
+    # Trailing refs attach to last block
+    if pending_refs and last_block is not None:
+        last_block.references.extend(pending_refs)
+
+    return out
+
+
+def _emit(
+    block: Block,
+    last_block: Optional[Block],
+    pending_refs: list[Reference],
+    out: list[Block],
+    config: JainkoshConfig,
+) -> tuple[Optional[Block], list[Reference], list[Block]]:
+    """Emit a block, handling translation-marker absorption."""
+    if _is_translation_block(block, config):
+        if last_block is not None and last_block.kind in config.translation_marker.source_kinds:
+            last_block.hindi_translation = _strip_eq_prefix(block.text_devanagari or "")
+            last_block.references.extend(pending_refs)
+            pending_refs.clear()
+            return last_block, pending_refs, out
+        # Orphan translation
+        block.is_orphan_translation = True
+        block.text_devanagari = _strip_eq_prefix(block.text_devanagari or "")
+
+    block.references.extend(pending_refs)
+    pending_refs.clear()
+    out.append(block)
+    return out[-1], pending_refs, out
+
+
+def has_nested_block(node: Node, config: JainkoshConfig) -> bool:
+    """Check if a node contains nested block-class elements."""
+    # Use css("*") for deep traversal (iter() only returns direct children)
+    for child in node.css("*"):
+        if child == node:
+            continue
+        tag = child.tag or ""
+        if tag in ("-text", "#text"):
+            continue
+        if block_class_kind(child, config) is not None:
+            return True
+    return False
+
+
+def flatten_for_blocks(
+    elements: list[Node],
+    config: JainkoshConfig,
+    *,
+    current_keyword: str = "",
+) -> list[Node]:
+    """Flatten nested spans into a sequential list of blocks."""
+    if not config.nested_span.flatten:
+        return elements
+
+    result = []
+    for el in elements:
+        kind = block_class_kind(el, config)
+        if kind in config.nested_span.outer_kinds and has_nested_block(el, config):
+            result.extend(_explode_nested_span(el, config))
+        else:
+            result.append(el)
+    return result
+
+
+def _explode_nested_span(span: Node, config: JainkoshConfig) -> list[Node]:
+    """Flatten a nested-span element into a list of child blocks."""
+    from selectolax.parser import HTMLParser
+
+    results = []
+
+    # 1. Collect GRefs that appear before the first nested block child
+    #    and the direct text of the outer span
+    outer_kind = block_class_kind(span, config)
+
+    # Build the outer span's "direct text" from leading text nodes + leading GRefs
+    # Strategy: iterate children; emit outer text/GRefs as synthetic nodes until
+    # we hit a nested block, then switch to iterating children normally
+    leading_text_parts = []
+    leading_refs = []
+    reached_nested = False
+
+    span_html = span.html or ""
+    inner_html = _get_inner_html(span)
+
+    # Parse children
+    children = list(span.iter(include_text=False))
+    children = [c for c in children if c != span]
+
+    # Find the first nested block child index
+    first_nested_idx = -1
+    for i, child in enumerate(children):
+        kind = block_class_kind(child, config)
+        if kind is not None and kind != outer_kind:
+            first_nested_idx = i
+            break
+        if is_gref_node(child, config):
+            continue
+        # Check if child itself contains a nested block
+        if kind == outer_kind and has_nested_block(child, config):
+            first_nested_idx = i
+            break
+
+    # Collect the direct text from the outer span (not inside nested elements)
+    # We do this by looking at text nodes that are direct children of span
+    direct_text = _direct_text_of(span)
+    if direct_text.strip():
+        # Make a synthetic node for the outer span's direct text
+        results.append(_make_synthetic_block(direct_text, outer_kind, config))
+
+    # Now iterate direct children of the span (iter() gives direct children in selectolax)
+    for child in span.iter(include_text=False):
+        child_kind = block_class_kind(child, config)
+        if is_gref_node(child, config):
+            results.append(child)
+        elif child_kind is not None:
+            if child_kind in config.nested_span.outer_kinds and has_nested_block(child, config):
+                results.extend(_explode_nested_span(child, config))
+            else:
+                results.append(child)
+        else:
+            # Unknown/other element - skip
+            pass
+
+    return results if results else [span]
+
+
+def _direct_text_of(node: Node) -> str:
+    """Get text nodes that are direct children of node (not inside nested elements)."""
+    node_html = node.html or ""
+    # Find the tag and strip outer tag
+    inner = _get_inner_html(node)
+    if not inner:
+        return ""
+
+    import re
+    # Remove all child element content (keep only top-level text nodes)
+    # This is approximate - remove any complete tags and their content
+    depth = 0
+    text_parts = []
+    i = 0
+    while i < len(inner):
+        if inner[i] == "<":
+            # Find end of tag
+            end = inner.find(">", i)
+            if end < 0:
+                break
+            tag_content = inner[i+1:end]
+            if tag_content.startswith("/"):
+                depth -= 1
+            elif not tag_content.endswith("/"):
+                depth += 1
+            i = end + 1
+        else:
+            if depth == 0:
+                text_parts.append(inner[i])
+            i += 1
+
+    raw = "".join(text_parts)
+    # Also decode HTML entities
+    raw = raw.replace("&nbsp;", " ").replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
+    return normalize_text(raw)
+
+
+def _get_inner_html(node: Node) -> str:
+    """Get inner HTML of a node (content between opening and closing tags)."""
+    html = node.html or ""
+    # Find the first > (end of opening tag)
+    start = html.find(">")
+    if start < 0:
+        return ""
+    # Find the last < (start of closing tag)
+    end = html.rfind("<")
+    if end <= start:
+        return ""
+    return html[start+1:end]
+
+
+def _make_synthetic_block(text: str, kind: str, config: JainkoshConfig) -> Node:
+    """Create a synthetic HTML node wrapping text as a specific block kind."""
+    from selectolax.parser import HTMLParser
+    # Find the CSS class corresponding to this kind
+    css_class = None
+    for cls_name, k in config.block_classes.items():
+        if k == kind:
+            css_class = cls_name
+            break
+    if css_class is None:
+        css_class = "HindiText"
+    html = f'<p class="{css_class}">{text}</p>'
+    tree = HTMLParser(html)
+    return tree.css_first(f"p.{css_class}")

@@ -14,7 +14,7 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Companion t
 | 05 | [Metadata service API](./05_api_metadata_service.md) | Authors / shastras / teekas / books / pravachans REST |
 | 06 | [Dictionary service API](./06_api_dictionary_service.md) | Keywords / gathas / topics / browse / public search |
 | 07 | [Query service API](./07_api_query_service.md) | GraphRAG endpoint contract for cataloguesearch-chat |
-| 08 | [Ingestion: jainkosh](./08_ingestion_jainkosh.md) | Parser config, scrape pipeline, alias mining |
+| 08 | [Ingestion: jainkosh](./08_ingestion_jainkosh.md) | Orchestrator pipeline, fetch, alias mining. Parsing rules in [`jainkosh/parsing_rules.md`](./jainkosh/parsing_rules.md), parser spec in [`jainkosh/parser_spec.md`](./jainkosh/parser_spec.md), schema updates in [`jainkosh/schema_updates.md`](./jainkosh/schema_updates.md) |
 | 09 | [Ingestion: nikkyjain](./09_ingestion_nikkyjain.md) | Local-clone parser for shastras, gathas, anvayartha |
 | 10 | [Ingestion: vyakaran OCR](./10_ingestion_vyakaran_ocr.md) | Pluggable OCR scaffold (v1 stub) |
 | 11 | [Chat enrichment loop](./11_chat_enrichment_loop.md) | Daily puller → admin review → graph merge |

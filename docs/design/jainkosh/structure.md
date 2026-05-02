@@ -1,20 +1,9 @@
-## JainKosh Page Structure With Selectors
+# JainKosh — Structure Notes (superseded)
 
-### References format
-The text contained in b/w <span class="GRef"> and </span> is a reference (remove any links if there inside)
+This file's earlier high-level rules have been superseded.
 
-### Structure
-- Two Definitions:
-    1. after `#सिद्धांतकोष_से` selector - first `#mw-content-text > div > p.HindiText` selector (nullable)
-    2. after `#पुराणकोष_से` selector - first `#mw-content-text > div > div > p` selector (nullable, can contain links)
+For the canonical, current information, see:
 
-### Headings
-- Create a node for each heading (even if it is incomplete)
-- Merge heading text till final text appears to create topic
-- Specify node as end node if no outgoing links
-- If देखें link, then create graph link
-
-### Text
-- Each text as different document or json in a document.
-- Sanskrit/Prakrit text to store in a separate field if available.
-- Tables also in different format.
+- **Parsing rules** — [`parsing_rules.md`](./parsing_rules.md) (DOM patterns, heading variants, definitions, references, `देखें`, tables, nav).
+- **Parser implementation spec** — [`parser_spec.md`](./parser_spec.md) (file layout, Pydantic models, YAML config, algorithms, tests, CLI).
+- **Schema updates** — [`schema_updates.md`](./schema_updates.md) (Postgres `topics` columns, Mongo collection shapes, Neo4j properties, edge wiring).
