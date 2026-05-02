@@ -541,15 +541,4 @@ def _make_label_seed_subsection(
         source_subkind=config.label_to_topic.source_marker,
         blocks=[],
         children=[],
-        idempotency_contract={
-            "conflict_key": ["natural_key"],
-            "on_conflict": "do_update",
-            "fields_replace": [
-                "display_text", "is_leaf", "is_synthetic",
-                "parent_topic_natural_key", "topic_path", "source", "source_subkind",
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": ["postgres", "mongo:topic_extracts", "neo4j:Topic"],
-        },
     )

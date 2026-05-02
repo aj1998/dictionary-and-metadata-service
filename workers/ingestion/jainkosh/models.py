@@ -81,7 +81,6 @@ class Subsection(BaseModel):
     is_synthetic: bool = False
     label_topic_seed: bool = False
     source_subkind: Optional[str] = None
-    idempotency_contract: dict = Field(default_factory=dict)
     blocks: list[Block]
     children: list["Subsection"]
 

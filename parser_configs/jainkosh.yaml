@@ -1,5 +1,5 @@
 version: "1.1.0"
-parser_rules_version: "jainkosh.rules/1.1.0"
+parser_rules_version: "jainkosh.rules/1.2.0"
 
 normalization:
   nfc: true
@@ -30,6 +30,12 @@ index:
   inner_anchor_ignore_selector: "ol li a[href^='#']"
   see_also_list_selector: "ul"
   self_link_class: "mw-selflink-fragment"
+  source_chain:
+    enabled: true
+    li_strong_selector: "strong"
+    li_strong_a_selector: "strong > a"
+    skip_li_with_footer_id: true
+    match_normalize: "nfc_collapsed_ws"
   see_also_triggers:
     - "विशेष देखें"
     - "देखें"
@@ -48,6 +54,8 @@ reference:
   selector: "span.GRef"
   strip_inner_anchors: true
   parse_strategy: "text_only"
+  raw_html:
+    collapse_whitespace: true
 
 ref_strip:
   enabled: true
@@ -74,6 +82,8 @@ table:
   extraction_strategy: "raw_html_only"
   attach_to: "current_subsection"
   fallback_when_no_subsection: "section_root"
+  raw_html:
+    collapse_whitespace: true
 
 redlink:
   enabled: true
@@ -136,6 +146,9 @@ slug:
 bullet_strip:
   prefixes: ["•", "·", "*", "-"]
   trailing_punct: ["।", "॥"]
+
+envelope:
+  idempotency_mode: "envelope_root"
 
 blocks_to_drop_when_empty:
   - "p"

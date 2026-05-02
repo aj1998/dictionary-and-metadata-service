@@ -2,7 +2,99 @@
 
 from __future__ import annotations
 
+from copy import deepcopy
+
 from .models import KeywordParseResult, Subsection, WouldWriteEnvelope
+
+_DEFAULT_CONTRACTS: dict[str, dict] = {
+    "postgres:keywords": {
+        "conflict_key": ["natural_key"],
+        "on_conflict": "do_update",
+        "fields_replace": ["display_text", "source_url"],
+        "fields_append": ["definition_doc_ids"],
+        "fields_skip_if_set": [],
+        "stores": ["postgres:keywords", "mongo:keyword_definitions", "neo4j:Keyword"],
+    },
+    "postgres:topics": {
+        "conflict_key": ["natural_key"],
+        "on_conflict": "do_update",
+        "fields_replace": [
+            "topic_path",
+            "display_text",
+            "parent_topic_natural_key",
+            "is_leaf",
+            "is_synthetic",
+            "source",
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": ["postgres:topics", "mongo:topic_extracts", "neo4j:Topic"],
+    },
+    "postgres:topics:label_seed": {
+        "conflict_key": ["natural_key"],
+        "on_conflict": "do_update",
+        "fields_replace": [
+            "display_text",
+            "is_leaf",
+            "is_synthetic",
+            "parent_topic_natural_key",
+            "topic_path",
+            "source",
+            "source_subkind",
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": ["postgres:topics", "mongo:topic_extracts", "neo4j:Topic"],
+    },
+    "postgres:keyword_aliases": {
+        "conflict_key": ["keyword_natural_key", "alias_text"],
+        "on_conflict": "do_update",
+        "fields_replace": ["alias_kind", "source"],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": ["postgres:keyword_aliases"],
+    },
+    "mongo:keyword_definitions": {
+        "conflict_key": ["natural_key"],
+        "on_conflict": "do_update",
+        "fields_replace": ["page_sections", "redirect_aliases", "source_url"],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": ["mongo:keyword_definitions"],
+    },
+    "mongo:topic_extracts": {
+        "conflict_key": ["natural_key"],
+        "on_conflict": "do_update",
+        "fields_replace": [
+            "topic_path",
+            "parent_natural_key",
+            "is_leaf",
+            "heading",
+            "blocks",
+            "source",
+            "source_url",
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": ["mongo:topic_extracts"],
+    },
+    "neo4j:Keyword": {
+        "conflict_key": ["key"],
+        "on_conflict": "merge",
+        "fields_replace": ["display_text", "source_url"],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": ["neo4j:Keyword"],
+    },
+    "neo4j:Topic": {
+        "conflict_key": ["key"],
+        "on_conflict": "merge",
+        "fields_replace": ["display_text_hi", "topic_path", "parent_keyword_natural_key", "source", "is_leaf"],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": ["neo4j:Topic"],
+    },
+}
 
 
 def walk_subsection_tree(subsections: list[Subsection]):
@@ -19,14 +111,6 @@ def build_pg_fragment(result: KeywordParseResult) -> dict:
         "display_text": result.keyword,
         "source_url": result.source_url,
         "definition_doc_ids": [],
-        "idempotency_contract": {
-            "conflict_key": ["natural_key"],
-            "on_conflict": "do_update",
-            "fields_replace": ["display_text", "source_url"],
-            "fields_append": ["definition_doc_ids"],
-            "fields_skip_if_set": [],
-            "stores": ["postgres:keywords", "mongo:keyword_definitions", "neo4j:Keyword"],
-        },
     }
     topic_rows = []
     for sec in result.page_sections:
@@ -41,17 +125,7 @@ def build_pg_fragment(result: KeywordParseResult) -> dict:
                 "parent_keyword_natural_key": result.keyword,
                 "is_leaf": sub.is_leaf,
                 "is_synthetic": sub.is_synthetic,
-                "idempotency_contract": sub.idempotency_contract or {
-                    "conflict_key": ["natural_key"],
-                    "on_conflict": "do_update",
-                    "fields_replace": [
-                        "topic_path", "display_text", "parent_topic_natural_key",
-                        "is_leaf", "is_synthetic", "source",
-                    ],
-                    "fields_append": [],
-                    "fields_skip_if_set": [],
-                    "stores": ["postgres:topics", "mongo:topic_extracts", "neo4j:Topic"],
-                },
+                "source_subkind": sub.source_subkind,
             })
     return {"keywords": [keyword_row], "topics": topic_rows, "keyword_aliases": []}
 
@@ -247,5 +321,29 @@ def build_envelope(result: KeywordParseResult) -> WouldWriteEnvelope:
             "postgres": build_pg_fragment(result),
             "mongo": build_mongo_fragment(result),
             "neo4j": build_neo4j_fragment(result),
+            "idempotency_contracts": _build_contracts(result),
         },
     )
+
+
+def _has_label_seed_topic(result: KeywordParseResult) -> bool:
+    for sec in result.page_sections:
+        for sub in walk_subsection_tree(sec.subsections):
+            if sub.label_topic_seed:
+                return True
+    return False
+
+
+def _build_contracts(result: KeywordParseResult) -> dict[str, dict]:
+    keys = {
+        "postgres:keywords",
+        "postgres:topics",
+        "postgres:keyword_aliases",
+        "mongo:keyword_definitions",
+        "mongo:topic_extracts",
+        "neo4j:Keyword",
+        "neo4j:Topic",
+    }
+    if _has_label_seed_topic(result):
+        keys.add("postgres:topics:label_seed")
+    return {k: deepcopy(_DEFAULT_CONTRACTS[k]) for k in sorted(keys)}

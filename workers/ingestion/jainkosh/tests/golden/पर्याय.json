@@ -59,9 +59,13 @@
             "target_url": "/wiki/%E0%A4%B8%E0%A4%AA%E0%A5%8D%E0%A4%A4%E0%A4%AD%E0%A4%82%E0%A4%97%E0%A5%80#5.3",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path": "1",
+            "source_topic_path_chain": [
+              "1"
+            ],
+            "source_topic_natural_key_chain": [
+              "पर्याय:भेद-व-लक्षण"
+            ]
           },
           {
             "label_text": "पर्याय पर्यायी में कथंचित् भेदाभेद",
@@ -132,7 +136,6 @@
             "is_synthetic": false,
             "label_topic_seed": false,
             "source_subkind": null,
-            "idempotency_contract": {},
             "blocks": [],
             "children": [
               {
@@ -148,7 +151,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [],
                 "children": [
                   {
@@ -165,7 +167,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "sanskrit_text",
@@ -174,7 +175,7 @@
                         "references": [
                           {
                             "text": "( धवला 1/1,1,1/84/1 )",
-                            "raw_html": "<span class=\"GRef\">( धवला  1/1,1,1/84/1 )</span>",
+                            "raw_html": "<span class=\"GRef\">( धवला 1/1,1,1/84/1 )</span>",
                             "parsed": null
                           },
                           {
@@ -184,7 +185,7 @@
                           },
                           {
                             "text": "( नियमसार / तात्पर्यवृत्ति 14 )",
-                            "raw_html": "<span class=\"GRef\">( नियमसार / तात्पर्यवृत्ति  14 )</span>",
+                            "raw_html": "<span class=\"GRef\">( नियमसार / तात्पर्यवृत्ति 14 )</span>",
                             "parsed": null
                           }
                         ],
@@ -234,7 +235,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "sanskrit_text",
@@ -323,7 +323,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "sanskrit_text",
@@ -423,7 +422,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "sanskrit_text",
@@ -499,7 +497,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [],
                 "children": [
                   {
@@ -516,7 +513,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "sanskrit_text",
@@ -549,7 +545,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "sanskrit_text",
@@ -608,7 +603,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "sanskrit_text",
@@ -622,7 +616,7 @@
                           },
                           {
                             "text": "( न्यायदीपिका/3/",
-                            "raw_html": "<span class=\"GRef\">( न्यायदीपिका/3/ </span>",
+                            "raw_html": "<span class=\"GRef\">( न्यायदीपिका/3/</span>",
                             "parsed": null
                           }
                         ],
@@ -652,7 +646,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "prakrit_text",
@@ -731,7 +724,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "sanskrit_text",
@@ -765,7 +757,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -817,7 +808,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -877,7 +867,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -943,7 +932,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -989,7 +977,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_gatha",
@@ -1021,7 +1008,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -1054,7 +1040,6 @@
             "is_synthetic": false,
             "label_topic_seed": false,
             "source_subkind": null,
-            "idempotency_contract": {},
             "blocks": [],
             "children": [
               {
@@ -1070,7 +1055,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -1102,7 +1086,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -1131,7 +1114,7 @@
                       },
                       {
                         "text": "( पंचाध्यायी / पूर्वार्ध 165 )",
-                        "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध  165 )</span>",
+                        "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध 165 )</span>",
                         "parsed": null
                       }
                     ],
@@ -1208,7 +1191,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -1290,7 +1272,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -1322,7 +1303,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -1354,7 +1334,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -1387,7 +1366,6 @@
             "is_synthetic": false,
             "label_topic_seed": false,
             "source_subkind": null,
-            "idempotency_contract": {},
             "blocks": [],
             "children": [
               {
@@ -1403,7 +1381,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_text",
@@ -1517,7 +1494,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_gatha",
@@ -1549,7 +1525,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_text",
@@ -1601,7 +1576,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -1633,7 +1607,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_gatha",
@@ -1665,7 +1638,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_gatha",
@@ -1717,7 +1689,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_text",
@@ -1749,7 +1720,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [],
                 "children": [
                   {
@@ -1766,7 +1736,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "prakrit_text",
@@ -1817,7 +1786,7 @@
                         "references": [
                           {
                             "text": "वसुनंदी श्रावकाचार/25",
-                            "raw_html": "<span class=\"GRef\">वसुनंदी श्रावकाचार/25  </span>",
+                            "raw_html": "<span class=\"GRef\">वसुनंदी श्रावकाचार/25</span>",
                             "parsed": null
                           },
                           {
@@ -1827,7 +1796,7 @@
                           },
                           {
                             "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/16/39/9",
-                            "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/16/39/9  </span>",
+                            "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/16/39/9</span>",
                             "parsed": null
                           }
                         ],
@@ -1857,7 +1826,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "sanskrit_text",
@@ -1904,7 +1872,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "sanskrit_text",
@@ -1938,7 +1905,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_text",
@@ -1971,7 +1937,7 @@
                       },
                       {
                         "text": "( परमात्मप्रकाश",
-                        "raw_html": "<span class=\"GRef\">( परमात्मप्रकाश  </span>",
+                        "raw_html": "<span class=\"GRef\">( परमात्मप्रकाश</span>",
                         "parsed": null
                       }
                     ],
@@ -2034,7 +2000,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_text",
@@ -2145,7 +2110,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_gatha",
@@ -2241,7 +2205,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_gatha",
@@ -2317,7 +2280,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -2349,7 +2311,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -2445,7 +2406,7 @@
                 "references": [
                   {
                     "text": "महापुराण 3. 5-8",
-                    "raw_html": "<span class=\"GRef\">महापुराण 3. 5-8 </span>",
+                    "raw_html": "<span class=\"GRef\">महापुराण 3. 5-8</span>",
                     "parsed": null
                   }
                 ],
@@ -2471,7 +2432,7 @@
                 "references": [
                   {
                     "text": "हरिवंशपुराण - 10.12\n ,हरिवंशपुराण - 10.16",
-                    "raw_html": "<span class=\"GRef\">\n                                                    <a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_10#12\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 10\">हरिवंशपुराण - 10.12</a>\n                                                    ,<a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_10#16\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 10\">हरिवंशपुराण - 10.16</a>\n                                                </span>",
+                    "raw_html": "<span class=\"GRef\"><a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_10#12\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 10\">हरिवंशपुराण - 10.12</a>,<a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_10#16\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 10\">हरिवंशपुराण - 10.16</a></span>",
                     "parsed": null
                   }
                 ],
@@ -2498,7 +2459,7 @@
       "prev": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AA%E0%A5%8D%E0%A4%A4%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%B2",
       "next": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%B8%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8"
     },
-    "parser_version": "jainkosh.rules/1.1.0",
+    "parser_version": "jainkosh.rules/1.2.0",
     "parsed_at": "2026-05-02T00:00:00",
     "warnings": []
   },
@@ -2510,26 +2471,7 @@
           "natural_key": "पर्याय",
           "display_text": "पर्याय",
           "source_url": "https://www.jainkosh.org/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF",
-          "definition_doc_ids": [],
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "display_text",
-              "source_url"
-            ],
-            "fields_append": [
-              "definition_doc_ids"
-            ],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:keywords",
-              "mongo:keyword_definitions",
-              "neo4j:Keyword"
-            ]
-          }
+          "definition_doc_ids": []
         }
       ],
       "topics": [
@@ -2549,27 +2491,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -2587,27 +2509,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -2625,27 +2527,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -2663,27 +2545,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -2701,27 +2563,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -2739,27 +2581,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -2777,27 +2599,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -2815,27 +2617,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -2853,27 +2635,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -2891,27 +2653,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -2929,27 +2671,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -2967,27 +2689,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3005,27 +2707,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3043,27 +2725,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3081,27 +2743,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3119,27 +2761,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3157,27 +2779,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3195,27 +2797,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3233,27 +2815,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3271,27 +2833,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3309,27 +2851,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3347,27 +2869,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3385,27 +2887,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3423,27 +2905,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3461,27 +2923,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3499,27 +2941,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3537,27 +2959,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3575,27 +2977,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3613,27 +2995,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3651,27 +3013,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3689,27 +3031,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3727,27 +3049,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3765,27 +3067,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3803,27 +3085,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3841,27 +3103,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3879,27 +3121,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3917,27 +3139,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3955,27 +3157,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -3993,27 +3175,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -4031,27 +3193,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -4069,27 +3211,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -4107,27 +3229,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -4145,27 +3247,7 @@
           "parent_keyword_natural_key": "पर्याय",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         }
       ],
       "keyword_aliases": []
@@ -4235,9 +3317,13 @@
                   "target_url": "/wiki/%E0%A4%B8%E0%A4%AA%E0%A5%8D%E0%A4%A4%E0%A4%AD%E0%A4%82%E0%A4%97%E0%A5%80#5.3",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path": "1",
+                  "source_topic_path_chain": [
+                    "1"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "पर्याय:भेद-व-लक्षण"
+                  ]
                 },
                 {
                   "label_text": "पर्याय पर्यायी में कथंचित् भेदाभेद",
@@ -4311,7 +3397,7 @@
                       "references": [
                         {
                           "text": "महापुराण 3. 5-8",
-                          "raw_html": "<span class=\"GRef\">महापुराण 3. 5-8 </span>",
+                          "raw_html": "<span class=\"GRef\">महापुराण 3. 5-8</span>",
                           "parsed": null
                         }
                       ],
@@ -4337,7 +3423,7 @@
                       "references": [
                         {
                           "text": "हरिवंशपुराण - 10.12\n ,हरिवंशपुराण - 10.16",
-                          "raw_html": "<span class=\"GRef\">\n                                                    <a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_10#12\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 10\">हरिवंशपुराण - 10.12</a>\n                                                    ,<a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_10#16\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 10\">हरिवंशपुराण - 10.16</a>\n                                                </span>",
+                          "raw_html": "<span class=\"GRef\"><a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_10#12\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 10\">हरिवंशपुराण - 10.12</a>,<a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_10#16\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 10\">हरिवंशपुराण - 10.16</a></span>",
                           "parsed": null
                         }
                       ],
@@ -4418,7 +3504,7 @@
               "references": [
                 {
                   "text": "( धवला 1/1,1,1/84/1 )",
-                  "raw_html": "<span class=\"GRef\">( धवला  1/1,1,1/84/1 )</span>",
+                  "raw_html": "<span class=\"GRef\">( धवला 1/1,1,1/84/1 )</span>",
                   "parsed": null
                 },
                 {
@@ -4428,7 +3514,7 @@
                 },
                 {
                   "text": "( नियमसार / तात्पर्यवृत्ति 14 )",
-                  "raw_html": "<span class=\"GRef\">( नियमसार / तात्पर्यवृत्ति  14 )</span>",
+                  "raw_html": "<span class=\"GRef\">( नियमसार / तात्पर्यवृत्ति 14 )</span>",
                   "parsed": null
                 }
               ],
@@ -4859,7 +3945,7 @@
                 },
                 {
                   "text": "( न्यायदीपिका/3/",
-                  "raw_html": "<span class=\"GRef\">( न्यायदीपिका/3/ </span>",
+                  "raw_html": "<span class=\"GRef\">( न्यायदीपिका/3/</span>",
                   "parsed": null
                 }
               ],
@@ -5364,7 +4450,7 @@
                 },
                 {
                   "text": "( पंचाध्यायी / पूर्वार्ध 165 )",
-                  "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध  165 )</span>",
+                  "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध 165 )</span>",
                   "parsed": null
                 }
               ],
@@ -6050,7 +5136,7 @@
               "references": [
                 {
                   "text": "वसुनंदी श्रावकाचार/25",
-                  "raw_html": "<span class=\"GRef\">वसुनंदी श्रावकाचार/25  </span>",
+                  "raw_html": "<span class=\"GRef\">वसुनंदी श्रावकाचार/25</span>",
                   "parsed": null
                 },
                 {
@@ -6060,7 +5146,7 @@
                 },
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/16/39/9",
-                  "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/16/39/9  </span>",
+                  "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/16/39/9</span>",
                   "parsed": null
                 }
               ],
@@ -6200,7 +5286,7 @@
                 },
                 {
                   "text": "( परमात्मप्रकाश",
-                  "raw_html": "<span class=\"GRef\">( परमात्मप्रकाश  </span>",
+                  "raw_html": "<span class=\"GRef\">( परमात्मप्रकाश</span>",
                   "parsed": null
                 }
               ],
@@ -7824,8 +6910,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "पर्याय"
+            "label": "Topic",
+            "key": "पर्याय:भेद-व-लक्षण"
           },
           "to": {
             "label": "Topic",
@@ -7914,6 +7000,133 @@
           }
         }
       ]
+    },
+    "idempotency_contracts": {
+      "mongo:keyword_definitions": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "page_sections",
+          "redirect_aliases",
+          "source_url"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:keyword_definitions"
+        ]
+      },
+      "mongo:topic_extracts": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "topic_path",
+          "parent_natural_key",
+          "is_leaf",
+          "heading",
+          "blocks",
+          "source",
+          "source_url"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:topic_extracts"
+        ]
+      },
+      "neo4j:Keyword": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "display_text",
+          "source_url"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Keyword"
+        ]
+      },
+      "neo4j:Topic": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "display_text_hi",
+          "topic_path",
+          "parent_keyword_natural_key",
+          "source",
+          "is_leaf"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Topic"
+        ]
+      },
+      "postgres:keyword_aliases": {
+        "conflict_key": [
+          "keyword_natural_key",
+          "alias_text"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "alias_kind",
+          "source"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:keyword_aliases"
+        ]
+      },
+      "postgres:keywords": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "display_text",
+          "source_url"
+        ],
+        "fields_append": [
+          "definition_doc_ids"
+        ],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:keywords",
+          "mongo:keyword_definitions",
+          "neo4j:Keyword"
+        ]
+      },
+      "postgres:topics": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "topic_path",
+          "display_text",
+          "parent_topic_natural_key",
+          "is_leaf",
+          "is_synthetic",
+          "source"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:topics",
+          "mongo:topic_extracts",
+          "neo4j:Topic"
+        ]
+      }
     }
   }
 }

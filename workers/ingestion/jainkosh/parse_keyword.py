@@ -11,6 +11,7 @@ from .config import JainkoshConfig
 from .models import KeywordParseResult, Nav, PageSection, ParserWarning, Subsection
 from .nav import drop_nav_nodes, extract_nav
 from .normalize import decode_keyword_from_url, normalize_text
+from .parse_index import clear_heading_chains, get_heading_chain, _normalize_heading_for_match
 from .parse_section import parse_section
 
 
@@ -52,15 +53,38 @@ def _walk_subsection_tree(subsections: list[Subsection]):
         yield from _walk_subsection_tree(sub.children)
 
 
-def _resolve_index_relation_natural_keys(section: PageSection) -> None:
+def _resolve_index_relation_natural_keys(section: PageSection, config: JainkoshConfig) -> None:
     path_to_nk: dict[str, str] = {}
+    heading_to_topic: dict[str, tuple[str, str]] = {}
     for sub in _walk_subsection_tree(section.subsections):
         if sub.topic_path is not None:
             path_to_nk[sub.topic_path] = sub.natural_key
+            norm = _normalize_heading_for_match(sub.heading_text)
+            heading_to_topic.setdefault(norm, (sub.topic_path, sub.natural_key))
     for rel in section.index_relations:
-        rel.source_topic_natural_key_chain = [
+        by_path_nk_chain = [
             path_to_nk[p] for p in rel.source_topic_path_chain if p in path_to_nk
         ]
+        heading_path_chain: list[str] = []
+        heading_nk_chain: list[str] = []
+        if config.index.source_chain.enabled:
+            chain_texts = get_heading_chain(rel)
+            if chain_texts:
+                for heading in chain_texts:
+                    hit = heading_to_topic.get(heading)
+                    if hit is None:
+                        break
+                    heading_path_chain.append(hit[0])
+                    heading_nk_chain.append(hit[1])
+        merged_path_chain = heading_path_chain + [
+            p for p in rel.source_topic_path_chain if p not in heading_path_chain
+        ]
+        merged_nk_chain = [path_to_nk[p] for p in merged_path_chain if p in path_to_nk]
+        if merged_path_chain and len(merged_path_chain) >= len(rel.source_topic_path_chain):
+            rel.source_topic_path_chain = merged_path_chain
+            rel.source_topic_natural_key_chain = merged_nk_chain
+            continue
+        rel.source_topic_natural_key_chain = by_path_nk_chain
 
 
 def parse_keyword_html(
@@ -71,49 +95,48 @@ def parse_keyword_html(
     frozen_time: Optional[datetime] = None,
 ) -> KeywordParseResult:
     """Parse a JainKosh keyword HTML page into a KeywordParseResult."""
-    tree = HTMLParser(html)
-    main = tree.css_first(config.sections.selector)
-    if main is None:
-        raise ParseError(f"no {config.sections.selector!r} found in page")
+    try:
+        tree = HTMLParser(html)
+        main = tree.css_first(config.sections.selector)
+        if main is None:
+            raise ParseError(f"no {config.sections.selector!r} found in page")
 
-    keyword = decode_keyword_from_url(url)
-    warnings: list[ParserWarning] = []
+        keyword = decode_keyword_from_url(url)
+        warnings: list[ParserWarning] = []
 
-    # Extract and drop nav
-    nav = extract_nav(main, config)
-    drop_nav_nodes(main, config)
+        nav = extract_nav(main, config)
+        drop_nav_nodes(main, config)
 
-    # Find all h2 headlines
-    h2_nodes = main.css(config.sections.h2_headline_selector)
+        h2_nodes = main.css(config.sections.h2_headline_selector)
 
-    page_sections = []
-    for i, h2 in enumerate(h2_nodes):
-        section_kind = _classify_section(h2, config)
-        h2_text = normalize_text(h2.text(strip=True) or "")
-        # Collect DOM elements in this section
-        elements = _collect_siblings_until_next_h2(h2)
-        section = parse_section(
-            elements,
-            section_kind=section_kind,
-            section_index=i,
-            h2_text=h2_text,
+        page_sections = []
+        for i, h2 in enumerate(h2_nodes):
+            section_kind = _classify_section(h2, config)
+            h2_text = normalize_text(h2.text(strip=True) or "")
+            elements = _collect_siblings_until_next_h2(h2)
+            section = parse_section(
+                elements,
+                section_kind=section_kind,
+                section_index=i,
+                h2_text=h2_text,
+                keyword=keyword,
+                config=config,
+            )
+            _resolve_index_relation_natural_keys(section, config)
+            page_sections.append(section)
+
+        parsed_at = frozen_time if frozen_time is not None else datetime.now(timezone.utc)
+        if parsed_at.tzinfo is not None:
+            parsed_at = parsed_at.replace(tzinfo=None)
+
+        return KeywordParseResult(
             keyword=keyword,
-            config=config,
+            source_url=url,
+            page_sections=page_sections,
+            nav=nav,
+            parser_version=config.parser_rules_version,
+            parsed_at=parsed_at,
+            warnings=warnings,
         )
-        _resolve_index_relation_natural_keys(section)
-        page_sections.append(section)
-
-    parsed_at = frozen_time if frozen_time is not None else datetime.now(timezone.utc)
-    # Strip tzinfo for consistency if naive
-    if parsed_at.tzinfo is not None:
-        parsed_at = parsed_at.replace(tzinfo=None)
-
-    return KeywordParseResult(
-        keyword=keyword,
-        source_url=url,
-        page_sections=page_sections,
-        nav=nav,
-        parser_version=config.parser_rules_version,
-        parsed_at=parsed_at,
-        warnings=warnings,
-    )
+    finally:
+        clear_heading_chains()

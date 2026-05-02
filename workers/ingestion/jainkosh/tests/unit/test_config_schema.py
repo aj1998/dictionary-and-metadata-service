@@ -44,6 +44,8 @@ def test_load_config_succeeds():
     from workers.ingestion.jainkosh.config import load_config
     config = load_config()
     assert config.version == "1.1.0"
+    assert config.parser_rules_version == "jainkosh.rules/1.2.0"
+    assert config.envelope.idempotency_mode == "envelope_root"
     assert len(config.headings.variants) >= 4
 
 

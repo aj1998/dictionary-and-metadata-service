@@ -50,6 +50,12 @@ def get_node_text(node: Node, config: JainkoshConfig, *, handle_br: bool = True)
     return result
 
 
-def node_outer_html(node: Node) -> str:
+def node_outer_html(node: Node, config: Optional[JainkoshConfig] = None) -> str:
     """Return the outer HTML of a node."""
-    return node.html or ""
+    html = node.html or ""
+    if config is None:
+        return html
+    if hasattr(config, "reference") and config.reference.raw_html.collapse_whitespace:
+        from .refs import _clean_raw_html
+        return _clean_raw_html(html, config)
+    return html

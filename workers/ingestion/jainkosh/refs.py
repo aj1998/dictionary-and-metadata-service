@@ -13,6 +13,28 @@ from .normalize import normalize_text
 from .selectors import is_gref_node
 
 
+_RAW_HTML_TEXT_RUN_RE = re.compile(r"(>)([^<]*)(<)")
+_WS_RE = re.compile(r"[\t\n\r\f\v ]+")
+
+
+def _clean_raw_html(html: str, config: JainkoshConfig) -> str:
+    if not html:
+        return html
+    if not config.reference.raw_html.collapse_whitespace:
+        return html
+
+    def _collapse_run(match: re.Match[str]) -> str:
+        left, run, right = match.group(1), match.group(2), match.group(3)
+        if not run:
+            return left + run + right
+        collapsed = _WS_RE.sub(" ", run).strip()
+        if not collapsed:
+            return left + right
+        return left + collapsed + right
+
+    return _RAW_HTML_TEXT_RUN_RE.sub(_collapse_run, html)
+
+
 def extract_ref_text(node: Node, config: JainkoshConfig) -> str:
     """Extract text from a GRef node, stripping inner anchors if configured."""
     if config.reference.strip_inner_anchors:
@@ -36,7 +58,7 @@ def extract_refs_from_node(node: Node, config: JainkoshConfig) -> list[Reference
             parsed = None
             if config.reference.parse_strategy != "text_only":
                 parsed = parse_reference_text(text, config)
-            refs.append(Reference(text=text, raw_html=gref.html, parsed=parsed))
+            refs.append(Reference(text=text, raw_html=_clean_raw_html(gref.html or "", config), parsed=parsed))
     return refs
 
 

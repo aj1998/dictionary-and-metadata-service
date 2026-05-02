@@ -38,8 +38,12 @@
             "is_self": false,
             "target_exists": true,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "1"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
+            ]
           },
           {
             "label_text": "द्रव्य के अन्य प्रकार भेद-प्रभेद",
@@ -49,8 +53,12 @@
             "is_self": true,
             "target_exists": true,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "1"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
+            ]
           },
           {
             "label_text": "पंचास्तिकाय",
@@ -60,8 +68,12 @@
             "is_self": false,
             "target_exists": true,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "1"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
+            ]
           },
           {
             "label_text": "द्रव्य में अनंतों गुण हैं",
@@ -71,8 +83,12 @@
             "is_self": false,
             "target_exists": true,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "2"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            ]
           },
           {
             "label_text": "द्रव्य सामान्यविशेषात्मक है",
@@ -82,8 +98,12 @@
             "is_self": false,
             "target_exists": true,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "2"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            ]
           },
           {
             "label_text": "द्रव्य का परिणमन",
@@ -93,8 +113,12 @@
             "is_self": false,
             "target_exists": true,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "2"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            ]
           },
           {
             "label_text": "शुद्ध द्रव्यों को अपरिणामी कहने की विवक्षा",
@@ -104,8 +128,12 @@
             "is_self": true,
             "target_exists": true,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "2"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            ]
           },
           {
             "label_text": "षट् द्रव्यों की सिद्धि",
@@ -115,8 +143,12 @@
             "is_self": false,
             "target_exists": false,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "2"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            ]
           },
           {
             "label_text": "अनंत द्रव्यों का लोक में अवस्थान कैसे",
@@ -126,8 +158,12 @@
             "is_self": false,
             "target_exists": true,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "2"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            ]
           },
           {
             "label_text": "षट् द्रव्यों की संख्या में अल्पबहुत्व",
@@ -137,8 +173,12 @@
             "is_self": false,
             "target_exists": true,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "2"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            ]
           },
           {
             "label_text": "द्रव्यों का स्वरूप जानने का उपाय",
@@ -148,8 +188,12 @@
             "is_self": false,
             "target_exists": true,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "2"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            ]
           },
           {
             "label_text": "द्रव्यों में अच्छे बुरे की कल्पना व्यक्ति की रुचि पर आधारित है",
@@ -159,8 +203,12 @@
             "is_self": false,
             "target_exists": true,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "2"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            ]
           },
           {
             "label_text": "अष्ट मंगल द्रव्य व उपकरण द्रव्य",
@@ -170,8 +218,12 @@
             "is_self": false,
             "target_exists": true,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "2"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            ]
           },
           {
             "label_text": "दान योग्य द्रव्य",
@@ -181,8 +233,12 @@
             "is_self": false,
             "target_exists": true,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "2"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            ]
           },
           {
             "label_text": "निर्माल्य द्रव्य",
@@ -192,8 +248,12 @@
             "is_self": false,
             "target_exists": true,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "2"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            ]
           },
           {
             "label_text": "संसारी जीव का कथंचित् मूर्तत्व",
@@ -246,9 +306,15 @@
             "target_url": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A4%AE%E0%A4%BE%E0%A4%A3%E0%A5%81#3",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path": "4.2",
+            "source_topic_path_chain": [
+              "4",
+              "4.2"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
+              "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद"
+            ]
           },
           {
             "label_text": "द्रव्य में कथंचित् नित्यानियत्व",
@@ -257,9 +323,15 @@
             "target_url": "/wiki/%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%AA%E0%A4%BE%E0%A4%A6#2",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path": "4.2",
+            "source_topic_path_chain": [
+              "4",
+              "4.2"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
+              "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद"
+            ]
           },
           {
             "label_text": "द्रव्य को गुण पर्याय और गुण पर्याय को द्रव्य रूप से लक्षित करना",
@@ -269,8 +341,12 @@
             "is_self": false,
             "target_exists": true,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "4"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद"
+            ]
           },
           {
             "label_text": "अनेक अपेक्षाओं से द्रव्य में भेदाभेद व विधि-निषेध",
@@ -280,8 +356,12 @@
             "is_self": false,
             "target_exists": true,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "4"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद"
+            ]
           },
           {
             "label_text": "द्रव्य में परस्पर षट्कारकी भेद व अभेद",
@@ -291,8 +371,12 @@
             "is_self": false,
             "target_exists": true,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "4"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद"
+            ]
           },
           {
             "label_text": "द्रव्य स्वत: सिद्ध है",
@@ -302,8 +386,12 @@
             "is_self": false,
             "target_exists": true,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "5"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:द्रव्य-की-स्वतंत्रता"
+            ]
           },
           {
             "label_text": "द्रव्य परिणमन की कथंचित् स्वतंत्रता व परतंत्रता",
@@ -313,8 +401,12 @@
             "is_self": false,
             "target_exists": true,
             "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path_chain": [
+              "5"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:द्रव्य-की-स्वतंत्रता"
+            ]
           }
         ],
         "subsections": [
@@ -330,7 +422,6 @@
             "is_synthetic": false,
             "label_topic_seed": false,
             "source_subkind": null,
-            "idempotency_contract": {},
             "blocks": [],
             "children": [
               {
@@ -346,7 +437,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_gatha",
@@ -389,7 +479,7 @@
                     "references": [
                       {
                         "text": "सर्वार्थसिद्धि/5/2/266/10",
-                        "raw_html": "<span class=\"GRef\">सर्वार्थसिद्धि/5/2/266/10 </span>",
+                        "raw_html": "<span class=\"GRef\">सर्वार्थसिद्धि/5/2/266/10</span>",
                         "parsed": null
                       },
                       {
@@ -454,7 +544,7 @@
                     "references": [
                       {
                         "text": "राजवार्तिक/5/2/2/436/26",
-                        "raw_html": "<span class=\"GRef\">राजवार्तिक/5/2/2/436/26   </span>",
+                        "raw_html": "<span class=\"GRef\">राजवार्तिक/5/2/2/436/26</span>",
                         "parsed": null
                       }
                     ],
@@ -503,7 +593,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -603,28 +692,6 @@
                     "is_synthetic": true,
                     "label_topic_seed": true,
                     "source_subkind": "label_seed",
-                    "idempotency_contract": {
-                      "conflict_key": [
-                        "natural_key"
-                      ],
-                      "on_conflict": "do_update",
-                      "fields_replace": [
-                        "display_text",
-                        "is_leaf",
-                        "is_synthetic",
-                        "parent_topic_natural_key",
-                        "topic_path",
-                        "source",
-                        "source_subkind"
-                      ],
-                      "fields_append": [],
-                      "fields_skip_if_set": [],
-                      "stores": [
-                        "postgres",
-                        "mongo:topic_extracts",
-                        "neo4j:Topic"
-                      ]
-                    },
                     "blocks": [],
                     "children": []
                   }
@@ -643,7 +710,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -695,7 +761,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -718,7 +783,7 @@
                     "references": [
                       {
                         "text": "( नियमसार मूल/9)",
-                        "raw_html": "<span class=\"GRef\">( नियमसार  मूल/9)</span>",
+                        "raw_html": "<span class=\"GRef\">( नियमसार मूल/9)</span>",
                         "parsed": null
                       },
                       {
@@ -849,7 +914,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -909,7 +973,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_gatha",
@@ -1020,7 +1083,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -1080,7 +1142,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_gatha",
@@ -1137,7 +1198,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_text",
@@ -1183,7 +1243,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_text",
@@ -1215,7 +1274,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -1262,7 +1320,6 @@
             "is_synthetic": false,
             "label_topic_seed": false,
             "source_subkind": null,
-            "idempotency_contract": {},
             "blocks": [],
             "children": [
               {
@@ -1278,7 +1335,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -1324,28 +1380,6 @@
                     "is_synthetic": true,
                     "label_topic_seed": true,
                     "source_subkind": "label_seed",
-                    "idempotency_contract": {
-                      "conflict_key": [
-                        "natural_key"
-                      ],
-                      "on_conflict": "do_update",
-                      "fields_replace": [
-                        "display_text",
-                        "is_leaf",
-                        "is_synthetic",
-                        "parent_topic_natural_key",
-                        "topic_path",
-                        "source",
-                        "source_subkind"
-                      ],
-                      "fields_append": [],
-                      "fields_skip_if_set": [],
-                      "stores": [
-                        "postgres",
-                        "mongo:topic_extracts",
-                        "neo4j:Topic"
-                      ]
-                    },
                     "blocks": [],
                     "children": []
                   }
@@ -1364,7 +1398,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -1424,7 +1457,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_gatha",
@@ -1462,7 +1494,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_gatha",
@@ -1565,7 +1596,6 @@
             "is_synthetic": false,
             "label_topic_seed": false,
             "source_subkind": null,
-            "idempotency_contract": {},
             "blocks": [],
             "children": [
               {
@@ -1581,7 +1611,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_text",
@@ -1664,7 +1693,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_text",
@@ -1737,7 +1765,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -1881,7 +1908,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -1938,7 +1964,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_text",
@@ -1981,7 +2006,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_gatha",
@@ -1990,7 +2014,7 @@
                     "references": [
                       {
                         "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/4)",
-                        "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह टीका/ अधिकार 2  की चूलिका/77/4)</span>",
+                        "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/4)</span>",
                         "parsed": null
                       },
                       {
@@ -2038,28 +2062,6 @@
                     "is_synthetic": true,
                     "label_topic_seed": true,
                     "source_subkind": "label_seed",
-                    "idempotency_contract": {
-                      "conflict_key": [
-                        "natural_key"
-                      ],
-                      "on_conflict": "do_update",
-                      "fields_replace": [
-                        "display_text",
-                        "is_leaf",
-                        "is_synthetic",
-                        "parent_topic_natural_key",
-                        "topic_path",
-                        "source",
-                        "source_subkind"
-                      ],
-                      "fields_append": [],
-                      "fields_skip_if_set": [],
-                      "stores": [
-                        "postgres",
-                        "mongo:topic_extracts",
-                        "neo4j:Topic"
-                      ]
-                    },
                     "blocks": [],
                     "children": []
                   }
@@ -2078,7 +2080,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_text",
@@ -2135,28 +2136,6 @@
                     "is_synthetic": true,
                     "label_topic_seed": true,
                     "source_subkind": "label_seed",
-                    "idempotency_contract": {
-                      "conflict_key": [
-                        "natural_key"
-                      ],
-                      "on_conflict": "do_update",
-                      "fields_replace": [
-                        "display_text",
-                        "is_leaf",
-                        "is_synthetic",
-                        "parent_topic_natural_key",
-                        "topic_path",
-                        "source",
-                        "source_subkind"
-                      ],
-                      "fields_append": [],
-                      "fields_skip_if_set": [],
-                      "stores": [
-                        "postgres",
-                        "mongo:topic_extracts",
-                        "neo4j:Topic"
-                      ]
-                    },
                     "blocks": [],
                     "children": []
                   }
@@ -2175,7 +2154,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_text",
@@ -2227,7 +2205,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_text",
@@ -2279,7 +2256,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "table",
@@ -2287,7 +2263,7 @@
                     "hindi_translation": null,
                     "references": [],
                     "is_orphan_translation": false,
-                    "raw_html": "<table border=\"1\" cellspacing=\"0\" cellpadding=\"0\" width=\"732\">\n                                            <tbody>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">\n                                                                <strong>विकल्प &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>\n                                                            </span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">\n                                                                <strong>\n                                                                    द्रव्य    की अपेक्षा <span class=\"GRef\">( कषायपाहुड़ 1/1-14/177/211-215 )</span>\n                                                                </strong>\n                                                            </span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">\n                                                                <strong>\n                                                                    वस्तु    की अपेक्षा <span class=\"GRef\">( धवला 9/4,1,45/168-169 )</span>\n                                                                </strong>\n                                                            </span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">1</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">सत्ता &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">सत् </span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">2</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">जीव,    अजीव &nbsp;&nbsp;&nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">जीवभाव-अजीवभाव।    विधिनिषेध। मूर्त-अमूर्त। अस्तिकाय-अनस्तिकाय।</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">3</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">भव्य,    अभव्य, अनुभय </span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">द्रव्य,    गुण, पर्याय &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">4</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">(जीव)=संसारी,    असंसारी (अजीव)=पुद्गल, अपुद्गल</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">बद्ध,    मुक्त, बंधकारण, मोक्षकारण &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">5</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">(जीव)=भव्य,    अभव्य, अनुभय (अजीव)=मूर्त, अमूर्त &nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">औदयिक,    औपशमिक, क्षायिक, क्षायोपशमिक, पारिणामिक &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">6</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">जीव,    पुद्गल, धर्म, अधर्म, काल व आकाश &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">द्रव्यवत् &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">7</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">जीव,    अजीव, आस्रव, बंध, संवर, निर्जरा, मोक्ष </span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">बद्ध,    मुक्त, पुद्गल, धर्म, अधर्म, काल व आकाश </span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">8</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">\n                                                                जीवास्रव,    अजीवास्रव, जीवसंवर, अजीवसंवर<br>,    जीवनिर्जरा, अजीवनिर्जरा, जीवमोक्ष, अजीवमोक्ष\n                                                            </span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">भव्य    संसारी, अभव्य संसारी, मुक्त जीव, पुद्गल, धर्म, अधर्म, आकाश, काल &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">9</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">जीव,    अजीव, पुण्य, पाप, आस्रव, संवर, निर्जरा, बंध, मोक्ष</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">द्रव्यवत् </span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">10</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">(जीव)=एकेंद्रिय,    द्वींद्रिय, त्रींद्रिय, चतुरिंद्रिय, पंचेंद्रिय (अजीव)=पुद्गल, धर्म,    अधर्म, आकाश, काल</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">द्रव्यवत्</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">11</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">(जीव)=पृथिवी,    अप, तेज, वायु, वनस्पति व त्रस तथा (अजीव)=पुद्गल, धर्म, अधर्म, आकाश व काल</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">द्रव्यवत् &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">12</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">(जीव)=पृथिवी,    अप, तेज, वायु, वनस्पति, संज्ञी, असंज्ञी; तथा (अजीव)=पुद्गल, धर्म, अधर्म,    आकाश व काल</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">&nbsp;&nbsp;――</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">13</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">(जीव)=भव्य,    अभव्य, अनुभय; (पुद्गल)=बादरबादर, बादर, बादरसूक्ष्म, सूक्ष्मबादर, सूक्ष्म,    सूक्ष्मसूक्ष्म; (अमूर्त अजीव)=धर्म, अधर्म, आकाश, काल</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">&nbsp;――</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                            </tbody>\n                                        </table>",
+                    "raw_html": "<table border=\"1\" cellspacing=\"0\" cellpadding=\"0\" width=\"732\"><tbody><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\"><strong>विकल्प &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\"><strong>द्रव्य की अपेक्षा<span class=\"GRef\">( कषायपाहुड़ 1/1-14/177/211-215 )</span></strong></span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\"><strong>वस्तु की अपेक्षा<span class=\"GRef\">( धवला 9/4,1,45/168-169 )</span></strong></span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">1</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">सत्ता &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">सत्</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">2</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीव, अजीव &nbsp;&nbsp;&nbsp;&nbsp;</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">जीवभाव-अजीवभाव। विधिनिषेध। मूर्त-अमूर्त। अस्तिकाय-अनस्तिकाय।</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">3</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">भव्य, अभव्य, अनुभय</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्य, गुण, पर्याय &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">4</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=संसारी, असंसारी (अजीव)=पुद्गल, अपुद्गल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">बद्ध, मुक्त, बंधकारण, मोक्षकारण &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">5</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=भव्य, अभव्य, अनुभय (अजीव)=मूर्त, अमूर्त &nbsp;&nbsp;</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">औदयिक, औपशमिक, क्षायिक, क्षायोपशमिक, पारिणामिक &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">6</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीव, पुद्गल, धर्म, अधर्म, काल व आकाश &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्यवत् &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">7</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीव, अजीव, आस्रव, बंध, संवर, निर्जरा, मोक्ष</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">बद्ध, मुक्त, पुद्गल, धर्म, अधर्म, काल व आकाश</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">8</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीवास्रव, अजीवास्रव, जीवसंवर, अजीवसंवर<br>, जीवनिर्जरा, अजीवनिर्जरा, जीवमोक्ष, अजीवमोक्ष</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">भव्य संसारी, अभव्य संसारी, मुक्त जीव, पुद्गल, धर्म, अधर्म, आकाश, काल &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">9</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीव, अजीव, पुण्य, पाप, आस्रव, संवर, निर्जरा, बंध, मोक्ष</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्यवत्</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">10</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=एकेंद्रिय, द्वींद्रिय, त्रींद्रिय, चतुरिंद्रिय, पंचेंद्रिय (अजीव)=पुद्गल, धर्म, अधर्म, आकाश, काल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्यवत्</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">11</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=पृथिवी, अप, तेज, वायु, वनस्पति व त्रस तथा (अजीव)=पुद्गल, धर्म, अधर्म, आकाश व काल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्यवत् &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">12</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=पृथिवी, अप, तेज, वायु, वनस्पति, संज्ञी, असंज्ञी; तथा (अजीव)=पुद्गल, धर्म, अधर्म, आकाश व काल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">&nbsp;&nbsp;――</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">13</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=भव्य, अभव्य, अनुभय; (पुद्गल)=बादरबादर, बादर, बादरसूक्ष्म, सूक्ष्मबादर, सूक्ष्म, सूक्ष्मसूक्ष्म; (अमूर्त अजीव)=धर्म, अधर्म, आकाश, काल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">&nbsp;――</span></p></td></tr></tbody></table>",
                     "table_rows": null,
                     "target_keyword": null,
                     "target_topic_path": null,
@@ -2312,7 +2288,6 @@
             "is_synthetic": false,
             "label_topic_seed": false,
             "source_subkind": null,
-            "idempotency_contract": {},
             "blocks": [],
             "children": [
               {
@@ -2328,7 +2303,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [],
                 "children": [
                   {
@@ -2345,7 +2319,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [],
                     "children": []
                   },
@@ -2363,7 +2336,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [],
                     "children": []
                   },
@@ -2381,7 +2353,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [],
                     "children": []
                   }
@@ -2400,7 +2371,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [],
                 "children": [
                   {
@@ -2417,7 +2387,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [],
                     "children": []
                   },
@@ -2435,7 +2404,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "hindi_text",
@@ -2593,28 +2561,6 @@
                         "is_synthetic": true,
                         "label_topic_seed": true,
                         "source_subkind": "label_seed",
-                        "idempotency_contract": {
-                          "conflict_key": [
-                            "natural_key"
-                          ],
-                          "on_conflict": "do_update",
-                          "fields_replace": [
-                            "display_text",
-                            "is_leaf",
-                            "is_synthetic",
-                            "parent_topic_natural_key",
-                            "topic_path",
-                            "source",
-                            "source_subkind"
-                          ],
-                          "fields_append": [],
-                          "fields_skip_if_set": [],
-                          "stores": [
-                            "postgres",
-                            "mongo:topic_extracts",
-                            "neo4j:Topic"
-                          ]
-                        },
                         "blocks": [],
                         "children": []
                       }
@@ -2634,7 +2580,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "hindi_text",
@@ -2789,28 +2734,6 @@
                         "is_synthetic": true,
                         "label_topic_seed": true,
                         "source_subkind": "label_seed",
-                        "idempotency_contract": {
-                          "conflict_key": [
-                            "natural_key"
-                          ],
-                          "on_conflict": "do_update",
-                          "fields_replace": [
-                            "display_text",
-                            "is_leaf",
-                            "is_synthetic",
-                            "parent_topic_natural_key",
-                            "topic_path",
-                            "source",
-                            "source_subkind"
-                          ],
-                          "fields_append": [],
-                          "fields_skip_if_set": [],
-                          "stores": [
-                            "postgres",
-                            "mongo:topic_extracts",
-                            "neo4j:Topic"
-                          ]
-                        },
                         "blocks": [],
                         "children": []
                       },
@@ -2829,28 +2752,6 @@
                         "is_synthetic": true,
                         "label_topic_seed": true,
                         "source_subkind": "label_seed",
-                        "idempotency_contract": {
-                          "conflict_key": [
-                            "natural_key"
-                          ],
-                          "on_conflict": "do_update",
-                          "fields_replace": [
-                            "display_text",
-                            "is_leaf",
-                            "is_synthetic",
-                            "parent_topic_natural_key",
-                            "topic_path",
-                            "source",
-                            "source_subkind"
-                          ],
-                          "fields_append": [],
-                          "fields_skip_if_set": [],
-                          "stores": [
-                            "postgres",
-                            "mongo:topic_extracts",
-                            "neo4j:Topic"
-                          ]
-                        },
                         "blocks": [],
                         "children": []
                       },
@@ -2869,28 +2770,6 @@
                         "is_synthetic": true,
                         "label_topic_seed": true,
                         "source_subkind": "label_seed",
-                        "idempotency_contract": {
-                          "conflict_key": [
-                            "natural_key"
-                          ],
-                          "on_conflict": "do_update",
-                          "fields_replace": [
-                            "display_text",
-                            "is_leaf",
-                            "is_synthetic",
-                            "parent_topic_natural_key",
-                            "topic_path",
-                            "source",
-                            "source_subkind"
-                          ],
-                          "fields_append": [],
-                          "fields_skip_if_set": [],
-                          "stores": [
-                            "postgres",
-                            "mongo:topic_extracts",
-                            "neo4j:Topic"
-                          ]
-                        },
                         "blocks": [],
                         "children": []
                       }
@@ -2910,7 +2789,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "hindi_text",
@@ -3003,7 +2881,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "hindi_text",
@@ -3102,7 +2979,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "hindi_text",
@@ -3176,7 +3052,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [],
                 "children": [
                   {
@@ -3193,7 +3068,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "hindi_text",
@@ -3262,7 +3136,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "hindi_text",
@@ -3301,7 +3174,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "hindi_text",
@@ -3380,7 +3252,7 @@
                         "references": [
                           {
                             "text": "( धवला 3/1,2,1/",
-                            "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/ </span>",
+                            "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/</span>",
                             "parsed": null
                           },
                           {
@@ -3441,7 +3313,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [],
                 "children": [
                   {
@@ -3458,7 +3329,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "hindi_text",
@@ -3472,7 +3342,7 @@
                           },
                           {
                             "text": "( सर्वार्थसिद्धि/5/38/30 पर उद्धृत गाथा)",
-                            "raw_html": "<span class=\"GRef\">( सर्वार्थसिद्धि/5/38/30  पर उद्धृत गाथा)</span>",
+                            "raw_html": "<span class=\"GRef\">( सर्वार्थसिद्धि/5/38/30 पर उद्धृत गाथा)</span>",
                             "parsed": null
                           },
                           {
@@ -3647,7 +3517,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "hindi_text",
@@ -3711,7 +3580,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "hindi_text",
@@ -3931,7 +3799,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [],
                 "children": [
                   {
@@ -3948,7 +3815,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "hindi_text",
@@ -4032,7 +3898,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "hindi_text",
@@ -4196,7 +4061,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "hindi_text",
@@ -4455,7 +4319,6 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "idempotency_contract": {},
                     "blocks": [
                       {
                         "kind": "hindi_text",
@@ -4632,28 +4495,6 @@
                         "is_synthetic": true,
                         "label_topic_seed": true,
                         "source_subkind": "label_seed",
-                        "idempotency_contract": {
-                          "conflict_key": [
-                            "natural_key"
-                          ],
-                          "on_conflict": "do_update",
-                          "fields_replace": [
-                            "display_text",
-                            "is_leaf",
-                            "is_synthetic",
-                            "parent_topic_natural_key",
-                            "topic_path",
-                            "source",
-                            "source_subkind"
-                          ],
-                          "fields_append": [],
-                          "fields_skip_if_set": [],
-                          "stores": [
-                            "postgres",
-                            "mongo:topic_extracts",
-                            "neo4j:Topic"
-                          ]
-                        },
                         "blocks": [],
                         "children": []
                       }
@@ -4675,7 +4516,6 @@
             "is_synthetic": false,
             "label_topic_seed": false,
             "source_subkind": null,
-            "idempotency_contract": {},
             "blocks": [],
             "children": [
               {
@@ -4691,7 +4531,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_text",
@@ -4748,7 +4587,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_text",
@@ -4848,7 +4686,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "prakrit_gatha",
@@ -4908,7 +4745,6 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "idempotency_contract": {},
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
@@ -4948,17 +4784,17 @@
                 "references": [
                   {
                     "text": "हरिवंशपुराण - 1.1\n , 2.108, 17.135",
-                    "raw_html": "<span class=\"GRef\">\n                                                    <a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_1#1\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 1\">हरिवंशपुराण - 1.1</a>\n                                                    , 2.108, 17.135  \n                                                </span>",
+                    "raw_html": "<span class=\"GRef\"><a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_1#1\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 1\">हरिवंशपुराण - 1.1</a>, 2.108, 17.135</span>",
                     "parsed": null
                   },
                   {
                     "text": "महापुराण 3.5-9",
-                    "raw_html": "<span class=\"GRef\">महापुराण 3.5-9  </span>",
+                    "raw_html": "<span class=\"GRef\">महापुराण 3.5-9</span>",
                     "parsed": null
                   },
                   {
                     "text": "वीरवर्द्धमान चरित्र 16.137-138",
-                    "raw_html": "<span class=\"GRef\">वीरवर्द्धमान चरित्र 16.137-138 </span>",
+                    "raw_html": "<span class=\"GRef\">वीरवर्द्धमान चरित्र 16.137-138</span>",
                     "parsed": null
                   }
                 ],
@@ -4985,7 +4821,7 @@
       "prev": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A4%BF%E0%A4%A1%E0%A4%BC_%E0%A4%B8%E0%A4%82%E0%A4%98",
       "next": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF_%E0%A4%86%E0%A4%B8%E0%A5%8D%E0%A4%B0%E0%A4%B5"
     },
-    "parser_version": "jainkosh.rules/1.1.0",
+    "parser_version": "jainkosh.rules/1.2.0",
     "parsed_at": "2026-05-02T00:00:00",
     "warnings": []
   },
@@ -4997,26 +4833,7 @@
           "natural_key": "द्रव्य",
           "display_text": "द्रव्य",
           "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF",
-          "definition_doc_ids": [],
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "display_text",
-              "source_url"
-            ],
-            "fields_append": [
-              "definition_doc_ids"
-            ],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:keywords",
-              "mongo:keyword_definitions",
-              "neo4j:Keyword"
-            ]
-          }
+          "definition_doc_ids": []
         }
       ],
       "topics": [
@@ -5036,27 +4853,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5074,27 +4871,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5112,27 +4889,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5150,28 +4907,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": true,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "display_text",
-              "is_leaf",
-              "is_synthetic",
-              "parent_topic_natural_key",
-              "topic_path",
-              "source",
-              "source_subkind"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": "label_seed"
         },
         {
           "table": "topics",
@@ -5189,27 +4925,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5227,27 +4943,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5265,27 +4961,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5303,27 +4979,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5341,27 +4997,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5379,27 +5015,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5417,27 +5033,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5455,27 +5051,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5493,27 +5069,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5531,27 +5087,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5569,27 +5105,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5607,28 +5123,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": true,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "display_text",
-              "is_leaf",
-              "is_synthetic",
-              "parent_topic_natural_key",
-              "topic_path",
-              "source",
-              "source_subkind"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": "label_seed"
         },
         {
           "table": "topics",
@@ -5646,27 +5141,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5684,27 +5159,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5722,27 +5177,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5760,27 +5195,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5798,27 +5213,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5836,27 +5231,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5874,27 +5249,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5912,27 +5267,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5950,27 +5285,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -5988,27 +5303,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6026,28 +5321,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": true,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "display_text",
-              "is_leaf",
-              "is_synthetic",
-              "parent_topic_natural_key",
-              "topic_path",
-              "source",
-              "source_subkind"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": "label_seed"
         },
         {
           "table": "topics",
@@ -6065,27 +5339,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6103,28 +5357,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": true,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "display_text",
-              "is_leaf",
-              "is_synthetic",
-              "parent_topic_natural_key",
-              "topic_path",
-              "source",
-              "source_subkind"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": "label_seed"
         },
         {
           "table": "topics",
@@ -6142,27 +5375,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6180,27 +5393,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6218,27 +5411,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6256,27 +5429,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6294,27 +5447,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6332,27 +5465,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6370,27 +5483,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6408,27 +5501,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6446,27 +5519,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6484,27 +5537,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6522,27 +5555,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6560,28 +5573,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": true,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "display_text",
-              "is_leaf",
-              "is_synthetic",
-              "parent_topic_natural_key",
-              "topic_path",
-              "source",
-              "source_subkind"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": "label_seed"
         },
         {
           "table": "topics",
@@ -6599,27 +5591,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6637,28 +5609,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": true,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "display_text",
-              "is_leaf",
-              "is_synthetic",
-              "parent_topic_natural_key",
-              "topic_path",
-              "source",
-              "source_subkind"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": "label_seed"
         },
         {
           "table": "topics",
@@ -6676,28 +5627,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": true,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "display_text",
-              "is_leaf",
-              "is_synthetic",
-              "parent_topic_natural_key",
-              "topic_path",
-              "source",
-              "source_subkind"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": "label_seed"
         },
         {
           "table": "topics",
@@ -6715,28 +5645,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": true,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "display_text",
-              "is_leaf",
-              "is_synthetic",
-              "parent_topic_natural_key",
-              "topic_path",
-              "source",
-              "source_subkind"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": "label_seed"
         },
         {
           "table": "topics",
@@ -6754,27 +5663,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6792,27 +5681,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6830,27 +5699,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6868,27 +5717,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6906,27 +5735,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6944,27 +5753,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -6982,27 +5771,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -7020,27 +5789,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -7058,27 +5807,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -7096,27 +5825,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -7134,27 +5843,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -7172,27 +5861,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -7210,27 +5879,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -7248,27 +5897,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -7286,27 +5915,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -7324,27 +5933,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -7362,28 +5951,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": true,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "display_text",
-              "is_leaf",
-              "is_synthetic",
-              "parent_topic_natural_key",
-              "topic_path",
-              "source",
-              "source_subkind"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": "label_seed"
         },
         {
           "table": "topics",
@@ -7401,27 +5969,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": false,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -7439,27 +5987,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -7477,27 +6005,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -7515,27 +6023,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         },
         {
           "table": "topics",
@@ -7553,27 +6041,7 @@
           "parent_keyword_natural_key": "द्रव्य",
           "is_leaf": true,
           "is_synthetic": false,
-          "idempotency_contract": {
-            "conflict_key": [
-              "natural_key"
-            ],
-            "on_conflict": "do_update",
-            "fields_replace": [
-              "topic_path",
-              "display_text",
-              "parent_topic_natural_key",
-              "is_leaf",
-              "is_synthetic",
-              "source"
-            ],
-            "fields_append": [],
-            "fields_skip_if_set": [],
-            "stores": [
-              "postgres:topics",
-              "mongo:topic_extracts",
-              "neo4j:Topic"
-            ]
-          }
+          "source_subkind": null
         }
       ],
       "keyword_aliases": []
@@ -7622,8 +6090,12 @@
                   "is_self": false,
                   "target_exists": true,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "1"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
+                  ]
                 },
                 {
                   "label_text": "द्रव्य के अन्य प्रकार भेद-प्रभेद",
@@ -7633,8 +6105,12 @@
                   "is_self": true,
                   "target_exists": true,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "1"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
+                  ]
                 },
                 {
                   "label_text": "पंचास्तिकाय",
@@ -7644,8 +6120,12 @@
                   "is_self": false,
                   "target_exists": true,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "1"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
+                  ]
                 },
                 {
                   "label_text": "द्रव्य में अनंतों गुण हैं",
@@ -7655,8 +6135,12 @@
                   "is_self": false,
                   "target_exists": true,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "2"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+                  ]
                 },
                 {
                   "label_text": "द्रव्य सामान्यविशेषात्मक है",
@@ -7666,8 +6150,12 @@
                   "is_self": false,
                   "target_exists": true,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "2"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+                  ]
                 },
                 {
                   "label_text": "द्रव्य का परिणमन",
@@ -7677,8 +6165,12 @@
                   "is_self": false,
                   "target_exists": true,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "2"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+                  ]
                 },
                 {
                   "label_text": "शुद्ध द्रव्यों को अपरिणामी कहने की विवक्षा",
@@ -7688,8 +6180,12 @@
                   "is_self": true,
                   "target_exists": true,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "2"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+                  ]
                 },
                 {
                   "label_text": "षट् द्रव्यों की सिद्धि",
@@ -7699,8 +6195,12 @@
                   "is_self": false,
                   "target_exists": false,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "2"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+                  ]
                 },
                 {
                   "label_text": "अनंत द्रव्यों का लोक में अवस्थान कैसे",
@@ -7710,8 +6210,12 @@
                   "is_self": false,
                   "target_exists": true,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "2"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+                  ]
                 },
                 {
                   "label_text": "षट् द्रव्यों की संख्या में अल्पबहुत्व",
@@ -7721,8 +6225,12 @@
                   "is_self": false,
                   "target_exists": true,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "2"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+                  ]
                 },
                 {
                   "label_text": "द्रव्यों का स्वरूप जानने का उपाय",
@@ -7732,8 +6240,12 @@
                   "is_self": false,
                   "target_exists": true,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "2"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+                  ]
                 },
                 {
                   "label_text": "द्रव्यों में अच्छे बुरे की कल्पना व्यक्ति की रुचि पर आधारित है",
@@ -7743,8 +6255,12 @@
                   "is_self": false,
                   "target_exists": true,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "2"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+                  ]
                 },
                 {
                   "label_text": "अष्ट मंगल द्रव्य व उपकरण द्रव्य",
@@ -7754,8 +6270,12 @@
                   "is_self": false,
                   "target_exists": true,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "2"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+                  ]
                 },
                 {
                   "label_text": "दान योग्य द्रव्य",
@@ -7765,8 +6285,12 @@
                   "is_self": false,
                   "target_exists": true,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "2"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+                  ]
                 },
                 {
                   "label_text": "निर्माल्य द्रव्य",
@@ -7776,8 +6300,12 @@
                   "is_self": false,
                   "target_exists": true,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "2"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+                  ]
                 },
                 {
                   "label_text": "संसारी जीव का कथंचित् मूर्तत्व",
@@ -7830,9 +6358,15 @@
                   "target_url": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A4%AE%E0%A4%BE%E0%A4%A3%E0%A5%81#3",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path": "4.2",
+                  "source_topic_path_chain": [
+                    "4",
+                    "4.2"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
+                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद"
+                  ]
                 },
                 {
                   "label_text": "द्रव्य में कथंचित् नित्यानियत्व",
@@ -7841,9 +6375,15 @@
                   "target_url": "/wiki/%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%AA%E0%A4%BE%E0%A4%A6#2",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path": "4.2",
+                  "source_topic_path_chain": [
+                    "4",
+                    "4.2"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
+                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद"
+                  ]
                 },
                 {
                   "label_text": "द्रव्य को गुण पर्याय और गुण पर्याय को द्रव्य रूप से लक्षित करना",
@@ -7853,8 +6393,12 @@
                   "is_self": false,
                   "target_exists": true,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "4"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद"
+                  ]
                 },
                 {
                   "label_text": "अनेक अपेक्षाओं से द्रव्य में भेदाभेद व विधि-निषेध",
@@ -7864,8 +6408,12 @@
                   "is_self": false,
                   "target_exists": true,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "4"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद"
+                  ]
                 },
                 {
                   "label_text": "द्रव्य में परस्पर षट्कारकी भेद व अभेद",
@@ -7875,8 +6423,12 @@
                   "is_self": false,
                   "target_exists": true,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "4"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद"
+                  ]
                 },
                 {
                   "label_text": "द्रव्य स्वत: सिद्ध है",
@@ -7886,8 +6438,12 @@
                   "is_self": false,
                   "target_exists": true,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "5"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:द्रव्य-की-स्वतंत्रता"
+                  ]
                 },
                 {
                   "label_text": "द्रव्य परिणमन की कथंचित् स्वतंत्रता व परतंत्रता",
@@ -7897,8 +6453,12 @@
                   "is_self": false,
                   "target_exists": true,
                   "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path_chain": [
+                    "5"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:द्रव्य-की-स्वतंत्रता"
+                  ]
                 }
               ]
             },
@@ -7917,17 +6477,17 @@
                       "references": [
                         {
                           "text": "हरिवंशपुराण - 1.1\n , 2.108, 17.135",
-                          "raw_html": "<span class=\"GRef\">\n                                                    <a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_1#1\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 1\">हरिवंशपुराण - 1.1</a>\n                                                    , 2.108, 17.135  \n                                                </span>",
+                          "raw_html": "<span class=\"GRef\"><a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_1#1\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 1\">हरिवंशपुराण - 1.1</a>, 2.108, 17.135</span>",
                           "parsed": null
                         },
                         {
                           "text": "महापुराण 3.5-9",
-                          "raw_html": "<span class=\"GRef\">महापुराण 3.5-9  </span>",
+                          "raw_html": "<span class=\"GRef\">महापुराण 3.5-9</span>",
                           "parsed": null
                         },
                         {
                           "text": "वीरवर्द्धमान चरित्र 16.137-138",
-                          "raw_html": "<span class=\"GRef\">वीरवर्द्धमान चरित्र 16.137-138 </span>",
+                          "raw_html": "<span class=\"GRef\">वीरवर्द्धमान चरित्र 16.137-138</span>",
                           "parsed": null
                         }
                       ],
@@ -8025,7 +6585,7 @@
               "references": [
                 {
                   "text": "सर्वार्थसिद्धि/5/2/266/10",
-                  "raw_html": "<span class=\"GRef\">सर्वार्थसिद्धि/5/2/266/10 </span>",
+                  "raw_html": "<span class=\"GRef\">सर्वार्थसिद्धि/5/2/266/10</span>",
                   "parsed": null
                 },
                 {
@@ -8090,7 +6650,7 @@
               "references": [
                 {
                   "text": "राजवार्तिक/5/2/2/436/26",
-                  "raw_html": "<span class=\"GRef\">राजवार्तिक/5/2/2/436/26   </span>",
+                  "raw_html": "<span class=\"GRef\">राजवार्तिक/5/2/2/436/26</span>",
                   "parsed": null
                 }
               ],
@@ -8331,7 +6891,7 @@
               "references": [
                 {
                   "text": "( नियमसार मूल/9)",
-                  "raw_html": "<span class=\"GRef\">( नियमसार  मूल/9)</span>",
+                  "raw_html": "<span class=\"GRef\">( नियमसार मूल/9)</span>",
                   "parsed": null
                 },
                 {
@@ -9580,7 +8140,7 @@
               "references": [
                 {
                   "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/4)",
-                  "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह टीका/ अधिकार 2  की चूलिका/77/4)</span>",
+                  "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/4)</span>",
                   "parsed": null
                 },
                 {
@@ -9831,7 +8391,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
-              "raw_html": "<table border=\"1\" cellspacing=\"0\" cellpadding=\"0\" width=\"732\">\n                                            <tbody>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">\n                                                                <strong>विकल्प &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>\n                                                            </span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">\n                                                                <strong>\n                                                                    द्रव्य    की अपेक्षा <span class=\"GRef\">( कषायपाहुड़ 1/1-14/177/211-215 )</span>\n                                                                </strong>\n                                                            </span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">\n                                                                <strong>\n                                                                    वस्तु    की अपेक्षा <span class=\"GRef\">( धवला 9/4,1,45/168-169 )</span>\n                                                                </strong>\n                                                            </span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">1</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">सत्ता &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">सत् </span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">2</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">जीव,    अजीव &nbsp;&nbsp;&nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">जीवभाव-अजीवभाव।    विधिनिषेध। मूर्त-अमूर्त। अस्तिकाय-अनस्तिकाय।</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">3</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">भव्य,    अभव्य, अनुभय </span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">द्रव्य,    गुण, पर्याय &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">4</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">(जीव)=संसारी,    असंसारी (अजीव)=पुद्गल, अपुद्गल</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">बद्ध,    मुक्त, बंधकारण, मोक्षकारण &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">5</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">(जीव)=भव्य,    अभव्य, अनुभय (अजीव)=मूर्त, अमूर्त &nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">औदयिक,    औपशमिक, क्षायिक, क्षायोपशमिक, पारिणामिक &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">6</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">जीव,    पुद्गल, धर्म, अधर्म, काल व आकाश &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">द्रव्यवत् &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">7</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">जीव,    अजीव, आस्रव, बंध, संवर, निर्जरा, मोक्ष </span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">बद्ध,    मुक्त, पुद्गल, धर्म, अधर्म, काल व आकाश </span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">8</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">\n                                                                जीवास्रव,    अजीवास्रव, जीवसंवर, अजीवसंवर<br>,    जीवनिर्जरा, अजीवनिर्जरा, जीवमोक्ष, अजीवमोक्ष\n                                                            </span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">भव्य    संसारी, अभव्य संसारी, मुक्त जीव, पुद्गल, धर्म, अधर्म, आकाश, काल &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">9</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">जीव,    अजीव, पुण्य, पाप, आस्रव, संवर, निर्जरा, बंध, मोक्ष</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">द्रव्यवत् </span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">10</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">(जीव)=एकेंद्रिय,    द्वींद्रिय, त्रींद्रिय, चतुरिंद्रिय, पंचेंद्रिय (अजीव)=पुद्गल, धर्म,    अधर्म, आकाश, काल</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">द्रव्यवत्</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">11</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">(जीव)=पृथिवी,    अप, तेज, वायु, वनस्पति व त्रस तथा (अजीव)=पुद्गल, धर्म, अधर्म, आकाश व काल</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">द्रव्यवत् &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">12</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">(जीव)=पृथिवी,    अप, तेज, वायु, वनस्पति, संज्ञी, असंज्ञी; तथा (अजीव)=पुद्गल, धर्म, अधर्म,    आकाश व काल</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">&nbsp;&nbsp;――</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                                <tr>\n                                                    <td width=\"71\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">13</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"325\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">(जीव)=भव्य,    अभव्य, अनुभय; (पुद्गल)=बादरबादर, बादर, बादरसूक्ष्म, सूक्ष्मबादर, सूक्ष्म,    सूक्ष्मसूक्ष्म; (अमूर्त अजीव)=धर्म, अधर्म, आकाश, काल</span>\n                                                        </p>\n                                                    </td>\n                                                    <td width=\"336\" valign=\"top\">\n                                                        <p>\n                                                            <span class=\"HindiText\">&nbsp;――</span>\n                                                        </p>\n                                                    </td>\n                                                </tr>\n                                            </tbody>\n                                        </table>",
+              "raw_html": "<table border=\"1\" cellspacing=\"0\" cellpadding=\"0\" width=\"732\"><tbody><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\"><strong>विकल्प &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\"><strong>द्रव्य की अपेक्षा<span class=\"GRef\">( कषायपाहुड़ 1/1-14/177/211-215 )</span></strong></span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\"><strong>वस्तु की अपेक्षा<span class=\"GRef\">( धवला 9/4,1,45/168-169 )</span></strong></span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">1</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">सत्ता &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">सत्</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">2</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीव, अजीव &nbsp;&nbsp;&nbsp;&nbsp;</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">जीवभाव-अजीवभाव। विधिनिषेध। मूर्त-अमूर्त। अस्तिकाय-अनस्तिकाय।</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">3</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">भव्य, अभव्य, अनुभय</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्य, गुण, पर्याय &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">4</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=संसारी, असंसारी (अजीव)=पुद्गल, अपुद्गल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">बद्ध, मुक्त, बंधकारण, मोक्षकारण &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">5</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=भव्य, अभव्य, अनुभय (अजीव)=मूर्त, अमूर्त &nbsp;&nbsp;</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">औदयिक, औपशमिक, क्षायिक, क्षायोपशमिक, पारिणामिक &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">6</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीव, पुद्गल, धर्म, अधर्म, काल व आकाश &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्यवत् &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">7</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीव, अजीव, आस्रव, बंध, संवर, निर्जरा, मोक्ष</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">बद्ध, मुक्त, पुद्गल, धर्म, अधर्म, काल व आकाश</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">8</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीवास्रव, अजीवास्रव, जीवसंवर, अजीवसंवर<br>, जीवनिर्जरा, अजीवनिर्जरा, जीवमोक्ष, अजीवमोक्ष</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">भव्य संसारी, अभव्य संसारी, मुक्त जीव, पुद्गल, धर्म, अधर्म, आकाश, काल &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">9</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीव, अजीव, पुण्य, पाप, आस्रव, संवर, निर्जरा, बंध, मोक्ष</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्यवत्</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">10</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=एकेंद्रिय, द्वींद्रिय, त्रींद्रिय, चतुरिंद्रिय, पंचेंद्रिय (अजीव)=पुद्गल, धर्म, अधर्म, आकाश, काल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्यवत्</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">11</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=पृथिवी, अप, तेज, वायु, वनस्पति व त्रस तथा (अजीव)=पुद्गल, धर्म, अधर्म, आकाश व काल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्यवत् &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">12</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=पृथिवी, अप, तेज, वायु, वनस्पति, संज्ञी, असंज्ञी; तथा (अजीव)=पुद्गल, धर्म, अधर्म, आकाश व काल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">&nbsp;&nbsp;――</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">13</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=भव्य, अभव्य, अनुभय; (पुद्गल)=बादरबादर, बादर, बादरसूक्ष्म, सूक्ष्मबादर, सूक्ष्म, सूक्ष्मसूक्ष्म; (अमूर्त अजीव)=धर्म, अधर्म, आकाश, काल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">&nbsp;――</span></p></td></tr></tbody></table>",
               "table_rows": null,
               "target_keyword": null,
               "target_topic_path": null,
@@ -10817,7 +9377,7 @@
               "references": [
                 {
                   "text": "( धवला 3/1,2,1/",
-                  "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/ </span>",
+                  "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/</span>",
                   "parsed": null
                 },
                 {
@@ -10907,7 +9467,7 @@
                 },
                 {
                   "text": "( सर्वार्थसिद्धि/5/38/30 पर उद्धृत गाथा)",
-                  "raw_html": "<span class=\"GRef\">( सर्वार्थसिद्धि/5/38/30  पर उद्धृत गाथा)</span>",
+                  "raw_html": "<span class=\"GRef\">( सर्वार्थसिद्धि/5/38/30 पर उद्धृत गाथा)</span>",
                   "parsed": null
                 },
                 {
@@ -14278,8 +12838,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
           },
           "to": {
             "label": "Keyword",
@@ -14294,8 +12854,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
           },
           "to": {
             "label": "Topic",
@@ -14313,8 +12873,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
           },
           "to": {
             "label": "Keyword",
@@ -14329,8 +12889,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
           },
           "to": {
             "label": "Topic",
@@ -14348,8 +12908,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
           },
           "to": {
             "label": "Keyword",
@@ -14364,8 +12924,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
           },
           "to": {
             "label": "Topic",
@@ -14383,8 +12943,27 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+          },
+          "to": {
+            "label": "Topic",
+            "resolve_by": {
+              "parent_keyword": "द्रव्य",
+              "topic_path": "3"
+            }
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "target_exists": true
+          }
+        },
+        {
+          "type": "RELATED_TO",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
           },
           "to": {
             "label": "Keyword",
@@ -14399,8 +12978,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
           },
           "to": {
             "label": "Topic",
@@ -14418,8 +12997,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
           },
           "to": {
             "label": "Keyword",
@@ -14434,8 +13013,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
           },
           "to": {
             "label": "Keyword",
@@ -14450,8 +13029,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
           },
           "to": {
             "label": "Topic",
@@ -14469,8 +13048,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
           },
           "to": {
             "label": "Topic",
@@ -14488,8 +13067,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
           },
           "to": {
             "label": "Topic",
@@ -14507,8 +13086,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
           },
           "to": {
             "label": "Topic",
@@ -14602,8 +13181,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद"
           },
           "to": {
             "label": "Topic",
@@ -14621,8 +13200,27 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद"
+          },
+          "to": {
+            "label": "Topic",
+            "resolve_by": {
+              "parent_keyword": "उत्पाद",
+              "topic_path": "2"
+            }
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "target_exists": true
+          }
+        },
+        {
+          "type": "RELATED_TO",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद"
           },
           "to": {
             "label": "Topic",
@@ -14640,8 +13238,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद"
           },
           "to": {
             "label": "Topic",
@@ -14659,8 +13257,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद"
           },
           "to": {
             "label": "Keyword",
@@ -14675,8 +13273,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-की-स्वतंत्रता"
           },
           "to": {
             "label": "Keyword",
@@ -14691,8 +13289,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-की-स्वतंत्रता"
           },
           "to": {
             "label": "Topic",
@@ -14708,6 +13306,155 @@
           }
         }
       ]
+    },
+    "idempotency_contracts": {
+      "mongo:keyword_definitions": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "page_sections",
+          "redirect_aliases",
+          "source_url"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:keyword_definitions"
+        ]
+      },
+      "mongo:topic_extracts": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "topic_path",
+          "parent_natural_key",
+          "is_leaf",
+          "heading",
+          "blocks",
+          "source",
+          "source_url"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:topic_extracts"
+        ]
+      },
+      "neo4j:Keyword": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "display_text",
+          "source_url"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Keyword"
+        ]
+      },
+      "neo4j:Topic": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "display_text_hi",
+          "topic_path",
+          "parent_keyword_natural_key",
+          "source",
+          "is_leaf"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Topic"
+        ]
+      },
+      "postgres:keyword_aliases": {
+        "conflict_key": [
+          "keyword_natural_key",
+          "alias_text"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "alias_kind",
+          "source"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:keyword_aliases"
+        ]
+      },
+      "postgres:keywords": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "display_text",
+          "source_url"
+        ],
+        "fields_append": [
+          "definition_doc_ids"
+        ],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:keywords",
+          "mongo:keyword_definitions",
+          "neo4j:Keyword"
+        ]
+      },
+      "postgres:topics": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "topic_path",
+          "display_text",
+          "parent_topic_natural_key",
+          "is_leaf",
+          "is_synthetic",
+          "source"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:topics",
+          "mongo:topic_extracts",
+          "neo4j:Topic"
+        ]
+      },
+      "postgres:topics:label_seed": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "display_text",
+          "is_leaf",
+          "is_synthetic",
+          "parent_topic_natural_key",
+          "topic_path",
+          "source",
+          "source_subkind"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:topics",
+          "mongo:topic_extracts",
+          "neo4j:Topic"
+        ]
+      }
     }
   }
 }

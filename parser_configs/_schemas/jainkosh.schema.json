@@ -5,6 +5,7 @@
   "required": ["version", "parser_rules_version", "normalization", "sections", "definitions",
                "index", "block_classes", "reference", "ref_strip", "translation_marker", "nested_span",
                "table", "redlink", "label_to_topic", "navigation", "emphasis", "headings", "slug", "bullet_strip",
+               "envelope",
                "blocks_to_drop_when_empty"],
   "additionalProperties": false,
   "properties": {
@@ -74,6 +75,17 @@
         "inner_anchor_ignore_selector": {"type": "string"},
         "see_also_list_selector": {"type": "string"},
         "self_link_class": {"type": "string"},
+        "source_chain": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {"type": "boolean"},
+            "li_strong_selector": {"type": "string"},
+            "li_strong_a_selector": {"type": "string"},
+            "skip_li_with_footer_id": {"type": "boolean"},
+            "match_normalize": {"type": "string", "enum": ["nfc_collapsed_ws"]}
+          }
+        },
         "see_also_triggers": {
           "type": "array",
           "items": {"type": "string"},
@@ -98,6 +110,13 @@
         "parse_strategy": {
           "type": "string",
           "enum": ["text_only", "structured", "text_plus_structured"]
+        },
+        "raw_html": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "collapse_whitespace": {"type": "boolean"}
+          }
         }
       }
     },
@@ -147,7 +166,14 @@
           "enum": ["raw_html_only", "raw_html_plus_rows"]
         },
         "attach_to": {"type": "string", "enum": ["current_subsection", "section_root"]},
-        "fallback_when_no_subsection": {"type": "string", "enum": ["section_root"]}
+        "fallback_when_no_subsection": {"type": "string", "enum": ["section_root"]},
+        "raw_html": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "collapse_whitespace": {"type": "boolean"}
+          }
+        }
       }
     },
     "redlink": {
@@ -251,6 +277,16 @@
       "properties": {
         "prefixes": {"type": "array", "items": {"type": "string"}},
         "trailing_punct": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "envelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "idempotency_mode": {
+          "type": "string",
+          "enum": ["per_row", "envelope_root"]
+        }
       }
     },
     "blocks_to_drop_when_empty": {

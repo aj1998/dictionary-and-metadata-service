@@ -49,6 +49,15 @@ class DefinitionsConfig(BaseModel):
     puraankosh: DefinitionBoundaryConfig
 
 
+class IndexSourceChainConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    enabled: bool = True
+    li_strong_selector: str = "strong"
+    li_strong_a_selector: str = "strong > a"
+    skip_li_with_footer_id: bool = True
+    match_normalize: Literal["nfc_collapsed_ws"] = "nfc_collapsed_ws"
+
+
 class IndexConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
     enabled_for: list[str]
@@ -60,6 +69,7 @@ class IndexConfig(BaseModel):
     see_also_triggers: list[str] = Field(default_factory=lambda: ["देखें"])
     see_also_window_chars: int = 40
     see_also_leading_punct_re: str = r'[(–\-।\s]*'
+    source_chain: IndexSourceChainConfig = Field(default_factory=IndexSourceChainConfig)
 
     # deprecated: auto-derived from see_also_triggers if absent
     see_also_text_pattern: Optional[str] = None
@@ -77,11 +87,17 @@ class IndexConfig(BaseModel):
         return self
 
 
+class ReferenceRawHtmlConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    collapse_whitespace: bool = True
+
+
 class ReferenceConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
     selector: str
     strip_inner_anchors: bool
     parse_strategy: Literal["text_only", "structured", "text_plus_structured"] = "text_only"
+    raw_html: ReferenceRawHtmlConfig = Field(default_factory=ReferenceRawHtmlConfig)
 
 
 class TranslationMarkerConfig(BaseModel):
@@ -109,6 +125,11 @@ class NestedSpanConfig(BaseModel):
     outer_kinds: list[str]
 
 
+class TableRawHtmlConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    collapse_whitespace: bool = True
+
+
 class TableConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
     selector: str
@@ -116,6 +137,7 @@ class TableConfig(BaseModel):
     extraction_strategy: Literal["raw_html_only", "raw_html_plus_rows"] = "raw_html_only"
     attach_to: Literal["current_subsection", "section_root"] = "current_subsection"
     fallback_when_no_subsection: Literal["section_root"] = "section_root"
+    raw_html: TableRawHtmlConfig = Field(default_factory=TableRawHtmlConfig)
 
 
 class RedlinkProseStripConfig(BaseModel):
@@ -190,6 +212,11 @@ class BulletStripConfig(BaseModel):
     trailing_punct: list[str]
 
 
+class EnvelopeConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    idempotency_mode: Literal["per_row", "envelope_root"] = "envelope_root"
+
+
 class JainkoshConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
     version: str
@@ -211,6 +238,7 @@ class JainkoshConfig(BaseModel):
     headings: HeadingsConfig
     slug: SlugConfig
     bullet_strip: BulletStripConfig
+    envelope: EnvelopeConfig = Field(default_factory=EnvelopeConfig)
     blocks_to_drop_when_empty: list[str]
 
     def section_kind_for(self, headline_id: str) -> str:

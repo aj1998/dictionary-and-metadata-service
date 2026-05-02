@@ -14,6 +14,12 @@ FROZEN = "2026-05-02T00:00:00Z"
 KEYWORDS = ["आत्मा", "द्रव्य", "पर्याय"]
 
 
+def _walk_subs(subsections):
+    for sub in subsections:
+        yield sub
+        yield from _walk_subs(sub.get("children", []))
+
+
 def test_keyword_definitions_has_no_subsection_tree():
     from workers.ingestion.jainkosh.config import load_config
     from workers.ingestion.jainkosh.envelope import build_envelope
@@ -193,3 +199,27 @@ def test_paryay_sanity():
     def any_synthetic(subs):
         return any(s.is_synthetic or any_synthetic(s.children) for s in subs)
     assert not any_synthetic(siddhantkosh.subsections)
+
+
+def test_no_truncated_table_raw_html_in_goldens():
+    for keyword in KEYWORDS:
+        with open(GOLDEN_DIR / f"{keyword}.json", encoding="utf-8") as f:
+            payload = json.load(f)
+        result = payload["keyword_parse_result"]
+        for sec in result["page_sections"]:
+            for sub in _walk_subs(sec.get("subsections", [])):
+                for block in sub.get("blocks", []):
+                    if block.get("kind") != "table":
+                        continue
+                    assert block["raw_html"].startswith("<table")
+                    assert block["raw_html"].rstrip().endswith("</table>")
+
+
+def test_envelope_carries_root_idempotency_contracts():
+    for keyword in KEYWORDS:
+        with open(GOLDEN_DIR / f"{keyword}.json", encoding="utf-8") as f:
+            payload = json.load(f)
+        env = payload["would_write"]
+        assert "idempotency_contracts" in env
+        for row in env["postgres"]["topics"]:
+            assert "idempotency_contract" not in row

@@ -99,12 +99,11 @@ def test_label_topic_natural_key_no_comma_split():
     assert slug(label, load_config()) == expected_slug
 
 
-def test_envelope_idempotency_contract_present():
+def test_envelope_idempotency_contracts_at_root():
     result = parse_keyword("आत्मा")
     env = build_envelope(result)
-    pg_topics = env.would_write["postgres"]["topics"]
-    assert all("idempotency_contract" in t for t in pg_topics)
-    sample = pg_topics[0]["idempotency_contract"]
+    contracts = env.would_write["idempotency_contracts"]
+    sample = contracts["postgres:topics"]
     assert sample["conflict_key"] == ["natural_key"]
     assert sample["on_conflict"] == "do_update"
     assert "fields_replace" in sample
