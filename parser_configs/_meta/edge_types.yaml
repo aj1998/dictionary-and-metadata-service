@@ -1,0 +1,52 @@
+# Canonical edge type registry for the Neo4j graph.
+# schema_check.py rejects graph writes that use unlisted types.
+# To add a new type: append it here (no migration required).
+
+edge_types:
+  - name: IS_A
+    direction: directed
+    from: [Topic, Keyword]
+    to: [Topic, Keyword]
+    description: Hyponym/hypernym (e.g. अंतरात्मा IS_A आत्मा)
+
+  - name: PART_OF
+    direction: directed
+    from: [Topic]
+    to: [Topic]
+    description: Sub-topic of another topic
+
+  - name: RELATED_TO
+    direction: undirected
+    from: [Topic, Keyword]
+    to: [Topic, Keyword]
+    description: Soft association (stored as two reciprocal directed edges)
+
+  - name: ALIAS_OF
+    direction: directed
+    from: [Alias]
+    to: [Keyword]
+    description: Synonym / variant spelling
+
+  - name: MENTIONS_KEYWORD
+    direction: directed
+    from: [Topic]
+    to: [Keyword]
+    description: Topic body mentions this keyword (used to seed queries)
+
+  - name: HAS_TOPIC
+    direction: directed
+    from: [Keyword]
+    to: [Topic]
+    description: Keyword JainKosh page yielded this topic
+
+  - name: MENTIONS_TOPIC
+    direction: directed
+    from: [Gatha]
+    to: [Topic]
+    description: Gatha is associated with a topic (heading or extracted)
+
+  - name: IN_SHASTRA
+    direction: directed
+    from: [Gatha]
+    to: [Shastra]
+    description: Structural membership edge

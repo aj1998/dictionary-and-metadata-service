@@ -136,9 +136,61 @@ See [`docs/manual_testing/mongo/testing.md`](docs/manual_testing/mongo/testing.m
 
 ---
 
+### ✅ Completed: Neo4j graph data model (`docs/design/04_data_model_graph.md`)
+
+**Package**: `packages/jain_kb_common` — `jain_kb_common/db/neo4j/`.
+
+#### Layout
+
+| File | Purpose |
+|---|---|
+| `__init__.py` | `get_driver(url, user, password)` / `close_driver()` singleton factory (`AsyncGraphDatabase`) |
+| `constraints.py` | `ensure_constraints(driver, database)` — creates 5 uniqueness constraints + 2 indexes; idempotent via `IF NOT EXISTS` |
+| `upserts.py` | `sync_keyword`, `sync_topic`, `sync_shastra`, `sync_gatha` — idempotent MERGE-based upserts |
+| `queries.py` | `resolve_token`, `traverse_topics`, `shortest_path` |
+| `schema_check.py` | `validate_edge_type(name)` — rejects unknown edge types; reads `parser_configs/_meta/edge_types.yaml` |
+
+#### Node labels implemented
+
+`Keyword` · `Topic` · `Alias` · `Gatha` · `Shastra`
+
+#### Edge types (`parser_configs/_meta/edge_types.yaml`)
+
+`IS_A` · `PART_OF` · `RELATED_TO` · `ALIAS_OF` · `MENTIONS_KEYWORD` · `HAS_TOPIC` · `MENTIONS_TOPIC` · `IN_SHASTRA`
+
+#### Key conventions
+
+- **Cypher 25 compatible** — uses `coalesce(n.created_at, datetime())` instead of `ON CREATE SET` (Neo4j 2026 ships with `db.query.default_language=CYPHER_25`).
+- **Idempotent MERGE** — every upsert uses `MERGE` with full `SET`; safe to re-run on the same data.
+- **`ensure_constraints()`** — all constraints and indexes use `IF NOT EXISTS`; safe to call on every service startup.
+- **Edge type validation** — `validate_edge_type(edge_type)` raises `UnknownEdgeTypeError` for any edge type not in `edge_types.yaml`. Add new types there; no code changes needed.
+- **Driver factory** — `get_driver()` reads `NEO4J_URL`, `NEO4J_USER`, `NEO4J_PASSWORD` from environment; singleton pattern matches Motor/SQLAlchemy conventions.
+
+#### Tests
+
+```bash
+# Neo4j tests only (requires Neo4j running)
+export NEO4J_URL="bolt://localhost:7687"
+export NEO4J_USER="neo4j"
+export NEO4J_PASSWORD="jainkb_password"
+python -m pytest tests/db/neo4j/ -v
+
+# All tests (all three env vars set, 41 tests, 0 skipped)
+export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
+export MONGO_URL="mongodb://localhost:27017"
+export NEO4J_URL="bolt://localhost:7687"
+export NEO4J_USER="neo4j"
+export NEO4J_PASSWORD="jainkb_password"
+python -m pytest tests/ -v
+```
+
+See [`docs/manual_testing/neo4j/testing.md`](docs/manual_testing/neo4j/testing.md) for the full manual testing guide.
+
+---
+
 ### 🔜 Not yet started
 
-Neo4j graph model (`04`), metadata-service API (`05`), dictionary-service API (`06`), ingestion workers (`08`, `09`), query engine (`12`), query-service API (`07`), enrichment loop (`11`), admin + public UIs (`13`, `14`), deployment (`15`).
+Metadata-service API (`05`), dictionary-service API (`06`), ingestion workers (`08`, `09`), query engine (`12`), query-service API (`07`), enrichment loop (`11`), admin + public UIs (`13`, `14`), deployment (`15`).
 
 ---
 
@@ -148,6 +200,7 @@ Neo4j graph model (`04`), metadata-service API (`05`), dictionary-service API (`
 - Python 3.12
 - PostgreSQL 16 (`brew install postgresql@16`)
 - MongoDB 7 (`brew install mongodb-community@7.0`)
+- Neo4j 5+ (`brew install neo4j`)
 - `.venv` already created at repo root
 
 ### Install
@@ -156,17 +209,21 @@ Neo4j graph model (`04`), metadata-service API (`05`), dictionary-service API (`
 # Activate venv
 source .venv/bin/activate
 
-# Install jain_kb_common + deps (SQLAlchemy, asyncpg, Pydantic, Motor)
+# Install jain_kb_common + deps (SQLAlchemy, asyncpg, Pydantic, Motor, neo4j, pyyaml)
 pip install -e packages/jain_kb_common
 
 # Start services
 brew services start postgresql@16
 brew services start mongodb-community@7.0
 
+# Neo4j needs a one-time password setup before first start
+/opt/homebrew/opt/neo4j/bin/neo4j-admin dbms set-initial-password jainkb_password
+/opt/homebrew/opt/neo4j/bin/neo4j start   # runs as foreground process; use brew services for background
+
 # Create Postgres databases
 psql postgres -c "CREATE DATABASE jain_kb_dev;"    # migrations / manual testing
 psql postgres -c "CREATE DATABASE jain_kb_test;"   # automated tests
-# MongoDB databases are created automatically on first write
+# MongoDB and Neo4j databases are created automatically on first write
 ```
 
 ### Run migrations (Postgres)
@@ -187,9 +244,18 @@ python -m pytest tests/db/test_idempotent_upsert.py -v
 export MONGO_URL="mongodb://localhost:27017"
 python -m pytest tests/db/mongo/ -v
 
-# All tests (both env vars set)
+# Neo4j tests only
+export NEO4J_URL="bolt://localhost:7687"
+export NEO4J_USER="neo4j"
+export NEO4J_PASSWORD="jainkb_password"
+python -m pytest tests/db/neo4j/ -v
+
+# All tests (all env vars set — 41 tests, 0 skipped)
 export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
 export MONGO_URL="mongodb://localhost:27017"
+export NEO4J_URL="bolt://localhost:7687"
+export NEO4J_USER="neo4j"
+export NEO4J_PASSWORD="jainkb_password"
 python -m pytest tests/ -v
 ```
 
@@ -203,18 +269,25 @@ dictionary-and-metadata-service/
 │   ├── design/                # Full design docs (00–16)
 │   └── manual_testing/
 │       ├── postgres/testing.md
-│       └── mongo/testing.md
+│       ├── mongo/testing.md
+│       └── neo4j/testing.md
+├── parser_configs/
+│   └── _meta/
+│       └── edge_types.yaml    # Canonical Neo4j edge type registry
 ├── packages/
 │   └── jain_kb_common/        # Shared DB clients, models, upserts
 │       └── jain_kb_common/db/
 │           ├── postgres/      # SQLAlchemy models + upserts
-│           └── mongo/         # Motor client, Pydantic schemas, upserts, indexes
+│           ├── mongo/         # Motor client, Pydantic schemas, upserts, indexes
+│           └── neo4j/         # AsyncDriver factory, constraints, upserts, queries, schema_check
 ├── migrations/                # Alembic (9 versions, 0001–0009)
 ├── tests/
 │   └── db/
 │       ├── test_idempotent_upsert.py   # Postgres upsert tests
-│       └── mongo/
-│           └── test_mongo_upsert.py    # MongoDB schema + upsert tests
+│       ├── mongo/
+│       │   └── test_mongo_upsert.py    # MongoDB schema + upsert tests
+│       └── neo4j/
+│           └── test_neo4j_graph.py     # Neo4j constraints, upserts, queries, schema_check
 ├── services/                  # (future) metadata-, dictionary-, query-service
 ├── workers/                   # (future) ingestion + enrichment Celery workers
 ├── ui/                        # (future) Next.js public + admin apps
