@@ -43,10 +43,28 @@ class DefinitionBoundaryConfig(BaseModel):
     boundary: str
 
 
+class SeeAlsoOnlyBlockConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    enabled: bool = True
+    prose_kinds: list[str] = Field(default_factory=lambda: [
+        "hindi_text", "hindi_gatha", "prakrit_text", "prakrit_gatha",
+        "sanskrit_text", "sanskrit_gatha",
+    ])
+    match_re: str = r'^[\s•·*\-–]*[^।॥]*?[\-–]?\s*(?:विशेष\s+)?देखें\s+[^।॥]*$'
+    drop_from_extra_blocks: bool = True
+
+
+class DefinitionsNumberingStripConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    enabled: bool = True
+    leading_re: str = r"^\s*\(\d+\)\s*"
+
+
 class DefinitionsConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
     siddhantkosh: DefinitionBoundaryConfig
     puraankosh: DefinitionBoundaryConfig
+    numbering_strip: DefinitionsNumberingStripConfig = Field(default_factory=DefinitionsNumberingStripConfig)
 
 
 class IndexSourceChainConfig(BaseModel):
@@ -167,6 +185,20 @@ class LabelToTopicConfig(BaseModel):
     is_synthetic: bool = True
     is_leaf: bool = True
     source_marker: str = "label_seed"
+    skip_in_source_kinds: list[str] = Field(default_factory=lambda: ["hindi_text"])
+    trim_to_clause: bool = True
+    clause_boundary_chars: str = "।॥.()[]"
+    preserve_inner_quotes: bool = True
+
+
+class ParenDekhenStripConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    enabled: bool = True
+    bracket_pairs: list[tuple[str, str]] = Field(
+        default_factory=lambda: [("(", ")"), ("[", "]")]
+    )
+    trigger_required_inside: bool = True
+    collapse_double_punct: bool = True
 
 
 class NavigationConfig(BaseModel):
@@ -217,6 +249,16 @@ class EnvelopeConfig(BaseModel):
     idempotency_mode: Literal["per_row", "envelope_root"] = "envelope_root"
 
 
+class Neo4jEnvelopeConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    redlink_edges: Literal["always", "never", "only_if_topic"] = "never"
+
+
+class DfsConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    passthrough_leading_gref: bool = True
+
+
 class JainkoshConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
     version: str
@@ -232,6 +274,7 @@ class JainkoshConfig(BaseModel):
     nested_span: NestedSpanConfig
     table: TableConfig
     redlink: RedlinkConfig = Field(default_factory=RedlinkConfig)
+    paren_dekhen_strip: ParenDekhenStripConfig = Field(default_factory=ParenDekhenStripConfig)
     label_to_topic: LabelToTopicConfig = Field(default_factory=LabelToTopicConfig)
     navigation: NavigationConfig
     emphasis: EmphasisConfig
@@ -239,6 +282,9 @@ class JainkoshConfig(BaseModel):
     slug: SlugConfig
     bullet_strip: BulletStripConfig
     envelope: EnvelopeConfig = Field(default_factory=EnvelopeConfig)
+    dfs: DfsConfig = Field(default_factory=DfsConfig)
+    neo4j: Neo4jEnvelopeConfig = Field(default_factory=Neo4jEnvelopeConfig)
+    see_also_only_block: SeeAlsoOnlyBlockConfig = Field(default_factory=SeeAlsoOnlyBlockConfig)
     blocks_to_drop_when_empty: list[str]
 
     def section_kind_for(self, headline_id: str) -> str:

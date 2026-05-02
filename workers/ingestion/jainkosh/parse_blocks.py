@@ -11,7 +11,11 @@ from .config import JainkoshConfig
 from .models import Block, Reference
 from .normalize import normalize_text, nfc
 from .refs import extract_refs_from_node, is_leading_reference_node, strip_refs_from_text
-from .see_also import find_see_alsos_in_element, strip_dekhen_redlink_substring
+from .see_also import (
+    find_see_alsos_in_element,
+    strip_dekhen_redlink_substring,
+    strip_paren_dekhen,
+)
 from .selectors import block_class_kind, is_gref_node, node_outer_html
 from .tables import extract_table_block
 
@@ -80,6 +84,7 @@ def make_block(node: Node, config: JainkoshConfig, *, current_keyword: str = "")
                 )
 
     text = strip_refs_from_text(text, refs, config)
+    text = strip_paren_dekhen(text, config)
     if not text.strip():
         return None
 
@@ -157,7 +162,10 @@ def parse_block_stream(
             and last_block.kind in config.translation_marker.source_kinds
             and block.kind in config.translation_marker.hindi_kinds
         ):
-            last_block.hindi_translation = strip_refs_from_text(block.text_devanagari or "", block.references, config)
+            last_block.hindi_translation = strip_paren_dekhen(
+                strip_refs_from_text(block.text_devanagari or "", block.references, config),
+                config,
+            )
             if config.translation_marker.reference_ordering == "leading_then_inline":
                 last_block.references = list(last_block.references) + list(pending_refs) + list(block.references)
             else:
@@ -177,6 +185,34 @@ def parse_block_stream(
     if pending_refs and last_block is not None:
         last_block.references = list(last_block.references) + list(pending_refs)
 
+    return _drop_see_also_only(out, config)
+
+
+def _drop_see_also_only(blocks: list[Block], config: JainkoshConfig) -> list[Block]:
+    if not config.see_also_only_block.enabled:
+        return blocks
+    pattern = re.compile(config.see_also_only_block.match_re)
+    out: list[Block] = []
+    pending_see_also: list[Block] = []
+    for b in blocks:
+        if b.kind == "see_also":
+            pending_see_also.append(b)
+            continue
+        if (
+            b.kind in config.see_also_only_block.prose_kinds
+            and not b.hindi_translation
+            and pattern.match(b.text_devanagari or "")
+        ):
+            for sa in pending_see_also:
+                out.append(sa)
+            pending_see_also = []
+            continue
+        for sa in pending_see_also:
+            out.append(sa)
+        pending_see_also = []
+        out.append(b)
+    for sa in pending_see_also:
+        out.append(sa)
     return out
 
 
@@ -190,7 +226,10 @@ def _emit(
     """Emit a block, handling translation-marker absorption."""
     if _is_translation_block(block, config):
         if last_block is not None and last_block.kind in config.translation_marker.source_kinds:
-            last_block.hindi_translation = _strip_eq_prefix(block.text_devanagari or "")
+            last_block.hindi_translation = strip_paren_dekhen(
+                _strip_eq_prefix(block.text_devanagari or ""),
+                config,
+            )
             if config.translation_marker.reference_ordering == "leading_then_inline":
                 last_block.references = list(last_block.references) + list(pending_refs) + list(block.references)
             else:
@@ -199,7 +238,10 @@ def _emit(
             return last_block, pending_refs, out
         # Orphan translation
         block.is_orphan_translation = True
-        block.text_devanagari = _strip_eq_prefix(block.text_devanagari or "")
+        block.text_devanagari = strip_paren_dekhen(
+            _strip_eq_prefix(block.text_devanagari or ""),
+            config,
+        )
 
     block.references = list(pending_refs) + list(block.references)
     pending_refs.clear()

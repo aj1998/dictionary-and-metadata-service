@@ -98,7 +98,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Parse error: {exc}", file=sys.stderr)
         return 1
 
-    envelope = build_envelope(result)
+    envelope = build_envelope(result, config)
 
     if args.validate_only:
         # Print stats

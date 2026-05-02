@@ -53,6 +53,7 @@ def parse_siddhantkosh_definitions(
             cur_elements.append(el)
 
     flush_def()
+    _strip_numbering(defs, config)
     return defs
 
 
@@ -78,7 +79,9 @@ def parse_puraankosh_definitions(
         # Fallback: treat all elements as one definition
         blocks = parse_block_stream(pre_heading_elements, config, current_keyword=current_keyword)
         if blocks:
-            return [Definition(definition_index=1, blocks=blocks)]
+            defs = [Definition(definition_index=1, blocks=blocks)]
+            _strip_numbering(defs, config)
+            return defs
         return []
 
     # Check for multiple <p id="N"> elements
@@ -96,14 +99,31 @@ def parse_puraankosh_definitions(
             blocks = parse_block_stream([p], config, current_keyword=current_keyword)
             if blocks:
                 defs.append(Definition(definition_index=len(defs) + 1, blocks=blocks))
+        _strip_numbering(defs, config)
         return defs
 
     # Single paragraph case
     p = inner_div.css_first("p.HindiText") or inner_div
     blocks = parse_block_stream([p], config, current_keyword=current_keyword)
     if blocks:
-        return [Definition(definition_index=1, blocks=blocks)]
+        defs = [Definition(definition_index=1, blocks=blocks)]
+        _strip_numbering(defs, config)
+        return defs
     return []
+
+
+def _strip_numbering(definitions: list, config: JainkoshConfig) -> None:
+    if not config.definitions.numbering_strip.enabled:
+        return
+    pat = re.compile(config.definitions.numbering_strip.leading_re)
+    prose_kinds = {"hindi_text", "hindi_gatha", "prakrit_text", "prakrit_gatha", "sanskrit_text", "sanskrit_gatha"}
+    for d in definitions:
+        for b in d.blocks:
+            if b.kind in prose_kinds and b.text_devanagari:
+                stripped = pat.sub("", b.text_devanagari, count=1)
+                if stripped != b.text_devanagari:
+                    b.text_devanagari = stripped
+                break
 
 
 def _any_starts_with_paren_number(paragraphs: list[Node]) -> bool:

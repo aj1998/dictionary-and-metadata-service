@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from typing import Optional
 
+from .config import JainkoshConfig, load_config
 from .models import KeywordParseResult, Subsection, WouldWriteEnvelope
 
 _DEFAULT_CONTRACTS: dict[str, dict] = {
@@ -167,7 +169,20 @@ def build_mongo_fragment(result: KeywordParseResult) -> dict:
     return {"keyword_definitions": [kdef], "topic_extracts": topic_extracts}
 
 
-def _see_also_edge(block, *, source_topic_key: str, keyword_node: str) -> dict:
+def _redlink_edge_allowed(target_exists: bool, to_node: dict, config: JainkoshConfig) -> bool:
+    if target_exists:
+        return True
+    mode = config.neo4j.redlink_edges
+    if mode == "always":
+        return True
+    if mode == "never":
+        return False
+    if mode == "only_if_topic":
+        return to_node.get("label") == "Topic"
+    return False
+
+
+def _see_also_edge(block, *, source_topic_key: str, keyword_node: str, config: JainkoshConfig) -> dict:
     from_node = {"label": "Topic", "key": source_topic_key}
     if block.target_topic_path and block.target_keyword:
         to_node = {
@@ -192,6 +207,8 @@ def _see_also_edge(block, *, source_topic_key: str, keyword_node: str) -> dict:
         edge_type = "RELATED_TO"
     else:
         return {}
+    if not _redlink_edge_allowed(block.target_exists, to_node, config):
+        return {}
     return {
         "type": edge_type,
         "from": from_node,
@@ -200,7 +217,7 @@ def _see_also_edge(block, *, source_topic_key: str, keyword_node: str) -> dict:
     }
 
 
-def _index_relation_edge(rel, src: tuple, *, keyword: str) -> dict:
+def _index_relation_edge(rel, src: tuple, *, keyword: str, config: JainkoshConfig) -> dict:
     src_label, src_key = src
     from_node = {"label": src_label, "key": src_key}
 
@@ -225,6 +242,9 @@ def _index_relation_edge(rel, src: tuple, *, keyword: str) -> dict:
     else:
         return {}
 
+    if not _redlink_edge_allowed(rel.target_exists, to_node, config):
+        return {}
+
     return {
         "type": "RELATED_TO",
         "from": from_node,
@@ -246,7 +266,7 @@ def _dedupe(items: list[dict]) -> list[dict]:
     return out
 
 
-def build_neo4j_fragment(result: KeywordParseResult) -> dict:
+def build_neo4j_fragment(result: KeywordParseResult, config: JainkoshConfig) -> dict:
     nodes = [
         {
             "label": "Keyword",
@@ -294,7 +314,7 @@ def build_neo4j_fragment(result: KeywordParseResult) -> dict:
                 if b.kind != "see_also":
                     continue
                 edge = _see_also_edge(
-                    b, source_topic_key=sub.natural_key, keyword_node=result.keyword
+                    b, source_topic_key=sub.natural_key, keyword_node=result.keyword, config=config
                 )
                 if edge:
                     edges.append(edge)
@@ -307,20 +327,22 @@ def build_neo4j_fragment(result: KeywordParseResult) -> dict:
             else:
                 src = ("Keyword", result.keyword)
 
-            edge = _index_relation_edge(rel, src, keyword=result.keyword)
+            edge = _index_relation_edge(rel, src, keyword=result.keyword, config=config)
             if edge:
                 edges.append(edge)
 
     return {"nodes": _dedupe(nodes), "edges": _dedupe(edges)}
 
 
-def build_envelope(result: KeywordParseResult) -> WouldWriteEnvelope:
+def build_envelope(result: KeywordParseResult, config: Optional[JainkoshConfig] = None) -> WouldWriteEnvelope:
+    if config is None:
+        config = load_config()
     return WouldWriteEnvelope(
         keyword_parse_result=result,
         would_write={
             "postgres": build_pg_fragment(result),
             "mongo": build_mongo_fragment(result),
-            "neo4j": build_neo4j_fragment(result),
+            "neo4j": build_neo4j_fragment(result, config),
             "idempotency_contracts": _build_contracts(result),
         },
     )

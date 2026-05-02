@@ -4,8 +4,8 @@
   "type": "object",
   "required": ["version", "parser_rules_version", "normalization", "sections", "definitions",
                "index", "block_classes", "reference", "ref_strip", "translation_marker", "nested_span",
-               "table", "redlink", "label_to_topic", "navigation", "emphasis", "headings", "slug", "bullet_strip",
-               "envelope",
+               "table", "redlink", "paren_dekhen_strip", "label_to_topic", "navigation", "emphasis", "headings", "slug", "bullet_strip",
+               "envelope", "dfs",
                "blocks_to_drop_when_empty"],
   "additionalProperties": false,
   "properties": {
@@ -61,6 +61,14 @@
           "required": ["boundary"],
           "additionalProperties": false,
           "properties": {"boundary": {"type": "string"}}
+        },
+        "numbering_strip": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {"type": "boolean"},
+            "leading_re": {"type": "string"}
+          }
         }
       }
     },
@@ -196,10 +204,30 @@
         }
       }
     },
+    "paren_dekhen_strip": {
+      "type": "object",
+      "required": ["enabled", "bracket_pairs", "trigger_required_inside", "collapse_double_punct"],
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {"type": "boolean"},
+        "bracket_pairs": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minItems": 2,
+            "maxItems": 2
+          }
+        },
+        "trigger_required_inside": {"type": "boolean"},
+        "collapse_double_punct": {"type": "boolean"}
+      }
+    },
     "label_to_topic": {
       "type": "object",
       "required": ["enabled", "emit_for_redlink", "emit_for_wiki_link", "emit_for_self_link",
-                   "bullet_prefixes", "label_trim_chars", "attach_to", "is_synthetic", "is_leaf", "source_marker"],
+                   "bullet_prefixes", "label_trim_chars", "attach_to", "is_synthetic", "is_leaf", "source_marker",
+                   "skip_in_source_kinds", "trim_to_clause", "clause_boundary_chars", "preserve_inner_quotes"],
       "additionalProperties": false,
       "properties": {
         "enabled": {"type": "boolean"},
@@ -211,7 +239,11 @@
         "attach_to": {"type": "string", "enum": ["current_subsection", "section_root"]},
         "is_synthetic": {"type": "boolean"},
         "is_leaf": {"type": "boolean"},
-        "source_marker": {"type": "string"}
+        "source_marker": {"type": "string"},
+        "skip_in_source_kinds": {"type": "array", "items": {"type": "string"}},
+        "trim_to_clause": {"type": "boolean"},
+        "clause_boundary_chars": {"type": "string"},
+        "preserve_inner_quotes": {"type": "boolean"}
       }
     },
     "navigation": {
@@ -279,6 +311,14 @@
         "trailing_punct": {"type": "array", "items": {"type": "string"}}
       }
     },
+    "dfs": {
+      "type": "object",
+      "required": ["passthrough_leading_gref"],
+      "additionalProperties": false,
+      "properties": {
+        "passthrough_leading_gref": {"type": "boolean"}
+      }
+    },
     "envelope": {
       "type": "object",
       "additionalProperties": false,
@@ -289,9 +329,29 @@
         }
       }
     },
+    "see_also_only_block": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {"type": "boolean"},
+        "prose_kinds": {"type": "array", "items": {"type": "string"}},
+        "match_re": {"type": "string"},
+        "drop_from_extra_blocks": {"type": "boolean"}
+      }
+    },
     "blocks_to_drop_when_empty": {
       "type": "array",
       "items": {"type": "string"}
+    },
+    "neo4j": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "redlink_edges": {
+          "type": "string",
+          "enum": ["always", "never", "only_if_topic"]
+        }
+      }
     }
   }
 }

@@ -204,6 +204,35 @@ def strip_dekhen_redlink_substring(
     return stripped.rstrip(" -–\t")
 
 
+def strip_paren_dekhen(text: str, config: JainkoshConfig) -> str:
+    if not text or not config.paren_dekhen_strip.enabled:
+        return text
+    triggers = config.index.see_also_triggers
+    out = text
+    for opn, cls in config.paren_dekhen_strip.bracket_pairs:
+        if config.paren_dekhen_strip.trigger_required_inside:
+            triggers_alt = "|".join(
+                re.escape(t) for t in sorted(triggers, key=len, reverse=True)
+            )
+            pattern = re.compile(
+                re.escape(opn) + r"[^" + re.escape(opn + cls) + r"]*?"
+                + r"(?:" + triggers_alt + r")"
+                + r"[^" + re.escape(opn + cls) + r"]*?" + re.escape(cls),
+                flags=re.DOTALL,
+            )
+        else:
+            pattern = re.compile(
+                re.escape(opn) + r"[^" + re.escape(opn + cls) + r"]*?" + re.escape(cls),
+                flags=re.DOTALL,
+            )
+        out = pattern.sub("", out)
+    if config.paren_dekhen_strip.collapse_double_punct:
+        out = re.sub(r"[ \t]{2,}", " ", out)
+        out = re.sub(r"([।॥])\s*\n\s*([।॥])", r"\1\2", out)
+        out = re.sub(r"\n[ \t]*\n", "\n", out)
+    return out.strip()
+
+
 def extract_label_before_trigger(text: str, config: JainkoshConfig) -> str:
     triggers = sorted(config.index.see_also_triggers, key=len, reverse=True)
     for trigger in triggers:
@@ -211,6 +240,13 @@ def extract_label_before_trigger(text: str, config: JainkoshConfig) -> str:
         if idx <= 0:
             continue
         label = text[:idx]
+        if config.label_to_topic.trim_to_clause:
+            boundary_chars = config.label_to_topic.clause_boundary_chars
+            last = -1
+            for ch in boundary_chars:
+                last = max(last, label.rfind(ch))
+            if last >= 0:
+                label = label[last + 1:]
         for bullet in config.label_to_topic.bullet_prefixes:
             label = label.lstrip(bullet)
         label = re.sub(r"[\-–]\s*$", "", label)

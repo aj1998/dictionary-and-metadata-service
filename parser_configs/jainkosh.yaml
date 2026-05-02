@@ -23,6 +23,9 @@ definitions:
     boundary: "leading_reference_or_intro"
   puraankosh:
     boundary: "p_with_id_or_whole_block"
+  numbering_strip:
+    enabled: true
+    leading_re: '^\s*\(\d+\)\s*'
 
 index:
   enabled_for: ["siddhantkosh"]
@@ -94,6 +97,14 @@ redlink:
     enabled: true
     connector_re: '\s*[\-–]\s*$'
 
+paren_dekhen_strip:
+  enabled: true
+  bracket_pairs:
+    - ["(", ")"]
+    - ["[", "]"]
+  trigger_required_inside: true
+  collapse_double_punct: true
+
 label_to_topic:
   enabled: true
   emit_for_redlink: true
@@ -105,6 +116,10 @@ label_to_topic:
   is_synthetic: true
   is_leaf: true
   source_marker: "label_seed"
+  skip_in_source_kinds: ["hindi_text"]
+  trim_to_clause: true
+  clause_boundary_chars: "।॥.()[]"
+  preserve_inner_quotes: true
 
 navigation:
   drop: true
@@ -149,6 +164,18 @@ bullet_strip:
 
 envelope:
   idempotency_mode: "envelope_root"
+
+dfs:
+  passthrough_leading_gref: true
+
+see_also_only_block:
+  enabled: true
+  prose_kinds: ["hindi_text", "hindi_gatha", "prakrit_text", "prakrit_gatha", "sanskrit_text", "sanskrit_gatha"]
+  match_re: '^[\s•·*\-–]*[^।॥]*?[\-–]?\s*(?:विशेष\s+)?देखें\s+[^।॥]*$'
+  drop_from_extra_blocks: true
+
+neo4j:
+  redlink_edges: "never"
 
 blocks_to_drop_when_empty:
   - "p"

@@ -11,7 +11,7 @@ from .config import JainkoshConfig, HeadingVariant
 from .models import Block, Subsection
 from .normalize import normalize_text, nfc
 from .parse_blocks import parse_block_stream
-from .selectors import block_class_kind
+from .selectors import block_class_kind, is_gref_node
 from .topic_keys import natural_key as compute_natural_key, parent_of, slug
 from .see_also import extract_label_before_trigger, find_see_also_candidates_in_element
 
@@ -174,7 +174,6 @@ def walk_and_collect_headings(
                 continue
 
             # Not a heading - is it a "block" node (contains actual text content)?
-            from .selectors import block_class_kind
             kind = block_class_kind(el, config)
             if kind is not None or el.tag == "table":
                 # If a block-class element directly contains a heading child, recurse
@@ -187,6 +186,10 @@ def walk_and_collect_headings(
                     _dfs(list(_iter_direct_children(el)))
                     continue
                 # Otherwise treat as a content block
+                events.append(("block", el))
+                continue
+
+            if config.dfs.passthrough_leading_gref and is_gref_node(el, config):
                 events.append(("block", el))
                 continue
 
@@ -446,7 +449,15 @@ def extract_label_topic_seeds(
         prose = _find_preceding_text_block(blocks, i)
         if prose is None:
             continue
-        label = extract_label_before_trigger(prose.text_devanagari or "", config)
+        prose_text, prose_kind = _text_source_for_label_seed(prose, config)
+        inside_brackets = _trigger_inside_brackets(prose_text, config)
+        if (
+            inside_brackets
+            and prose_kind in config.label_to_topic.skip_in_source_kinds
+            and not _is_row_like_label_context(prose_text, config)
+        ):
+            continue
+        label = extract_label_before_trigger(prose_text, config)
         if not label or label in emitted_labels:
             continue
         emitted_labels.add(label)
@@ -470,6 +481,9 @@ def extract_label_seed_candidates_from_elements(
 ) -> list[str]:
     labels: list[str] = []
     for el in elements:
+        source_kind = block_class_kind(el, config)
+        parent_text = normalize_text(el.text(strip=False) or "")
+        inside_brackets = _trigger_inside_brackets(parent_text, config)
         for candidate in find_see_also_candidates_in_element(el, config, current_keyword=keyword):
             block = Block(
                 kind="see_also",
@@ -481,7 +495,15 @@ def extract_label_seed_candidates_from_elements(
             )
             if not _should_emit_for_anchor(block, config):
                 continue
-            label = _normalize_label_seed_text((candidate.get("label_text") or ""), config)
+            if (
+                inside_brackets
+                and source_kind in config.label_to_topic.skip_in_source_kinds
+                and not _is_row_like_label_context(parent_text, config)
+            ):
+                continue
+            label = extract_label_before_trigger(parent_text, config)
+            if not label:
+                label = _normalize_label_seed_text((candidate.get("label_text") or ""), config)
             if label:
                 labels.append(label)
                 break
@@ -504,6 +526,55 @@ def _find_preceding_text_block(blocks: list[Block], see_also_index: int) -> Opti
         if block.kind in {"hindi_text", "hindi_gatha", "sanskrit_text", "sanskrit_gatha", "prakrit_text", "prakrit_gatha"}:
             return block
     return None
+
+
+def _text_source_for_label_seed(block: Block, config: JainkoshConfig) -> tuple[str, str]:
+    translation = block.hindi_translation or ""
+    if translation and _contains_any_trigger(translation, config):
+        return translation, "hindi_text"
+    return (block.text_devanagari or ""), block.kind
+
+
+def _contains_any_trigger(text: str, config: JainkoshConfig) -> bool:
+    return any(trigger in text for trigger in config.index.see_also_triggers)
+
+
+def _trigger_inside_brackets(text: str, config: JainkoshConfig) -> bool:
+    if not text:
+        return False
+    trigger_positions: list[int] = []
+    for trigger in config.index.see_also_triggers:
+        start = 0
+        while True:
+            idx = text.find(trigger, start)
+            if idx < 0:
+                break
+            trigger_positions.append(idx)
+            start = idx + 1
+    if not trigger_positions:
+        return False
+    opens = {op: cl for op, cl in config.paren_dekhen_strip.bracket_pairs}
+    closes = {cl: op for op, cl in config.paren_dekhen_strip.bracket_pairs}
+    target_positions = set(trigger_positions)
+    stack: list[str] = []
+    for idx, ch in enumerate(text):
+        if ch in opens:
+            stack.append(ch)
+            continue
+        if ch in closes:
+            if stack and stack[-1] == closes[ch]:
+                stack.pop()
+            continue
+        if idx in target_positions and stack:
+            return True
+    return False
+
+
+def _is_row_like_label_context(text: str, config: JainkoshConfig) -> bool:
+    triggers = "|".join(
+        re.escape(t) for t in sorted(config.index.see_also_triggers, key=len, reverse=True)
+    )
+    return re.search(r"[\-–]\s*(?:" + triggers + r")", text) is not None
 
 
 def _should_emit_for_anchor(block: Block, config: JainkoshConfig) -> bool:
