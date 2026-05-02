@@ -283,7 +283,8 @@ dictionary-and-metadata-service/
 ├── migrations/                # Alembic (9 versions, 0001–0009)
 ├── tests/
 │   └── db/
-│       ├── test_idempotent_upsert.py   # Postgres upsert tests
+│       ├── postgres/
+│       │   └── test_idempotent_upsert.py   # Postgres upsert tests
 │       ├── mongo/
 │       │   └── test_mongo_upsert.py    # MongoDB schema + upsert tests
 │       └── neo4j/

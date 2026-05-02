@@ -473,4 +473,4 @@ async def upsert_keyword(session, *, natural_key: str, display_text: str,
 - [ ] `0002_seed_anuyogas.sql` populates four anuyoga rows with multilingual labels.
 - [ ] All SQLAlchemy models pass `mypy --strict` and round-trip a sample fixture.
 - [ ] `upsert_*` functions exist for keywords, topics, gathas, shastras, teekas, books, pravachans.
-- [ ] `pytest tests/db/test_idempotent_upsert.py` proves running ingestion twice produces identical row count and overwrites fields.
+- [ ] `pytest tests/db/postgres/test_idempotent_upsert.py` proves running ingestion twice produces identical row count and overwrites fields.
