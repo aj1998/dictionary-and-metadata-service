@@ -11,6 +11,7 @@ maintained in dedicated documents:
 - **Parser implementation spec** (file layout, Pydantic models, YAML config, algorithms, tests, CLI): [`jainkosh/parser_spec.md`](./jainkosh/parser_spec.md)
 - **Schema additions** (Postgres `topics` columns, Mongo collection shapes, Neo4j properties): [`jainkosh/schema_updates.md`](./jainkosh/schema_updates.md)
 - **Parser fix spec 001** (phased corrections shipped in v1.1.0 — configurable triggers, ref-strip, sibling-`=`, redlink prose-strip, label→topic seeds, table attachment, IndexRelation chain, idempotency contracts): [`jainkosh/parser_fix_spec_001/README.md`](./jainkosh/parser_fix_spec_001/README.md)
+- **Parser fix spec 002** (phased corrections planned for v1.2.0 — table outerHTML + raw_html whitespace cleanup, idempotency contract hoisted to envelope root, IndexRelation source chain via ancestor `<strong>` text, leading-GRef DFS passthrough, parenthesised `देखें` cleanup, label-seed scope guard, see-also-only block drop, definition `(N)` numbering strip, redlink edge suppression): [`jainkosh/parser_fix_spec_002/README.md`](./jainkosh/parser_fix_spec_002/README.md)
 
 The remainder of *this* document covers only the orchestration pieces
 that wrap the parser: source discovery, fetching, rate-limiting,
