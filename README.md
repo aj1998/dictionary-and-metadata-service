@@ -82,9 +82,63 @@ DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test" \
 
 See [`dev_docs/testing.md`](docs/manual_testing/postgres/testing.md) for the full manual testing guide.
 
+---
+
+### ✅ Completed: MongoDB data model (`docs/design/03_data_model_mongo.md`)
+
+**Package**: `packages/jain_kb_common` — `jain_kb_common/db/mongo/`.
+
+#### Layout
+
+| File | Purpose |
+|---|---|
+| `__init__.py` | `get_mongo_client(url)` / `get_db(url, db_name)` factory (singleton `AsyncIOMotorClient`) |
+| `collections.py` | Collection-name string constants (`GATHA_PRAKRIT`, `KEYWORD_DEFINITIONS`, …) |
+| `schemas.py` | Pydantic v2 document models; `LangText.text` auto-NFC-normalizes on construction |
+| `upserts.py` | `stable_id(natural_key)` + `upsert_*` helpers (one per collection) |
+| `indexes.py` | `ensure_indexes(db)` — creates all indexes idempotently; call on service startup |
+
+#### Collections implemented
+
+| Collection | Pydantic model | Upsert helper |
+|---|---|---|
+| `gatha_prakrit` | `GathaPrakrit` | `upsert_gatha_prakrit` |
+| `gatha_sanskrit` | `GathaSanskrit` | `upsert_gatha_sanskrit` |
+| `gatha_hindi_chhand` | `GathaHindiChhand` | `upsert_gatha_hindi_chhand` |
+| `gatha_word_meanings` | `GathaWordMeanings` | `upsert_gatha_word_meanings` |
+| `teeka_gatha_mapping` | `TeekaGathaMapping` | `upsert_teeka_gatha_mapping` |
+| `keyword_definitions` | `KeywordDefinition` | `upsert_keyword_definition` |
+| `topic_extracts` | `TopicExtract` | `upsert_topic_extract` |
+| `raw_html_snapshots` | `RawHtmlSnapshot` | `upsert_raw_html_snapshot` |
+| `ocr_pages` | `OcrPage` | _(scaffolded — indexes only, no upsert yet)_ |
+
+#### Key conventions
+
+- **`stable_id(natural_key)`** — SHA-1 of the UTF-8 key, first 12 bytes → `ObjectId`. Same key always produces the same `_id`, so Postgres references survive re-scrapes.
+- **`$setOnInsert: {created_at}`** — `created_at` is only written on the first insert; subsequent upserts leave it untouched while updating `updated_at`.
+- **NFC normalization** — `LangText.text` field validator calls `unicodedata.normalize('NFC', v)` on every construction.
+- **`ensure_indexes(db)`** is safe to call on every startup (Motor's `create_index` is idempotent). `topic_extracts` has a full-text index with `default_language: "none"` for Devanagari. `raw_html_snapshots` has a TTL index (365 days) on `fetched_at`.
+
+#### Tests
+
+```bash
+# Offline (no DB required) — schema + stable_id tests
+.venv/bin/python -m pytest tests/db/mongo/ -v
+
+# With MongoDB running
+MONGO_URL="mongodb://localhost:27017" \
+  .venv/bin/python -m pytest tests/db/mongo/ -v
+```
+
+Without `MONGO_URL`, 8 round-trip tests skip gracefully; 5 offline tests always run.
+
+See [`docs/manual_testing/mongo/testing.md`](docs/manual_testing/mongo/testing.md) for the full manual testing guide.
+
+---
+
 ### 🔜 Not yet started
 
-MongoDB data model (`03`), Neo4j graph model (`04`), metadata-service API (`05`), dictionary-service API (`06`), ingestion workers (`08`, `09`), query engine (`12`), query-service API (`07`), enrichment loop (`11`), admin + public UIs (`13`, `14`), deployment (`15`).
+Neo4j graph model (`04`), metadata-service API (`05`), dictionary-service API (`06`), ingestion workers (`08`, `09`), query engine (`12`), query-service API (`07`), enrichment loop (`11`), admin + public UIs (`13`, `14`), deployment (`15`).
 
 ---
 
@@ -93,6 +147,7 @@ MongoDB data model (`03`), Neo4j graph model (`04`), metadata-service API (`05`)
 ### Prerequisites
 - Python 3.12
 - PostgreSQL 16 (`brew install postgresql@16`)
+- MongoDB 7 (`brew install mongodb-community@7.0`)
 - `.venv` already created at repo root
 
 ### Install
@@ -101,16 +156,20 @@ MongoDB data model (`03`), Neo4j graph model (`04`), metadata-service API (`05`)
 # Activate venv
 source .venv/bin/activate
 
-# Install jain_kb_common + deps
+# Install jain_kb_common + deps (SQLAlchemy, asyncpg, Pydantic, Motor)
 pip install -e packages/jain_kb_common
 
-# Create databases
+# Start services
 brew services start postgresql@16
+brew services start mongodb-community@7.0
+
+# Create Postgres databases
 psql postgres -c "CREATE DATABASE jain_kb_dev;"    # migrations / manual testing
 psql postgres -c "CREATE DATABASE jain_kb_test;"   # automated tests
+# MongoDB databases are created automatically on first write
 ```
 
-### Run migrations
+### Run migrations (Postgres)
 
 ```bash
 export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_dev"
@@ -120,7 +179,17 @@ alembic upgrade head
 ### Run tests
 
 ```bash
+# Postgres tests only
 export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
+python -m pytest tests/db/test_idempotent_upsert.py -v
+
+# MongoDB tests only
+export MONGO_URL="mongodb://localhost:27017"
+python -m pytest tests/db/mongo/ -v
+
+# All tests (both env vars set)
+export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
+export MONGO_URL="mongodb://localhost:27017"
 python -m pytest tests/ -v
 ```
 
@@ -130,22 +199,29 @@ python -m pytest tests/ -v
 
 ```
 dictionary-and-metadata-service/
-├── docs/design/               # Full design docs (00–16)
-├── dev_docs/                  # Developer notes and testing guides
+├── docs/
+│   ├── design/                # Full design docs (00–16)
+│   └── manual_testing/
+│       ├── postgres/testing.md
+│       └── mongo/testing.md
 ├── packages/
 │   └── jain_kb_common/        # Shared DB clients, models, upserts
-│       └── jain_kb_common/db/postgres/
+│       └── jain_kb_common/db/
+│           ├── postgres/      # SQLAlchemy models + upserts
+│           └── mongo/         # Motor client, Pydantic schemas, upserts, indexes
 ├── migrations/                # Alembic (9 versions, 0001–0009)
 ├── tests/
 │   └── db/
-│       └── test_idempotent_upsert.py
+│       ├── test_idempotent_upsert.py   # Postgres upsert tests
+│       └── mongo/
+│           └── test_mongo_upsert.py    # MongoDB schema + upsert tests
 ├── services/                  # (future) metadata-, dictionary-, query-service
 ├── workers/                   # (future) ingestion + enrichment Celery workers
 ├── ui/                        # (future) Next.js public + admin apps
 ├── parser_configs/            # YAML/JSON scraper rules
-├── samples
-│   └── sample_html_granths_nj/    # Sample nikkyjain HTML for parser development
-│   └── sample_html_jainkosh_pages/# Sample JainKosh HTML for parser development
+├── samples/
+│   ├── sample_html_granths_nj/    # Sample nikkyjain HTML for parser development
+│   ├── sample_html_jainkosh_pages/# Sample JainKosh HTML for parser development
 │   └── vyakaran_vishleshan/       # Scanned images for future OCR
 ├── alembic.ini
 └── pyproject.toml

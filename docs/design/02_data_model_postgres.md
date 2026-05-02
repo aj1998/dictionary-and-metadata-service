@@ -266,7 +266,7 @@ CREATE TABLE topic_mentions (
   id                          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   topic_id                    UUID NOT NULL REFERENCES topics(id) ON DELETE CASCADE,
 
-  -- atleast one of the following groupings should be non-null:
+  -- exactly one of the following groupings should be non-null:
   teeka_id                    UUID REFERENCES teekas(id),
   gatha_id                    UUID REFERENCES gathas(id),
   book_id                     UUID REFERENCES books(id),
