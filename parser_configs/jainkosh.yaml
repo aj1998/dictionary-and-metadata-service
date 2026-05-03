@@ -39,6 +39,8 @@ index:
     li_strong_a_selector: "strong > a"
     skip_li_with_footer_id: true
     match_normalize: "nfc_collapsed_ws"
+    enclosing_li_fallback: true
+    li_path_from_inner_ol_fallback: true
   see_also_triggers:
     - "विशेष देखें"
     - "देखें"

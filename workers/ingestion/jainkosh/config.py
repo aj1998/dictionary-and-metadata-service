@@ -74,6 +74,8 @@ class IndexSourceChainConfig(BaseModel):
     li_strong_a_selector: str = "strong > a"
     skip_li_with_footer_id: bool = True
     match_normalize: Literal["nfc_collapsed_ws"] = "nfc_collapsed_ws"
+    enclosing_li_fallback: bool = True
+    li_path_from_inner_ol_fallback: bool = True
 
 
 class IndexConfig(BaseModel):

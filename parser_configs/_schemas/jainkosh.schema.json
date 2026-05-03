@@ -91,7 +91,9 @@
             "li_strong_selector": {"type": "string"},
             "li_strong_a_selector": {"type": "string"},
             "skip_li_with_footer_id": {"type": "boolean"},
-            "match_normalize": {"type": "string", "enum": ["nfc_collapsed_ws"]}
+            "match_normalize": {"type": "string", "enum": ["nfc_collapsed_ws"]},
+            "enclosing_li_fallback": {"type": "boolean"},
+            "li_path_from_inner_ol_fallback": {"type": "boolean"}
           }
         },
         "see_also_triggers": {

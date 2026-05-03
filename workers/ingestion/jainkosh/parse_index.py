@@ -133,6 +133,14 @@ def _nearest_previous_heading_in_same_list(li: Optional[Node], config: JainkoshC
         if heading:
             return heading
         prev = prev.prev
+
+    # Climb to enclosing <li> if container is inside one
+    if config.index.source_chain.enclosing_li_fallback:
+        enclosing_li = container.parent if container is not None else None
+        if enclosing_li is not None and enclosing_li.tag == "li":
+            heading = _li_inline_heading_text(enclosing_li, config)
+            if heading:
+                return heading
     return None
 
 
@@ -168,6 +176,14 @@ def _nearest_previous_heading_path_in_same_list(li: Optional[Node], config: Jain
         if path:
             return path
         prev = prev.prev
+
+    # Climb to enclosing <li> if container is inside one
+    if config.index.source_chain.enclosing_li_fallback:
+        enclosing_li = container.parent if container is not None else None
+        if enclosing_li is not None and enclosing_li.tag == "li":
+            path = _topic_path_from_li_heading_anchor(enclosing_li, config)
+            if path:
+                return path
     return None
 
 
@@ -198,6 +214,28 @@ def _topic_path_from_li_heading_anchor(li: Node, config: JainkoshConfig) -> Opti
         href = (anchor.attributes or {}).get("href") or ""
         if href.startswith("#"):
             return href[1:].strip() or None
+
+    # Fallback: derive path from first anchor in an inner <ol>
+    if config.index.source_chain.li_path_from_inner_ol_fallback:
+        for child in li.iter(include_text=False):
+            if child.tag != "ol":
+                continue
+            if child.parent is not None and child.parent != li:
+                continue  # only direct <ol> children of this <li>
+            for inner_li in child.iter(include_text=False):
+                if inner_li.tag != "li":
+                    continue
+                if inner_li.parent is not None and inner_li.parent != child:
+                    continue  # only direct <li> of the inner <ol>
+                a = inner_li.css_first("a[href^='#']")
+                if a:
+                    href = (a.attributes or {}).get("href") or ""
+                    if href.startswith("#"):
+                        path = href[1:].strip()
+                        parts = path.split(".")
+                        if len(parts) > 1:
+                            return ".".join(parts[:-1])
+            break  # only check the first <ol>
     return None
 
 
