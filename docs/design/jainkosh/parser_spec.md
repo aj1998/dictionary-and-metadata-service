@@ -32,6 +32,11 @@
 > from child seed natural key; redlink row detection at DOM level before
 > text stripping).
 >
+> **Fixes applied in v1.5.0**: see
+> [`parser_fix_spec_005/README.md`](./parser_fix_spec_005/README.md)
+> for the full phased correction spec (GRef attribution across nested-span
+> `<br/>` boundaries; parser version bump and golden regeneration).
+>
 > Audience: any implementer (including small reasoning models) who has
 > not been part of the design conversation. Every decision is named.
 

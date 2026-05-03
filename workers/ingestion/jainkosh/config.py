@@ -76,6 +76,8 @@ class IndexSourceChainConfig(BaseModel):
     match_normalize: Literal["nfc_collapsed_ws"] = "nfc_collapsed_ws"
     enclosing_li_fallback: bool = True
     li_path_from_inner_ol_fallback: bool = True
+    row_li_self_path_check: bool = True
+    sibling_container_fallback: bool = True
 
 
 class IndexConfig(BaseModel):

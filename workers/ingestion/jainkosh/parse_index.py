@@ -67,6 +67,23 @@ def _ancestor_li_ids(a: Node, config: JainkoshConfig) -> list[str]:
                 ids.append(li_id)
         cur = cur.parent
     ids.reverse()
+
+    if row_li is None and config.index.source_chain.sibling_container_fallback:
+        container = a.parent
+        while container is not None and container.tag not in ("ul", "ol"):
+            container = container.parent
+        if container is not None:
+            prev = container.prev
+            while prev is not None:
+                if prev.tag == "li":
+                    path = _topic_path_from_li_heading_anchor(prev, config)
+                    if path:
+                        if not ids or ids[-1] != path:
+                            ids.append(path)
+                        return ids
+                prev = prev.prev
+        return ids
+
     contextual_path = _nearest_previous_heading_path_in_same_list(row_li, config)
     if contextual_path and (not ids or ids[-1] != contextual_path):
         ids.append(contextual_path)
@@ -163,6 +180,10 @@ def _heading_from_node_or_descendants(node: Node, config: JainkoshConfig) -> Opt
 def _nearest_previous_heading_path_in_same_list(li: Optional[Node], config: JainkoshConfig) -> Optional[str]:
     if li is None:
         return None
+    if config.index.source_chain.row_li_self_path_check:
+        self_path = _topic_path_from_li_heading_anchor(li, config)
+        if self_path:
+            return self_path
     prev = li.prev
     while prev is not None:
         path = _topic_path_from_li_heading_anchor(prev, config) if prev.tag == "li" else None

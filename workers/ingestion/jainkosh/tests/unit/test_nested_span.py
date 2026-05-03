@@ -3,7 +3,7 @@
 import pytest
 from selectolax.parser import HTMLParser
 
-from workers.ingestion.jainkosh.config import load_config
+from workers.ingestion.jainkosh.config import BlocksConfig, load_config
 from workers.ingestion.jainkosh.parse_blocks import parse_block_stream
 
 
@@ -49,3 +49,63 @@ class TestNestedSpan:
         blocks = parse_block_stream(make_elements(html), config)
         # The inner Sanskrit+Hindi pair should produce one block with translation
         assert any(b.hindi_translation is not None for b in blocks)
+
+    def test_gref_before_br_is_trailing_for_outer_block(self, config):
+        """GRef before the <br/> boundary stays with the outer (hindi_text) block."""
+        html = """
+        <li class="HindiText">
+          प्रमाण नय पाठ
+          <span class="GRef">( नयचक्र बृहद्/17 )</span>
+          ।<br/>
+          <span class="GRef">( द्रव्यसंग्रह/1 )</span>
+          <span class="SanskritText">संस्कृत पाठ</span>
+        </li>
+        """
+        blocks = parse_block_stream(make_elements(html), config)
+        assert [b.kind for b in blocks] == ["hindi_text", "sanskrit_text"]
+        assert [r.text for r in blocks[0].references] == ["( नयचक्र बृहद्/17 )"]
+        assert [r.text for r in blocks[1].references] == ["( द्रव्यसंग्रह/1 )"]
+
+    def test_gref_after_br_is_leading_for_nested_block(self, config):
+        """GRef after the <br/> boundary becomes a leading ref for the nested block."""
+        html = """
+        <li class="HindiText">
+          प्रमाण नय पाठ
+          <span class="GRef">( नयचक्र बृहद्/17 )</span>
+          ।<br/>
+          <span class="GRef">( द्रव्यसंग्रह/1 )</span>
+          <span class="SanskritText">संस्कृत पाठ</span>
+        </li>
+        """
+        blocks = parse_block_stream(make_elements(html), config)
+        assert [r.text for r in blocks[0].references] == ["( नयचक्र बृहद्/17 )"]
+        assert [r.text for r in blocks[1].references] == ["( द्रव्यसंग्रह/1 )"]
+
+    def test_no_br_all_grefs_trailing(self, config):
+        """When no <br/> boundary exists, all pre-nested GRefs stay with the outer block."""
+        html = """
+        <li class="HindiText">
+          पाठ
+          <span class="GRef">( ref1 )</span>
+          <span class="SanskritText">संस्कृत</span>
+        </li>
+        """
+        blocks = parse_block_stream(make_elements(html), config)
+        assert [b.kind for b in blocks] == ["hindi_text", "sanskrit_text"]
+        assert [r.text for r in blocks[0].references] == ["( ref1 )"]
+        assert blocks[1].references == []
+
+    def test_reattach_disabled_old_behavior(self, config):
+        """With nested_span_gref_reattach=False, GRefs keep the old next-block attribution."""
+        cfg = config.model_copy(update={"blocks": BlocksConfig(nested_span_gref_reattach=False)})
+        html = """
+        <li class="HindiText">
+          पाठ
+          <span class="GRef">( ref1 )</span>
+          <span class="SanskritText">संस्कृत</span>
+        </li>
+        """
+        blocks = parse_block_stream(make_elements(html), cfg)
+        assert [b.kind for b in blocks] == ["hindi_text", "sanskrit_text"]
+        assert blocks[0].references == []
+        assert [r.text for r in blocks[1].references] == ["( ref1 )"]

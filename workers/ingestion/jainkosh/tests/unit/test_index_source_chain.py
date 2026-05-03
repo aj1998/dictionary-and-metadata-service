@@ -4,12 +4,19 @@ from workers.ingestion.jainkosh.config import load_config
 from workers.ingestion.jainkosh.parse_keyword import parse_keyword_html
 
 FIXTURE = Path(__file__).parents[1] / "fixtures" / "द्रव्य.html"
+PARYAY_FIXTURE = Path(__file__).parents[1] / "fixtures" / "पर्याय.html"
 
 
 def _result():
     html = FIXTURE.read_text(encoding="utf-8")
     cfg = load_config()
     return parse_keyword_html(html, "https://example.org/wiki/द्रव्य", cfg)
+
+
+def _paryay_result():
+    html = PARYAY_FIXTURE.read_text(encoding="utf-8")
+    cfg = load_config()
+    return parse_keyword_html(html, "https://example.org/wiki/पर्याय", cfg)
 
 
 def _by_label(rels, label):
@@ -66,3 +73,25 @@ def test_plain_strong_heading_derives_path_from_inner_ol():
 
     rel_anek = _by_label(rels, "अनेक अपेक्षाओं से द्रव्य में भेदाभेद व विधि-निषेध")
     assert rel_anek.source_topic_path_chain == ["4", "4.4"]
+
+
+def test_paryay_heading_li_owns_nested_ul_relation_source_chain():
+    """Regression P1-a: nested UL inside heading LI should resolve heading LI path."""
+    res = _paryay_result()
+    rel = _by_label(res.page_sections[0].index_relations, "कर्म का अर्थ पर्याय")
+    assert rel.source_topic_path_chain == ["1"]
+
+
+def test_paryay_sibling_ul_relation_resolves_previous_heading_path():
+    """Regression P1-b: UL sibling in outer OL should resolve nearest preceding heading path."""
+    res = _paryay_result()
+    rel = _by_label(res.page_sections[0].index_relations, "ऊर्ध्व क्रम व ऊर्ध्व प्रचय")
+    assert rel.source_topic_path_chain in (["1"], ["2"])
+
+
+def test_paryay_relation_under_topic_2_does_not_get_topic_1_prepended():
+    """Regression: natural-key resolution must not prepend unrelated contextual heading."""
+    res = _paryay_result()
+    rel = _by_label(res.page_sections[0].index_relations, "पर्याय में परस्पर व्यतिरेक प्रदर्शन")
+    assert rel.source_topic_path_chain == ["2"]
+    assert rel.source_topic_natural_key_chain == ["पर्याय:पर्याय-सामान्य-निर्देश"]

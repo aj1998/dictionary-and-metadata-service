@@ -38,28 +38,20 @@
             "target_url": "/wiki/%E0%A4%85%E0%A4%B0%E0%A5%8D%E0%A4%A5#1.1",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": [],
-            "is_top_level_reference": true
+            "source_topic_path": "1",
+            "source_topic_path_chain": [
+              "1"
+            ],
+            "source_topic_natural_key_chain": [
+              "पर्याय:भेद-व-लक्षण"
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "ऊर्ध्व क्रम व ऊर्ध्व प्रचय",
             "target_keyword": "क्रम",
             "target_topic_path": null,
             "target_url": "/wiki/%E0%A4%95%E0%A5%8D%E0%A4%B0%E0%A4%AE",
-            "is_self": false,
-            "target_exists": true,
-            "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": [],
-            "is_top_level_reference": true
-          },
-          {
-            "label_text": "पर्याय में परस्पर व्यतिरेक प्रदर्शन",
-            "target_keyword": "सप्तभंगी",
-            "target_topic_path": "5.3",
-            "target_url": "/wiki/%E0%A4%B8%E0%A4%AA%E0%A5%8D%E0%A4%A4%E0%A4%AD%E0%A4%82%E0%A4%97%E0%A5%80#5.3",
             "is_self": false,
             "target_exists": true,
             "source_topic_path": "1",
@@ -72,16 +64,36 @@
             "is_top_level_reference": false
           },
           {
+            "label_text": "पर्याय में परस्पर व्यतिरेक प्रदर्शन",
+            "target_keyword": "सप्तभंगी",
+            "target_topic_path": "5.3",
+            "target_url": "/wiki/%E0%A4%B8%E0%A4%AA%E0%A5%8D%E0%A4%A4%E0%A4%AD%E0%A4%82%E0%A4%97%E0%A5%80#5.3",
+            "is_self": false,
+            "target_exists": true,
+            "source_topic_path": "2",
+            "source_topic_path_chain": [
+              "2"
+            ],
+            "source_topic_natural_key_chain": [
+              "पर्याय:पर्याय-सामान्य-निर्देश"
+            ],
+            "is_top_level_reference": false
+          },
+          {
             "label_text": "पर्याय पर्यायी में कथंचित् भेदाभेद",
             "target_keyword": "द्रव्य",
             "target_topic_path": "4",
             "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#4",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": [],
-            "is_top_level_reference": true
+            "source_topic_path": "2",
+            "source_topic_path_chain": [
+              "2"
+            ],
+            "source_topic_natural_key_chain": [
+              "पर्याय:पर्याय-सामान्य-निर्देश"
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "पर्यायों को द्रव्यगुण तथा उन्हें पर्यायों से लक्षित करना",
@@ -90,10 +102,14 @@
             "target_url": "/wiki/%E0%A4%89%E0%A4%AA%E0%A4%9A%E0%A4%BE%E0%A4%B0#3",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": [],
-            "is_top_level_reference": true
+            "source_topic_path": "2",
+            "source_topic_path_chain": [
+              "2"
+            ],
+            "source_topic_natural_key_chain": [
+              "पर्याय:पर्याय-सामान्य-निर्देश"
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "परिणमन का अस्तित्व द्रव्य में या द्रव्यांशों में या पर्यायों में",
@@ -102,10 +118,14 @@
             "target_url": "/wiki/%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%AA%E0%A4%BE%E0%A4%A6#3",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": [],
-            "is_top_level_reference": true
+            "source_topic_path": "2",
+            "source_topic_path_chain": [
+              "2"
+            ],
+            "source_topic_natural_key_chain": [
+              "पर्याय:पर्याय-सामान्य-निर्देश"
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "परिणमन का अस्तित्व द्रव्य में या द्रव्यांशों में या पर्यायों में",
@@ -114,10 +134,14 @@
             "target_url": "/wiki/%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%AA%E0%A4%BE%E0%A4%A6#3",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": [],
-            "is_top_level_reference": true
+            "source_topic_path": "2",
+            "source_topic_path_chain": [
+              "2"
+            ],
+            "source_topic_natural_key_chain": [
+              "पर्याय:पर्याय-सामान्य-निर्देश"
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "सादि-अनादि व सदृश-विसदृश परिणमन",
@@ -126,10 +150,14 @@
             "target_url": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A4%BF%E0%A4%A3%E0%A4%BE%E0%A4%AE",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": [],
-            "is_top_level_reference": true
+            "source_topic_path": "3",
+            "source_topic_path_chain": [
+              "3"
+            ],
+            "source_topic_natural_key_chain": [
+              "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश"
+            ],
+            "is_top_level_reference": false
           }
         ],
         "subsections": [
@@ -441,7 +469,13 @@
                         "kind": "hindi_text",
                         "text_devanagari": "द्रव्य के विकार विशेष रूप से भेद को प्राप्त होते हैं इसलिए वे पर्याय कहलाते हैं।।",
                         "hindi_translation": null,
-                        "references": [],
+                        "references": [
+                          {
+                            "text": "( नयचक्र बृहद्/17 )",
+                            "raw_html": "<span class=\"GRef\">( नयचक्र बृहद्/17 )</span>",
+                            "parsed": null
+                          }
+                        ],
                         "is_orphan_translation": false,
                         "is_bullet_point": false,
                         "raw_html": null,
@@ -457,11 +491,6 @@
                         "text_devanagari": "सामान्यविशेषगुणा एकस्मिन् धर्मणि वस्तुत्व-निष्पादकास्तेषां परिणामः पर्यायः।",
                         "hindi_translation": "सामान्य विशेषात्मक गुण एक द्रव्य में वस्तुत्व के बतलानेवाले हैं उनका परिणाम पर्याय है।",
                         "references": [
-                          {
-                            "text": "( नयचक्र बृहद्/17 )",
-                            "raw_html": "<span class=\"GRef\">( नयचक्र बृहद्/17 )</span>",
-                            "parsed": null
-                          },
                           {
                             "text": "नयचक्र / श्रुतभवन दीपक/ पृष्ठ 57",
                             "raw_html": "<span class=\"GRef\">नयचक्र / श्रुतभवन दीपक/ पृष्ठ 57</span>",
@@ -3025,7 +3054,7 @@
       "prev": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AA%E0%A5%8D%E0%A4%A4%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%B2",
       "next": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%B8%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8"
     },
-    "parser_version": "jainkosh.rules/1.4.0",
+    "parser_version": "jainkosh.rules/1.5.0",
     "parsed_at": "2026-05-02T00:00:00",
     "warnings": []
   },
@@ -3817,9 +3846,9 @@
         },
         {
           "table": "topics",
-          "natural_key": "पर्याय:कर्म-का-अर्थ-पर्याय",
+          "natural_key": "पर्याय:भेद-व-लक्षण:कर्म-का-अर्थ-पर्याय",
           "topic_path": null,
-          "parent_topic_natural_key": null,
+          "parent_topic_natural_key": "पर्याय:भेद-व-लक्षण",
           "display_text": [
             {
               "lang": "hin",
@@ -3836,9 +3865,9 @@
         },
         {
           "table": "topics",
-          "natural_key": "पर्याय:ऊर्ध्व-क्रम-व-ऊर्ध्व-प्रचय",
+          "natural_key": "पर्याय:भेद-व-लक्षण:ऊर्ध्व-क्रम-व-ऊर्ध्व-प्रचय",
           "topic_path": null,
-          "parent_topic_natural_key": null,
+          "parent_topic_natural_key": "पर्याय:भेद-व-लक्षण",
           "display_text": [
             {
               "lang": "hin",
@@ -3855,9 +3884,9 @@
         },
         {
           "table": "topics",
-          "natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-में-परस्पर-व्यतिरेक-प्रदर्शन",
+          "natural_key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-में-परस्पर-व्यतिरेक-प्रदर्शन",
           "topic_path": null,
-          "parent_topic_natural_key": "पर्याय:भेद-व-लक्षण",
+          "parent_topic_natural_key": "पर्याय:पर्याय-सामान्य-निर्देश",
           "display_text": [
             {
               "lang": "hin",
@@ -3874,9 +3903,9 @@
         },
         {
           "table": "topics",
-          "natural_key": "पर्याय:पर्याय-पर्यायी-में-कथंचित्-भेदाभेद",
+          "natural_key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-पर्यायी-में-कथंचित्-भेदाभेद",
           "topic_path": null,
-          "parent_topic_natural_key": null,
+          "parent_topic_natural_key": "पर्याय:पर्याय-सामान्य-निर्देश",
           "display_text": [
             {
               "lang": "hin",
@@ -3893,9 +3922,9 @@
         },
         {
           "table": "topics",
-          "natural_key": "पर्याय:पर्यायों-को-द्रव्यगुण-तथा-उन्हें-पर्यायों-से-लक्षित-करना",
+          "natural_key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्यायों-को-द्रव्यगुण-तथा-उन्हें-पर्यायों-से-लक्षित-करना",
           "topic_path": null,
-          "parent_topic_natural_key": null,
+          "parent_topic_natural_key": "पर्याय:पर्याय-सामान्य-निर्देश",
           "display_text": [
             {
               "lang": "hin",
@@ -3912,9 +3941,9 @@
         },
         {
           "table": "topics",
-          "natural_key": "पर्याय:परिणमन-का-अस्तित्व-द्रव्य-में-या-द्रव्यांशों-में-या-पर्यायों-में",
+          "natural_key": "पर्याय:पर्याय-सामान्य-निर्देश:परिणमन-का-अस्तित्व-द्रव्य-में-या-द्रव्यांशों-में-या-पर्यायों-में",
           "topic_path": null,
-          "parent_topic_natural_key": null,
+          "parent_topic_natural_key": "पर्याय:पर्याय-सामान्य-निर्देश",
           "display_text": [
             {
               "lang": "hin",
@@ -3931,9 +3960,9 @@
         },
         {
           "table": "topics",
-          "natural_key": "पर्याय:सादिअनादि-व-सदृशविसदृश-परिणमन",
+          "natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:सादिअनादि-व-सदृशविसदृश-परिणमन",
           "topic_path": null,
-          "parent_topic_natural_key": null,
+          "parent_topic_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश",
           "display_text": [
             {
               "lang": "hin",
@@ -4368,7 +4397,13 @@
               "kind": "hindi_text",
               "text_devanagari": "द्रव्य के विकार विशेष रूप से भेद को प्राप्त होते हैं इसलिए वे पर्याय कहलाते हैं।।",
               "hindi_translation": null,
-              "references": [],
+              "references": [
+                {
+                  "text": "( नयचक्र बृहद्/17 )",
+                  "raw_html": "<span class=\"GRef\">( नयचक्र बृहद्/17 )</span>",
+                  "parsed": null
+                }
+              ],
               "is_orphan_translation": false,
               "is_bullet_point": false,
               "raw_html": null,
@@ -4384,11 +4419,6 @@
               "text_devanagari": "सामान्यविशेषगुणा एकस्मिन् धर्मणि वस्तुत्व-निष्पादकास्तेषां परिणामः पर्यायः।",
               "hindi_translation": "सामान्य विशेषात्मक गुण एक द्रव्य में वस्तुत्व के बतलानेवाले हैं उनका परिणाम पर्याय है।",
               "references": [
-                {
-                  "text": "( नयचक्र बृहद्/17 )",
-                  "raw_html": "<span class=\"GRef\">( नयचक्र बृहद्/17 )</span>",
-                  "parsed": null
-                },
                 {
                   "text": "नयचक्र / श्रुतभवन दीपक/ पृष्ठ 57",
                   "raw_html": "<span class=\"GRef\">नयचक्र / श्रुतभवन दीपक/ पृष्ठ 57</span>",
@@ -6904,9 +6934,9 @@
         },
         {
           "collection": "topic_extracts",
-          "natural_key": "पर्याय:कर्म-का-अर्थ-पर्याय",
+          "natural_key": "पर्याय:भेद-व-लक्षण:कर्म-का-अर्थ-पर्याय",
           "topic_path": null,
-          "parent_natural_key": null,
+          "parent_natural_key": "पर्याय:भेद-व-लक्षण",
           "is_leaf": true,
           "heading": [
             {
@@ -6921,9 +6951,9 @@
         },
         {
           "collection": "topic_extracts",
-          "natural_key": "पर्याय:ऊर्ध्व-क्रम-व-ऊर्ध्व-प्रचय",
+          "natural_key": "पर्याय:भेद-व-लक्षण:ऊर्ध्व-क्रम-व-ऊर्ध्व-प्रचय",
           "topic_path": null,
-          "parent_natural_key": null,
+          "parent_natural_key": "पर्याय:भेद-व-लक्षण",
           "is_leaf": true,
           "heading": [
             {
@@ -6938,9 +6968,9 @@
         },
         {
           "collection": "topic_extracts",
-          "natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-में-परस्पर-व्यतिरेक-प्रदर्शन",
+          "natural_key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-में-परस्पर-व्यतिरेक-प्रदर्शन",
           "topic_path": null,
-          "parent_natural_key": "पर्याय:भेद-व-लक्षण",
+          "parent_natural_key": "पर्याय:पर्याय-सामान्य-निर्देश",
           "is_leaf": true,
           "heading": [
             {
@@ -6955,9 +6985,9 @@
         },
         {
           "collection": "topic_extracts",
-          "natural_key": "पर्याय:पर्याय-पर्यायी-में-कथंचित्-भेदाभेद",
+          "natural_key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-पर्यायी-में-कथंचित्-भेदाभेद",
           "topic_path": null,
-          "parent_natural_key": null,
+          "parent_natural_key": "पर्याय:पर्याय-सामान्य-निर्देश",
           "is_leaf": true,
           "heading": [
             {
@@ -6972,9 +7002,9 @@
         },
         {
           "collection": "topic_extracts",
-          "natural_key": "पर्याय:पर्यायों-को-द्रव्यगुण-तथा-उन्हें-पर्यायों-से-लक्षित-करना",
+          "natural_key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्यायों-को-द्रव्यगुण-तथा-उन्हें-पर्यायों-से-लक्षित-करना",
           "topic_path": null,
-          "parent_natural_key": null,
+          "parent_natural_key": "पर्याय:पर्याय-सामान्य-निर्देश",
           "is_leaf": true,
           "heading": [
             {
@@ -6989,9 +7019,9 @@
         },
         {
           "collection": "topic_extracts",
-          "natural_key": "पर्याय:परिणमन-का-अस्तित्व-द्रव्य-में-या-द्रव्यांशों-में-या-पर्यायों-में",
+          "natural_key": "पर्याय:पर्याय-सामान्य-निर्देश:परिणमन-का-अस्तित्व-द्रव्य-में-या-द्रव्यांशों-में-या-पर्यायों-में",
           "topic_path": null,
-          "parent_natural_key": null,
+          "parent_natural_key": "पर्याय:पर्याय-सामान्य-निर्देश",
           "is_leaf": true,
           "heading": [
             {
@@ -7006,9 +7036,9 @@
         },
         {
           "collection": "topic_extracts",
-          "natural_key": "पर्याय:सादिअनादि-व-सदृशविसदृश-परिणमन",
+          "natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:सादिअनादि-व-सदृशविसदृश-परिणमन",
           "topic_path": null,
-          "parent_natural_key": null,
+          "parent_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश",
           "is_leaf": true,
           "heading": [
             {
@@ -7508,7 +7538,7 @@
         },
         {
           "label": "Topic",
-          "key": "पर्याय:कर्म-का-अर्थ-पर्याय",
+          "key": "पर्याय:भेद-व-लक्षण:कर्म-का-अर्थ-पर्याय",
           "props": {
             "display_text_hi": "कर्म का अर्थ पर्याय",
             "topic_path": null,
@@ -7519,7 +7549,7 @@
         },
         {
           "label": "Topic",
-          "key": "पर्याय:ऊर्ध्व-क्रम-व-ऊर्ध्व-प्रचय",
+          "key": "पर्याय:भेद-व-लक्षण:ऊर्ध्व-क्रम-व-ऊर्ध्व-प्रचय",
           "props": {
             "display_text_hi": "ऊर्ध्व क्रम व ऊर्ध्व प्रचय",
             "topic_path": null,
@@ -7530,7 +7560,7 @@
         },
         {
           "label": "Topic",
-          "key": "पर्याय:भेद-व-लक्षण:पर्याय-में-परस्पर-व्यतिरेक-प्रदर्शन",
+          "key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-में-परस्पर-व्यतिरेक-प्रदर्शन",
           "props": {
             "display_text_hi": "पर्याय में परस्पर व्यतिरेक प्रदर्शन",
             "topic_path": null,
@@ -7541,7 +7571,7 @@
         },
         {
           "label": "Topic",
-          "key": "पर्याय:पर्याय-पर्यायी-में-कथंचित्-भेदाभेद",
+          "key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-पर्यायी-में-कथंचित्-भेदाभेद",
           "props": {
             "display_text_hi": "पर्याय पर्यायी में कथंचित् भेदाभेद",
             "topic_path": null,
@@ -7552,7 +7582,7 @@
         },
         {
           "label": "Topic",
-          "key": "पर्याय:पर्यायों-को-द्रव्यगुण-तथा-उन्हें-पर्यायों-से-लक्षित-करना",
+          "key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्यायों-को-द्रव्यगुण-तथा-उन्हें-पर्यायों-से-लक्षित-करना",
           "props": {
             "display_text_hi": "पर्यायों को द्रव्यगुण तथा उन्हें पर्यायों से लक्षित करना",
             "topic_path": null,
@@ -7563,7 +7593,7 @@
         },
         {
           "label": "Topic",
-          "key": "पर्याय:परिणमन-का-अस्तित्व-द्रव्य-में-या-द्रव्यांशों-में-या-पर्यायों-में",
+          "key": "पर्याय:पर्याय-सामान्य-निर्देश:परिणमन-का-अस्तित्व-द्रव्य-में-या-द्रव्यांशों-में-या-पर्यायों-में",
           "props": {
             "display_text_hi": "परिणमन का अस्तित्व द्रव्य में या द्रव्यांशों में या पर्यायों में",
             "topic_path": null,
@@ -7574,7 +7604,7 @@
         },
         {
           "label": "Topic",
-          "key": "पर्याय:सादिअनादि-व-सदृशविसदृश-परिणमन",
+          "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:सादिअनादि-व-सदृशविसदृश-परिणमन",
           "props": {
             "display_text_hi": "सादि-अनादि व सदृश-विसदृश परिणमन",
             "topic_path": null,
@@ -8231,14 +8261,14 @@
           }
         },
         {
-          "type": "HAS_TOPIC",
+          "type": "PART_OF",
           "from": {
-            "label": "Keyword",
-            "key": "पर्याय"
+            "label": "Topic",
+            "key": "पर्याय:भेद-व-लक्षण:कर्म-का-अर्थ-पर्याय"
           },
           "to": {
             "label": "Topic",
-            "key": "पर्याय:कर्म-का-अर्थ-पर्याय"
+            "key": "पर्याय:भेद-व-लक्षण"
           },
           "props": {
             "weight": 1.0,
@@ -8249,7 +8279,7 @@
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "पर्याय:कर्म-का-अर्थ-पर्याय"
+            "key": "पर्याय:भेद-व-लक्षण:कर्म-का-अर्थ-पर्याय"
           },
           "to": {
             "label": "Topic",
@@ -8265,14 +8295,14 @@
           }
         },
         {
-          "type": "HAS_TOPIC",
+          "type": "PART_OF",
           "from": {
-            "label": "Keyword",
-            "key": "पर्याय"
+            "label": "Topic",
+            "key": "पर्याय:भेद-व-लक्षण:ऊर्ध्व-क्रम-व-ऊर्ध्व-प्रचय"
           },
           "to": {
             "label": "Topic",
-            "key": "पर्याय:ऊर्ध्व-क्रम-व-ऊर्ध्व-प्रचय"
+            "key": "पर्याय:भेद-व-लक्षण"
           },
           "props": {
             "weight": 1.0,
@@ -8283,7 +8313,7 @@
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "पर्याय:ऊर्ध्व-क्रम-व-ऊर्ध्व-प्रचय"
+            "key": "पर्याय:भेद-व-लक्षण:ऊर्ध्व-क्रम-व-ऊर्ध्व-प्रचय"
           },
           "to": {
             "label": "Keyword",
@@ -8299,11 +8329,11 @@
           "type": "PART_OF",
           "from": {
             "label": "Topic",
-            "key": "पर्याय:भेद-व-लक्षण:पर्याय-में-परस्पर-व्यतिरेक-प्रदर्शन"
+            "key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-में-परस्पर-व्यतिरेक-प्रदर्शन"
           },
           "to": {
             "label": "Topic",
-            "key": "पर्याय:भेद-व-लक्षण"
+            "key": "पर्याय:पर्याय-सामान्य-निर्देश"
           },
           "props": {
             "weight": 1.0,
@@ -8314,7 +8344,7 @@
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "पर्याय:भेद-व-लक्षण:पर्याय-में-परस्पर-व्यतिरेक-प्रदर्शन"
+            "key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-में-परस्पर-व्यतिरेक-प्रदर्शन"
           },
           "to": {
             "label": "Topic",
@@ -8330,14 +8360,14 @@
           }
         },
         {
-          "type": "HAS_TOPIC",
+          "type": "PART_OF",
           "from": {
-            "label": "Keyword",
-            "key": "पर्याय"
+            "label": "Topic",
+            "key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-पर्यायी-में-कथंचित्-भेदाभेद"
           },
           "to": {
             "label": "Topic",
-            "key": "पर्याय:पर्याय-पर्यायी-में-कथंचित्-भेदाभेद"
+            "key": "पर्याय:पर्याय-सामान्य-निर्देश"
           },
           "props": {
             "weight": 1.0,
@@ -8348,7 +8378,7 @@
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "पर्याय:पर्याय-पर्यायी-में-कथंचित्-भेदाभेद"
+            "key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-पर्यायी-में-कथंचित्-भेदाभेद"
           },
           "to": {
             "label": "Topic",
@@ -8364,14 +8394,14 @@
           }
         },
         {
-          "type": "HAS_TOPIC",
+          "type": "PART_OF",
           "from": {
-            "label": "Keyword",
-            "key": "पर्याय"
+            "label": "Topic",
+            "key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्यायों-को-द्रव्यगुण-तथा-उन्हें-पर्यायों-से-लक्षित-करना"
           },
           "to": {
             "label": "Topic",
-            "key": "पर्याय:पर्यायों-को-द्रव्यगुण-तथा-उन्हें-पर्यायों-से-लक्षित-करना"
+            "key": "पर्याय:पर्याय-सामान्य-निर्देश"
           },
           "props": {
             "weight": 1.0,
@@ -8382,7 +8412,7 @@
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "पर्याय:पर्यायों-को-द्रव्यगुण-तथा-उन्हें-पर्यायों-से-लक्षित-करना"
+            "key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्यायों-को-द्रव्यगुण-तथा-उन्हें-पर्यायों-से-लक्षित-करना"
           },
           "to": {
             "label": "Topic",
@@ -8398,14 +8428,14 @@
           }
         },
         {
-          "type": "HAS_TOPIC",
+          "type": "PART_OF",
           "from": {
-            "label": "Keyword",
-            "key": "पर्याय"
+            "label": "Topic",
+            "key": "पर्याय:पर्याय-सामान्य-निर्देश:परिणमन-का-अस्तित्व-द्रव्य-में-या-द्रव्यांशों-में-या-पर्यायों-में"
           },
           "to": {
             "label": "Topic",
-            "key": "पर्याय:परिणमन-का-अस्तित्व-द्रव्य-में-या-द्रव्यांशों-में-या-पर्यायों-में"
+            "key": "पर्याय:पर्याय-सामान्य-निर्देश"
           },
           "props": {
             "weight": 1.0,
@@ -8416,7 +8446,7 @@
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "पर्याय:परिणमन-का-अस्तित्व-द्रव्य-में-या-द्रव्यांशों-में-या-पर्यायों-में"
+            "key": "पर्याय:पर्याय-सामान्य-निर्देश:परिणमन-का-अस्तित्व-द्रव्य-में-या-द्रव्यांशों-में-या-पर्यायों-में"
           },
           "to": {
             "label": "Topic",
@@ -8432,14 +8462,14 @@
           }
         },
         {
-          "type": "HAS_TOPIC",
+          "type": "PART_OF",
           "from": {
-            "label": "Keyword",
-            "key": "पर्याय"
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:सादिअनादि-व-सदृशविसदृश-परिणमन"
           },
           "to": {
             "label": "Topic",
-            "key": "पर्याय:सादिअनादि-व-सदृशविसदृश-परिणमन"
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश"
           },
           "props": {
             "weight": 1.0,
@@ -8450,7 +8480,7 @@
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "पर्याय:सादिअनादि-व-सदृशविसदृश-परिणमन"
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:सादिअनादि-व-सदृशविसदृश-परिणमन"
           },
           "to": {
             "label": "Keyword",

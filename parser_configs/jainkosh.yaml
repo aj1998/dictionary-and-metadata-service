@@ -1,5 +1,5 @@
-version: "1.4.0"
-parser_rules_version: "jainkosh.rules/1.4.0"
+version: "1.5.0"
+parser_rules_version: "jainkosh.rules/1.5.0"
 
 normalization:
   nfc: true
@@ -41,6 +41,8 @@ index:
     match_normalize: "nfc_collapsed_ws"
     enclosing_li_fallback: true
     li_path_from_inner_ol_fallback: true
+    row_li_self_path_check: true
+    sibling_container_fallback: true
   top_level_reference_marking: true
   see_also_triggers:
     - "विशेष देखें"

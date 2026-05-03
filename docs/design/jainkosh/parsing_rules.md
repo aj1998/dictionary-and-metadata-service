@@ -829,7 +829,7 @@ The parser MUST tag every output with the rules version it implements.
 Bump this version when any rule above changes:
 
 ```
-parser_rules_version = "jainkosh.rules/1.4.0"     # bumped from 1.3.0 in fix-spec-004
+parser_rules_version = "jainkosh.rules/1.5.0"     # bumped from 1.4.0 in fix-spec-005
 ```
 
 This is written into `KeywordParseResult.parser_version` and into the
@@ -844,3 +844,4 @@ ingestion run's `parser_configs.version` row in Postgres.
 | `1.2.0` | fix-spec-002: table full outerHTML + raw_html whitespace collapse (§3.5, §6.5); idempotency contracts hoisted to envelope root (§3.4); IndexRelation source chain via ancestor `<strong>` text (§4.6); DFS leading-GRef passthrough (§6.14); parenthesised `देखें` stripped from prose (§5.7); label-seed scope guard for translation context (§5.6); see-also-only blocks dropped from `Subsection.blocks` (§6.13); definition `(N)` numbering prefix stripped (§3.2); redlink edges suppressed in Neo4j envelope (§6.7). See `parser_fix_spec_002/README.md`. |
 | `1.3.0` | fix-spec-003: row-style `see_also` blocks relocated from parent `Subsection.blocks` to child label-seed `blocks` (§5.6, §6.13); row detection at DOM element level before text stripping (catches redlink rows); `RELATED_TO` edges now emitted from child seed natural key, not parent. See `parser_fix_spec_003/parser_fix_spec_003.md`. |
 | `1.4.0` | fix-spec-004: IndexRelation source-chain fallbacks for enclosing `<li>` and plain-`<strong>` headings via inner `<ol>` anchors (§4.6); V2 heading inline-content extraction for span-contained prose; inline GRef-based block splitting for positional reference attribution (§6.3); index relations materialized as synthetic topic seeds in envelope outputs (mongo/postgres/neo4j alignment). See `parser_fix_spec_004/README.md`. |
+| `1.5.0` | fix-spec-005: nested-span GRef attribution across `<br/>` boundaries (§6.3); parser version bump and golden regeneration. See `parser_fix_spec_005/README.md`. |

@@ -160,7 +160,7 @@ def test_index_relation_chain_for_keyword_level_ul(load_fixture, config):
     result = parse_keyword_html(load_fixture("पर्याय.html"), "https://jainkosh.org/wiki/पर्याय", config)
     sk = next(s for s in result.page_sections if s.section_kind == "siddhantkosh")
     keyword_level = [r for r in sk.index_relations if r.source_topic_path_chain == []]
-    assert len(keyword_level) >= 1
+    assert len(keyword_level) == 0
     assert all(r.source_topic_natural_key_chain == [] for r in keyword_level)
 
 

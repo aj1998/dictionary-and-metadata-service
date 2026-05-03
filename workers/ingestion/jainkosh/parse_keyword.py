@@ -66,7 +66,6 @@ def _resolve_index_relation_natural_keys(section: PageSection, config: JainkoshC
             path_to_nk[p] for p in rel.source_topic_path_chain if p in path_to_nk
         ]
         heading_path_chain: list[str] = []
-        heading_nk_chain: list[str] = []
         if config.index.source_chain.enabled:
             chain_texts = get_heading_chain(rel)
             if chain_texts:
@@ -75,7 +74,24 @@ def _resolve_index_relation_natural_keys(section: PageSection, config: JainkoshC
                     if hit is None:
                         break
                     heading_path_chain.append(hit[0])
-                    heading_nk_chain.append(hit[1])
+
+        if rel.source_topic_path_chain:
+            first = rel.source_topic_path_chain[0]
+            if "." in first:
+                parts = first.split(".")
+                dotted_ancestors = {".".join(parts[:i]) for i in range(1, len(parts))}
+                prefix_from_heading = [p for p in heading_path_chain if p in dotted_ancestors]
+                merged_path_chain = prefix_from_heading + [
+                    p for p in rel.source_topic_path_chain if p not in prefix_from_heading
+                ]
+                merged_nk_chain = [path_to_nk[p] for p in merged_path_chain if p in path_to_nk]
+                if merged_path_chain and len(merged_path_chain) >= len(rel.source_topic_path_chain):
+                    rel.source_topic_path_chain = merged_path_chain
+                    rel.source_topic_natural_key_chain = merged_nk_chain
+                    continue
+            rel.source_topic_natural_key_chain = by_path_nk_chain
+            continue
+
         merged_path_chain = heading_path_chain + [
             p for p in rel.source_topic_path_chain if p not in heading_path_chain
         ]

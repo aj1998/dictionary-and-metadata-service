@@ -93,7 +93,9 @@
             "skip_li_with_footer_id": {"type": "boolean"},
             "match_normalize": {"type": "string", "enum": ["nfc_collapsed_ws"]},
             "enclosing_li_fallback": {"type": "boolean"},
-            "li_path_from_inner_ol_fallback": {"type": "boolean"}
+            "li_path_from_inner_ol_fallback": {"type": "boolean"},
+            "row_li_self_path_check": {"type": "boolean"},
+            "sibling_container_fallback": {"type": "boolean"}
           }
         },
         "top_level_reference_marking": { "type": "boolean" },

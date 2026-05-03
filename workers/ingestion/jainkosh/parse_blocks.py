@@ -461,52 +461,105 @@ def flatten_for_blocks(
 
 
 def _explode_nested_span(span: Node, config: JainkoshConfig) -> list[Node]:
-    """Flatten a nested-span element into a list of child blocks."""
-    from selectolax.parser import HTMLParser
+    """Flatten a nested-span element into a list of child blocks.
 
-    results = []
-
-    # 1. Collect GRefs that appear before the first nested block child
-    #    and the direct text of the outer span
+    When reattach is enabled, GRefs before the last <br/> boundary stay with the
+    outer block and GRefs after that boundary are emitted before the first nested
+    block so they attach to that nested block.
+    """
     outer_kind = block_class_kind(span, config)
+    if outer_kind is None:
+        return [span]
 
-    # Build the outer span's "direct text" from leading text nodes + leading GRefs
-    # Strategy: iterate children; emit outer text/GRefs as synthetic nodes until
-    # we hit a nested block, then switch to iterating children normally
-    leading_text_parts = []
-    leading_refs = []
-    reached_nested = False
-
-    span_html = span.html or ""
-    inner_html = _get_inner_html(span)
-
-    # Parse children
     children = list(span.iter(include_text=False))
     children = [c for c in children if c != span]
 
-    # Find the first nested block child index
     first_nested_idx = -1
     for i, child in enumerate(children):
-        kind = block_class_kind(child, config)
-        if kind is not None and kind != outer_kind:
+        child_kind = block_class_kind(child, config)
+        if child_kind is not None and child_kind != outer_kind:
             first_nested_idx = i
             break
-        if is_gref_node(child, config):
-            continue
-        # Check if child itself contains a nested block
-        if kind == outer_kind and has_nested_block(child, config):
+        if child_kind == outer_kind and has_nested_block(child, config):
             first_nested_idx = i
             break
 
-    # Collect the direct text from the outer span (not inside nested elements)
-    # We do this by looking at text nodes that are direct children of span
+    if not config.blocks.nested_span_gref_reattach:
+        return _explode_nested_span_legacy(span, config, outer_kind=outer_kind, children=children)
+
+    if first_nested_idx < 0:
+        direct_text = _direct_text_of(span)
+        if direct_text.strip():
+            return [_make_synthetic_block(direct_text, outer_kind, config)]
+        return [span]
+
+    pre_nested = children[:first_nested_idx]
+
+    boundary_tags = {
+        tag.lower()
+        for tag in config.blocks.nested_span_gref_boundary_tags
+    }
+    last_boundary_idx = -1
+    for i, child in enumerate(pre_nested):
+        if (child.tag or "").lower() in boundary_tags:
+            last_boundary_idx = i
+
+    trailing_gref_indices = {
+        i
+        for i, child in enumerate(pre_nested)
+        if is_gref_node(child, config) and (last_boundary_idx < 0 or i <= last_boundary_idx)
+    }
+
+    results: list[Node] = []
+    outer_html_parts: list[str] = []
     direct_text = _direct_text_of(span)
     if direct_text.strip():
-        # Make a synthetic node for the outer span's direct text
+        outer_html_parts.append(direct_text)
+    outer_html_parts.extend(
+        child.html or ""
+        for i, child in enumerate(pre_nested)
+        if i in trailing_gref_indices and (child.html or "").strip()
+    )
+
+    if outer_html_parts:
+        outer_html = " ".join(part.strip() for part in outer_html_parts if part.strip())
+        if outer_html:
+            results.append(_make_synthetic_block(outer_html, outer_kind, config))
+
+    for i, child in enumerate(children):
+        if i < first_nested_idx and i in trailing_gref_indices:
+            continue
+        child_kind = block_class_kind(child, config)
+        if child_kind is not None and child_kind != outer_kind:
+            if child_kind in config.nested_span.outer_kinds and has_nested_block(child, config):
+                results.extend(_explode_nested_span(child, config))
+            else:
+                results.append(child)
+        elif child_kind == outer_kind and has_nested_block(child, config):
+            results.extend(_explode_nested_span(child, config))
+        elif child_kind == outer_kind:
+            results.append(child)
+        elif is_gref_node(child, config):
+            results.append(child)
+
+    return results if results else [span]
+
+
+def _explode_nested_span_legacy(
+    span: Node,
+    config: JainkoshConfig,
+    *,
+    outer_kind: str,
+    children: list[Node],
+) -> list[Node]:
+    """Preserve the old nested-span flattening behavior behind the config flag."""
+    results: list[Node] = []
+
+    direct_text = _direct_text_of(span)
+    if direct_text.strip():
         results.append(_make_synthetic_block(direct_text, outer_kind, config))
 
-    # Now iterate direct children of the span (iter() gives direct children in selectolax)
-    for child in span.iter(include_text=False):
+    for child in children:
         child_kind = block_class_kind(child, config)
         if is_gref_node(child, config):
             results.append(child)
@@ -515,9 +568,6 @@ def _explode_nested_span(span: Node, config: JainkoshConfig) -> list[Node]:
                 results.extend(_explode_nested_span(child, config))
             else:
                 results.append(child)
-        else:
-            # Unknown/other element - skip
-            pass
 
     return results if results else [span]
 
