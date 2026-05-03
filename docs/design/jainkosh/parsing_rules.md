@@ -266,18 +266,33 @@ Configurable knobs:
 The same trigger list and window are used for **inline** `देखें`
 detection in body blocks (§6.7).
 
-### 4.6 IndexRelation source chain resolution (v1.2.0)
+### 4.6 IndexRelation source chain resolution (v1.4.0)
 
 `IndexRelation.source_topic_path_chain` and
 `source_topic_natural_key_chain` are resolved by walking ancestor
 `<li>` containers of each `देखें` entry upward through the index DOM
-and matching their inline `<strong>` (or `<strong><a>`) heading text
-against the parsed subsection tree. This eliminates `null` chains that
-appeared in v1.1.0 when the ancestor `<li>` heading wasn't a direct
-numeric anchor. Controlled by
-`index.source_chain.ancestor_strong_selectors` (list of CSS selectors
-tried in order) and `index.source_chain.fallback_to_null` (default
-`false`).
+and matching their inline heading context against parsed subsection
+topics.
+
+v1.4.0 adds two fallback rules that fix unresolved or mis-resolved
+chains in nested index structures:
+
+- **Enclosing-`<li>` fallback**: when previous-sibling scan in the same
+  list is exhausted, resolution climbs to the enclosing parent `<li>`
+  and derives path/heading from that container.
+- **Inner-`<ol>` path fallback**: for `<li>` headings where
+  `<strong>` has plain text (no `<a href="#...">`), the path is derived
+  from the first direct inner-`<ol>` anchor by trimming its last path
+  segment (e.g. `#4.4.1` → `4.4`).
+
+This removes chain drift such as `["4","4.2"]` incorrectly attributed to
+neighbors when the current row belongs under `4.3`/`4.4`, and repairs
+empty chains under top-level scoped `<ul>` entries.
+
+Controlled by:
+- `index.source_chain.enclosing_li_fallback` (default `true`)
+- `index.source_chain.li_path_from_inner_ol_fallback` (default `true`)
+- `index.source_chain.ancestor_strong_selectors` (existing)
 
 ---
 
@@ -510,6 +525,20 @@ attachment rules:
 
 If a leading reference has no following block before the next heading,
 it attaches to the most recent block (fallback only).
+
+v1.4.0 additionally preserves reference position by **splitting a body
+block at inline GRef boundaries** when meaningful prose continues after
+an inline reference. This prevents unrelated prose passages from being
+collapsed into one block with merged references.
+
+Example:
+- `TEXT_A <span class="GRef">R1</span> TEXT_B <span class="GRef">R2</span>`
+- emits two `hindi_text` blocks:
+  1. `TEXT_A` with `R1`
+  2. `TEXT_B` with `R2`
+
+This rule applies to text-like block kinds (`hindi_*`, `sanskrit_*`,
+`prakrit_*`) and does not change table or see-also extraction rules.
 
 ### 6.4 Nested-span exception (multiple definitions in one `<span>`)
 
@@ -800,7 +829,7 @@ The parser MUST tag every output with the rules version it implements.
 Bump this version when any rule above changes:
 
 ```
-parser_rules_version = "jainkosh.rules/1.3.0"     # bumped from 1.2.0 in fix-spec-003
+parser_rules_version = "jainkosh.rules/1.4.0"     # bumped from 1.3.0 in fix-spec-004
 ```
 
 This is written into `KeywordParseResult.parser_version` and into the
@@ -814,3 +843,4 @@ ingestion run's `parser_configs.version` row in Postgres.
 | `1.1.0` | fix-spec-001: configurable `देखें` triggers + full-DFS index scan (§4.5); ref-strip from `text_devanagari` (§6.12); sibling `=` translation marker (§6.11); redlink prose-strip (§6.7); label→synthetic topic seeds (§5.6); tables attach to current subsection (§6.5); `IndexRelation` source path chain (Phase 5); idempotency contracts on all envelope rows (§3.4). See `parser_fix_spec_001/README.md`. |
 | `1.2.0` | fix-spec-002: table full outerHTML + raw_html whitespace collapse (§3.5, §6.5); idempotency contracts hoisted to envelope root (§3.4); IndexRelation source chain via ancestor `<strong>` text (§4.6); DFS leading-GRef passthrough (§6.14); parenthesised `देखें` stripped from prose (§5.7); label-seed scope guard for translation context (§5.6); see-also-only blocks dropped from `Subsection.blocks` (§6.13); definition `(N)` numbering prefix stripped (§3.2); redlink edges suppressed in Neo4j envelope (§6.7). See `parser_fix_spec_002/README.md`. |
 | `1.3.0` | fix-spec-003: row-style `see_also` blocks relocated from parent `Subsection.blocks` to child label-seed `blocks` (§5.6, §6.13); row detection at DOM element level before text stripping (catches redlink rows); `RELATED_TO` edges now emitted from child seed natural key, not parent. See `parser_fix_spec_003/parser_fix_spec_003.md`. |
+| `1.4.0` | fix-spec-004: IndexRelation source-chain fallbacks for enclosing `<li>` and plain-`<strong>` headings via inner `<ol>` anchors (§4.6); V2 heading inline-content extraction for span-contained prose; inline GRef-based block splitting for positional reference attribution (§6.3); index relations materialized as synthetic topic seeds in envelope outputs (mongo/postgres/neo4j alignment). See `parser_fix_spec_004/README.md`. |
