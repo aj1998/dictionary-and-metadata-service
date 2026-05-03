@@ -10,6 +10,45 @@ from workers.ingestion.jainkosh.refs import (
 )
 
 
+class TestSemicolonSplit:
+    def test_semicolon_split_basic(self, config):
+        """A GRef containing '(ref1); (ref2)' produces two Reference objects."""
+        html = '<p><span class="GRef">( नयचक्र बृहद्/17 ); ( द्रव्यसंग्रह/1 )</span></p>'
+        node = HTMLParser(f"<body>{html}</body>").css_first("p")
+        refs = extract_refs_from_node(node, config)
+        assert len(refs) == 2
+        assert refs[0].text == "( नयचक्र बृहद्/17 )"
+        assert refs[1].text == "( द्रव्यसंग्रह/1 )"
+
+    def test_semicolon_split_disabled(self, config):
+        """With semicolon_split.enabled=False, semicolon-delimited GRef stays as one Reference."""
+        html = '<p><span class="GRef">( नयचक्र बृहद्/17 ); ( द्रव्यसंग्रह/1 )</span></p>'
+        node = HTMLParser(f"<body>{html}</body>").css_first("p")
+        cfg = config.model_copy(deep=True)
+        cfg.reference.semicolon_split.enabled = False
+        refs = extract_refs_from_node(node, cfg)
+        assert len(refs) == 1
+        assert ";" in refs[0].text
+
+    def test_semicolon_split_preserves_internal_semicolons(self, config):
+        """A GRef like '(abc; def)' (no paren at boundary) is NOT split."""
+        html = '<p><span class="GRef">( abc; def )</span></p>'
+        node = HTMLParser(f"<body>{html}</body>").css_first("p")
+        refs = extract_refs_from_node(node, config)
+        assert len(refs) == 1
+        assert refs[0].text == "( abc; def )"
+
+    def test_semicolon_split_three_parts(self, config):
+        """Three-way split '(r1); (r2); (r3)' produces three Reference objects."""
+        html = '<p><span class="GRef">( r1 ); ( r2 ); ( r3 )</span></p>'
+        node = HTMLParser(f"<body>{html}</body>").css_first("p")
+        refs = extract_refs_from_node(node, config)
+        assert len(refs) == 3
+        assert refs[0].text == "( r1 )"
+        assert refs[1].text == "( r2 )"
+        assert refs[2].text == "( r3 )"
+
+
 @pytest.fixture
 def config():
     return load_config()
@@ -80,6 +119,37 @@ class TestExtractRefsFromNode:
         assert len(refs) == 1
         assert refs[0].text == "पंचास्तिकाय/9"
         assert refs[0].parsed is None
+
+
+class TestIsBulletPoint:
+    def test_is_bullet_point_set_for_li_element(self, config):
+        """A block produced from an <li> node gets is_bullet_point=True."""
+        html = '<li class="HindiText">कोई पाठ</li>'
+        tree = HTMLParser(f"<body>{html}</body>")
+        node = tree.css_first("li")
+        blocks = parse_block_stream([node], config)
+        assert len(blocks) == 1
+        assert blocks[0].is_bullet_point is True
+
+    def test_is_bullet_point_false_for_p_element(self, config):
+        """A block produced from a <p> node gets is_bullet_point=False."""
+        html = '<p class="HindiText">कोई पाठ</p>'
+        tree = HTMLParser(f"<body>{html}</body>")
+        node = tree.css_first("p")
+        blocks = parse_block_stream([node], config)
+        assert len(blocks) == 1
+        assert blocks[0].is_bullet_point is False
+
+    def test_is_bullet_point_flag_disabled(self, config):
+        """With is_bullet_point_for_li=False, even <li>-origin blocks get is_bullet_point=False."""
+        from workers.ingestion.jainkosh.config import BlocksConfig
+        cfg = config.model_copy(update={"blocks": BlocksConfig(is_bullet_point_for_li=False)})
+        html = '<li class="HindiText">कोई पाठ</li>'
+        tree = HTMLParser(f"<body>{html}</body>")
+        node = tree.css_first("li")
+        blocks = parse_block_stream([node], cfg)
+        assert len(blocks) == 1
+        assert blocks[0].is_bullet_point is False
 
 
 class TestIsLeadingReferenceNode:

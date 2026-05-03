@@ -150,6 +150,34 @@ def test_inline_visesh_dekhen_in_hindi_block():
     assert see_alsos[0].target_keyword == "अस्तिकाय"
 
 
+def test_see_also_preserved_when_text_fully_stripped():
+    """When block text is entirely a (देखें ...) pattern, the see_also block
+    must still be emitted even though there is no prose block."""
+    html = '<li class="HindiText">(विशेष देखें <a href="/wiki/आकाश#2">आकाश - 2</a>)</li>'
+    tree = HTMLParser(f"<body>{html}</body>")
+    node = tree.css_first("li")
+    blocks = parse_block_stream([node], CFG, current_keyword="द्रव्य")
+    see_also_blocks = [b for b in blocks if b.kind == "see_also"]
+    hindi_blocks = [b for b in blocks if b.kind == "hindi_text"]
+    assert len(see_also_blocks) == 1, f"Expected 1 see_also block, got: {blocks}"
+    assert see_also_blocks[0].target_keyword == "आकाश"
+    assert see_also_blocks[0].target_topic_path == "2"
+    assert len(hindi_blocks) == 0, "No hindi_text block should be emitted"
+
+
+def test_see_also_not_preserved_when_flag_disabled():
+    """With preserve_see_alsos_on_empty_text=False, the see_also is silently dropped."""
+    import copy
+    from workers.ingestion.jainkosh.config import BlocksConfig
+    config = load_config()
+    config = config.model_copy(update={"blocks": BlocksConfig(preserve_see_alsos_on_empty_text=False)})
+    html = '<li class="HindiText">(विशेष देखें <a href="/wiki/आकाश#2">आकाश - 2</a>)</li>'
+    tree = HTMLParser(f"<body>{html}</body>")
+    node = tree.css_first("li")
+    blocks = parse_block_stream([node], config, current_keyword="द्रव्य")
+    assert blocks == [], f"Expected empty blocks, got: {blocks}"
+
+
 def test_redlink_row_fully_dropped_from_block_stream():
     """Row-style redlink entry (• label - देखें target) is fully suppressed in parent block stream.
 

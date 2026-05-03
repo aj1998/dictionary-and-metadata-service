@@ -38,6 +38,8 @@ def parse_index_relations(
                 **parsed,
             )
             _attach_heading_chain(rel, _ancestor_strong_chain(a, config))
+            if config.index.top_level_reference_marking and not rel.source_topic_path_chain:
+                rel.is_top_level_reference = True
             out.append(rel)
 
     return out

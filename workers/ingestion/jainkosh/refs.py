@@ -49,16 +49,28 @@ def extract_ref_text(node: Node, config: JainkoshConfig) -> str:
     return normalize_text(text)
 
 
+def _split_gref_text(text: str, config: JainkoshConfig) -> list[str]:
+    """Split a GRef text string at '); (' boundaries when configured."""
+    if not config.reference.semicolon_split.enabled:
+        return [text]
+    parts = re.split(config.reference.semicolon_split.split_re, text)
+    return [p.strip() for p in parts if p.strip()]
+
+
 def extract_refs_from_node(node: Node, config: JainkoshConfig) -> list[Reference]:
-    """Extract all GRef spans from a node."""
+    """Extract all GRef spans from a node, splitting at semicolons when configured."""
     refs = []
     for gref in node.css("span.GRef"):
-        text = extract_ref_text(gref, config)
-        if text:
+        full_text = extract_ref_text(gref, config)
+        if not full_text:
+            continue
+        parts = _split_gref_text(full_text, config)
+        for part in parts:
             parsed = None
             if config.reference.parse_strategy != "text_only":
-                parsed = parse_reference_text(text, config)
-            refs.append(Reference(text=text, raw_html=_clean_raw_html(gref.html or "", config), parsed=parsed))
+                parsed = parse_reference_text(part, config)
+            raw = _clean_raw_html(gref.html or "", config) if len(parts) == 1 else None
+            refs.append(Reference(text=part, raw_html=raw, parsed=parsed))
     return refs
 
 

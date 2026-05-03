@@ -96,6 +96,7 @@
             "li_path_from_inner_ol_fallback": {"type": "boolean"}
           }
         },
+        "top_level_reference_marking": { "type": "boolean" },
         "see_also_triggers": {
           "type": "array",
           "items": {"type": "string"},
@@ -126,6 +127,14 @@
           "additionalProperties": false,
           "properties": {
             "collapse_whitespace": {"type": "boolean"}
+          }
+        },
+        "semicolon_split": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "split_re": { "type": "string" }
           }
         }
       }
@@ -370,6 +379,19 @@
         "enabled": { "type": "boolean" },
         "applicable_block_kinds": { "type": "array", "items": { "type": "string" } },
         "gref_selector": { "type": "string" }
+      }
+    },
+    "blocks": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "preserve_see_alsos_on_empty_text": { "type": "boolean" },
+        "is_bullet_point_for_li": { "type": "boolean" },
+        "nested_span_gref_reattach": { "type": "boolean" },
+        "nested_span_gref_boundary_tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
       }
     }
   }

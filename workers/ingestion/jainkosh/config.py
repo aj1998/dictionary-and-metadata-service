@@ -90,6 +90,7 @@ class IndexConfig(BaseModel):
     see_also_window_chars: int = 40
     see_also_leading_punct_re: str = r'[(–\-।\s]*'
     source_chain: IndexSourceChainConfig = Field(default_factory=IndexSourceChainConfig)
+    top_level_reference_marking: bool = True
 
     # deprecated: auto-derived from see_also_triggers if absent
     see_also_text_pattern: Optional[str] = None
@@ -112,12 +113,31 @@ class ReferenceRawHtmlConfig(BaseModel):
     collapse_whitespace: bool = True
 
 
+class ReferenceSemicolonSplitConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    enabled: bool = True
+    split_re: str = r'(?<=\))\s*;\s*(?=\()'
+
+
 class ReferenceConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
     selector: str
     strip_inner_anchors: bool
     parse_strategy: Literal["text_only", "structured", "text_plus_structured"] = "text_only"
     raw_html: ReferenceRawHtmlConfig = Field(default_factory=ReferenceRawHtmlConfig)
+    semicolon_split: ReferenceSemicolonSplitConfig = Field(
+        default_factory=ReferenceSemicolonSplitConfig
+    )
+
+
+class BlocksConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    preserve_see_alsos_on_empty_text: bool = True
+    is_bullet_point_for_li: bool = True          # Phase 4
+    nested_span_gref_reattach: bool = True        # Phase 7
+    nested_span_gref_boundary_tags: list[str] = Field(
+        default_factory=lambda: ["br"]
+    )                                              # Phase 7
 
 
 class TranslationMarkerConfig(BaseModel):
@@ -310,6 +330,7 @@ class JainkoshConfig(BaseModel):
     dfs: DfsConfig = Field(default_factory=DfsConfig)
     neo4j: Neo4jEnvelopeConfig = Field(default_factory=Neo4jEnvelopeConfig)
     see_also_only_block: SeeAlsoOnlyBlockConfig = Field(default_factory=SeeAlsoOnlyBlockConfig)
+    blocks: BlocksConfig = Field(default_factory=BlocksConfig)
     blocks_to_drop_when_empty: list[str]
 
     def section_kind_for(self, headline_id: str) -> str:

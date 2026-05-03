@@ -88,6 +88,8 @@ def make_block(node: Node, config: JainkoshConfig, *, current_keyword: str = "")
     text = strip_refs_from_text(text, refs, config)
     text = strip_paren_dekhen(text, config)
     if not text.strip():
+        if config.blocks.preserve_see_alsos_on_empty_text and see_alsos:
+            return None, see_alsos   # type: ignore[return-value]
         return None
 
     block = Block(
@@ -95,6 +97,8 @@ def make_block(node: Node, config: JainkoshConfig, *, current_keyword: str = "")
         text_devanagari=text,
         references=refs,
     )
+    if config.blocks.is_bullet_point_for_li and tag == "li":
+        block.is_bullet_point = True
 
     return block, see_alsos  # type: ignore[return-value]
 
@@ -189,6 +193,12 @@ def parse_block_stream(
 
             if isinstance(result, tuple):
                 block, see_alsos = result
+                if block is None:
+                    # text was fully stripped but see_alsos survived
+                    for sa in see_alsos:
+                        if isinstance(sa, Block):
+                            out.append(sa)
+                    continue
             else:
                 block = result
                 see_alsos = []

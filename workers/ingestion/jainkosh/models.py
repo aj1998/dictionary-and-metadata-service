@@ -50,6 +50,7 @@ class Block(BaseModel):
     hindi_translation: Optional[str] = None
     references: list[Reference] = Field(default_factory=list)
     is_orphan_translation: bool = False
+    is_bullet_point: bool = False
 
     # table
     raw_html: Optional[str] = None
@@ -99,6 +100,7 @@ class IndexRelation(BaseModel):
     source_topic_path: Optional[str] = None
     source_topic_path_chain: list[str] = Field(default_factory=list)
     source_topic_natural_key_chain: list[str] = Field(default_factory=list)
+    is_top_level_reference: bool = False
 
     @model_validator(mode="after")
     def _legacy_source_topic_path(self):

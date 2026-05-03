@@ -41,6 +41,7 @@ index:
     match_normalize: "nfc_collapsed_ws"
     enclosing_li_fallback: true
     li_path_from_inner_ol_fallback: true
+  top_level_reference_marking: true
   see_also_triggers:
     - "विशेष देखें"
     - "देखें"
@@ -61,6 +62,9 @@ reference:
   parse_strategy: "text_only"
   raw_html:
     collapse_whitespace: true
+  semicolon_split:
+    enabled: true
+    split_re: '(?<=\))\s*;\s*(?=\()'
 
 ref_strip:
   enabled: true
@@ -190,6 +194,12 @@ see_also_only_block:
 
 neo4j:
   redlink_edges: "never"
+
+blocks:
+  preserve_see_alsos_on_empty_text: true
+  is_bullet_point_for_li: true
+  nested_span_gref_reattach: true
+  nested_span_gref_boundary_tags: ["br"]
 
 blocks_to_drop_when_empty:
   - "p"

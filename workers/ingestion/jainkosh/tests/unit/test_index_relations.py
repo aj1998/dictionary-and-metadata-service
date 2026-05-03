@@ -180,3 +180,34 @@ def test_index_relation_chain_for_deeply_nested_dekhen(config):
     """
     rel = parse_index_relations(make_ols(html), "द्रव्य", config)[0]
     assert rel.source_topic_path_chain == ["1", "1.4"]
+
+
+def test_top_level_reference_marking_true_when_no_chain(config):
+    """IndexRelation with empty source_topic_path_chain gets is_top_level_reference=True."""
+    html = """
+    <ol>
+      <ul>
+        <li>देखें <a href="/wiki/ब">ब</a></li>
+      </ul>
+    </ol>
+    """
+    rel = parse_index_relations(make_ols(html), "अ", config)[0]
+    assert rel.source_topic_path_chain == []
+    assert rel.is_top_level_reference is True
+
+
+def test_top_level_reference_marking_false_when_chain_present(config):
+    """IndexRelation with a non-empty source_topic_path_chain gets is_top_level_reference=False."""
+    html = """
+    <ol>
+      <li id="1">
+        <span class="HindiText"><strong>heading</strong></span>
+        <ul>
+          <li>देखें <a href="/wiki/ब">ब</a></li>
+        </ul>
+      </li>
+    </ol>
+    """
+    rel = parse_index_relations(make_ols(html), "अ", config)[0]
+    assert rel.source_topic_path_chain == ["1"]
+    assert rel.is_top_level_reference is False

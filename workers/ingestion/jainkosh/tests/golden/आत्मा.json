@@ -23,6 +23,7 @@
                   }
                 ],
                 "is_orphan_translation": false,
+                "is_bullet_point": false,
                 "raw_html": null,
                 "table_rows": null,
                 "target_keyword": null,
@@ -49,6 +50,7 @@
                   }
                 ],
                 "is_orphan_translation": false,
+                "is_bullet_point": false,
                 "raw_html": null,
                 "table_rows": null,
                 "target_keyword": null,
@@ -75,6 +77,7 @@
                   }
                 ],
                 "is_orphan_translation": false,
+                "is_bullet_point": false,
                 "raw_html": null,
                 "table_rows": null,
                 "target_keyword": null,
@@ -101,6 +104,7 @@
                   }
                 ],
                 "is_orphan_translation": false,
+                "is_bullet_point": false,
                 "raw_html": null,
                 "table_rows": null,
                 "target_keyword": null,
@@ -140,6 +144,7 @@
                   }
                 ],
                 "is_orphan_translation": false,
+                "is_bullet_point": false,
                 "raw_html": null,
                 "table_rows": null,
                 "target_keyword": null,
@@ -185,6 +190,7 @@
                   }
                 ],
                 "is_orphan_translation": false,
+                "is_bullet_point": false,
                 "raw_html": null,
                 "table_rows": null,
                 "target_keyword": null,
@@ -221,6 +227,7 @@
                   }
                 ],
                 "is_orphan_translation": false,
+                "is_bullet_point": false,
                 "raw_html": null,
                 "table_rows": null,
                 "target_keyword": null,
@@ -251,6 +258,7 @@
                     "hindi_translation": null,
                     "references": [],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": "वह वह नाम",
@@ -289,6 +297,7 @@
                   }
                 ],
                 "is_orphan_translation": false,
+                "is_bullet_point": false,
                 "raw_html": null,
                 "table_rows": null,
                 "target_keyword": null,
@@ -309,6 +318,7 @@
                   }
                 ],
                 "is_orphan_translation": false,
+                "is_bullet_point": false,
                 "raw_html": null,
                 "table_rows": null,
                 "target_keyword": null,
@@ -329,6 +339,7 @@
                   }
                 ],
                 "is_orphan_translation": false,
+                "is_bullet_point": false,
                 "raw_html": null,
                 "table_rows": null,
                 "target_keyword": null,
@@ -359,6 +370,7 @@
                     "hindi_translation": null,
                     "references": [],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": "जीव",
@@ -390,6 +402,7 @@
                     "hindi_translation": null,
                     "references": [],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": "प्रमाण",
@@ -421,6 +434,7 @@
                     "hindi_translation": null,
                     "references": [],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": "मोक्षमार्ग",
@@ -463,6 +477,7 @@
                   }
                 ],
                 "is_orphan_translation": false,
+                "is_bullet_point": false,
                 "raw_html": null,
                 "table_rows": null,
                 "target_keyword": null,
@@ -489,6 +504,7 @@
                   }
                 ],
                 "is_orphan_translation": false,
+                "is_bullet_point": false,
                 "raw_html": null,
                 "table_rows": null,
                 "target_keyword": null,
@@ -683,6 +699,7 @@
                         }
                       ],
                       "is_orphan_translation": false,
+                      "is_bullet_point": false,
                       "raw_html": null,
                       "table_rows": null,
                       "target_keyword": null,
@@ -709,6 +726,7 @@
                         }
                       ],
                       "is_orphan_translation": false,
+                      "is_bullet_point": false,
                       "raw_html": null,
                       "table_rows": null,
                       "target_keyword": null,
@@ -735,6 +753,7 @@
                         }
                       ],
                       "is_orphan_translation": false,
+                      "is_bullet_point": false,
                       "raw_html": null,
                       "table_rows": null,
                       "target_keyword": null,
@@ -761,6 +780,7 @@
                         }
                       ],
                       "is_orphan_translation": false,
+                      "is_bullet_point": false,
                       "raw_html": null,
                       "table_rows": null,
                       "target_keyword": null,
@@ -801,6 +821,7 @@
                         }
                       ],
                       "is_orphan_translation": false,
+                      "is_bullet_point": false,
                       "raw_html": null,
                       "table_rows": null,
                       "target_keyword": null,
@@ -827,6 +848,7 @@
                         }
                       ],
                       "is_orphan_translation": false,
+                      "is_bullet_point": false,
                       "raw_html": null,
                       "table_rows": null,
                       "target_keyword": null,
@@ -873,6 +895,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -918,6 +941,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -956,6 +980,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -988,6 +1013,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": "वह वह नाम",
@@ -1026,6 +1052,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -1046,6 +1073,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -1066,6 +1094,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -1098,6 +1127,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": "जीव",
@@ -1130,6 +1160,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": "प्रमाण",
@@ -1162,6 +1193,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": "मोक्षमार्ग",

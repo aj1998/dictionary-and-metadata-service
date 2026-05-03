@@ -17,6 +17,7 @@
                 "hindi_translation": null,
                 "references": [],
                 "is_orphan_translation": false,
+                "is_bullet_point": false,
                 "raw_html": null,
                 "table_rows": null,
                 "target_keyword": null,
@@ -43,7 +44,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "द्रव्य के अन्य प्रकार भेद-प्रभेद",
@@ -58,7 +60,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "पंचास्तिकाय",
@@ -73,7 +76,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "द्रव्य में अनंतों गुण हैं",
@@ -88,7 +92,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "द्रव्य सामान्यविशेषात्मक है",
@@ -103,7 +108,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "द्रव्य का परिणमन",
@@ -118,7 +124,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "शुद्ध द्रव्यों को अपरिणामी कहने की विवक्षा",
@@ -133,7 +140,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "षट् द्रव्यों की सिद्धि",
@@ -148,7 +156,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "अनंत द्रव्यों का लोक में अवस्थान कैसे",
@@ -163,7 +172,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "षट् द्रव्यों की संख्या में अल्पबहुत्व",
@@ -178,7 +188,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "द्रव्यों का स्वरूप जानने का उपाय",
@@ -193,7 +204,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "द्रव्यों में अच्छे बुरे की कल्पना व्यक्ति की रुचि पर आधारित है",
@@ -208,7 +220,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "अष्ट मंगल द्रव्य व उपकरण द्रव्य",
@@ -223,7 +236,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "दान योग्य द्रव्य",
@@ -238,7 +252,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "निर्माल्य द्रव्य",
@@ -253,7 +268,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "संसारी जीव का कथंचित् मूर्तत्व",
@@ -268,7 +284,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:षट्द्रव्य-विभाजन"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "द्रव्यों के भेदादि जानने का प्रयोजन",
@@ -283,7 +300,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:षट्द्रव्य-विभाजन"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "जीव का असर्वगतपना",
@@ -298,7 +316,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:षट्द्रव्य-विभाजन"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "कारण अकारण विभाग",
@@ -313,7 +332,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:षट्द्रव्य-विभाजन"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "परमाणु में कथंचित् सावयव निरवयवपना",
@@ -330,7 +350,8 @@
             "source_topic_natural_key_chain": [
               "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
               "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "द्रव्य में कथंचित् नित्यानियत्व",
@@ -347,7 +368,8 @@
             "source_topic_natural_key_chain": [
               "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
               "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "द्रव्य को गुण पर्याय और गुण पर्याय को द्रव्य रूप से लक्षित करना",
@@ -364,7 +386,8 @@
             "source_topic_natural_key_chain": [
               "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
               "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "अनेक अपेक्षाओं से द्रव्य में भेदाभेद व विधि-निषेध",
@@ -381,7 +404,8 @@
             "source_topic_natural_key_chain": [
               "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
               "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "द्रव्य में परस्पर षट्कारकी भेद व अभेद",
@@ -398,7 +422,8 @@
             "source_topic_natural_key_chain": [
               "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
               "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "द्रव्य स्वत: सिद्ध है",
@@ -413,7 +438,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:द्रव्य-की-स्वतंत्रता"
-            ]
+            ],
+            "is_top_level_reference": false
           },
           {
             "label_text": "द्रव्य परिणमन की कथंचित् स्वतंत्रता व परतंत्रता",
@@ -428,7 +454,8 @@
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:द्रव्य-की-स्वतंत्रता"
-            ]
+            ],
+            "is_top_level_reference": false
           }
         ],
         "subsections": [
@@ -477,6 +504,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -497,6 +525,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -562,6 +591,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -582,6 +612,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -602,6 +633,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -639,6 +671,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -684,6 +717,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -698,6 +732,7 @@
                     "hindi_translation": null,
                     "references": [],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": "सत्",
@@ -718,6 +753,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -755,6 +791,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -780,6 +817,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -817,6 +855,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -877,6 +916,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -897,6 +937,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -922,6 +963,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -942,6 +984,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -962,6 +1005,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -999,6 +1043,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1019,6 +1064,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1039,6 +1085,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1096,6 +1143,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1131,6 +1179,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1151,6 +1200,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1171,6 +1221,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1208,6 +1259,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1222,6 +1274,7 @@
                     "hindi_translation": null,
                     "references": [],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1242,6 +1295,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1279,6 +1333,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1309,6 +1364,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1346,6 +1402,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1360,6 +1417,7 @@
                     "hindi_translation": null,
                     "references": [],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1397,6 +1455,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1434,6 +1493,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1454,6 +1514,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1507,6 +1568,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1521,6 +1583,7 @@
                     "hindi_translation": null,
                     "references": [],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": "द्रव्य",
@@ -1576,6 +1639,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1596,6 +1660,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1610,6 +1675,7 @@
                     "hindi_translation": null,
                     "references": [],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": "केवलज्ञान",
@@ -1652,6 +1718,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1689,6 +1756,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1709,6 +1777,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1729,6 +1798,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1749,6 +1819,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1769,6 +1840,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1789,6 +1861,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1867,6 +1940,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1897,6 +1971,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1954,6 +2029,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -1979,6 +2055,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -2016,6 +2093,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -2051,6 +2129,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -2076,6 +2155,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -2096,6 +2176,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -2110,6 +2191,7 @@
                     "hindi_translation": null,
                     "references": [],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -2135,6 +2217,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -2149,6 +2232,7 @@
                     "hindi_translation": null,
                     "references": [],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": "जीव",
@@ -2196,6 +2280,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -2216,6 +2301,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -2263,6 +2349,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -2310,6 +2397,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -2324,6 +2412,7 @@
                     "hindi_translation": null,
                     "references": [],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": "अस्तिकाय",
@@ -2371,6 +2460,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -2385,6 +2475,7 @@
                     "hindi_translation": null,
                     "references": [],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": "आकाश",
@@ -2422,6 +2513,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -2447,6 +2539,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -2484,6 +2577,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -2509,6 +2603,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -2540,6 +2635,7 @@
                     "hindi_translation": null,
                     "references": [],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": "<table border=\"1\" cellspacing=\"0\" cellpadding=\"0\" width=\"732\"><tbody><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\"><strong>विकल्प &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\"><strong>द्रव्य की अपेक्षा<span class=\"GRef\">( कषायपाहुड़ 1/1-14/177/211-215 )</span></strong></span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\"><strong>वस्तु की अपेक्षा<span class=\"GRef\">( धवला 9/4,1,45/168-169 )</span></strong></span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">1</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">सत्ता &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">सत्</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">2</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीव, अजीव &nbsp;&nbsp;&nbsp;&nbsp;</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">जीवभाव-अजीवभाव। विधिनिषेध। मूर्त-अमूर्त। अस्तिकाय-अनस्तिकाय।</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">3</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">भव्य, अभव्य, अनुभय</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्य, गुण, पर्याय &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">4</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=संसारी, असंसारी (अजीव)=पुद्गल, अपुद्गल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">बद्ध, मुक्त, बंधकारण, मोक्षकारण &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">5</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=भव्य, अभव्य, अनुभय (अजीव)=मूर्त, अमूर्त &nbsp;&nbsp;</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">औदयिक, औपशमिक, क्षायिक, क्षायोपशमिक, पारिणामिक &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">6</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीव, पुद्गल, धर्म, अधर्म, काल व आकाश &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्यवत् &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">7</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीव, अजीव, आस्रव, बंध, संवर, निर्जरा, मोक्ष</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">बद्ध, मुक्त, पुद्गल, धर्म, अधर्म, काल व आकाश</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">8</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीवास्रव, अजीवास्रव, जीवसंवर, अजीवसंवर<br>, जीवनिर्जरा, अजीवनिर्जरा, जीवमोक्ष, अजीवमोक्ष</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">भव्य संसारी, अभव्य संसारी, मुक्त जीव, पुद्गल, धर्म, अधर्म, आकाश, काल &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">9</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीव, अजीव, पुण्य, पाप, आस्रव, संवर, निर्जरा, बंध, मोक्ष</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्यवत्</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">10</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=एकेंद्रिय, द्वींद्रिय, त्रींद्रिय, चतुरिंद्रिय, पंचेंद्रिय (अजीव)=पुद्गल, धर्म, अधर्म, आकाश, काल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्यवत्</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">11</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=पृथिवी, अप, तेज, वायु, वनस्पति व त्रस तथा (अजीव)=पुद्गल, धर्म, अधर्म, आकाश व काल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्यवत् &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">12</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=पृथिवी, अप, तेज, वायु, वनस्पति, संज्ञी, असंज्ञी; तथा (अजीव)=पुद्गल, धर्म, अधर्म, आकाश व काल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">&nbsp;&nbsp;――</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">13</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=भव्य, अभव्य, अनुभय; (पुद्गल)=बादरबादर, बादर, बादरसूक्ष्म, सूक्ष्मबादर, सूक्ष्म, सूक्ष्मसूक्ष्म; (अमूर्त अजीव)=धर्म, अधर्म, आकाश, काल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">&nbsp;――</span></p></td></tr></tbody></table>",
                     "table_rows": null,
                     "target_keyword": null,
@@ -2609,6 +2705,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": false,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -2629,6 +2726,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": false,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -2667,6 +2765,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": false,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -2687,6 +2786,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": false,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -2715,16 +2815,27 @@
                     "blocks": [
                       {
                         "kind": "hindi_text",
-                        "text_devanagari": "अत: दोनों को सर्वथा निरपेक्ष न मानकर परस्पर सापेक्ष मानना चाहिए, क्योंकि एकत्व के बिना पृथक्त्व और पृथक्त्व के बिना एकत्व प्रमाणता को प्राप्त नहीं होते। जिस प्रकार हेतु अन्वय व व्यतिरेक दोनों रूपों को प्राप्त होकर ही साध्य की सिद्धि करता है, इसी प्रकार एकत्व व पृथक्त्व दोनों से पदार्थ की सिद्धि होती है। (आप्त मी./33) सत् सामान्य की अपेक्षा सर्वद्रव्य एक है और स्व-स्व लक्षण व गुणों आदि को धारण करने के कारण सब पृथक्-पृथक् हैं।",
+                        "text_devanagari": "अत: दोनों को सर्वथा निरपेक्ष न मानकर परस्पर सापेक्ष मानना चाहिए, क्योंकि एकत्व के बिना पृथक्त्व और पृथक्त्व के बिना एकत्व प्रमाणता को प्राप्त नहीं होते। जिस प्रकार हेतु अन्वय व व्यतिरेक दोनों रूपों को प्राप्त होकर ही साध्य की सिद्धि करता है, इसी प्रकार एकत्व व पृथक्त्व दोनों से पदार्थ की सिद्धि होती है। (आप्त मी./33) सत् सामान्य की अपेक्षा सर्वद्रव्य एक है और स्व-स्व लक्षण व गुणों आदि को धारण करने के कारण सब पृथक्-पृथक् हैं।;;",
                         "hindi_translation": null,
                         "references": [
                           {
-                            "text": "(प्रवचनसार व तत्त्व प्रदीपिका/97-98); (आप्त मीमांसा/34); (कार्तिकेयानुप्रेक्षा/236)",
-                            "raw_html": "<span class=\"GRef\">(प्रवचनसार व तत्त्व प्रदीपिका/97-98); (आप्त मीमांसा/34); (कार्तिकेयानुप्रेक्षा/236)</span>",
+                            "text": "(प्रवचनसार व तत्त्व प्रदीपिका/97-98)",
+                            "raw_html": null,
+                            "parsed": null
+                          },
+                          {
+                            "text": "(आप्त मीमांसा/34)",
+                            "raw_html": null,
+                            "parsed": null
+                          },
+                          {
+                            "text": "(कार्तिकेयानुप्रेक्षा/236)",
+                            "raw_html": null,
                             "parsed": null
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": false,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -2745,6 +2856,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": false,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -2759,6 +2871,7 @@
                         "hindi_translation": null,
                         "references": [],
                         "is_orphan_translation": false,
+                        "is_bullet_point": false,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -2814,6 +2927,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": false,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -2834,6 +2948,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": false,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -2848,6 +2963,7 @@
                         "hindi_translation": null,
                         "references": [],
                         "is_orphan_translation": false,
+                        "is_bullet_point": false,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": "वह वह नाम",
@@ -2891,6 +3007,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -2911,6 +3028,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -2931,6 +3049,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -2951,6 +3070,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -2971,6 +3091,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -2991,11 +3112,27 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
                         "target_topic_path": null,
                         "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "see_also",
+                        "text_devanagari": null,
+                        "hindi_translation": null,
+                        "references": [],
+                        "is_orphan_translation": false,
+                        "is_bullet_point": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": "आकाश",
+                        "target_topic_path": "2",
+                        "target_url": "/wiki/%E0%A4%86%E0%A4%95%E0%A4%BE%E0%A4%B6#2",
                         "is_self": false,
                         "target_exists": true
                       }
@@ -3029,6 +3166,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3043,6 +3181,7 @@
                         "hindi_translation": null,
                         "references": [],
                         "is_orphan_translation": false,
+                        "is_bullet_point": false,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": "जीव",
@@ -3057,6 +3196,7 @@
                         "hindi_translation": null,
                         "references": [],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3071,6 +3211,7 @@
                         "hindi_translation": null,
                         "references": [],
                         "is_orphan_translation": false,
+                        "is_bullet_point": false,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": "जीव",
@@ -3091,6 +3232,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3105,6 +3247,7 @@
                         "hindi_translation": null,
                         "references": [],
                         "is_orphan_translation": false,
+                        "is_bullet_point": false,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": "इंद्रिय",
@@ -3125,6 +3268,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3145,6 +3289,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3183,6 +3328,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3203,6 +3349,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3223,6 +3370,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3237,6 +3385,7 @@
                         "hindi_translation": null,
                         "references": [],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3275,6 +3424,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3295,6 +3445,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3315,6 +3466,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3335,6 +3487,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3373,6 +3526,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3387,6 +3541,7 @@
                         "hindi_translation": null,
                         "references": [],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3407,6 +3562,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3421,6 +3577,7 @@
                         "hindi_translation": null,
                         "references": [],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3476,6 +3633,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3506,6 +3664,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3544,6 +3703,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3587,6 +3747,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3612,6 +3773,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3632,6 +3794,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3652,6 +3815,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3672,6 +3836,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3697,6 +3862,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3762,6 +3928,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3787,6 +3954,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3822,6 +3990,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3842,6 +4011,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3862,6 +4032,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3882,6 +4053,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3902,6 +4074,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3940,6 +4113,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -3965,6 +4139,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4003,6 +4178,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4023,6 +4199,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4043,6 +4220,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4063,6 +4241,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4083,6 +4262,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4103,6 +4283,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4138,6 +4319,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4163,6 +4345,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4183,6 +4366,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4238,6 +4422,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4263,6 +4448,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4283,6 +4469,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4321,6 +4508,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4341,6 +4529,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4361,6 +4550,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4381,6 +4571,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4406,6 +4597,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4426,6 +4618,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4446,6 +4639,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4478,6 +4672,7 @@
                         "hindi_translation": null,
                         "references": [],
                         "is_orphan_translation": false,
+                        "is_bullet_point": false,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4503,6 +4698,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4523,6 +4719,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4543,6 +4740,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4563,6 +4761,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4583,6 +4782,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4628,6 +4828,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4648,6 +4849,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4673,6 +4875,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4698,6 +4901,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4718,6 +4922,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4750,6 +4955,7 @@
                         "hindi_translation": null,
                         "references": [],
                         "is_orphan_translation": false,
+                        "is_bullet_point": false,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4764,6 +4970,7 @@
                         "hindi_translation": null,
                         "references": [],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4778,6 +4985,7 @@
                         "hindi_translation": null,
                         "references": [],
                         "is_orphan_translation": false,
+                        "is_bullet_point": false,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": "समवाय",
@@ -4803,6 +5011,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4828,6 +5037,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4863,6 +5073,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4888,6 +5099,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4908,6 +5120,7 @@
                           }
                         ],
                         "is_orphan_translation": false,
+                        "is_bullet_point": true,
                         "raw_html": null,
                         "table_rows": null,
                         "target_keyword": null,
@@ -4973,6 +5186,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -4993,6 +5207,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -5030,6 +5245,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -5055,6 +5271,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -5075,6 +5292,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -5100,6 +5318,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -5120,6 +5339,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -5157,6 +5377,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -5171,6 +5392,7 @@
                     "hindi_translation": null,
                     "references": [],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -5191,6 +5413,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -5228,6 +5451,7 @@
                       }
                     ],
                     "is_orphan_translation": false,
+                    "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
                     "target_keyword": null,
@@ -5265,6 +5489,7 @@
                   }
                 ],
                 "is_orphan_translation": false,
+                "is_bullet_point": false,
                 "raw_html": null,
                 "table_rows": null,
                 "target_keyword": null,
@@ -5290,6 +5515,7 @@
                   }
                 ],
                 "is_orphan_translation": false,
+                "is_bullet_point": false,
                 "raw_html": null,
                 "table_rows": null,
                 "target_keyword": null,
@@ -6908,6 +7134,7 @@
                       "hindi_translation": null,
                       "references": [],
                       "is_orphan_translation": false,
+                      "is_bullet_point": false,
                       "raw_html": null,
                       "table_rows": null,
                       "target_keyword": null,
@@ -6943,6 +7170,7 @@
                         }
                       ],
                       "is_orphan_translation": false,
+                      "is_bullet_point": false,
                       "raw_html": null,
                       "table_rows": null,
                       "target_keyword": null,
@@ -6968,6 +7196,7 @@
                         }
                       ],
                       "is_orphan_translation": false,
+                      "is_bullet_point": false,
                       "raw_html": null,
                       "table_rows": null,
                       "target_keyword": null,
@@ -7036,6 +7265,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7056,6 +7286,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7121,6 +7352,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7141,6 +7373,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7161,6 +7394,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7199,6 +7433,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7244,6 +7479,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7258,6 +7494,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": "सत्",
@@ -7278,6 +7515,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7316,6 +7554,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7341,6 +7580,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7379,6 +7619,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7439,6 +7680,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7459,6 +7701,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7484,6 +7727,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7504,6 +7748,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7524,6 +7769,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7562,6 +7808,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7582,6 +7829,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7602,6 +7850,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7660,6 +7909,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7695,6 +7945,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7715,6 +7966,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7735,6 +7987,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7773,6 +8026,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7787,6 +8041,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7807,6 +8062,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7845,6 +8101,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7875,6 +8132,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7913,6 +8171,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7927,6 +8186,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -7965,6 +8225,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8003,6 +8264,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8023,6 +8285,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8078,6 +8341,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8092,6 +8356,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": "द्रव्य",
@@ -8147,6 +8412,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8167,6 +8433,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8181,6 +8448,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": "केवलज्ञान",
@@ -8224,6 +8492,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8262,6 +8531,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8282,6 +8552,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8302,6 +8573,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8322,6 +8594,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8342,6 +8615,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8362,6 +8636,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8442,6 +8717,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8472,6 +8748,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8530,6 +8807,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8555,6 +8833,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8593,6 +8872,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8628,6 +8908,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8653,6 +8934,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8673,6 +8955,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8687,6 +8970,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8712,6 +8996,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8726,6 +9011,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": "जीव",
@@ -8774,6 +9060,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8794,6 +9081,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8842,6 +9130,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8890,6 +9179,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8904,6 +9194,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": "अस्तिकाय",
@@ -8952,6 +9243,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -8966,6 +9258,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": "आकाश",
@@ -9004,6 +9297,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9029,6 +9323,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9067,6 +9362,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9092,6 +9388,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9124,6 +9421,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": "<table border=\"1\" cellspacing=\"0\" cellpadding=\"0\" width=\"732\"><tbody><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\"><strong>विकल्प &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\"><strong>द्रव्य की अपेक्षा<span class=\"GRef\">( कषायपाहुड़ 1/1-14/177/211-215 )</span></strong></span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\"><strong>वस्तु की अपेक्षा<span class=\"GRef\">( धवला 9/4,1,45/168-169 )</span></strong></span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">1</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">सत्ता &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">सत्</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">2</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीव, अजीव &nbsp;&nbsp;&nbsp;&nbsp;</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">जीवभाव-अजीवभाव। विधिनिषेध। मूर्त-अमूर्त। अस्तिकाय-अनस्तिकाय।</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">3</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">भव्य, अभव्य, अनुभय</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्य, गुण, पर्याय &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">4</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=संसारी, असंसारी (अजीव)=पुद्गल, अपुद्गल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">बद्ध, मुक्त, बंधकारण, मोक्षकारण &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">5</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=भव्य, अभव्य, अनुभय (अजीव)=मूर्त, अमूर्त &nbsp;&nbsp;</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">औदयिक, औपशमिक, क्षायिक, क्षायोपशमिक, पारिणामिक &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">6</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीव, पुद्गल, धर्म, अधर्म, काल व आकाश &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्यवत् &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">7</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीव, अजीव, आस्रव, बंध, संवर, निर्जरा, मोक्ष</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">बद्ध, मुक्त, पुद्गल, धर्म, अधर्म, काल व आकाश</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">8</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीवास्रव, अजीवास्रव, जीवसंवर, अजीवसंवर<br>, जीवनिर्जरा, अजीवनिर्जरा, जीवमोक्ष, अजीवमोक्ष</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">भव्य संसारी, अभव्य संसारी, मुक्त जीव, पुद्गल, धर्म, अधर्म, आकाश, काल &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">9</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">जीव, अजीव, पुण्य, पाप, आस्रव, संवर, निर्जरा, बंध, मोक्ष</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्यवत्</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">10</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=एकेंद्रिय, द्वींद्रिय, त्रींद्रिय, चतुरिंद्रिय, पंचेंद्रिय (अजीव)=पुद्गल, धर्म, अधर्म, आकाश, काल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्यवत्</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">11</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=पृथिवी, अप, तेज, वायु, वनस्पति व त्रस तथा (अजीव)=पुद्गल, धर्म, अधर्म, आकाश व काल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">द्रव्यवत् &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">12</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=पृथिवी, अप, तेज, वायु, वनस्पति, संज्ञी, असंज्ञी; तथा (अजीव)=पुद्गल, धर्म, अधर्म, आकाश व काल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">&nbsp;&nbsp;――</span></p></td></tr><tr><td width=\"71\" valign=\"top\"><p><span class=\"HindiText\">13</span></p></td><td width=\"325\" valign=\"top\"><p><span class=\"HindiText\">(जीव)=भव्य, अभव्य, अनुभय; (पुद्गल)=बादरबादर, बादर, बादरसूक्ष्म, सूक्ष्मबादर, सूक्ष्म, सूक्ष्मसूक्ष्म; (अमूर्त अजीव)=धर्म, अधर्म, आकाश, काल</span></p></td><td width=\"336\" valign=\"top\"><p><span class=\"HindiText\">&nbsp;――</span></p></td></tr></tbody></table>",
               "table_rows": null,
               "target_keyword": null,
@@ -9196,6 +9494,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9216,6 +9515,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9254,6 +9554,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9274,6 +9575,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9302,16 +9604,27 @@
           "blocks": [
             {
               "kind": "hindi_text",
-              "text_devanagari": "अत: दोनों को सर्वथा निरपेक्ष न मानकर परस्पर सापेक्ष मानना चाहिए, क्योंकि एकत्व के बिना पृथक्त्व और पृथक्त्व के बिना एकत्व प्रमाणता को प्राप्त नहीं होते। जिस प्रकार हेतु अन्वय व व्यतिरेक दोनों रूपों को प्राप्त होकर ही साध्य की सिद्धि करता है, इसी प्रकार एकत्व व पृथक्त्व दोनों से पदार्थ की सिद्धि होती है। (आप्त मी./33) सत् सामान्य की अपेक्षा सर्वद्रव्य एक है और स्व-स्व लक्षण व गुणों आदि को धारण करने के कारण सब पृथक्-पृथक् हैं।",
+              "text_devanagari": "अत: दोनों को सर्वथा निरपेक्ष न मानकर परस्पर सापेक्ष मानना चाहिए, क्योंकि एकत्व के बिना पृथक्त्व और पृथक्त्व के बिना एकत्व प्रमाणता को प्राप्त नहीं होते। जिस प्रकार हेतु अन्वय व व्यतिरेक दोनों रूपों को प्राप्त होकर ही साध्य की सिद्धि करता है, इसी प्रकार एकत्व व पृथक्त्व दोनों से पदार्थ की सिद्धि होती है। (आप्त मी./33) सत् सामान्य की अपेक्षा सर्वद्रव्य एक है और स्व-स्व लक्षण व गुणों आदि को धारण करने के कारण सब पृथक्-पृथक् हैं।;;",
               "hindi_translation": null,
               "references": [
                 {
-                  "text": "(प्रवचनसार व तत्त्व प्रदीपिका/97-98); (आप्त मीमांसा/34); (कार्तिकेयानुप्रेक्षा/236)",
-                  "raw_html": "<span class=\"GRef\">(प्रवचनसार व तत्त्व प्रदीपिका/97-98); (आप्त मीमांसा/34); (कार्तिकेयानुप्रेक्षा/236)</span>",
+                  "text": "(प्रवचनसार व तत्त्व प्रदीपिका/97-98)",
+                  "raw_html": null,
+                  "parsed": null
+                },
+                {
+                  "text": "(आप्त मीमांसा/34)",
+                  "raw_html": null,
+                  "parsed": null
+                },
+                {
+                  "text": "(कार्तिकेयानुप्रेक्षा/236)",
+                  "raw_html": null,
                   "parsed": null
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9332,6 +9645,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9346,6 +9660,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9401,6 +9716,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9421,6 +9737,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9435,6 +9752,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": "वह वह नाम",
@@ -9478,6 +9796,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9498,6 +9817,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9518,6 +9838,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9538,6 +9859,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9558,6 +9880,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9578,11 +9901,27 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
               "target_topic_path": null,
               "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "see_also",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": "आकाश",
+              "target_topic_path": "2",
+              "target_url": "/wiki/%E0%A4%86%E0%A4%95%E0%A4%BE%E0%A4%B6#2",
               "is_self": false,
               "target_exists": true
             }
@@ -9616,6 +9955,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9630,6 +9970,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": "जीव",
@@ -9644,6 +9985,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9658,6 +10000,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": "जीव",
@@ -9678,6 +10021,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9692,6 +10036,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": "इंद्रिय",
@@ -9712,6 +10057,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9732,6 +10078,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9770,6 +10117,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9790,6 +10138,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9810,6 +10159,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9824,6 +10174,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9862,6 +10213,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9882,6 +10234,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9902,6 +10255,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9922,6 +10276,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9960,6 +10315,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9974,6 +10330,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -9994,6 +10351,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10008,6 +10366,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10063,6 +10422,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10093,6 +10453,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10131,6 +10492,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10174,6 +10536,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10199,6 +10562,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10219,6 +10583,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10239,6 +10604,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10259,6 +10625,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10284,6 +10651,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10349,6 +10717,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10374,6 +10743,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10409,6 +10779,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10429,6 +10800,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10449,6 +10821,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10469,6 +10842,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10489,6 +10863,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10527,6 +10902,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10552,6 +10928,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10590,6 +10967,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10610,6 +10988,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10630,6 +11009,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10650,6 +11030,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10670,6 +11051,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10690,6 +11072,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10725,6 +11108,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10750,6 +11134,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10770,6 +11155,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10825,6 +11211,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10850,6 +11237,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10870,6 +11258,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10908,6 +11297,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10928,6 +11318,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10948,6 +11339,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10968,6 +11360,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -10993,6 +11386,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11013,6 +11407,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11033,6 +11428,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11065,6 +11461,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11090,6 +11487,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11110,6 +11508,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11130,6 +11529,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11150,6 +11550,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11170,6 +11571,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11215,6 +11617,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11235,6 +11638,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11260,6 +11664,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11285,6 +11690,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11305,6 +11711,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11337,6 +11744,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11351,6 +11759,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11365,6 +11774,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": "समवाय",
@@ -11390,6 +11800,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11415,6 +11826,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11450,6 +11862,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11475,6 +11888,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11495,6 +11909,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": true,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11560,6 +11975,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11580,6 +11996,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11618,6 +12035,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11643,6 +12061,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11663,6 +12082,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11688,6 +12108,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11708,6 +12129,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11746,6 +12168,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11760,6 +12183,7 @@
               "hindi_translation": null,
               "references": [],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11780,6 +12204,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -11818,6 +12243,7 @@
                 }
               ],
               "is_orphan_translation": false,
+              "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
               "target_keyword": null,
@@ -13872,6 +14298,24 @@
           "to": {
             "label": "Topic",
             "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "RELATED_TO",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:आकाश-के-प्रदेशत्व-में-हेतु"
+          },
+          "to": {
+            "label": "Topic",
+            "resolve_by": {
+              "parent_keyword": "आकाश",
+              "topic_path": "2"
+            }
           },
           "props": {
             "weight": 1.0,
