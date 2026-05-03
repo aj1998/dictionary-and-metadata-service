@@ -167,6 +167,15 @@ bullet_strip:
 envelope:
   idempotency_mode: "envelope_root"
 
+reference_splitting:
+  enabled: true
+  applicable_block_kinds:
+    - hindi_text
+    - sanskrit_text
+    - prakrit_text
+    - hindi_gatha
+  gref_selector: "span.GRef"
+
 dfs:
   passthrough_leading_gref: true
   process_v2_inline_content: true

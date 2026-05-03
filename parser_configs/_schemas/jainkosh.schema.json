@@ -355,6 +355,15 @@
           "enum": ["always", "never", "only_if_topic"]
         }
       }
+    },
+    "reference_splitting": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "applicable_block_kinds": { "type": "array", "items": { "type": "string" } },
+        "gref_selector": { "type": "string" }
+      }
     }
   }
 }

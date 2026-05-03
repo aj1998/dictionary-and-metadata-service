@@ -37,7 +37,7 @@
             "target_url": "/wiki/%E0%A4%B5%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%81",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
+            "source_topic_path": "1",
             "source_topic_path_chain": [
               "1"
             ],
@@ -52,7 +52,7 @@
             "target_url": "#3",
             "is_self": true,
             "target_exists": true,
-            "source_topic_path": null,
+            "source_topic_path": "1",
             "source_topic_path_chain": [
               "1"
             ],
@@ -67,7 +67,7 @@
             "target_url": "/wiki/%E0%A4%85%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%AF",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
+            "source_topic_path": "1",
             "source_topic_path_chain": [
               "1"
             ],
@@ -82,7 +82,7 @@
             "target_url": "/wiki/%E0%A4%97%E0%A5%81%E0%A4%A3#3",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
+            "source_topic_path": "2",
             "source_topic_path_chain": [
               "2"
             ],
@@ -97,7 +97,7 @@
             "target_url": "/wiki/%E0%A4%B8%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%A8%E0%A5%8D%E0%A4%AF",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
+            "source_topic_path": "2",
             "source_topic_path_chain": [
               "2"
             ],
@@ -112,7 +112,7 @@
             "target_url": "/wiki/%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%AA%E0%A4%BE%E0%A4%A6#2",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
+            "source_topic_path": "2",
             "source_topic_path_chain": [
               "2"
             ],
@@ -127,7 +127,7 @@
             "target_url": "#3",
             "is_self": true,
             "target_exists": true,
-            "source_topic_path": null,
+            "source_topic_path": "2",
             "source_topic_path_chain": [
               "2"
             ],
@@ -142,7 +142,7 @@
             "target_url": "/w/index.php?title=%E0%A4%B5%E0%A4%B9_%E0%A4%B5%E0%A4%B9_%E0%A4%A8%E0%A4%BE%E0%A4%AE&action=edit&redlink=1",
             "is_self": false,
             "target_exists": false,
-            "source_topic_path": null,
+            "source_topic_path": "2",
             "source_topic_path_chain": [
               "2"
             ],
@@ -157,7 +157,7 @@
             "target_url": "/wiki/%E0%A4%86%E0%A4%95%E0%A4%BE%E0%A4%B6#3",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
+            "source_topic_path": "2",
             "source_topic_path_chain": [
               "2"
             ],
@@ -172,7 +172,7 @@
             "target_url": "/wiki/%E0%A4%85%E0%A4%B2%E0%A5%8D%E0%A4%AA%E0%A4%AC%E0%A4%B9%E0%A5%81%E0%A4%A4%E0%A5%8D%E0%A4%B5",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
+            "source_topic_path": "2",
             "source_topic_path_chain": [
               "2"
             ],
@@ -187,7 +187,7 @@
             "target_url": "/wiki/%E0%A4%A8%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
+            "source_topic_path": "2",
             "source_topic_path_chain": [
               "2"
             ],
@@ -202,7 +202,7 @@
             "target_url": "/wiki/%E0%A4%B0%E0%A4%BE%E0%A4%97#2",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
+            "source_topic_path": "2",
             "source_topic_path_chain": [
               "2"
             ],
@@ -217,7 +217,7 @@
             "target_url": "/wiki/%E0%A4%9A%E0%A5%88%E0%A4%A4%E0%A5%8D%E0%A4%AF#1.11",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
+            "source_topic_path": "2",
             "source_topic_path_chain": [
               "2"
             ],
@@ -232,7 +232,7 @@
             "target_url": "/wiki/%E0%A4%A6%E0%A4%BE%E0%A4%A8#5",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
+            "source_topic_path": "2",
             "source_topic_path_chain": [
               "2"
             ],
@@ -247,7 +247,7 @@
             "target_url": "/wiki/%E0%A4%AA%E0%A5%82%E0%A4%9C%E0%A4%BE#4",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
+            "source_topic_path": "2",
             "source_topic_path_chain": [
               "2"
             ],
@@ -262,9 +262,13 @@
             "target_url": "/wiki/%E0%A4%AE%E0%A5%82%E0%A4%B0%E0%A5%8D%E0%A4%A4#2",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path": "3",
+            "source_topic_path_chain": [
+              "3"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:षट्द्रव्य-विभाजन"
+            ]
           },
           {
             "label_text": "द्रव्यों के भेदादि जानने का प्रयोजन",
@@ -273,9 +277,13 @@
             "target_url": "/wiki/%E0%A4%B8%E0%A4%AE%E0%A5%8D%E0%A4%AF%E0%A4%97%E0%A5%8D%E0%A4%A6%E0%A4%B0%E0%A5%8D%E0%A4%B6%E0%A4%A8#II.3.3",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path": "3",
+            "source_topic_path_chain": [
+              "3"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:षट्द्रव्य-विभाजन"
+            ]
           },
           {
             "label_text": "जीव का असर्वगतपना",
@@ -284,9 +292,13 @@
             "target_url": "/wiki/%E0%A4%9C%E0%A5%80%E0%A4%B5#3.8",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path": "3",
+            "source_topic_path_chain": [
+              "3"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:षट्द्रव्य-विभाजन"
+            ]
           },
           {
             "label_text": "कारण अकारण विभाग",
@@ -295,9 +307,13 @@
             "target_url": "/wiki/%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A4%A3#III.1",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
-            "source_topic_path_chain": [],
-            "source_topic_natural_key_chain": []
+            "source_topic_path": "3",
+            "source_topic_path_chain": [
+              "3"
+            ],
+            "source_topic_natural_key_chain": [
+              "द्रव्य:षट्द्रव्य-विभाजन"
+            ]
           },
           {
             "label_text": "परमाणु में कथंचित् सावयव निरवयवपना",
@@ -323,14 +339,14 @@
             "target_url": "/wiki/%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%AA%E0%A4%BE%E0%A4%A6#2",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": "4.2",
+            "source_topic_path": "4.3",
             "source_topic_path_chain": [
               "4",
-              "4.2"
+              "4.3"
             ],
             "source_topic_natural_key_chain": [
               "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
-              "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद"
+              "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
             ]
           },
           {
@@ -340,12 +356,14 @@
             "target_url": "/wiki/%E0%A4%89%E0%A4%AA%E0%A4%9A%E0%A4%BE%E0%A4%B0#3",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
+            "source_topic_path": "4.4",
             "source_topic_path_chain": [
-              "4"
+              "4",
+              "4.4"
             ],
             "source_topic_natural_key_chain": [
-              "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद"
+              "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
+              "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
             ]
           },
           {
@@ -355,12 +373,14 @@
             "target_url": "/wiki/%E0%A4%B8%E0%A4%AA%E0%A5%8D%E0%A4%A4%E0%A4%AD%E0%A4%82%E0%A4%97%E0%A5%80#5",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
+            "source_topic_path": "4.4",
             "source_topic_path_chain": [
-              "4"
+              "4",
+              "4.4"
             ],
             "source_topic_natural_key_chain": [
-              "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद"
+              "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
+              "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
             ]
           },
           {
@@ -370,12 +390,14 @@
             "target_url": "/wiki/%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A4%95",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
+            "source_topic_path": "4.4",
             "source_topic_path_chain": [
-              "4"
+              "4",
+              "4.4"
             ],
             "source_topic_natural_key_chain": [
-              "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद"
+              "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
+              "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
             ]
           },
           {
@@ -385,7 +407,7 @@
             "target_url": "/wiki/%E0%A4%B8%E0%A4%A4%E0%A5%8D",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
+            "source_topic_path": "5",
             "source_topic_path_chain": [
               "5"
             ],
@@ -400,7 +422,7 @@
             "target_url": "/wiki/%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A4%A3#II",
             "is_self": false,
             "target_exists": true,
-            "source_topic_path": null,
+            "source_topic_path": "5",
             "source_topic_path_chain": [
               "5"
             ],
@@ -2574,7 +2596,48 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "blocks": [],
+                    "blocks": [
+                      {
+                        "kind": "hindi_text",
+                        "text_devanagari": "जगत् में एक ब्रह्म के अतिरिक्त अन्य कुछ नहीं, ऐसा ‘ब्रह्माद्वैत’ मानने से–प्रत्यक्ष गोचर कर्ता, कर्म आदि के भेद तथा शुभ-अशुभ कर्म, उनके सुख-दु:खरूप फल, सुख-दु:ख के आश्रयभूत यह लोक व परलोक, विद्या व अविद्या तथा बंध व मोक्ष इन सब प्रकार के द्वैतों का सर्वथा अभाव ठहरे। (आप्त मी./24-25)। बौद्धदर्शन का प्रतिभासाद्वैत तो किसी प्रकार सिद्ध ही नहीं किया जा सकता। यदि ज्ञेयभूत वस्तुओं को प्रतिभास में गर्भित करने के लिए हेतु देते हो तो हेतु और साध्यरूप द्वैत की स्वीकृति करनी पड़ती है और आगम प्रमाण से मानते हो तो वचनमात्र से ही द्वैतता आ जाती है।",
+                        "hindi_translation": null,
+                        "references": [
+                          {
+                            "text": "( आप्तमीमांसा/26 )",
+                            "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/26 )</span>",
+                            "parsed": null
+                          }
+                        ],
+                        "is_orphan_translation": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "hindi_text",
+                        "text_devanagari": "दूसरी बात यह भी तो है कि जैसे ‘हेतु’ के बिना ‘अहेतु’ शब्द की उत्पत्ति नहीं होती वैसे ही द्वैत के बिना अद्वैत की प्रतिपत्ति कैसे होगी।।",
+                        "hindi_translation": null,
+                        "references": [
+                          {
+                            "text": "( आप्तमीमांसा/27 )",
+                            "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/27 )</span>",
+                            "parsed": null
+                          }
+                        ],
+                        "is_orphan_translation": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      }
+                    ],
                     "children": []
                   },
                   {
@@ -2591,7 +2654,48 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "blocks": [],
+                    "blocks": [
+                      {
+                        "kind": "hindi_text",
+                        "text_devanagari": "वैशेषिक लोग द्रव्य, गुण, कर्म आदि पदार्थों को सर्वथा भिन्न मानते हैं। परंतु उनकी यह मान्यता युक्त नहीं है, क्योंकि जिस पृथक्त्व नामा गुण के द्वारा वे ये भेद करते हैं, वह स्वयं ही बेचारा द्रव्यादि से पृथक् होकर, निराश्रय हो जाने के कारण अपनी सत्ता खो बैठेगा, तब दूसरों को पृथक् कैसे करेगा। और यदि उस पृथक्त्व को द्रव्य से अभिन्न मानकर अपने प्रयोजन की सिद्धि करना चाहते हो तो उन गुण, कर्म आदि को द्रव्य से अभिन्न क्यों नहीं मान लेते।",
+                        "hindi_translation": null,
+                        "references": [
+                          {
+                            "text": "(आप्त मीमांसा /28)",
+                            "raw_html": "<span class=\"GRef\">(आप्त मीमांसा /28)</span>",
+                            "parsed": null
+                          }
+                        ],
+                        "is_orphan_translation": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "hindi_text",
+                        "text_devanagari": "इसी प्रकार भेदवादी बौद्धों के यहाँ भी संतान, समुदाय व प्रेत्यभाव (परलोक) आदि पदार्थ नहीं बन सकेंगे। परंतु ये सब बातें प्रमाण सिद्ध हैं। दूसरी बात यह है कि भेद पक्ष के कारण वे ज्ञेय को ज्ञान से सर्वथा भिन्न मानते हैं। तब ज्ञान ही किसे कहोगे &nbsp;? ज्ञान के अभाव से ज्ञेय का भी अभाव हो जायेगा।",
+                        "hindi_translation": null,
+                        "references": [
+                          {
+                            "text": "(आप्त मीमांसा /29-3)",
+                            "raw_html": "<span class=\"GRef\">(आप्त मीमांसा /29-3)</span>",
+                            "parsed": null
+                          }
+                        ],
+                        "is_orphan_translation": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      }
+                    ],
                     "children": []
                   },
                   {
@@ -2608,7 +2712,62 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "blocks": [],
+                    "blocks": [
+                      {
+                        "kind": "hindi_text",
+                        "text_devanagari": "अत: दोनों को सर्वथा निरपेक्ष न मानकर परस्पर सापेक्ष मानना चाहिए, क्योंकि एकत्व के बिना पृथक्त्व और पृथक्त्व के बिना एकत्व प्रमाणता को प्राप्त नहीं होते। जिस प्रकार हेतु अन्वय व व्यतिरेक दोनों रूपों को प्राप्त होकर ही साध्य की सिद्धि करता है, इसी प्रकार एकत्व व पृथक्त्व दोनों से पदार्थ की सिद्धि होती है। (आप्त मी./33) सत् सामान्य की अपेक्षा सर्वद्रव्य एक है और स्व-स्व लक्षण व गुणों आदि को धारण करने के कारण सब पृथक्-पृथक् हैं।",
+                        "hindi_translation": null,
+                        "references": [
+                          {
+                            "text": "(प्रवचनसार व तत्त्व प्रदीपिका/97-98); (आप्त मीमांसा/34); (कार्तिकेयानुप्रेक्षा/236)",
+                            "raw_html": "<span class=\"GRef\">(प्रवचनसार व तत्त्व प्रदीपिका/97-98); (आप्त मीमांसा/34); (कार्तिकेयानुप्रेक्षा/236)</span>",
+                            "parsed": null
+                          }
+                        ],
+                        "is_orphan_translation": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "hindi_text",
+                        "text_devanagari": "प्रमाणगोचर होने से उपरोक्त द्वैत व अद्वैत दोनों सत्स्वरूप हैं उपचार नहीं, इसलिए गौण मुख्य विवक्षा से उन दोनों में अविरोध है।",
+                        "hindi_translation": null,
+                        "references": [
+                          {
+                            "text": "( आप्त मीमांसा/36 )",
+                            "raw_html": "<span class=\"GRef\">( आप्त मीमांसा/36 )</span>",
+                            "parsed": null
+                          }
+                        ],
+                        "is_orphan_translation": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "hindi_text",
+                        "text_devanagari": "(और भी देखो क्षेत्र, काल व भाव की अपेक्षा भेदाभेद)।",
+                        "hindi_translation": null,
+                        "references": [],
+                        "is_orphan_translation": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      }
+                    ],
                     "children": []
                   }
                 ]
@@ -2642,7 +2801,62 @@
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "blocks": [],
+                    "blocks": [
+                      {
+                        "kind": "hindi_text",
+                        "text_devanagari": "जिस पदार्थ में न एक प्रदेश है और न बहुत वह शून्य मात्र है।",
+                        "hindi_translation": null,
+                        "references": [
+                          {
+                            "text": "( प्रवचनसार/144-145 )",
+                            "raw_html": "<span class=\"GRef\">( प्रवचनसार/144-145 )</span>",
+                            "parsed": null
+                          }
+                        ],
+                        "is_orphan_translation": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "hindi_text",
+                        "text_devanagari": "आगम में प्रत्येक द्रव्य के प्रदेशों का निर्देश किया है –आत्मा असंख्यात प्रदेशी है, उसके एक-एक प्रदेश पर अनंतानंत कर्मप्रदेश, एक-एक कर्मप्रदेश में अनंतानंत औदारिक शरीर प्रदेश, एक-एक शरीरप्रदेश में अनंतानंत विस्रसोपचय परमाणु हैं। इसी प्रकार धर्मादि द्रव्यों में भी प्रदेश भेद जान लेना चाहिए।।",
+                        "hindi_translation": null,
+                        "references": [
+                          {
+                            "text": "( राजवार्तिक/5/8/15/451/7 )",
+                            "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/15/451/7 )</span>",
+                            "parsed": null
+                          }
+                        ],
+                        "is_orphan_translation": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "see_also",
+                        "text_devanagari": null,
+                        "hindi_translation": null,
+                        "references": [],
+                        "is_orphan_translation": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": "वह वह नाम",
+                        "target_topic_path": null,
+                        "target_url": "/w/index.php?title=%E0%A4%B5%E0%A4%B9_%E0%A4%B5%E0%A4%B9_%E0%A4%A8%E0%A4%BE%E0%A4%AE&action=edit&redlink=1",
+                        "is_self": false,
+                        "target_exists": false
+                      }
+                    ],
                     "children": []
                   },
                   {
@@ -2782,20 +2996,6 @@
                         "target_keyword": null,
                         "target_topic_path": null,
                         "target_url": null,
-                        "is_self": false,
-                        "target_exists": true
-                      },
-                      {
-                        "kind": "see_also",
-                        "text_devanagari": null,
-                        "hindi_translation": null,
-                        "references": [],
-                        "is_orphan_translation": false,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": "आकाश",
-                        "target_topic_path": "2",
-                        "target_url": "/wiki/%E0%A4%86%E0%A4%95%E0%A4%BE%E0%A4%B6#2",
                         "is_self": false,
                         "target_exists": true
                       }
@@ -3163,7 +3363,7 @@
                     "blocks": [
                       {
                         "kind": "hindi_text",
-                        "text_devanagari": "पुरुष की दृष्टि से एकत्व और हाथ-पाँव आदि अंगों की दृष्टि से अनेकत्व की भाँति आत्मा के प्रदेशों में द्रव्य व पर्याय दृष्टि से एकत्व अनेकत्व के प्रति अनेकांत है।\n&nbsp;",
+                        "text_devanagari": "पुरुष की दृष्टि से एकत्व और हाथ-पाँव आदि अंगों की दृष्टि से अनेकत्व की भाँति आत्मा के प्रदेशों में द्रव्य व पर्याय दृष्टि से एकत्व अनेकत्व के प्रति अनेकांत है।",
                         "hindi_translation": null,
                         "references": [
                           {
@@ -3172,6 +3372,20 @@
                             "parsed": null
                           }
                         ],
+                        "is_orphan_translation": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "hindi_text",
+                        "text_devanagari": "&nbsp;",
+                        "hindi_translation": null,
+                        "references": [],
                         "is_orphan_translation": false,
                         "raw_html": null,
                         "table_rows": null,
@@ -3428,14 +3642,29 @@
                       },
                       {
                         "kind": "hindi_text",
-                        "text_devanagari": "त्रिकाली पर्यायों का पिंड होने से द्रव्य कथंचित् एक व अनेक है।\nश्लो.3/5);",
+                        "text_devanagari": "त्रिकाली पर्यायों का पिंड होने से द्रव्य कथंचित् एक व अनेक है।",
                         "hindi_translation": null,
                         "references": [
                           {
                             "text": "( धवला 3/1,2,1/",
                             "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/</span>",
                             "parsed": null
-                          },
+                          }
+                        ],
+                        "is_orphan_translation": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "hindi_text",
+                        "text_devanagari": "श्लो.3/5);",
+                        "hindi_translation": null,
+                        "references": [
                           {
                             "text": "( धवला 9/4,1,45/ श्लोक 66/183)",
                             "raw_html": "<span class=\"GRef\">( धवला 9/4,1,45/ श्लोक 66/183)</span>",
@@ -4245,6 +4474,20 @@
                     "blocks": [
                       {
                         "kind": "hindi_text",
+                        "text_devanagari": "अब यदि भेद पक्ष का स्वीकार करने वाले वैशेषिक या बौद्ध दंडी-दंडीवत् गुण के संयोग से द्रव्य को ‘गुणवान्’ कहते हैं तो उनके पक्ष में अनेकों दूषण आते हैं–",
+                        "hindi_translation": null,
+                        "references": [],
+                        "is_orphan_translation": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "hindi_text",
                         "text_devanagari": "द्रव्यत्व या उष्णत्व आदि सामान्य धर्मों के योग से द्रव्य व अग्नि द्रव्यत्ववान् या उष्णत्ववान् बन सकते हैं पर द्रव्य या उष्ण नहीं।\n;\n।",
                         "hindi_translation": null,
                         "references": [
@@ -4501,6 +4744,20 @@
                     "label_topic_seed": false,
                     "source_subkind": null,
                     "blocks": [
+                      {
+                        "kind": "hindi_text",
+                        "text_devanagari": "यदि यह कहा जाये कि गुण व गुणी में संयोग संबंध नहीं है बल्कि समवाय संबंध है जो कि समवाय नामक ‘एक’, ‘विभु’, व ‘नित्य’ पदार्थ द्वारा कराया जाता है, तो वह भी कहना नहीं बनता–क्योंकि,",
+                        "hindi_translation": null,
+                        "references": [],
+                        "is_orphan_translation": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
                       {
                         "kind": "hindi_text",
                         "text_devanagari": "पहले तो वह समवाय नाम का पदार्थ ही सिद्ध नहीं है ।",
@@ -4998,14 +5255,29 @@
             "blocks": [
               {
                 "kind": "hindi_text",
-                "text_devanagari": "यह सत्, संध्या, क्षेत्र, स्पर्शन, काल, अंतर, भाव और अल्पबहुत्व इन आठ अनुयोग द्वारों तथा नाम स्थापना, द्रव्य और भाव इन चार निक्षेपों से ज्ञेय होता है।\nहरिवंशपुराण - 1.1\n, 2.108, 17.135\nजीव, पुद्गल, धर्म, अधर्म, आकाश ये पांचों बहुप्रदेशी होने से अस्तिकाय हैं, काल एक प्रदेशी होने से अस्तिकाय नहीं है परंतु द्रव्य है। वे छहों गुण और पर्याय से युक्त होते हैं। इनमें जीव को छोड़ कर शेष द्रव्य अजीव हैं। इनका परिणमन अपने-अपने गुण और पर्याय के अनुरूप होता है। ये सब स्वतंत्र हैं।",
+                "text_devanagari": "यह सत्, संध्या, क्षेत्र, स्पर्शन, काल, अंतर, भाव और अल्पबहुत्व इन आठ अनुयोग द्वारों तथा नाम स्थापना, द्रव्य और भाव इन चार निक्षेपों से ज्ञेय होता है।\nहरिवंशपुराण - 1.1\n, 2.108, 17.135",
                 "hindi_translation": null,
                 "references": [
                   {
                     "text": "हरिवंशपुराण - 1.1\n , 2.108, 17.135",
                     "raw_html": "<span class=\"GRef\"><a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_1#1\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 1\">हरिवंशपुराण - 1.1</a>, 2.108, 17.135</span>",
                     "parsed": null
-                  },
+                  }
+                ],
+                "is_orphan_translation": false,
+                "raw_html": null,
+                "table_rows": null,
+                "target_keyword": null,
+                "target_topic_path": null,
+                "target_url": null,
+                "is_self": false,
+                "target_exists": true
+              },
+              {
+                "kind": "hindi_text",
+                "text_devanagari": "जीव, पुद्गल, धर्म, अधर्म, आकाश ये पांचों बहुप्रदेशी होने से अस्तिकाय हैं, काल एक प्रदेशी होने से अस्तिकाय नहीं है परंतु द्रव्य है। वे छहों गुण और पर्याय से युक्त होते हैं। इनमें जीव को छोड़ कर शेष द्रव्य अजीव हैं। इनका परिणमन अपने-अपने गुण और पर्याय के अनुरूप होता है। ये सब स्वतंत्र हैं।",
+                "hindi_translation": null,
+                "references": [
                   {
                     "text": "महापुराण 3.5-9",
                     "raw_html": "<span class=\"GRef\">महापुराण 3.5-9</span>",
@@ -6164,7 +6436,7 @@
                   "target_url": "/wiki/%E0%A4%B5%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%81",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
+                  "source_topic_path": "1",
                   "source_topic_path_chain": [
                     "1"
                   ],
@@ -6179,7 +6451,7 @@
                   "target_url": "#3",
                   "is_self": true,
                   "target_exists": true,
-                  "source_topic_path": null,
+                  "source_topic_path": "1",
                   "source_topic_path_chain": [
                     "1"
                   ],
@@ -6194,7 +6466,7 @@
                   "target_url": "/wiki/%E0%A4%85%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%AF",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
+                  "source_topic_path": "1",
                   "source_topic_path_chain": [
                     "1"
                   ],
@@ -6209,7 +6481,7 @@
                   "target_url": "/wiki/%E0%A4%97%E0%A5%81%E0%A4%A3#3",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
+                  "source_topic_path": "2",
                   "source_topic_path_chain": [
                     "2"
                   ],
@@ -6224,7 +6496,7 @@
                   "target_url": "/wiki/%E0%A4%B8%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%A8%E0%A5%8D%E0%A4%AF",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
+                  "source_topic_path": "2",
                   "source_topic_path_chain": [
                     "2"
                   ],
@@ -6239,7 +6511,7 @@
                   "target_url": "/wiki/%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%AA%E0%A4%BE%E0%A4%A6#2",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
+                  "source_topic_path": "2",
                   "source_topic_path_chain": [
                     "2"
                   ],
@@ -6254,7 +6526,7 @@
                   "target_url": "#3",
                   "is_self": true,
                   "target_exists": true,
-                  "source_topic_path": null,
+                  "source_topic_path": "2",
                   "source_topic_path_chain": [
                     "2"
                   ],
@@ -6269,7 +6541,7 @@
                   "target_url": "/w/index.php?title=%E0%A4%B5%E0%A4%B9_%E0%A4%B5%E0%A4%B9_%E0%A4%A8%E0%A4%BE%E0%A4%AE&action=edit&redlink=1",
                   "is_self": false,
                   "target_exists": false,
-                  "source_topic_path": null,
+                  "source_topic_path": "2",
                   "source_topic_path_chain": [
                     "2"
                   ],
@@ -6284,7 +6556,7 @@
                   "target_url": "/wiki/%E0%A4%86%E0%A4%95%E0%A4%BE%E0%A4%B6#3",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
+                  "source_topic_path": "2",
                   "source_topic_path_chain": [
                     "2"
                   ],
@@ -6299,7 +6571,7 @@
                   "target_url": "/wiki/%E0%A4%85%E0%A4%B2%E0%A5%8D%E0%A4%AA%E0%A4%AC%E0%A4%B9%E0%A5%81%E0%A4%A4%E0%A5%8D%E0%A4%B5",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
+                  "source_topic_path": "2",
                   "source_topic_path_chain": [
                     "2"
                   ],
@@ -6314,7 +6586,7 @@
                   "target_url": "/wiki/%E0%A4%A8%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
+                  "source_topic_path": "2",
                   "source_topic_path_chain": [
                     "2"
                   ],
@@ -6329,7 +6601,7 @@
                   "target_url": "/wiki/%E0%A4%B0%E0%A4%BE%E0%A4%97#2",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
+                  "source_topic_path": "2",
                   "source_topic_path_chain": [
                     "2"
                   ],
@@ -6344,7 +6616,7 @@
                   "target_url": "/wiki/%E0%A4%9A%E0%A5%88%E0%A4%A4%E0%A5%8D%E0%A4%AF#1.11",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
+                  "source_topic_path": "2",
                   "source_topic_path_chain": [
                     "2"
                   ],
@@ -6359,7 +6631,7 @@
                   "target_url": "/wiki/%E0%A4%A6%E0%A4%BE%E0%A4%A8#5",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
+                  "source_topic_path": "2",
                   "source_topic_path_chain": [
                     "2"
                   ],
@@ -6374,7 +6646,7 @@
                   "target_url": "/wiki/%E0%A4%AA%E0%A5%82%E0%A4%9C%E0%A4%BE#4",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
+                  "source_topic_path": "2",
                   "source_topic_path_chain": [
                     "2"
                   ],
@@ -6389,9 +6661,13 @@
                   "target_url": "/wiki/%E0%A4%AE%E0%A5%82%E0%A4%B0%E0%A5%8D%E0%A4%A4#2",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path": "3",
+                  "source_topic_path_chain": [
+                    "3"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:षट्द्रव्य-विभाजन"
+                  ]
                 },
                 {
                   "label_text": "द्रव्यों के भेदादि जानने का प्रयोजन",
@@ -6400,9 +6676,13 @@
                   "target_url": "/wiki/%E0%A4%B8%E0%A4%AE%E0%A5%8D%E0%A4%AF%E0%A4%97%E0%A5%8D%E0%A4%A6%E0%A4%B0%E0%A5%8D%E0%A4%B6%E0%A4%A8#II.3.3",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path": "3",
+                  "source_topic_path_chain": [
+                    "3"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:षट्द्रव्य-विभाजन"
+                  ]
                 },
                 {
                   "label_text": "जीव का असर्वगतपना",
@@ -6411,9 +6691,13 @@
                   "target_url": "/wiki/%E0%A4%9C%E0%A5%80%E0%A4%B5#3.8",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path": "3",
+                  "source_topic_path_chain": [
+                    "3"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:षट्द्रव्य-विभाजन"
+                  ]
                 },
                 {
                   "label_text": "कारण अकारण विभाग",
@@ -6422,9 +6706,13 @@
                   "target_url": "/wiki/%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A4%A3#III.1",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
+                  "source_topic_path": "3",
+                  "source_topic_path_chain": [
+                    "3"
+                  ],
+                  "source_topic_natural_key_chain": [
+                    "द्रव्य:षट्द्रव्य-विभाजन"
+                  ]
                 },
                 {
                   "label_text": "परमाणु में कथंचित् सावयव निरवयवपना",
@@ -6450,14 +6738,14 @@
                   "target_url": "/wiki/%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%AA%E0%A4%BE%E0%A4%A6#2",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": "4.2",
+                  "source_topic_path": "4.3",
                   "source_topic_path_chain": [
                     "4",
-                    "4.2"
+                    "4.3"
                   ],
                   "source_topic_natural_key_chain": [
                     "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
-                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद"
+                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
                   ]
                 },
                 {
@@ -6467,12 +6755,14 @@
                   "target_url": "/wiki/%E0%A4%89%E0%A4%AA%E0%A4%9A%E0%A4%BE%E0%A4%B0#3",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
+                  "source_topic_path": "4.4",
                   "source_topic_path_chain": [
-                    "4"
+                    "4",
+                    "4.4"
                   ],
                   "source_topic_natural_key_chain": [
-                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद"
+                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
+                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
                   ]
                 },
                 {
@@ -6482,12 +6772,14 @@
                   "target_url": "/wiki/%E0%A4%B8%E0%A4%AA%E0%A5%8D%E0%A4%A4%E0%A4%AD%E0%A4%82%E0%A4%97%E0%A5%80#5",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
+                  "source_topic_path": "4.4",
                   "source_topic_path_chain": [
-                    "4"
+                    "4",
+                    "4.4"
                   ],
                   "source_topic_natural_key_chain": [
-                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद"
+                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
+                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
                   ]
                 },
                 {
@@ -6497,12 +6789,14 @@
                   "target_url": "/wiki/%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A4%95",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
+                  "source_topic_path": "4.4",
                   "source_topic_path_chain": [
-                    "4"
+                    "4",
+                    "4.4"
                   ],
                   "source_topic_natural_key_chain": [
-                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद"
+                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
+                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
                   ]
                 },
                 {
@@ -6512,7 +6806,7 @@
                   "target_url": "/wiki/%E0%A4%B8%E0%A4%A4%E0%A5%8D",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
+                  "source_topic_path": "5",
                   "source_topic_path_chain": [
                     "5"
                   ],
@@ -6527,7 +6821,7 @@
                   "target_url": "/wiki/%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A4%A3#II",
                   "is_self": false,
                   "target_exists": true,
-                  "source_topic_path": null,
+                  "source_topic_path": "5",
                   "source_topic_path_chain": [
                     "5"
                   ],
@@ -6547,14 +6841,29 @@
                   "blocks": [
                     {
                       "kind": "hindi_text",
-                      "text_devanagari": "यह सत्, संध्या, क्षेत्र, स्पर्शन, काल, अंतर, भाव और अल्पबहुत्व इन आठ अनुयोग द्वारों तथा नाम स्थापना, द्रव्य और भाव इन चार निक्षेपों से ज्ञेय होता है।\nहरिवंशपुराण - 1.1\n, 2.108, 17.135\nजीव, पुद्गल, धर्म, अधर्म, आकाश ये पांचों बहुप्रदेशी होने से अस्तिकाय हैं, काल एक प्रदेशी होने से अस्तिकाय नहीं है परंतु द्रव्य है। वे छहों गुण और पर्याय से युक्त होते हैं। इनमें जीव को छोड़ कर शेष द्रव्य अजीव हैं। इनका परिणमन अपने-अपने गुण और पर्याय के अनुरूप होता है। ये सब स्वतंत्र हैं।",
+                      "text_devanagari": "यह सत्, संध्या, क्षेत्र, स्पर्शन, काल, अंतर, भाव और अल्पबहुत्व इन आठ अनुयोग द्वारों तथा नाम स्थापना, द्रव्य और भाव इन चार निक्षेपों से ज्ञेय होता है।\nहरिवंशपुराण - 1.1\n, 2.108, 17.135",
                       "hindi_translation": null,
                       "references": [
                         {
                           "text": "हरिवंशपुराण - 1.1\n , 2.108, 17.135",
                           "raw_html": "<span class=\"GRef\"><a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_1#1\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 1\">हरिवंशपुराण - 1.1</a>, 2.108, 17.135</span>",
                           "parsed": null
-                        },
+                        }
+                      ],
+                      "is_orphan_translation": false,
+                      "raw_html": null,
+                      "table_rows": null,
+                      "target_keyword": null,
+                      "target_topic_path": null,
+                      "target_url": null,
+                      "is_self": false,
+                      "target_exists": true
+                    },
+                    {
+                      "kind": "hindi_text",
+                      "text_devanagari": "जीव, पुद्गल, धर्म, अधर्म, आकाश ये पांचों बहुप्रदेशी होने से अस्तिकाय हैं, काल एक प्रदेशी होने से अस्तिकाय नहीं है परंतु द्रव्य है। वे छहों गुण और पर्याय से युक्त होते हैं। इनमें जीव को छोड़ कर शेष द्रव्य अजीव हैं। इनका परिणमन अपने-अपने गुण और पर्याय के अनुरूप होता है। ये सब स्वतंत्र हैं।",
+                      "hindi_translation": null,
+                      "references": [
                         {
                           "text": "महापुराण 3.5-9",
                           "raw_html": "<span class=\"GRef\">महापुराण 3.5-9</span>",
@@ -8783,7 +9092,48 @@
               "text": "एकांत अद्वैतपक्ष का निरास"
             }
           ],
-          "blocks": [],
+          "blocks": [
+            {
+              "kind": "hindi_text",
+              "text_devanagari": "जगत् में एक ब्रह्म के अतिरिक्त अन्य कुछ नहीं, ऐसा ‘ब्रह्माद्वैत’ मानने से–प्रत्यक्ष गोचर कर्ता, कर्म आदि के भेद तथा शुभ-अशुभ कर्म, उनके सुख-दु:खरूप फल, सुख-दु:ख के आश्रयभूत यह लोक व परलोक, विद्या व अविद्या तथा बंध व मोक्ष इन सब प्रकार के द्वैतों का सर्वथा अभाव ठहरे। (आप्त मी./24-25)। बौद्धदर्शन का प्रतिभासाद्वैत तो किसी प्रकार सिद्ध ही नहीं किया जा सकता। यदि ज्ञेयभूत वस्तुओं को प्रतिभास में गर्भित करने के लिए हेतु देते हो तो हेतु और साध्यरूप द्वैत की स्वीकृति करनी पड़ती है और आगम प्रमाण से मानते हो तो वचनमात्र से ही द्वैतता आ जाती है।",
+              "hindi_translation": null,
+              "references": [
+                {
+                  "text": "( आप्तमीमांसा/26 )",
+                  "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/26 )</span>",
+                  "parsed": null
+                }
+              ],
+              "is_orphan_translation": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "hindi_text",
+              "text_devanagari": "दूसरी बात यह भी तो है कि जैसे ‘हेतु’ के बिना ‘अहेतु’ शब्द की उत्पत्ति नहीं होती वैसे ही द्वैत के बिना अद्वैत की प्रतिपत्ति कैसे होगी।।",
+              "hindi_translation": null,
+              "references": [
+                {
+                  "text": "( आप्तमीमांसा/27 )",
+                  "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/27 )</span>",
+                  "parsed": null
+                }
+              ],
+              "is_orphan_translation": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            }
+          ],
           "source": "jainkosh",
           "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#4.1.1"
         },
@@ -8800,7 +9150,48 @@
               "text": "एकांत द्वैतपक्ष का निरास"
             }
           ],
-          "blocks": [],
+          "blocks": [
+            {
+              "kind": "hindi_text",
+              "text_devanagari": "वैशेषिक लोग द्रव्य, गुण, कर्म आदि पदार्थों को सर्वथा भिन्न मानते हैं। परंतु उनकी यह मान्यता युक्त नहीं है, क्योंकि जिस पृथक्त्व नामा गुण के द्वारा वे ये भेद करते हैं, वह स्वयं ही बेचारा द्रव्यादि से पृथक् होकर, निराश्रय हो जाने के कारण अपनी सत्ता खो बैठेगा, तब दूसरों को पृथक् कैसे करेगा। और यदि उस पृथक्त्व को द्रव्य से अभिन्न मानकर अपने प्रयोजन की सिद्धि करना चाहते हो तो उन गुण, कर्म आदि को द्रव्य से अभिन्न क्यों नहीं मान लेते।",
+              "hindi_translation": null,
+              "references": [
+                {
+                  "text": "(आप्त मीमांसा /28)",
+                  "raw_html": "<span class=\"GRef\">(आप्त मीमांसा /28)</span>",
+                  "parsed": null
+                }
+              ],
+              "is_orphan_translation": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "hindi_text",
+              "text_devanagari": "इसी प्रकार भेदवादी बौद्धों के यहाँ भी संतान, समुदाय व प्रेत्यभाव (परलोक) आदि पदार्थ नहीं बन सकेंगे। परंतु ये सब बातें प्रमाण सिद्ध हैं। दूसरी बात यह है कि भेद पक्ष के कारण वे ज्ञेय को ज्ञान से सर्वथा भिन्न मानते हैं। तब ज्ञान ही किसे कहोगे &nbsp;? ज्ञान के अभाव से ज्ञेय का भी अभाव हो जायेगा।",
+              "hindi_translation": null,
+              "references": [
+                {
+                  "text": "(आप्त मीमांसा /29-3)",
+                  "raw_html": "<span class=\"GRef\">(आप्त मीमांसा /29-3)</span>",
+                  "parsed": null
+                }
+              ],
+              "is_orphan_translation": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            }
+          ],
           "source": "jainkosh",
           "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#4.1.2"
         },
@@ -8817,7 +9208,62 @@
               "text": "कथंचित् द्वैत व अद्वैत का समन्वय"
             }
           ],
-          "blocks": [],
+          "blocks": [
+            {
+              "kind": "hindi_text",
+              "text_devanagari": "अत: दोनों को सर्वथा निरपेक्ष न मानकर परस्पर सापेक्ष मानना चाहिए, क्योंकि एकत्व के बिना पृथक्त्व और पृथक्त्व के बिना एकत्व प्रमाणता को प्राप्त नहीं होते। जिस प्रकार हेतु अन्वय व व्यतिरेक दोनों रूपों को प्राप्त होकर ही साध्य की सिद्धि करता है, इसी प्रकार एकत्व व पृथक्त्व दोनों से पदार्थ की सिद्धि होती है। (आप्त मी./33) सत् सामान्य की अपेक्षा सर्वद्रव्य एक है और स्व-स्व लक्षण व गुणों आदि को धारण करने के कारण सब पृथक्-पृथक् हैं।",
+              "hindi_translation": null,
+              "references": [
+                {
+                  "text": "(प्रवचनसार व तत्त्व प्रदीपिका/97-98); (आप्त मीमांसा/34); (कार्तिकेयानुप्रेक्षा/236)",
+                  "raw_html": "<span class=\"GRef\">(प्रवचनसार व तत्त्व प्रदीपिका/97-98); (आप्त मीमांसा/34); (कार्तिकेयानुप्रेक्षा/236)</span>",
+                  "parsed": null
+                }
+              ],
+              "is_orphan_translation": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "hindi_text",
+              "text_devanagari": "प्रमाणगोचर होने से उपरोक्त द्वैत व अद्वैत दोनों सत्स्वरूप हैं उपचार नहीं, इसलिए गौण मुख्य विवक्षा से उन दोनों में अविरोध है।",
+              "hindi_translation": null,
+              "references": [
+                {
+                  "text": "( आप्त मीमांसा/36 )",
+                  "raw_html": "<span class=\"GRef\">( आप्त मीमांसा/36 )</span>",
+                  "parsed": null
+                }
+              ],
+              "is_orphan_translation": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "hindi_text",
+              "text_devanagari": "(और भी देखो क्षेत्र, काल व भाव की अपेक्षा भेदाभेद)।",
+              "hindi_translation": null,
+              "references": [],
+              "is_orphan_translation": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            }
+          ],
           "source": "jainkosh",
           "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#4.1.3"
         },
@@ -8851,7 +9297,62 @@
               "text": "द्रव्य में प्रदेशकल्पना का निर्देश"
             }
           ],
-          "blocks": [],
+          "blocks": [
+            {
+              "kind": "hindi_text",
+              "text_devanagari": "जिस पदार्थ में न एक प्रदेश है और न बहुत वह शून्य मात्र है।",
+              "hindi_translation": null,
+              "references": [
+                {
+                  "text": "( प्रवचनसार/144-145 )",
+                  "raw_html": "<span class=\"GRef\">( प्रवचनसार/144-145 )</span>",
+                  "parsed": null
+                }
+              ],
+              "is_orphan_translation": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "hindi_text",
+              "text_devanagari": "आगम में प्रत्येक द्रव्य के प्रदेशों का निर्देश किया है –आत्मा असंख्यात प्रदेशी है, उसके एक-एक प्रदेश पर अनंतानंत कर्मप्रदेश, एक-एक कर्मप्रदेश में अनंतानंत औदारिक शरीर प्रदेश, एक-एक शरीरप्रदेश में अनंतानंत विस्रसोपचय परमाणु हैं। इसी प्रकार धर्मादि द्रव्यों में भी प्रदेश भेद जान लेना चाहिए।।",
+              "hindi_translation": null,
+              "references": [
+                {
+                  "text": "( राजवार्तिक/5/8/15/451/7 )",
+                  "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/15/451/7 )</span>",
+                  "parsed": null
+                }
+              ],
+              "is_orphan_translation": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "see_also",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [],
+              "is_orphan_translation": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": "वह वह नाम",
+              "target_topic_path": null,
+              "target_url": "/w/index.php?title=%E0%A4%B5%E0%A4%B9_%E0%A4%B5%E0%A4%B9_%E0%A4%A8%E0%A4%BE%E0%A4%AE&action=edit&redlink=1",
+              "is_self": false,
+              "target_exists": false
+            }
+          ],
           "source": "jainkosh",
           "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#4.2.1"
         },
@@ -8991,20 +9492,6 @@
               "target_keyword": null,
               "target_topic_path": null,
               "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "see_also",
-              "text_devanagari": null,
-              "hindi_translation": null,
-              "references": [],
-              "is_orphan_translation": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": "आकाश",
-              "target_topic_path": "2",
-              "target_url": "/wiki/%E0%A4%86%E0%A4%95%E0%A4%BE%E0%A4%B6#2",
               "is_self": false,
               "target_exists": true
             }
@@ -9372,7 +9859,7 @@
           "blocks": [
             {
               "kind": "hindi_text",
-              "text_devanagari": "पुरुष की दृष्टि से एकत्व और हाथ-पाँव आदि अंगों की दृष्टि से अनेकत्व की भाँति आत्मा के प्रदेशों में द्रव्य व पर्याय दृष्टि से एकत्व अनेकत्व के प्रति अनेकांत है।\n&nbsp;",
+              "text_devanagari": "पुरुष की दृष्टि से एकत्व और हाथ-पाँव आदि अंगों की दृष्टि से अनेकत्व की भाँति आत्मा के प्रदेशों में द्रव्य व पर्याय दृष्टि से एकत्व अनेकत्व के प्रति अनेकांत है।",
               "hindi_translation": null,
               "references": [
                 {
@@ -9381,6 +9868,20 @@
                   "parsed": null
                 }
               ],
+              "is_orphan_translation": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "hindi_text",
+              "text_devanagari": "&nbsp;",
+              "hindi_translation": null,
+              "references": [],
               "is_orphan_translation": false,
               "raw_html": null,
               "table_rows": null,
@@ -9637,14 +10138,29 @@
             },
             {
               "kind": "hindi_text",
-              "text_devanagari": "त्रिकाली पर्यायों का पिंड होने से द्रव्य कथंचित् एक व अनेक है।\nश्लो.3/5);",
+              "text_devanagari": "त्रिकाली पर्यायों का पिंड होने से द्रव्य कथंचित् एक व अनेक है।",
               "hindi_translation": null,
               "references": [
                 {
                   "text": "( धवला 3/1,2,1/",
                   "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/</span>",
                   "parsed": null
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "hindi_text",
+              "text_devanagari": "श्लो.3/5);",
+              "hindi_translation": null,
+              "references": [
                 {
                   "text": "( धवला 9/4,1,45/ श्लोक 66/183)",
                   "raw_html": "<span class=\"GRef\">( धवला 9/4,1,45/ श्लोक 66/183)</span>",
@@ -10454,6 +10970,20 @@
           "blocks": [
             {
               "kind": "hindi_text",
+              "text_devanagari": "अब यदि भेद पक्ष का स्वीकार करने वाले वैशेषिक या बौद्ध दंडी-दंडीवत् गुण के संयोग से द्रव्य को ‘गुणवान्’ कहते हैं तो उनके पक्ष में अनेकों दूषण आते हैं–",
+              "hindi_translation": null,
+              "references": [],
+              "is_orphan_translation": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "hindi_text",
               "text_devanagari": "द्रव्यत्व या उष्णत्व आदि सामान्य धर्मों के योग से द्रव्य व अग्नि द्रव्यत्ववान् या उष्णत्ववान् बन सकते हैं पर द्रव्य या उष्ण नहीं।\n;\n।",
               "hindi_translation": null,
               "references": [
@@ -10710,6 +11240,20 @@
             }
           ],
           "blocks": [
+            {
+              "kind": "hindi_text",
+              "text_devanagari": "यदि यह कहा जाये कि गुण व गुणी में संयोग संबंध नहीं है बल्कि समवाय संबंध है जो कि समवाय नामक ‘एक’, ‘विभु’, व ‘नित्य’ पदार्थ द्वारा कराया जाता है, तो वह भी कहना नहीं बनता–क्योंकि,",
+              "hindi_translation": null,
+              "references": [],
+              "is_orphan_translation": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
             {
               "kind": "hindi_text",
               "text_devanagari": "पहले तो वह समवाय नाम का पदार्थ ही सिद्ध नहीं है ।",
@@ -12516,24 +13060,6 @@
           }
         },
         {
-          "type": "RELATED_TO",
-          "from": {
-            "label": "Topic",
-            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:आकाश-के-प्रदेशत्व-में-हेतु"
-          },
-          "to": {
-            "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "आकाश",
-              "topic_path": "2"
-            }
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh"
-          }
-        },
-        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -13186,8 +13712,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन"
           },
           "to": {
             "label": "Topic",
@@ -13205,8 +13731,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन"
           },
           "to": {
             "label": "Topic",
@@ -13224,8 +13750,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन"
           },
           "to": {
             "label": "Topic",
@@ -13243,8 +13769,8 @@
         {
           "type": "RELATED_TO",
           "from": {
-            "label": "Keyword",
-            "key": "द्रव्य"
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन"
           },
           "to": {
             "label": "Topic",
@@ -13282,7 +13808,7 @@
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद"
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
           },
           "to": {
             "label": "Topic",
@@ -13301,7 +13827,7 @@
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद"
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
           },
           "to": {
             "label": "Topic",
@@ -13320,7 +13846,7 @@
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद"
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
           },
           "to": {
             "label": "Topic",
@@ -13339,7 +13865,7 @@
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद"
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
           },
           "to": {
             "label": "Keyword",

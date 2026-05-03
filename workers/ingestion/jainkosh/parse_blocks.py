@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+import re as _re
 from typing import Optional, Iterator
 
 from selectolax.parser import Node
@@ -172,41 +173,52 @@ def parse_block_stream(
             prev_element = el
             continue
 
-        result = make_block(el, config, current_keyword=current_keyword)
-        if result is None:
-            prev_element = el
-            continue
-
-        if isinstance(result, tuple):
-            block, see_alsos = result
-        else:
-            block = result
-            see_alsos = []
-
+        # Check sibling_eq marker before splitting so synthetic nodes don't break context
         saw_sibling_eq = _has_eq_text_marker_between(prev_element, el, config)
-        if (
-            saw_sibling_eq
-            and last_block is not None
-            and last_block.kind in config.translation_marker.source_kinds
-            and block.kind in config.translation_marker.hindi_kinds
-        ):
-            last_block.hindi_translation = strip_paren_dekhen(
-                strip_refs_from_text(block.text_devanagari or "", block.references, config),
-                config,
-            )
-            if config.translation_marker.reference_ordering == "leading_then_inline":
-                last_block.references = list(last_block.references) + list(pending_refs) + list(block.references)
-            else:
-                last_block.references = list(last_block.references) + list(block.references) + list(pending_refs)
-            pending_refs.clear()
-        else:
-            last_block, pending_refs, out = _emit(
-                block, last_block, pending_refs, out, config
-            )
 
-        for sa in see_alsos:
-            if isinstance(sa, Block):
-                out.append(sa)
+        # Only split when not in a translation-absorption context (preserves sibling_eq)
+        if config.reference_splitting.enabled and not saw_sibling_eq:
+            sub_els = split_element_at_inline_refs(el, config)
+        else:
+            sub_els = [el]
+
+        for sub_el in sub_els:
+            result = make_block(sub_el, config, current_keyword=current_keyword)
+            if result is None:
+                continue
+
+            if isinstance(result, tuple):
+                block, see_alsos = result
+            else:
+                block = result
+                see_alsos = []
+
+            if (
+                saw_sibling_eq
+                and last_block is not None
+                and last_block.kind in config.translation_marker.source_kinds
+                and block.kind in config.translation_marker.hindi_kinds
+            ):
+                last_block.hindi_translation = strip_paren_dekhen(
+                    strip_refs_from_text(block.text_devanagari or "", block.references, config),
+                    config,
+                )
+                if config.translation_marker.reference_ordering == "leading_then_inline":
+                    last_block.references = list(last_block.references) + list(pending_refs) + list(block.references)
+                else:
+                    last_block.references = list(last_block.references) + list(block.references) + list(pending_refs)
+                pending_refs.clear()
+                # Translation absorbed; only applies once per original el
+                saw_sibling_eq = False
+            else:
+                last_block, pending_refs, out = _emit(
+                    block, last_block, pending_refs, out, config
+                )
+
+            for sa in see_alsos:
+                if isinstance(sa, Block):
+                    out.append(sa)
+
         prev_element = el
 
     # Trailing refs attach to last block
@@ -329,6 +341,93 @@ def has_nested_block(node: Node, config: JainkoshConfig) -> bool:
         if block_class_kind(child, config) is not None:
             return True
     return False
+
+
+def _split_at_inline_grefs(inner_html: str) -> list[str]:
+    """
+    Tokenise inner_html into text + GRef tokens.
+    Start a new segment whenever non-trivial text follows accumulated GRefs.
+    Returns a list of HTML strings (one per output block).
+    """
+    gref_re = _re.compile(
+        r'<span\b[^>]*\bclass=["\']GRef["\'][^>]*>.*?</span>',
+        _re.DOTALL,
+    )
+
+    tokens: list[tuple[str, str]] = []
+    pos = 0
+    for m in gref_re.finditer(inner_html):
+        if m.start() > pos:
+            tokens.append(("text", inner_html[pos:m.start()]))
+        tokens.append(("gref", m.group(0)))
+        pos = m.end()
+    if pos < len(inner_html):
+        tokens.append(("text", inner_html[pos:]))
+
+    segments: list[str] = []
+    current_html = ""
+    pending_grefs: list[str] = []
+
+    for kind, fragment in tokens:
+        if kind == "text":
+            prose = _re.sub(r"<[^>]+>", "", fragment).strip()
+            # Only split when actual word characters (not just dandas/punctuation) follow a GRef
+            if _re.search(r"\w", prose) and pending_grefs:
+                segments.append(current_html + "".join(pending_grefs))
+                current_html = fragment
+                pending_grefs = []
+            else:
+                current_html += fragment
+        else:
+            pending_grefs.append(fragment)
+
+    current_html += "".join(pending_grefs)
+    if _re.sub(r"<[^>]+>", "", current_html).strip():
+        segments.append(current_html)
+
+    return segments
+
+
+def split_element_at_inline_refs(
+    el: Node,
+    config: "JainkoshConfig",
+) -> list[Node]:
+    """
+    If `el` is a text-block element of an applicable kind and has inline GRefs
+    with prose after them, split into multiple synthetic nodes.
+    Returns [el] unchanged when no split is needed or the feature is disabled.
+    """
+    from selectolax.parser import HTMLParser
+
+    if not config.reference_splitting.enabled:
+        return [el]
+
+    kind = block_class_kind(el, config)
+    if kind not in config.reference_splitting.applicable_block_kinds:
+        return [el]
+
+    html = el.html or ""
+    start = html.find(">")
+    end = html.rfind("<")
+    if start < 0 or end <= start:
+        return [el]
+    inner = html[start + 1:end]
+
+    segments = _split_at_inline_grefs(inner)
+    if len(segments) <= 1:
+        return [el]
+
+    tag = el.tag or "p"
+    cls = (el.attributes or {}).get("class", "HindiText")
+
+    result: list[Node] = []
+    for seg_html in segments:
+        synthetic = f'<{tag} class="{cls}">{seg_html}</{tag}>'
+        tree = HTMLParser(synthetic)
+        node = tree.css_first(f"{tag}.{cls.split()[0]}")
+        if node is not None:
+            result.append(node)
+    return result if result else [el]
 
 
 def flatten_for_blocks(

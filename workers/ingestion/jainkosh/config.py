@@ -246,6 +246,17 @@ class BulletStripConfig(BaseModel):
     trailing_punct: list[str]
 
 
+class ReferenceSplittingConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    enabled: bool = True
+    applicable_block_kinds: list[str] = Field(
+        default_factory=lambda: [
+            "hindi_text", "sanskrit_text", "prakrit_text", "hindi_gatha"
+        ]
+    )
+    gref_selector: str = "span.GRef"
+
+
 class EnvelopeConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
     idempotency_mode: Literal["per_row", "envelope_root"] = "envelope_root"
@@ -285,6 +296,9 @@ class JainkoshConfig(BaseModel):
     slug: SlugConfig
     bullet_strip: BulletStripConfig
     envelope: EnvelopeConfig = Field(default_factory=EnvelopeConfig)
+    reference_splitting: ReferenceSplittingConfig = Field(
+        default_factory=ReferenceSplittingConfig
+    )
     dfs: DfsConfig = Field(default_factory=DfsConfig)
     neo4j: Neo4jEnvelopeConfig = Field(default_factory=Neo4jEnvelopeConfig)
     see_also_only_block: SeeAlsoOnlyBlockConfig = Field(default_factory=SeeAlsoOnlyBlockConfig)
