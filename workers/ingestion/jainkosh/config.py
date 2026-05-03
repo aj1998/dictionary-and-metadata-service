@@ -259,6 +259,7 @@ class Neo4jEnvelopeConfig(BaseModel):
 class DfsConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
     passthrough_leading_gref: bool = True
+    process_v2_inline_content: bool = True
 
 
 class JainkoshConfig(BaseModel):

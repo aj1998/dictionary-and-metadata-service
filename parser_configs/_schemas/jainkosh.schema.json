@@ -318,7 +318,8 @@
       "required": ["passthrough_leading_gref"],
       "additionalProperties": false,
       "properties": {
-        "passthrough_leading_gref": {"type": "boolean"}
+        "passthrough_leading_gref": {"type": "boolean"},
+        "process_v2_inline_content": {"type": "boolean"}
       }
     },
     "envelope": {

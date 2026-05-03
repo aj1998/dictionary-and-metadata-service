@@ -140,3 +140,32 @@ class TestV5NotAHeading:
         html = '<p id="1" class="HindiText">(1) some definition text</p>'
         node = parse_first(html, "p")
         assert detect_heading(node, config) is None
+
+
+def test_v2_heading_inline_content_is_captured():
+    """Topic 4.1.1 is a V2 heading whose body content lives inside the heading span.
+    After the fix it must have non-empty blocks."""
+    from pathlib import Path
+    from workers.ingestion.jainkosh.parse_keyword import parse_keyword_html
+
+    fixture = Path(__file__).parents[1] / "fixtures" / "द्रव्य.html"
+    html = fixture.read_text(encoding="utf-8")
+    cfg = load_config()
+    res = parse_keyword_html(html, "https://example.org/wiki/द्रव्य", cfg)
+
+    section = res.page_sections[0]
+
+    def find_by_path(subs, path):
+        for s in subs:
+            if s.topic_path == path:
+                return s
+            found = find_by_path(s.children, path)
+            if found:
+                return found
+        return None
+
+    sub_411 = find_by_path(section.subsections, "4.1.1")
+    assert sub_411 is not None, "topic 4.1.1 not found"
+    assert len(sub_411.blocks) > 0, "4.1.1 must have blocks"
+    assert sub_411.blocks[0].kind == "hindi_text"
+    assert "ब्रह्माद्वैत" in (sub_411.blocks[0].text_devanagari or "")

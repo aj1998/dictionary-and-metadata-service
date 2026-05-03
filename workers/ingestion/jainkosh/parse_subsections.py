@@ -169,8 +169,11 @@ def walk_and_collect_headings(
                 # For V3 (li[id]), recurse into the li's children after the heading span
                 if el.tag == "li":
                     _dfs_after_v3_heading(el)
-                # For V1 (strong[id]) and V2 (span.HindiText[id]) and V4 (p.HindiText b),
-                # the heading node is a leaf - content is siblings (handled by parent recursion)
+                elif el.tag == "span" and config.dfs.process_v2_inline_content:
+                    # V2 heading: extract inline content from inside the heading span
+                    synthetic = _make_v2_content_block(el)
+                    if synthetic is not None:
+                        events.append(("block", synthetic))
                 continue
 
             # Not a heading - is it a "block" node (contains actual text content)?
@@ -215,6 +218,36 @@ def walk_and_collect_headings(
                     skip_first_span = False
                     continue
             _dfs([child])
+
+    def _make_v2_content_block(span: Node) -> Optional[Node]:
+        """Create a synthetic <p class="HindiText"> from the inline content of a V2 heading
+        span, stripping the leading <strong>. Returns None if no meaningful content remains."""
+        from selectolax.parser import HTMLParser
+
+        html = span.html or ""
+        start = html.find(">")
+        end = html.rfind("<")
+        if start < 0 or end <= start:
+            return None
+        inner = html[start + 1:end]
+
+        # Remove the leading <strong>...</strong> (first occurrence only)
+        inner = re.sub(r"^\s*<strong[^>]*>.*?</strong>\s*", "", inner, count=1, flags=re.DOTALL)
+
+        # Strip leading <br> / whitespace
+        inner = re.sub(r"^\s*(<br\s*/?>)?\s*", "", inner)
+
+        if not re.sub(r"<[^>]+>", "", inner).strip():
+            return None
+
+        # Reverse-lookup the CSS class for "hindi_text"
+        css_class = next(
+            (cls for cls, kind in config.block_classes.items() if kind == "hindi_text"),
+            "HindiText",
+        )
+        synthetic_html = f'<p class="{css_class}">{inner}</p>'
+        tree = HTMLParser(synthetic_html)
+        return tree.css_first(f"p.{css_class}")
 
     _dfs(body_elements)
 
