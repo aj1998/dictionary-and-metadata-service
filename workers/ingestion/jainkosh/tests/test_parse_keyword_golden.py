@@ -36,7 +36,7 @@ def test_keyword_definitions_has_no_subsection_tree():
         assert "subsection_tree" not in ps
         assert "extra_blocks" in ps
         assert "definitions" in ps
-        assert "index_relations" in ps
+        assert "index_relations" not in ps
 
 
 def run_cli(args: list[str]) -> subprocess.CompletedProcess:

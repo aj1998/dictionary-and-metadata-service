@@ -257,9 +257,17 @@ class ReferenceSplittingConfig(BaseModel):
     gref_selector: str = "span.GRef"
 
 
+class IndexRelationsAsTopicsConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    enabled: bool = True
+
+
 class EnvelopeConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
     idempotency_mode: Literal["per_row", "envelope_root"] = "envelope_root"
+    index_relations_as_topics: IndexRelationsAsTopicsConfig = Field(
+        default_factory=IndexRelationsAsTopicsConfig
+    )
 
 
 class Neo4jEnvelopeConfig(BaseModel):

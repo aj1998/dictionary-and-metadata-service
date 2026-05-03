@@ -166,6 +166,8 @@ bullet_strip:
 
 envelope:
   idempotency_mode: "envelope_root"
+  index_relations_as_topics:
+    enabled: true
 
 reference_splitting:
   enabled: true

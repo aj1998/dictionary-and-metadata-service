@@ -6389,6 +6389,500 @@
           "is_leaf": true,
           "is_synthetic": false,
           "source_subkind": null
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-‘अर्थक्रियाकारित्व’",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य का लक्षण ‘अर्थक्रियाकारित्व’"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-के-अन्य-प्रकार-भेदप्रभेद",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य के अन्य प्रकार भेद-प्रभेद"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:पंचास्तिकाय",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "पंचास्तिकाय"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्य-में-अनंतों-गुण-हैं",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य में अनंतों गुण हैं"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्य-सामान्यविशेषात्मक-है",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य सामान्यविशेषात्मक है"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्य-का-परिणमन",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य का परिणमन"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:शुद्ध-द्रव्यों-को-अपरिणामी-कहने-की-विवक्षा",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "शुद्ध द्रव्यों को अपरिणामी कहने की विवक्षा"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:षट्-द्रव्यों-की-सिद्धि",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "षट् द्रव्यों की सिद्धि"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:अनंत-द्रव्यों-का-लोक-में-अवस्थान-कैसे",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "अनंत द्रव्यों का लोक में अवस्थान कैसे"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:षट्-द्रव्यों-की-संख्या-में-अल्पबहुत्व",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "षट् द्रव्यों की संख्या में अल्पबहुत्व"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्यों-का-स्वरूप-जानने-का-उपाय",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्यों का स्वरूप जानने का उपाय"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्यों-में-अच्छे-बुरे-की-कल्पना-व्यक्ति-की-रुचि-पर-आधारित-है",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्यों में अच्छे बुरे की कल्पना व्यक्ति की रुचि पर आधारित है"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:अष्ट-मंगल-द्रव्य-व-उपकरण-द्रव्य",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "अष्ट मंगल द्रव्य व उपकरण द्रव्य"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:दान-योग्य-द्रव्य",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "दान योग्य द्रव्य"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:निर्माल्य-द्रव्य",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "निर्माल्य द्रव्य"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:षट्द्रव्य-विभाजन:संसारी-जीव-का-कथंचित्-मूर्तत्व",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:षट्द्रव्य-विभाजन",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "संसारी जीव का कथंचित् मूर्तत्व"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:षट्द्रव्य-विभाजन:द्रव्यों-के-भेदादि-जानने-का-प्रयोजन",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:षट्द्रव्य-विभाजन",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्यों के भेदादि जानने का प्रयोजन"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:षट्द्रव्य-विभाजन:जीव-का-असर्वगतपना",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:षट्द्रव्य-विभाजन",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "जीव का असर्वगतपना"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:षट्द्रव्य-विभाजन:कारण-अकारण-विभाग",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:षट्द्रव्य-विभाजन",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "कारण अकारण विभाग"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:परमाणु-में-कथंचित्-सावयव-निरवयवपना",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "परमाणु में कथंचित् सावयव निरवयवपना"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:द्रव्य-में-कथंचित्-नित्यानियत्व",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य में कथंचित् नित्यानियत्व"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:द्रव्य-को-गुण-पर्याय-और-गुण-पर्याय-को-द्रव्य-रूप-से-लक्षित-करना",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य को गुण पर्याय और गुण पर्याय को द्रव्य रूप से लक्षित करना"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:अनेक-अपेक्षाओं-से-द्रव्य-में-भेदाभेद-व-विधिनिषेध",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "अनेक अपेक्षाओं से द्रव्य में भेदाभेद व विधि-निषेध"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:द्रव्य-में-परस्पर-षट्कारकी-भेद-व-अभेद",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य में परस्पर षट्कारकी भेद व अभेद"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:द्रव्य-की-स्वतंत्रता:द्रव्य-स्वत-सिद्ध-है",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:द्रव्य-की-स्वतंत्रता",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य स्वत: सिद्ध है"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "द्रव्य:द्रव्य-की-स्वतंत्रता:द्रव्य-परिणमन-की-कथंचित्-स्वतंत्रता-व-परतंत्रता",
+          "topic_path": null,
+          "parent_topic_natural_key": "द्रव्य:द्रव्य-की-स्वतंत्रता",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य परिणमन की कथंचित् स्वतंत्रता व परतंत्रता"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "द्रव्य",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
         }
       ],
       "keyword_aliases": []
@@ -6427,409 +6921,7 @@
                 }
               ],
               "label_topic_seeds": [],
-              "extra_blocks": [],
-              "index_relations": [
-                {
-                  "label_text": "द्रव्य का लक्षण ‘अर्थक्रियाकारित्व’",
-                  "target_keyword": "वस्तु",
-                  "target_topic_path": null,
-                  "target_url": "/wiki/%E0%A4%B5%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%81",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "1",
-                  "source_topic_path_chain": [
-                    "1"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
-                  ]
-                },
-                {
-                  "label_text": "द्रव्य के अन्य प्रकार भेद-प्रभेद",
-                  "target_keyword": "द्रव्य",
-                  "target_topic_path": "3",
-                  "target_url": "#3",
-                  "is_self": true,
-                  "target_exists": true,
-                  "source_topic_path": "1",
-                  "source_topic_path_chain": [
-                    "1"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
-                  ]
-                },
-                {
-                  "label_text": "पंचास्तिकाय",
-                  "target_keyword": "अस्तिकाय",
-                  "target_topic_path": null,
-                  "target_url": "/wiki/%E0%A4%85%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%AF",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "1",
-                  "source_topic_path_chain": [
-                    "1"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
-                  ]
-                },
-                {
-                  "label_text": "द्रव्य में अनंतों गुण हैं",
-                  "target_keyword": "गुण",
-                  "target_topic_path": "3",
-                  "target_url": "/wiki/%E0%A4%97%E0%A5%81%E0%A4%A3#3",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "2",
-                  "source_topic_path_chain": [
-                    "2"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-                  ]
-                },
-                {
-                  "label_text": "द्रव्य सामान्यविशेषात्मक है",
-                  "target_keyword": "सामान्य",
-                  "target_topic_path": null,
-                  "target_url": "/wiki/%E0%A4%B8%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%A8%E0%A5%8D%E0%A4%AF",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "2",
-                  "source_topic_path_chain": [
-                    "2"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-                  ]
-                },
-                {
-                  "label_text": "द्रव्य का परिणमन",
-                  "target_keyword": "उत्पाद",
-                  "target_topic_path": "2",
-                  "target_url": "/wiki/%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%AA%E0%A4%BE%E0%A4%A6#2",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "2",
-                  "source_topic_path_chain": [
-                    "2"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-                  ]
-                },
-                {
-                  "label_text": "शुद्ध द्रव्यों को अपरिणामी कहने की विवक्षा",
-                  "target_keyword": "द्रव्य",
-                  "target_topic_path": "3",
-                  "target_url": "#3",
-                  "is_self": true,
-                  "target_exists": true,
-                  "source_topic_path": "2",
-                  "source_topic_path_chain": [
-                    "2"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-                  ]
-                },
-                {
-                  "label_text": "षट् द्रव्यों की सिद्धि",
-                  "target_keyword": "वह वह नाम",
-                  "target_topic_path": null,
-                  "target_url": "/w/index.php?title=%E0%A4%B5%E0%A4%B9_%E0%A4%B5%E0%A4%B9_%E0%A4%A8%E0%A4%BE%E0%A4%AE&action=edit&redlink=1",
-                  "is_self": false,
-                  "target_exists": false,
-                  "source_topic_path": "2",
-                  "source_topic_path_chain": [
-                    "2"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-                  ]
-                },
-                {
-                  "label_text": "अनंत द्रव्यों का लोक में अवस्थान कैसे",
-                  "target_keyword": "आकाश",
-                  "target_topic_path": "3",
-                  "target_url": "/wiki/%E0%A4%86%E0%A4%95%E0%A4%BE%E0%A4%B6#3",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "2",
-                  "source_topic_path_chain": [
-                    "2"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-                  ]
-                },
-                {
-                  "label_text": "षट् द्रव्यों की संख्या में अल्पबहुत्व",
-                  "target_keyword": "अल्पबहुत्व",
-                  "target_topic_path": null,
-                  "target_url": "/wiki/%E0%A4%85%E0%A4%B2%E0%A5%8D%E0%A4%AA%E0%A4%AC%E0%A4%B9%E0%A5%81%E0%A4%A4%E0%A5%8D%E0%A4%B5",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "2",
-                  "source_topic_path_chain": [
-                    "2"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-                  ]
-                },
-                {
-                  "label_text": "द्रव्यों का स्वरूप जानने का उपाय",
-                  "target_keyword": "न्याय",
-                  "target_topic_path": null,
-                  "target_url": "/wiki/%E0%A4%A8%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "2",
-                  "source_topic_path_chain": [
-                    "2"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-                  ]
-                },
-                {
-                  "label_text": "द्रव्यों में अच्छे बुरे की कल्पना व्यक्ति की रुचि पर आधारित है",
-                  "target_keyword": "राग",
-                  "target_topic_path": "2",
-                  "target_url": "/wiki/%E0%A4%B0%E0%A4%BE%E0%A4%97#2",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "2",
-                  "source_topic_path_chain": [
-                    "2"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-                  ]
-                },
-                {
-                  "label_text": "अष्ट मंगल द्रव्य व उपकरण द्रव्य",
-                  "target_keyword": "चैत्य",
-                  "target_topic_path": "1.11",
-                  "target_url": "/wiki/%E0%A4%9A%E0%A5%88%E0%A4%A4%E0%A5%8D%E0%A4%AF#1.11",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "2",
-                  "source_topic_path_chain": [
-                    "2"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-                  ]
-                },
-                {
-                  "label_text": "दान योग्य द्रव्य",
-                  "target_keyword": "दान",
-                  "target_topic_path": "5",
-                  "target_url": "/wiki/%E0%A4%A6%E0%A4%BE%E0%A4%A8#5",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "2",
-                  "source_topic_path_chain": [
-                    "2"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-                  ]
-                },
-                {
-                  "label_text": "निर्माल्य द्रव्य",
-                  "target_keyword": "पूजा",
-                  "target_topic_path": "4",
-                  "target_url": "/wiki/%E0%A4%AA%E0%A5%82%E0%A4%9C%E0%A4%BE#4",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "2",
-                  "source_topic_path_chain": [
-                    "2"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
-                  ]
-                },
-                {
-                  "label_text": "संसारी जीव का कथंचित् मूर्तत्व",
-                  "target_keyword": "मूर्त",
-                  "target_topic_path": "2",
-                  "target_url": "/wiki/%E0%A4%AE%E0%A5%82%E0%A4%B0%E0%A5%8D%E0%A4%A4#2",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "3",
-                  "source_topic_path_chain": [
-                    "3"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:षट्द्रव्य-विभाजन"
-                  ]
-                },
-                {
-                  "label_text": "द्रव्यों के भेदादि जानने का प्रयोजन",
-                  "target_keyword": "सम्यग्दर्शन",
-                  "target_topic_path": "II.3.3",
-                  "target_url": "/wiki/%E0%A4%B8%E0%A4%AE%E0%A5%8D%E0%A4%AF%E0%A4%97%E0%A5%8D%E0%A4%A6%E0%A4%B0%E0%A5%8D%E0%A4%B6%E0%A4%A8#II.3.3",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "3",
-                  "source_topic_path_chain": [
-                    "3"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:षट्द्रव्य-विभाजन"
-                  ]
-                },
-                {
-                  "label_text": "जीव का असर्वगतपना",
-                  "target_keyword": "जीव",
-                  "target_topic_path": "3.8",
-                  "target_url": "/wiki/%E0%A4%9C%E0%A5%80%E0%A4%B5#3.8",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "3",
-                  "source_topic_path_chain": [
-                    "3"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:षट्द्रव्य-विभाजन"
-                  ]
-                },
-                {
-                  "label_text": "कारण अकारण विभाग",
-                  "target_keyword": "कारण",
-                  "target_topic_path": "III.1",
-                  "target_url": "/wiki/%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A4%A3#III.1",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "3",
-                  "source_topic_path_chain": [
-                    "3"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:षट्द्रव्य-विभाजन"
-                  ]
-                },
-                {
-                  "label_text": "परमाणु में कथंचित् सावयव निरवयवपना",
-                  "target_keyword": "परमाणु",
-                  "target_topic_path": "3",
-                  "target_url": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A4%AE%E0%A4%BE%E0%A4%A3%E0%A5%81#3",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "4.2",
-                  "source_topic_path_chain": [
-                    "4",
-                    "4.2"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
-                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद"
-                  ]
-                },
-                {
-                  "label_text": "द्रव्य में कथंचित् नित्यानियत्व",
-                  "target_keyword": "उत्पाद",
-                  "target_topic_path": "2",
-                  "target_url": "/wiki/%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%AA%E0%A4%BE%E0%A4%A6#2",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "4.3",
-                  "source_topic_path_chain": [
-                    "4",
-                    "4.3"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
-                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
-                  ]
-                },
-                {
-                  "label_text": "द्रव्य को गुण पर्याय और गुण पर्याय को द्रव्य रूप से लक्षित करना",
-                  "target_keyword": "उपचार",
-                  "target_topic_path": "3",
-                  "target_url": "/wiki/%E0%A4%89%E0%A4%AA%E0%A4%9A%E0%A4%BE%E0%A4%B0#3",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "4.4",
-                  "source_topic_path_chain": [
-                    "4",
-                    "4.4"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
-                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
-                  ]
-                },
-                {
-                  "label_text": "अनेक अपेक्षाओं से द्रव्य में भेदाभेद व विधि-निषेध",
-                  "target_keyword": "सप्तभंगी",
-                  "target_topic_path": "5",
-                  "target_url": "/wiki/%E0%A4%B8%E0%A4%AA%E0%A5%8D%E0%A4%A4%E0%A4%AD%E0%A4%82%E0%A4%97%E0%A5%80#5",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "4.4",
-                  "source_topic_path_chain": [
-                    "4",
-                    "4.4"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
-                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
-                  ]
-                },
-                {
-                  "label_text": "द्रव्य में परस्पर षट्कारकी भेद व अभेद",
-                  "target_keyword": "कारक",
-                  "target_topic_path": null,
-                  "target_url": "/wiki/%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A4%95",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "4.4",
-                  "source_topic_path_chain": [
-                    "4",
-                    "4.4"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद",
-                    "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
-                  ]
-                },
-                {
-                  "label_text": "द्रव्य स्वत: सिद्ध है",
-                  "target_keyword": "सत्",
-                  "target_topic_path": null,
-                  "target_url": "/wiki/%E0%A4%B8%E0%A4%A4%E0%A5%8D",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "5",
-                  "source_topic_path_chain": [
-                    "5"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:द्रव्य-की-स्वतंत्रता"
-                  ]
-                },
-                {
-                  "label_text": "द्रव्य परिणमन की कथंचित् स्वतंत्रता व परतंत्रता",
-                  "target_keyword": "कारण",
-                  "target_topic_path": "II",
-                  "target_url": "/wiki/%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A4%A3#II",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "5",
-                  "source_topic_path_chain": [
-                    "5"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "द्रव्य:द्रव्य-की-स्वतंत्रता"
-                  ]
-                }
-              ]
+              "extra_blocks": []
             },
             {
               "section_index": 1,
@@ -6889,8 +6981,7 @@
                 }
               ],
               "label_topic_seeds": [],
-              "extra_blocks": [],
-              "index_relations": []
+              "extra_blocks": []
             }
           ],
           "redirect_aliases": []
@@ -11738,6 +11829,448 @@
           ],
           "source": "jainkosh",
           "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#5.4"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-‘अर्थक्रियाकारित्व’",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य का लक्षण ‘अर्थक्रियाकारित्व’"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-के-अन्य-प्रकार-भेदप्रभेद",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य के अन्य प्रकार भेद-प्रभेद"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:पंचास्तिकाय",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "पंचास्तिकाय"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्य-में-अनंतों-गुण-हैं",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य में अनंतों गुण हैं"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्य-सामान्यविशेषात्मक-है",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य सामान्यविशेषात्मक है"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्य-का-परिणमन",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य का परिणमन"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:शुद्ध-द्रव्यों-को-अपरिणामी-कहने-की-विवक्षा",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "शुद्ध द्रव्यों को अपरिणामी कहने की विवक्षा"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:षट्-द्रव्यों-की-सिद्धि",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "षट् द्रव्यों की सिद्धि"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:अनंत-द्रव्यों-का-लोक-में-अवस्थान-कैसे",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "अनंत द्रव्यों का लोक में अवस्थान कैसे"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:षट्-द्रव्यों-की-संख्या-में-अल्पबहुत्व",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "षट् द्रव्यों की संख्या में अल्पबहुत्व"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्यों-का-स्वरूप-जानने-का-उपाय",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्यों का स्वरूप जानने का उपाय"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्यों-में-अच्छे-बुरे-की-कल्पना-व्यक्ति-की-रुचि-पर-आधारित-है",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्यों में अच्छे बुरे की कल्पना व्यक्ति की रुचि पर आधारित है"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:अष्ट-मंगल-द्रव्य-व-उपकरण-द्रव्य",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "अष्ट मंगल द्रव्य व उपकरण द्रव्य"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:दान-योग्य-द्रव्य",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "दान योग्य द्रव्य"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:निर्माल्य-द्रव्य",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "निर्माल्य द्रव्य"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:षट्द्रव्य-विभाजन:संसारी-जीव-का-कथंचित्-मूर्तत्व",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:षट्द्रव्य-विभाजन",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "संसारी जीव का कथंचित् मूर्तत्व"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:षट्द्रव्य-विभाजन:द्रव्यों-के-भेदादि-जानने-का-प्रयोजन",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:षट्द्रव्य-विभाजन",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्यों के भेदादि जानने का प्रयोजन"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:षट्द्रव्य-विभाजन:जीव-का-असर्वगतपना",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:षट्द्रव्य-विभाजन",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "जीव का असर्वगतपना"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:षट्द्रव्य-विभाजन:कारण-अकारण-विभाग",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:षट्द्रव्य-विभाजन",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "कारण अकारण विभाग"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:परमाणु-में-कथंचित्-सावयव-निरवयवपना",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "परमाणु में कथंचित् सावयव निरवयवपना"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:द्रव्य-में-कथंचित्-नित्यानियत्व",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य में कथंचित् नित्यानियत्व"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:द्रव्य-को-गुण-पर्याय-और-गुण-पर्याय-को-द्रव्य-रूप-से-लक्षित-करना",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य को गुण पर्याय और गुण पर्याय को द्रव्य रूप से लक्षित करना"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:अनेक-अपेक्षाओं-से-द्रव्य-में-भेदाभेद-व-विधिनिषेध",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "अनेक अपेक्षाओं से द्रव्य में भेदाभेद व विधि-निषेध"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:द्रव्य-में-परस्पर-षट्कारकी-भेद-व-अभेद",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य में परस्पर षट्कारकी भेद व अभेद"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:द्रव्य-की-स्वतंत्रता:द्रव्य-स्वत-सिद्ध-है",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:द्रव्य-की-स्वतंत्रता",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य स्वत: सिद्ध है"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "द्रव्य:द्रव्य-की-स्वतंत्रता:द्रव्य-परिणमन-की-कथंचित्-स्वतंत्रता-व-परतंत्रता",
+          "topic_path": null,
+          "parent_natural_key": "द्रव्य:द्रव्य-की-स्वतंत्रता",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्य परिणमन की कथंचित् स्वतंत्रता व परतंत्रता"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
         }
       ]
     },
@@ -12395,6 +12928,292 @@
           "props": {
             "display_text_hi": "द्रव्य निश्चय से अपने में ही स्थित है, आकाशस्थित कहना व्यवहार है",
             "topic_path": "5.4",
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-‘अर्थक्रियाकारित्व’",
+          "props": {
+            "display_text_hi": "द्रव्य का लक्षण ‘अर्थक्रियाकारित्व’",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-के-अन्य-प्रकार-भेदप्रभेद",
+          "props": {
+            "display_text_hi": "द्रव्य के अन्य प्रकार भेद-प्रभेद",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:पंचास्तिकाय",
+          "props": {
+            "display_text_hi": "पंचास्तिकाय",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्य-में-अनंतों-गुण-हैं",
+          "props": {
+            "display_text_hi": "द्रव्य में अनंतों गुण हैं",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्य-सामान्यविशेषात्मक-है",
+          "props": {
+            "display_text_hi": "द्रव्य सामान्यविशेषात्मक है",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्य-का-परिणमन",
+          "props": {
+            "display_text_hi": "द्रव्य का परिणमन",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:शुद्ध-द्रव्यों-को-अपरिणामी-कहने-की-विवक्षा",
+          "props": {
+            "display_text_hi": "शुद्ध द्रव्यों को अपरिणामी कहने की विवक्षा",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:षट्-द्रव्यों-की-सिद्धि",
+          "props": {
+            "display_text_hi": "षट् द्रव्यों की सिद्धि",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:अनंत-द्रव्यों-का-लोक-में-अवस्थान-कैसे",
+          "props": {
+            "display_text_hi": "अनंत द्रव्यों का लोक में अवस्थान कैसे",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:षट्-द्रव्यों-की-संख्या-में-अल्पबहुत्व",
+          "props": {
+            "display_text_hi": "षट् द्रव्यों की संख्या में अल्पबहुत्व",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्यों-का-स्वरूप-जानने-का-उपाय",
+          "props": {
+            "display_text_hi": "द्रव्यों का स्वरूप जानने का उपाय",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्यों-में-अच्छे-बुरे-की-कल्पना-व्यक्ति-की-रुचि-पर-आधारित-है",
+          "props": {
+            "display_text_hi": "द्रव्यों में अच्छे बुरे की कल्पना व्यक्ति की रुचि पर आधारित है",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:अष्ट-मंगल-द्रव्य-व-उपकरण-द्रव्य",
+          "props": {
+            "display_text_hi": "अष्ट मंगल द्रव्य व उपकरण द्रव्य",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:दान-योग्य-द्रव्य",
+          "props": {
+            "display_text_hi": "दान योग्य द्रव्य",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:निर्माल्य-द्रव्य",
+          "props": {
+            "display_text_hi": "निर्माल्य द्रव्य",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:षट्द्रव्य-विभाजन:संसारी-जीव-का-कथंचित्-मूर्तत्व",
+          "props": {
+            "display_text_hi": "संसारी जीव का कथंचित् मूर्तत्व",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:षट्द्रव्य-विभाजन:द्रव्यों-के-भेदादि-जानने-का-प्रयोजन",
+          "props": {
+            "display_text_hi": "द्रव्यों के भेदादि जानने का प्रयोजन",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:षट्द्रव्य-विभाजन:जीव-का-असर्वगतपना",
+          "props": {
+            "display_text_hi": "जीव का असर्वगतपना",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:षट्द्रव्य-विभाजन:कारण-अकारण-विभाग",
+          "props": {
+            "display_text_hi": "कारण अकारण विभाग",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:परमाणु-में-कथंचित्-सावयव-निरवयवपना",
+          "props": {
+            "display_text_hi": "परमाणु में कथंचित् सावयव निरवयवपना",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:द्रव्य-में-कथंचित्-नित्यानियत्व",
+          "props": {
+            "display_text_hi": "द्रव्य में कथंचित् नित्यानियत्व",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:द्रव्य-को-गुण-पर्याय-और-गुण-पर्याय-को-द्रव्य-रूप-से-लक्षित-करना",
+          "props": {
+            "display_text_hi": "द्रव्य को गुण पर्याय और गुण पर्याय को द्रव्य रूप से लक्षित करना",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:अनेक-अपेक्षाओं-से-द्रव्य-में-भेदाभेद-व-विधिनिषेध",
+          "props": {
+            "display_text_hi": "अनेक अपेक्षाओं से द्रव्य में भेदाभेद व विधि-निषेध",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:द्रव्य-में-परस्पर-षट्कारकी-भेद-व-अभेद",
+          "props": {
+            "display_text_hi": "द्रव्य में परस्पर षट्कारकी भेद व अभेद",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:द्रव्य-की-स्वतंत्रता:द्रव्य-स्वत-सिद्ध-है",
+          "props": {
+            "display_text_hi": "द्रव्य स्वत: सिद्ध है",
+            "topic_path": null,
+            "parent_keyword_natural_key": "द्रव्य",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:द्रव्य-की-स्वतंत्रता:द्रव्य-परिणमन-की-कथंचित्-स्वतंत्रता-व-परतंत्रता",
+          "props": {
+            "display_text_hi": "द्रव्य परिणमन की कथंचित् स्वतंत्रता व परतंत्रता",
+            "topic_path": null,
             "parent_keyword_natural_key": "द्रव्य",
             "source": "jainkosh",
             "is_leaf": true
@@ -13459,10 +14278,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-‘अर्थक्रियाकारित्व’"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-‘अर्थक्रियाकारित्व’"
           },
           "to": {
             "label": "Keyword",
@@ -13475,10 +14309,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-के-अन्य-प्रकार-भेदप्रभेद"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-के-अन्य-प्रकार-भेदप्रभेद"
           },
           "to": {
             "label": "Topic",
@@ -13494,10 +14343,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:पंचास्तिकाय"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:पंचास्तिकाय"
           },
           "to": {
             "label": "Keyword",
@@ -13510,10 +14374,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्य-में-अनंतों-गुण-हैं"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्य-में-अनंतों-गुण-हैं"
           },
           "to": {
             "label": "Topic",
@@ -13529,10 +14408,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्य-सामान्यविशेषात्मक-है"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्य-सामान्यविशेषात्मक-है"
           },
           "to": {
             "label": "Keyword",
@@ -13545,10 +14439,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्य-का-परिणमन"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्य-का-परिणमन"
           },
           "to": {
             "label": "Topic",
@@ -13564,10 +14473,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:शुद्ध-द्रव्यों-को-अपरिणामी-कहने-की-विवक्षा"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:शुद्ध-द्रव्यों-को-अपरिणामी-कहने-की-विवक्षा"
           },
           "to": {
             "label": "Topic",
@@ -13583,10 +14507,40 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:षट्-द्रव्यों-की-सिद्धि"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:अनंत-द्रव्यों-का-लोक-में-अवस्थान-कैसे"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:अनंत-द्रव्यों-का-लोक-में-अवस्थान-कैसे"
           },
           "to": {
             "label": "Topic",
@@ -13602,10 +14556,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:षट्-द्रव्यों-की-संख्या-में-अल्पबहुत्व"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:षट्-द्रव्यों-की-संख्या-में-अल्पबहुत्व"
           },
           "to": {
             "label": "Keyword",
@@ -13618,10 +14587,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्यों-का-स्वरूप-जानने-का-उपाय"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्यों-का-स्वरूप-जानने-का-उपाय"
           },
           "to": {
             "label": "Keyword",
@@ -13634,10 +14618,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्यों-में-अच्छे-बुरे-की-कल्पना-व्यक्ति-की-रुचि-पर-आधारित-है"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:द्रव्यों-में-अच्छे-बुरे-की-कल्पना-व्यक्ति-की-रुचि-पर-आधारित-है"
           },
           "to": {
             "label": "Topic",
@@ -13653,10 +14652,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:अष्ट-मंगल-द्रव्य-व-उपकरण-द्रव्य"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:अष्ट-मंगल-द्रव्य-व-उपकरण-द्रव्य"
           },
           "to": {
             "label": "Topic",
@@ -13672,10 +14686,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:दान-योग्य-द्रव्य"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:दान-योग्य-द्रव्य"
           },
           "to": {
             "label": "Topic",
@@ -13691,10 +14720,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:निर्माल्य-द्रव्य"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान"
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:निर्माल्य-द्रव्य"
           },
           "to": {
             "label": "Topic",
@@ -13710,10 +14754,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:संसारी-जीव-का-कथंचित्-मूर्तत्व"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:षट्द्रव्य-विभाजन"
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:संसारी-जीव-का-कथंचित्-मूर्तत्व"
           },
           "to": {
             "label": "Topic",
@@ -13729,10 +14788,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:द्रव्यों-के-भेदादि-जानने-का-प्रयोजन"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:षट्द्रव्य-विभाजन"
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:द्रव्यों-के-भेदादि-जानने-का-प्रयोजन"
           },
           "to": {
             "label": "Topic",
@@ -13748,10 +14822,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:जीव-का-असर्वगतपना"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:षट्द्रव्य-विभाजन"
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:जीव-का-असर्वगतपना"
           },
           "to": {
             "label": "Topic",
@@ -13767,10 +14856,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:कारण-अकारण-विभाग"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:षट्द्रव्य-विभाजन"
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:कारण-अकारण-विभाग"
           },
           "to": {
             "label": "Topic",
@@ -13786,10 +14890,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:परमाणु-में-कथंचित्-सावयव-निरवयवपना"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद"
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:परमाणु-में-कथंचित्-सावयव-निरवयवपना"
           },
           "to": {
             "label": "Topic",
@@ -13805,10 +14924,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:द्रव्य-में-कथंचित्-नित्यानियत्व"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:द्रव्य-में-कथंचित्-नित्यानियत्व"
           },
           "to": {
             "label": "Topic",
@@ -13824,10 +14958,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:द्रव्य-को-गुण-पर्याय-और-गुण-पर्याय-को-द्रव्य-रूप-से-लक्षित-करना"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:द्रव्य-को-गुण-पर्याय-और-गुण-पर्याय-को-द्रव्य-रूप-से-लक्षित-करना"
           },
           "to": {
             "label": "Topic",
@@ -13843,10 +14992,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:अनेक-अपेक्षाओं-से-द्रव्य-में-भेदाभेद-व-विधिनिषेध"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:अनेक-अपेक्षाओं-से-द्रव्य-में-भेदाभेद-व-विधिनिषेध"
           },
           "to": {
             "label": "Topic",
@@ -13862,10 +15026,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:द्रव्य-में-परस्पर-षट्कारकी-भेद-व-अभेद"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद"
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:द्रव्य-में-परस्पर-षट्कारकी-भेद-व-अभेद"
           },
           "to": {
             "label": "Keyword",
@@ -13878,10 +15057,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-की-स्वतंत्रता:द्रव्य-स्वत-सिद्ध-है"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-की-स्वतंत्रता"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:द्रव्य-की-स्वतंत्रता"
+            "key": "द्रव्य:द्रव्य-की-स्वतंत्रता:द्रव्य-स्वत-सिद्ध-है"
           },
           "to": {
             "label": "Keyword",
@@ -13894,10 +15088,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-की-स्वतंत्रता:द्रव्य-परिणमन-की-कथंचित्-स्वतंत्रता-व-परतंत्रता"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-की-स्वतंत्रता"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "द्रव्य:द्रव्य-की-स्वतंत्रता"
+            "key": "द्रव्य:द्रव्य-की-स्वतंत्रता:द्रव्य-परिणमन-की-कथंचित्-स्वतंत्रता-व-परतंत्रता"
           },
           "to": {
             "label": "Topic",
@@ -14031,6 +15240,28 @@
           "is_leaf",
           "is_synthetic",
           "source"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:topics",
+          "mongo:topic_extracts",
+          "neo4j:Topic"
+        ]
+      },
+      "postgres:topics:index_relation_seed": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "display_text",
+          "is_leaf",
+          "is_synthetic",
+          "parent_topic_natural_key",
+          "topic_path",
+          "source",
+          "source_subkind"
         ],
         "fields_append": [],
         "fields_skip_if_set": [],

@@ -3708,6 +3708,139 @@
           "is_leaf": true,
           "is_synthetic": false,
           "source_subkind": null
+        },
+        {
+          "table": "topics",
+          "natural_key": "पर्याय:कर्म-का-अर्थ-पर्याय",
+          "topic_path": null,
+          "parent_topic_natural_key": null,
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "कर्म का अर्थ पर्याय"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "पर्याय",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "पर्याय:ऊर्ध्व-क्रम-व-ऊर्ध्व-प्रचय",
+          "topic_path": null,
+          "parent_topic_natural_key": null,
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "ऊर्ध्व क्रम व ऊर्ध्व प्रचय"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "पर्याय",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-में-परस्पर-व्यतिरेक-प्रदर्शन",
+          "topic_path": null,
+          "parent_topic_natural_key": "पर्याय:भेद-व-लक्षण",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "पर्याय में परस्पर व्यतिरेक प्रदर्शन"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "पर्याय",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "पर्याय:पर्याय-पर्यायी-में-कथंचित्-भेदाभेद",
+          "topic_path": null,
+          "parent_topic_natural_key": null,
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "पर्याय पर्यायी में कथंचित् भेदाभेद"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "पर्याय",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "पर्याय:पर्यायों-को-द्रव्यगुण-तथा-उन्हें-पर्यायों-से-लक्षित-करना",
+          "topic_path": null,
+          "parent_topic_natural_key": null,
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "पर्यायों को द्रव्यगुण तथा उन्हें पर्यायों से लक्षित करना"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "पर्याय",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "पर्याय:परिणमन-का-अस्तित्व-द्रव्य-में-या-द्रव्यांशों-में-या-पर्यायों-में",
+          "topic_path": null,
+          "parent_topic_natural_key": null,
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "परिणमन का अस्तित्व द्रव्य में या द्रव्यांशों में या पर्यायों में"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "पर्याय",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
+        },
+        {
+          "table": "topics",
+          "natural_key": "पर्याय:सादिअनादि-व-सदृशविसदृश-परिणमन",
+          "topic_path": null,
+          "parent_topic_natural_key": null,
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "सादि-अनादि व सदृश-विसदृश परिणमन"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "पर्याय",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "index_relation_seed",
+          "label_topic_seed": true
         }
       ],
       "keyword_aliases": []
@@ -3746,101 +3879,7 @@
                 }
               ],
               "label_topic_seeds": [],
-              "extra_blocks": [],
-              "index_relations": [
-                {
-                  "label_text": "कर्म का अर्थ पर्याय",
-                  "target_keyword": "अर्थ",
-                  "target_topic_path": "1.1",
-                  "target_url": "/wiki/%E0%A4%85%E0%A4%B0%E0%A5%8D%E0%A4%A5#1.1",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
-                },
-                {
-                  "label_text": "ऊर्ध्व क्रम व ऊर्ध्व प्रचय",
-                  "target_keyword": "क्रम",
-                  "target_topic_path": null,
-                  "target_url": "/wiki/%E0%A4%95%E0%A5%8D%E0%A4%B0%E0%A4%AE",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
-                },
-                {
-                  "label_text": "पर्याय में परस्पर व्यतिरेक प्रदर्शन",
-                  "target_keyword": "सप्तभंगी",
-                  "target_topic_path": "5.3",
-                  "target_url": "/wiki/%E0%A4%B8%E0%A4%AA%E0%A5%8D%E0%A4%A4%E0%A4%AD%E0%A4%82%E0%A4%97%E0%A5%80#5.3",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": "1",
-                  "source_topic_path_chain": [
-                    "1"
-                  ],
-                  "source_topic_natural_key_chain": [
-                    "पर्याय:भेद-व-लक्षण"
-                  ]
-                },
-                {
-                  "label_text": "पर्याय पर्यायी में कथंचित् भेदाभेद",
-                  "target_keyword": "द्रव्य",
-                  "target_topic_path": "4",
-                  "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#4",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
-                },
-                {
-                  "label_text": "पर्यायों को द्रव्यगुण तथा उन्हें पर्यायों से लक्षित करना",
-                  "target_keyword": "उपचार",
-                  "target_topic_path": "3",
-                  "target_url": "/wiki/%E0%A4%89%E0%A4%AA%E0%A4%9A%E0%A4%BE%E0%A4%B0#3",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
-                },
-                {
-                  "label_text": "परिणमन का अस्तित्व द्रव्य में या द्रव्यांशों में या पर्यायों में",
-                  "target_keyword": "उत्पाद",
-                  "target_topic_path": "3",
-                  "target_url": "/wiki/%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%AA%E0%A4%BE%E0%A4%A6#3",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
-                },
-                {
-                  "label_text": "परिणमन का अस्तित्व द्रव्य में या द्रव्यांशों में या पर्यायों में",
-                  "target_keyword": "उत्पाद",
-                  "target_topic_path": "3",
-                  "target_url": "/wiki/%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%AA%E0%A4%BE%E0%A4%A6#3",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
-                },
-                {
-                  "label_text": "सादि-अनादि व सदृश-विसदृश परिणमन",
-                  "target_keyword": "परिणाम",
-                  "target_topic_path": null,
-                  "target_url": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A4%BF%E0%A4%A3%E0%A4%BE%E0%A4%AE",
-                  "is_self": false,
-                  "target_exists": true,
-                  "source_topic_path": null,
-                  "source_topic_path_chain": [],
-                  "source_topic_natural_key_chain": []
-                }
-              ]
+              "extra_blocks": []
             },
             {
               "section_index": 1,
@@ -3901,8 +3940,7 @@
                 }
               ],
               "label_topic_seeds": [],
-              "extra_blocks": [],
-              "index_relations": []
+              "extra_blocks": []
             }
           ],
           "redirect_aliases": []
@@ -6659,6 +6697,125 @@
           ],
           "source": "jainkosh",
           "source_url": "https://www.jainkosh.org/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF#3.14"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "पर्याय:कर्म-का-अर्थ-पर्याय",
+          "topic_path": null,
+          "parent_natural_key": null,
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "कर्म का अर्थ पर्याय"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "पर्याय:ऊर्ध्व-क्रम-व-ऊर्ध्व-प्रचय",
+          "topic_path": null,
+          "parent_natural_key": null,
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "ऊर्ध्व क्रम व ऊर्ध्व प्रचय"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-में-परस्पर-व्यतिरेक-प्रदर्शन",
+          "topic_path": null,
+          "parent_natural_key": "पर्याय:भेद-व-लक्षण",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "पर्याय में परस्पर व्यतिरेक प्रदर्शन"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "पर्याय:पर्याय-पर्यायी-में-कथंचित्-भेदाभेद",
+          "topic_path": null,
+          "parent_natural_key": null,
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "पर्याय पर्यायी में कथंचित् भेदाभेद"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "पर्याय:पर्यायों-को-द्रव्यगुण-तथा-उन्हें-पर्यायों-से-लक्षित-करना",
+          "topic_path": null,
+          "parent_natural_key": null,
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "पर्यायों को द्रव्यगुण तथा उन्हें पर्यायों से लक्षित करना"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "पर्याय:परिणमन-का-अस्तित्व-द्रव्य-में-या-द्रव्यांशों-में-या-पर्यायों-में",
+          "topic_path": null,
+          "parent_natural_key": null,
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "परिणमन का अस्तित्व द्रव्य में या द्रव्यांशों में या पर्यायों में"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "पर्याय:सादिअनादि-व-सदृशविसदृश-परिणमन",
+          "topic_path": null,
+          "parent_natural_key": null,
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "सादि-अनादि व सदृश-विसदृश परिणमन"
+            }
+          ],
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF"
         }
       ]
     },
@@ -7140,6 +7297,83 @@
           "props": {
             "display_text_hi": "स्वभाव व विभाव पर्यायों का स्वामित्व",
             "topic_path": "3.14",
+            "parent_keyword_natural_key": "पर्याय",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "पर्याय:कर्म-का-अर्थ-पर्याय",
+          "props": {
+            "display_text_hi": "कर्म का अर्थ पर्याय",
+            "topic_path": null,
+            "parent_keyword_natural_key": "पर्याय",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "पर्याय:ऊर्ध्व-क्रम-व-ऊर्ध्व-प्रचय",
+          "props": {
+            "display_text_hi": "ऊर्ध्व क्रम व ऊर्ध्व प्रचय",
+            "topic_path": null,
+            "parent_keyword_natural_key": "पर्याय",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "पर्याय:भेद-व-लक्षण:पर्याय-में-परस्पर-व्यतिरेक-प्रदर्शन",
+          "props": {
+            "display_text_hi": "पर्याय में परस्पर व्यतिरेक प्रदर्शन",
+            "topic_path": null,
+            "parent_keyword_natural_key": "पर्याय",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "पर्याय:पर्याय-पर्यायी-में-कथंचित्-भेदाभेद",
+          "props": {
+            "display_text_hi": "पर्याय पर्यायी में कथंचित् भेदाभेद",
+            "topic_path": null,
+            "parent_keyword_natural_key": "पर्याय",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "पर्याय:पर्यायों-को-द्रव्यगुण-तथा-उन्हें-पर्यायों-से-लक्षित-करना",
+          "props": {
+            "display_text_hi": "पर्यायों को द्रव्यगुण तथा उन्हें पर्यायों से लक्षित करना",
+            "topic_path": null,
+            "parent_keyword_natural_key": "पर्याय",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "पर्याय:परिणमन-का-अस्तित्व-द्रव्य-में-या-द्रव्यांशों-में-या-पर्यायों-में",
+          "props": {
+            "display_text_hi": "परिणमन का अस्तित्व द्रव्य में या द्रव्यांशों में या पर्यायों में",
+            "topic_path": null,
+            "parent_keyword_natural_key": "पर्याय",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "पर्याय:सादिअनादि-व-सदृशविसदृश-परिणमन",
+          "props": {
+            "display_text_hi": "सादि-अनादि व सदृश-विसदृश परिणमन",
+            "topic_path": null,
             "parent_keyword_natural_key": "पर्याय",
             "source": "jainkosh",
             "is_leaf": true
@@ -7793,10 +8027,25 @@
           }
         },
         {
-          "type": "RELATED_TO",
+          "type": "HAS_TOPIC",
           "from": {
             "label": "Keyword",
             "key": "पर्याय"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:कर्म-का-अर्थ-पर्याय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "RELATED_TO",
+          "from": {
+            "label": "Topic",
+            "key": "पर्याय:कर्म-का-अर्थ-पर्याय"
           },
           "to": {
             "label": "Topic",
@@ -7812,10 +8061,25 @@
           }
         },
         {
-          "type": "RELATED_TO",
+          "type": "HAS_TOPIC",
           "from": {
             "label": "Keyword",
             "key": "पर्याय"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:ऊर्ध्व-क्रम-व-ऊर्ध्व-प्रचय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "RELATED_TO",
+          "from": {
+            "label": "Topic",
+            "key": "पर्याय:ऊर्ध्व-क्रम-व-ऊर्ध्व-प्रचय"
           },
           "to": {
             "label": "Keyword",
@@ -7828,10 +8092,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "पर्याय:भेद-व-लक्षण:पर्याय-में-परस्पर-व्यतिरेक-प्रदर्शन"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:भेद-व-लक्षण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "पर्याय:भेद-व-लक्षण"
+            "key": "पर्याय:भेद-व-लक्षण:पर्याय-में-परस्पर-व्यतिरेक-प्रदर्शन"
           },
           "to": {
             "label": "Topic",
@@ -7847,10 +8126,25 @@
           }
         },
         {
-          "type": "RELATED_TO",
+          "type": "HAS_TOPIC",
           "from": {
             "label": "Keyword",
             "key": "पर्याय"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:पर्याय-पर्यायी-में-कथंचित्-भेदाभेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "RELATED_TO",
+          "from": {
+            "label": "Topic",
+            "key": "पर्याय:पर्याय-पर्यायी-में-कथंचित्-भेदाभेद"
           },
           "to": {
             "label": "Topic",
@@ -7866,10 +8160,25 @@
           }
         },
         {
-          "type": "RELATED_TO",
+          "type": "HAS_TOPIC",
           "from": {
             "label": "Keyword",
             "key": "पर्याय"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:पर्यायों-को-द्रव्यगुण-तथा-उन्हें-पर्यायों-से-लक्षित-करना"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "RELATED_TO",
+          "from": {
+            "label": "Topic",
+            "key": "पर्याय:पर्यायों-को-द्रव्यगुण-तथा-उन्हें-पर्यायों-से-लक्षित-करना"
           },
           "to": {
             "label": "Topic",
@@ -7885,10 +8194,25 @@
           }
         },
         {
-          "type": "RELATED_TO",
+          "type": "HAS_TOPIC",
           "from": {
             "label": "Keyword",
             "key": "पर्याय"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:परिणमन-का-अस्तित्व-द्रव्य-में-या-द्रव्यांशों-में-या-पर्यायों-में"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "RELATED_TO",
+          "from": {
+            "label": "Topic",
+            "key": "पर्याय:परिणमन-का-अस्तित्व-द्रव्य-में-या-द्रव्यांशों-में-या-पर्यायों-में"
           },
           "to": {
             "label": "Topic",
@@ -7904,10 +8228,25 @@
           }
         },
         {
-          "type": "RELATED_TO",
+          "type": "HAS_TOPIC",
           "from": {
             "label": "Keyword",
             "key": "पर्याय"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:सादिअनादि-व-सदृशविसदृश-परिणमन"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "RELATED_TO",
+          "from": {
+            "label": "Topic",
+            "key": "पर्याय:सादिअनादि-व-सदृशविसदृश-परिणमन"
           },
           "to": {
             "label": "Keyword",
@@ -8038,6 +8377,28 @@
           "is_leaf",
           "is_synthetic",
           "source"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:topics",
+          "mongo:topic_extracts",
+          "neo4j:Topic"
+        ]
+      },
+      "postgres:topics:index_relation_seed": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "display_text",
+          "is_leaf",
+          "is_synthetic",
+          "parent_topic_natural_key",
+          "topic_path",
+          "source",
+          "source_subkind"
         ],
         "fields_append": [],
         "fields_skip_if_set": [],

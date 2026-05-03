@@ -329,6 +329,13 @@
         "idempotency_mode": {
           "type": "string",
           "enum": ["per_row", "envelope_root"]
+        },
+        "index_relations_as_topics": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "type": "boolean" }
+          }
         }
       }
     },

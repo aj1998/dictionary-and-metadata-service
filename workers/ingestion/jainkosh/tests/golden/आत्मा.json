@@ -774,8 +774,7 @@
                 }
               ],
               "label_topic_seeds": [],
-              "extra_blocks": [],
-              "index_relations": []
+              "extra_blocks": []
             },
             {
               "section_index": 1,
@@ -841,8 +840,7 @@
                 }
               ],
               "label_topic_seeds": [],
-              "extra_blocks": [],
-              "index_relations": []
+              "extra_blocks": []
             }
           ],
           "redirect_aliases": []
