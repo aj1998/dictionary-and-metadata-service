@@ -150,21 +150,16 @@ def test_inline_visesh_dekhen_in_hindi_block():
     assert see_alsos[0].target_keyword == "अस्तिकाय"
 
 
-def test_redlink_prose_stripped_but_relation_emitted():
+def test_redlink_row_fully_dropped_from_block_stream():
+    """Row-style redlink entry (• label - देखें target) is fully suppressed in parent block stream.
+
+    The see_also block is instead placed in the corresponding child label-seed subsection
+    (see test_label_seed_relation_assignment.py for coverage of that path).
+    """
     html = ('<p class="HindiText">•\tबहिरात्मा, अंतरात्मा व परमात्मा - देखें '
             '<a href="/w/index.php?title=%E0%A4%B5%E0%A4%B9_%E0%A4%B5%E0%A4%B9_%E0%A4%A8%E0%A4%BE%E0%A4%AE&amp;action=edit&amp;redlink=1" '
             'class="new" title="वह वह नाम (page does not exist)">वह वह नाम</a></p>')
     blocks = parse_p_to_blocks(html, CFG)
 
-    text_blocks = [b for b in blocks if b.kind == "hindi_text"]
-    see_also_blocks = [b for b in blocks if b.kind == "see_also"]
-
-    assert len(text_blocks) == 1
-    assert "देखें" not in (text_blocks[0].text_devanagari or "")
-    assert "वह वह नाम" not in (text_blocks[0].text_devanagari or "")
-    assert (text_blocks[0].text_devanagari or "").startswith("•")
-    assert (text_blocks[0].text_devanagari or "").endswith("परमात्मा")
-
-    assert len(see_also_blocks) == 1
-    assert see_also_blocks[0].target_keyword == "वह वह नाम"
-    assert see_also_blocks[0].target_exists is False
+    # Row-style element: NEITHER hindi_text NOR see_also should appear in parent block stream
+    assert blocks == [], f"Expected empty blocks for row-style redlink entry, got: {blocks}"

@@ -33,6 +33,7 @@ def test_redlink_see_also_block_still_present():
             yield x
             yield from _walk(x.children)
 
+    # Redlink see_also is now in child seed subsections, not parent — walk ALL subsections
     found = False
     for sec in res.page_sections:
         for sub in _walk(sec.subsections):

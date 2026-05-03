@@ -397,8 +397,7 @@ when inside one, or to `PageSection.label_topic_seeds` (a separate
 list, to keep the numeric-path tree unambiguous) when at section root.
 
 Commas inside the label are **not delimiters** — the entire text is
-one topic name. The `see_also` relation for the anchor is still
-emitted independently.
+one topic name.
 
 Configuration knobs: `label_to_topic.enabled`,
 `label_to_topic.emit_for_redlink`, `label_to_topic.emit_for_wiki_link`,
@@ -414,6 +413,25 @@ from inline cross-references embedded inside Hindi translations.
 The label text is trimmed to only the segment between the nearest
 sentence-end / bullet and the trigger; trailing connectors (`–`, `-`)
 are stripped as before.
+
+**Row-relation relocation (v1.3.0)**: for row-style entries
+(`• label - देखें target`, including redlink targets), the
+`see_also` block that represents the cross-reference relation is
+assigned to the **child seed's `blocks`**, not the parent subsection's
+blocks. Specifically:
+
+- The parent subsection's block stream receives neither the row prose
+  block nor the corresponding `see_also` block.
+- The child label-seed subsection's `blocks` contains exactly the
+  `see_also` block(s) derived from that row.
+- Row detection is performed at the DOM element level, before any
+  destructive text stripping (so redlink rows are correctly detected
+  even though their `देखें` text is later stripped from prose).
+- `RELATED_TO` edges in Neo4j are emitted **from the child seed's
+  natural key**, not from the parent subsection's key.
+- Existing redlink edge suppression policy is unchanged (redlink
+  `see_also` blocks are kept in the child seed's `blocks`; no
+  `RELATED_TO` edge is emitted for them).
 
 ### 5.7 Parenthesised `देखें` cleanup (v1.2.0)
 
@@ -665,15 +683,20 @@ This rule applies to **all** block kinds that carry `text_devanagari`
 (sanskrit/prakrit/hindi text and gathas). Configurable via
 `ref_strip.enabled` and related knobs.
 
-### 6.13 See-also-only block drop (v1.2.0)
+### 6.13 See-also-only block drop (v1.2.0 / v1.3.0)
 
 A block whose entire content is `• X – देखें Y` (a "see-also row")
-is **dropped** from `Subsection.blocks`; it is represented only via
-the `see_alsos` list and `label_topic_seeds`. This prevents redundant
-prose blocks that carry no information beyond what the graph edge
-already expresses. Controlled by `see_also_only_block.drop` (bool,
+is **dropped** from the parent `Subsection.blocks`. This prevents
+redundant prose blocks that carry no information beyond what the graph
+edge already expresses. Controlled by `see_also_only_block.drop` (bool,
 default `true`) and `see_also_only_block.pattern` (regex matching the
 full block text).
+
+**v1.3.0 — also drops the accompanying `see_also` block from the
+parent stream.** The corresponding `see_also` block is relocated to
+the child label-seed subsection's `blocks` (see §5.6). Row detection
+happens at DOM element level, before any text stripping, so redlink
+rows (whose `देखें` text is stripped from prose) are caught correctly.
 
 ### 6.14 DFS leading-GRef passthrough (v1.2.0)
 
@@ -777,7 +800,7 @@ The parser MUST tag every output with the rules version it implements.
 Bump this version when any rule above changes:
 
 ```
-parser_rules_version = "jainkosh.rules/1.2.0"     # bumped from 1.1.0 in fix-spec-002
+parser_rules_version = "jainkosh.rules/1.3.0"     # bumped from 1.2.0 in fix-spec-003
 ```
 
 This is written into `KeywordParseResult.parser_version` and into the
@@ -790,3 +813,4 @@ ingestion run's `parser_configs.version` row in Postgres.
 | `1.0.0` | Initial rules. |
 | `1.1.0` | fix-spec-001: configurable `देखें` triggers + full-DFS index scan (§4.5); ref-strip from `text_devanagari` (§6.12); sibling `=` translation marker (§6.11); redlink prose-strip (§6.7); label→synthetic topic seeds (§5.6); tables attach to current subsection (§6.5); `IndexRelation` source path chain (Phase 5); idempotency contracts on all envelope rows (§3.4). See `parser_fix_spec_001/README.md`. |
 | `1.2.0` | fix-spec-002: table full outerHTML + raw_html whitespace collapse (§3.5, §6.5); idempotency contracts hoisted to envelope root (§3.4); IndexRelation source chain via ancestor `<strong>` text (§4.6); DFS leading-GRef passthrough (§6.14); parenthesised `देखें` stripped from prose (§5.7); label-seed scope guard for translation context (§5.6); see-also-only blocks dropped from `Subsection.blocks` (§6.13); definition `(N)` numbering prefix stripped (§3.2); redlink edges suppressed in Neo4j envelope (§6.7). See `parser_fix_spec_002/README.md`. |
+| `1.3.0` | fix-spec-003: row-style `see_also` blocks relocated from parent `Subsection.blocks` to child label-seed `blocks` (§5.6, §6.13); row detection at DOM element level before text stripping (catches redlink rows); `RELATED_TO` edges now emitted from child seed natural key, not parent. See `parser_fix_spec_003/parser_fix_spec_003.md`. |

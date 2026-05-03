@@ -25,6 +25,13 @@
 > cleanup, label-seed scope guard, see-also-only block drop, definition
 > `(N)` numbering strip, redlink edge suppression).
 >
+> **Fixes applied in v1.3.0**: see
+> [`parser_fix_spec_003/parser_fix_spec_003.md`](./parser_fix_spec_003/parser_fix_spec_003.md)
+> for the full phased correction spec (row-style `see_also` relocation from
+> parent blocks to child label-seed blocks; `RELATED_TO` edges now sourced
+> from child seed natural key; redlink row detection at DOM level before
+> text stripping).
+>
 > Audience: any implementer (including small reasoning models) who has
 > not been part of the design conversation. Every decision is named.
 
@@ -1125,8 +1132,16 @@ For **आत्मा.json**:
   missing `1`. (This is a real quirk of the source page.)
 - PuranKosh has 2 `Definition`s (one per `<p id="1">`, `<p id="2">`).
 - 0 `index_relations` (no leading `<ol>` index).
-- Inline `देखें` blocks appear within subsections: at least 3
-  matching `मोक्षमार्ग - 2.5`, `प्रमाण 3.3`, `जीव`.
+- Inline `देखें` blocks appear within **child label-seed subsections**
+  (v1.3.0): the seeds `जीवको आत्मा कहनेकी विवक्षा`,
+  `आत्मा ही कथंचित प्रमाण है`, and `शुद्धात्माके अपर नाम` each carry
+  their respective `see_also` blocks (`जीव`, `प्रमाण#3.3`,
+  `मोक्षमार्ग#2.5`). The parent subsection
+  `एक आत्मा के तीन भेद करने का प्रयोजन` has **no** `see_also` blocks.
+- `RELATED_TO` edges in `would_write.neo4j.edges` originate from the
+  child seed natural keys, e.g.
+  `आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन:जीवको-आत्मा-कहनेकी-विवक्षा`,
+  **not** from the parent topic key.
 
 For **द्रव्य.json**:
 - 2 page_sections.

@@ -263,7 +263,7 @@ Reads pre-saved HTML from `samples/sample_html_jainkosh_pages/` and produces a `
 ```bash
 # No DB required — pure Python parser
 pip install selectolax PyYAML jsonschema pydantic
-python -m pytest workers/ingestion/jainkosh/tests/ -v  # 129 tests, all pass
+python -m pytest workers/ingestion/jainkosh/tests/ -v
 ```
 
 See [`docs/manual_testing/jainkosh_parser.md`](docs/manual_testing/jainkosh_parser.md) for the full manual testing guide.

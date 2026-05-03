@@ -12,6 +12,7 @@ from .models import Block, Reference
 from .normalize import normalize_text, nfc
 from .refs import extract_refs_from_node, is_leading_reference_node, strip_refs_from_text
 from .see_also import (
+    find_see_also_candidates_in_element,
     find_see_alsos_in_element,
     strip_dekhen_redlink_substring,
     strip_paren_dekhen,
@@ -112,6 +113,29 @@ def _is_translation_block(block: Block, config: JainkoshConfig) -> bool:
     )
 
 
+def _is_row_style_element(el: Node, config: JainkoshConfig) -> bool:
+    """Return True if element is a row-style bullet entry (• label - देखें target).
+
+    Row-style entries should NOT contribute prose or see_also to the parent block
+    stream; their see_also belongs in the corresponding child label-seed subsection.
+    """
+    raw_text = el.text(strip=True) or ""
+    # Must start with a bullet (not '-', which is too general)
+    bullet_chars = [b for b in config.label_to_topic.bullet_prefixes if b != "-"]
+    if not any(raw_text.startswith(b) for b in bullet_chars):
+        return False
+    # Must contain a dash-trigger pattern (checked BEFORE any stripping)
+    triggers_alt = "|".join(
+        re.escape(t) for t in sorted(config.index.see_also_triggers, key=len, reverse=True)
+    )
+    dash_trigger_re = re.compile(r"[\-–]\s*(?:" + triggers_alt + r")")
+    if not dash_trigger_re.search(raw_text):
+        return False
+    # Must have at least one see_also anchor
+    candidates = find_see_also_candidates_in_element(el, config)
+    return bool(candidates)
+
+
 def parse_block_stream(
     elements: list[Node],
     config: JainkoshConfig,
@@ -142,6 +166,10 @@ def parse_block_stream(
 
         if is_leading_reference_node(el, config):
             pending_refs.extend(extract_refs_from_node(el, config))
+            continue
+
+        if _is_row_style_element(el, config):
+            prev_element = el
             continue
 
         result = make_block(el, config, current_keyword=current_keyword)

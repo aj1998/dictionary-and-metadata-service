@@ -228,34 +228,6 @@
                 "target_url": null,
                 "is_self": false,
                 "target_exists": true
-              },
-              {
-                "kind": "hindi_text",
-                "text_devanagari": "• बहिरात्मा, अंतरात्मा व परमात्मा।",
-                "hindi_translation": null,
-                "references": [],
-                "is_orphan_translation": false,
-                "raw_html": null,
-                "table_rows": null,
-                "target_keyword": null,
-                "target_topic_path": null,
-                "target_url": null,
-                "is_self": false,
-                "target_exists": true
-              },
-              {
-                "kind": "see_also",
-                "text_devanagari": null,
-                "hindi_translation": null,
-                "references": [],
-                "is_orphan_translation": false,
-                "raw_html": null,
-                "table_rows": null,
-                "target_keyword": "वह वह नाम",
-                "target_topic_path": null,
-                "target_url": "/w/index.php?title=%E0%A4%B5%E0%A4%B9_%E0%A4%B5%E0%A4%B9_%E0%A4%A8%E0%A4%BE%E0%A4%AE&action=edit&redlink=1",
-                "is_self": false,
-                "target_exists": false
               }
             ],
             "children": [
@@ -272,7 +244,22 @@
                 "is_synthetic": true,
                 "label_topic_seed": true,
                 "source_subkind": "label_seed",
-                "blocks": [],
+                "blocks": [
+                  {
+                    "kind": "see_also",
+                    "text_devanagari": null,
+                    "hindi_translation": null,
+                    "references": [],
+                    "is_orphan_translation": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": "वह वह नाम",
+                    "target_topic_path": null,
+                    "target_url": "/w/index.php?title=%E0%A4%B5%E0%A4%B9_%E0%A4%B5%E0%A4%B9_%E0%A4%A8%E0%A4%BE%E0%A4%AE&action=edit&redlink=1",
+                    "is_self": false,
+                    "target_exists": false
+                  }
+                ],
                 "children": []
               }
             ]
@@ -349,48 +336,6 @@
                 "target_url": null,
                 "is_self": false,
                 "target_exists": true
-              },
-              {
-                "kind": "see_also",
-                "text_devanagari": null,
-                "hindi_translation": null,
-                "references": [],
-                "is_orphan_translation": false,
-                "raw_html": null,
-                "table_rows": null,
-                "target_keyword": "जीव",
-                "target_topic_path": null,
-                "target_url": "/wiki/%E0%A4%9C%E0%A5%80%E0%A4%B5",
-                "is_self": false,
-                "target_exists": true
-              },
-              {
-                "kind": "see_also",
-                "text_devanagari": null,
-                "hindi_translation": null,
-                "references": [],
-                "is_orphan_translation": false,
-                "raw_html": null,
-                "table_rows": null,
-                "target_keyword": "प्रमाण",
-                "target_topic_path": "3.3",
-                "target_url": "/wiki/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%AE%E0%A4%BE%E0%A4%A3#3.3",
-                "is_self": false,
-                "target_exists": true
-              },
-              {
-                "kind": "see_also",
-                "text_devanagari": null,
-                "hindi_translation": null,
-                "references": [],
-                "is_orphan_translation": false,
-                "raw_html": null,
-                "table_rows": null,
-                "target_keyword": "मोक्षमार्ग",
-                "target_topic_path": "2.5",
-                "target_url": "/wiki/%E0%A4%AE%E0%A5%8B%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%AE%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%97#2.5",
-                "is_self": false,
-                "target_exists": true
               }
             ],
             "children": [
@@ -407,7 +352,22 @@
                 "is_synthetic": true,
                 "label_topic_seed": true,
                 "source_subkind": "label_seed",
-                "blocks": [],
+                "blocks": [
+                  {
+                    "kind": "see_also",
+                    "text_devanagari": null,
+                    "hindi_translation": null,
+                    "references": [],
+                    "is_orphan_translation": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": "जीव",
+                    "target_topic_path": null,
+                    "target_url": "/wiki/%E0%A4%9C%E0%A5%80%E0%A4%B5",
+                    "is_self": false,
+                    "target_exists": true
+                  }
+                ],
                 "children": []
               },
               {
@@ -423,7 +383,22 @@
                 "is_synthetic": true,
                 "label_topic_seed": true,
                 "source_subkind": "label_seed",
-                "blocks": [],
+                "blocks": [
+                  {
+                    "kind": "see_also",
+                    "text_devanagari": null,
+                    "hindi_translation": null,
+                    "references": [],
+                    "is_orphan_translation": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": "प्रमाण",
+                    "target_topic_path": "3.3",
+                    "target_url": "/wiki/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%AE%E0%A4%BE%E0%A4%A3#3.3",
+                    "is_self": false,
+                    "target_exists": true
+                  }
+                ],
                 "children": []
               },
               {
@@ -439,7 +414,22 @@
                 "is_synthetic": true,
                 "label_topic_seed": true,
                 "source_subkind": "label_seed",
-                "blocks": [],
+                "blocks": [
+                  {
+                    "kind": "see_also",
+                    "text_devanagari": null,
+                    "hindi_translation": null,
+                    "references": [],
+                    "is_orphan_translation": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": "मोक्षमार्ग",
+                    "target_topic_path": "2.5",
+                    "target_url": "/wiki/%E0%A4%AE%E0%A5%8B%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%AE%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%97#2.5",
+                    "is_self": false,
+                    "target_exists": true
+                  }
+                ],
                 "children": []
               }
             ]
@@ -975,34 +965,6 @@
               "target_url": null,
               "is_self": false,
               "target_exists": true
-            },
-            {
-              "kind": "hindi_text",
-              "text_devanagari": "• बहिरात्मा, अंतरात्मा व परमात्मा।",
-              "hindi_translation": null,
-              "references": [],
-              "is_orphan_translation": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "see_also",
-              "text_devanagari": null,
-              "hindi_translation": null,
-              "references": [],
-              "is_orphan_translation": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": "वह वह नाम",
-              "target_topic_path": null,
-              "target_url": "/w/index.php?title=%E0%A4%B5%E0%A4%B9_%E0%A4%B5%E0%A4%B9_%E0%A4%A8%E0%A4%BE%E0%A4%AE&action=edit&redlink=1",
-              "is_self": false,
-              "target_exists": false
             }
           ],
           "source": "jainkosh",
@@ -1021,7 +983,22 @@
               "text": "बहिरात्मा, अंतरात्मा व परमात्मा"
             }
           ],
-          "blocks": [],
+          "blocks": [
+            {
+              "kind": "see_also",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [],
+              "is_orphan_translation": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": "वह वह नाम",
+              "target_topic_path": null,
+              "target_url": "/w/index.php?title=%E0%A4%B5%E0%A4%B9_%E0%A4%B5%E0%A4%B9_%E0%A4%A8%E0%A4%BE%E0%A4%AE&action=edit&redlink=1",
+              "is_self": false,
+              "target_exists": false
+            }
+          ],
           "source": "jainkosh",
           "source_url": "https://www.jainkosh.org/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE"
         },
@@ -1098,48 +1075,6 @@
               "target_url": null,
               "is_self": false,
               "target_exists": true
-            },
-            {
-              "kind": "see_also",
-              "text_devanagari": null,
-              "hindi_translation": null,
-              "references": [],
-              "is_orphan_translation": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": "जीव",
-              "target_topic_path": null,
-              "target_url": "/wiki/%E0%A4%9C%E0%A5%80%E0%A4%B5",
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "see_also",
-              "text_devanagari": null,
-              "hindi_translation": null,
-              "references": [],
-              "is_orphan_translation": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": "प्रमाण",
-              "target_topic_path": "3.3",
-              "target_url": "/wiki/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%AE%E0%A4%BE%E0%A4%A3#3.3",
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "see_also",
-              "text_devanagari": null,
-              "hindi_translation": null,
-              "references": [],
-              "is_orphan_translation": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": "मोक्षमार्ग",
-              "target_topic_path": "2.5",
-              "target_url": "/wiki/%E0%A4%AE%E0%A5%8B%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%AE%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%97#2.5",
-              "is_self": false,
-              "target_exists": true
             }
           ],
           "source": "jainkosh",
@@ -1158,7 +1093,22 @@
               "text": "जीवको आत्मा कहनेकी विवक्षा"
             }
           ],
-          "blocks": [],
+          "blocks": [
+            {
+              "kind": "see_also",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [],
+              "is_orphan_translation": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": "जीव",
+              "target_topic_path": null,
+              "target_url": "/wiki/%E0%A4%9C%E0%A5%80%E0%A4%B5",
+              "is_self": false,
+              "target_exists": true
+            }
+          ],
           "source": "jainkosh",
           "source_url": "https://www.jainkosh.org/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE"
         },
@@ -1175,7 +1125,22 @@
               "text": "आत्मा ही कथंचित प्रमाण है"
             }
           ],
-          "blocks": [],
+          "blocks": [
+            {
+              "kind": "see_also",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [],
+              "is_orphan_translation": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": "प्रमाण",
+              "target_topic_path": "3.3",
+              "target_url": "/wiki/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%AE%E0%A4%BE%E0%A4%A3#3.3",
+              "is_self": false,
+              "target_exists": true
+            }
+          ],
           "source": "jainkosh",
           "source_url": "https://www.jainkosh.org/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE"
         },
@@ -1192,7 +1157,22 @@
               "text": "शुद्धात्माके अपर नाम"
             }
           ],
-          "blocks": [],
+          "blocks": [
+            {
+              "kind": "see_also",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [],
+              "is_orphan_translation": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": "मोक्षमार्ग",
+              "target_topic_path": "2.5",
+              "target_url": "/wiki/%E0%A4%AE%E0%A5%8B%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%AE%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%97#2.5",
+              "is_self": false,
+              "target_exists": true
+            }
+          ],
           "source": "jainkosh",
           "source_url": "https://www.jainkosh.org/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE"
         }
@@ -1348,57 +1328,6 @@
           }
         },
         {
-          "type": "RELATED_TO",
-          "from": {
-            "label": "Topic",
-            "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
-          },
-          "to": {
-            "label": "Keyword",
-            "key": "जीव"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh"
-          }
-        },
-        {
-          "type": "RELATED_TO",
-          "from": {
-            "label": "Topic",
-            "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
-          },
-          "to": {
-            "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "प्रमाण",
-              "topic_path": "3.3"
-            }
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh"
-          }
-        },
-        {
-          "type": "RELATED_TO",
-          "from": {
-            "label": "Topic",
-            "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
-          },
-          "to": {
-            "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "मोक्षमार्ग",
-              "topic_path": "2.5"
-            }
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh"
-          }
-        },
-        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -1407,6 +1336,21 @@
           "to": {
             "label": "Topic",
             "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "RELATED_TO",
+          "from": {
+            "label": "Topic",
+            "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन:जीवको-आत्मा-कहनेकी-विवक्षा"
+          },
+          "to": {
+            "label": "Keyword",
+            "key": "जीव"
           },
           "props": {
             "weight": 1.0,
@@ -1429,6 +1373,24 @@
           }
         },
         {
+          "type": "RELATED_TO",
+          "from": {
+            "label": "Topic",
+            "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन:आत्मा-ही-कथंचित-प्रमाण-है"
+          },
+          "to": {
+            "label": "Topic",
+            "resolve_by": {
+              "parent_keyword": "प्रमाण",
+              "topic_path": "3.3"
+            }
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -1437,6 +1399,24 @@
           "to": {
             "label": "Topic",
             "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "RELATED_TO",
+          "from": {
+            "label": "Topic",
+            "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन:शुद्धात्माके-अपर-नाम"
+          },
+          "to": {
+            "label": "Topic",
+            "resolve_by": {
+              "parent_keyword": "मोक्षमार्ग",
+              "topic_path": "2.5"
+            }
           },
           "props": {
             "weight": 1.0,

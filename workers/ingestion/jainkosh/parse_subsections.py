@@ -10,7 +10,7 @@ from selectolax.parser import Node
 from .config import JainkoshConfig, HeadingVariant
 from .models import Block, Subsection
 from .normalize import normalize_text, nfc
-from .parse_blocks import parse_block_stream
+from .parse_blocks import parse_block_stream, _is_row_style_element
 from .selectors import block_class_kind, is_gref_node
 from .topic_keys import natural_key as compute_natural_key, parent_of, slug
 from .see_also import extract_label_before_trigger, find_see_also_candidates_in_element
@@ -290,6 +290,11 @@ def parse_subsections(
             keyword=keyword,
             config=config,
         )
+        row_relations = extract_row_relations_from_elements(
+            content_els,
+            keyword=keyword,
+            config=config,
+        )
 
         # Check if synthetic was already created and replace it
         if topic_path in nodes and nodes[topic_path].is_synthetic:
@@ -305,6 +310,7 @@ def parse_subsections(
                 keyword,
                 config,
                 label_seed_candidates=label_seed_candidates,
+                row_relations=row_relations,
             )
         else:
             node = Subsection(
@@ -323,6 +329,7 @@ def parse_subsections(
                 keyword,
                 config,
                 label_seed_candidates=label_seed_candidates,
+                row_relations=row_relations,
             )
             nodes[topic_path] = node
             _attach_to_parent(node, parent_path, nodes, roots)
@@ -392,12 +399,74 @@ def _attach_to_parent(
         roots.append(node)
 
 
+def extract_row_relations_from_elements(
+    elements: list[Node],
+    *,
+    keyword: str,
+    config: JainkoshConfig,
+) -> dict[str, list[Block]]:
+    """Extract see_also Blocks from row-style bullet entries, keyed by normalized label.
+
+    Row-style entries (• label - देखें target) have their see_also blocks assigned to
+    the corresponding child label-seed subsection, not the parent.
+    """
+    result: dict[str, list[Block]] = {}
+    for el in elements:
+        if not _is_row_style_element(el, config):
+            continue
+        raw_text = normalize_text(el.text(strip=True) or "")
+        label = extract_label_before_trigger(raw_text, config)
+        if not label:
+            continue
+        label = _normalize_label_seed_text(label, config)
+        if not label:
+            continue
+        candidates = find_see_also_candidates_in_element(el, config, current_keyword=keyword)
+        see_also_blocks: list[Block] = []
+        seen: set[tuple] = set()
+        for c in candidates:
+            block = Block(
+                kind="see_also",
+                target_keyword=c.get("target_keyword"),
+                target_topic_path=c.get("target_topic_path"),
+                target_url=c.get("target_url"),
+                is_self=bool(c.get("is_self", False)),
+                target_exists=bool(c.get("target_exists", True)),
+            )
+            dedup_key = (
+                block.target_keyword,
+                block.target_topic_path,
+                block.target_url,
+                block.is_self,
+                block.target_exists,
+            )
+            if dedup_key not in seen:
+                seen.add(dedup_key)
+                see_also_blocks.append(block)
+        if see_also_blocks:
+            if label not in result:
+                result[label] = see_also_blocks
+            else:
+                # Merge, deduplicating
+                existing_keys = {
+                    (b.target_keyword, b.target_topic_path, b.target_url, b.is_self, b.target_exists)
+                    for b in result[label]
+                }
+                for block in see_also_blocks:
+                    k = (block.target_keyword, block.target_topic_path, block.target_url, block.is_self, block.target_exists)
+                    if k not in existing_keys:
+                        result[label].append(block)
+                        existing_keys.add(k)
+    return result
+
+
 def _append_label_seed_children(
     node: Subsection,
     keyword: str,
     config: JainkoshConfig,
     *,
     label_seed_candidates: Optional[list[str]] = None,
+    row_relations: Optional[dict[str, list[Block]]] = None,
 ) -> None:
     seeds = extract_label_topic_seeds(
         node.blocks,
@@ -405,6 +474,7 @@ def _append_label_seed_children(
         keyword=keyword,
         config=config,
         label_seed_candidates=label_seed_candidates or [],
+        row_relations=row_relations or {},
     )
     for seed in seeds:
         if all(c.natural_key != seed.natural_key for c in node.children):
@@ -420,9 +490,12 @@ def extract_label_topic_seeds(
     keyword: str,
     config: JainkoshConfig,
     label_seed_candidates: list[str],
+    row_relations: Optional[dict[str, list[Block]]] = None,
 ) -> list[Subsection]:
     if not config.label_to_topic.enabled:
         return []
+    if row_relations is None:
+        row_relations = {}
     seeds: list[Subsection] = []
     emitted_labels: set[str] = set()
     for label in label_seed_candidates:
@@ -435,6 +508,7 @@ def extract_label_topic_seeds(
                 keyword=keyword,
                 parent=parent_subsection,
                 config=config,
+                row_see_alsos=row_relations.get(label, []),
             )
         )
 
@@ -467,6 +541,7 @@ def extract_label_topic_seeds(
                 keyword=keyword,
                 parent=parent_subsection,
                 config=config,
+                row_see_alsos=row_relations.get(label, []),
             )
         )
         emitted_in_block = True
@@ -593,6 +668,7 @@ def _make_label_seed_subsection(
     keyword: str,
     parent: Optional[Subsection],
     config: JainkoshConfig,
+    row_see_alsos: Optional[list[Block]] = None,
 ) -> Subsection:
     sl = slug(label, config)
     if parent is not None:
@@ -610,6 +686,6 @@ def _make_label_seed_subsection(
         is_synthetic=config.label_to_topic.is_synthetic,
         label_topic_seed=True,
         source_subkind=config.label_to_topic.source_marker,
-        blocks=[],
+        blocks=list(row_see_alsos) if row_see_alsos else [],
         children=[],
     )
