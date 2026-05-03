@@ -27,7 +27,7 @@ MONGO_URL="mongodb://localhost:27017" \
   .venv/bin/python -m pytest tests/db/mongo/ -v
 ```
 
-Expected: **13 passed** (5 offline + 8 round-trip). Each round-trip test:
+Expected: **14 passed** (6 offline + 8 round-trip). Each round-trip test:
 - Calls the same `upsert_*` function twice with the same `natural_key` but different field values on the second call.
 - Asserts exactly **1 document** exists after both calls.
 - Asserts stored values reflect the **second** call (update won).
@@ -192,10 +192,10 @@ asyncio.run(test_timestamps())
 from jain_kb_common.db.mongo.schemas import (
     GathaPrakrit, GathaHindiChhand, GathaWordMeanings,
     TeekaGathaMapping, KeywordDefinition, TopicExtract,
-    LangText, Block, PageSection, Subsection,
+    LangText, Block, BlockRef, Definition, PageSection,
 )
 
-# Full keyword_definition with nested blocks
+# Full keyword_definition with definitions (no subsections)
 kd = KeywordDefinition(
     natural_key="आत्मा",
     keyword_id="uuid-001",
@@ -205,15 +205,22 @@ kd = KeywordDefinition(
             section_index=0,
             section_kind="siddhantkosh",
             heading=[LangText(lang="hin", script="Deva", text="सिद्धांतकोष से")],
-            subsections=[
-                Subsection(
-                    subsection_index=1,
-                    heading=[LangText(lang="hin", script="Deva", text="आत्मा के बहिरात्मादि 3 भेद")],
-                    is_topic_seed=True,
-                    topic_natural_key="jainkosh:आत्मा:बहिरात्मादि-3-भेद",
+            definitions=[
+                Definition(
+                    definition_index=1,
                     blocks=[
-                        Block(kind="reference", ref_text="धवला पुस्तक 13/5,5,50/282/9"),
-                        Block(kind="hindi", text=[LangText(lang="hin", script="Deva", text="बहिरात्मा…")]),
+                        Block(
+                            kind="sanskrit_text",
+                            text_devanagari="आत्मा द्वादशांगम् आत्मपरिणामत्वात।",
+                            hindi_translation="द्वादशांग का नाम आत्मा है।",
+                            references=[
+                                BlockRef(
+                                    text="धवला पुस्तक 13/5,5,50/282/9",
+                                    raw_html="<span class=\"GRef\">धवला पुस्तक 13/5,5,50/282/9</span>",
+                                )
+                            ],
+                        ),
+                        Block(kind="hindi_text", text_devanagari="बहिरात्मा…"),
                         Block(kind="see_also", target_keyword="जीव", target_url="/wiki/जीव"),
                     ],
                 )
@@ -224,8 +231,8 @@ kd = KeywordDefinition(
 )
 print("KeywordDefinition valid ✓")
 print("sections:", len(kd.page_sections))
-print("subsections:", len(kd.page_sections[0].subsections))
-print("blocks:", len(kd.page_sections[0].subsections[0].blocks))
+print("definitions:", len(kd.page_sections[0].definitions))
+print("blocks:", len(kd.page_sections[0].definitions[0].blocks))
 ```
 
 ---
@@ -249,7 +256,13 @@ async def text_search():
         "source": "jainkosh",
         "source_url": "http://example.com",
         "heading": [{"lang": "hin", "script": "Deva", "text": "बहिरात्मा"}],
-        "blocks": [{"kind": "hindi", "text": [{"lang": "hin", "script": "Deva", "text": "बहिरात्मा की परिभाषा"}]}],
+        "blocks": [
+            {
+                "kind": "hindi_text",
+                "text_devanagari": "बहिरात्मा की परिभाषा",
+                "references": [],
+            }
+        ],
     })
 
     results = await db.topic_extracts.find(

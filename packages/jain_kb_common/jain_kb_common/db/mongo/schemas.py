@@ -3,7 +3,7 @@ from __future__ import annotations
 import unicodedata
 from typing import Any, Literal, Optional
 
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, Field, field_validator
 
 
 def _nfc(v: str) -> str:
@@ -25,27 +25,41 @@ class LangText(BaseModel):
 # Block types used inside keyword_definitions and topic_extracts
 # ---------------------------------------------------------------------------
 
+BlockKind = Literal[
+    "sanskrit_text", "sanskrit_gatha",
+    "prakrit_text",  "prakrit_gatha",
+    "hindi_text",    "hindi_gatha",
+    "table", "see_also",
+]
+
+
+class BlockRef(BaseModel):
+    text: str
+    raw_html: Optional[str] = None
+
+
 class Block(BaseModel):
-    kind: Literal["reference", "sanskrit", "prakrit", "hindi", "see_also"]
-    ref_text: Optional[str] = None
-    text: Optional[list[LangText]] = None
+    kind: BlockKind
+    text_devanagari: Optional[str] = None
+    hindi_translation: Optional[str] = None
+    references: list[BlockRef] = Field(default_factory=list)
+    # table
+    raw_html: Optional[str] = None
+    # see_also
     target_keyword: Optional[str] = None
     target_url: Optional[str] = None
 
 
-class Subsection(BaseModel):
-    subsection_index: int
-    heading: list[LangText] = []
-    is_topic_seed: bool = False
-    topic_natural_key: Optional[str] = None
-    blocks: list[Block] = []
+class Definition(BaseModel):
+    definition_index: int
+    blocks: list[Block] = Field(default_factory=list)
 
 
 class PageSection(BaseModel):
     section_index: int
     section_kind: Literal["siddhantkosh", "puraankosh", "misc"]
     heading: list[LangText] = []
-    subsections: list[Subsection] = []
+    definitions: list[Definition] = Field(default_factory=list)
 
 
 # ---------------------------------------------------------------------------

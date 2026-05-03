@@ -15,12 +15,16 @@ from motor.motor_asyncio import AsyncIOMotorClient
 
 from jain_kb_common.db.mongo.indexes import ensure_indexes
 from jain_kb_common.db.mongo.schemas import (
+    Block,
+    BlockRef,
+    Definition,
     GathaHindiChhand,
     GathaPrakrit,
     GathaSanskrit,
     GathaWordMeanings,
     KeywordDefinition,
     LangText,
+    PageSection,
     TeekaGathaMapping,
     TopicExtract,
 )
@@ -97,6 +101,54 @@ def test_keyword_definition_schema():
         source_url="https://www.jainkosh.org/wiki/आत्मा",
     )
     assert kd.redirect_aliases == []
+
+
+def test_keyword_definition_with_definitions():
+    """KeywordDefinition uses page_sections[].definitions (no subsections)."""
+    kd = KeywordDefinition(
+        natural_key="आत्मा",
+        keyword_id="uuid-001",
+        source_url="https://www.jainkosh.org/wiki/आत्मा",
+        page_sections=[
+            PageSection(
+                section_index=0,
+                section_kind="siddhantkosh",
+                heading=[LangText(lang="hin", script="Deva", text="सिद्धांतकोष से")],
+                definitions=[
+                    Definition(
+                        definition_index=1,
+                        blocks=[
+                            Block(
+                                kind="sanskrit_text",
+                                text_devanagari="आत्मा द्वादशांगम् आत्मपरिणामत्वात।",
+                                hindi_translation="द्वादशांग का नाम आत्मा है।",
+                                references=[
+                                    BlockRef(
+                                        text="धवला पुस्तक 13/5,5,50/282/9",
+                                        raw_html="<span class=\"GRef\">धवला पुस्तक 13/5,5,50/282/9</span>",
+                                    )
+                                ],
+                            ),
+                            Block(kind="see_also", target_keyword="जीव", target_url="/wiki/जीव"),
+                        ],
+                    )
+                ],
+            )
+        ],
+        redirect_aliases=["आतम", "आत्मन्"],
+    )
+    assert len(kd.page_sections) == 1
+    sec = kd.page_sections[0]
+    assert not hasattr(sec, "subsections")
+    assert len(sec.definitions) == 1
+    defn = sec.definitions[0]
+    assert defn.definition_index == 1
+    assert len(defn.blocks) == 2
+    assert defn.blocks[0].kind == "sanskrit_text"
+    assert defn.blocks[0].text_devanagari == "आत्मा द्वादशांगम् आत्मपरिणामत्वात।"
+    assert len(defn.blocks[0].references) == 1
+    assert defn.blocks[1].kind == "see_also"
+    assert defn.blocks[1].target_keyword == "जीव"
 
 
 # ---------------------------------------------------------------------------
@@ -215,7 +267,28 @@ async def test_upsert_keyword_definition_idempotent(db):
     doc = {
         "keyword_id": "uuid-111",
         "source_url": "https://www.jainkosh.org/wiki/आत्मा",
-        "page_sections": [],
+        "page_sections": [
+            {
+                "section_index": 0,
+                "section_kind": "siddhantkosh",
+                "heading": [{"lang": "hin", "script": "Deva", "text": "सिद्धांतकोष से"}],
+                "definitions": [
+                    {
+                        "definition_index": 1,
+                        "blocks": [
+                            {
+                                "kind": "sanskrit_text",
+                                "text_devanagari": "आत्मा द्वादशांगम्",
+                                "hindi_translation": "द्वादशांग का नाम आत्मा है।",
+                                "references": [
+                                    {"text": "धवला पुस्तक 1/1/1", "raw_html": None}
+                                ],
+                            }
+                        ],
+                    }
+                ],
+            }
+        ],
         "redirect_aliases": ["आतम"],
     }
     id1 = await upsert_keyword_definition(db, natural_key=nk, doc=doc)
@@ -226,6 +299,10 @@ async def test_upsert_keyword_definition_idempotent(db):
     assert count == 1
     stored = await db.keyword_definitions.find_one({"_id": id1})
     assert stored["redirect_aliases"] == ["आतम", "आत्मन्"]
+    sec = stored["page_sections"][0]
+    assert "subsections" not in sec
+    assert sec["definitions"][0]["definition_index"] == 1
+    assert sec["definitions"][0]["blocks"][0]["text_devanagari"] == "आत्मा द्वादशांगम्"
 
 
 @skip_no_mongo
@@ -237,7 +314,14 @@ async def test_upsert_topic_extract_idempotent(db):
         "source": "jainkosh",
         "source_url": "https://www.jainkosh.org/wiki/आत्मा#बहिरात्मादि_3_भेद",
         "heading": [{"lang": "hin", "script": "Deva", "text": "आत्मा के बहिरात्मादि 3 भेद"}],
-        "blocks": [],
+        "blocks": [
+            {
+                "kind": "hindi_text",
+                "text_devanagari": "बहिरात्मा की परिभाषा",
+                "hindi_translation": None,
+                "references": [],
+            }
+        ],
         "extracted_keyword_natural_keys": ["आत्मा"],
     }
     id1 = await upsert_topic_extract(db, natural_key=nk, doc=doc)

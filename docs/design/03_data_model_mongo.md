@@ -125,7 +125,7 @@ Per-(teeka, gatha) Hindi anvayartha (teeka commentary).
 
 ### 6. `keyword_definitions`
 
-JainKosh keyword page, one document per keyword (overwritten on re-scrape). Splits the page into ordered sections.
+JainKosh keyword page, one document per keyword (overwritten on re-scrape). Splits the page into ordered sections; each section holds numbered definitions — no subsection tree.
 
 ```json
 {
@@ -138,28 +138,31 @@ JainKosh keyword page, one document per keyword (overwritten on re-scrape). Spli
       "section_index": 0,
       "section_kind": "siddhantkosh",         // 'siddhantkosh' | 'puraankosh' | 'misc'
       "heading": [{"lang": "hin", "script": "Deva", "text": "सिद्धांतकोष से"}],
-      "subsections": [
+      "definitions": [
         {
-          "subsection_index": 1,
-          "heading": [{"lang": "hin", "script": "Deva", "text": "आत्मा के बहिरात्मादि 3 भेद"}],
-          "is_topic_seed": true,
-          "topic_natural_key": "jainkosh:आत्मा:बहिरात्मादि-3-भेद",
+          "definition_index": 1,
           "blocks": [
             {
-              "kind": "reference",
-              "ref_text": "धवला पुस्तक 13/5,5,50/282/9"
+              "kind": "sanskrit_text",          // BlockKind — see below
+              "text_devanagari": "आत्मा द्वादशांगम् आत्मपरिणामत्वात।",
+              "hindi_translation": "द्वादशांग का नाम आत्मा है, क्योंकि वह आत्मा का परिणाम है।",
+              "references": [
+                {
+                  "text": "धवला पुस्तक 13/5,5,50/282/9",
+                  "raw_html": "<span class=\"GRef\">धवला पुस्तक 13/5,5,50/282/9</span>"
+                }
+              ]
             },
             {
-              "kind": "sanskrit",
-              "text": [{"lang": "san", "script": "Deva", "text": "..."}]
+              "kind": "prakrit_gatha",
+              "text_devanagari": "...",
+              "hindi_translation": "...",
+              "references": []
             },
             {
-              "kind": "prakrit",
-              "text": [{"lang": "pra", "script": "Deva", "text": "..."}]
-            },
-            {
-              "kind": "hindi",
-              "text": [{"lang": "hin", "script": "Deva", "text": "..."}]
+              "kind": "hindi_text",
+              "text_devanagari": "...",
+              "references": []
             },
             {
               "kind": "see_also",
@@ -177,6 +180,15 @@ JainKosh keyword page, one document per keyword (overwritten on re-scrape). Spli
   "updated_at": ISODate(...)
 }
 ```
+
+**`BlockKind` values:** `sanskrit_text` · `sanskrit_gatha` · `prakrit_text` · `prakrit_gatha` · `hindi_text` · `hindi_gatha` · `table` · `see_also`
+
+**Block fields:**
+- `text_devanagari` — source-language text (Devanagari; absent for `see_also` / `table`)
+- `hindi_translation` — absorbed Hindi translation, if any
+- `references` — list of `{text, raw_html}` GRef citations extracted from the block
+- `raw_html` — outerHTML for `table` blocks
+- `target_keyword`, `target_url` — for `see_also` blocks only
 
 **Indexes:**
 - `{natural_key: 1}` UNIQUE

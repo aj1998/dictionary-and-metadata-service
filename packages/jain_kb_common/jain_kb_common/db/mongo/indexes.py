@@ -45,7 +45,11 @@ async def ensure_indexes(db: AsyncIOMotorDatabase) -> None:
     await db.topic_extracts.create_index([("natural_key", pymongo.ASCENDING)], unique=True)
     await db.topic_extracts.create_index([("topic_id", pymongo.ASCENDING)])
     await db.topic_extracts.create_index(
-        [("blocks.text.text", pymongo.TEXT), ("heading.text", pymongo.TEXT)],
+        [
+            ("blocks.text_devanagari", pymongo.TEXT),
+            ("blocks.hindi_translation", pymongo.TEXT),
+            ("heading.text", pymongo.TEXT),
+        ],
         default_language="none",
     )
 

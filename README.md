@@ -130,7 +130,7 @@ MONGO_URL="mongodb://localhost:27017" \
   .venv/bin/python -m pytest tests/db/mongo/ -v
 ```
 
-Without `MONGO_URL`, 8 round-trip tests skip gracefully; 5 offline tests always run.
+Without `MONGO_URL`, 8 round-trip tests skip gracefully; 6 offline tests always run.
 
 See [`docs/manual_testing/mongo/testing.md`](docs/manual_testing/mongo/testing.md) for the full manual testing guide.
 
