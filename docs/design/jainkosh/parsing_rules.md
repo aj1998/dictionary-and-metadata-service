@@ -102,7 +102,9 @@ PuranKosh content is wrapped in `<div class="HindiText">`. Two patterns:
 - **Numbered paragraphs** (आत्मा) — multiple
   `<p id="1" class="HindiText">(1) …</p>`, `<p id="2" class="HindiText">(2) …</p>` →
   **N separate `Definition` objects**, one per `<p id>`. The leading
-  `(N)` text is **kept as part of the hindi text** (do not strip).
+  `(N)` prefix **is stripped** from the prose text (v1.2.0); `definition_index` is
+  the only counter signal. Stripping is controlled by
+  `definitions.numbering_strip_re` (default `^\s*\(\d+\)\s*`).
 
 PuranKosh has **no numbered subsections** — everything is definition.
 
@@ -115,28 +117,51 @@ class Definition:
     raw_html: str | None           # debug
 ```
 
-### 3.4 Idempotency contract on emitted entities
+### 3.4 Idempotency contracts (hoisted to envelope root, v1.2.0)
 
-Every row produced by the parser in the `would_write` envelope carries
-an `idempotency_contract` sub-object. It describes the conflict key
-and field-level merge policy so the orchestrator can perform truly
-idempotent upserts without reverse-engineering each store:
+The `would_write` envelope carries a single top-level
+`idempotency_contracts` map keyed by `"<store>:<table>"`. Each entry
+describes the conflict key and field-level merge policy so the
+orchestrator can perform truly idempotent upserts without
+reverse-engineering each store:
 
-```json
-{
-  "conflict_key": ["natural_key"],
-  "on_conflict": "do_update",
-  "fields_replace": ["display_text", "is_leaf", "…"],
-  "fields_append": [],
-  "fields_skip_if_set": [],
-  "stores": ["postgres:keywords", "mongo:keyword_definitions", "neo4j:Keyword"]
+```jsonc
+"idempotency_contracts": {
+  "postgres:keywords": {
+    "conflict_key": ["natural_key"],
+    "on_conflict": "do_update",
+    "fields_replace": ["display_text", "source_url"],
+    "fields_append": ["definition_doc_ids"],
+    "fields_skip_if_set": [],
+    "stores": ["postgres:keywords", "mongo:keyword_definitions", "neo4j:Keyword"]
+  },
+  "postgres:topics": { "…": "…" },
+  "postgres:keyword_aliases": { "…": "…" },
+  "mongo:keyword_definitions": { "…": "…" },
+  "mongo:topic_extracts": { "…": "…" },
+  "neo4j:Keyword": { "…": "…" },
+  "neo4j:Topic": { "…": "…" }
 }
 ```
+
+Per-row conflict semantics are identical (natural-key driven). Only
+the transport shape changed: the orchestrator now reads
+`idempotency_contracts["<store:table>"]` instead of a per-row
+`idempotency_contract` dict. Controlled by
+`envelope.idempotency_mode` (default `envelope_root`).
 
 The three canonical contracts (keyword, numeric-tree topic, label-seed
 topic) are defined in
 `parser_fix_spec_001/phase_3_redlink_prose_strip_and_label_to_synthetic_topic.md`
-§5. The parser emits them; the orchestrator honours them.
+§5. v1.2.0 lifts them to the envelope root via fix-spec-002 Phase 2.
+
+### 3.5 `raw_html` whitespace policy
+
+`Block(kind="table")` and inline-block `raw_html` fields (e.g. on
+`Reference`) always carry the **full outerHTML** of the source element
+(v1.2.0). Whitespace inside every `raw_html` string is collapsed: runs
+of whitespace are reduced to a single space, preserving tag boundaries.
+Controlled by `raw_html.collapse_whitespace` (default `true`).
 
 ---
 
@@ -240,6 +265,19 @@ Configurable knobs:
 
 The same trigger list and window are used for **inline** `देखें`
 detection in body blocks (§6.7).
+
+### 4.6 IndexRelation source chain resolution (v1.2.0)
+
+`IndexRelation.source_topic_path_chain` and
+`source_topic_natural_key_chain` are resolved by walking ancestor
+`<li>` containers of each `देखें` entry upward through the index DOM
+and matching their inline `<strong>` (or `<strong><a>`) heading text
+against the parsed subsection tree. This eliminates `null` chains that
+appeared in v1.1.0 when the ancestor `<li>` heading wasn't a direct
+numeric anchor. Controlled by
+`index.source_chain.ancestor_strong_selectors` (list of CSS selectors
+tried in order) and `index.source_chain.fallback_to_null` (default
+`false`).
 
 ---
 
@@ -367,6 +405,31 @@ Configuration knobs: `label_to_topic.enabled`,
 `label_to_topic.emit_for_self_link`, `label_to_topic.bullet_prefixes`,
 `label_to_topic.label_trim_chars`.
 
+**Scope guard (v1.2.0)**: a label-seed `Topic` is NOT emitted when
+the `देखें` trigger appears inside translation prose (i.e. a block
+whose `source_kind` is in `label_to_topic.skip_in_source_kinds`,
+default `["hindi_translation"]`). This prevents spurious topic seeds
+from inline cross-references embedded inside Hindi translations.
+
+The label text is trimmed to only the segment between the nearest
+sentence-end / bullet and the trigger; trailing connectors (`–`, `-`)
+are stripped as before.
+
+### 5.7 Parenthesised `देखें` cleanup (v1.2.0)
+
+When a `देखें` reference is parenthesised — e.g. `(देखें X)` — the
+entire parenthesised fragment (including parentheses) is stripped from
+`text_devanagari` and `hindi_translation`. An un-parenthesised `देखें`
+text is preserved in prose as before.
+
+Rules:
+- Bracket pairs matched by `paren_dekhen_strip.bracket_pairs` (default
+  `[["(", ")"]]`).
+- Pattern: `\(<open>…<trigger>…<target>…<close>\)` (configurable via
+  `paren_dekhen_strip.pattern`).
+- The `see_also` block is still emitted independently; only the prose
+  text is cleaned.
+
 ---
 
 ## 6. Block kinds
@@ -466,9 +529,11 @@ spans into a sequential block stream. Configurable via
 
 ### 6.5 Tables
 
-Tables (`<table>`) are kept as raw HTML in a single
-`Block(kind="table", raw_html="…")`. Attachment (controlled by
-`table.attach_to`, default `current_subsection`):
+Tables (`<table>`) are kept as **full outerHTML** (including the
+`<table>` tag itself) in a single `Block(kind="table", raw_html="…")`.
+Whitespace within the stored `raw_html` is collapsed per §3.5.
+Attachment (controlled by `table.attach_to`, default
+`current_subsection`):
 
 - **Inside a subsection's body** → attach to that subsection's
   `blocks`. This is the default for any `<table>` encountered after
@@ -520,6 +585,13 @@ contains `redlink=1`), the `see_also` block is emitted with
 connector punctuation `–`/`-`) is removed from `text_devanagari`. If
 the block becomes empty after stripping, it is dropped. Configurable
 via `redlink.prose_strip.enabled`.
+
+**Redlink edge suppression (v1.2.0)**: a `RELATED_TO` edge in
+`would_write.neo4j.edges` is **not emitted** when the target node has
+`target_exists=false`. This applies to both `IndexRelation`-derived and
+`Block(kind="see_also")`-derived edges. Controlled by
+`neo4j.redlink_edges` (enum: `always` | `never` | `only_if_topic`;
+default `never`).
 
 ### 6.8 Inline emphasis (`<b>`, `<i>`, `<strong>`, `<em>`)
 
@@ -592,6 +664,26 @@ ref-strip pass). Clean-up rules applied after each strip:
 This rule applies to **all** block kinds that carry `text_devanagari`
 (sanskrit/prakrit/hindi text and gathas). Configurable via
 `ref_strip.enabled` and related knobs.
+
+### 6.13 See-also-only block drop (v1.2.0)
+
+A block whose entire content is `• X – देखें Y` (a "see-also row")
+is **dropped** from `Subsection.blocks`; it is represented only via
+the `see_alsos` list and `label_topic_seeds`. This prevents redundant
+prose blocks that carry no information beyond what the graph edge
+already expresses. Controlled by `see_also_only_block.drop` (bool,
+default `true`) and `see_also_only_block.pattern` (regex matching the
+full block text).
+
+### 6.14 DFS leading-GRef passthrough (v1.2.0)
+
+Top-level `<span class="GRef">` siblings that appear inside an `<li>`
+heading body are now preserved as **content events** in
+`walk_and_collect_headings` so the leading GRef reaches
+`parse_block_stream` and attaches to the next emitted block. Previously
+these GRefs were silently swallowed, losing the topmost reference
+(e.g. `पंचास्तिकाय/9`). Controlled by `dfs.passthrough_leading_gref`
+(default `true`).
 
 ---
 
@@ -685,7 +777,7 @@ The parser MUST tag every output with the rules version it implements.
 Bump this version when any rule above changes:
 
 ```
-parser_rules_version = "jainkosh.rules/1.1.0"     # bumped from 1.0.0 in fix-spec-001
+parser_rules_version = "jainkosh.rules/1.2.0"     # bumped from 1.1.0 in fix-spec-002
 ```
 
 This is written into `KeywordParseResult.parser_version` and into the
@@ -697,3 +789,4 @@ ingestion run's `parser_configs.version` row in Postgres.
 |---------|---------|
 | `1.0.0` | Initial rules. |
 | `1.1.0` | fix-spec-001: configurable `देखें` triggers + full-DFS index scan (§4.5); ref-strip from `text_devanagari` (§6.12); sibling `=` translation marker (§6.11); redlink prose-strip (§6.7); label→synthetic topic seeds (§5.6); tables attach to current subsection (§6.5); `IndexRelation` source path chain (Phase 5); idempotency contracts on all envelope rows (§3.4). See `parser_fix_spec_001/README.md`. |
+| `1.2.0` | fix-spec-002: table full outerHTML + raw_html whitespace collapse (§3.5, §6.5); idempotency contracts hoisted to envelope root (§3.4); IndexRelation source chain via ancestor `<strong>` text (§4.6); DFS leading-GRef passthrough (§6.14); parenthesised `देखें` stripped from prose (§5.7); label-seed scope guard for translation context (§5.6); see-also-only blocks dropped from `Subsection.blocks` (§6.13); definition `(N)` numbering prefix stripped (§3.2); redlink edges suppressed in Neo4j envelope (§6.7). See `parser_fix_spec_002/README.md`. |

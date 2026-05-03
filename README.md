@@ -190,7 +190,7 @@ See [`docs/manual_testing/neo4j/testing.md`](docs/manual_testing/neo4j/testing.m
 
 ### ✅ Completed: JainKosh HTML Parser — parser-only stage (`docs/design/08_ingestion_jainkosh.md`)
 
-**Package**: `workers/ingestion/jainkosh/` — pure HTML→JSON parser, no DB writes. Currently at **v1.1.0** (fix-spec-001 applied; see `docs/design/jainkosh/parser_fix_spec_001/README.md`).
+**Package**: `workers/ingestion/jainkosh/` — pure HTML→JSON parser, no DB writes. Currently at **v1.2.0** (fix-spec-001 and fix-spec-002 applied; see `docs/design/jainkosh/parser_fix_spec_002/README.md`).
 
 #### What it does
 
@@ -218,7 +218,7 @@ Reads pre-saved HTML from `samples/sample_html_jainkosh_pages/` and produces a `
 | `envelope.py` | Builds the `would_write` dict (Postgres rows, Mongo docs, Neo4j nodes/edges) |
 | `cli.py` | `python -m workers.ingestion.jainkosh.cli parse <html> --out <json>` |
 
-#### Key implementation notes (v1.1.0)
+#### Key implementation notes (v1.2.0)
 
 - **Heading variant DFS**: `walk_and_collect_headings` uses a full pre-order DFS. When a block-class element (e.g. `<li class="HindiText">`) contains a V1 heading (`<strong id="N">`) as a direct child, the DFS recurses into it rather than emitting it as a block. This was the critical fix needed for deep पर्याय subsection trees (43 subsections, 3 levels).
 
@@ -228,21 +228,35 @@ Reads pre-saved HTML from `samples/sample_html_jainkosh_pages/` and produces a `
 
 - **Sibling `=` translation marker**: bare `=` text nodes between sibling elements (e.g. inside `<li>`) pair a HindiText sibling as `hindi_translation` of the preceding source block — in addition to the existing HindiText-starts-with-`=` rule.
 
-- **Label→synthetic topic**: `• <label> - देखें X` prose emits a `Subsection(label_topic_seed=True, topic_path=None)` as a child of the current subsection, alongside the `see_also` block.
+- **Label→synthetic topic**: `• <label> - देखें X` prose emits a `Subsection(label_topic_seed=True, topic_path=None)` as a child of the current subsection, alongside the `see_also` block. Scope-guarded so labels inside Hindi translation prose don't spawn spurious seeds (v1.2.0).
 
-- **Idempotency contracts**: every envelope row carries `idempotency_contract` describing the conflict key and field-level merge policy for the orchestrator.
+- **Idempotency contracts** (v1.2.0): hoisted to a single `would_write.idempotency_contracts` map keyed by `"<store>:<table>"` at the envelope root; per-row `idempotency_contract` field removed.
+
+- **Table outerHTML + whitespace collapse** (v1.2.0): `Block(kind="table").raw_html` always carries full outerHTML; whitespace within all `raw_html` fields is collapsed.
+
+- **IndexRelation source chain** (v1.2.0): `source_topic_path_chain` and `source_topic_natural_key_chain` are now reliably resolved via ancestor `<strong>` text lookup; previously returned `null` for some entries.
+
+- **Parenthesised देखें cleanup** (v1.2.0): `(देखें X)` fragments stripped from prose text; un-parenthesised देखें text preserved.
+
+- **See-also-only block drop** (v1.2.0): blocks whose entire content is `• X – देखें Y` are dropped from `Subsection.blocks` and represented only via `see_alsos`.
+
+- **Definition (N) numbering strip** (v1.2.0): leading `(1)`, `(2)`, … prefixes stripped from PuranKosh definition prose; `definition_index` is the sole counter.
+
+- **Redlink edge suppression** (v1.2.0): `RELATED_TO` edges with `target_exists=false` are not emitted in `would_write.neo4j.edges`.
 
 - **selectolax `iter()` vs `css("*")`**: `iter()` returns only *direct children*; `css("*")` traverses all descendants. `contains_heading()` and `has_nested_block()` use `css("*")`; structural recursion uses `iter()`.
 
 - **MediaWiki underscores**: `parse_anchor()` replaces `_` with space after URL-decoding (MediaWiki convention). `decode_keyword_from_url()` does not — the keyword URL itself uses Unicode directly.
 
-#### Parse results (sample pages, v1.1.0)
+#### Parse results (sample pages, v1.2.0)
 
 | Page | SiddhantKosh defs | Index relations | Total subsections | Warnings |
 |------|-------------------|-----------------|-------------------|---------|
 | आत्मा | 4 | 0 | 7 | 0 |
 | द्रव्य | 1 | 26 | 67 | 0 |
 | पर्याय | 1 | 8 | 43 | 0 |
+
+*(Counts unchanged from v1.1.0; envelope shape updated — see fix-spec-002.)*
 
 #### Tests
 

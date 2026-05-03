@@ -17,6 +17,14 @@
 > sibling-`=` marker, redlink prose-strip, label→topic seeds, table
 > attachment, IndexRelation chain, idempotency contracts).
 >
+> **Fixes applied in v1.2.0**: see
+> [`parser_fix_spec_002/README.md`](./parser_fix_spec_002/README.md)
+> for the full phased correction spec (table outerHTML + raw_html whitespace
+> collapse, idempotency contracts hoisted to envelope root, IndexRelation
+> source chain resolution, DFS leading-GRef passthrough, paren-`देखें`
+> cleanup, label-seed scope guard, see-also-only block drop, definition
+> `(N)` numbering strip, redlink edge suppression).
+>
 > Audience: any implementer (including small reasoning models) who has
 > not been part of the design conversation. Every decision is named.
 
@@ -122,8 +130,8 @@ must not require code changes.
 ### 3.1 Top-level shape
 
 ```yaml
-version: "1.1.0"
-parser_rules_version: "jainkosh.rules/1.1.0"        # mirrored into output
+version: "1.2.0"
+parser_rules_version: "jainkosh.rules/1.2.0"        # mirrored into output
 
 normalization:
   nfc: true
@@ -399,7 +407,7 @@ class Subsection(BaseModel):
     # v1.1.0 — label-seed fields
     label_topic_seed: bool = False              # True when synthesised from prose label before देखें
     source_subkind: Optional[str] = None        # "label_seed" | None
-    idempotency_contract: dict = Field(default_factory=dict)   # upsert policy for orchestrator
+    # idempotency_contract removed in v1.2.0 — contracts are now at envelope root (parsing_rules §3.4)
 
 Subsection.model_rebuild()
 
@@ -414,9 +422,8 @@ class IndexRelation(BaseModel):
     target_exists: bool = True                  # false for redlinks
 
     # source of relation: None = keyword-level, "1" = top-level section 1, "1.1" = subsection
-    # DEPRECATED (v1.1.0): equals source_topic_path_chain[-1] if non-empty, else None. Remove in v1.2.0.
-    source_topic_path: Optional[str] = None
-    # v1.1.0 — full ancestor chain
+    # source_topic_path removed in v1.2.0 (was deprecated in v1.1.0)
+    # v1.1.0 — full ancestor chain (resolution improved in v1.2.0 via ancestor <strong> text lookup)
     source_topic_path_chain: list[str] = Field(default_factory=list)           # e.g. ["1", "1.2"]
     source_topic_natural_key_chain: list[str] = Field(default_factory=list)    # resolved natural keys
 
@@ -1228,8 +1235,14 @@ the golden test to fail (intentional). Empty list is the goal.
 - [ ] GRef text absent from every `text_devanagari` field.
 - [ ] `IndexRelation.source_topic_path_chain` and `source_topic_natural_key_chain` populated on all relations.
 - [ ] `mongo.keyword_definitions.page_sections[*]` has no `subsection_tree` key; `extra_blocks` is present.
-- [ ] All envelope rows carry `idempotency_contract`.
-- [ ] `parser_rules_version: "jainkosh.rules/1.1.0"` in YAML and in every golden's `parser_version` field.
+- [ ] `would_write.idempotency_contracts` is a top-level map keyed by `"<store>:<table>"`; no per-row `idempotency_contract` field.
+- [ ] `Block(kind="table").raw_html` contains full outerHTML with collapsed whitespace.
+- [ ] `IndexRelation.source_topic_path_chain` and `source_topic_natural_key_chain` are non-null for all relations with a section-level source.
+- [ ] Parenthesised `(देखें X)` fragments absent from every `text_devanagari` and `hindi_translation` field.
+- [ ] See-also-only blocks (`• X – देखें Y`) absent from `Subsection.blocks`; present only in `see_alsos`.
+- [ ] Definition `(N)` numbering prefix absent from every definition's prose text.
+- [ ] `RELATED_TO` edges with `target_exists=false` absent from `would_write.neo4j.edges`.
+- [ ] `parser_rules_version: "jainkosh.rules/1.2.0"` in YAML and in every golden's `parser_version` field.
 - [ ] `KeywordParseResult.warnings` is empty for all three fixtures.
 - [ ] No part of the parser performs HTTP, DB writes, or filesystem writes beyond `--out`.
 
