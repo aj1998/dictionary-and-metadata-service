@@ -28,7 +28,6 @@ Out of scope: orchestrator, DB writes, schema migrations.
 | D2 | `refs.py` | `(ref1); (ref2)` in a single GRef span emits one `Reference` | `extract_refs_from_node` takes each `<span class="GRef">` as a unit; never splits on `); (` boundary |
 | D3 | `parse_blocks.py` | `(विशेष देखें आकाश - 2)` — see_also block not populated for topic 4.2.2 | `make_block` discards `see_alsos` when `strip_paren_dekhen` empties the text (returns bare `None` instead of `(None, see_alsos)`) |
 | D4 | `models.py` | `Block` has no `is_bullet_point` field | Field does not exist; callers cannot distinguish `<li>`-origin blocks from `<p>`-origin blocks |
-| D5 | `envelope.py` | label-seed subsections emit a `PART_OF` edge to their parent topic | `build_neo4j_fragment` always emits `PART_OF` when `sub.parent_natural_key` is set, ignoring `sub.label_topic_seed` |
 | P1-a | `parse_index.py` | `source_topic_path_chain=[]` for "कर्म का अर्थ पर्याय" (should be `["1"]`) | The `<ul>` with this entry is **inside** LI[#1] (the heading LI itself); `_nearest_previous_heading_path_in_same_list(row_li=LI[#1])` starts at `LI[#1].prev`, never checking `LI[#1]` itself |
 | P1-b | `parse_index.py` | `source_topic_path_chain=[]` for "ऊर्ध्व क्रम व ऊर्ध्व प्रचय" (should be `["1"]` or `["2"]`) | The `<ul>` is a **sibling** of LI[#1] and LI[#2] inside the outer OL; `row_li` is `None` (the anchor is not inside any LI); `_ancestor_li_ids` cannot find a contextual path |
 | P3 | `parse_blocks.py` | `नयचक्र बृहद्/17` (GRef1) attributed to wrong block (`sanskrit_text` instead of `hindi_text`) | `_explode_nested_span` emits **all** pre-nested GRefs as standalone nodes → they become `pending_refs` attached to the **next** block; `<br/>` boundary between GRef1 and GRef2 is ignored |
@@ -42,17 +41,16 @@ Out of scope: orchestrator, DB writes, schema migrations.
 | `workers/ingestion/jainkosh/models.py` | 1, 4 |
 | `workers/ingestion/jainkosh/refs.py` | 2 |
 | `workers/ingestion/jainkosh/parse_blocks.py` | 3, 4, 7 |
-| `workers/ingestion/jainkosh/envelope.py` | 5 |
 | `workers/ingestion/jainkosh/parse_index.py` | 6 |
-| `workers/ingestion/jainkosh/config.py` | 1, 2, 3, 4, 5, 6, 7 |
-| `parser_configs/jainkosh.yaml` | 1, 2, 3, 4, 5, 6, 7, 8 |
-| `parser_configs/_schemas/jainkosh.schema.json` | 1, 2, 3, 4, 5, 6, 7 |
+| `workers/ingestion/jainkosh/config.py` | 1, 2, 3, 4, 6, 7 |
+| `parser_configs/jainkosh.yaml` | 1, 2, 3, 4, 6, 7, 8 |
+| `parser_configs/_schemas/jainkosh.schema.json` | 1, 2, 3, 4, 6, 7 |
 | `workers/ingestion/jainkosh/tests/unit/test_refs.py` | 2 |
 | `workers/ingestion/jainkosh/tests/unit/test_see_also.py` | 3 |
 | `workers/ingestion/jainkosh/tests/unit/test_index_source_chain.py` | 6 |
 | `workers/ingestion/jainkosh/tests/unit/test_nested_span.py` | 7 |
 | `workers/ingestion/jainkosh/tests/test_parse_keyword_golden.py` | 8 |
-| `workers/ingestion/jainkosh/tests/golden/द्रव्य.json` | 1, 2, 3, 4, 5 |
+| `workers/ingestion/jainkosh/tests/golden/द्रव्य.json` | 1, 2, 3, 4 |
 | `workers/ingestion/jainkosh/tests/golden/पर्याय.json` | 1, 6, 7 |
 | `workers/ingestion/jainkosh/tests/golden/आत्मा.json` | regression check |
 
@@ -590,135 +588,6 @@ golden snapshots that omit `is_bullet_point` will now include
 
 ---
 
-## Phase 5 — Remove spurious `PART_OF` edge for label-seed subsections
-
-### 5.1 Background
-
-A `label-seed` subsection is synthetic: it is **seeded from a label** in the
-prose and does not represent a real topic hierarchy node. When such a subsection
-has a `parent_natural_key`, `build_neo4j_fragment` currently emits a `PART_OF`
-edge (child → parent topic). This is incorrect: the seeded topic should point
-**to** the keyword/topic it was derived from, not be filed as a structural
-sub-topic.
-
-The correct behaviour:
-- `label_topic_seed == False` (normal subsection): emit `PART_OF` or `HAS_TOPIC`
-  as today.
-- `label_topic_seed == True` (label-seed): emit only `HAS_TOPIC` from the keyword,
-  never `PART_OF`.
-
-### 5.2 Config change
-
-**`config.py`** — add field to `Neo4jEnvelopeConfig`:
-
-```python
-class Neo4jEnvelopeConfig(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-    redlink_edges: Literal["always", "never", "only_if_topic"] = "never"
-    label_seed_part_of_edge: bool = False    # ← NEW
-```
-
-**`parser_configs/jainkosh.yaml`** — under `neo4j:`:
-
-```yaml
-neo4j:
-  redlink_edges: never
-  label_seed_part_of_edge: false
-```
-
-**`parser_configs/_schemas/jainkosh.schema.json`** — inside `"neo4j"` properties:
-
-```json
-"label_seed_part_of_edge": { "type": "boolean" }
-```
-
-### 5.3 Code change
-
-**`envelope.py`** — in `build_neo4j_fragment`, modify the edge-emission block
-for subsections:
-
-**Before** (lines 436–451):
-```python
-            if sub.parent_natural_key is None:
-                # Keyword → Topic
-                edges.append({
-                    "type": "HAS_TOPIC",
-                    "from": {"label": "Keyword", "key": result.keyword},
-                    "to": {"label": "Topic", "key": sub.natural_key},
-                    "props": {"weight": 1.0, "source": "jainkosh"},
-                })
-            else:
-                # Topic → Topic (PART_OF: child → parent)
-                edges.append({
-                    "type": "PART_OF",
-                    "from": {"label": "Topic", "key": sub.natural_key},
-                    "to": {"label": "Topic", "key": sub.parent_natural_key},
-                    "props": {"weight": 1.0, "source": "jainkosh"},
-                })
-```
-
-**After**:
-```python
-            is_label_seed = sub.label_topic_seed
-            suppress_part_of = is_label_seed and not config.neo4j.label_seed_part_of_edge
-
-            if sub.parent_natural_key is None or suppress_part_of:
-                # Keyword → Topic  (always for label-seeds; structural for root topics)
-                edges.append({
-                    "type": "HAS_TOPIC",
-                    "from": {"label": "Keyword", "key": result.keyword},
-                    "to": {"label": "Topic", "key": sub.natural_key},
-                    "props": {"weight": 1.0, "source": "jainkosh"},
-                })
-            else:
-                # Topic → Topic (PART_OF: child → parent)
-                edges.append({
-                    "type": "PART_OF",
-                    "from": {"label": "Topic", "key": sub.natural_key},
-                    "to": {"label": "Topic", "key": sub.parent_natural_key},
-                    "props": {"weight": 1.0, "source": "jainkosh"},
-                })
-```
-
-### 5.4 Tests
-
-There is already `test_envelope_label_seed_related_to_source.py`. Add:
-
-```python
-def test_label_seed_no_part_of_edge_by_default():
-    """label_topic_seed subsection with a parent_natural_key must NOT emit PART_OF."""
-    # Build a minimal KeywordParseResult with one label_topic_seed subsection
-    # whose parent_natural_key is set.
-    # build_neo4j_fragment must produce HAS_TOPIC (not PART_OF) for that subsection.
-
-
-def test_label_seed_part_of_edge_enabled():
-    """With label_seed_part_of_edge=True, even label-seeds emit PART_OF."""
-    # Same setup, but override config.neo4j.label_seed_part_of_edge = True
-    # expect PART_OF edge
-```
-
-### 5.5 Golden delta
-
-In `द्रव्य.json` (`would_write.neo4j.edges`), every edge whose `"from"` topic is
-a label-seed subsection must now be `"type": "HAS_TOPIC"` from the keyword, not
-`"type": "PART_OF"` from the parent topic.
-
-Identify label-seed topics by cross-referencing `subsections[*].label_topic_seed`
-in the golden.
-
-### 5.6 Definition of Done
-
-- [ ] `Neo4jEnvelopeConfig.label_seed_part_of_edge: bool = False` in `config.py`
-- [ ] YAML `neo4j.label_seed_part_of_edge: false` added
-- [ ] JSON schema updated
-- [ ] `build_neo4j_fragment` skips `PART_OF` for label-seed subsections when flag
-  is `False`
-- [ ] Unit tests pass
-- [ ] Goldens updated and approved
-
----
-
 ## Phase 6 — Fix `source_topic_path_chain` for पर्याय index relations
 
 ### 6.1 Background
@@ -1224,7 +1093,6 @@ Review the diff carefully:
   `"is_top_level_reference": true`.
 - Every `Block` gains `"is_bullet_point": false` (default) or `true` for
   `<li>`-origin blocks.
-- No spurious `PART_OF` edges for label-seed subsections.
 - Topic 4.2.2 in `द्रव्य` has a `see_also` block for `आकाश - 2`.
 - Semicolon-delimited GRefs are split into separate `Reference` objects.
 - `नयचक्र बृहद्/17` is attributed to the `hindi_text` block in `पर्याय`.
@@ -1261,7 +1129,6 @@ All new config keys introduced in this spec, with their default values:
 | `blocks.is_bullet_point_for_li` | `bool` | `true` | 4 |
 | `blocks.nested_span_gref_reattach` | `bool` | `true` | 7 |
 | `blocks.nested_span_gref_boundary_tags` | `list[str]` | `["br"]` | 7 |
-| `neo4j.label_seed_part_of_edge` | `bool` | `false` | 5 |
 | `index.source_chain.row_li_self_path_check` | `bool` | `true` | 6 |
 | `index.source_chain.sibling_container_fallback` | `bool` | `true` | 6 |
 
