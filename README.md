@@ -220,11 +220,11 @@ Reads pre-saved HTML from `samples/sample_html_jainkosh_pages/` and produces a `
 
 #### Parse results (sample pages, v1.6.0)
 
-| Page | SiddhantKosh defs | Index relations | Total subsections | Warnings |
-|------|-------------------|-----------------|-------------------|---------|
-| आत्मा | 4 | 0 | 7 | 0 |
-| द्रव्य | 1 | 26 | 59 | 0 |
-| पर्याय | 1 | 8 | 43 | 0 |
+| Page | SK defs | PK defs | Index relations | Total subsections | Keywords | Topics | Nodes | Edges | Warnings |
+|------|---------|---------|-----------------|-------------------|----------|--------|-------|-------|---------|
+| आत्मा | 4 | 2 | 0 | 7 | 1 | 7 | 8 | 10 | 0 |
+| द्रव्य | 1 | 1 | 26 | 59 | 1 | 85 | 86 | 121 | 0 |
+| पर्याय | 1 | 2 | 8 | 43 | 1 | 51 | 52 | 59 | 0 |
 
 To regenerate this table from the latest goldens: `python workers/ingestion/jainkosh/golden_stats.py`
 

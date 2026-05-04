@@ -20,11 +20,18 @@ def stats(path: Path) -> dict:
     kpr = data["keyword_parse_result"]
     sections = kpr["page_sections"]
     warnings = kpr["warnings"]
+    postgres = data["would_write"]["postgres"]
+    neo4j = data["would_write"]["neo4j"]
 
     sk_defs = sum(
         len(s.get("definitions", []))
         for s in sections
         if s.get("section_kind") == "siddhantkosh"
+    )
+    pk_defs = sum(
+        len(s.get("definitions", []))
+        for s in sections
+        if s.get("section_kind") == "puraankosh"
     )
     index_rels = sum(
         len(s.get("index_relations", []))
@@ -37,26 +44,52 @@ def stats(path: Path) -> dict:
     )
     return {
         "sk_defs": sk_defs,
+        "pk_defs": pk_defs,
         "index_rels": index_rels,
         "total_subs": total_subs,
+        "keywords": len(postgres["keywords"]),
+        "topics": len(postgres["topics"]),
+        "nodes": len(neo4j["nodes"]),
+        "edges": len(neo4j["edges"]),
         "warnings": len(warnings),
     }
 
 
 def main() -> None:
-    header = f"{'Page':<12} {'SiddhantKosh defs':>18} {'Index relations':>16} {'Total subsections':>18} {'Warnings':>9}"
-    sep = "-" * len(header)
+    cols = [
+        ("Page", 12, "<"),
+        ("SK defs", 8, ">"),
+        ("PK defs", 8, ">"),
+        ("Idx rels", 9, ">"),
+        ("Subsections", 12, ">"),
+        ("Keywords", 9, ">"),
+        ("Topics", 7, ">"),
+        ("Nodes", 6, ">"),
+        ("Edges", 6, ">"),
+        ("Warnings", 9, ">"),
+    ]
+    header = "  ".join(f"{name:{align}{width}}" for name, width, align in cols)
     print(header)
-    print(sep)
+    print("-" * len(header))
     for page in PAGES:
         path = GOLDEN_DIR / f"{page}.json"
         if not path.exists():
-            print(f"{page:<12} (golden not found)")
+            print(f"{page:<12}  (golden not found)")
             continue
         s = stats(path)
-        print(
-            f"{page:<12} {s['sk_defs']:>18} {s['index_rels']:>16} {s['total_subs']:>18} {s['warnings']:>9}"
-        )
+        row = [
+            f"{page:<12}",
+            f"{s['sk_defs']:>8}",
+            f"{s['pk_defs']:>8}",
+            f"{s['index_rels']:>9}",
+            f"{s['total_subs']:>12}",
+            f"{s['keywords']:>9}",
+            f"{s['topics']:>7}",
+            f"{s['nodes']:>6}",
+            f"{s['edges']:>6}",
+            f"{s['warnings']:>9}",
+        ]
+        print("  ".join(row))
 
 
 if __name__ == "__main__":
