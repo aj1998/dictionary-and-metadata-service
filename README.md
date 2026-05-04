@@ -5,11 +5,23 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Complements
 ## Usecases/Objectives
 
 - **Structured (knowledge retented) search engine** for Jain Texts expanded/enhanced on top of `JainKosh` authored by - _Kshullak Jinendra Varni Ji_ and the works done by scholars for creating its digital infrastructure at [jainkosh.org](www.jainkosh.org) by linking keywords with definitions/topics/shastras. Also, uses various shastras' OCRed data feeded systematically and categorically.
-- **Finding exact** sanskrit/prakrit/hindi gatha from shastras and understanding it word to word.
+
 - **Graph traversal** of Jain Knowledge Base in an interactive UI.
+
+- **Finding exact** sanskrit/prakrit/hindi gatha from shastras and understanding it word to word.
+
 - Acts as a **cache and pre-querying dictionary** layer (finding keywords) to the existing vector search at Cataloguesearch.
-- **Deep answer generation** of questions related on gathas for Cataloguesearch-chat as current vector search only extracts mentions of gatha in jain texts but does not have context of the original gatha itself, this will extract gatha content and specific keywords/topics with relevant to it and and then final answer generation with both vectored and vectorless (structured) results (GraphRAG).
-- **Train a Jainism based AI model** in future with the help of Cataloguesearch OCRed data and this knowledge graph for the most accurate results.
+
+- **Deep answer generation** of questions on Cataloguesearch-chat
+
+- Structured or metadata based questions (like questions related on a specific gatha, specific topic mentions, translations of gatha verses etc.). For ex -
+  - समयसार की गाथा ६ बताओ
+  - समयसार की गाथा ६ की संस्कृत समझाओ
+  - षट् द्रव्य के क्रियावान् व भाववान् विभाग का वर्णन कोन कोनसे शास्त्रों में आया है?
+
+[Current vector search only extracts mentions of gatha in jain texts but does not have context of the original gatha itself, this will extract gatha content and specific keywords/topics with relevant to it and and then final answer generation with both vectored and vectorless (structured) results (GraphRAG)]
+
+- **Train a Jainism based AI model** in future with the help of Cataloguesearch OCRed data and this Knowledge Graph for the most accurate results.
 
 ## What this service does
 
