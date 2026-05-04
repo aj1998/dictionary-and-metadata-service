@@ -37,6 +37,13 @@
 > for the full phased correction spec (GRef attribution across nested-span
 > `<br/>` boundaries; parser version bump and golden regeneration).
 >
+> **Fixes applied in v1.6.0**: see
+> [`parser_fix_spec_006/README.md`](./parser_fix_spec_006/README.md)
+> for the full phased correction spec (label_seed `RELATED_TO` edges now
+> sourced from child natural_key via see_also block relocation; `inline_reference`
+> flag on `Reference`; nth-occurrence anchor dedup fixes duplicate `IndexRelation`
+> and missing entry).
+>
 > Audience: any implementer (including small reasoning models) who has
 > not been part of the design conversation. Every decision is named.
 
