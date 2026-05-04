@@ -99,6 +99,13 @@
           }
         },
         "top_level_reference_marking": { "type": "boolean" },
+        "anchor_dedup": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "nth_occurrence_tracking": { "type": "boolean" }
+          }
+        },
         "see_also_triggers": {
           "type": "array",
           "items": {"type": "string"},
@@ -131,6 +138,7 @@
             "collapse_whitespace": {"type": "boolean"}
           }
         },
+        "annotate_inline_position": { "type": "boolean" },
         "semicolon_split": {
           "type": "object",
           "additionalProperties": false,
@@ -240,7 +248,8 @@
       "type": "object",
       "required": ["enabled", "emit_for_redlink", "emit_for_wiki_link", "emit_for_self_link",
                    "bullet_prefixes", "label_trim_chars", "attach_to", "is_synthetic", "is_leaf", "source_marker",
-                   "skip_in_source_kinds", "trim_to_clause", "clause_boundary_chars", "preserve_inner_quotes"],
+                   "skip_in_source_kinds", "trim_to_clause", "clause_boundary_chars", "preserve_inner_quotes",
+                   "relocate_inline_see_also_to_child"],
       "additionalProperties": false,
       "properties": {
         "enabled": {"type": "boolean"},
@@ -256,7 +265,8 @@
         "skip_in_source_kinds": {"type": "array", "items": {"type": "string"}},
         "trim_to_clause": {"type": "boolean"},
         "clause_boundary_chars": {"type": "string"},
-        "preserve_inner_quotes": {"type": "boolean"}
+        "preserve_inner_quotes": {"type": "boolean"},
+        "relocate_inline_see_also_to_child": {"type": "boolean"}
       }
     },
     "navigation": {

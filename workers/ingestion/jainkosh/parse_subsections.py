@@ -498,10 +498,10 @@ def _append_label_seed_children(
     keyword: str,
     config: JainkoshConfig,
     *,
-    label_seed_candidates: Optional[list[str]] = None,
+    label_seed_candidates: Optional[list[tuple[str, dict]]] = None,
     row_relations: Optional[dict[str, list[Block]]] = None,
 ) -> None:
-    seeds = extract_label_topic_seeds(
+    seeds, relocate_indices = extract_label_topic_seeds(
         node.blocks,
         parent_subsection=node,
         keyword=keyword,
@@ -509,6 +509,8 @@ def _append_label_seed_children(
         label_seed_candidates=label_seed_candidates or [],
         row_relations=row_relations or {},
     )
+    for idx in sorted(relocate_indices, reverse=True):
+        node.blocks.pop(idx)
     for seed in seeds:
         if all(c.natural_key != seed.natural_key for c in node.children):
             node.children.append(seed)
@@ -522,32 +524,58 @@ def extract_label_topic_seeds(
     parent_subsection: Optional[Subsection],
     keyword: str,
     config: JainkoshConfig,
-    label_seed_candidates: list[str],
+    label_seed_candidates: list[tuple[str, dict]],
     row_relations: Optional[dict[str, list[Block]]] = None,
-) -> list[Subsection]:
+) -> tuple[list[Subsection], list[int]]:
     if not config.label_to_topic.enabled:
-        return []
+        return [], []
     if row_relations is None:
         row_relations = {}
     seeds: list[Subsection] = []
     emitted_labels: set[str] = set()
-    for label in label_seed_candidates:
+    blocks_to_relocate_indices: list[int] = []
+
+    # candidate_target_keys: set of (target_keyword, target_topic_path, target_url, is_self) tuples
+    # that were used to produce a label_seed_candidate, so we can find matching blocks later
+    candidate_target_to_seed: dict[tuple, Subsection] = {}
+
+    for label, candidate_info in label_seed_candidates:
         if not label or label in emitted_labels:
             continue
         emitted_labels.add(label)
-        seeds.append(
-            _make_label_seed_subsection(
-                label=label,
-                keyword=keyword,
-                parent=parent_subsection,
-                config=config,
-                row_see_alsos=row_relations.get(label, []),
-            )
+        seed = _make_label_seed_subsection(
+            label=label,
+            keyword=keyword,
+            parent=parent_subsection,
+            config=config,
+            row_see_alsos=row_relations.get(label, []),
         )
+        seeds.append(seed)
+        if config.label_to_topic.relocate_inline_see_also_to_child and candidate_info:
+            tkey = (
+                candidate_info.get("target_keyword"),
+                candidate_info.get("target_topic_path"),
+                candidate_info.get("target_url"),
+                bool(candidate_info.get("is_self", False)),
+            )
+            candidate_target_to_seed[tkey] = seed
+
+    # Relocate inline see_also blocks that correspond to seeds created above
+    if config.label_to_topic.relocate_inline_see_also_to_child and candidate_target_to_seed:
+        for i, block in enumerate(blocks):
+            if block.kind != "see_also":
+                continue
+            tkey = (block.target_keyword, block.target_topic_path, block.target_url, block.is_self)
+            matching_seed = candidate_target_to_seed.get(tkey)
+            if matching_seed is not None:
+                matching_seed.blocks.append(block)
+                blocks_to_relocate_indices.append(i)
 
     emitted_in_block = bool(seeds)
     for i, block in enumerate(blocks):
         if block.kind != "see_also":
+            continue
+        if i in blocks_to_relocate_indices:
             continue
         if emitted_in_block:
             continue
@@ -568,17 +596,21 @@ def extract_label_topic_seeds(
         if not label or label in emitted_labels:
             continue
         emitted_labels.add(label)
-        seeds.append(
-            _make_label_seed_subsection(
-                label=label,
-                keyword=keyword,
-                parent=parent_subsection,
-                config=config,
-                row_see_alsos=row_relations.get(label, []),
-            )
+        child_see_alsos = (
+            [block] if config.label_to_topic.relocate_inline_see_also_to_child else []
         )
+        seed = _make_label_seed_subsection(
+            label=label,
+            keyword=keyword,
+            parent=parent_subsection,
+            config=config,
+            row_see_alsos=child_see_alsos,
+        )
+        seeds.append(seed)
+        if config.label_to_topic.relocate_inline_see_also_to_child:
+            blocks_to_relocate_indices.append(i)
         emitted_in_block = True
-    return seeds
+    return seeds, blocks_to_relocate_indices
 
 
 def extract_label_seed_candidates_from_elements(
@@ -586,8 +618,9 @@ def extract_label_seed_candidates_from_elements(
     *,
     keyword: str,
     config: JainkoshConfig,
-) -> list[str]:
-    labels: list[str] = []
+) -> list[tuple[str, dict]]:
+    """Return list of (label, see_also_info_dict) for each element that produces a label seed."""
+    results: list[tuple[str, dict]] = []
     for el in elements:
         source_kind = block_class_kind(el, config)
         parent_text = normalize_text(el.text(strip=False) or "")
@@ -613,9 +646,9 @@ def extract_label_seed_candidates_from_elements(
             if not label:
                 label = _normalize_label_seed_text((candidate.get("label_text") or ""), config)
             if label:
-                labels.append(label)
+                results.append((label, candidate))
                 break
-    return labels
+    return results
 
 
 def _normalize_label_seed_text(label: str, config: JainkoshConfig) -> str:

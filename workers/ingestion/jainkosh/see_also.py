@@ -95,15 +95,26 @@ def find_see_alsos_in_element(
 ) -> list[Block | IndexRelation]:
     """Find देखें links in an element. Returns Block or IndexRelation depending on context."""
     see_also_re = _build_see_also_re(config)
+    nth_tracking = config.index.anchor_dedup.nth_occurrence_tracking
+    anchor_occurrence_count: dict[tuple[str, str], int] = {}
     results = []
 
     for a in el.css("a"):
-        prev_text = _preceding_inline_text(a, max_chars=config.index.see_also_window_chars)
+        a_html = a.html or ""
+        parent_html_prefix = (a.parent.html or "")[:100] if a.parent else ""
+        count_key = (parent_html_prefix, a_html)
+
+        nth = 0
+        if nth_tracking:
+            nth = anchor_occurrence_count.get(count_key, 0)
+            anchor_occurrence_count[count_key] = nth + 1
+
+        prev_text = _preceding_inline_text(a, max_chars=config.index.see_also_window_chars, nth_occurrence=nth)
         if not see_also_re.search(prev_text):
             continue
 
         parsed = parse_anchor(a, config, current_keyword=current_keyword)
-        label_text = _extract_label_before_anchor(a)
+        label_text = _extract_label_before_anchor(a, nth_occurrence=nth)
 
         if as_index_relation:
             results.append(IndexRelation(
@@ -127,28 +138,54 @@ def find_see_also_candidates_in_element(
     current_keyword: str = "",
 ) -> list[dict]:
     see_also_re = _build_see_also_re(config)
+    nth_tracking = config.index.anchor_dedup.nth_occurrence_tracking
+    anchor_occurrence_count: dict[tuple[str, str], int] = {}
     results: list[dict] = []
+
     for a in el.css("a"):
-        prev_text = _preceding_inline_text(a, max_chars=config.index.see_also_window_chars)
+        a_html = a.html or ""
+        parent_html_prefix = (a.parent.html or "")[:100] if a.parent else ""
+        count_key = (parent_html_prefix, a_html)
+
+        nth = 0
+        if nth_tracking:
+            nth = anchor_occurrence_count.get(count_key, 0)
+            anchor_occurrence_count[count_key] = nth + 1
+
+        prev_text = _preceding_inline_text(a, max_chars=config.index.see_also_window_chars, nth_occurrence=nth)
         if not see_also_re.search(prev_text):
             continue
         parsed = parse_anchor(a, config, current_keyword=current_keyword)
         results.append({
-            "label_text": _extract_label_before_anchor(a),
+            "label_text": _extract_label_before_anchor(a, nth_occurrence=nth),
             **parsed,
         })
     return results
 
 
-def _preceding_inline_text(a: Node, max_chars: int = 40) -> str:
+def _preceding_inline_text(a: Node, max_chars: int = 40, nth_occurrence: int = 0) -> str:
     """Walk up ancestors concatenating text before <a> until max_chars is reached."""
     pieces: list[str] = []
     cur = a
+    is_first_level = True
     while cur.parent is not None and sum(len(p) for p in pieces) < max_chars:
         parent = cur.parent
         parent_html = parent.html or ""
         cur_html = cur.html or ""
-        idx = parent_html.find(cur_html)
+
+        if is_first_level and nth_occurrence > 0:
+            idx = -1
+            for _ in range(nth_occurrence + 1):
+                new_idx = parent_html.find(cur_html, idx + 1)
+                if new_idx < 0:
+                    idx = parent_html.find(cur_html)
+                    break
+                idx = new_idx
+        else:
+            idx = parent_html.find(cur_html) if cur_html else -1
+
+        is_first_level = False
+
         if idx > 0:
             before = parent_html[:idx]
             pieces.append(re.sub(r"<[^>]+>", "", before))
@@ -157,14 +194,23 @@ def _preceding_inline_text(a: Node, max_chars: int = 40) -> str:
     return text[-max_chars:] if len(text) > max_chars else text
 
 
-def _extract_label_before_anchor(a: Node) -> str:
+def _extract_label_before_anchor(a: Node, nth_occurrence: int = 0) -> str:
     """Extract the label text immediately before the देखें trigger in the parent element."""
     parent = a.parent
     if parent is None:
         return ""
     parent_html = parent.html or ""
     a_html = a.html or ""
-    idx = parent_html.find(a_html)
+
+    # Find the nth_occurrence-th match of a_html in parent_html
+    idx = -1
+    for _ in range(nth_occurrence + 1):
+        new_idx = parent_html.find(a_html, idx + 1)
+        if new_idx < 0:
+            idx = parent_html.find(a_html)
+            break
+        idx = new_idx
+
     if idx < 0:
         return ""
     before_html = parent_html[:idx]

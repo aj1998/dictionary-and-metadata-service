@@ -20,6 +20,7 @@ class Reference(BaseModel):
     text: str
     raw_html: Optional[str] = None
     parsed: Optional["ParsedReference"] = None
+    inline_reference: bool = False
 
 
 class ParsedReference(BaseModel):

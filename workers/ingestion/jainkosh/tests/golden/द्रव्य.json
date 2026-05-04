@@ -495,12 +495,14 @@
                       {
                         "text": "पंचास्तिकाय/9",
                         "raw_html": "<span class=\"GRef\">पंचास्तिकाय/9</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( राजवार्तिक/1/33/1/95/4 )",
                         "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/33/1/95/4 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -521,7 +523,8 @@
                       {
                         "text": "सर्वार्थसिद्धि/1/5/17/5",
                         "raw_html": "<span class=\"GRef\">सर्वार्थसिद्धि/1/5/17/5</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -542,52 +545,62 @@
                       {
                         "text": "सर्वार्थसिद्धि/5/2/266/10",
                         "raw_html": "<span class=\"GRef\">सर्वार्थसिद्धि/5/2/266/10</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( राजवार्तिक/5/2/1/436/14 )",
                         "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/1/436/14 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( धवला 1/1,1,1/183/11 )",
                         "raw_html": "<span class=\"GRef\">( धवला 1/1,1,1/183/11 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( धवला 3/1,2,1/2/1 )",
                         "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/2/1 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( धवला 9/4,1,45/167/10 )",
                         "raw_html": "<span class=\"GRef\">( धवला 9/4,1,45/167/10 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( धवला 15/33/9 )",
                         "raw_html": "<span class=\"GRef\">( धवला 15/33/9 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( कषायपाहुड़ 1/1,14/177/211/4 )",
                         "raw_html": "<span class=\"GRef\">( कषायपाहुड़ 1/1,14/177/211/4 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( नयचक्र बृहद्/36 )",
                         "raw_html": "<span class=\"GRef\">( नयचक्र बृहद्/36 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( आलापपद्धति/6 )",
                         "raw_html": "<span class=\"GRef\">( आलापपद्धति/6 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "(योगसार/अमितगति /2/5)",
                         "raw_html": "<span class=\"GRef\">(योगसार/अमितगति /2/5)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -608,7 +621,8 @@
                       {
                         "text": "राजवार्तिक/5/2/2/436/26",
                         "raw_html": "<span class=\"GRef\">राजवार्तिक/5/2/2/436/26</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -629,7 +643,8 @@
                       {
                         "text": "जैनेंद्र व्याकरण/4/1/158",
                         "raw_html": "<span class=\"GRef\">जैनेंद्र व्याकरण/4/1/158</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -667,7 +682,8 @@
                       {
                         "text": "तत्त्वार्थसूत्र/5/29",
                         "raw_html": "<span class=\"GRef\">तत्त्वार्थसूत्र/5/29</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -688,32 +704,38 @@
                       {
                         "text": "पंचास्तिकाय/10",
                         "raw_html": "<span class=\"GRef\">पंचास्तिकाय/10</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( प्रवचनसार/95-96 )",
                         "raw_html": "<span class=\"GRef\">( प्रवचनसार/95-96 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( नयचक्र बृहद्/37 )",
                         "raw_html": "<span class=\"GRef\">( नयचक्र बृहद्/37 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( आलापपद्धति/6 )",
                         "raw_html": "<span class=\"GRef\">( आलापपद्धति/6 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( योगसार (अमितगति)/2/6 )",
                         "raw_html": "<span class=\"GRef\">( योगसार (अमितगति)/2/6 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( पंचाध्यायी / पूर्वार्ध/8,86 )",
                         "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/8,86 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -749,7 +771,8 @@
                       {
                         "text": "प्रवचनसार/ ‘तत्त्व प्रदीपिका’ 96",
                         "raw_html": "<span class=\"GRef\">प्रवचनसार/ ‘तत्त्व प्रदीपिका’ 96</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -787,7 +810,8 @@
                       {
                         "text": "सर्वार्थसिद्धि/5/2/267/4",
                         "raw_html": "<span class=\"GRef\">सर्वार्थसिद्धि/5/2/267/4</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -808,12 +832,14 @@
                       {
                         "text": "पंचास्तिकाय/ प्र./44",
                         "raw_html": "<span class=\"GRef\">पंचास्तिकाय/ प्र./44</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( पंचाध्यायी / पूर्वार्ध/73 )",
                         "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/73 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -851,7 +877,8 @@
                       {
                         "text": "तत्त्वार्थसूत्र/5/38",
                         "raw_html": "<span class=\"GRef\">तत्त्वार्थसूत्र/5/38</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -872,47 +899,56 @@
                       {
                         "text": "( नियमसार मूल/9)",
                         "raw_html": "<span class=\"GRef\">( नियमसार मूल/9)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( प्रवचनसार/95 )",
                         "raw_html": "<span class=\"GRef\">( प्रवचनसार/95 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( पंचास्तिकाय/10 )",
                         "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/10 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( न्यायविनिश्चय/ मूल/1/115/428)",
                         "raw_html": "<span class=\"GRef\">( न्यायविनिश्चय/ मूल/1/115/428)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( नयचक्र बृहद्/37 )",
                         "raw_html": "<span class=\"GRef\">( नयचक्र बृहद्/37 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( आलापपद्धति/6 )",
                         "raw_html": "<span class=\"GRef\">( आलापपद्धति/6 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( कार्तिकेयानुप्रेक्षा/242 )",
                         "raw_html": "<span class=\"GRef\">( कार्तिकेयानुप्रेक्षा/242 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( तत्त्वानुशासन/100 )",
                         "raw_html": "<span class=\"GRef\">( तत्त्वानुशासन/100 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( पंचाध्यायी / पूर्वार्ध/438 )",
                         "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/438 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -933,7 +969,8 @@
                       {
                         "text": "सर्वार्थसिद्धि/5/38/309 पर उद्धृत",
                         "raw_html": "<span class=\"GRef\">सर्वार्थसिद्धि/5/38/309 पर उद्धृत</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -954,12 +991,14 @@
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/23",
                         "raw_html": "<span class=\"GRef\">प्रवचनसार / तत्त्वप्रदीपिका/23</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( पंचाध्यायी / पूर्वार्ध 73 )",
                         "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध 73 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -980,7 +1019,8 @@
                       {
                         "text": "पंचाध्यायी / पूर्वार्ध 72",
                         "raw_html": "<span class=\"GRef\">पंचाध्यायी / पूर्वार्ध 72</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1001,7 +1041,8 @@
                       {
                         "text": "पंचाध्यायी / पूर्वार्ध 73",
                         "raw_html": "<span class=\"GRef\">पंचाध्यायी / पूर्वार्ध 73</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1039,7 +1080,8 @@
                       {
                         "text": "न्यायविनिश्चय/ मूल/1/115/428",
                         "raw_html": "<span class=\"GRef\">न्यायविनिश्चय/ मूल/1/115/428</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1060,7 +1102,8 @@
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/10",
                         "raw_html": "<span class=\"GRef\">प्रवचनसार / तत्त्वप्रदीपिका/10</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1081,7 +1124,8 @@
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/93",
                         "raw_html": "<span class=\"GRef\">प्रवचनसार / तत्त्वप्रदीपिका/93</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1119,27 +1163,32 @@
                       {
                         "text": "धवला 1/1,1,136/ गाथा 199/386",
                         "raw_html": "<span class=\"GRef\">धवला 1/1,1,136/ गाथा 199/386</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( धवला 3/1,2,1/ गाथा 4/6)",
                         "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/ गाथा 4/6)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( धवला 9/4,1,45/ गाथा 67/183)",
                         "raw_html": "<span class=\"GRef\">( धवला 9/4,1,45/ गाथा 67/183)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( कषायपाहुड़ 1/1,14/ गाथा 108/253)",
                         "raw_html": "<span class=\"GRef\">( कषायपाहुड़ 1/1,14/ गाथा 108/253)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( गोम्मटसार जीवकांड/582/1023 )",
                         "raw_html": "<span class=\"GRef\">( गोम्मटसार जीवकांड/582/1023 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1160,22 +1209,26 @@
                       {
                         "text": "आप्तमीमांसा/107",
                         "raw_html": "<span class=\"GRef\">आप्तमीमांसा/107</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( धवला 3/1,2,1/ गाथा 3/5)",
                         "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/ गाथा 3/5)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( धवला 9/4,1,45/ गाथा 66/183)",
                         "raw_html": "<span class=\"GRef\">( धवला 9/4,1,45/ गाथा 66/183)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( धवला 13/5,5,59/ गाथा 32/310)",
                         "raw_html": "<span class=\"GRef\">( धवला 13/5,5,59/ गाथा 32/310)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1196,7 +1249,8 @@
                       {
                         "text": "श्लोकवार्तिक 2/1/5/63/269/3",
                         "raw_html": "<span class=\"GRef\">श्लोकवार्तिक 2/1/5/63/269/3</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1217,7 +1271,8 @@
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/36",
                         "raw_html": "<span class=\"GRef\">प्रवचनसार / तत्त्वप्रदीपिका/36</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1255,7 +1310,8 @@
                       {
                         "text": "सर्वार्थसिद्धि/1/33/140/9",
                         "raw_html": "<span class=\"GRef\">सर्वार्थसिद्धि/1/33/140/9</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1291,7 +1347,8 @@
                       {
                         "text": "पंचाध्यायी x`/ पूर्वार्ध/143",
                         "raw_html": "<span class=\"GRef\">पंचाध्यायी x`/ पूर्वार्ध/143</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1329,7 +1386,8 @@
                       {
                         "text": "नियमसार/9",
                         "raw_html": "<span class=\"GRef\">नियमसार/9</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1350,17 +1408,20 @@
                       {
                         "text": "तत्त्वार्थसूत्र/5/1-3,39",
                         "raw_html": "<span class=\"GRef\">तत्त्वार्थसूत्र/5/1-3,39</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "(योगसार/अमितगति/2/1)",
                         "raw_html": "<span class=\"GRef\">(योगसार/अमितगति/2/1)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( द्रव्यसंग्रह/15/50 )",
                         "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह/15/50 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1398,7 +1459,8 @@
                       {
                         "text": "धवला 1/1,1,1/17/6",
                         "raw_html": "<span class=\"GRef\">धवला 1/1,1,1/17/6</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1451,7 +1513,8 @@
                       {
                         "text": "धवला 1/1,1,1/17/6",
                         "raw_html": "<span class=\"GRef\">धवला 1/1,1,1/17/6</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1489,7 +1552,8 @@
                       {
                         "text": "प्रवचनसार / तात्पर्यवृत्ति/115/161/10",
                         "raw_html": "<span class=\"GRef\">प्रवचनसार / तात्पर्यवृत्ति/115/161/10</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1510,7 +1574,8 @@
                       {
                         "text": "पंचाध्यायी / पूर्वार्ध/74,264",
                         "raw_html": "<span class=\"GRef\">पंचाध्यायी / पूर्वार्ध/74,264</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1564,7 +1629,8 @@
                       {
                         "text": "राजवार्तिक/5/2/12/441/1",
                         "raw_html": "<span class=\"GRef\">राजवार्तिक/5/2/12/441/1</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1575,21 +1641,6 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
-                  },
-                  {
-                    "kind": "see_also",
-                    "text_devanagari": null,
-                    "hindi_translation": null,
-                    "references": [],
-                    "is_orphan_translation": false,
-                    "is_bullet_point": false,
-                    "raw_html": null,
-                    "table_rows": null,
-                    "target_keyword": "द्रव्य",
-                    "target_topic_path": "1.4",
-                    "target_url": "#1.4",
-                    "is_self": true,
                     "target_exists": true
                   }
                 ],
@@ -1608,7 +1659,23 @@
                     "is_synthetic": true,
                     "label_topic_seed": true,
                     "source_subkind": "label_seed",
-                    "blocks": [],
+                    "blocks": [
+                      {
+                        "kind": "see_also",
+                        "text_devanagari": null,
+                        "hindi_translation": null,
+                        "references": [],
+                        "is_orphan_translation": false,
+                        "is_bullet_point": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": "द्रव्य",
+                        "target_topic_path": "1.4",
+                        "target_url": "#1.4",
+                        "is_self": true,
+                        "target_exists": true
+                      }
+                    ],
                     "children": []
                   }
                 ]
@@ -1635,7 +1702,8 @@
                       {
                         "text": "श्लोकवार्तिक 2/1/5/269/1",
                         "raw_html": "<span class=\"GRef\">श्लोकवार्तिक 2/1/5/269/1</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1656,7 +1724,8 @@
                       {
                         "text": "धवला 13/5,5,70/370/11",
                         "raw_html": "<span class=\"GRef\">धवला 13/5,5,70/370/11</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1709,12 +1778,14 @@
                       {
                         "text": "गोम्मटसार जीवकांड/588/1027",
                         "raw_html": "<span class=\"GRef\">गोम्मटसार जीवकांड/588/1027</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( तत्त्वार्थसूत्र/5/6 )",
                         "raw_html": "<span class=\"GRef\">( तत्त्वार्थसूत्र/5/6 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1752,7 +1823,8 @@
                       {
                         "text": "परमात्मप्रकाश/ मूल/2/27",
                         "raw_html": "<span class=\"GRef\">परमात्मप्रकाश/ मूल/2/27</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1773,7 +1845,8 @@
                       {
                         "text": "नयचक्र बृहद्/284 में उद्धृत",
                         "raw_html": "<span class=\"GRef\">नयचक्र बृहद्/284 में उद्धृत</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1794,7 +1867,8 @@
                       {
                         "text": "नयचक्र बृहद्/10",
                         "raw_html": "<span class=\"GRef\">नयचक्र बृहद्/10</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1815,7 +1889,8 @@
                       {
                         "text": "कार्तिकेयानुप्रेक्षा मूल/204",
                         "raw_html": "<span class=\"GRef\">कार्तिकेयानुप्रेक्षा मूल/204</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1836,7 +1911,8 @@
                       {
                         "text": "पंचास्तिकाय / तात्पर्यवृत्ति/15/33/19",
                         "raw_html": "<span class=\"GRef\">पंचास्तिकाय / तात्पर्यवृत्ति/15/33/19</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1857,7 +1933,8 @@
                       {
                         "text": "द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/पृष्ठ 79/8",
                         "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/पृष्ठ 79/8</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1911,32 +1988,38 @@
                       {
                         "text": "प्रवचनसार/127",
                         "raw_html": "<span class=\"GRef\">प्रवचनसार/127</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( धवला 3/1,2,1/2/2 )",
                         "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/2/2 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( वसुनंदी श्रावकाचार/28 )",
                         "raw_html": "<span class=\"GRef\">( वसुनंदी श्रावकाचार/28 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( पंचास्तिकाय / तात्पर्यवृत्ति 56/15 )",
                         "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति 56/15 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/76/8)",
                         "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/76/8)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( न्यायदीपिका/3/79/122 )",
                         "raw_html": "<span class=\"GRef\">( न्यायदीपिका/3/79/122 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1957,17 +2040,20 @@
                       {
                         "text": "पंचास्तिकाय/124",
                         "raw_html": "<span class=\"GRef\">पंचास्तिकाय/124</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( तत्त्वार्थसूत्र/5/1-4 )",
                         "raw_html": "<span class=\"GRef\">( तत्त्वार्थसूत्र/5/1-4 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( पंचास्तिकाय / तत्त्वप्रदीपिका/97 )",
                         "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तत्त्वप्रदीपिका/97 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2005,27 +2091,32 @@
                       {
                         "text": "पंचास्तिकाय/97",
                         "raw_html": "<span class=\"GRef\">पंचास्तिकाय/97</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( तत्त्वार्थसूत्र/5/5 )",
                         "raw_html": "<span class=\"GRef\">( तत्त्वार्थसूत्र/5/5 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( वसुनंदी श्रावकाचार/28 )",
                         "raw_html": "<span class=\"GRef\">( वसुनंदी श्रावकाचार/28 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/2)",
                         "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/2)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/56/18 )",
                         "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/27/56/18 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2046,12 +2137,14 @@
                       {
                         "text": "धवला 3/1,2,1/2/ पंक्ति नं.",
                         "raw_html": "<span class=\"GRef\">धवला 3/1,2,1/2/ पंक्ति नं.</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( गोम्मटसार जीवकांड/563-564/1008 )",
                         "raw_html": "<span class=\"GRef\">( गोम्मटसार जीवकांड/563-564/1008 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2089,7 +2182,8 @@
                       {
                         "text": "( तत्त्वार्थसूत्र/5/7)",
                         "raw_html": "<span class=\"GRef\">( तत्त्वार्थसूत्र/5/7)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2110,22 +2204,26 @@
                       {
                         "text": "( सर्वार्थसिद्धि/5/7/273/12)",
                         "raw_html": "<span class=\"GRef\">( सर्वार्थसिद्धि/5/7/273/12)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( वसुनंदी श्रावकाचार/32 )",
                         "raw_html": "<span class=\"GRef\">( वसुनंदी श्रावकाचार/32 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( द्रव्यसंग्रह टीका/ अधि 2 की चूलिका/77)",
                         "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह टीका/ अधि 2 की चूलिका/77)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/8 )",
                         "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/8 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2146,12 +2244,14 @@
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/129",
                         "raw_html": "<span class=\"GRef\">प्रवचनसार / तत्त्वप्रदीपिका/129</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( पंचाध्यायी / उत्तरार्ध/25 )",
                         "raw_html": "<span class=\"GRef\">( पंचाध्यायी / उत्तरार्ध/25 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2172,7 +2272,8 @@
                       {
                         "text": "गोम्मटसार जीवकांड/566/1012",
                         "raw_html": "<span class=\"GRef\">गोम्मटसार जीवकांड/566/1012</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2208,12 +2309,14 @@
                       {
                         "text": "पंचास्तिकाय / तात्पर्यवृत्ति/27/57/9",
                         "raw_html": "<span class=\"GRef\">पंचास्तिकाय / तात्पर्यवृत्ति/27/57/9</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( पंचाध्यायी / उत्तरार्ध/133 )",
                         "raw_html": "<span class=\"GRef\">( पंचाध्यायी / उत्तरार्ध/133 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2266,17 +2369,20 @@
                       {
                         "text": "राजवार्तिक/5/6/6/445/27",
                         "raw_html": "<span class=\"GRef\">राजवार्तिक/5/6/6/445/27</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/6)",
                         "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/6)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/6 )",
                         "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/6 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2297,7 +2403,8 @@
                       {
                         "text": "वसुनंदी श्रावकाचार/30",
                         "raw_html": "<span class=\"GRef\">वसुनंदी श्रावकाचार/30</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2335,17 +2442,20 @@
                       {
                         "text": "वसुनंदी श्रावकाचार/27,33",
                         "raw_html": "<span class=\"GRef\">वसुनंदी श्रावकाचार/27,33</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/76-7; 77-10)",
                         "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/76-7; 77-10)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/9 )",
                         "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/9 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2383,17 +2493,20 @@
                       {
                         "text": "वसुनंदी श्रावकाचार/29",
                         "raw_html": "<span class=\"GRef\">वसुनंदी श्रावकाचार/29</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/4)",
                         "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/4)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/4 )",
                         "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/4 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2446,17 +2559,20 @@
                       {
                         "text": "वसुनंदी श्रावकाचार/31",
                         "raw_html": "<span class=\"GRef\">वसुनंदी श्रावकाचार/31</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/7 )",
                         "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/7 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/7)",
                         "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/7)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2509,7 +2625,8 @@
                       {
                         "text": "वसुनंदी श्रावकाचार/36",
                         "raw_html": "<span class=\"GRef\">वसुनंदी श्रावकाचार/36</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2530,12 +2647,14 @@
                       {
                         "text": "द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/78/11",
                         "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/78/11</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/21 )",
                         "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/21 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2573,7 +2692,8 @@
                       {
                         "text": "वसुनंदी श्रावकाचार/35",
                         "raw_html": "<span class=\"GRef\">वसुनंदी श्रावकाचार/35</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2594,12 +2714,14 @@
                       {
                         "text": "द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/78/6",
                         "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/78/6</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/15 )",
                         "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/15 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2701,7 +2823,8 @@
                           {
                             "text": "( आप्तमीमांसा/26 )",
                             "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/26 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -2722,7 +2845,8 @@
                           {
                             "text": "( आप्तमीमांसा/27 )",
                             "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/27 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -2761,7 +2885,8 @@
                           {
                             "text": "(आप्त मीमांसा /28)",
                             "raw_html": "<span class=\"GRef\">(आप्त मीमांसा /28)</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -2782,7 +2907,8 @@
                           {
                             "text": "(आप्त मीमांसा /29-3)",
                             "raw_html": "<span class=\"GRef\">(आप्त मीमांसा /29-3)</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -2821,17 +2947,20 @@
                           {
                             "text": "(प्रवचनसार व तत्त्व प्रदीपिका/97-98)",
                             "raw_html": null,
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "(आप्त मीमांसा/34)",
                             "raw_html": null,
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "(कार्तिकेयानुप्रेक्षा/236)",
                             "raw_html": null,
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -2852,7 +2981,8 @@
                           {
                             "text": "( आप्त मीमांसा/36 )",
                             "raw_html": "<span class=\"GRef\">( आप्त मीमांसा/36 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -2923,7 +3053,8 @@
                           {
                             "text": "( प्रवचनसार/144-145 )",
                             "raw_html": "<span class=\"GRef\">( प्रवचनसार/144-145 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -2944,7 +3075,8 @@
                           {
                             "text": "( राजवार्तिक/5/8/15/451/7 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/15/451/7 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -2998,12 +3130,14 @@
                           {
                             "text": "( राजवार्तिक/5/8/5/450/3 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/5/450/3 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( पंचास्तिकाय / तत्त्वप्रदीपिका/5 )",
                             "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तत्त्वप्रदीपिका/5 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3024,7 +3158,8 @@
                           {
                             "text": "( राजवार्तिक/5/8/18/451/21 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/18/451/21 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3045,7 +3180,8 @@
                           {
                             "text": "( राजवार्तिक/5/8/19/451/27 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/19/451/27 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3066,7 +3202,8 @@
                           {
                             "text": "( राजवार्तिक/5/8/19/451/28 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/19/451/28 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3087,7 +3224,8 @@
                           {
                             "text": "( राजवार्तिक/5/8/20/451/31 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/20/451/31 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3108,7 +3246,8 @@
                           {
                             "text": "( प्रवचनसार / तत्त्वप्रदीपिका/140 )",
                             "raw_html": "<span class=\"GRef\">( प्रवचनसार / तत्त्वप्रदीपिका/140 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3162,7 +3301,8 @@
                           {
                             "text": "( राजवार्तिक/5/8/15/451/7 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/15/451/7 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3228,7 +3368,8 @@
                           {
                             "text": "( राजवार्तिक/5/8/17/451/18 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/17/451/18 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3264,7 +3405,8 @@
                           {
                             "text": "( राजवार्तिक/5/8/22/452/8 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/22/452/8 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3285,7 +3427,8 @@
                           {
                             "text": "( पंचाध्यायी x`/564 )",
                             "raw_html": "<span class=\"GRef\">( पंचाध्यायी x`/564 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3324,7 +3467,8 @@
                           {
                             "text": "( राजवार्तिक/5/8/11/450/26 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/11/450/26 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3345,7 +3489,8 @@
                           {
                             "text": "( राजवार्तिक/5/8/11/450/29 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/11/450/29 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3366,7 +3511,8 @@
                           {
                             "text": "( राजवार्तिक/5/8/13/450/32 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/13/450/32 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3420,7 +3566,8 @@
                           {
                             "text": "( राजवार्तिक/5/8/6/450/8 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/6/450/8 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3441,7 +3588,8 @@
                           {
                             "text": "( पंचाध्यायी / पूर्वार्ध/31-35 )",
                             "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/31-35 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3462,7 +3610,8 @@
                           {
                             "text": "( पंचाध्यायी / पूर्वार्ध/36 )",
                             "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/36 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3483,7 +3632,8 @@
                           {
                             "text": "( पंचाध्यायी / पूर्वार्ध/36 )",
                             "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/36 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3522,7 +3672,8 @@
                           {
                             "text": "( राजवार्तिक/5/8/21/452/1 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/21/452/1 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3558,7 +3709,8 @@
                           {
                             "text": "( राजवार्तिक/5/8/21/452/3 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/21/452/3 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3629,7 +3781,8 @@
                           {
                             "text": "( पंचास्तिकाय/12 )",
                             "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/12 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3650,17 +3803,20 @@
                           {
                             "text": "( प्रवचनसार/107 )",
                             "raw_html": "<span class=\"GRef\">( प्रवचनसार/107 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( धवला 8/3,4/6/4 )",
                             "raw_html": "<span class=\"GRef\">( धवला 8/3,4/6/4 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( पंचाध्यायी / पूर्वार्ध/117 )",
                             "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/117 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3699,7 +3855,8 @@
                           {
                             "text": "( प्रवचनसार / तत्त्वप्रदीपिका/130 )",
                             "raw_html": "<span class=\"GRef\">( प्रवचनसार / तत्त्वप्रदीपिका/130 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3738,12 +3895,14 @@
                           {
                             "text": "( कषायपाहुड़ 1/1-14/243-244/288/1 )",
                             "raw_html": "<span class=\"GRef\">( कषायपाहुड़ 1/1-14/243-244/288/1 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( कषायपाहुड़ 1/9-21/364/383/3 )",
                             "raw_html": "<span class=\"GRef\">( कषायपाहुड़ 1/9-21/364/383/3 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3764,12 +3923,14 @@
                           {
                             "text": "( पंचास्तिकाय / तत्त्वप्रदीपिका/12 )",
                             "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तत्त्वप्रदीपिका/12 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( कार्तिकेयानुप्रेक्षा/245 )",
                             "raw_html": "<span class=\"GRef\">( कार्तिकेयानुप्रेक्षा/245 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3790,7 +3951,8 @@
                           {
                             "text": "( धवला 3/1,2,1/ श्लोक 5/6)",
                             "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/ श्लोक 5/6)</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3811,7 +3973,8 @@
                           {
                             "text": "( धवला 3/1,2,1/",
                             "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3832,7 +3995,8 @@
                           {
                             "text": "( धवला 9/4,1,45/ श्लोक 66/183)",
                             "raw_html": "<span class=\"GRef\">( धवला 9/4,1,45/ श्लोक 66/183)</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3853,12 +4017,14 @@
                           {
                             "text": "( राजवार्तिक/1/1/19/7/21 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/1/19/7/21 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "(न्यायदीपिका/3/79/123)",
                             "raw_html": "<span class=\"GRef\">(न्यायदीपिका/3/79/123)</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3914,17 +4080,20 @@
                           {
                             "text": "( पंचास्तिकाय/50 )",
                             "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/50 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( सर्वार्थसिद्धि/5/38/30 पर उद्धृत गाथा)",
                             "raw_html": "<span class=\"GRef\">( सर्वार्थसिद्धि/5/38/30 पर उद्धृत गाथा)</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( प्रवचनसार / तत्त्वप्रदीपिका/98,106 )",
                             "raw_html": "<span class=\"GRef\">( प्रवचनसार / तत्त्वप्रदीपिका/98,106 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3945,12 +4114,14 @@
                           {
                             "text": "( राजवार्तिक/5/2/10/439/25 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/10/439/25 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( कषायपाहुड़/1/1-20/323/354/1 )",
                             "raw_html": "<span class=\"GRef\">( कषायपाहुड़/1/1-20/323/354/1 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -3971,22 +4142,26 @@
                           {
                             "text": "( पंचास्तिकाय/13 )",
                             "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/13 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( आप्तमीमांसा/75 )",
                             "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/75 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( धवला 9/4,1,2/40/6 )",
                             "raw_html": "<span class=\"GRef\">( धवला 9/4,1,2/40/6 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( पंचाध्यायी / पूर्वार्ध/7 )",
                             "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/7 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4007,7 +4182,8 @@
                           {
                             "text": "( प्रवचनसार/105 )",
                             "raw_html": "<span class=\"GRef\">( प्रवचनसार/105 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4028,7 +4204,8 @@
                           {
                             "text": "( पंचाध्यायी / पूर्वार्ध/39,438 )",
                             "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/39,438 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4049,7 +4226,8 @@
                           {
                             "text": "( राजवार्तिक/5/2/11/440/1 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/11/440/1 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4070,7 +4248,8 @@
                           {
                             "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/43/85/8 )",
                             "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/43/85/8 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4109,7 +4288,8 @@
                           {
                             "text": "( प्रवचनसार / तत्त्वप्रदीपिका/130 )",
                             "raw_html": "<span class=\"GRef\">( प्रवचनसार / तत्त्वप्रदीपिका/130 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4130,12 +4310,14 @@
                           {
                             "text": "( धवला 3/1,2,1/6/3 )",
                             "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/6/3 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( कार्तिकेयानुप्रेक्षा/180 )",
                             "raw_html": "<span class=\"GRef\">( कार्तिकेयानुप्रेक्षा/180 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4174,7 +4356,8 @@
                           {
                             "text": "( पंचास्तिकाय / तत्त्वप्रदीपिका/9 )",
                             "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तत्त्वप्रदीपिका/9 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4195,7 +4378,8 @@
                           {
                             "text": "( कषायपाहुड़ 1/1-14/242/286/3 )",
                             "raw_html": "<span class=\"GRef\">( कषायपाहुड़ 1/1-14/242/286/3 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4216,7 +4400,8 @@
                           {
                             "text": "( प्रवचनसार / तत्त्वप्रदीपिका/98 )",
                             "raw_html": "<span class=\"GRef\">( प्रवचनसार / तत्त्वप्रदीपिका/98 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4237,7 +4422,8 @@
                           {
                             "text": "( राजवार्तिक 2/8/6/119/22 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक 2/8/6/119/22 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4258,7 +4444,8 @@
                           {
                             "text": "( पंचास्तिकाय / तत्त्वप्रदीपिका/13 )",
                             "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तत्त्वप्रदीपिका/13 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4279,7 +4466,8 @@
                           {
                             "text": "( पंचास्तिकाय/51-52 )",
                             "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/51-52 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4300,22 +4488,26 @@
                           {
                             "text": "( पंचास्तिकाय/45-46 )",
                             "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/45-46 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( आप्तमीमांसा/71-72 )",
                             "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/71-72 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( सर्वार्थसिद्धि/5/2/267/7 )",
                             "raw_html": "<span class=\"GRef\">( सर्वार्थसिद्धि/5/2/267/7 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( पंचास्तिकाय / तत्त्वप्रदीपिका/50-52 )",
                             "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तत्त्वप्रदीपिका/50-52 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4336,12 +4528,14 @@
                           {
                             "text": "( आप्तमीमांसा/22 )",
                             "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/22 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( धवला 9/4,1,45/ श्लोक 68/183)",
                             "raw_html": "<span class=\"GRef\">( धवला 9/4,1,45/ श्लोक 68/183)</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4362,7 +4556,8 @@
                           {
                             "text": "( पंचाध्यायी / पूर्वार्ध/84 )",
                             "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/84 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4418,7 +4613,8 @@
                           {
                             "text": "( राजवार्तिक/5/2/9/439/12 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/9/439/12 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4439,12 +4635,14 @@
                           {
                             "text": "( राजवार्तिक/5/2/9/439/13 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/9/439/13 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( राजवार्तिक/5/2/12/440/10 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/12/440/10 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4465,7 +4663,8 @@
                           {
                             "text": "( राजवार्तिक/5/2/1/440/14 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/1/440/14 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4504,7 +4703,8 @@
                           {
                             "text": "( पंचास्तिकाय/45 )",
                             "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/45 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4525,7 +4725,8 @@
                           {
                             "text": "( राजवार्तिक/5/38/4/501/20 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/38/4/501/20 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4546,7 +4747,8 @@
                           {
                             "text": "( आप्तमीमांसा/62-63 )",
                             "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/62-63 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4567,7 +4769,8 @@
                           {
                             "text": "(स्याद्वादमंजरी/4/17/18)",
                             "raw_html": "<span class=\"GRef\">(स्याद्वादमंजरी/4/17/18)</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4588,12 +4791,14 @@
                           {
                             "text": "( पंचास्तिकाय/44-45 )",
                             "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/44-45 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( राजवार्तिक/5/2/9/439/15 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/9/439/15 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4614,7 +4819,8 @@
                           {
                             "text": "( पंचास्तिकाय/44 )",
                             "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/44 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4635,7 +4841,8 @@
                           {
                             "text": "( राजवार्तिक/1/9/11/46/15 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/9/11/46/15 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4689,12 +4896,14 @@
                           {
                             "text": "( राजवार्तिक/5/2/4/43/32 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/4/43/32 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( राजवार्तिक/1/1/12/6/4 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/1/12/6/4 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4715,7 +4924,8 @@
                           {
                             "text": "( राजवार्तिक/5/2/11/439/31 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/11/439/31 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4736,7 +4946,8 @@
                           {
                             "text": "( राजवार्तिक/5/2/10/439/22 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/10/439/22 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4757,7 +4968,8 @@
                           {
                             "text": "( प्रवचनसार / तात्पर्यवृत्ति/98 )",
                             "raw_html": "<span class=\"GRef\">( प्रवचनसार / तात्पर्यवृत्ति/98 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4778,7 +4990,8 @@
                           {
                             "text": "( राजवार्तिक/5/2/9/439/16 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/9/439/16 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4799,32 +5012,38 @@
                           {
                             "text": "( सर्वार्थसिद्धि/5/2/266/10 )",
                             "raw_html": "<span class=\"GRef\">( सर्वार्थसिद्धि/5/2/266/10 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( राजवार्तिक/1/1/5/7/5/8 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/1/5/7/5/8 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( राजवार्तिक/1/9/11/46/19 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/9/11/46/19 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( राजवार्तिक/5/2/10/439/20 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/10/439/20 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( राजवार्तिक/5/2/3/436/31 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/3/436/31 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( कषायपाहुड़ 1/1-20/322/353/6 )",
                             "raw_html": "<span class=\"GRef\">( कषायपाहुड़ 1/1-20/322/353/6 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4845,7 +5064,8 @@
                           {
                             "text": "( पंचाध्यायी / पूर्वार्ध/41-44 )",
                             "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/41-44 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4866,12 +5086,14 @@
                           {
                             "text": "( राजवार्तिक/1/1/10/5/25 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/1/10/5/25 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( राजवार्तिक/2/8/5/119/17 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/2/8/5/119/17 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4892,12 +5114,14 @@
                           {
                             "text": "( राजवार्तिक/1/9/11/46/20 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/9/11/46/20 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( राजवार्तिक/5/2/3/437/5 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/3/437/5 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4918,7 +5142,8 @@
                           {
                             "text": "( राजवार्तिक/1/10/9/50/15 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/10/9/50/15 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -5002,12 +5227,14 @@
                           {
                             "text": "( आप्तमीमांसा/64,66 )",
                             "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/64,66 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( राजवार्तिक/1/1/14/6/16 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/1/14/6/16 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -5028,12 +5255,14 @@
                           {
                             "text": "( आप्तमीमांसा/65 )",
                             "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/65 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( राजवार्तिक/1/33/5/96/17 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/33/5/96/17 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -5054,22 +5283,26 @@
                           {
                             "text": "( पंचास्तिकाय/48-49 )",
                             "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/48-49 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( राजवार्तिक/1/1/9/5/21 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/1/9/5/21 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( राजवार्तिक/1/33/5/96/3 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/33/5/96/3 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( राजवार्तिक/5/2/3/437/7 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/3/437/7 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -5090,12 +5323,14 @@
                           {
                             "text": "( राजवार्तिक/1/1/13/6/8 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/1/13/6/8 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           },
                           {
                             "text": "( राजवार्तिक/1/9/11/46/16 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/9/11/46/16 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -5116,7 +5351,8 @@
                           {
                             "text": "( राजवार्तिक/5/2/3/437/17 )",
                             "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/3/437/17 )</span>",
-                            "parsed": null
+                            "parsed": null,
+                            "inline_reference": true
                           }
                         ],
                         "is_orphan_translation": false,
@@ -5172,17 +5408,20 @@
                       {
                         "text": "पंचास्तिकाय/7",
                         "raw_html": "<span class=\"GRef\">पंचास्तिकाय/7</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( परमात्मप्रकाश/ मूल /2/25)",
                         "raw_html": "<span class=\"GRef\">( परमात्मप्रकाश/ मूल /2/25)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       },
                       {
                         "text": "(समयसार/आत्मख्याति/3)",
                         "raw_html": "<span class=\"GRef\">(समयसार/आत्मख्याति/3)</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -5203,7 +5442,8 @@
                       {
                         "text": "पंचास्तिकाय / तत्त्वप्रदीपिका/37",
                         "raw_html": "<span class=\"GRef\">पंचास्तिकाय / तत्त्वप्रदीपिका/37</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -5241,7 +5481,8 @@
                       {
                         "text": "परमात्मप्रकाश/ मूल/1/67",
                         "raw_html": "<span class=\"GRef\">परमात्मप्रकाश/ मूल/1/67</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -5262,12 +5503,14 @@
                       {
                         "text": "नयचक्र बृहद्/7",
                         "raw_html": "<span class=\"GRef\">नयचक्र बृहद्/7</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( समयसार / आत्मख्याति/3 )",
                         "raw_html": "<span class=\"GRef\">( समयसार / आत्मख्याति/3 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -5288,7 +5531,8 @@
                       {
                         "text": "योगसार/अमितगति/9/46",
                         "raw_html": "<span class=\"GRef\">योगसार/अमितगति/9/46</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -5309,12 +5553,14 @@
                       {
                         "text": "पंचाध्यायी / पूर्वार्ध/461",
                         "raw_html": "<span class=\"GRef\">पंचाध्यायी / पूर्वार्ध/461</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       },
                       {
                         "text": "( पंचाध्यायी / पूर्वार्ध/569 )",
                         "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/569 )</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": true
                       }
                     ],
                     "is_orphan_translation": false,
@@ -5335,7 +5581,8 @@
                       {
                         "text": "पंचास्तिकाय / तत्त्वप्रदीपिका/37",
                         "raw_html": "<span class=\"GRef\">पंचास्तिकाय / तत्त्वप्रदीपिका/37</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -5373,7 +5620,8 @@
                       {
                         "text": "बारस अणुवेक्खा/11",
                         "raw_html": "<span class=\"GRef\">बारस अणुवेक्खा/11</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -5409,7 +5657,8 @@
                       {
                         "text": "पंचाध्यायी / पूर्वार्ध/8,528",
                         "raw_html": "<span class=\"GRef\">पंचाध्यायी / पूर्वार्ध/8,528</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -5447,7 +5696,8 @@
                       {
                         "text": "राजवार्तिक/5/12/5-6/454/28",
                         "raw_html": "<span class=\"GRef\">राजवार्तिक/5/12/5-6/454/28</span>",
-                        "parsed": null
+                        "parsed": null,
+                        "inline_reference": false
                       }
                     ],
                     "is_orphan_translation": false,
@@ -5485,7 +5735,8 @@
                   {
                     "text": "हरिवंशपुराण - 1.1\n , 2.108, 17.135",
                     "raw_html": "<span class=\"GRef\"><a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_1#1\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 1\">हरिवंशपुराण - 1.1</a>, 2.108, 17.135</span>",
-                    "parsed": null
+                    "parsed": null,
+                    "inline_reference": true
                   }
                 ],
                 "is_orphan_translation": false,
@@ -5506,12 +5757,14 @@
                   {
                     "text": "महापुराण 3.5-9",
                     "raw_html": "<span class=\"GRef\">महापुराण 3.5-9</span>",
-                    "parsed": null
+                    "parsed": null,
+                    "inline_reference": true
                   },
                   {
                     "text": "वीरवर्द्धमान चरित्र 16.137-138",
                     "raw_html": "<span class=\"GRef\">वीरवर्द्धमान चरित्र 16.137-138</span>",
-                    "parsed": null
+                    "parsed": null,
+                    "inline_reference": true
                   }
                 ],
                 "is_orphan_translation": false,
@@ -5538,8 +5791,8 @@
       "prev": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A4%BF%E0%A4%A1%E0%A4%BC_%E0%A4%B8%E0%A4%82%E0%A4%98",
       "next": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF_%E0%A4%86%E0%A4%B8%E0%A5%8D%E0%A4%B0%E0%A4%B5"
     },
-    "parser_version": "jainkosh.rules/1.5.0",
-    "parsed_at": "2026-05-02T00:00:00",
+    "parser_version": "jainkosh.rules/1.6.0",
+    "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
   "would_write": {
@@ -7166,7 +7419,8 @@
                         {
                           "text": "हरिवंशपुराण - 1.1\n , 2.108, 17.135",
                           "raw_html": "<span class=\"GRef\"><a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_1#1\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 1\">हरिवंशपुराण - 1.1</a>, 2.108, 17.135</span>",
-                          "parsed": null
+                          "parsed": null,
+                          "inline_reference": true
                         }
                       ],
                       "is_orphan_translation": false,
@@ -7187,12 +7441,14 @@
                         {
                           "text": "महापुराण 3.5-9",
                           "raw_html": "<span class=\"GRef\">महापुराण 3.5-9</span>",
-                          "parsed": null
+                          "parsed": null,
+                          "inline_reference": true
                         },
                         {
                           "text": "वीरवर्द्धमान चरित्र 16.137-138",
                           "raw_html": "<span class=\"GRef\">वीरवर्द्धमान चरित्र 16.137-138</span>",
-                          "parsed": null
+                          "parsed": null,
+                          "inline_reference": true
                         }
                       ],
                       "is_orphan_translation": false,
@@ -7256,12 +7512,14 @@
                 {
                   "text": "पंचास्तिकाय/9",
                   "raw_html": "<span class=\"GRef\">पंचास्तिकाय/9</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( राजवार्तिक/1/33/1/95/4 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/33/1/95/4 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -7282,7 +7540,8 @@
                 {
                   "text": "सर्वार्थसिद्धि/1/5/17/5",
                   "raw_html": "<span class=\"GRef\">सर्वार्थसिद्धि/1/5/17/5</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -7303,52 +7562,62 @@
                 {
                   "text": "सर्वार्थसिद्धि/5/2/266/10",
                   "raw_html": "<span class=\"GRef\">सर्वार्थसिद्धि/5/2/266/10</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( राजवार्तिक/5/2/1/436/14 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/1/436/14 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( धवला 1/1,1,1/183/11 )",
                   "raw_html": "<span class=\"GRef\">( धवला 1/1,1,1/183/11 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( धवला 3/1,2,1/2/1 )",
                   "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/2/1 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( धवला 9/4,1,45/167/10 )",
                   "raw_html": "<span class=\"GRef\">( धवला 9/4,1,45/167/10 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( धवला 15/33/9 )",
                   "raw_html": "<span class=\"GRef\">( धवला 15/33/9 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( कषायपाहुड़ 1/1,14/177/211/4 )",
                   "raw_html": "<span class=\"GRef\">( कषायपाहुड़ 1/1,14/177/211/4 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( नयचक्र बृहद्/36 )",
                   "raw_html": "<span class=\"GRef\">( नयचक्र बृहद्/36 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( आलापपद्धति/6 )",
                   "raw_html": "<span class=\"GRef\">( आलापपद्धति/6 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "(योगसार/अमितगति /2/5)",
                   "raw_html": "<span class=\"GRef\">(योगसार/अमितगति /2/5)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -7369,7 +7638,8 @@
                 {
                   "text": "राजवार्तिक/5/2/2/436/26",
                   "raw_html": "<span class=\"GRef\">राजवार्तिक/5/2/2/436/26</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -7390,7 +7660,8 @@
                 {
                   "text": "जैनेंद्र व्याकरण/4/1/158",
                   "raw_html": "<span class=\"GRef\">जैनेंद्र व्याकरण/4/1/158</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -7429,7 +7700,8 @@
                 {
                   "text": "तत्त्वार्थसूत्र/5/29",
                   "raw_html": "<span class=\"GRef\">तत्त्वार्थसूत्र/5/29</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -7450,32 +7722,38 @@
                 {
                   "text": "पंचास्तिकाय/10",
                   "raw_html": "<span class=\"GRef\">पंचास्तिकाय/10</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( प्रवचनसार/95-96 )",
                   "raw_html": "<span class=\"GRef\">( प्रवचनसार/95-96 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( नयचक्र बृहद्/37 )",
                   "raw_html": "<span class=\"GRef\">( नयचक्र बृहद्/37 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( आलापपद्धति/6 )",
                   "raw_html": "<span class=\"GRef\">( आलापपद्धति/6 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( योगसार (अमितगति)/2/6 )",
                   "raw_html": "<span class=\"GRef\">( योगसार (अमितगति)/2/6 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( पंचाध्यायी / पूर्वार्ध/8,86 )",
                   "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/8,86 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -7511,7 +7789,8 @@
                 {
                   "text": "प्रवचनसार/ ‘तत्त्व प्रदीपिका’ 96",
                   "raw_html": "<span class=\"GRef\">प्रवचनसार/ ‘तत्त्व प्रदीपिका’ 96</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -7550,7 +7829,8 @@
                 {
                   "text": "सर्वार्थसिद्धि/5/2/267/4",
                   "raw_html": "<span class=\"GRef\">सर्वार्थसिद्धि/5/2/267/4</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -7571,12 +7851,14 @@
                 {
                   "text": "पंचास्तिकाय/ प्र./44",
                   "raw_html": "<span class=\"GRef\">पंचास्तिकाय/ प्र./44</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( पंचाध्यायी / पूर्वार्ध/73 )",
                   "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/73 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -7615,7 +7897,8 @@
                 {
                   "text": "तत्त्वार्थसूत्र/5/38",
                   "raw_html": "<span class=\"GRef\">तत्त्वार्थसूत्र/5/38</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -7636,47 +7919,56 @@
                 {
                   "text": "( नियमसार मूल/9)",
                   "raw_html": "<span class=\"GRef\">( नियमसार मूल/9)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( प्रवचनसार/95 )",
                   "raw_html": "<span class=\"GRef\">( प्रवचनसार/95 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( पंचास्तिकाय/10 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/10 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( न्यायविनिश्चय/ मूल/1/115/428)",
                   "raw_html": "<span class=\"GRef\">( न्यायविनिश्चय/ मूल/1/115/428)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( नयचक्र बृहद्/37 )",
                   "raw_html": "<span class=\"GRef\">( नयचक्र बृहद्/37 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( आलापपद्धति/6 )",
                   "raw_html": "<span class=\"GRef\">( आलापपद्धति/6 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( कार्तिकेयानुप्रेक्षा/242 )",
                   "raw_html": "<span class=\"GRef\">( कार्तिकेयानुप्रेक्षा/242 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( तत्त्वानुशासन/100 )",
                   "raw_html": "<span class=\"GRef\">( तत्त्वानुशासन/100 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( पंचाध्यायी / पूर्वार्ध/438 )",
                   "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/438 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -7697,7 +7989,8 @@
                 {
                   "text": "सर्वार्थसिद्धि/5/38/309 पर उद्धृत",
                   "raw_html": "<span class=\"GRef\">सर्वार्थसिद्धि/5/38/309 पर उद्धृत</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -7718,12 +8011,14 @@
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/23",
                   "raw_html": "<span class=\"GRef\">प्रवचनसार / तत्त्वप्रदीपिका/23</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( पंचाध्यायी / पूर्वार्ध 73 )",
                   "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध 73 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -7744,7 +8039,8 @@
                 {
                   "text": "पंचाध्यायी / पूर्वार्ध 72",
                   "raw_html": "<span class=\"GRef\">पंचाध्यायी / पूर्वार्ध 72</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -7765,7 +8061,8 @@
                 {
                   "text": "पंचाध्यायी / पूर्वार्ध 73",
                   "raw_html": "<span class=\"GRef\">पंचाध्यायी / पूर्वार्ध 73</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -7804,7 +8101,8 @@
                 {
                   "text": "न्यायविनिश्चय/ मूल/1/115/428",
                   "raw_html": "<span class=\"GRef\">न्यायविनिश्चय/ मूल/1/115/428</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -7825,7 +8123,8 @@
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/10",
                   "raw_html": "<span class=\"GRef\">प्रवचनसार / तत्त्वप्रदीपिका/10</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -7846,7 +8145,8 @@
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/93",
                   "raw_html": "<span class=\"GRef\">प्रवचनसार / तत्त्वप्रदीपिका/93</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -7885,27 +8185,32 @@
                 {
                   "text": "धवला 1/1,1,136/ गाथा 199/386",
                   "raw_html": "<span class=\"GRef\">धवला 1/1,1,136/ गाथा 199/386</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( धवला 3/1,2,1/ गाथा 4/6)",
                   "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/ गाथा 4/6)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( धवला 9/4,1,45/ गाथा 67/183)",
                   "raw_html": "<span class=\"GRef\">( धवला 9/4,1,45/ गाथा 67/183)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( कषायपाहुड़ 1/1,14/ गाथा 108/253)",
                   "raw_html": "<span class=\"GRef\">( कषायपाहुड़ 1/1,14/ गाथा 108/253)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( गोम्मटसार जीवकांड/582/1023 )",
                   "raw_html": "<span class=\"GRef\">( गोम्मटसार जीवकांड/582/1023 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -7926,22 +8231,26 @@
                 {
                   "text": "आप्तमीमांसा/107",
                   "raw_html": "<span class=\"GRef\">आप्तमीमांसा/107</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( धवला 3/1,2,1/ गाथा 3/5)",
                   "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/ गाथा 3/5)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( धवला 9/4,1,45/ गाथा 66/183)",
                   "raw_html": "<span class=\"GRef\">( धवला 9/4,1,45/ गाथा 66/183)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( धवला 13/5,5,59/ गाथा 32/310)",
                   "raw_html": "<span class=\"GRef\">( धवला 13/5,5,59/ गाथा 32/310)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -7962,7 +8271,8 @@
                 {
                   "text": "श्लोकवार्तिक 2/1/5/63/269/3",
                   "raw_html": "<span class=\"GRef\">श्लोकवार्तिक 2/1/5/63/269/3</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -7983,7 +8293,8 @@
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/36",
                   "raw_html": "<span class=\"GRef\">प्रवचनसार / तत्त्वप्रदीपिका/36</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -8022,7 +8333,8 @@
                 {
                   "text": "सर्वार्थसिद्धि/1/33/140/9",
                   "raw_html": "<span class=\"GRef\">सर्वार्थसिद्धि/1/33/140/9</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -8058,7 +8370,8 @@
                 {
                   "text": "पंचाध्यायी x`/ पूर्वार्ध/143",
                   "raw_html": "<span class=\"GRef\">पंचाध्यायी x`/ पूर्वार्ध/143</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -8097,7 +8410,8 @@
                 {
                   "text": "नियमसार/9",
                   "raw_html": "<span class=\"GRef\">नियमसार/9</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -8118,17 +8432,20 @@
                 {
                   "text": "तत्त्वार्थसूत्र/5/1-3,39",
                   "raw_html": "<span class=\"GRef\">तत्त्वार्थसूत्र/5/1-3,39</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "(योगसार/अमितगति/2/1)",
                   "raw_html": "<span class=\"GRef\">(योगसार/अमितगति/2/1)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( द्रव्यसंग्रह/15/50 )",
                   "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह/15/50 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -8167,7 +8484,8 @@
                 {
                   "text": "धवला 1/1,1,1/17/6",
                   "raw_html": "<span class=\"GRef\">धवला 1/1,1,1/17/6</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -8221,7 +8539,8 @@
                 {
                   "text": "धवला 1/1,1,1/17/6",
                   "raw_html": "<span class=\"GRef\">धवला 1/1,1,1/17/6</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -8260,7 +8579,8 @@
                 {
                   "text": "प्रवचनसार / तात्पर्यवृत्ति/115/161/10",
                   "raw_html": "<span class=\"GRef\">प्रवचनसार / तात्पर्यवृत्ति/115/161/10</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -8281,7 +8601,8 @@
                 {
                   "text": "पंचाध्यायी / पूर्वार्ध/74,264",
                   "raw_html": "<span class=\"GRef\">पंचाध्यायी / पूर्वार्ध/74,264</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -8337,7 +8658,8 @@
                 {
                   "text": "राजवार्तिक/5/2/12/441/1",
                   "raw_html": "<span class=\"GRef\">राजवार्तिक/5/2/12/441/1</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -8348,21 +8670,6 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "see_also",
-              "text_devanagari": null,
-              "hindi_translation": null,
-              "references": [],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": "द्रव्य",
-              "target_topic_path": "1.4",
-              "target_url": "#1.4",
-              "is_self": true,
               "target_exists": true
             }
           ],
@@ -8382,7 +8689,23 @@
               "text": "इसी प्रकार ‘गुणपर्ययवद् द्रव्यं’ या ‘गुणसमुदायो द्रव्यं’ भी वे नहीं कह सकते"
             }
           ],
-          "blocks": [],
+          "blocks": [
+            {
+              "kind": "see_also",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": "द्रव्य",
+              "target_topic_path": "1.4",
+              "target_url": "#1.4",
+              "is_self": true,
+              "target_exists": true
+            }
+          ],
           "source": "jainkosh",
           "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF"
         },
@@ -8408,7 +8731,8 @@
                 {
                   "text": "श्लोकवार्तिक 2/1/5/269/1",
                   "raw_html": "<span class=\"GRef\">श्लोकवार्तिक 2/1/5/269/1</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -8429,7 +8753,8 @@
                 {
                   "text": "धवला 13/5,5,70/370/11",
                   "raw_html": "<span class=\"GRef\">धवला 13/5,5,70/370/11</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -8483,12 +8808,14 @@
                 {
                   "text": "गोम्मटसार जीवकांड/588/1027",
                   "raw_html": "<span class=\"GRef\">गोम्मटसार जीवकांड/588/1027</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( तत्त्वार्थसूत्र/5/6 )",
                   "raw_html": "<span class=\"GRef\">( तत्त्वार्थसूत्र/5/6 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -8527,7 +8854,8 @@
                 {
                   "text": "परमात्मप्रकाश/ मूल/2/27",
                   "raw_html": "<span class=\"GRef\">परमात्मप्रकाश/ मूल/2/27</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -8548,7 +8876,8 @@
                 {
                   "text": "नयचक्र बृहद्/284 में उद्धृत",
                   "raw_html": "<span class=\"GRef\">नयचक्र बृहद्/284 में उद्धृत</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -8569,7 +8898,8 @@
                 {
                   "text": "नयचक्र बृहद्/10",
                   "raw_html": "<span class=\"GRef\">नयचक्र बृहद्/10</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -8590,7 +8920,8 @@
                 {
                   "text": "कार्तिकेयानुप्रेक्षा मूल/204",
                   "raw_html": "<span class=\"GRef\">कार्तिकेयानुप्रेक्षा मूल/204</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -8611,7 +8942,8 @@
                 {
                   "text": "पंचास्तिकाय / तात्पर्यवृत्ति/15/33/19",
                   "raw_html": "<span class=\"GRef\">पंचास्तिकाय / तात्पर्यवृत्ति/15/33/19</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -8632,7 +8964,8 @@
                 {
                   "text": "द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/पृष्ठ 79/8",
                   "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/पृष्ठ 79/8</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -8688,32 +9021,38 @@
                 {
                   "text": "प्रवचनसार/127",
                   "raw_html": "<span class=\"GRef\">प्रवचनसार/127</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( धवला 3/1,2,1/2/2 )",
                   "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/2/2 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( वसुनंदी श्रावकाचार/28 )",
                   "raw_html": "<span class=\"GRef\">( वसुनंदी श्रावकाचार/28 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति 56/15 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति 56/15 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/76/8)",
                   "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/76/8)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( न्यायदीपिका/3/79/122 )",
                   "raw_html": "<span class=\"GRef\">( न्यायदीपिका/3/79/122 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -8734,17 +9073,20 @@
                 {
                   "text": "पंचास्तिकाय/124",
                   "raw_html": "<span class=\"GRef\">पंचास्तिकाय/124</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( तत्त्वार्थसूत्र/5/1-4 )",
                   "raw_html": "<span class=\"GRef\">( तत्त्वार्थसूत्र/5/1-4 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( पंचास्तिकाय / तत्त्वप्रदीपिका/97 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तत्त्वप्रदीपिका/97 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -8783,27 +9125,32 @@
                 {
                   "text": "पंचास्तिकाय/97",
                   "raw_html": "<span class=\"GRef\">पंचास्तिकाय/97</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( तत्त्वार्थसूत्र/5/5 )",
                   "raw_html": "<span class=\"GRef\">( तत्त्वार्थसूत्र/5/5 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( वसुनंदी श्रावकाचार/28 )",
                   "raw_html": "<span class=\"GRef\">( वसुनंदी श्रावकाचार/28 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/2)",
                   "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/2)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/56/18 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/27/56/18 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -8824,12 +9171,14 @@
                 {
                   "text": "धवला 3/1,2,1/2/ पंक्ति नं.",
                   "raw_html": "<span class=\"GRef\">धवला 3/1,2,1/2/ पंक्ति नं.</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( गोम्मटसार जीवकांड/563-564/1008 )",
                   "raw_html": "<span class=\"GRef\">( गोम्मटसार जीवकांड/563-564/1008 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -8868,7 +9217,8 @@
                 {
                   "text": "( तत्त्वार्थसूत्र/5/7)",
                   "raw_html": "<span class=\"GRef\">( तत्त्वार्थसूत्र/5/7)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -8889,22 +9239,26 @@
                 {
                   "text": "( सर्वार्थसिद्धि/5/7/273/12)",
                   "raw_html": "<span class=\"GRef\">( सर्वार्थसिद्धि/5/7/273/12)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( वसुनंदी श्रावकाचार/32 )",
                   "raw_html": "<span class=\"GRef\">( वसुनंदी श्रावकाचार/32 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( द्रव्यसंग्रह टीका/ अधि 2 की चूलिका/77)",
                   "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह टीका/ अधि 2 की चूलिका/77)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/8 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/8 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -8925,12 +9279,14 @@
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/129",
                   "raw_html": "<span class=\"GRef\">प्रवचनसार / तत्त्वप्रदीपिका/129</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( पंचाध्यायी / उत्तरार्ध/25 )",
                   "raw_html": "<span class=\"GRef\">( पंचाध्यायी / उत्तरार्ध/25 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -8951,7 +9307,8 @@
                 {
                   "text": "गोम्मटसार जीवकांड/566/1012",
                   "raw_html": "<span class=\"GRef\">गोम्मटसार जीवकांड/566/1012</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -8987,12 +9344,14 @@
                 {
                   "text": "पंचास्तिकाय / तात्पर्यवृत्ति/27/57/9",
                   "raw_html": "<span class=\"GRef\">पंचास्तिकाय / तात्पर्यवृत्ति/27/57/9</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( पंचाध्यायी / उत्तरार्ध/133 )",
                   "raw_html": "<span class=\"GRef\">( पंचाध्यायी / उत्तरार्ध/133 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9046,17 +9405,20 @@
                 {
                   "text": "राजवार्तिक/5/6/6/445/27",
                   "raw_html": "<span class=\"GRef\">राजवार्तिक/5/6/6/445/27</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/6)",
                   "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/6)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/6 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/6 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9077,7 +9439,8 @@
                 {
                   "text": "वसुनंदी श्रावकाचार/30",
                   "raw_html": "<span class=\"GRef\">वसुनंदी श्रावकाचार/30</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -9116,17 +9479,20 @@
                 {
                   "text": "वसुनंदी श्रावकाचार/27,33",
                   "raw_html": "<span class=\"GRef\">वसुनंदी श्रावकाचार/27,33</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/76-7; 77-10)",
                   "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/76-7; 77-10)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/9 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/9 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9165,17 +9531,20 @@
                 {
                   "text": "वसुनंदी श्रावकाचार/29",
                   "raw_html": "<span class=\"GRef\">वसुनंदी श्रावकाचार/29</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/4)",
                   "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/4)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/4 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/4 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9229,17 +9598,20 @@
                 {
                   "text": "वसुनंदी श्रावकाचार/31",
                   "raw_html": "<span class=\"GRef\">वसुनंदी श्रावकाचार/31</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/7 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/7 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/7)",
                   "raw_html": "<span class=\"GRef\">( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/7)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9293,7 +9665,8 @@
                 {
                   "text": "वसुनंदी श्रावकाचार/36",
                   "raw_html": "<span class=\"GRef\">वसुनंदी श्रावकाचार/36</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -9314,12 +9687,14 @@
                 {
                   "text": "द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/78/11",
                   "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/78/11</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/21 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/21 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9358,7 +9733,8 @@
                 {
                   "text": "वसुनंदी श्रावकाचार/35",
                   "raw_html": "<span class=\"GRef\">वसुनंदी श्रावकाचार/35</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -9379,12 +9755,14 @@
                 {
                   "text": "द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/78/6",
                   "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/78/6</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/15 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/15 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9490,7 +9868,8 @@
                 {
                   "text": "( आप्तमीमांसा/26 )",
                   "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/26 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9511,7 +9890,8 @@
                 {
                   "text": "( आप्तमीमांसा/27 )",
                   "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/27 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9550,7 +9930,8 @@
                 {
                   "text": "(आप्त मीमांसा /28)",
                   "raw_html": "<span class=\"GRef\">(आप्त मीमांसा /28)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9571,7 +9952,8 @@
                 {
                   "text": "(आप्त मीमांसा /29-3)",
                   "raw_html": "<span class=\"GRef\">(आप्त मीमांसा /29-3)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9610,17 +9992,20 @@
                 {
                   "text": "(प्रवचनसार व तत्त्व प्रदीपिका/97-98)",
                   "raw_html": null,
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "(आप्त मीमांसा/34)",
                   "raw_html": null,
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "(कार्तिकेयानुप्रेक्षा/236)",
                   "raw_html": null,
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9641,7 +10026,8 @@
                 {
                   "text": "( आप्त मीमांसा/36 )",
                   "raw_html": "<span class=\"GRef\">( आप्त मीमांसा/36 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9712,7 +10098,8 @@
                 {
                   "text": "( प्रवचनसार/144-145 )",
                   "raw_html": "<span class=\"GRef\">( प्रवचनसार/144-145 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9733,7 +10120,8 @@
                 {
                   "text": "( राजवार्तिक/5/8/15/451/7 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/15/451/7 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9787,12 +10175,14 @@
                 {
                   "text": "( राजवार्तिक/5/8/5/450/3 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/5/450/3 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( पंचास्तिकाय / तत्त्वप्रदीपिका/5 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तत्त्वप्रदीपिका/5 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9813,7 +10203,8 @@
                 {
                   "text": "( राजवार्तिक/5/8/18/451/21 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/18/451/21 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9834,7 +10225,8 @@
                 {
                   "text": "( राजवार्तिक/5/8/19/451/27 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/19/451/27 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9855,7 +10247,8 @@
                 {
                   "text": "( राजवार्तिक/5/8/19/451/28 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/19/451/28 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9876,7 +10269,8 @@
                 {
                   "text": "( राजवार्तिक/5/8/20/451/31 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/20/451/31 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9897,7 +10291,8 @@
                 {
                   "text": "( प्रवचनसार / तत्त्वप्रदीपिका/140 )",
                   "raw_html": "<span class=\"GRef\">( प्रवचनसार / तत्त्वप्रदीपिका/140 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -9951,7 +10346,8 @@
                 {
                   "text": "( राजवार्तिक/5/8/15/451/7 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/15/451/7 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10017,7 +10413,8 @@
                 {
                   "text": "( राजवार्तिक/5/8/17/451/18 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/17/451/18 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10053,7 +10450,8 @@
                 {
                   "text": "( राजवार्तिक/5/8/22/452/8 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/22/452/8 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10074,7 +10472,8 @@
                 {
                   "text": "( पंचाध्यायी x`/564 )",
                   "raw_html": "<span class=\"GRef\">( पंचाध्यायी x`/564 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10113,7 +10512,8 @@
                 {
                   "text": "( राजवार्तिक/5/8/11/450/26 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/11/450/26 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10134,7 +10534,8 @@
                 {
                   "text": "( राजवार्तिक/5/8/11/450/29 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/11/450/29 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10155,7 +10556,8 @@
                 {
                   "text": "( राजवार्तिक/5/8/13/450/32 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/13/450/32 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10209,7 +10611,8 @@
                 {
                   "text": "( राजवार्तिक/5/8/6/450/8 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/6/450/8 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10230,7 +10633,8 @@
                 {
                   "text": "( पंचाध्यायी / पूर्वार्ध/31-35 )",
                   "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/31-35 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10251,7 +10655,8 @@
                 {
                   "text": "( पंचाध्यायी / पूर्वार्ध/36 )",
                   "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/36 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10272,7 +10677,8 @@
                 {
                   "text": "( पंचाध्यायी / पूर्वार्ध/36 )",
                   "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/36 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10311,7 +10717,8 @@
                 {
                   "text": "( राजवार्तिक/5/8/21/452/1 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/21/452/1 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10347,7 +10754,8 @@
                 {
                   "text": "( राजवार्तिक/5/8/21/452/3 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/8/21/452/3 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10418,7 +10826,8 @@
                 {
                   "text": "( पंचास्तिकाय/12 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/12 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10439,17 +10848,20 @@
                 {
                   "text": "( प्रवचनसार/107 )",
                   "raw_html": "<span class=\"GRef\">( प्रवचनसार/107 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( धवला 8/3,4/6/4 )",
                   "raw_html": "<span class=\"GRef\">( धवला 8/3,4/6/4 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( पंचाध्यायी / पूर्वार्ध/117 )",
                   "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/117 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10488,7 +10900,8 @@
                 {
                   "text": "( प्रवचनसार / तत्त्वप्रदीपिका/130 )",
                   "raw_html": "<span class=\"GRef\">( प्रवचनसार / तत्त्वप्रदीपिका/130 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10527,12 +10940,14 @@
                 {
                   "text": "( कषायपाहुड़ 1/1-14/243-244/288/1 )",
                   "raw_html": "<span class=\"GRef\">( कषायपाहुड़ 1/1-14/243-244/288/1 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( कषायपाहुड़ 1/9-21/364/383/3 )",
                   "raw_html": "<span class=\"GRef\">( कषायपाहुड़ 1/9-21/364/383/3 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10553,12 +10968,14 @@
                 {
                   "text": "( पंचास्तिकाय / तत्त्वप्रदीपिका/12 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तत्त्वप्रदीपिका/12 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( कार्तिकेयानुप्रेक्षा/245 )",
                   "raw_html": "<span class=\"GRef\">( कार्तिकेयानुप्रेक्षा/245 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10579,7 +10996,8 @@
                 {
                   "text": "( धवला 3/1,2,1/ श्लोक 5/6)",
                   "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/ श्लोक 5/6)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10600,7 +11018,8 @@
                 {
                   "text": "( धवला 3/1,2,1/",
                   "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10621,7 +11040,8 @@
                 {
                   "text": "( धवला 9/4,1,45/ श्लोक 66/183)",
                   "raw_html": "<span class=\"GRef\">( धवला 9/4,1,45/ श्लोक 66/183)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10642,12 +11062,14 @@
                 {
                   "text": "( राजवार्तिक/1/1/19/7/21 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/1/19/7/21 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "(न्यायदीपिका/3/79/123)",
                   "raw_html": "<span class=\"GRef\">(न्यायदीपिका/3/79/123)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10703,17 +11125,20 @@
                 {
                   "text": "( पंचास्तिकाय/50 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/50 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( सर्वार्थसिद्धि/5/38/30 पर उद्धृत गाथा)",
                   "raw_html": "<span class=\"GRef\">( सर्वार्थसिद्धि/5/38/30 पर उद्धृत गाथा)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( प्रवचनसार / तत्त्वप्रदीपिका/98,106 )",
                   "raw_html": "<span class=\"GRef\">( प्रवचनसार / तत्त्वप्रदीपिका/98,106 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10734,12 +11159,14 @@
                 {
                   "text": "( राजवार्तिक/5/2/10/439/25 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/10/439/25 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( कषायपाहुड़/1/1-20/323/354/1 )",
                   "raw_html": "<span class=\"GRef\">( कषायपाहुड़/1/1-20/323/354/1 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10760,22 +11187,26 @@
                 {
                   "text": "( पंचास्तिकाय/13 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/13 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( आप्तमीमांसा/75 )",
                   "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/75 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( धवला 9/4,1,2/40/6 )",
                   "raw_html": "<span class=\"GRef\">( धवला 9/4,1,2/40/6 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( पंचाध्यायी / पूर्वार्ध/7 )",
                   "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/7 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10796,7 +11227,8 @@
                 {
                   "text": "( प्रवचनसार/105 )",
                   "raw_html": "<span class=\"GRef\">( प्रवचनसार/105 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10817,7 +11249,8 @@
                 {
                   "text": "( पंचाध्यायी / पूर्वार्ध/39,438 )",
                   "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/39,438 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10838,7 +11271,8 @@
                 {
                   "text": "( राजवार्तिक/5/2/11/440/1 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/11/440/1 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10859,7 +11293,8 @@
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/43/85/8 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तात्पर्यवृत्ति/43/85/8 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10898,7 +11333,8 @@
                 {
                   "text": "( प्रवचनसार / तत्त्वप्रदीपिका/130 )",
                   "raw_html": "<span class=\"GRef\">( प्रवचनसार / तत्त्वप्रदीपिका/130 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10919,12 +11355,14 @@
                 {
                   "text": "( धवला 3/1,2,1/6/3 )",
                   "raw_html": "<span class=\"GRef\">( धवला 3/1,2,1/6/3 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( कार्तिकेयानुप्रेक्षा/180 )",
                   "raw_html": "<span class=\"GRef\">( कार्तिकेयानुप्रेक्षा/180 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10963,7 +11401,8 @@
                 {
                   "text": "( पंचास्तिकाय / तत्त्वप्रदीपिका/9 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तत्त्वप्रदीपिका/9 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -10984,7 +11423,8 @@
                 {
                   "text": "( कषायपाहुड़ 1/1-14/242/286/3 )",
                   "raw_html": "<span class=\"GRef\">( कषायपाहुड़ 1/1-14/242/286/3 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11005,7 +11445,8 @@
                 {
                   "text": "( प्रवचनसार / तत्त्वप्रदीपिका/98 )",
                   "raw_html": "<span class=\"GRef\">( प्रवचनसार / तत्त्वप्रदीपिका/98 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11026,7 +11467,8 @@
                 {
                   "text": "( राजवार्तिक 2/8/6/119/22 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक 2/8/6/119/22 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11047,7 +11489,8 @@
                 {
                   "text": "( पंचास्तिकाय / तत्त्वप्रदीपिका/13 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तत्त्वप्रदीपिका/13 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11068,7 +11511,8 @@
                 {
                   "text": "( पंचास्तिकाय/51-52 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/51-52 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11089,22 +11533,26 @@
                 {
                   "text": "( पंचास्तिकाय/45-46 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/45-46 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( आप्तमीमांसा/71-72 )",
                   "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/71-72 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( सर्वार्थसिद्धि/5/2/267/7 )",
                   "raw_html": "<span class=\"GRef\">( सर्वार्थसिद्धि/5/2/267/7 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( पंचास्तिकाय / तत्त्वप्रदीपिका/50-52 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय / तत्त्वप्रदीपिका/50-52 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11125,12 +11573,14 @@
                 {
                   "text": "( आप्तमीमांसा/22 )",
                   "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/22 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( धवला 9/4,1,45/ श्लोक 68/183)",
                   "raw_html": "<span class=\"GRef\">( धवला 9/4,1,45/ श्लोक 68/183)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11151,7 +11601,8 @@
                 {
                   "text": "( पंचाध्यायी / पूर्वार्ध/84 )",
                   "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/84 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11207,7 +11658,8 @@
                 {
                   "text": "( राजवार्तिक/5/2/9/439/12 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/9/439/12 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11228,12 +11680,14 @@
                 {
                   "text": "( राजवार्तिक/5/2/9/439/13 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/9/439/13 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( राजवार्तिक/5/2/12/440/10 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/12/440/10 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11254,7 +11708,8 @@
                 {
                   "text": "( राजवार्तिक/5/2/1/440/14 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/1/440/14 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11293,7 +11748,8 @@
                 {
                   "text": "( पंचास्तिकाय/45 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/45 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11314,7 +11770,8 @@
                 {
                   "text": "( राजवार्तिक/5/38/4/501/20 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/38/4/501/20 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11335,7 +11792,8 @@
                 {
                   "text": "( आप्तमीमांसा/62-63 )",
                   "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/62-63 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11356,7 +11814,8 @@
                 {
                   "text": "(स्याद्वादमंजरी/4/17/18)",
                   "raw_html": "<span class=\"GRef\">(स्याद्वादमंजरी/4/17/18)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11377,12 +11836,14 @@
                 {
                   "text": "( पंचास्तिकाय/44-45 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/44-45 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( राजवार्तिक/5/2/9/439/15 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/9/439/15 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11403,7 +11864,8 @@
                 {
                   "text": "( पंचास्तिकाय/44 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/44 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11424,7 +11886,8 @@
                 {
                   "text": "( राजवार्तिक/1/9/11/46/15 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/9/11/46/15 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11478,12 +11941,14 @@
                 {
                   "text": "( राजवार्तिक/5/2/4/43/32 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/4/43/32 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( राजवार्तिक/1/1/12/6/4 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/1/12/6/4 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11504,7 +11969,8 @@
                 {
                   "text": "( राजवार्तिक/5/2/11/439/31 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/11/439/31 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11525,7 +11991,8 @@
                 {
                   "text": "( राजवार्तिक/5/2/10/439/22 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/10/439/22 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11546,7 +12013,8 @@
                 {
                   "text": "( प्रवचनसार / तात्पर्यवृत्ति/98 )",
                   "raw_html": "<span class=\"GRef\">( प्रवचनसार / तात्पर्यवृत्ति/98 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11567,7 +12035,8 @@
                 {
                   "text": "( राजवार्तिक/5/2/9/439/16 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/9/439/16 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11588,32 +12057,38 @@
                 {
                   "text": "( सर्वार्थसिद्धि/5/2/266/10 )",
                   "raw_html": "<span class=\"GRef\">( सर्वार्थसिद्धि/5/2/266/10 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( राजवार्तिक/1/1/5/7/5/8 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/1/5/7/5/8 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( राजवार्तिक/1/9/11/46/19 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/9/11/46/19 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( राजवार्तिक/5/2/10/439/20 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/10/439/20 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( राजवार्तिक/5/2/3/436/31 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/3/436/31 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( कषायपाहुड़ 1/1-20/322/353/6 )",
                   "raw_html": "<span class=\"GRef\">( कषायपाहुड़ 1/1-20/322/353/6 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11634,7 +12109,8 @@
                 {
                   "text": "( पंचाध्यायी / पूर्वार्ध/41-44 )",
                   "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/41-44 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11655,12 +12131,14 @@
                 {
                   "text": "( राजवार्तिक/1/1/10/5/25 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/1/10/5/25 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( राजवार्तिक/2/8/5/119/17 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/2/8/5/119/17 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11681,12 +12159,14 @@
                 {
                   "text": "( राजवार्तिक/1/9/11/46/20 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/9/11/46/20 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( राजवार्तिक/5/2/3/437/5 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/3/437/5 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11707,7 +12187,8 @@
                 {
                   "text": "( राजवार्तिक/1/10/9/50/15 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/10/9/50/15 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11791,12 +12272,14 @@
                 {
                   "text": "( आप्तमीमांसा/64,66 )",
                   "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/64,66 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( राजवार्तिक/1/1/14/6/16 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/1/14/6/16 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11817,12 +12300,14 @@
                 {
                   "text": "( आप्तमीमांसा/65 )",
                   "raw_html": "<span class=\"GRef\">( आप्तमीमांसा/65 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( राजवार्तिक/1/33/5/96/17 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/33/5/96/17 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11843,22 +12328,26 @@
                 {
                   "text": "( पंचास्तिकाय/48-49 )",
                   "raw_html": "<span class=\"GRef\">( पंचास्तिकाय/48-49 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( राजवार्तिक/1/1/9/5/21 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/1/9/5/21 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( राजवार्तिक/1/33/5/96/3 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/33/5/96/3 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( राजवार्तिक/5/2/3/437/7 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/3/437/7 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11879,12 +12368,14 @@
                 {
                   "text": "( राजवार्तिक/1/1/13/6/8 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/1/13/6/8 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "( राजवार्तिक/1/9/11/46/16 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/1/9/11/46/16 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11905,7 +12396,8 @@
                 {
                   "text": "( राजवार्तिक/5/2/3/437/17 )",
                   "raw_html": "<span class=\"GRef\">( राजवार्तिक/5/2/3/437/17 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11961,17 +12453,20 @@
                 {
                   "text": "पंचास्तिकाय/7",
                   "raw_html": "<span class=\"GRef\">पंचास्तिकाय/7</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( परमात्मप्रकाश/ मूल /2/25)",
                   "raw_html": "<span class=\"GRef\">( परमात्मप्रकाश/ मूल /2/25)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 },
                 {
                   "text": "(समयसार/आत्मख्याति/3)",
                   "raw_html": "<span class=\"GRef\">(समयसार/आत्मख्याति/3)</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -11992,7 +12487,8 @@
                 {
                   "text": "पंचास्तिकाय / तत्त्वप्रदीपिका/37",
                   "raw_html": "<span class=\"GRef\">पंचास्तिकाय / तत्त्वप्रदीपिका/37</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -12031,7 +12527,8 @@
                 {
                   "text": "परमात्मप्रकाश/ मूल/1/67",
                   "raw_html": "<span class=\"GRef\">परमात्मप्रकाश/ मूल/1/67</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -12052,12 +12549,14 @@
                 {
                   "text": "नयचक्र बृहद्/7",
                   "raw_html": "<span class=\"GRef\">नयचक्र बृहद्/7</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( समयसार / आत्मख्याति/3 )",
                   "raw_html": "<span class=\"GRef\">( समयसार / आत्मख्याति/3 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -12078,7 +12577,8 @@
                 {
                   "text": "योगसार/अमितगति/9/46",
                   "raw_html": "<span class=\"GRef\">योगसार/अमितगति/9/46</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -12099,12 +12599,14 @@
                 {
                   "text": "पंचाध्यायी / पूर्वार्ध/461",
                   "raw_html": "<span class=\"GRef\">पंचाध्यायी / पूर्वार्ध/461</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 },
                 {
                   "text": "( पंचाध्यायी / पूर्वार्ध/569 )",
                   "raw_html": "<span class=\"GRef\">( पंचाध्यायी / पूर्वार्ध/569 )</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": true
                 }
               ],
               "is_orphan_translation": false,
@@ -12125,7 +12627,8 @@
                 {
                   "text": "पंचास्तिकाय / तत्त्वप्रदीपिका/37",
                   "raw_html": "<span class=\"GRef\">पंचास्तिकाय / तत्त्वप्रदीपिका/37</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -12164,7 +12667,8 @@
                 {
                   "text": "बारस अणुवेक्खा/11",
                   "raw_html": "<span class=\"GRef\">बारस अणुवेक्खा/11</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -12200,7 +12704,8 @@
                 {
                   "text": "पंचाध्यायी / पूर्वार्ध/8,528",
                   "raw_html": "<span class=\"GRef\">पंचाध्यायी / पूर्वार्ध/8,528</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -12239,7 +12744,8 @@
                 {
                   "text": "राजवार्तिक/5/12/5-6/454/28",
                   "raw_html": "<span class=\"GRef\">राजवार्तिक/5/12/5-6/454/28</span>",
-                  "parsed": null
+                  "parsed": null,
+                  "inline_reference": false
                 }
               ],
               "is_orphan_translation": false,
@@ -13873,24 +14379,6 @@
           }
         },
         {
-          "type": "RELATED_TO",
-          "from": {
-            "label": "Topic",
-            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:एकांत-पक्ष-में-द्रव्य-का-लक्षण-संभव-नहीं"
-          },
-          "to": {
-            "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "द्रव्य",
-              "topic_path": "1.4"
-            }
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh"
-          }
-        },
-        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -13899,6 +14387,24 @@
           "to": {
             "label": "Topic",
             "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:एकांत-पक्ष-में-द्रव्य-का-लक्षण-संभव-नहीं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "RELATED_TO",
+          "from": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:एकांत-पक्ष-में-द्रव्य-का-लक्षण-संभव-नहीं:इसी-प्रकार-‘गुणपर्ययवद्-द्रव्यं’-या-‘गुणसमुदायो-द्रव्यं’-भी-वे-नहीं-कह-सकते"
+          },
+          "to": {
+            "label": "Topic",
+            "resolve_by": {
+              "parent_keyword": "द्रव्य",
+              "topic_path": "1.4"
+            }
           },
           "props": {
             "weight": 1.0,

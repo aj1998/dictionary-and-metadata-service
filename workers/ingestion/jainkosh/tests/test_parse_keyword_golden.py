@@ -9,7 +9,7 @@ import pytest
 
 FIXTURE_DIR = Path("workers/ingestion/jainkosh/tests/fixtures")
 GOLDEN_DIR = Path("workers/ingestion/jainkosh/tests/golden")
-FROZEN = "2026-05-02T00:00:00Z"
+FROZEN = "2026-05-04T00:00:00Z"
 
 KEYWORDS = ["आत्मा", "द्रव्य", "पर्याय"]
 

@@ -80,6 +80,11 @@ class IndexSourceChainConfig(BaseModel):
     sibling_container_fallback: bool = True
 
 
+class AnchorDedupConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    nth_occurrence_tracking: bool = True
+
+
 class IndexConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
     enabled_for: list[str]
@@ -93,6 +98,7 @@ class IndexConfig(BaseModel):
     see_also_leading_punct_re: str = r'[(–\-।\s]*'
     source_chain: IndexSourceChainConfig = Field(default_factory=IndexSourceChainConfig)
     top_level_reference_marking: bool = True
+    anchor_dedup: AnchorDedupConfig = Field(default_factory=AnchorDedupConfig)
 
     # deprecated: auto-derived from see_also_triggers if absent
     see_also_text_pattern: Optional[str] = None
@@ -130,6 +136,7 @@ class ReferenceConfig(BaseModel):
     semicolon_split: ReferenceSemicolonSplitConfig = Field(
         default_factory=ReferenceSemicolonSplitConfig
     )
+    annotate_inline_position: bool = True
 
 
 class BlocksConfig(BaseModel):
@@ -213,6 +220,7 @@ class LabelToTopicConfig(BaseModel):
     trim_to_clause: bool = True
     clause_boundary_chars: str = "।॥.()[]"
     preserve_inner_quotes: bool = True
+    relocate_inline_see_also_to_child: bool = True
 
 
 class ParenDekhenStripConfig(BaseModel):

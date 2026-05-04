@@ -68,7 +68,7 @@ def make_block(node: Node, config: JainkoshConfig, *, current_keyword: str = "")
         return None
 
     # Extract trailing GRef spans (inline references)
-    refs = extract_refs_from_node(node, config)
+    refs = extract_refs_from_node(node, config, inline=True)
 
     # Check for see_also links
     see_alsos = find_see_alsos_in_element(
@@ -170,7 +170,7 @@ def parse_block_stream(
             continue
 
         if is_leading_reference_node(el, config):
-            pending_refs.extend(extract_refs_from_node(el, config))
+            pending_refs.extend(extract_refs_from_node(el, config, inline=False))
             continue
 
         if _is_row_style_element(el, config):

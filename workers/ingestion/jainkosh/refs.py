@@ -57,7 +57,12 @@ def _split_gref_text(text: str, config: JainkoshConfig) -> list[str]:
     return [p.strip() for p in parts if p.strip()]
 
 
-def extract_refs_from_node(node: Node, config: JainkoshConfig) -> list[Reference]:
+def extract_refs_from_node(
+    node: Node,
+    config: JainkoshConfig,
+    *,
+    inline: bool = False,
+) -> list[Reference]:
     """Extract all GRef spans from a node, splitting at semicolons when configured."""
     refs = []
     for gref in node.css("span.GRef"):
@@ -70,7 +75,8 @@ def extract_refs_from_node(node: Node, config: JainkoshConfig) -> list[Reference
             if config.reference.parse_strategy != "text_only":
                 parsed = parse_reference_text(part, config)
             raw = _clean_raw_html(gref.html or "", config) if len(parts) == 1 else None
-            refs.append(Reference(text=part, raw_html=raw, parsed=parsed))
+            inline_ref_value = inline if config.reference.annotate_inline_position else False
+            refs.append(Reference(text=part, raw_html=raw, parsed=parsed, inline_reference=inline_ref_value))
     return refs
 
 

@@ -152,6 +152,32 @@ class TestIsBulletPoint:
         assert blocks[0].is_bullet_point is False
 
 
+class TestInlineReferenceFlag:
+    def test_extract_refs_leading_sets_inline_false(self, config):
+        """Leading refs (extracted from pending_refs buffer) have inline_reference=False."""
+        node = HTMLParser('<p><span class="GRef">सर्वार्थसिद्धि/1/5/17/5</span></p>').css_first("p")
+        refs = extract_refs_from_node(node, config, inline=False)
+        assert len(refs) == 1
+        assert refs[0].inline_reference is False
+
+    def test_extract_refs_inline_sets_inline_true(self, config):
+        """Inline/trailing refs (embedded in text blocks) have inline_reference=True."""
+        node = HTMLParser(
+            '<p class="HindiText">some text <span class="GRef">( धवला 1/1,1,1/84/1 )</span></p>'
+        ).css_first("p")
+        refs = extract_refs_from_node(node, config, inline=True)
+        assert len(refs) == 1
+        assert refs[0].inline_reference is True
+
+    def test_annotate_inline_position_false_always_returns_false(self, config):
+        """When annotate_inline_position=False, inline_reference is always False."""
+        cfg = config.model_copy(deep=True)
+        cfg.reference.annotate_inline_position = False
+        node = HTMLParser('<p><span class="GRef">ref text</span></p>').css_first("p")
+        refs = extract_refs_from_node(node, cfg, inline=True)
+        assert refs[0].inline_reference is False
+
+
 class TestIsLeadingReferenceNode:
     def test_bare_gref_span(self, config):
         node = parse_node('<span class="GRef">ref</span>', "span.GRef")

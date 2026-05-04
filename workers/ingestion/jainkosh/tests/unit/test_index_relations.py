@@ -211,3 +211,64 @@ def test_top_level_reference_marking_false_when_chain_present(config):
     rel = parse_index_relations(make_ols(html), "अ", config)[0]
     assert rel.source_topic_path_chain == ["1"]
     assert rel.is_top_level_reference is False
+
+
+def test_duplicate_anchor_html_produces_distinct_labels():
+    """
+    Two <a> elements in the same parent with identical HTML (same href + text)
+    must produce two distinct IndexRelations with different label_text values.
+    """
+    html = """
+    <ol>
+      <li class="HindiText">
+        <strong><a href="#2">Section 2</a></strong>
+        <ul class="HindiText">
+          Entry A - देखें <a href="/wiki/X#3" title="X">X - 3</a>
+          । <br>
+          Entry B देखें <a href="/wiki/X#3" title="X">X - 3</a>
+          。<br>
+        </ul>
+      </li>
+    </ol>
+    """
+    tree = HTMLParser(html)
+    outer_ol = tree.css_first("ol")
+    config = load_config()
+    config.index.anchor_dedup.nth_occurrence_tracking = True
+
+    rels = parse_index_relations([outer_ol], "keyword", config)
+    assert len(rels) == 2
+    labels = {r.label_text for r in rels}
+    assert "Entry A" in labels, f"Expected 'Entry A' in {labels}"
+    assert "Entry B" in labels, f"Expected 'Entry B' in {labels}"
+    for r in rels:
+        assert r.target_keyword == "X"
+        assert r.target_topic_path == "3"
+
+
+def test_nth_occurrence_tracking_disabled_produces_duplicates():
+    """
+    With nth_occurrence_tracking=False (legacy), duplicate anchors produce
+    duplicate labels. This test documents the pre-fix behaviour.
+    """
+    html = """
+    <ol>
+      <li class="HindiText">
+        <strong><a href="#2">Section 2</a></strong>
+        <ul class="HindiText">
+          Entry A - देखें <a href="/wiki/X#3" title="X">X - 3</a>
+          । <br>
+          Entry B देखें <a href="/wiki/X#3" title="X">X - 3</a>
+          。<br>
+        </ul>
+      </li>
+    </ol>
+    """
+    tree = HTMLParser(html)
+    outer_ol = tree.css_first("ol")
+    config = load_config()
+    config.index.anchor_dedup.nth_occurrence_tracking = False
+
+    rels = parse_index_relations([outer_ol], "keyword", config)
+    assert len(rels) == 2
+    assert rels[0].label_text == rels[1].label_text  # both "Entry A" (buggy behaviour)

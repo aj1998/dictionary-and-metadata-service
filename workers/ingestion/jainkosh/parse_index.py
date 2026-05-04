@@ -22,14 +22,27 @@ def parse_index_relations(
     """Full-DFS scan of index <ol> elements; emits one IndexRelation per देखें-anchored <a>."""
     out: list[IndexRelation] = []
     see_also_re = re.compile(config.index.see_also_text_pattern)
+    nth_tracking = config.index.anchor_dedup.nth_occurrence_tracking
+
+    # Track per-parent occurrence counts: (parent_html_prefix, a_html) → count
+    anchor_occurrence_count: dict[tuple[str, str], int] = {}
 
     for outer_ol in index_ols:
         for a in outer_ol.css("a"):
-            prev_text = _preceding_inline_text(a, config.index.see_also_window_chars)
+            a_html = a.html or ""
+            parent_html_prefix = (a.parent.html or "")[:100] if a.parent else ""
+            count_key = (parent_html_prefix, a_html)
+
+            nth = 0
+            if nth_tracking:
+                nth = anchor_occurrence_count.get(count_key, 0)
+                anchor_occurrence_count[count_key] = nth + 1
+
+            prev_text = _preceding_inline_text(a, config.index.see_also_window_chars, nth_occurrence=nth)
             if not see_also_re.search(prev_text):
                 continue
             parsed = parse_anchor(a, config, current_keyword=keyword)
-            label = _extract_label_before_anchor(a)
+            label = _extract_label_before_anchor(a, nth_occurrence=nth)
             source_path_chain = _ancestor_li_ids(a, config)
             rel = IndexRelation(
                 label_text=label,

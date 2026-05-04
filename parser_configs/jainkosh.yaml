@@ -1,5 +1,5 @@
-version: "1.5.0"
-parser_rules_version: "jainkosh.rules/1.5.0"
+version: "1.6.0"
+parser_rules_version: "jainkosh.rules/1.6.0"
 
 normalization:
   nfc: true
@@ -44,6 +44,8 @@ index:
     row_li_self_path_check: true
     sibling_container_fallback: true
   top_level_reference_marking: true
+  anchor_dedup:
+    nth_occurrence_tracking: true
   see_also_triggers:
     - "विशेष देखें"
     - "देखें"
@@ -67,6 +69,7 @@ reference:
   semicolon_split:
     enabled: true
     split_re: '(?<=\))\s*;\s*(?=\()'
+  annotate_inline_position: true
 
 ref_strip:
   enabled: true
@@ -128,6 +131,7 @@ label_to_topic:
   trim_to_clause: true
   clause_boundary_chars: "।॥.()[]"
   preserve_inner_quotes: true
+  relocate_inline_see_also_to_child: true
 
 navigation:
   drop: true
