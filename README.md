@@ -1,6 +1,6 @@
-# Dictionary & Metadata Service
+# Jain Dictionary & Knowledge Base Service
 
-A structured, knowledge-graph-backed retrieval layer for Jain texts. Complements `cataloguesearch` (vector/BM25) and `cataloguesearch-chat` (LLM chat).
+A structured, knowledge-graph-backed retrieval layer for Jain texts. Complements `cataloguesearch` (vector/BM25) and `cataloguesearch-chat` (LLM chat). Uses GraphRAG.
 
 ## What this service does
 
