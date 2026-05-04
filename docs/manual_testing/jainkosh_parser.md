@@ -130,12 +130,6 @@ All 95 tests should pass.
 
 ## 7. Sanity checks by page
 
-| Page | Sections | SiddhantKosh defs | SiddhantKosh index_relations | Total subsections |
-|------|----------|-------------------|------------------------------|-------------------|
-| आत्मा | 2 | 4 | 0 | 3 |
-| द्रव्य | 2 | 1 | 21 | 58 |
-| पर्याय | 2 | 1 | 0 | 43 |
-
 Known quirks:
 - **आत्मा**: First subsection is `topic_path == "2"` — there is no `<b>1. …</b>` heading in the source HTML. The parser correctly does NOT synthesise a missing root.
 - **द्रव्य**: Has one section-level table between subsections 3 and 4 (`extra_blocks[0].kind == "table"`).

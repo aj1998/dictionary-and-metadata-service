@@ -19,7 +19,7 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Complements
   - समयसार की गाथा ६ की संस्कृत समझाओ
   - षट् द्रव्य के क्रियावान् व भाववान् विभाग का वर्णन कोन कोनसे शास्त्रों में आया है?
 
-[Current vector search only extracts mentions of gatha in jain texts but does not have context of the original gatha itself, this will extract gatha content and specific keywords/topics with relevant to it and and then final answer generation with both vectored and vectorless (structured) results (GraphRAG)]
+[Current vector search only extracts mentions of gatha in jain texts but does not have context of the original gatha itself, this will extract gatha content and specific keywords/topics which are relevant to it and then final answer generation with both vectored and vectorless (structured) results (GraphRAG)]
 
 - **Train a Jainism based AI model** in future with the help of Cataloguesearch OCRed data and this Knowledge Graph for the most accurate results.
 
