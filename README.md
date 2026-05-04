@@ -218,15 +218,15 @@ Reads pre-saved HTML from `samples/sample_html_jainkosh_pages/` and produces a `
 | `envelope.py` | Builds the `would_write` dict (Postgres rows, Mongo docs, Neo4j nodes/edges) |
 | `cli.py` | `python -m workers.ingestion.jainkosh.cli parse <html> --out <json>` |
 
-#### Parse results (sample pages, v1.2.0)
+#### Parse results (sample pages, v1.6.0)
 
 | Page | SiddhantKosh defs | Index relations | Total subsections | Warnings |
 |------|-------------------|-----------------|-------------------|---------|
 | आत्मा | 4 | 0 | 7 | 0 |
-| द्रव्य | 1 | 26 | 67 | 0 |
+| द्रव्य | 1 | 26 | 59 | 0 |
 | पर्याय | 1 | 8 | 43 | 0 |
 
-*(Counts unchanged from v1.1.0; envelope shape updated — see fix-spec-002.)*
+To regenerate this table from the latest goldens: `python workers/ingestion/jainkosh/golden_stats.py`
 
 #### Tests
 
