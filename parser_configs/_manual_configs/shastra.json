@@ -1,0 +1,659 @@
+[
+    {
+        "shastra_name": "अमितगति श्रावकाचार",
+        "format": "अधिकार/श्लोक",
+        "author": "पं. वंशीधर शोलापुर",
+        "date_format": "वि.सं.",
+        "date": "1979"
+    },
+    {
+        "shastra_name": "अनगारधर्मामृत",
+        "format": "अधिकार/श्लोक/पृष्ठ",
+        "author": "पं. खूबचन्द शोलापुर",
+        "date_format": "ई.",
+        "date": "1.6.1927",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "आत्मानुशासन",
+        "format": "श्लोक"
+    },
+    {
+        "shastra_name": "आलापपद्धति",
+        "format": "अधिकार/सूत्र/पृष्ठ",
+        "publisher": "चौरासी मथुरा",
+        "date_format": "वी.नि.",
+        "date": "2459",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "आप्तपरीक्षा",
+        "format": "श्लोक/प्रकरण/पृष्ठ",
+        "publisher": "वीरसेवा मन्दिर सरसावा",
+        "date_format": "वि.सं.",
+        "date": "2006",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "आप्तमीमांसा",
+        "format": "श्लोक"
+    },
+    {
+        "shastra_name": "इष्टोपदेश",
+        "format": "श्लोक/पृष्ठ",
+        "author": "पं. आशाधरजी",
+        "publisher": "वीरसेवा मन्दिर दिल्ली",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "कषायपाहुड़",
+        "format": "पुस्तक,भाग/§प्रकरण/पृष्ठ/पंक्ति",
+        "publisher": "दिगम्बर जैन संघ, मथुरा",
+        "date_format": "वि.सं.",
+        "date": "2000",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "कार्तिकेयानुप्रेक्षा",
+        "format": "गाथा",
+        "publisher": "राजचन्द्र ग्रन्थमाला",
+        "date_format": "ई.",
+        "date": "1960"
+    },
+    {
+        "shastra_name": "कुरल काव्य",
+        "format": "परिच्छेद/श्लोक",
+        "author": "पं. गोविन्दराज जैन शास्त्री",
+        "date_format": "वी.नि.",
+        "date": "2480"
+    },
+    {
+        "shastra_name": "क्रियाकलाप",
+        "format": "मुख्याधिकार-प्रकरण/श्लोक/पृष्ठ",
+        "author": "पन्नालाल सोनी शास्त्री, आगरा",
+        "date_format": "वि.सं.",
+        "date": "1913",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "क्रियाकोश",
+        "format": "श्लोक",
+        "author": "पं. दौलतराम"
+    },
+    {
+        "shastra_name": "क्षपणसार",
+        "format": "गाथा/पृष्ठ",
+        "author": "जैन सिद्धान्त प्रकाशिनी संस्था, कलकत्ता",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "गुणभद्र श्रावकाचार",
+        "format": "श्लोक"
+    },
+    {
+        "shastra_name": "गोम्मटसार कर्मकाण्ड/मू",
+        "format": "गाथा/पृष्ठ",
+        "publisher": "जैन सिद्धान्त प्रकाशिनी संस्था, कलकत्ता",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "गोम्मटसार कर्मकाण्ड/जीव तत्त्व प्रदीपिका टीका",
+        "format": "गाथा/पृष्ठ/पंक्ति",
+        "publisher": "जैन सिद्धान्त प्रकाशिनी संस्था, कलकत्ता",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "गोम्मटसार जीवकाण्ड/मूल",
+        "format": "गाथा/पृष्ठ",
+        "publisher": "जैन सिद्धान्त प्रकाशिनी संस्था, कलकत्ता",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "गोम्मटसार जीवकाण्ड/जीव तत्त्वप्रदीपिका टीका",
+        "format": "गाथा/पृष्ठ/पंक्ति",
+        "publisher": "जैन सिद्धान्त प्रकाशिनी संस्था, कलकत्ता",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "ज्ञानार्णव",
+        "format": "अधिकार/दोहक/पृष्ठ",
+        "publisher": "राजचन्द्र ग्रन्थमाला",
+        "date_format": "ई.",
+        "date": "1907",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "ज्ञानसार",
+        "format": "श्लोक"
+    },
+    {
+        "shastra_name": "चरित्त पाहुड़",
+        "format": "गाथा/पृष्ठ",
+        "publisher": "माणिकचन्द्र ग्रन्थमाला, बम्बई",
+        "date_format": "वि.सं",
+        "date": "1977",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "चारित्रसार",
+        "format": "पृष्ठ/पंक्ति",
+        "publisher": "महावीर जी",
+        "date_format": "वी.नि.",
+        "date": "2488",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "जम्बूद्वीपपण्णत्तिसंगहो",
+        "format": "अधिकार/गाथा",
+        "publisher": "जैन संस्कृति संरक्षण संघ, शोलापुर",
+        "date_format": "वि.सं.",
+        "date": "2014"
+    },
+    {
+        "shastra_name": "जैन साहित्य इतिहास",
+        "format": "खण्ड/पृष्ठ",
+        "publisher": "गणेशप्रसाद वर्णी ग्रन्थमाला",
+        "date_format": "वी.नि.",
+        "date": "2481",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "जैन साहित्य इतिहास/पूर्व पीठिका",
+        "format": "पृष्ठ",
+        "publisher": "गणेशप्रसाद वर्णी ग्रन्थमाला",
+        "date_format": "वी.नि.",
+        "date": "2481",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "तत्त्वानुशासन",
+        "format": "श्लोक",
+        "author": "नागसेन सूरि",
+        "publisher": "वीर सेवा मन्दिर, दिल्ली",
+        "date_format": "ई.",
+        "date": "1963"
+    },
+    {
+        "shastra_name": "तत्त्वार्थवृत्ति",
+        "format": "अध्याय/सूत्र/पृष्ठ/पंक्ति",
+        "author": "भारतीय ज्ञानपीठ, बनारस",
+        "date_format": "ई.",
+        "date": "1949",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "तत्त्वार्थसार",
+        "format": "अधिकार/श्लोक/पृष्ठ",
+        "publisher": "जैन सिद्धान्त प्रकाशिनी संस्था, कलकत्ता",
+        "date_format": "ई.",
+        "date": "1929",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "तत्त्वार्थ सूत्र",
+        "format": "अध्याय/सूत्र"
+    },
+    {
+        "shastra_name": "तिलोयपण्णत्ति",
+        "format": "अधिकार/गाथा",
+        "publisher": "जीवराज ग्रन्थमाला, शोलापुर",
+        "date_format": "वि.सं.",
+        "date": "1999"
+    },
+    {
+        "shastra_name": "तीर्थंकर महावीर और उनकी आचार्य परम्परा",
+        "format": "पृष्ठ",
+        "publisher": "दि. जैन विद्वत्परिषद्, सागर",
+        "date_format": "ई.",
+        "date": "1974",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "त्रिलोकसार",
+        "format": "गाथा",
+        "publisher": "जैन साहित्य बम्बई",
+        "date_format": "ई.",
+        "date": "1918"
+    },
+    {
+        "shastra_name": "दर्शनपाहुड़",
+        "format": "गाथा/पृष्ठ",
+        "publisher": "माणिकचन्द्र ग्रन्थमाला, बम्बई",
+        "date_format": "वि.सं.",
+        "date": "1977",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "दर्शनसार",
+        "format": "गाथा",
+        "publisher": "नाथूराम प्रेमी, बम्बई",
+        "date_format": "वि.सं.",
+        "date": "1974"
+    },
+    {
+        "shastra_name": "द्रव्यसंग्रह",
+        "format": "गाथा/पृष्ठ",
+        "publisher": "दिल्ली",
+        "date_format": "ई.",
+        "date": "1953",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "धर्म परीक्षा",
+        "format": "श्लोक"
+    },
+    {
+        "shastra_name": "धवला",
+        "format": "पुस्तक/खण्ड,भाग,सूत्र/पृष्ठ/गाथा",
+        "publisher": "अमरावती",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "नयचक्र बृहद्",
+        "format": "गाथा",
+        "author": "श्री देवसेनाचार्य",
+        "publisher": "माणिकचन्द्र ग्रन्थमाला, बम्बई",
+        "date_format": "वि.सं.",
+        "date": "1977"
+    },
+    {
+        "shastra_name": "नयचक्र/श्रुत भवन दीपक",
+        "format": "अधिकार/पृष्ठ",
+        "publisher": "सिद्ध सागर, शोलापुर",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "नियमसार",
+        "format": "गाथा",
+        "type": "shastra"
+    },
+    {
+        "shastra_name": "नियमसार/तात्पर्य वृत्ति",
+        "format": "गाथा/कलश"
+    },
+    {
+        "shastra_name": "न्यायदीपिका",
+        "format": "अधिकार/§प्रकरण/पृष्ठ/पंक्ति",
+        "publisher": "वीरसेवा मन्दिर, दिल्ली",
+        "date_format": "वि.सं.",
+        "date": "2002",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "न्यायबिन्दु",
+        "format": "श्लोक",
+        "publisher": "चौखम्बा संस्कृत सीरीज़, बनारस",
+        "type": "shastra"
+    },
+    {
+        "shastra_name": "न्यायविनिश्चय",
+        "format": "अधिकार/श्लोक/पृष्ठ/पंक्ति",
+        "publisher": "ज्ञानपीठ, बनारस",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "न्यायदर्शन सूत्र",
+        "format": "अध्याय/आह्निक/सूत्र/पृष्ठ",
+        "publisher": "मुजफ्फरनगर, द्वि.",
+        "date_format": "ई.",
+        "date": "1934",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "पंचास्तिकाय",
+        "format": "गाथा/पृष्ठ",
+        "publisher": "परमश्रुत प्रभावक मण्डल, बम्बई",
+        "date_format": "वि.सं.",
+        "date": "1972",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "पंचाध्यायी/पूर्वार्ध",
+        "format": "श्लोक",
+        "author": "पं. देवकीनन्दन",
+        "date_format": "ई.",
+        "date": "1932"
+    },
+    {
+        "shastra_name": "पंचाध्यायी/उत्तरार्ध",
+        "format": "श्लोक",
+        "author": "पं. देवकीनन्दन",
+        "date_format": "ई.",
+        "date": "1932"
+    },
+    {
+        "shastra_name": "पद्मनन्दि पंचविंशतिका",
+        "format": "अधिकार/श्लोक",
+        "publisher": "जीवराज ग्रन्थमाला, शोलापुर",
+        "date_format": "ई.",
+        "date": "1932"
+    },
+    {
+        "shastra_name": "पंचसंग्रह/प्राकृत",
+        "format": "अधिकार/गाथा",
+        "publisher": "ज्ञानपीठ, बनारस",
+        "date_format": "ई.",
+        "date": "1960"
+    },
+    {
+        "shastra_name": "पंचसंग्रह/संस्कृत",
+        "format": "अधिकार/श्लोक",
+        "notes": "प्राकृत की टिप्पणी",
+        "date_format": "ई.",
+        "date": "1960"
+    },
+    {
+        "shastra_name": "पद्मपुराण",
+        "format": "सर्ग/श्लोक",
+        "publisher": "भारतीय ज्ञानपीठ बनारस",
+        "date_format": "वि.सं.",
+        "date": "2016"
+    },
+    {
+        "shastra_name": "परीक्षामुख",
+        "format": "परिच्छेद/सूत्र/पृष्ठ",
+        "publisher": "स्याद्वाद महाविद्यालय, काशी",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "परमात्मप्रकाश",
+        "format": "अधिकार/गाथा/पृष्ठ",
+        "publisher": "राजचन्द्र ग्रन्थमाला",
+        "edition": "द्वितीय संस्करण",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "पाण्डवपुराण",
+        "format": "सर्ग/श्लोक",
+        "publisher": "जीवराज ग्रन्थमाला, शोलापुर",
+        "date_format": "ई.",
+        "date": "1962"
+    },
+    {
+        "shastra_name": "पुरुषार्थ सिद्ध्युपा",
+        "format": "श्लोक"
+    },
+    {
+        "shastra_name": "प्रवचनसार",
+        "format": "गाथा/पृष्ठ",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "प्रतिष्ठासारोद्धार",
+        "format": "अध्याय/श्लोक"
+    },
+    {
+        "shastra_name": "बारस अणुवेक्ख",
+        "format": "गाथा"
+    },
+    {
+        "shastra_name": "बोधपाहुड़",
+        "format": "गाथा/पृष्ठ",
+        "publisher": "माणिकचन्द्र ग्रन्थमाला, बम्बई",
+        "date_format": "वि.सं",
+        "date": "1977",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "बृहत् जैन शब्दार्णव/द्वितीय खंड",
+        "format": "पृष्ठ",
+        "publisher": "मूलचंद किशनदास कापड़िया, सूरत",
+        "date_format": "वी.नि.",
+        "date": "2460",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "भगवती आराधना",
+        "format": "गाथा/पृष्ठ/पंक्ति",
+        "publisher": "सखाराम दोषी, शोलापुर, प्र.सं.",
+        "date_format": "ई.",
+        "date": "1931",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "भाव पाहुड़",
+        "format": "गाथा/पृष्ठ",
+        "publisher": "माणिकचन्द्र ग्रन्थमाला, बम्बई",
+        "date_format": "वि.सं.",
+        "date": "1977",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "महापुराण",
+        "format": "सर्ग/श्लोक",
+        "publisher": "भारतीय ज्ञानपीठ, बनारस",
+        "date_format": "ई.",
+        "date": "1951"
+    },
+    {
+        "shastra_name": "महाबन्ध",
+        "format": "पुस्तक/§प्रकरण/पृष्ठ",
+        "publisher": "भारतीय ज्ञानपीठ, बनारस",
+        "date_format": "ई.",
+        "date": "1951",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "मूलाचार",
+        "format": "गाथा",
+        "publisher": "अनन्तकीर्ति ग्रन्थमाला",
+        "date_format": "वि.सं.",
+        "date": "1976"
+    },
+    {
+        "shastra_name": "मोक्ष पंचाशिका",
+        "format": "श्लोक"
+    },
+    {
+        "shastra_name": "मोक्ष पाहुड़",
+        "format": "गाथा/पृष्ठ",
+        "publisher": "माणिकचन्द्र ग्रन्थमाला, बम्बई",
+        "date_format": "वि.सं.",
+        "date": "1977",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "मोक्षमार्गप्रकाशक",
+        "format": "अधिकार/पृष्ठ/पंक्ति",
+        "publisher": "सस्ती ग्रन्थमाला, दिल्ली",
+        "edition": "द्वितीय संस्करण",
+        "date_format": "वि.सं.",
+        "date": "2010",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "युक्त्यनुशासन",
+        "format": "श्लोक",
+        "publisher": "वीरसेवा मन्दिर, सरसावा",
+        "date_format": "ई.",
+        "date": "1951"
+    },
+    {
+        "shastra_name": "योगसार अमितगति",
+        "format": "अधिकार/श्लोक",
+        "author": "आचार्य अमितगत",
+        "publisher": "जैनसिद्धान्त प्रकाशिनी संस्था, कलकत्ता",
+        "date_format": "ई.",
+        "date": "1918"
+    },
+    {
+        "shastra_name": "योगसार योगेन्दुदेव",
+        "format": "गाथा",
+        "author": "आचार्य योगेन्दुदेव",
+        "notes": "परमात्मप्रकाश के पीछे छपा"
+    },
+    {
+        "shastra_name": "रत्नकरण्ड श्रावकाचार",
+        "format": "श्लोक"
+    },
+    {
+        "shastra_name": "रयणसार",
+        "format": "गाथा"
+    },
+    {
+        "shastra_name": "राजवार्तिक",
+        "format": "अध्याय/सूत्र/पृष्ठ/पंक्ति",
+        "publisher": "भारतीय ज्ञानपीठ, बनारस,",
+        "date_format": "वि.सं.",
+        "date": "2008",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "राजवार्तिक हिन्दी",
+        "format": "अध्याय/पृष्ठ/पंक्ति",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "लब्धिसार",
+        "format": "गाथा/पृष्ठ",
+        "publisher": "जैन सिद्धान्त प्रकाशिनी संस्था, कलकत्ता",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "लाटी संहिता",
+        "format": "अधिकार/श्लोक/पृष्ठ",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "लिंग पाहुड़",
+        "format": "गाथा/पृष्ठ",
+        "publisher": "माणिकचन्द्र ग्रन्थमाला",
+        "date_format": "वि.सं.",
+        "date": "1977",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "वसुनन्दि श्रावकाचार",
+        "format": "गाथा",
+        "publisher": "भारतीय ज्ञानपीठ, बनारस",
+        "date_format": "वि.सं.",
+        "date": "2007"
+    },
+    {
+        "shastra_name": "वैशेषिक दर्शन",
+        "format": "अध्याय/आह्निक/सूत्र/पृष्ठ",
+        "publisher": "दिल्ली पुस्तक भण्डार",
+        "date_format": "वि.सं.",
+        "date": "2017",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "शील पाहुड़",
+        "format": "गाथा/पंक्ति",
+        "publisher": "माणिकचन्द्र ग्रन्थमाला, बम्बई",
+        "date_format": "वि.सं.",
+        "date": "1977",
+        "type": "shastra"
+    },
+    {
+        "shastra_name": "श्लोकवार्तिक",
+        "format": "पुस्तक/अध्याय/सूत्र/वार्तिक/पृष्ठ",
+        "publisher": "कुन्थुसागर ग्रन्थमाला, शोलापुर",
+        "date_format": "ई.",
+        "date": "1949-1956",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "षट्खण्डागम",
+        "format": "पुस्तक/खण्ड,भाग,सूत्र/पृष्ठ",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "सप्तभंगीतरङ्गिनी",
+        "format": "पृष्ठ/पंक्ति",
+        "publisher": "परम श्रुत प्रभावक मण्डल",
+        "edition": "द्वितीय संस्करण",
+        "date_format": "वि.सं.",
+        "date": "1972",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "स्याद्वादमञ्जरी",
+        "format": "श्लोक/पृष्ठ/पंक्ति",
+        "publisher": "परम श्रुत प्रभावक मण्डल",
+        "date_format": "वि.सं.",
+        "date": "1991",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "समाधिशतक",
+        "format": "श्लोक/पृष्ठ",
+        "notes": "इष्टोपदेश युक्त",
+        "publisher": "वीर सेवा मन्दिर, दिल्ली",
+        "date_format": "वि.सं.",
+        "date": "2021",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "समयसार",
+        "format": "गाथा/पृष्ठ/पंक्ति",
+        "notes": "अहिंसा मन्दिर प्रकाशन, दिल्ली",
+        "date_format": "ई.",
+        "date": "31.12.1958",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "समयसार/आत्मख्याति",
+        "format": "गाथा/कलश"
+    },
+    {
+        "shastra_name": "सर्वार्थसिद्धि",
+        "format": "अध्याय/सूत्र/पृष्ठ",
+        "publisher": "भारतीय ज्ञानपीठ, बनारस",
+        "date_format": "ई.",
+        "date": "1955",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "स्वयम्भू स्तोत्र",
+        "format": "श्लोक",
+        "publisher": "वीरसेवा मन्दिर, सरसावा",
+        "date_format": "ई.",
+        "date": "1951"
+    },
+    {
+        "shastra_name": "सागर धर्मामृत",
+        "format": "अधिकार/श्लोक"
+    },
+    {
+        "shastra_name": "सामायिक पाठ",
+        "format": "श्लोक",
+        "author": "आचार्य अमितगति"
+    },
+    {
+        "shastra_name": "सिद्धान्तसार संग्रह",
+        "format": "अध्याय/श्लोक",
+        "publisher": "जीवराज जैन ग्रन्थमाला, शोलापुर",
+        "date_format": "ई.",
+        "date": "1957"
+    },
+    {
+        "shastra_name": "सिद्धि विनिश्चय",
+        "format": "प्रस्ताव/श्लोक/पृष्ठ/पंक्ति",
+        "publisher": "भारतीय ज्ञानपीठ",
+        "date_format": "ई.",
+        "date": "1961",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "सुभाषित रत्न सदोह",
+        "format": "श्लोक",
+        "author": "आचार्य अमितगति",
+        "publisher": "जैन प्रकाशिनी संस्था, कलकत्ता",
+        "date_format": "ई.",
+        "date": "1917"
+    },
+    {
+        "shastra_name": "सूत्र पाहुड़",
+        "format": "गाथा/पृष्ठ",
+        "publisher": "माणिकचन्द्र ग्रन्थमाला, बम्बई",
+        "date_format": "वि.सं.",
+        "date": "1977",
+        "type": "teeka"
+    },
+    {
+        "shastra_name": "हरिवंश पुराण",
+        "format": "सर्ग/श्लोक",
+        "publisher": "भारतीय ज्ञानपीठ, बनारस"
+    }
+]
