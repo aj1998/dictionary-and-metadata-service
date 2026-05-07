@@ -440,6 +440,28 @@ def split_element_at_inline_refs(
     return result if result else [el]
 
 
+def _is_block_span_container(el: Node, config: JainkoshConfig) -> bool:
+    """Return True if el's direct element children are ALL GRef spans, block-classed
+    elements, or <br> tags — i.e. it's a classless wrapper around block-level spans."""
+    has_block = False
+    for child in el.iter(include_text=False):
+        if child is el:
+            continue
+        tag = child.tag or ""
+        if tag in ("-text", "#text"):
+            continue
+        cls = child.attributes.get("class", "") or ""
+        if "GRef" in cls.split() and tag == "span":
+            continue
+        if tag == "br":
+            continue
+        if block_class_kind(child, config) is not None:
+            has_block = True
+            continue
+        return False
+    return has_block
+
+
 def flatten_for_blocks(
     elements: list[Node],
     config: JainkoshConfig,
@@ -455,6 +477,12 @@ def flatten_for_blocks(
         kind = block_class_kind(el, config)
         if kind in config.nested_span.outer_kinds and has_nested_block(el, config):
             result.extend(_explode_nested_span(el, config))
+        elif kind is None and _is_block_span_container(el, config):
+            # Classless container (e.g. bare <p>) whose direct children are only
+            # GRef/block-class spans and <br>. Extract direct children so the
+            # block stream sees them individually.
+            children = [c for c in el.iter(include_text=False) if c != el]
+            result.extend(children) if children else result.append(el)
         else:
             result.append(el)
     return result

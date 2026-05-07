@@ -1,0 +1,617 @@
+{
+  "keyword_parse_result": {
+    "keyword": "वस्तु",
+    "source_url": "https://www.jainkosh.org/wiki/%E0%A4%B5%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%81",
+    "page_sections": [
+      {
+        "section_kind": "siddhantkosh",
+        "section_index": 0,
+        "h2_text": "सिद्धांतकोष से",
+        "definitions": [
+          {
+            "definition_index": 1,
+            "blocks": [
+              {
+                "kind": "sanskrit_text",
+                "text_devanagari": "परिणामो वस्तुलक्षणम्।",
+                "hindi_translation": "परिणमन करते रहना यहाँ वस्तु का लक्षण है।",
+                "references": [
+                  {
+                    "text": "लि.वि./मूलवृत्ति/4/15/293/11",
+                    "raw_html": "<span class=\"GRef\">लि.वि./मूलवृत्ति/4/15/293/11</span>",
+                    "parsed": null,
+                    "inline_reference": false
+                  }
+                ],
+                "is_orphan_translation": false,
+                "is_bullet_point": false,
+                "raw_html": null,
+                "table_rows": null,
+                "target_keyword": null,
+                "target_topic_path": null,
+                "target_url": null,
+                "is_self": false,
+                "target_exists": true
+              },
+              {
+                "kind": "prakrit_text",
+                "text_devanagari": "जं वत्थु अणेयंतं ते चिय कज्जं करेदि णियमेण। बहु धम्मजुदं अत्थं कज्जकरं दीसदे लोए।",
+                "hindi_translation": "जो वस्तु अनेकांतस्वरूप है, वही नियम से कार्यकारी है। क्योंकि लोक में बहुत धर्म युक्त पदार्थ ही कार्यकारी देखा जाता है। -",
+                "references": [
+                  {
+                    "text": "कार्तिकेयानुप्रेक्षा/225",
+                    "raw_html": "<span class=\"GRef\">कार्तिकेयानुप्रेक्षा/225</span>",
+                    "parsed": null,
+                    "inline_reference": false
+                  }
+                ],
+                "is_orphan_translation": false,
+                "is_bullet_point": false,
+                "raw_html": null,
+                "table_rows": null,
+                "target_keyword": null,
+                "target_topic_path": null,
+                "target_url": null,
+                "is_self": false,
+                "target_exists": true
+              },
+              {
+                "kind": "see_also",
+                "text_devanagari": null,
+                "hindi_translation": null,
+                "references": [],
+                "is_orphan_translation": false,
+                "is_bullet_point": false,
+                "raw_html": null,
+                "table_rows": null,
+                "target_keyword": "द्रव्य",
+                "target_topic_path": null,
+                "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF",
+                "is_self": false,
+                "target_exists": true
+              },
+              {
+                "kind": "sanskrit_text",
+                "text_devanagari": "वस्तुनस्तावदर्थ क्रियाकारित्वं लक्षणम्।",
+                "hindi_translation": null,
+                "references": [
+                  {
+                    "text": "स्याद्वादमंजरी/5/30/6",
+                    "raw_html": "<span class=\"GRef\">स्याद्वादमंजरी/5/30/6</span>",
+                    "parsed": null,
+                    "inline_reference": false
+                  }
+                ],
+                "is_orphan_translation": false,
+                "is_bullet_point": false,
+                "raw_html": null,
+                "table_rows": null,
+                "target_keyword": null,
+                "target_topic_path": null,
+                "target_url": null,
+                "is_self": false,
+                "target_exists": true
+              },
+              {
+                "kind": "sanskrit_text",
+                "text_devanagari": "वसंति गुणपर्याया अस्मिन्निति वस्तु।",
+                "hindi_translation": "अर्थक्रियाकारित्व ही वस्तु का लक्षण है। अथवा जिसमें गुणपर्यायें वास करें वस्तु है।\nदेखें द्रव्य 1.7\n- (सत्त, सत्त्व, सत्, सामान्य, द्रव्य, अन्वय, वस्तु, अर्थ, विधि ये सब एकार्थवाची शब्द हैं)।\nदेखें द्रव्य 1.4\n(वस्तु गुणपर्यायात्मक है)।\nदेखें सामान्य\n(वस्तु सामान्य विशेषात्मक है)।\nदेखें श्रुतज्ञान - II\n.(वस्तु श्रुतज्ञान के एक भेद का नाम है)।",
+                "references": [
+                  {
+                    "text": "स्याद्वादमंजरी/23/272/6",
+                    "raw_html": "<span class=\"GRef\">स्याद्वादमंजरी/23/272/6</span>",
+                    "parsed": null,
+                    "inline_reference": false
+                  }
+                ],
+                "is_orphan_translation": false,
+                "is_bullet_point": false,
+                "raw_html": null,
+                "table_rows": null,
+                "target_keyword": null,
+                "target_topic_path": null,
+                "target_url": null,
+                "is_self": false,
+                "target_exists": true
+              },
+              {
+                "kind": "see_also",
+                "text_devanagari": null,
+                "hindi_translation": null,
+                "references": [],
+                "is_orphan_translation": false,
+                "is_bullet_point": false,
+                "raw_html": null,
+                "table_rows": null,
+                "target_keyword": "द्रव्य",
+                "target_topic_path": "1.7",
+                "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#1.7",
+                "is_self": false,
+                "target_exists": true
+              },
+              {
+                "kind": "see_also",
+                "text_devanagari": null,
+                "hindi_translation": null,
+                "references": [],
+                "is_orphan_translation": false,
+                "is_bullet_point": false,
+                "raw_html": null,
+                "table_rows": null,
+                "target_keyword": "द्रव्य",
+                "target_topic_path": "1.4",
+                "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#1.4",
+                "is_self": false,
+                "target_exists": true
+              },
+              {
+                "kind": "see_also",
+                "text_devanagari": null,
+                "hindi_translation": null,
+                "references": [],
+                "is_orphan_translation": false,
+                "is_bullet_point": false,
+                "raw_html": null,
+                "table_rows": null,
+                "target_keyword": "सामान्य",
+                "target_topic_path": null,
+                "target_url": "/wiki/%E0%A4%B8%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%A8%E0%A5%8D%E0%A4%AF",
+                "is_self": false,
+                "target_exists": true
+              },
+              {
+                "kind": "see_also",
+                "text_devanagari": null,
+                "hindi_translation": null,
+                "references": [],
+                "is_orphan_translation": false,
+                "is_bullet_point": false,
+                "raw_html": null,
+                "table_rows": null,
+                "target_keyword": "श्रुतज्ञान",
+                "target_topic_path": "II",
+                "target_url": "/wiki/%E0%A4%B6%E0%A5%8D%E0%A4%B0%E0%A5%81%E0%A4%A4%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8#II",
+                "is_self": false,
+                "target_exists": true
+              }
+            ],
+            "raw_html": null
+          }
+        ],
+        "index_relations": [],
+        "subsections": [],
+        "label_topic_seeds": [],
+        "extra_blocks": []
+      },
+      {
+        "section_kind": "puraankosh",
+        "section_index": 1,
+        "h2_text": "पुराणकोष से",
+        "definitions": [
+          {
+            "definition_index": 1,
+            "blocks": [
+              {
+                "kind": "hindi_text",
+                "text_devanagari": "श्रुतज्ञान के बीस भेदों में सत्रहवाँ भेद।",
+                "hindi_translation": null,
+                "references": [
+                  {
+                    "text": "हरिवंशपुराण - 10.13",
+                    "raw_html": "<span class=\"GRef\"><a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_10#13\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 10\">हरिवंशपुराण - 10.13</a></span>",
+                    "parsed": null,
+                    "inline_reference": true
+                  }
+                ],
+                "is_orphan_translation": false,
+                "is_bullet_point": false,
+                "raw_html": null,
+                "table_rows": null,
+                "target_keyword": null,
+                "target_topic_path": null,
+                "target_url": null,
+                "is_self": false,
+                "target_exists": true
+              }
+            ],
+            "raw_html": null
+          }
+        ],
+        "index_relations": [],
+        "subsections": [],
+        "label_topic_seeds": [],
+        "extra_blocks": []
+      }
+    ],
+    "nav": {
+      "prev": "/wiki/%E0%A4%B5%E0%A4%B8%E0%A5%81%E0%A4%B8%E0%A5%87%E0%A4%A8",
+      "next": "/wiki/%E0%A4%B5%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%81_%E0%A4%B5%E0%A4%BF%E0%A4%A6%E0%A5%8D%E0%A4%AF%E0%A4%BE"
+    },
+    "parser_version": "jainkosh.rules/1.6.0",
+    "parsed_at": "2026-05-04T00:00:00",
+    "warnings": []
+  },
+  "would_write": {
+    "postgres": {
+      "keywords": [
+        {
+          "table": "keywords",
+          "natural_key": "वस्तु",
+          "display_text": "वस्तु",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%B5%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%81",
+          "definition_doc_ids": []
+        }
+      ],
+      "topics": [],
+      "keyword_aliases": []
+    },
+    "mongo": {
+      "keyword_definitions": [
+        {
+          "collection": "keyword_definitions",
+          "natural_key": "वस्तु",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%B5%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%81",
+          "page_sections": [
+            {
+              "section_index": 0,
+              "section_kind": "siddhantkosh",
+              "h2_text": "सिद्धांतकोष से",
+              "definitions": [
+                {
+                  "definition_index": 1,
+                  "blocks": [
+                    {
+                      "kind": "sanskrit_text",
+                      "text_devanagari": "परिणामो वस्तुलक्षणम्।",
+                      "hindi_translation": "परिणमन करते रहना यहाँ वस्तु का लक्षण है।",
+                      "references": [
+                        {
+                          "text": "लि.वि./मूलवृत्ति/4/15/293/11",
+                          "raw_html": "<span class=\"GRef\">लि.वि./मूलवृत्ति/4/15/293/11</span>",
+                          "parsed": null,
+                          "inline_reference": false
+                        }
+                      ],
+                      "is_orphan_translation": false,
+                      "is_bullet_point": false,
+                      "raw_html": null,
+                      "table_rows": null,
+                      "target_keyword": null,
+                      "target_topic_path": null,
+                      "target_url": null,
+                      "is_self": false,
+                      "target_exists": true
+                    },
+                    {
+                      "kind": "prakrit_text",
+                      "text_devanagari": "जं वत्थु अणेयंतं ते चिय कज्जं करेदि णियमेण। बहु धम्मजुदं अत्थं कज्जकरं दीसदे लोए।",
+                      "hindi_translation": "जो वस्तु अनेकांतस्वरूप है, वही नियम से कार्यकारी है। क्योंकि लोक में बहुत धर्म युक्त पदार्थ ही कार्यकारी देखा जाता है। -",
+                      "references": [
+                        {
+                          "text": "कार्तिकेयानुप्रेक्षा/225",
+                          "raw_html": "<span class=\"GRef\">कार्तिकेयानुप्रेक्षा/225</span>",
+                          "parsed": null,
+                          "inline_reference": false
+                        }
+                      ],
+                      "is_orphan_translation": false,
+                      "is_bullet_point": false,
+                      "raw_html": null,
+                      "table_rows": null,
+                      "target_keyword": null,
+                      "target_topic_path": null,
+                      "target_url": null,
+                      "is_self": false,
+                      "target_exists": true
+                    },
+                    {
+                      "kind": "see_also",
+                      "text_devanagari": null,
+                      "hindi_translation": null,
+                      "references": [],
+                      "is_orphan_translation": false,
+                      "is_bullet_point": false,
+                      "raw_html": null,
+                      "table_rows": null,
+                      "target_keyword": "द्रव्य",
+                      "target_topic_path": null,
+                      "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF",
+                      "is_self": false,
+                      "target_exists": true
+                    },
+                    {
+                      "kind": "sanskrit_text",
+                      "text_devanagari": "वस्तुनस्तावदर्थ क्रियाकारित्वं लक्षणम्।",
+                      "hindi_translation": null,
+                      "references": [
+                        {
+                          "text": "स्याद्वादमंजरी/5/30/6",
+                          "raw_html": "<span class=\"GRef\">स्याद्वादमंजरी/5/30/6</span>",
+                          "parsed": null,
+                          "inline_reference": false
+                        }
+                      ],
+                      "is_orphan_translation": false,
+                      "is_bullet_point": false,
+                      "raw_html": null,
+                      "table_rows": null,
+                      "target_keyword": null,
+                      "target_topic_path": null,
+                      "target_url": null,
+                      "is_self": false,
+                      "target_exists": true
+                    },
+                    {
+                      "kind": "sanskrit_text",
+                      "text_devanagari": "वसंति गुणपर्याया अस्मिन्निति वस्तु।",
+                      "hindi_translation": "अर्थक्रियाकारित्व ही वस्तु का लक्षण है। अथवा जिसमें गुणपर्यायें वास करें वस्तु है।\nदेखें द्रव्य 1.7\n- (सत्त, सत्त्व, सत्, सामान्य, द्रव्य, अन्वय, वस्तु, अर्थ, विधि ये सब एकार्थवाची शब्द हैं)।\nदेखें द्रव्य 1.4\n(वस्तु गुणपर्यायात्मक है)।\nदेखें सामान्य\n(वस्तु सामान्य विशेषात्मक है)।\nदेखें श्रुतज्ञान - II\n.(वस्तु श्रुतज्ञान के एक भेद का नाम है)।",
+                      "references": [
+                        {
+                          "text": "स्याद्वादमंजरी/23/272/6",
+                          "raw_html": "<span class=\"GRef\">स्याद्वादमंजरी/23/272/6</span>",
+                          "parsed": null,
+                          "inline_reference": false
+                        }
+                      ],
+                      "is_orphan_translation": false,
+                      "is_bullet_point": false,
+                      "raw_html": null,
+                      "table_rows": null,
+                      "target_keyword": null,
+                      "target_topic_path": null,
+                      "target_url": null,
+                      "is_self": false,
+                      "target_exists": true
+                    },
+                    {
+                      "kind": "see_also",
+                      "text_devanagari": null,
+                      "hindi_translation": null,
+                      "references": [],
+                      "is_orphan_translation": false,
+                      "is_bullet_point": false,
+                      "raw_html": null,
+                      "table_rows": null,
+                      "target_keyword": "द्रव्य",
+                      "target_topic_path": "1.7",
+                      "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#1.7",
+                      "is_self": false,
+                      "target_exists": true
+                    },
+                    {
+                      "kind": "see_also",
+                      "text_devanagari": null,
+                      "hindi_translation": null,
+                      "references": [],
+                      "is_orphan_translation": false,
+                      "is_bullet_point": false,
+                      "raw_html": null,
+                      "table_rows": null,
+                      "target_keyword": "द्रव्य",
+                      "target_topic_path": "1.4",
+                      "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#1.4",
+                      "is_self": false,
+                      "target_exists": true
+                    },
+                    {
+                      "kind": "see_also",
+                      "text_devanagari": null,
+                      "hindi_translation": null,
+                      "references": [],
+                      "is_orphan_translation": false,
+                      "is_bullet_point": false,
+                      "raw_html": null,
+                      "table_rows": null,
+                      "target_keyword": "सामान्य",
+                      "target_topic_path": null,
+                      "target_url": "/wiki/%E0%A4%B8%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%A8%E0%A5%8D%E0%A4%AF",
+                      "is_self": false,
+                      "target_exists": true
+                    },
+                    {
+                      "kind": "see_also",
+                      "text_devanagari": null,
+                      "hindi_translation": null,
+                      "references": [],
+                      "is_orphan_translation": false,
+                      "is_bullet_point": false,
+                      "raw_html": null,
+                      "table_rows": null,
+                      "target_keyword": "श्रुतज्ञान",
+                      "target_topic_path": "II",
+                      "target_url": "/wiki/%E0%A4%B6%E0%A5%8D%E0%A4%B0%E0%A5%81%E0%A4%A4%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8#II",
+                      "is_self": false,
+                      "target_exists": true
+                    }
+                  ],
+                  "raw_html": null
+                }
+              ],
+              "label_topic_seeds": [],
+              "extra_blocks": []
+            },
+            {
+              "section_index": 1,
+              "section_kind": "puraankosh",
+              "h2_text": "पुराणकोष से",
+              "definitions": [
+                {
+                  "definition_index": 1,
+                  "blocks": [
+                    {
+                      "kind": "hindi_text",
+                      "text_devanagari": "श्रुतज्ञान के बीस भेदों में सत्रहवाँ भेद।",
+                      "hindi_translation": null,
+                      "references": [
+                        {
+                          "text": "हरिवंशपुराण - 10.13",
+                          "raw_html": "<span class=\"GRef\"><a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_10#13\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 10\">हरिवंशपुराण - 10.13</a></span>",
+                          "parsed": null,
+                          "inline_reference": true
+                        }
+                      ],
+                      "is_orphan_translation": false,
+                      "is_bullet_point": false,
+                      "raw_html": null,
+                      "table_rows": null,
+                      "target_keyword": null,
+                      "target_topic_path": null,
+                      "target_url": null,
+                      "is_self": false,
+                      "target_exists": true
+                    }
+                  ],
+                  "raw_html": null
+                }
+              ],
+              "label_topic_seeds": [],
+              "extra_blocks": []
+            }
+          ],
+          "redirect_aliases": []
+        }
+      ],
+      "topic_extracts": []
+    },
+    "neo4j": {
+      "nodes": [
+        {
+          "label": "Keyword",
+          "key": "वस्तु",
+          "props": {
+            "display_text": "वस्तु",
+            "source_url": "https://www.jainkosh.org/wiki/%E0%A4%B5%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%81"
+          }
+        }
+      ],
+      "edges": []
+    },
+    "idempotency_contracts": {
+      "mongo:keyword_definitions": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "page_sections",
+          "redirect_aliases",
+          "source_url"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:keyword_definitions"
+        ]
+      },
+      "mongo:topic_extracts": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "topic_path",
+          "parent_natural_key",
+          "is_leaf",
+          "heading",
+          "blocks",
+          "source",
+          "source_url"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:topic_extracts"
+        ]
+      },
+      "neo4j:Keyword": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "display_text",
+          "source_url"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Keyword"
+        ]
+      },
+      "neo4j:Topic": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "display_text_hi",
+          "topic_path",
+          "parent_keyword_natural_key",
+          "source",
+          "is_leaf"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Topic"
+        ]
+      },
+      "postgres:keyword_aliases": {
+        "conflict_key": [
+          "keyword_natural_key",
+          "alias_text"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "alias_kind",
+          "source"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:keyword_aliases"
+        ]
+      },
+      "postgres:keywords": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "display_text",
+          "source_url"
+        ],
+        "fields_append": [
+          "definition_doc_ids"
+        ],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:keywords",
+          "mongo:keyword_definitions",
+          "neo4j:Keyword"
+        ]
+      },
+      "postgres:topics": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "topic_path",
+          "display_text",
+          "parent_topic_natural_key",
+          "is_leaf",
+          "is_synthetic",
+          "source"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:topics",
+          "mongo:topic_extracts",
+          "neo4j:Topic"
+        ]
+      }
+    }
+  }
+}
