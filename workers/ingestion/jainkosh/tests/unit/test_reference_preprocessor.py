@@ -12,7 +12,9 @@ from workers.ingestion.jainkosh.parse_reference import (
     _preprocess_text,
     _strip_noise_phrases,
     _strip_parens,
+    _strip_punct,
     _strip_section_keywords,
+    _strip_trailing_non_numeric,
 )
 
 DEFAULT_KEYWORDS = [
@@ -102,6 +104,38 @@ class TestStripSectionKeywords:
 # _preprocess_text (full pipeline)
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# _strip_punct (14A.6a)
+# ---------------------------------------------------------------------------
+
+class TestStripPunct:
+    @pytest.mark.parametrize("text,expected", [
+        ("धवला 1/5।", "धवला 1/5 "),
+        ("ज्ञानसार 29॥", "ज्ञानसार 29 "),
+        ("धवला 1/5", "धवला 1/5"),          # no dandas → unchanged
+        ("धवला 1/1,1,1/84/1", "धवला 1/1,1,1/84/1"),  # commas NOT stripped
+    ])
+    def test_strip_punct(self, text, expected):
+        assert _strip_punct(text) == expected
+
+
+# ---------------------------------------------------------------------------
+# _strip_trailing_non_numeric (14A.8)
+# ---------------------------------------------------------------------------
+
+class TestStripTrailingNonNumeric:
+    @pytest.mark.parametrize("numeric,expected", [
+        ("3/1,2,1/2/ नं.", "3/1,2,1/2"),
+        ("3/1,2,1/2/पृ.", "3/1,2,1/2"),
+        ("1/5/317", "1/5/317"),           # all numeric → unchanged
+        ("", ""),                          # empty → unchanged
+        ("नं.", ""),                        # all non-numeric → empty
+        ("1/5/ ", "1/5"),                  # whitespace-only segment → dropped
+    ])
+    def test_trailing_strip(self, numeric, expected):
+        assert _strip_trailing_non_numeric(numeric) == expected
+
+
 class TestPreprocessText:
     @pytest.fixture
     def cfg(self):
@@ -112,7 +146,8 @@ class TestPreprocessText:
         ("(द्रव्यसंग्रह / मूल गाथा या टीका 14/46)", "द्रव्यसंग्रह / 14/46"),
         ("धवला पुस्तक 13/5,5,50/282/9", "धवला 13/5,5,50/282/9"),
         ("समयसार / आत्मख्याति गाथा 8", "समयसार / आत्मख्याति 8"),
-        ("(परमात्मप्रकाश / मूल या टीका अधिकार 1/11)", "परमात्मप्रकाश / मूल या टीका 1/11"),
+        # jainkosh.yaml includes "मूल या टीका" as a noise phrase, so it is stripped:
+        ("(परमात्मप्रकाश / मूल या टीका अधिकार 1/11)", "परमात्मप्रकाश / 1/11"),
         ("( ज्ञानसार श्लोक 29)", "ज्ञानसार 29"),
         ("धवला 1/5", "धवला 1/5"),
     ])

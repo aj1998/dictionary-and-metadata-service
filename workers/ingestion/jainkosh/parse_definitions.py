@@ -8,7 +8,7 @@ from typing import Optional
 from selectolax.parser import Node
 
 from .config import JainkoshConfig
-from .models import Block, Definition
+from .models import Block, Definition, SectionKind
 from .normalize import normalize_text
 from .parse_blocks import make_block, _emit, _strip_eq_prefix, _is_translation_block
 from .refs import is_leading_reference_node, extract_refs_from_node
@@ -20,6 +20,7 @@ def parse_siddhantkosh_definitions(
     config: JainkoshConfig,
     *,
     current_keyword: str = "",
+    section_kind: SectionKind = "siddhantkosh",
 ) -> list[Definition]:
     """Parse SiddhantKosh pre-heading content into Definition objects."""
     from .parse_blocks import parse_block_stream
@@ -32,7 +33,7 @@ def parse_siddhantkosh_definitions(
         nonlocal cur_elements
         if not cur_elements:
             return
-        blocks = parse_block_stream(cur_elements, config, current_keyword=current_keyword)
+        blocks = parse_block_stream(cur_elements, config, current_keyword=current_keyword, section_kind=section_kind)
         if blocks:
             defs.append(Definition(definition_index=len(defs) + 1, blocks=blocks))
         cur_elements = []
@@ -62,6 +63,7 @@ def parse_puraankosh_definitions(
     config: JainkoshConfig,
     *,
     current_keyword: str = "",
+    section_kind: SectionKind = "puraankosh",
 ) -> list[Definition]:
     """Parse PuranKosh pre-heading content into Definition objects."""
     from .parse_blocks import make_block, parse_block_stream
@@ -77,7 +79,7 @@ def parse_puraankosh_definitions(
 
     if inner_div is None:
         # Fallback: treat all elements as one definition
-        blocks = parse_block_stream(pre_heading_elements, config, current_keyword=current_keyword)
+        blocks = parse_block_stream(pre_heading_elements, config, current_keyword=current_keyword, section_kind=section_kind)
         if blocks:
             defs = [Definition(definition_index=1, blocks=blocks)]
             _strip_numbering(defs, config)
@@ -96,7 +98,7 @@ def parse_puraankosh_definitions(
     if len(valid_p) >= 1 and _any_starts_with_paren_number(valid_p):
         defs = []
         for p in valid_p:
-            blocks = parse_block_stream([p], config, current_keyword=current_keyword)
+            blocks = parse_block_stream([p], config, current_keyword=current_keyword, section_kind=section_kind)
             if blocks:
                 defs.append(Definition(definition_index=len(defs) + 1, blocks=blocks))
         _strip_numbering(defs, config)
@@ -104,7 +106,7 @@ def parse_puraankosh_definitions(
 
     # Single paragraph case
     p = inner_div.css_first("p.HindiText") or inner_div
-    blocks = parse_block_stream([p], config, current_keyword=current_keyword)
+    blocks = parse_block_stream([p], config, current_keyword=current_keyword, section_kind=section_kind)
     if blocks:
         defs = [Definition(definition_index=1, blocks=blocks)]
         _strip_numbering(defs, config)

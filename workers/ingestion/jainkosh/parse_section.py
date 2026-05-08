@@ -60,15 +60,15 @@ def parse_section(
     # Phase 2: definitions
     if section_kind == "siddhantkosh":
         definitions = parse_siddhantkosh_definitions(
-            pre_heading, config, current_keyword=keyword
+            pre_heading, config, current_keyword=keyword, section_kind=section_kind
         )
     elif section_kind == "puraankosh":
         definitions = parse_puraankosh_definitions(
-            pre_heading, config, current_keyword=keyword
+            pre_heading, config, current_keyword=keyword, section_kind=section_kind
         )
     else:
         definitions = parse_siddhantkosh_definitions(
-            pre_heading, config, current_keyword=keyword
+            pre_heading, config, current_keyword=keyword, section_kind=section_kind
         )
 
     # Phase 3: index relations

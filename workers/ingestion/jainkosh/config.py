@@ -148,7 +148,7 @@ class ReferenceMoolConfig(BaseModel):
 class ReferenceNeedsManualMatchConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
     on_extra_groups: bool = True
-    on_missing_fields: bool = False
+    on_missing_fields: bool = True  # 14A.2: strict group-count matching by default
 
 
 class ReferenceNoisePhraseConfig(BaseModel):

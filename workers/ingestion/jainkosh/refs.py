@@ -7,7 +7,7 @@ import re
 from selectolax.parser import Node
 
 from .config import JainkoshConfig
-from .models import Reference
+from .models import Reference, SectionKind
 from .normalize import normalize_text
 from .selectors import is_gref_node
 
@@ -39,8 +39,13 @@ def extract_refs_from_node(
     config: JainkoshConfig,
     *,
     inline: bool = False,
+    section_kind: SectionKind = "siddhantkosh",
 ) -> list[Reference]:
-    """Extract all GRef spans from a node, splitting at semicolons when configured."""
+    """Extract all GRef spans from a node, splitting at semicolons when configured.
+
+    14A.1: section_kind="puraankosh" skips resolution entirely.
+    14A.4: each text part may expand into multiple References (range/list fields).
+    """
     refs = []
     for gref in node.css("span.GRef"):
         full_text = extract_ref_text(gref, config)
@@ -48,29 +53,40 @@ def extract_refs_from_node(
             continue
         parts = _split_gref_text(full_text, config)
         for part in parts:
-            resolution = _resolve_reference(part, config)
+            resolutions = _resolve_reference(part, config, section_kind=section_kind)
             inline_ref_value = inline if config.reference.annotate_inline_position else False
-            refs.append(Reference(text=part, inline_reference=inline_ref_value, **resolution))
+            for resolution in resolutions:
+                refs.append(Reference(text=part, inline_reference=inline_ref_value, **resolution))
     return refs
 
 
-def _resolve_reference(text: str, config: JainkoshConfig) -> dict:
+def _resolve_reference(
+    text: str,
+    config: JainkoshConfig,
+    *,
+    section_kind: SectionKind = "siddhantkosh",
+) -> list[dict]:
+    # 14A.1: puraankosh sections skip structured resolution
     if (
-        config.reference.parse_strategy == "text_only"
+        section_kind == "puraankosh"
+        or config.reference.parse_strategy == "text_only"
         or config.shastra_registry is None
     ):
-        return {}
+        return [{}]
 
     from .parse_reference import parse_reference_text
-    result = parse_reference_text(text, config.shastra_registry, config.reference)
-    return {
-        "needs_manual_match": result.needs_manual_match,
-        "is_teeka": result.is_teeka,
-        "teeka_name": result.teeka_name,
-        "shastra_name": result.shastra_name,
-        "match_method": result.match_method,
-        "resolved_fields": result.resolved_fields,
-    }
+    results = parse_reference_text(text, config.shastra_registry, config.reference)
+    return [
+        {
+            "needs_manual_match": r.needs_manual_match,
+            "is_teeka": r.is_teeka,
+            "teeka_name": r.teeka_name,
+            "shastra_name": r.shastra_name,
+            "match_method": r.match_method,
+            "resolved_fields": r.resolved_fields,
+        }
+        for r in results
+    ]
 
 
 def is_leading_reference_node(node: Node, config: JainkoshConfig) -> bool:

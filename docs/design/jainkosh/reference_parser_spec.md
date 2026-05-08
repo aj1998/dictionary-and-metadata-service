@@ -1395,6 +1395,351 @@ Specifically, add to the `reference` object in the schema:
 
 ---
 
+## 14A. Amendments — review round 2
+
+This section supersedes the corresponding parts of §§1–13 wherever it contradicts
+them. Implementer must read this *first*; older sections remain for context.
+
+### 14A.1 Skip puraankosh sections entirely
+
+Reference resolution must NOT run on definitions inside `section_kind == "puraankosh"`.
+A separate `shastra.json` (purankosh-specific) will be wired up later. For now:
+
+- In `refs.py::extract_refs_from_node` (or its caller in `parse_section.py` /
+  `parse_definitions.py`), thread the current `section_kind` through and short-circuit
+  to `parse_strategy="text_only"` behaviour when `section_kind == "puraankosh"`.
+- Concretely: when `section_kind == "puraankosh"`, build each `Reference` with only
+  `text` and `inline_reference` populated; never call `parse_reference_text`.
+- The simplest implementation is a new parameter on `extract_refs_from_node`:
+
+  ```python
+  def extract_refs_from_node(
+      node: Node,
+      config: JainkoshConfig,
+      *,
+      inline: bool = False,
+      section_kind: SectionKind = "siddhantkosh",
+  ) -> list[Reference]: ...
+  ```
+
+  and inside `_resolve_reference`:
+
+  ```python
+  if section_kind == "puraankosh":
+      return {}
+  ```
+
+  Update all call sites in `parse_definitions.py` / `parse_section.py` to pass the
+  section kind through. (`parse_keyword.py` already classifies sections; reuse.)
+
+- Add a `puraankosh_skips_resolution` golden assertion to
+  `test_parse_reference_integration.py` once a purankosh fixture is available.
+
+### 14A.2 Strict format-group count matching
+
+Change `ReferenceNeedsManualMatchConfig.on_missing_fields` default back to **`True`**.
+The justification for `false` (partial citations are valid) is overruled — partial
+matches were resolving citations the curator did not intend. New rule:
+
+- Let `R` = number of required (non-`§`) format groups.
+- Let `O` = number of optional (`§`) format groups.
+- Let `V` = number of value groups (after splitting `numeric_clean` on `/`).
+- Acceptable: `V == R` (no optionals) or `R <= V <= R + O` (with optionals — verify
+  via leading-`§` detection per §8.1).
+- Otherwise → `needs_manual_match = True`, `resolved_fields = []`.
+
+Examples that must now be rejected (golden has them currently mis-resolved):
+
+| Text | Format | V | R | Outcome |
+|------|--------|---|---|---------|
+| `( आलापपद्धति/6 )` | `अधिकार/सूत्र/पृष्ठ` | 1 | 3 | needs_manual |
+| `( धवला 15/33/9 )` | `पुस्तक/खण्ड,भाग,सूत्र/पृष्ठ/गाथा` | 3 | 4 | needs_manual |
+| `पंचास्तिकाय/10` | `गाथा/पृष्ठ` | 1 | 2 | needs_manual (was previously `गाथा=10`) |
+
+Update §8.3 table, §10.1 default, §10.4 yaml, §12.4 / §12.5 fixtures, and §13
+golden expectations. The previously-documented "valid partial citation" case in §2.4
+("Partial numeric match — pंchastikai/10") is REMOVED.
+
+### 14A.3 `alternate_name` is a list
+
+Both the `shastra.json` schema and `ShastraEntry` change.
+
+```python
+class ShastraEntry:
+    shastra_name: str
+    alternate_names: list[str]      # was: alternate_name: Optional[str]
+    short_form: str
+    format_str: str
+    format_groups: list[FormatGroup]
+```
+
+Loader (§3.1): accept either string (legacy) or list:
+
+```python
+raw_alt = item.get("alternate_name", []) or item.get("alternate_names", [])
+if isinstance(raw_alt, str):
+    raw_alt = [raw_alt]
+entry.alternate_names = [a for a in raw_alt if a]
+for alt in entry.alternate_names:
+    registry._by_alternate[_normalise(alt, norm_config)] = entry
+```
+
+Lookup priority unchanged (§3.2): `shastra_name` → `alternate_name` (any) → `short_form`.
+A single hit on any element of `alternate_names` returns `match_method="alternate_name"`.
+
+When two entries claim the same alternate (collision), the **first** loaded wins;
+log a warning at registry load time.
+
+`shastra.json` should be progressively migrated; the existing single-string form must
+keep working until the file is fully updated.
+
+### 14A.4 Range / list value expansion → multiple `Reference` objects
+
+When any `ResolvedField.value` contains a numeric range (`a-b`) or numeric list
+(`a,b,c`) or a combination (`a-b,c`), expand the parent `Reference` into multiple
+`Reference` objects — one per concrete numeric value. All other fields stay identical
+across the expansions; `text` is preserved as the original (un-split) string.
+
+Specification:
+
+1. Expansion happens **after** field resolution, in a new helper
+   `_expand_resolved_fields(resolved_fields) -> list[list[ResolvedField]]`,
+   called by `parse_reference_text` when `needs_manual_match=False`.
+2. `parse_reference_text` returns `list[_ResolutionResult]` instead of a single
+   result. `refs.py` constructs one `Reference` per result.
+3. Expansion rules per field value (string form):
+   - `"95-96"` → `[95, 96]` (inclusive range; both ends must be ints; if step
+     would yield > 50 values, abort expansion → `needs_manual_match=True`).
+   - `"8,86"` → `[8, 86]`.
+   - `"1-3,39"` → `[1, 2, 3, 39]`.
+   - Pure int (already coerced) → `[value]`.
+   - Non-numeric string remaining after digit-strip (§14A.5) → no expansion;
+     leave field as-is (this should not happen post-strip, but guard anyway).
+4. If multiple fields each expand, take the **cartesian product** (e.g.
+   `गाथा="1-2"` × `पृष्ठ="5,6"` → 4 references). Cap total expansion at 50;
+   if exceeded → `needs_manual_match=True`, no expansion, `resolved_fields=[]`.
+
+Examples (from `द्रव्य.json`):
+
+| Original `resolved_fields` | After expansion |
+|----------------------------|-----------------|
+| `[{गाथा: "95-96"}]` | 2 refs: `[गाथा=95]`, `[गाथा=96]` |
+| `[{श्लोक: "8,86"}]` | 2 refs: `[श्लोक=8]`, `[श्लोक=86]` |
+| `[{सूत्र: "1-3,39"}]` | 4 refs: `[सूत्र=1]`, `[सूत्र=2]`, `[सूत्र=3]`, `[सूत्र=39]` |
+
+Helper grammar:
+
+```python
+_RANGE_LIST_RE = re.compile(r"^\s*(\d+(?:-\d+)?)(?:\s*,\s*(\d+(?:-\d+)?))*\s*$")
+
+def _expand_value(s: str) -> list[int] | None:
+    if not _RANGE_LIST_RE.match(s):
+        return None
+    out: list[int] = []
+    for chunk in s.split(","):
+        chunk = chunk.strip()
+        if "-" in chunk:
+            a, b = (int(x) for x in chunk.split("-", 1))
+            if b < a or b - a > 50:
+                return None
+            out.extend(range(a, b + 1))
+        else:
+            out.append(int(chunk))
+    return out
+```
+
+Add unit tests in `test_reference_value_resolver.py` and integration tests covering
+all three example shapes above plus the cartesian-product case.
+
+### 14A.5 Numeric-only `resolved_fields.value`
+
+`ResolvedField.value` must always be `int` for resolved references (the
+`Union[int, str]` typing in §2.1 stays for the model, but post-resolution any
+non-int value is a bug).
+
+Coercion change in `_coerce_value` (§8.2):
+
+```python
+_LEADING_DIGITS_RE = re.compile(r"^\s*(\d+)")
+
+def _coerce_value(s: str) -> Optional[int]:
+    """Return int if a leading digit run can be extracted, else None."""
+    m = _LEADING_DIGITS_RE.match(s)
+    return int(m.group(1)) if m else None
+```
+
+In `_assign_group`: if `_coerce_value` returns `None` for a part, treat it as a
+mismatch → `needs_manual_match=True` (subject to `on_missing_fields`).
+
+For range/list strings (`"95-96"`, `"1-3,39"`), `_assign_group` keeps the original
+string and §14A.4's `_expand_value` runs over it. Detect range/list with
+`_RANGE_LIST_RE` *before* `_coerce_value` so they aren't lossy-coerced to a single int.
+
+Examples this fixes:
+
+| Raw value part | Old coerced | New coerced |
+|----------------|-------------|-------------|
+| `"309परउद्धृत"` | `"309परउद्धृत"` (str) | `309` (int) |
+| `"42abc"` | `"42abc"` (str) | `42` (int) |
+| `"abc"` | `"abc"` (str) | `None` → mismatch → needs_manual |
+| `"95-96"` | `"95-96"` (str, no expansion) | kept as `"95-96"` for §14A.4 expansion |
+
+### 14A.6 Punctuation cleanup + mool-as-teeka fix
+
+Two related issues, one solution.
+
+(a) **Strip comma punctuation** from the working text during pre-processing
+(§4A). Add step 1.5:
+
+```python
+def _strip_punct(text: str) -> str:
+    # Punctuation that never carries semantic meaning in citations.
+    return text.replace(",", " ").replace("।", " ").replace("॥", " ")
+```
+
+Run this between `_strip_parens` and `_strip_noise_phrases`. Update §4A.1
+pipeline diagram and §4A.6 helper:
+
+```
+raw → strip_parens → strip_punct → strip_noise → strip_keywords → collapse_ws
+```
+
+(b) **Mool keyword wrongly retained as teeka.** For input
+`परमात्मप्रकाश/ मूल/2/27`, the current pipeline:
+
+1. `name_raw = "परमात्मप्रकाश/ मूल"`, `numeric_raw = "2/27"`.
+2. `_strip_mool` strips ` मूल` → `परमात्मप्रकाश/`, lookup fails (trailing slash).
+3. Teeka split sees `मूल` as candidate teeka → `is_teeka=True`, `teeka_name="मूल"`.
+
+Two fixes, both required:
+
+- In `_strip_mool` (§6.2), trim trailing `/` and whitespace **after** stripping the
+  keyword, so `परमात्मप्रकाश/` becomes `परमात्मप्रकाश` and the §6.1 step-2 lookup
+  succeeds:
+
+  ```python
+  return name[: -(1 + len(kw))].rstrip(" /").strip()
+  ```
+
+- In `match_shastra` (§6.1) step 3, after splitting on the first `/`, check whether
+  `teeka_candidate` (after NFC) is in `config.mool.keywords` *or* its first
+  whitespace-separated token is. If so, do **not** treat it as a teeka — instead
+  retry lookup with `base` only and `is_teeka=False`. Pseudocode:
+
+  ```python
+  first_token = teeka_candidate.split()[0] if teeka_candidate else ""
+  is_mool_marker = (
+      teeka_candidate in config.mool.keywords
+      or first_token in config.mool.keywords
+  )
+  if is_mool_marker:
+      entry, method = registry.lookup(norm(base))
+      if entry:
+          return entry, method, False, ""
+      # else fall through to no-match
+  else:
+      # existing teeka path
+      ...
+  ```
+
+Either fix on its own would resolve the case; both are needed because (a) covers
+the common mool-after-slash case and (b) covers cases where the slash form is
+also in the registry as `परमात्मप्रकाश/मूल` or where the trailing slash heuristic
+is brittle.
+
+### 14A.7 Normalization: short/long `i` (ि ↔ ी)
+
+`वसुनन्दि श्रावकाचार` (registry) and `वसुनंदी श्रावकाचार` (cited form) currently
+fail to match. After existing substitutions, the pair reduces to:
+
+- `वसुनंदि श्रावकाचार` (after `न्द → ंद`)
+- `वसुनंदी श्रावकाचार`
+
+The remaining diff is `दि` vs `दी` (matra `ि` vs `ी`). Add a normalization step
+that collapses both short and long `i` matras to a single canonical form **for
+matching only**:
+
+```yaml
+reference:
+  devanagari_normalization:
+    substitutions:
+      # ...existing...
+      - {from: "ी", to: "ि"}     # collapse long-i to short-i (matching only)
+```
+
+Caveats:
+
+- This is aggressive and will create false positives in theory (e.g. `मीन` and
+  `मिन` would normalise to the same key). In the shastra registry this is
+  acceptable — names are long enough that collisions are vanishingly unlikely,
+  and the alternative is per-entry alternate_names. If a collision is observed,
+  remove this rule and add explicit `alternate_names` instead.
+- Apply *after* the conjunct-substitutions (table is order-sensitive — already
+  documented in §4.3).
+- Do NOT also collapse `ु`/`ू`, `े`/`ै`, etc. unless a concrete miss is observed;
+  add per-pair as needed, with this matter documented.
+
+Add a unit test in `test_shastra_registry.py`:
+
+```python
+("वसुनन्दि श्रावकाचार", "वसुनंदी श्रावकाचार") -> match (alternate or primary)
+```
+
+### 14A.8 Strip trailing non-numeric tokens from numeric portion
+
+For input `धवला 3/1,2,1/2/ पंक्ति नं.`, after current pre-processing:
+
+- Step 3 strips `पंक्ति` (whitespace-bounded keyword) → `धवला 3/1,2,1/2/  नं.`
+- Step 4 collapses → `धवला 3/1,2,1/2/ नं.`
+- `split_name_and_numeric` → `numeric_raw = "3/1,2,1/2/ नं."`
+- `numeric_clean = "3/1,2,1/2/नं."` → 5 groups → fails group-count check.
+
+Fix: after `split_name_and_numeric`, run a trailing-noise strip on `numeric_raw`
+before the space-removal step:
+
+```python
+def _strip_trailing_non_numeric(numeric: str) -> str:
+    """
+    Drop trailing slash-segments that contain no digits.
+    Example: '3/1,2,1/2/ नं.' -> '3/1,2,1/2'
+    """
+    parts = numeric.split("/")
+    while parts and not re.search(r"\d", parts[-1]):
+        parts.pop()
+    return "/".join(parts)
+```
+
+Call site (insert before `numeric_clean = numeric_raw.replace(" ", "")` in §9):
+
+```python
+numeric_raw = _strip_trailing_non_numeric(numeric_raw)
+numeric_clean = numeric_raw.replace(" ", "")
+```
+
+This also handles citations that end with stray text accidentally not stripped by
+section_keywords (e.g. abbreviated headers like `नं.`, `पृ.`).
+
+Add tests in `test_reference_preprocessor.py` and an integration case for
+`धवला 3/1,2,1/2/ पंक्ति नं.` → `धवला 3/1,2,1/2` → fully resolved (4 groups,
+matches format).
+
+### 14A.9 Updated Definition of Done deltas (additive to §15)
+
+- [ ] `extract_refs_from_node` skips resolution when `section_kind == "puraankosh"`.
+- [ ] `on_missing_fields` default flipped back to `True`; group-count strictness enforced.
+- [ ] `ShastraEntry.alternate_names: list[str]` (loader accepts string-or-list legacy form).
+- [ ] `parse_reference_text` returns `list[_ResolutionResult]`; range/list values expand into multiple `Reference` objects (cap 50, fall back to needs_manual on overflow).
+- [ ] `_coerce_value` extracts leading digits → `int`; non-numeric → mismatch.
+- [ ] Pre-processing pipeline includes `_strip_punct` (commas/dandas) between paren-strip and noise-strip.
+- [ ] `_strip_mool` trims trailing `/` and whitespace after keyword removal.
+- [ ] `match_shastra` step-3 teeka path detects mool keywords and retries base-only lookup instead.
+- [ ] `devanagari_normalization.substitutions` includes `{from: "ी", to: "ि"}`; `वसुनन्दि ↔ वसुनंदी` test passes.
+- [ ] `_strip_trailing_non_numeric` runs on `numeric_raw` after `split_name_and_numeric`.
+- [ ] All goldens regenerated; `द्रव्य.json` lines 688, 736, 915, 979, 1364, 2122, 2717, 3246 (cited examples) match the new expected shapes documented above.
+- [ ] `parser_rules_version` bumped to `"jainkosh.rules/1.9.0"`.
+
+---
+
 ## 15. Definition of Done
 
 - [ ] `parse_reference.py` exists; all functions have type hints and no external I/O.

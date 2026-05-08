@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import itertools
 import json
 import re
 import unicodedata
@@ -14,6 +15,7 @@ if TYPE_CHECKING:
         DevanagariNormalizationConfig,
         ReferenceConfig,
         ReferenceMoolConfig,
+        ReferenceNeedsManualMatchConfig,
         ReferenceNoisePhraseConfig,
         ReferenceSectionKeywordsConfig,
     )
@@ -52,7 +54,7 @@ class FormatGroup:
 @dataclass
 class ShastraEntry:
     shastra_name: str
-    alternate_name: Optional[str]
+    alternate_names: list[str]   # 14A.3: list (was single Optional[str])
     short_form: str
     format_str: str
     format_groups: list[FormatGroup]
@@ -84,17 +86,30 @@ class ShastraRegistry:
         raw = json.loads(path.read_text("utf-8"))
         registry = cls()
         for item in raw:
+            # 14A.3: accept string (legacy) or list for alternate_name(s)
+            raw_alt = item.get("alternate_names") or item.get("alternate_name") or []
+            if isinstance(raw_alt, str):
+                raw_alt = [raw_alt]
+            alternate_names = [a for a in raw_alt if a]
+
             entry = ShastraEntry(
                 shastra_name=item["shastra_name"],
-                alternate_name=item.get("alternate_name"),
+                alternate_names=alternate_names,
                 short_form=item.get("short_form", ""),
                 format_str=item.get("format", ""),
                 format_groups=parse_format_string(item.get("format", "")),
             )
             registry.entries.append(entry)
             registry._by_primary[_normalise(entry.shastra_name, norm_config)] = entry
-            if entry.alternate_name:
-                registry._by_alternate[_normalise(entry.alternate_name, norm_config)] = entry
+            for alt in entry.alternate_names:
+                key = _normalise(alt, norm_config)
+                if key in registry._by_alternate:
+                    import warnings
+                    warnings.warn(
+                        f"Alternate name collision: '{alt}' already registered; first entry wins."
+                    )
+                else:
+                    registry._by_alternate[key] = entry
             if entry.short_form:
                 registry._by_short_form[_normalise(entry.short_form, norm_config)] = entry
         return registry
@@ -132,11 +147,18 @@ def _normalise(text: str, config: "DevanagariNormalizationConfig") -> str:
 
 
 # ---------------------------------------------------------------------------
-# Text pre-processing
+# Text pre-processing  (14A.6a, 14A.4A pipeline)
 # ---------------------------------------------------------------------------
 
 def _strip_parens(text: str) -> str:
     return text.replace("(", "").replace(")", "")
+
+
+def _strip_punct(text: str) -> str:
+    # Strip Devanagari sentence terminators (dandas) that never appear inside
+    # citation numerics. ASCII comma is intentionally NOT stripped here because
+    # commas serve as field separators in numeric groups (e.g. "1,1,1").
+    return text.replace("।", " ").replace("॥", " ")
 
 
 def _strip_noise_phrases(text: str, config: "ReferenceNoisePhraseConfig") -> str:
@@ -161,7 +183,9 @@ def _collapse_ws(text: str) -> str:
 
 
 def _preprocess_text(text: str, config: "ReferenceConfig") -> str:
+    # 14A.6a: pipeline is parens → punct → noise → keywords → collapse
     text = _strip_parens(text)
+    text = _strip_punct(text)
     text = _strip_noise_phrases(text, config.noise_phrases)
     text = _strip_section_keywords(text, config.section_keywords)
     text = _collapse_ws(text)
@@ -223,6 +247,21 @@ def split_name_and_numeric(text: str) -> tuple[str, str]:
 
 
 # ---------------------------------------------------------------------------
+# 14A.8: Strip trailing non-numeric slash-segments from numeric portion
+# ---------------------------------------------------------------------------
+
+def _strip_trailing_non_numeric(numeric: str) -> str:
+    """Drop trailing slash-segments that contain no digits.
+
+    Example: '3/1,2,1/2/ नं.' -> '3/1,2,1/2'
+    """
+    parts = numeric.split("/")
+    while parts and not re.search(r"\d", parts[-1]):
+        parts.pop()
+    return "/".join(parts)
+
+
+# ---------------------------------------------------------------------------
 # Shastra matching
 # ---------------------------------------------------------------------------
 
@@ -238,9 +277,11 @@ def _strip_mool(name: str, config: "ReferenceMoolConfig") -> str:
     for kw in config.keywords:
         kw_nfc = unicodedata.normalize("NFC", kw)
         if norm_name.endswith(" " + kw_nfc):
-            return name[: -(1 + len(kw))].strip()
+            # 14A.6b: trim trailing "/" and whitespace after keyword removal
+            return name[: -(1 + len(kw))].rstrip(" /").strip()
         if norm_name.endswith("/" + kw_nfc):
-            return name[: -(1 + len(kw))].rstrip("/").strip()
+            # 14A.6b: trim trailing "/" and whitespace
+            return name[: -(1 + len(kw))].rstrip(" /").strip()
     return name
 
 
@@ -269,15 +310,29 @@ def match_shastra(
         base, _, teeka_candidate = name_for_split.partition("/")
         base = base.strip()
         teeka_candidate = teeka_candidate.strip()
-        entry, method = registry.lookup(norm(base))
-        if not entry:
-            stripped_base = _strip_mool(base, config.mool)
-            if stripped_base != base:
-                entry, method = registry.lookup(norm(stripped_base))
-                if entry:
-                    base = stripped_base
-        if entry:
-            return entry, method, True, teeka_candidate
+
+        # 14A.6b: if teeka_candidate is a mool marker, retry base-only lookup
+        first_token = teeka_candidate.split()[0] if teeka_candidate else ""
+        is_mool_marker = (
+            teeka_candidate in config.mool.keywords
+            or first_token in config.mool.keywords
+        )
+        if is_mool_marker:
+            entry, method = registry.lookup(norm(base))
+            if entry:
+                return entry, method, False, ""
+            # no match — fall through to no-match
+        else:
+            # Normal teeka path
+            entry, method = registry.lookup(norm(base))
+            if not entry:
+                stripped_base = _strip_mool(base, config.mool)
+                if stripped_base != base:
+                    entry, method = registry.lookup(norm(stripped_base))
+                    if entry:
+                        base = stripped_base
+            if entry:
+                return entry, method, True, teeka_candidate
 
     return None, None, False, ""
 
@@ -286,17 +341,85 @@ def match_shastra(
 # Value resolution
 # ---------------------------------------------------------------------------
 
-def _coerce_value(s: str) -> Union[int, str]:
-    s = s.strip()
-    if s.isdigit():
-        return int(s)
-    return s
+_LEADING_DIGITS_RE = re.compile(r"^\s*(\d+)")
+_RANGE_LIST_RE = re.compile(r"^\s*(\d+(?:-\d+)?)(?:\s*,\s*(\d+(?:-\d+)?))*\s*$")
+
+
+def _coerce_value(s: str) -> Optional[int]:
+    """Extract leading digit run as int; return None for non-numeric strings."""
+    m = _LEADING_DIGITS_RE.match(s)
+    return int(m.group(1)) if m else None
+
+
+def _expand_value(s: Union[int, str]) -> Optional[list[int]]:
+    """Expand a range/list value string into a list of ints.
+
+    '95-96' -> [95, 96]; '8,86' -> [8, 86]; '1-3,39' -> [1,2,3,39].
+    Pure int -> [int].  Returns None if the pattern is unrecognised or overflow.
+    """
+    if isinstance(s, int):
+        return [s]
+    if not _RANGE_LIST_RE.match(s):
+        return None
+    out: list[int] = []
+    for chunk in s.split(","):
+        chunk = chunk.strip()
+        if "-" in chunk:
+            parts = chunk.split("-", 1)
+            a, b = int(parts[0]), int(parts[1])
+            if b < a or b - a > 50:
+                return None
+            out.extend(range(a, b + 1))
+        else:
+            out.append(int(chunk))
+    return out
+
+
+def _expand_resolved_fields(
+    resolved_fields: list[ResolvedField],
+) -> Optional[list[list[ResolvedField]]]:
+    """Expand range/list field values into cartesian product of result sets.
+
+    Returns None if total expansion exceeds 50 (overflow → needs_manual).
+    """
+    per_field: list[list[int]] = []
+    field_names: list[str] = []
+
+    for rf in resolved_fields:
+        values = _expand_value(rf.value)
+        if values is None:
+            # Non-expandable (guard: shouldn't happen post-coerce)
+            per_field.append([rf.value])  # type: ignore[list-item]
+        else:
+            per_field.append(values)
+        field_names.append(rf.field)
+
+    total = 1
+    for vals in per_field:
+        total *= len(vals)
+    if total > 50:
+        return None
+
+    results: list[list[ResolvedField]] = []
+    for combo in itertools.product(*per_field):
+        results.append([
+            ResolvedField(field=name, value=val)
+            for name, val in zip(field_names, combo)
+        ])
+    return results
 
 
 def _assign_group(
     f_group: FormatGroup,
     value_str: str,
 ) -> tuple[list[ResolvedField], bool]:
+    """Split value_str using the group's sub_separator, assign to fields in order.
+
+    Returns (resolved_fields, mismatch_flag).
+    mismatch_flag=True when counts don't align or a value is non-numeric.
+    Range/list values (e.g. '95-96', '1-3,39') are stored as strings for
+    later expansion by _expand_resolved_fields.
+    """
     sep = f_group.sub_separator
     if sep:
         parts = [p.strip() for p in value_str.split(sep)]
@@ -308,8 +431,19 @@ def _assign_group(
     resolved = []
 
     for i, f in enumerate(fields):
-        if i < len(parts):
-            resolved.append(ResolvedField(field=f.name, value=_coerce_value(parts[i])))
+        if i >= len(parts):
+            break
+        part = parts[i]
+        # 14A.5: detect range/list BEFORE _coerce_value to avoid lossy coercion
+        if ("-" in part or "," in part) and _RANGE_LIST_RE.match(part):
+            value: Union[int, str] = part  # keep as string for _expand_value
+        else:
+            coerced = _coerce_value(part)
+            if coerced is None:
+                mismatch = True
+                continue  # non-numeric part → don't emit a field
+            value = coerced
+        resolved.append(ResolvedField(field=f.name, value=value))
 
     return resolved, mismatch
 
@@ -365,7 +499,12 @@ def parse_reference_text(
     text: str,
     registry: ShastraRegistry,
     config: "ReferenceConfig",
-) -> _ResolutionResult:
+) -> list[_ResolutionResult]:
+    """Parse a reference text and return a list of resolution results.
+
+    Returns a list because range/list field values expand into multiple results
+    (one per concrete numeric combination). Simple references return a list of one.
+    """
     EMPTY = _ResolutionResult(
         needs_manual_match=False,
         is_teeka=False,
@@ -376,29 +515,31 @@ def parse_reference_text(
     )
 
     if not text:
-        return EMPTY
+        return [EMPTY]
 
     clean = _preprocess_text(text, config)
     if not clean:
-        return EMPTY
+        return [EMPTY]
 
     name_raw, numeric_raw = split_name_and_numeric(clean)
     if not name_raw:
-        return EMPTY
+        return [EMPTY]
 
+    # 14A.8: strip trailing non-numeric segments before space removal
+    numeric_raw = _strip_trailing_non_numeric(numeric_raw)
     numeric_clean = numeric_raw.replace(" ", "")
 
     entry, method, is_teeka, teeka_name = match_shastra(name_raw, registry, config)
 
     if entry is None:
-        return _ResolutionResult(
+        return [_ResolutionResult(
             needs_manual_match=True,
             is_teeka=False,
             teeka_name="",
             shastra_name=None,
             match_method=None,
             resolved_fields=[],
-        )
+        )]
 
     resolved_fields, needs_manual = resolve_fields(
         numeric_clean, entry.format_groups, config.needs_manual_match
@@ -406,13 +547,36 @@ def parse_reference_text(
 
     # Invariant: needs_manual_match=True → resolved_fields=[]
     if needs_manual:
-        resolved_fields = []
+        return [_ResolutionResult(
+            needs_manual_match=True,
+            is_teeka=is_teeka,
+            teeka_name=teeka_name,
+            shastra_name=entry.shastra_name,
+            match_method=method,
+            resolved_fields=[],
+        )]
 
-    return _ResolutionResult(
-        needs_manual_match=needs_manual,
-        is_teeka=is_teeka,
-        teeka_name=teeka_name,
-        shastra_name=entry.shastra_name,
-        match_method=method,
-        resolved_fields=resolved_fields,
-    )
+    # 14A.4: expand range/list field values into multiple results
+    expanded = _expand_resolved_fields(resolved_fields)
+    if expanded is None:
+        # Overflow: too many expansions → needs_manual
+        return [_ResolutionResult(
+            needs_manual_match=True,
+            is_teeka=is_teeka,
+            teeka_name=teeka_name,
+            shastra_name=entry.shastra_name,
+            match_method=method,
+            resolved_fields=[],
+        )]
+
+    return [
+        _ResolutionResult(
+            needs_manual_match=False,
+            is_teeka=is_teeka,
+            teeka_name=teeka_name,
+            shastra_name=entry.shastra_name,
+            match_method=method,
+            resolved_fields=fields,
+        )
+        for fields in expanded
+    ]

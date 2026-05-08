@@ -76,17 +76,12 @@
                   {
                     "text": "समयसार / आत्मख्याति गाथा 8",
                     "inline_reference": false,
-                    "needs_manual_match": false,
+                    "needs_manual_match": true,
                     "is_teeka": false,
                     "teeka_name": "",
                     "shastra_name": "समयसार/आत्मख्याति",
                     "match_method": "shastra_name",
-                    "resolved_fields": [
-                      {
-                        "field": "गाथा",
-                        "value": 8
-                      }
-                    ]
+                    "resolved_fields": []
                   }
                 ],
                 "is_orphan_translation": false,
@@ -208,17 +203,12 @@
                   {
                     "text": "मोक्षपाहुड़ / मूल या टीका गाथा 4",
                     "inline_reference": false,
-                    "needs_manual_match": false,
+                    "needs_manual_match": true,
                     "is_teeka": false,
                     "teeka_name": "",
                     "shastra_name": "मोक्ष पाहुड़",
                     "match_method": "shastra_name",
-                    "resolved_fields": [
-                      {
-                        "field": "गाथा",
-                        "value": 4
-                      }
-                    ]
+                    "resolved_fields": []
                   }
                 ],
                 "is_orphan_translation": false,
@@ -239,17 +229,12 @@
                   {
                     "text": "( समाधिशतक / मूल या टीका गाथा 4)",
                     "inline_reference": false,
-                    "needs_manual_match": false,
+                    "needs_manual_match": true,
                     "is_teeka": false,
                     "teeka_name": "",
                     "shastra_name": "समाधिशतक",
                     "match_method": "shastra_name",
-                    "resolved_fields": [
-                      {
-                        "field": "श्लोक",
-                        "value": 4
-                      }
-                    ]
+                    "resolved_fields": []
                   },
                   {
                     "text": "( ज्ञानार्णव अधिकार 32/5/317)",
@@ -292,21 +277,12 @@
                   {
                     "text": "(परमात्मप्रकाश / मूल या टीका अधिकार 1/11)",
                     "inline_reference": false,
-                    "needs_manual_match": false,
+                    "needs_manual_match": true,
                     "is_teeka": false,
                     "teeka_name": "",
                     "shastra_name": "परमात्मप्रकाश",
                     "match_method": "shastra_name",
-                    "resolved_fields": [
-                      {
-                        "field": "अधिकार",
-                        "value": 1
-                      },
-                      {
-                        "field": "गाथा",
-                        "value": 11
-                      }
-                    ]
+                    "resolved_fields": []
                   },
                   {
                     "text": "(द्रव्यसंग्रह / मूल या टीका गाथा 14/46)",
@@ -452,17 +428,12 @@
                   {
                     "text": "समाधिशतक / मूल या टीका गाथा 4",
                     "inline_reference": false,
-                    "needs_manual_match": false,
+                    "needs_manual_match": true,
                     "is_teeka": false,
                     "teeka_name": "",
                     "shastra_name": "समाधिशतक",
                     "match_method": "shastra_name",
-                    "resolved_fields": [
-                      {
-                        "field": "श्लोक",
-                        "value": 4
-                      }
-                    ]
+                    "resolved_fields": []
                   }
                 ],
                 "is_orphan_translation": false,
@@ -672,19 +643,14 @@
                     "needs_manual_match": false,
                     "is_teeka": false,
                     "teeka_name": "",
-                    "shastra_name": "महापुराण",
-                    "match_method": "shastra_name",
-                    "resolved_fields": [
-                      {
-                        "field": "सर्ग",
-                        "value": "5.13-87,24.107,110,46.193-195,55.15,67-5,"
-                      }
-                    ]
+                    "shastra_name": null,
+                    "match_method": null,
+                    "resolved_fields": []
                   },
                   {
                     "text": "वीरवर्द्धमान चरित्र 16.66",
                     "inline_reference": true,
-                    "needs_manual_match": true,
+                    "needs_manual_match": false,
                     "is_teeka": false,
                     "teeka_name": "",
                     "shastra_name": null,
@@ -719,14 +685,9 @@
                     "needs_manual_match": false,
                     "is_teeka": false,
                     "teeka_name": "",
-                    "shastra_name": "महापुराण",
-                    "match_method": "shastra_name",
-                    "resolved_fields": [
-                      {
-                        "field": "सर्ग",
-                        "value": "42.113"
-                      }
-                    ]
+                    "shastra_name": null,
+                    "match_method": null,
+                    "resolved_fields": []
                   }
                 ],
                 "is_orphan_translation": false,
@@ -753,8 +714,8 @@
       "prev": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%B9%E0%A4%A4%E0%A5%8D%E0%A4%AF%E0%A4%BE",
       "next": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%81%E0%A4%B2"
     },
-    "parser_version": "jainkosh.rules/1.8.0",
-    "parsed_at": "2026-05-08T18:30:35.765334",
+    "parser_version": "jainkosh.rules/1.9.0",
+    "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
   "would_write": {
@@ -978,17 +939,12 @@
                         {
                           "text": "समयसार / आत्मख्याति गाथा 8",
                           "inline_reference": false,
-                          "needs_manual_match": false,
+                          "needs_manual_match": true,
                           "is_teeka": false,
                           "teeka_name": "",
                           "shastra_name": "समयसार/आत्मख्याति",
                           "match_method": "shastra_name",
-                          "resolved_fields": [
-                            {
-                              "field": "गाथा",
-                              "value": 8
-                            }
-                          ]
+                          "resolved_fields": []
                         }
                       ],
                       "is_orphan_translation": false,
@@ -1109,19 +1065,14 @@
                           "needs_manual_match": false,
                           "is_teeka": false,
                           "teeka_name": "",
-                          "shastra_name": "महापुराण",
-                          "match_method": "shastra_name",
-                          "resolved_fields": [
-                            {
-                              "field": "सर्ग",
-                              "value": "5.13-87,24.107,110,46.193-195,55.15,67-5,"
-                            }
-                          ]
+                          "shastra_name": null,
+                          "match_method": null,
+                          "resolved_fields": []
                         },
                         {
                           "text": "वीरवर्द्धमान चरित्र 16.66",
                           "inline_reference": true,
-                          "needs_manual_match": true,
+                          "needs_manual_match": false,
                           "is_teeka": false,
                           "teeka_name": "",
                           "shastra_name": null,
@@ -1156,14 +1107,9 @@
                           "needs_manual_match": false,
                           "is_teeka": false,
                           "teeka_name": "",
-                          "shastra_name": "महापुराण",
-                          "match_method": "shastra_name",
-                          "resolved_fields": [
-                            {
-                              "field": "सर्ग",
-                              "value": "42.113"
-                            }
-                          ]
+                          "shastra_name": null,
+                          "match_method": null,
+                          "resolved_fields": []
                         }
                       ],
                       "is_orphan_translation": false,
@@ -1210,17 +1156,12 @@
                 {
                   "text": "मोक्षपाहुड़ / मूल या टीका गाथा 4",
                   "inline_reference": false,
-                  "needs_manual_match": false,
+                  "needs_manual_match": true,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "मोक्ष पाहुड़",
                   "match_method": "shastra_name",
-                  "resolved_fields": [
-                    {
-                      "field": "गाथा",
-                      "value": 4
-                    }
-                  ]
+                  "resolved_fields": []
                 }
               ],
               "is_orphan_translation": false,
@@ -1241,17 +1182,12 @@
                 {
                   "text": "( समाधिशतक / मूल या टीका गाथा 4)",
                   "inline_reference": false,
-                  "needs_manual_match": false,
+                  "needs_manual_match": true,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "समाधिशतक",
                   "match_method": "shastra_name",
-                  "resolved_fields": [
-                    {
-                      "field": "श्लोक",
-                      "value": 4
-                    }
-                  ]
+                  "resolved_fields": []
                 },
                 {
                   "text": "( ज्ञानार्णव अधिकार 32/5/317)",
@@ -1294,21 +1230,12 @@
                 {
                   "text": "(परमात्मप्रकाश / मूल या टीका अधिकार 1/11)",
                   "inline_reference": false,
-                  "needs_manual_match": false,
+                  "needs_manual_match": true,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "परमात्मप्रकाश",
                   "match_method": "shastra_name",
-                  "resolved_fields": [
-                    {
-                      "field": "अधिकार",
-                      "value": 1
-                    },
-                    {
-                      "field": "गाथा",
-                      "value": 11
-                    }
-                  ]
+                  "resolved_fields": []
                 },
                 {
                   "text": "(द्रव्यसंग्रह / मूल या टीका गाथा 14/46)",
@@ -1458,17 +1385,12 @@
                 {
                   "text": "समाधिशतक / मूल या टीका गाथा 4",
                   "inline_reference": false,
-                  "needs_manual_match": false,
+                  "needs_manual_match": true,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "समाधिशतक",
                   "match_method": "shastra_name",
-                  "resolved_fields": [
-                    {
-                      "field": "श्लोक",
-                      "value": 4
-                    }
-                  ]
+                  "resolved_fields": []
                 }
               ],
               "is_orphan_translation": false,

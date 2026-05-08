@@ -1,5 +1,5 @@
-version: "1.8.0"
-parser_rules_version: "jainkosh.rules/1.8.0"
+version: "1.9.0"
+parser_rules_version: "jainkosh.rules/1.9.0"
 
 normalization:
   nfc: true
@@ -76,12 +76,13 @@ reference:
       - {from: "न्द", to: "ंद"}
       - {from: "म्ब", to: "ंब"}
       - {from: "न्व", to: "ंव"}
+      - {from: "ी", to: "ि"}
   mool:
     keywords: ["मूल"]
     exceptions: ["मूलाचार"]
   needs_manual_match:
     on_extra_groups: true
-    on_missing_fields: false
+    on_missing_fields: true
   noise_phrases:
     enabled: true
     phrases:

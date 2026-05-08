@@ -9,7 +9,7 @@ from typing import Optional, Iterator
 from selectolax.parser import Node
 
 from .config import JainkoshConfig
-from .models import Block, Reference
+from .models import Block, Reference, SectionKind
 from .normalize import normalize_text, nfc
 from .refs import extract_refs_from_node, is_leading_reference_node, strip_refs_from_text
 from .see_also import (
@@ -45,7 +45,13 @@ def _render_inline(node: Node, config: JainkoshConfig) -> str:
     return result
 
 
-def make_block(node: Node, config: JainkoshConfig, *, current_keyword: str = "") -> Optional[Block]:
+def make_block(
+    node: Node,
+    config: JainkoshConfig,
+    *,
+    current_keyword: str = "",
+    section_kind: SectionKind = "siddhantkosh",
+) -> Optional[Block]:
     """Convert a single DOM element into a Block, or None if it should be dropped."""
     tag = node.tag
     if not tag or tag in ("-text", "#text", "script", "style"):
@@ -68,7 +74,7 @@ def make_block(node: Node, config: JainkoshConfig, *, current_keyword: str = "")
         return None
 
     # Extract trailing GRef spans (inline references)
-    refs = extract_refs_from_node(node, config, inline=True)
+    refs = extract_refs_from_node(node, config, inline=True, section_kind=section_kind)
 
     # Check for see_also links
     see_alsos = find_see_alsos_in_element(
@@ -146,6 +152,7 @@ def parse_block_stream(
     config: JainkoshConfig,
     *,
     current_keyword: str = "",
+    section_kind: SectionKind = "siddhantkosh",
 ) -> list[Block]:
     """Parse a list of DOM elements into a block stream, handling translation markers."""
     out: list[Block] = []
@@ -170,7 +177,7 @@ def parse_block_stream(
             continue
 
         if is_leading_reference_node(el, config):
-            pending_refs.extend(extract_refs_from_node(el, config, inline=False))
+            pending_refs.extend(extract_refs_from_node(el, config, inline=False, section_kind=section_kind))
             continue
 
         if _is_row_style_element(el, config):
@@ -187,7 +194,7 @@ def parse_block_stream(
             sub_els = [el]
 
         for sub_el in sub_els:
-            result = make_block(sub_el, config, current_keyword=current_keyword)
+            result = make_block(sub_el, config, current_keyword=current_keyword, section_kind=section_kind)
             if result is None:
                 continue
 
