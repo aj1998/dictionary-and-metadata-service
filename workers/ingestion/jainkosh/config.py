@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
-from typing import Literal, Optional
+from typing import Any, Literal, Optional
 
 import yaml
 import jsonschema
@@ -127,6 +127,45 @@ class ReferenceSemicolonSplitConfig(BaseModel):
     split_re: str = r'(?<=\))\s*;\s*(?=\()'
 
 
+class DevanagariNormSubstitution(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    from_: str = Field(alias="from")
+    to: str
+
+
+class DevanagariNormalizationConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    enabled: bool = True
+    substitutions: list[DevanagariNormSubstitution] = Field(default_factory=list)
+
+
+class ReferenceMoolConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    keywords: list[str] = Field(default_factory=lambda: ["मूल"])
+    exceptions: list[str] = Field(default_factory=lambda: ["मूलाचार"])
+
+
+class ReferenceNeedsManualMatchConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    on_extra_groups: bool = True
+    on_missing_fields: bool = False
+
+
+class ReferenceNoisePhraseConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    enabled: bool = True
+    phrases: list[str] = Field(default_factory=lambda: ["मूल गाथा या टीका"])
+
+
+class ReferenceSectionKeywordsConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    enabled: bool = True
+    keywords: list[str] = Field(default_factory=lambda: [
+        "गाथा", "श्लोक", "पंक्ति", "कलश", "अधिकार", "अध्याय",
+        "सर्ग", "परिच्छेद", "प्रकरण", "खण्ड", "भाग", "पुस्तक",
+    ])
+
+
 class ReferenceConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
     selector: str
@@ -137,6 +176,20 @@ class ReferenceConfig(BaseModel):
         default_factory=ReferenceSemicolonSplitConfig
     )
     annotate_inline_position: bool = True
+    shastra_config_path: Optional[str] = None
+    devanagari_normalization: DevanagariNormalizationConfig = Field(
+        default_factory=DevanagariNormalizationConfig
+    )
+    mool: ReferenceMoolConfig = Field(default_factory=ReferenceMoolConfig)
+    needs_manual_match: ReferenceNeedsManualMatchConfig = Field(
+        default_factory=ReferenceNeedsManualMatchConfig
+    )
+    noise_phrases: ReferenceNoisePhraseConfig = Field(
+        default_factory=ReferenceNoisePhraseConfig
+    )
+    section_keywords: ReferenceSectionKeywordsConfig = Field(
+        default_factory=ReferenceSectionKeywordsConfig
+    )
 
 
 class BlocksConfig(BaseModel):
@@ -343,6 +396,9 @@ class JainkoshConfig(BaseModel):
     blocks: BlocksConfig = Field(default_factory=BlocksConfig)
     blocks_to_drop_when_empty: list[str]
 
+    # Not loaded from YAML — populated by load_config()
+    shastra_registry: Optional[Any] = Field(default=None, exclude=True)
+
     def section_kind_for(self, headline_id: str) -> str:
         for entry in self.sections.kinds:
             if entry.id == headline_id:
@@ -364,4 +420,15 @@ def load_config(path: Path | str | None = None, *, validate_schema: bool = True)
         except jsonschema.ValidationError as exc:
             raise ValueError(f"Config schema validation failed: {exc.message}") from exc
 
-    return JainkoshConfig.model_validate(raw)
+    cfg = JainkoshConfig.model_validate(raw)
+
+    if cfg.reference.parse_strategy != "text_only" and cfg.reference.shastra_config_path:
+        from .parse_reference import ShastraRegistry
+        shastra_path = Path(cfg.reference.shastra_config_path)
+        if not shastra_path.is_absolute():
+            shastra_path = Path(__file__).parents[3] / shastra_path
+        cfg.shastra_registry = ShastraRegistry.load(
+            shastra_path, cfg.reference.devanagari_normalization
+        )
+
+    return cfg

@@ -18,9 +18,38 @@
                 "references": [
                   {
                     "text": "धवला पुस्तक 13/5,5,50/282/9",
-                    "raw_html": "<span class=\"GRef\">धवला पुस्तक 13/5,5,50/282/9</span>",
-                    "parsed": null,
-                    "inline_reference": false
+                    "inline_reference": false,
+                    "needs_manual_match": false,
+                    "is_teeka": false,
+                    "teeka_name": "",
+                    "shastra_name": "धवला",
+                    "match_method": "shastra_name",
+                    "resolved_fields": [
+                      {
+                        "field": "पुस्तक",
+                        "value": 13
+                      },
+                      {
+                        "field": "खण्ड",
+                        "value": 5
+                      },
+                      {
+                        "field": "भाग",
+                        "value": 5
+                      },
+                      {
+                        "field": "सूत्र",
+                        "value": 50
+                      },
+                      {
+                        "field": "पृष्ठ",
+                        "value": 282
+                      },
+                      {
+                        "field": "गाथा",
+                        "value": 9
+                      }
+                    ]
                   }
                 ],
                 "is_orphan_translation": false,
@@ -46,9 +75,18 @@
                 "references": [
                   {
                     "text": "समयसार / आत्मख्याति गाथा 8",
-                    "raw_html": "<span class=\"GRef\">समयसार / आत्मख्याति गाथा 8</span>",
-                    "parsed": null,
-                    "inline_reference": false
+                    "inline_reference": false,
+                    "needs_manual_match": false,
+                    "is_teeka": false,
+                    "teeka_name": "",
+                    "shastra_name": "समयसार/आत्मख्याति",
+                    "match_method": "shastra_name",
+                    "resolved_fields": [
+                      {
+                        "field": "गाथा",
+                        "value": 8
+                      }
+                    ]
                   }
                 ],
                 "is_orphan_translation": false,
@@ -74,9 +112,22 @@
                 "references": [
                   {
                     "text": "द्रव्यसंग्रह/ टीका 14/46/",
-                    "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह/ टीका 14/46/</span>",
-                    "parsed": null,
-                    "inline_reference": false
+                    "inline_reference": false,
+                    "needs_manual_match": false,
+                    "is_teeka": true,
+                    "teeka_name": "टीका",
+                    "shastra_name": "द्रव्यसंग्रह",
+                    "match_method": "shastra_name",
+                    "resolved_fields": [
+                      {
+                        "field": "गाथा",
+                        "value": 14
+                      },
+                      {
+                        "field": "पृष्ठ",
+                        "value": 46
+                      }
+                    ]
                   }
                 ],
                 "is_orphan_translation": false,
@@ -102,9 +153,22 @@
                 "references": [
                   {
                     "text": "द्रव्यसंग्रह / मूल या टीका गाथा 57/267",
-                    "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह / मूल या टीका गाथा 57/267</span>",
-                    "parsed": null,
-                    "inline_reference": false
+                    "inline_reference": false,
+                    "needs_manual_match": false,
+                    "is_teeka": true,
+                    "teeka_name": "मूल या टीका",
+                    "shastra_name": "द्रव्यसंग्रह",
+                    "match_method": "shastra_name",
+                    "resolved_fields": [
+                      {
+                        "field": "गाथा",
+                        "value": 57
+                      },
+                      {
+                        "field": "पृष्ठ",
+                        "value": 267
+                      }
+                    ]
                   }
                 ],
                 "is_orphan_translation": false,
@@ -143,9 +207,18 @@
                 "references": [
                   {
                     "text": "मोक्षपाहुड़ / मूल या टीका गाथा 4",
-                    "raw_html": "<span class=\"GRef\">मोक्षपाहुड़ / मूल या टीका गाथा 4</span>",
-                    "parsed": null,
-                    "inline_reference": false
+                    "inline_reference": false,
+                    "needs_manual_match": false,
+                    "is_teeka": true,
+                    "teeka_name": "मूल या टीका",
+                    "shastra_name": "मोक्ष पाहुड़",
+                    "match_method": "shastra_name",
+                    "resolved_fields": [
+                      {
+                        "field": "गाथा",
+                        "value": 4
+                      }
+                    ]
                   }
                 ],
                 "is_orphan_translation": false,
@@ -165,39 +238,109 @@
                 "references": [
                   {
                     "text": "( समाधिशतक / मूल या टीका गाथा 4)",
-                    "raw_html": "<span class=\"GRef\">( समाधिशतक / मूल या टीका गाथा 4)</span>",
-                    "parsed": null,
-                    "inline_reference": false
+                    "inline_reference": false,
+                    "needs_manual_match": false,
+                    "is_teeka": true,
+                    "teeka_name": "मूल या टीका",
+                    "shastra_name": "समाधिशतक",
+                    "match_method": "shastra_name",
+                    "resolved_fields": [
+                      {
+                        "field": "श्लोक",
+                        "value": 4
+                      }
+                    ]
                   },
                   {
                     "text": "( ज्ञानार्णव अधिकार 32/5/317)",
-                    "raw_html": "<span class=\"GRef\">( ज्ञानार्णव अधिकार 32/5/317)</span>",
-                    "parsed": null,
-                    "inline_reference": false
+                    "inline_reference": false,
+                    "needs_manual_match": false,
+                    "is_teeka": false,
+                    "teeka_name": "",
+                    "shastra_name": "ज्ञानार्णव",
+                    "match_method": "shastra_name",
+                    "resolved_fields": [
+                      {
+                        "field": "अधिकार",
+                        "value": 32
+                      },
+                      {
+                        "field": "दोहक",
+                        "value": 5
+                      },
+                      {
+                        "field": "पृष्ठ",
+                        "value": 317
+                      }
+                    ]
                   },
                   {
                     "text": "( ज्ञानसार श्लोक 29)",
-                    "raw_html": "<span class=\"GRef\">( ज्ञानसार श्लोक 29)</span>",
-                    "parsed": null,
-                    "inline_reference": false
+                    "inline_reference": false,
+                    "needs_manual_match": false,
+                    "is_teeka": false,
+                    "teeka_name": "",
+                    "shastra_name": "ज्ञानसार",
+                    "match_method": "shastra_name",
+                    "resolved_fields": [
+                      {
+                        "field": "श्लोक",
+                        "value": 29
+                      }
+                    ]
                   },
                   {
                     "text": "(परमात्मप्रकाश / मूल या टीका अधिकार 1/11)",
-                    "raw_html": "<span class=\"GRef\">(परमात्मप्रकाश / मूल या टीका अधिकार 1/11)</span>",
-                    "parsed": null,
-                    "inline_reference": false
+                    "inline_reference": false,
+                    "needs_manual_match": false,
+                    "is_teeka": true,
+                    "teeka_name": "मूल या टीका",
+                    "shastra_name": "परमात्मप्रकाश",
+                    "match_method": "shastra_name",
+                    "resolved_fields": [
+                      {
+                        "field": "अधिकार",
+                        "value": 1
+                      },
+                      {
+                        "field": "गाथा",
+                        "value": 11
+                      }
+                    ]
                   },
                   {
                     "text": "(द्रव्यसंग्रह / मूल या टीका गाथा 14/46)",
-                    "raw_html": "<span class=\"GRef\">(द्रव्यसंग्रह / मूल या टीका गाथा 14/46)</span>",
-                    "parsed": null,
-                    "inline_reference": false
+                    "inline_reference": false,
+                    "needs_manual_match": false,
+                    "is_teeka": true,
+                    "teeka_name": "मूल या टीका",
+                    "shastra_name": "द्रव्यसंग्रह",
+                    "match_method": "shastra_name",
+                    "resolved_fields": [
+                      {
+                        "field": "गाथा",
+                        "value": 14
+                      },
+                      {
+                        "field": "पृष्ठ",
+                        "value": 46
+                      }
+                    ]
                   },
                   {
                     "text": "कार्तिकेयानुप्रेक्षा/मूल/192",
-                    "raw_html": "<span class=\"GRef\">कार्तिकेयानुप्रेक्षा/मूल/192</span>",
-                    "parsed": null,
-                    "inline_reference": false
+                    "inline_reference": false,
+                    "needs_manual_match": false,
+                    "is_teeka": false,
+                    "teeka_name": "",
+                    "shastra_name": "कार्तिकेयानुप्रेक्षा",
+                    "match_method": "shastra_name",
+                    "resolved_fields": [
+                      {
+                        "field": "गाथा",
+                        "value": 192
+                      }
+                    ]
                   }
                 ],
                 "is_orphan_translation": false,
@@ -233,9 +376,13 @@
                 "references": [
                   {
                     "text": "द्रव्यसंग्रह / मूल या टीका गाथा 14/49/1",
-                    "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह / मूल या टीका गाथा 14/49/1</span>",
-                    "parsed": null,
-                    "inline_reference": false
+                    "inline_reference": false,
+                    "needs_manual_match": true,
+                    "is_teeka": true,
+                    "teeka_name": "मूल या टीका",
+                    "shastra_name": "द्रव्यसंग्रह",
+                    "match_method": "shastra_name",
+                    "resolved_fields": []
                   }
                 ],
                 "is_orphan_translation": false,
@@ -304,9 +451,18 @@
                 "references": [
                   {
                     "text": "समाधिशतक / मूल या टीका गाथा 4",
-                    "raw_html": "<span class=\"GRef\">समाधिशतक / मूल या टीका गाथा 4</span>",
-                    "parsed": null,
-                    "inline_reference": false
+                    "inline_reference": false,
+                    "needs_manual_match": false,
+                    "is_teeka": true,
+                    "teeka_name": "मूल या टीका",
+                    "shastra_name": "समाधिशतक",
+                    "match_method": "shastra_name",
+                    "resolved_fields": [
+                      {
+                        "field": "श्लोक",
+                        "value": 4
+                      }
+                    ]
                   }
                 ],
                 "is_orphan_translation": false,
@@ -326,9 +482,26 @@
                 "references": [
                   {
                     "text": "परमात्मप्रकाश / मूल या टीका अधिकार 1/12/19",
-                    "raw_html": "<span class=\"GRef\">परमात्मप्रकाश / मूल या टीका अधिकार 1/12/19</span>",
-                    "parsed": null,
-                    "inline_reference": false
+                    "inline_reference": false,
+                    "needs_manual_match": false,
+                    "is_teeka": true,
+                    "teeka_name": "मूल या टीका",
+                    "shastra_name": "परमात्मप्रकाश",
+                    "match_method": "shastra_name",
+                    "resolved_fields": [
+                      {
+                        "field": "अधिकार",
+                        "value": 1
+                      },
+                      {
+                        "field": "गाथा",
+                        "value": 12
+                      },
+                      {
+                        "field": "पृष्ठ",
+                        "value": 19
+                      }
+                    ]
                   }
                 ],
                 "is_orphan_translation": false,
@@ -348,9 +521,22 @@
                 "references": [
                   {
                     "text": "द्रव्यसंग्रह / मूल या टीका गाथा 14/46",
-                    "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह / मूल या टीका गाथा 14/46</span>",
-                    "parsed": null,
-                    "inline_reference": false
+                    "inline_reference": false,
+                    "needs_manual_match": false,
+                    "is_teeka": true,
+                    "teeka_name": "मूल या टीका",
+                    "shastra_name": "द्रव्यसंग्रह",
+                    "match_method": "shastra_name",
+                    "resolved_fields": [
+                      {
+                        "field": "गाथा",
+                        "value": 14
+                      },
+                      {
+                        "field": "पृष्ठ",
+                        "value": 46
+                      }
+                    ]
                   }
                 ],
                 "is_orphan_translation": false,
@@ -482,15 +668,28 @@
                 "references": [
                   {
                     "text": "महापुराण 5.13-87, 24.107,110, 46.193-195, 55.15, 67-5,",
-                    "raw_html": "<span class=\"GRef\">महापुराण 5.13-87, 24.107,110, 46.193-195, 55.15, 67-5,</span>",
-                    "parsed": null,
-                    "inline_reference": true
+                    "inline_reference": true,
+                    "needs_manual_match": false,
+                    "is_teeka": false,
+                    "teeka_name": "",
+                    "shastra_name": "महापुराण",
+                    "match_method": "shastra_name",
+                    "resolved_fields": [
+                      {
+                        "field": "सर्ग",
+                        "value": "5.13-87,24.107,110,46.193-195,55.15,67-5,"
+                      }
+                    ]
                   },
                   {
                     "text": "वीरवर्द्धमान चरित्र 16.66",
-                    "raw_html": "<span class=\"GRef\">वीरवर्द्धमान चरित्र 16.66</span>",
-                    "parsed": null,
-                    "inline_reference": true
+                    "inline_reference": true,
+                    "needs_manual_match": true,
+                    "is_teeka": false,
+                    "teeka_name": "",
+                    "shastra_name": null,
+                    "match_method": null,
+                    "resolved_fields": []
                   }
                 ],
                 "is_orphan_translation": false,
@@ -516,9 +715,18 @@
                 "references": [
                   {
                     "text": "महापुराण 42. 113",
-                    "raw_html": "<span class=\"GRef\">महापुराण 42. 113</span>",
-                    "parsed": null,
-                    "inline_reference": true
+                    "inline_reference": true,
+                    "needs_manual_match": false,
+                    "is_teeka": false,
+                    "teeka_name": "",
+                    "shastra_name": "महापुराण",
+                    "match_method": "shastra_name",
+                    "resolved_fields": [
+                      {
+                        "field": "सर्ग",
+                        "value": "42.113"
+                      }
+                    ]
                   }
                 ],
                 "is_orphan_translation": false,
@@ -545,7 +753,7 @@
       "prev": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%B9%E0%A4%A4%E0%A5%8D%E0%A4%AF%E0%A4%BE",
       "next": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%81%E0%A4%B2"
     },
-    "parser_version": "jainkosh.rules/1.6.0",
+    "parser_version": "jainkosh.rules/1.8.0",
     "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
@@ -712,9 +920,38 @@
                       "references": [
                         {
                           "text": "धवला पुस्तक 13/5,5,50/282/9",
-                          "raw_html": "<span class=\"GRef\">धवला पुस्तक 13/5,5,50/282/9</span>",
-                          "parsed": null,
-                          "inline_reference": false
+                          "inline_reference": false,
+                          "needs_manual_match": false,
+                          "is_teeka": false,
+                          "teeka_name": "",
+                          "shastra_name": "धवला",
+                          "match_method": "shastra_name",
+                          "resolved_fields": [
+                            {
+                              "field": "पुस्तक",
+                              "value": 13
+                            },
+                            {
+                              "field": "खण्ड",
+                              "value": 5
+                            },
+                            {
+                              "field": "भाग",
+                              "value": 5
+                            },
+                            {
+                              "field": "सूत्र",
+                              "value": 50
+                            },
+                            {
+                              "field": "पृष्ठ",
+                              "value": 282
+                            },
+                            {
+                              "field": "गाथा",
+                              "value": 9
+                            }
+                          ]
                         }
                       ],
                       "is_orphan_translation": false,
@@ -740,9 +977,18 @@
                       "references": [
                         {
                           "text": "समयसार / आत्मख्याति गाथा 8",
-                          "raw_html": "<span class=\"GRef\">समयसार / आत्मख्याति गाथा 8</span>",
-                          "parsed": null,
-                          "inline_reference": false
+                          "inline_reference": false,
+                          "needs_manual_match": false,
+                          "is_teeka": false,
+                          "teeka_name": "",
+                          "shastra_name": "समयसार/आत्मख्याति",
+                          "match_method": "shastra_name",
+                          "resolved_fields": [
+                            {
+                              "field": "गाथा",
+                              "value": 8
+                            }
+                          ]
                         }
                       ],
                       "is_orphan_translation": false,
@@ -768,9 +1014,22 @@
                       "references": [
                         {
                           "text": "द्रव्यसंग्रह/ टीका 14/46/",
-                          "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह/ टीका 14/46/</span>",
-                          "parsed": null,
-                          "inline_reference": false
+                          "inline_reference": false,
+                          "needs_manual_match": false,
+                          "is_teeka": true,
+                          "teeka_name": "टीका",
+                          "shastra_name": "द्रव्यसंग्रह",
+                          "match_method": "shastra_name",
+                          "resolved_fields": [
+                            {
+                              "field": "गाथा",
+                              "value": 14
+                            },
+                            {
+                              "field": "पृष्ठ",
+                              "value": 46
+                            }
+                          ]
                         }
                       ],
                       "is_orphan_translation": false,
@@ -796,9 +1055,22 @@
                       "references": [
                         {
                           "text": "द्रव्यसंग्रह / मूल या टीका गाथा 57/267",
-                          "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह / मूल या टीका गाथा 57/267</span>",
-                          "parsed": null,
-                          "inline_reference": false
+                          "inline_reference": false,
+                          "needs_manual_match": false,
+                          "is_teeka": true,
+                          "teeka_name": "मूल या टीका",
+                          "shastra_name": "द्रव्यसंग्रह",
+                          "match_method": "shastra_name",
+                          "resolved_fields": [
+                            {
+                              "field": "गाथा",
+                              "value": 57
+                            },
+                            {
+                              "field": "पृष्ठ",
+                              "value": 267
+                            }
+                          ]
                         }
                       ],
                       "is_orphan_translation": false,
@@ -833,15 +1105,28 @@
                       "references": [
                         {
                           "text": "महापुराण 5.13-87, 24.107,110, 46.193-195, 55.15, 67-5,",
-                          "raw_html": "<span class=\"GRef\">महापुराण 5.13-87, 24.107,110, 46.193-195, 55.15, 67-5,</span>",
-                          "parsed": null,
-                          "inline_reference": true
+                          "inline_reference": true,
+                          "needs_manual_match": false,
+                          "is_teeka": false,
+                          "teeka_name": "",
+                          "shastra_name": "महापुराण",
+                          "match_method": "shastra_name",
+                          "resolved_fields": [
+                            {
+                              "field": "सर्ग",
+                              "value": "5.13-87,24.107,110,46.193-195,55.15,67-5,"
+                            }
+                          ]
                         },
                         {
                           "text": "वीरवर्द्धमान चरित्र 16.66",
-                          "raw_html": "<span class=\"GRef\">वीरवर्द्धमान चरित्र 16.66</span>",
-                          "parsed": null,
-                          "inline_reference": true
+                          "inline_reference": true,
+                          "needs_manual_match": true,
+                          "is_teeka": false,
+                          "teeka_name": "",
+                          "shastra_name": null,
+                          "match_method": null,
+                          "resolved_fields": []
                         }
                       ],
                       "is_orphan_translation": false,
@@ -867,9 +1152,18 @@
                       "references": [
                         {
                           "text": "महापुराण 42. 113",
-                          "raw_html": "<span class=\"GRef\">महापुराण 42. 113</span>",
-                          "parsed": null,
-                          "inline_reference": true
+                          "inline_reference": true,
+                          "needs_manual_match": false,
+                          "is_teeka": false,
+                          "teeka_name": "",
+                          "shastra_name": "महापुराण",
+                          "match_method": "shastra_name",
+                          "resolved_fields": [
+                            {
+                              "field": "सर्ग",
+                              "value": "42.113"
+                            }
+                          ]
                         }
                       ],
                       "is_orphan_translation": false,
@@ -915,9 +1209,18 @@
               "references": [
                 {
                   "text": "मोक्षपाहुड़ / मूल या टीका गाथा 4",
-                  "raw_html": "<span class=\"GRef\">मोक्षपाहुड़ / मूल या टीका गाथा 4</span>",
-                  "parsed": null,
-                  "inline_reference": false
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "मूल या टीका",
+                  "shastra_name": "मोक्ष पाहुड़",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 4
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -937,39 +1240,109 @@
               "references": [
                 {
                   "text": "( समाधिशतक / मूल या टीका गाथा 4)",
-                  "raw_html": "<span class=\"GRef\">( समाधिशतक / मूल या टीका गाथा 4)</span>",
-                  "parsed": null,
-                  "inline_reference": false
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "मूल या टीका",
+                  "shastra_name": "समाधिशतक",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "श्लोक",
+                      "value": 4
+                    }
+                  ]
                 },
                 {
                   "text": "( ज्ञानार्णव अधिकार 32/5/317)",
-                  "raw_html": "<span class=\"GRef\">( ज्ञानार्णव अधिकार 32/5/317)</span>",
-                  "parsed": null,
-                  "inline_reference": false
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": false,
+                  "teeka_name": "",
+                  "shastra_name": "ज्ञानार्णव",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 32
+                    },
+                    {
+                      "field": "दोहक",
+                      "value": 5
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 317
+                    }
+                  ]
                 },
                 {
                   "text": "( ज्ञानसार श्लोक 29)",
-                  "raw_html": "<span class=\"GRef\">( ज्ञानसार श्लोक 29)</span>",
-                  "parsed": null,
-                  "inline_reference": false
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": false,
+                  "teeka_name": "",
+                  "shastra_name": "ज्ञानसार",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "श्लोक",
+                      "value": 29
+                    }
+                  ]
                 },
                 {
                   "text": "(परमात्मप्रकाश / मूल या टीका अधिकार 1/11)",
-                  "raw_html": "<span class=\"GRef\">(परमात्मप्रकाश / मूल या टीका अधिकार 1/11)</span>",
-                  "parsed": null,
-                  "inline_reference": false
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "मूल या टीका",
+                  "shastra_name": "परमात्मप्रकाश",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 1
+                    },
+                    {
+                      "field": "गाथा",
+                      "value": 11
+                    }
+                  ]
                 },
                 {
                   "text": "(द्रव्यसंग्रह / मूल या टीका गाथा 14/46)",
-                  "raw_html": "<span class=\"GRef\">(द्रव्यसंग्रह / मूल या टीका गाथा 14/46)</span>",
-                  "parsed": null,
-                  "inline_reference": false
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "मूल या टीका",
+                  "shastra_name": "द्रव्यसंग्रह",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 14
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 46
+                    }
+                  ]
                 },
                 {
                   "text": "कार्तिकेयानुप्रेक्षा/मूल/192",
-                  "raw_html": "<span class=\"GRef\">कार्तिकेयानुप्रेक्षा/मूल/192</span>",
-                  "parsed": null,
-                  "inline_reference": false
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": false,
+                  "teeka_name": "",
+                  "shastra_name": "कार्तिकेयानुप्रेक्षा",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 192
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -1007,9 +1380,13 @@
               "references": [
                 {
                   "text": "द्रव्यसंग्रह / मूल या टीका गाथा 14/49/1",
-                  "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह / मूल या टीका गाथा 14/49/1</span>",
-                  "parsed": null,
-                  "inline_reference": false
+                  "inline_reference": false,
+                  "needs_manual_match": true,
+                  "is_teeka": true,
+                  "teeka_name": "मूल या टीका",
+                  "shastra_name": "द्रव्यसंग्रह",
+                  "match_method": "shastra_name",
+                  "resolved_fields": []
                 }
               ],
               "is_orphan_translation": false,
@@ -1080,9 +1457,18 @@
               "references": [
                 {
                   "text": "समाधिशतक / मूल या टीका गाथा 4",
-                  "raw_html": "<span class=\"GRef\">समाधिशतक / मूल या टीका गाथा 4</span>",
-                  "parsed": null,
-                  "inline_reference": false
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "मूल या टीका",
+                  "shastra_name": "समाधिशतक",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "श्लोक",
+                      "value": 4
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -1102,9 +1488,26 @@
               "references": [
                 {
                   "text": "परमात्मप्रकाश / मूल या टीका अधिकार 1/12/19",
-                  "raw_html": "<span class=\"GRef\">परमात्मप्रकाश / मूल या टीका अधिकार 1/12/19</span>",
-                  "parsed": null,
-                  "inline_reference": false
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "मूल या टीका",
+                  "shastra_name": "परमात्मप्रकाश",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 1
+                    },
+                    {
+                      "field": "गाथा",
+                      "value": 12
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 19
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -1124,9 +1527,22 @@
               "references": [
                 {
                   "text": "द्रव्यसंग्रह / मूल या टीका गाथा 14/46",
-                  "raw_html": "<span class=\"GRef\">द्रव्यसंग्रह / मूल या टीका गाथा 14/46</span>",
-                  "parsed": null,
-                  "inline_reference": false
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "मूल या टीका",
+                  "shastra_name": "द्रव्यसंग्रह",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 14
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 46
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,

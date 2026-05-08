@@ -2,8 +2,8 @@ import pytest
 from selectolax.parser import HTMLParser
 
 from workers.ingestion.jainkosh.config import load_config
-from workers.ingestion.jainkosh.refs import _clean_raw_html, extract_refs_from_node
-from workers.ingestion.jainkosh.tables import extract_table_block
+from workers.ingestion.jainkosh.refs import extract_refs_from_node
+from workers.ingestion.jainkosh.tables import _clean_raw_html, extract_table_block
 
 
 @pytest.fixture
@@ -45,8 +45,8 @@ def test_raw_html_attribute_values_preserved(config):
     assert out == '<a href="/wiki/X" title="X">link</a>'
 
 
-def test_reference_raw_html_is_cleaned_in_extract(config):
+def test_reference_has_no_raw_html_field(config):
     html = '<p><span class="GRef">  abc   </span></p>'
     node = HTMLParser(html).css_first("p")
     refs = extract_refs_from_node(node, config)
-    assert refs[0].raw_html == '<span class="GRef">abc</span>'
+    assert not hasattr(refs[0], "raw_html")

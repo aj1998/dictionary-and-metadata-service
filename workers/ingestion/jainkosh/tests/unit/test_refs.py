@@ -113,12 +113,13 @@ class TestExtractRefsFromNode:
         assert "( )" not in block.text_devanagari
         assert "  " not in block.text_devanagari
 
-    def test_parsed_reference_stub_returns_none_in_v1_1_0(self, config):
+    def test_structured_parsing_populates_resolved_fields(self, config):
         node = parse_node('<p><span class="GRef">पंचास्तिकाय/9</span></p>', "p")
         refs = extract_refs_from_node(node, config)
         assert len(refs) == 1
         assert refs[0].text == "पंचास्तिकाय/9"
-        assert refs[0].parsed is None
+        assert isinstance(refs[0].needs_manual_match, bool)
+        assert refs[0].shastra_name == "पंचास्तिकाय"
 
 
 class TestIsBulletPoint:

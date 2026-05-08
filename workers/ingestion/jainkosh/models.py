@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Literal, Optional
+from typing import Literal, Optional, Union
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -15,24 +15,22 @@ class Multilingual(BaseModel):
     text: str
 
 
+class ResolvedField(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    field: str
+    value: Union[int, str]
+
+
 class Reference(BaseModel):
     model_config = ConfigDict(extra="forbid")
     text: str
-    raw_html: Optional[str] = None
-    parsed: Optional["ParsedReference"] = None
     inline_reference: bool = False
-
-
-class ParsedReference(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-    shastra: Optional[str] = None
-    teeka: Optional[str] = None
-    gatha: Optional[str] = None
-    chapter: Optional[str] = None
-    verse: Optional[str] = None
-    page: Optional[str] = None
-    line: Optional[str] = None
-    raw_components: list[str] = Field(default_factory=list)
+    needs_manual_match: bool = False
+    is_teeka: bool = False
+    teeka_name: str = ""
+    shastra_name: Optional[str] = None
+    match_method: Optional[Literal["shastra_name", "alternate_name", "short_form"]] = None
+    resolved_fields: list[ResolvedField] = Field(default_factory=list)
 
 
 BlockKind = Literal[

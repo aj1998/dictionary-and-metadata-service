@@ -3,36 +3,13 @@
 from __future__ import annotations
 
 import re
-from typing import Optional
 
 from selectolax.parser import Node
 
 from .config import JainkoshConfig
-from .models import ParsedReference, Reference
+from .models import Reference
 from .normalize import normalize_text
 from .selectors import is_gref_node
-
-
-_RAW_HTML_TEXT_RUN_RE = re.compile(r"(>)([^<]*)(<)")
-_WS_RE = re.compile(r"[\t\n\r\f\v ]+")
-
-
-def _clean_raw_html(html: str, config: JainkoshConfig) -> str:
-    if not html:
-        return html
-    if not config.reference.raw_html.collapse_whitespace:
-        return html
-
-    def _collapse_run(match: re.Match[str]) -> str:
-        left, run, right = match.group(1), match.group(2), match.group(3)
-        if not run:
-            return left + run + right
-        collapsed = _WS_RE.sub(" ", run).strip()
-        if not collapsed:
-            return left + right
-        return left + collapsed + right
-
-    return _RAW_HTML_TEXT_RUN_RE.sub(_collapse_run, html)
 
 
 def extract_ref_text(node: Node, config: JainkoshConfig) -> str:
@@ -71,17 +48,29 @@ def extract_refs_from_node(
             continue
         parts = _split_gref_text(full_text, config)
         for part in parts:
-            parsed = None
-            if config.reference.parse_strategy != "text_only":
-                parsed = parse_reference_text(part, config)
-            raw = _clean_raw_html(gref.html or "", config) if len(parts) == 1 else None
+            resolution = _resolve_reference(part, config)
             inline_ref_value = inline if config.reference.annotate_inline_position else False
-            refs.append(Reference(text=part, raw_html=raw, parsed=parsed, inline_reference=inline_ref_value))
+            refs.append(Reference(text=part, inline_reference=inline_ref_value, **resolution))
     return refs
 
 
-def parse_reference_text(text: str, config: JainkoshConfig) -> Optional[ParsedReference]:
-    return None
+def _resolve_reference(text: str, config: JainkoshConfig) -> dict:
+    if (
+        config.reference.parse_strategy == "text_only"
+        or config.shastra_registry is None
+    ):
+        return {}
+
+    from .parse_reference import parse_reference_text
+    result = parse_reference_text(text, config.shastra_registry, config.reference)
+    return {
+        "needs_manual_match": result.needs_manual_match,
+        "is_teeka": result.is_teeka,
+        "teeka_name": result.teeka_name,
+        "shastra_name": result.shastra_name,
+        "match_method": result.match_method,
+        "resolved_fields": result.resolved_fields,
+    }
 
 
 def is_leading_reference_node(node: Node, config: JainkoshConfig) -> bool:

@@ -2,11 +2,34 @@
 
 from __future__ import annotations
 
+import re
+
 from selectolax.parser import Node
 
 from .config import JainkoshConfig
 from .models import Block
-from .refs import _clean_raw_html
+
+
+_RAW_HTML_TEXT_RUN_RE = re.compile(r"(>)([^<]*)(<)")
+_WS_RE = re.compile(r"[\t\n\r\f\v ]+")
+
+
+def _clean_raw_html(html: str, config: JainkoshConfig) -> str:
+    if not html:
+        return html
+    if not config.table.raw_html.collapse_whitespace:
+        return html
+
+    def _collapse_run(match: re.Match[str]) -> str:
+        left, run, right = match.group(1), match.group(2), match.group(3)
+        if not run:
+            return left + run + right
+        collapsed = _WS_RE.sub(" ", run).strip()
+        if not collapsed:
+            return left + right
+        return left + collapsed + right
+
+    return _RAW_HTML_TEXT_RUN_RE.sub(_collapse_run, html)
 
 
 def extract_table_block(table: Node, config: JainkoshConfig) -> Block:

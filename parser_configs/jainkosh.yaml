@@ -1,5 +1,5 @@
-version: "1.6.0"
-parser_rules_version: "jainkosh.rules/1.6.0"
+version: "1.8.0"
+parser_rules_version: "jainkosh.rules/1.8.0"
 
 normalization:
   nfc: true
@@ -63,7 +63,44 @@ block_classes:
 reference:
   selector: "span.GRef"
   strip_inner_anchors: true
-  parse_strategy: "text_only"
+  parse_strategy: "structured"
+  shastra_config_path: "parser_configs/_manual_configs/shastra.json"
+  devanagari_normalization:
+    enabled: true
+    substitutions:
+      - {from: "ण्ड", to: "ंड"}
+      - {from: "ण्ठ", to: "ंठ"}
+      - {from: "ञ्च", to: "ंच"}
+      - {from: "ञ्ज", to: "ंज"}
+      - {from: "न्त", to: "ंत"}
+      - {from: "न्द", to: "ंद"}
+      - {from: "म्ब", to: "ंब"}
+      - {from: "न्व", to: "ंव"}
+  mool:
+    keywords: ["मूल"]
+    exceptions: ["मूलाचार"]
+  needs_manual_match:
+    on_extra_groups: true
+    on_missing_fields: false
+  noise_phrases:
+    enabled: true
+    phrases:
+      - "मूल गाथा या टीका"
+  section_keywords:
+    enabled: true
+    keywords:
+      - गाथा
+      - श्लोक
+      - पंक्ति
+      - कलश
+      - अधिकार
+      - अध्याय
+      - सर्ग
+      - परिच्छेद
+      - प्रकरण
+      - खण्ड
+      - भाग
+      - पुस्तक
   raw_html:
     collapse_whitespace: true
   semicolon_split:

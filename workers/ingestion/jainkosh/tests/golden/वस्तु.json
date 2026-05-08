@@ -18,9 +18,13 @@
                 "references": [
                   {
                     "text": "लि.वि./मूलवृत्ति/4/15/293/11",
-                    "raw_html": "<span class=\"GRef\">लि.वि./मूलवृत्ति/4/15/293/11</span>",
-                    "parsed": null,
-                    "inline_reference": false
+                    "inline_reference": false,
+                    "needs_manual_match": true,
+                    "is_teeka": false,
+                    "teeka_name": "",
+                    "shastra_name": null,
+                    "match_method": null,
+                    "resolved_fields": []
                   }
                 ],
                 "is_orphan_translation": false,
@@ -40,9 +44,18 @@
                 "references": [
                   {
                     "text": "कार्तिकेयानुप्रेक्षा/225",
-                    "raw_html": "<span class=\"GRef\">कार्तिकेयानुप्रेक्षा/225</span>",
-                    "parsed": null,
-                    "inline_reference": false
+                    "inline_reference": false,
+                    "needs_manual_match": false,
+                    "is_teeka": false,
+                    "teeka_name": "",
+                    "shastra_name": "कार्तिकेयानुप्रेक्षा",
+                    "match_method": "shastra_name",
+                    "resolved_fields": [
+                      {
+                        "field": "गाथा",
+                        "value": 225
+                      }
+                    ]
                   }
                 ],
                 "is_orphan_translation": false,
@@ -77,9 +90,26 @@
                 "references": [
                   {
                     "text": "स्याद्वादमंजरी/5/30/6",
-                    "raw_html": "<span class=\"GRef\">स्याद्वादमंजरी/5/30/6</span>",
-                    "parsed": null,
-                    "inline_reference": false
+                    "inline_reference": false,
+                    "needs_manual_match": false,
+                    "is_teeka": false,
+                    "teeka_name": "",
+                    "shastra_name": "स्याद्वादमञ्जरी",
+                    "match_method": "shastra_name",
+                    "resolved_fields": [
+                      {
+                        "field": "श्लोक",
+                        "value": 5
+                      },
+                      {
+                        "field": "पृष्ठ",
+                        "value": 30
+                      },
+                      {
+                        "field": "पंक्ति",
+                        "value": 6
+                      }
+                    ]
                   }
                 ],
                 "is_orphan_translation": false,
@@ -99,9 +129,26 @@
                 "references": [
                   {
                     "text": "स्याद्वादमंजरी/23/272/6",
-                    "raw_html": "<span class=\"GRef\">स्याद्वादमंजरी/23/272/6</span>",
-                    "parsed": null,
-                    "inline_reference": false
+                    "inline_reference": false,
+                    "needs_manual_match": false,
+                    "is_teeka": false,
+                    "teeka_name": "",
+                    "shastra_name": "स्याद्वादमञ्जरी",
+                    "match_method": "shastra_name",
+                    "resolved_fields": [
+                      {
+                        "field": "श्लोक",
+                        "value": 23
+                      },
+                      {
+                        "field": "पृष्ठ",
+                        "value": 272
+                      },
+                      {
+                        "field": "पंक्ति",
+                        "value": 6
+                      }
+                    ]
                   }
                 ],
                 "is_orphan_translation": false,
@@ -198,9 +245,13 @@
                 "references": [
                   {
                     "text": "हरिवंशपुराण - 10.13",
-                    "raw_html": "<span class=\"GRef\"><a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_10#13\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 10\">हरिवंशपुराण - 10.13</a></span>",
-                    "parsed": null,
-                    "inline_reference": true
+                    "inline_reference": true,
+                    "needs_manual_match": true,
+                    "is_teeka": false,
+                    "teeka_name": "",
+                    "shastra_name": null,
+                    "match_method": null,
+                    "resolved_fields": []
                   }
                 ],
                 "is_orphan_translation": false,
@@ -227,7 +278,7 @@
       "prev": "/wiki/%E0%A4%B5%E0%A4%B8%E0%A5%81%E0%A4%B8%E0%A5%87%E0%A4%A8",
       "next": "/wiki/%E0%A4%B5%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%81_%E0%A4%B5%E0%A4%BF%E0%A4%A6%E0%A5%8D%E0%A4%AF%E0%A4%BE"
     },
-    "parser_version": "jainkosh.rules/1.6.0",
+    "parser_version": "jainkosh.rules/1.8.0",
     "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
@@ -267,9 +318,13 @@
                       "references": [
                         {
                           "text": "लि.वि./मूलवृत्ति/4/15/293/11",
-                          "raw_html": "<span class=\"GRef\">लि.वि./मूलवृत्ति/4/15/293/11</span>",
-                          "parsed": null,
-                          "inline_reference": false
+                          "inline_reference": false,
+                          "needs_manual_match": true,
+                          "is_teeka": false,
+                          "teeka_name": "",
+                          "shastra_name": null,
+                          "match_method": null,
+                          "resolved_fields": []
                         }
                       ],
                       "is_orphan_translation": false,
@@ -289,9 +344,18 @@
                       "references": [
                         {
                           "text": "कार्तिकेयानुप्रेक्षा/225",
-                          "raw_html": "<span class=\"GRef\">कार्तिकेयानुप्रेक्षा/225</span>",
-                          "parsed": null,
-                          "inline_reference": false
+                          "inline_reference": false,
+                          "needs_manual_match": false,
+                          "is_teeka": false,
+                          "teeka_name": "",
+                          "shastra_name": "कार्तिकेयानुप्रेक्षा",
+                          "match_method": "shastra_name",
+                          "resolved_fields": [
+                            {
+                              "field": "गाथा",
+                              "value": 225
+                            }
+                          ]
                         }
                       ],
                       "is_orphan_translation": false,
@@ -326,9 +390,26 @@
                       "references": [
                         {
                           "text": "स्याद्वादमंजरी/5/30/6",
-                          "raw_html": "<span class=\"GRef\">स्याद्वादमंजरी/5/30/6</span>",
-                          "parsed": null,
-                          "inline_reference": false
+                          "inline_reference": false,
+                          "needs_manual_match": false,
+                          "is_teeka": false,
+                          "teeka_name": "",
+                          "shastra_name": "स्याद्वादमञ्जरी",
+                          "match_method": "shastra_name",
+                          "resolved_fields": [
+                            {
+                              "field": "श्लोक",
+                              "value": 5
+                            },
+                            {
+                              "field": "पृष्ठ",
+                              "value": 30
+                            },
+                            {
+                              "field": "पंक्ति",
+                              "value": 6
+                            }
+                          ]
                         }
                       ],
                       "is_orphan_translation": false,
@@ -348,9 +429,26 @@
                       "references": [
                         {
                           "text": "स्याद्वादमंजरी/23/272/6",
-                          "raw_html": "<span class=\"GRef\">स्याद्वादमंजरी/23/272/6</span>",
-                          "parsed": null,
-                          "inline_reference": false
+                          "inline_reference": false,
+                          "needs_manual_match": false,
+                          "is_teeka": false,
+                          "teeka_name": "",
+                          "shastra_name": "स्याद्वादमञ्जरी",
+                          "match_method": "shastra_name",
+                          "resolved_fields": [
+                            {
+                              "field": "श्लोक",
+                              "value": 23
+                            },
+                            {
+                              "field": "पृष्ठ",
+                              "value": 272
+                            },
+                            {
+                              "field": "पंक्ति",
+                              "value": 6
+                            }
+                          ]
                         }
                       ],
                       "is_orphan_translation": false,
@@ -445,9 +543,13 @@
                       "references": [
                         {
                           "text": "हरिवंशपुराण - 10.13",
-                          "raw_html": "<span class=\"GRef\"><a href=\"/wiki/%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%A8%E0%A5%8D%E0%A4%A5:%E0%A4%B9%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%82%E0%A4%B6_%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%BE%E0%A4%A3_-_%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%97_10#13\" title=\"ग्रन्थ:हरिवंश पुराण - सर्ग 10\">हरिवंशपुराण - 10.13</a></span>",
-                          "parsed": null,
-                          "inline_reference": true
+                          "inline_reference": true,
+                          "needs_manual_match": true,
+                          "is_teeka": false,
+                          "teeka_name": "",
+                          "shastra_name": null,
+                          "match_method": null,
+                          "resolved_fields": []
                         }
                       ],
                       "is_orphan_translation": false,
