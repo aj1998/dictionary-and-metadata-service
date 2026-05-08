@@ -731,12 +731,21 @@
                           {
                             "text": "गोम्मटसार जीवकांड/572/1016",
                             "inline_reference": false,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
-                            "shastra_name": null,
-                            "match_method": null,
-                            "resolved_fields": []
+                            "shastra_name": "गोम्मटसार जीवकाण्ड",
+                            "match_method": "shastra_name",
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 572
+                              },
+                              {
+                                "field": "पृष्ठ",
+                                "value": 1016
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -1047,12 +1056,17 @@
                           {
                             "text": "( गोम्मटसार जीवकांड/581 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
-                            "shastra_name": null,
-                            "match_method": null,
-                            "resolved_fields": []
+                            "shastra_name": "गोम्मटसार जीवकाण्ड",
+                            "match_method": "shastra_name",
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 581
+                              }
+                            ]
                           },
                           {
                             "text": "( न्यायदीपिका/3/",
@@ -2830,12 +2844,17 @@
                       {
                         "text": "( गोम्मटसार जीवकांड 582 )",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "shastra_name": "गोम्मटसार जीवकाण्ड",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 582
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -4565,7 +4584,7 @@
       "next": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%B8%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8"
     },
     "parser_version": "jainkosh.rules/1.8.0",
-    "parsed_at": "2026-05-08T16:24:52.453111",
+    "parsed_at": "2026-05-08T18:30:42.012813",
     "warnings": []
   },
   "would_write": {
@@ -6203,12 +6222,21 @@
                 {
                   "text": "गोम्मटसार जीवकांड/572/1016",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "shastra_name": "गोम्मटसार जीवकाण्ड",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 572
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 1016
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -6519,12 +6547,17 @@
                 {
                   "text": "( गोम्मटसार जीवकांड/581 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "shastra_name": "गोम्मटसार जीवकाण्ड",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 581
+                    }
+                  ]
                 },
                 {
                   "text": "( न्यायदीपिका/3/",
@@ -8317,12 +8350,17 @@
                 {
                   "text": "( गोम्मटसार जीवकांड 582 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "shastra_name": "गोम्मटसार जीवकाण्ड",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 582
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,

@@ -750,12 +750,21 @@
                       {
                         "text": "(योगसार/अमितगति /2/5)",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "shastra_name": "योगसार अमितगति",
+                        "match_method": "alternate_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 2
+                          },
+                          {
+                            "field": "श्लोक",
+                            "value": 5
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1733,12 +1742,21 @@
                       {
                         "text": "( गोम्मटसार जीवकांड/582/1023 )",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "shastra_name": "गोम्मटसार जीवकाण्ड",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 582
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 1023
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2008,14 +2026,19 @@
                     "hindi_translation": "सत्ता, सत् अथवा सत्त्व, सामान्य, द्रव्य, अन्वय, वस्तु, अर्थ और विधि ये नौ शब्द सामान्य रूप से एक द्रव्यरूप अर्थ के ही वाचक हैं।",
                     "references": [
                       {
-                        "text": "पंचाध्यायी x`/ पूर्वार्ध/143",
+                        "text": "पंचाध्यायी/ पूर्वार्ध/143",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "shastra_name": "पंचाध्यायी/पूर्वार्ध",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "श्लोक",
+                            "value": 143
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2103,12 +2126,21 @@
                       {
                         "text": "(योगसार/अमितगति/2/1)",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "shastra_name": "योगसार अमितगति",
+                        "match_method": "alternate_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 2
+                          },
+                          {
+                            "field": "श्लोक",
+                            "value": 1
+                          }
+                        ]
                       },
                       {
                         "text": "( द्रव्यसंग्रह/15/50 )",
@@ -2613,12 +2645,21 @@
                       {
                         "text": "गोम्मटसार जीवकांड/588/1027",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "shastra_name": "गोम्मटसार जीवकाण्ड",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 588
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 1027
+                          }
+                        ]
                       },
                       {
                         "text": "( तत्त्वार्थसूत्र/5/6 )",
@@ -3239,12 +3280,21 @@
                       {
                         "text": "( गोम्मटसार जीवकांड/563-564/1008 )",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "shastra_name": "गोम्मटसार जीवकाण्ड",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": "563-564"
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 1008
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -3432,12 +3482,21 @@
                       {
                         "text": "गोम्मटसार जीवकांड/566/1012",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "shastra_name": "गोम्मटसार जीवकाण्ड",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 566
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 1012
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -7847,12 +7906,21 @@
                       {
                         "text": "योगसार/अमितगति/9/46",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "shastra_name": "योगसार अमितगति",
+                        "match_method": "alternate_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 9
+                          },
+                          {
+                            "field": "श्लोक",
+                            "value": 46
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -8173,7 +8241,7 @@
       "next": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF_%E0%A4%86%E0%A4%B8%E0%A5%8D%E0%A4%B0%E0%A4%B5"
     },
     "parser_version": "jainkosh.rules/1.8.0",
-    "parsed_at": "2026-05-08T16:24:59.177334",
+    "parsed_at": "2026-05-08T18:01:04.581355",
     "warnings": []
   },
   "would_write": {
@@ -10165,12 +10233,21 @@
                 {
                   "text": "(योगसार/अमितगति /2/5)",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "shastra_name": "योगसार अमितगति",
+                  "match_method": "alternate_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 2
+                    },
+                    {
+                      "field": "श्लोक",
+                      "value": 5
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -11153,12 +11230,21 @@
                 {
                   "text": "( गोम्मटसार जीवकांड/582/1023 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "shastra_name": "गोम्मटसार जीवकाण्ड",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 582
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 1023
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -11429,14 +11515,19 @@
               "hindi_translation": "सत्ता, सत् अथवा सत्त्व, सामान्य, द्रव्य, अन्वय, वस्तु, अर्थ और विधि ये नौ शब्द सामान्य रूप से एक द्रव्यरूप अर्थ के ही वाचक हैं।",
               "references": [
                 {
-                  "text": "पंचाध्यायी x`/ पूर्वार्ध/143",
+                  "text": "पंचाध्यायी/ पूर्वार्ध/143",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "shastra_name": "पंचाध्यायी/पूर्वार्ध",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "श्लोक",
+                      "value": 143
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -11525,12 +11616,21 @@
                 {
                   "text": "(योगसार/अमितगति/2/1)",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "shastra_name": "योगसार अमितगति",
+                  "match_method": "alternate_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 2
+                    },
+                    {
+                      "field": "श्लोक",
+                      "value": 1
+                    }
+                  ]
                 },
                 {
                   "text": "( द्रव्यसंग्रह/15/50 )",
@@ -12041,12 +12141,21 @@
                 {
                   "text": "गोम्मटसार जीवकांड/588/1027",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "shastra_name": "गोम्मटसार जीवकाण्ड",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 588
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 1027
+                    }
+                  ]
                 },
                 {
                   "text": "( तत्त्वार्थसूत्र/5/6 )",
@@ -12671,12 +12780,21 @@
                 {
                   "text": "( गोम्मटसार जीवकांड/563-564/1008 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "shastra_name": "गोम्मटसार जीवकाण्ड",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": "563-564"
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 1008
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -12865,12 +12983,21 @@
                 {
                   "text": "गोम्मटसार जीवकांड/566/1012",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "shastra_name": "गोम्मटसार जीवकाण्ड",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 566
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 1012
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -17291,12 +17418,21 @@
                 {
                   "text": "योगसार/अमितगति/9/46",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "shastra_name": "योगसार अमितगति",
+                  "match_method": "alternate_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 9
+                    },
+                    {
+                      "field": "श्लोक",
+                      "value": 46
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
