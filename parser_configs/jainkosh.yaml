@@ -86,6 +86,7 @@ reference:
     enabled: true
     phrases:
       - "मूल गाथा या टीका"
+      - "मूल या टीका"
   section_keywords:
     enabled: true
     keywords:
