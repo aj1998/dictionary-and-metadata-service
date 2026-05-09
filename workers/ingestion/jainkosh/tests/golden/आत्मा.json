@@ -38,7 +38,7 @@
                         "value": 5
                       },
                       {
-                        "field": "सूत्र",
+                        "field": "धवलासूत्र",
                         "value": 50
                       },
                       {
@@ -745,7 +745,7 @@
       "next": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%81%E0%A4%B2"
     },
     "parser_version": "jainkosh.rules/1.9.0",
-    "parsed_at": "2026-05-09T18:07:15.501098",
+    "parsed_at": "2026-05-09T18:20:30.309385",
     "warnings": []
   },
   "would_write": {
@@ -931,7 +931,7 @@
                               "value": 5
                             },
                             {
-                              "field": "सूत्र",
+                              "field": "धवलासूत्र",
                               "value": 50
                             },
                             {
