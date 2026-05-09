@@ -252,12 +252,15 @@ def test_section_keyword_in_teeka_name(registry, config):
     # "गाथा" keyword removed from "समयसार / आत्मख्याति गाथा 8"
     # After removal: "समयसार / आत्मख्याति 8"
     # "समयसार/आत्मख्याति" is a full entry in registry; format=गाथा/कलश (R=2)
-    # With on_missing_fields=True (14A.2): V=1 < R=2 → needs_manual
+    # With on_missing_fields=True (14A.2): V=1 < R=2 → level-1 fails (needs_manual).
+    # Level-2 keyword extraction finds "गाथा 8" in original text → resolved_fields populated.
     results = parse_reference_text("समयसार / आत्मख्याति गाथा 8", registry, config)
     result = _single(results)
     assert result.shastra_name == "समयसार/आत्मख्याति"
     assert result.needs_manual_match is True   # 14A.2: strict — missing कलश group
-    assert result.resolved_fields == []
+    assert len(result.resolved_fields) == 1
+    assert result.resolved_fields[0].field == "गाथा"
+    assert result.resolved_fields[0].value == 8
 
 
 # ---------------------------------------------------------------------------
@@ -485,3 +488,180 @@ def test_puraankosh_skips_resolution():
     assert results == [{}]
     # registry was NOT consulted
     cfg.shastra_registry.assert_not_called()
+
+
+# ---------------------------------------------------------------------------
+# Multiple format rules (Change 1)
+# ---------------------------------------------------------------------------
+
+def test_multiple_formats_first_rule_matches(norm_config, config):
+    """When value groups match the first format rule, use it."""
+    from workers.ingestion.jainkosh.parse_reference import ShastraEntry, ShastraRegistry, _normalise, parse_format_string
+    reg = ShastraRegistry()
+    entry = ShastraEntry(
+        shastra_name="प्रवचनसार",
+        alternate_names=[],
+        short_form="प्र.सा./मू.",
+        format_str="गाथा/पृष्ठ",
+        format_groups=parse_format_string("गाथा/पृष्ठ"),
+        all_format_groups=[parse_format_string("गाथा/पृष्ठ"), parse_format_string("गाथा")],
+    )
+    reg.entries.append(entry)
+    reg._by_primary[_normalise("प्रवचनसार", norm_config)] = entry
+
+    # V=2 matches first format "गाथा/पृष्ठ" exactly
+    results = parse_reference_text("प्रवचनसार 10/96", reg, config)
+    result = _single(results)
+    assert result.needs_manual_match is False
+    assert result.shastra_name == "प्रवचनसार"
+    assert len(result.resolved_fields) == 2
+    assert result.resolved_fields[0].field == "गाथा"
+    assert result.resolved_fields[0].value == 10
+    assert result.resolved_fields[1].field == "पृष्ठ"
+    assert result.resolved_fields[1].value == 96
+
+
+def test_multiple_formats_fallback_to_second_rule(norm_config, config):
+    """When V=1 fails first format (R=2) but matches second format (R=1), use second."""
+    from workers.ingestion.jainkosh.parse_reference import ShastraEntry, ShastraRegistry, _normalise, parse_format_string
+    reg = ShastraRegistry()
+    entry = ShastraEntry(
+        shastra_name="प्रवचनसार",
+        alternate_names=[],
+        short_form="प्र.सा./मू.",
+        format_str="गाथा/पृष्ठ",
+        format_groups=parse_format_string("गाथा/पृष्ठ"),
+        all_format_groups=[parse_format_string("गाथा/पृष्ठ"), parse_format_string("गाथा")],
+    )
+    reg.entries.append(entry)
+    reg._by_primary[_normalise("प्रवचनसार", norm_config)] = entry
+
+    # Text: "प्रवचनसार/ 'तत्त्व प्रदीपिका' 96"
+    # teeka="'तत्त्व प्रदीपिका'", numeric="96" (V=1)
+    # Format 1 "गाथा/पृष्ठ": R=2, V=1 → fail; Format 2 "गाथा": R=1, V=1 → success
+    results = parse_reference_text("प्रवचनसार/ 'तत्त्व प्रदीपिका' 96", reg, config)
+    result = _single(results)
+    assert result.needs_manual_match is False
+    assert result.shastra_name == "प्रवचनसार"
+    assert result.is_teeka is True
+    assert len(result.resolved_fields) == 1
+    assert result.resolved_fields[0].field == "गाथा"
+    assert result.resolved_fields[0].value == 96
+
+
+# ---------------------------------------------------------------------------
+# Level-2 keyword extraction (Change 2)
+# ---------------------------------------------------------------------------
+
+def test_keyword_extraction_overrides_format_match(norm_config, config):
+    """Level-2 keyword extraction takes priority over format-matched field of same name."""
+    from workers.ingestion.jainkosh.parse_reference import ShastraEntry, ShastraRegistry, _normalise, parse_format_string
+    reg = ShastraRegistry()
+    # format=गाथा/पृष्ठ; value="5/10" → गाथा=5, पृष्ठ=10 from level-1
+    # original text has "गाथा 99" → keyword extraction overrides गाथा to 99
+    entry = ShastraEntry(
+        shastra_name="TestShastram",
+        alternate_names=[],
+        short_form="",
+        format_str="गाथा/पृष्ठ",
+        format_groups=parse_format_string("गाथा/पृष्ठ"),
+    )
+    reg.entries.append(entry)
+    reg._by_primary[_normalise("TestShastram", norm_config)] = entry
+
+    results = parse_reference_text("TestShastram गाथा 99/5/10", reg, config)
+    result = _single(results)
+    # Note: "TestShastram गाथा 99/5/10" after keyword stripping:
+    # "गाथा" stripped → "TestShastram  99/5/10" → numeric "99/5/10" (V=3 > R=2 → needs_manual)
+    # But level-2 extracts "गाथा 99" from original
+    assert result.shastra_name == "TestShastram"
+    assert any(rf.field == "गाथा" and rf.value == 99 for rf in result.resolved_fields)
+
+
+def test_keyword_conflicts_with_level1_sets_needs_manual(norm_config, config):
+    """When level-2 keyword value DIFFERS from level-1 resolved value, needs_manual_match becomes True."""
+    from workers.ingestion.jainkosh.parse_reference import ShastraEntry, ShastraRegistry, _normalise, parse_format_string
+    reg = ShastraRegistry()
+    # Format: "अध्याय/गाथा"; text "TestShastram गाथा 3/10"
+    # After stripping "गाथा": numeric "3/10" (V=2, R=2) → level-1 succeeds: अध्याय=3, गाथा=10
+    # Level-2 finds "गाथा 3" from original text → conflicts with level-1 गाथा=10 → needs_manual=True
+    entry = ShastraEntry(
+        shastra_name="TestShastram",
+        alternate_names=[],
+        short_form="",
+        format_str="अध्याय/गाथा",
+        format_groups=parse_format_string("अध्याय/गाथा"),
+    )
+    reg.entries.append(entry)
+    reg._by_primary[_normalise("TestShastram", norm_config)] = entry
+
+    results = parse_reference_text("TestShastram गाथा 3/10", reg, config)
+    result = _single(results)
+    assert result.needs_manual_match is True
+    # keyword value wins: गाथा=3
+    assert any(rf.field == "गाथा" and rf.value == 3 for rf in result.resolved_fields)
+
+
+def test_keyword_matches_level1_no_conflict(norm_config, config):
+    """When level-2 keyword value MATCHES level-1, needs_manual_match stays False."""
+    from workers.ingestion.jainkosh.parse_reference import ShastraEntry, ShastraRegistry, _normalise, parse_format_string
+    reg = ShastraRegistry()
+    # Format: "गाथा"; text "TestShastram गाथा 29"
+    # After stripping "गाथा": numeric "29" → level-1: गाथा=29
+    # Level-2 also finds "गाथा 29" → same value → no conflict
+    entry = ShastraEntry(
+        shastra_name="TestShastram",
+        alternate_names=[],
+        short_form="",
+        format_str="गाथा",
+        format_groups=parse_format_string("गाथा"),
+    )
+    reg.entries.append(entry)
+    reg._by_primary[_normalise("TestShastram", norm_config)] = entry
+
+    results = parse_reference_text("TestShastram गाथा 29", reg, config)
+    result = _single(results)
+    assert result.needs_manual_match is False
+    assert any(rf.field == "गाथा" and rf.value == 29 for rf in result.resolved_fields)
+
+
+def test_keyword_extraction_adds_to_needs_manual_result(registry, config):
+    """Level-2 populates resolved_fields even when level-1 format fails."""
+    # "समयसार / आत्मख्याति गाथा 8": shastra found, format fails, keyword found
+    results = parse_reference_text("समयसार / आत्मख्याति गाथा 8", registry, config)
+    result = _single(results)
+    assert result.shastra_name == "समयसार/आत्मख्याति"
+    assert result.needs_manual_match is True
+    assert len(result.resolved_fields) == 1
+    assert result.resolved_fields[0].field == "गाथा"
+    assert result.resolved_fields[0].value == 8
+
+
+def test_keyword_not_matched_in_compound_word(norm_config, config):
+    """A keyword embedded in a compound Devanagari word is NOT extracted."""
+    from workers.ingestion.jainkosh.parse_reference import ShastraEntry, ShastraRegistry, _normalise, parse_format_string
+    reg = ShastraRegistry()
+    entry = ShastraEntry(
+        shastra_name="गाथासंग्रह",
+        alternate_names=[],
+        short_form="",
+        format_str="",
+        format_groups=[],
+    )
+    reg.entries.append(entry)
+    reg._by_primary[_normalise("गाथासंग्रह", norm_config)] = entry
+
+    # "गाथा" is NOT a standalone word in "गाथासंग्रह 5"
+    results = parse_reference_text("गाथासंग्रह 5", reg, config)
+    result = _single(results)
+    # गाथा should NOT be extracted from "गाथासंग्रह"
+    assert not any(rf.field == "गाथा" for rf in result.resolved_fields)
+
+
+def test_unknown_shastra_no_keyword_extraction(registry, config):
+    """When shastra is unidentified, level-2 is skipped; resolved_fields stays empty."""
+    results = parse_reference_text("अज्ञात ग्रन्थ गाथा 5", registry, config)
+    result = _single(results)
+    assert result.needs_manual_match is True
+    assert result.shastra_name is None
+    assert result.resolved_fields == []

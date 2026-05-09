@@ -876,12 +876,32 @@
                       {
                         "text": "( प्रवचनसार/95-96 )",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "प्रवचनसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 95
+                          }
+                        ]
+                      },
+                      {
+                        "text": "( प्रवचनसार/95-96 )",
+                        "inline_reference": true,
+                        "needs_manual_match": false,
+                        "is_teeka": false,
+                        "teeka_name": "",
+                        "shastra_name": "प्रवचनसार",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 96
+                          }
+                        ]
                       },
                       {
                         "text": "( नयचक्र बृहद्/37 )",
@@ -991,12 +1011,17 @@
                       {
                         "text": "प्रवचनसार/ ‘तत्त्व प्रदीपिका’ 96",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "‘तत्त्व प्रदीपिका’",
                         "shastra_name": "प्रवचनसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 96
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1168,12 +1193,17 @@
                       {
                         "text": "( प्रवचनसार/95 )",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "प्रवचनसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 95
+                          }
+                        ]
                       },
                       {
                         "text": "( पंचास्तिकाय/10 )",
@@ -1323,12 +1353,17 @@
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/23",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "तत्त्वप्रदीपिका",
                         "shastra_name": "प्रवचनसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 23
+                          }
+                        ]
                       },
                       {
                         "text": "( पंचाध्यायी / पूर्वार्ध 73 )",
@@ -1469,12 +1504,17 @@
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/10",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "तत्त्वप्रदीपिका",
                         "shastra_name": "प्रवचनसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 10
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1495,12 +1535,17 @@
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/93",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "तत्त्वप्रदीपिका",
                         "shastra_name": "प्रवचनसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 93
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1538,7 +1583,7 @@
                       {
                         "text": "धवला 1/1,1,136/ गाथा 199/386",
                         "inline_reference": false,
-                        "needs_manual_match": false,
+                        "needs_manual_match": true,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "धवला",
@@ -1566,14 +1611,14 @@
                           },
                           {
                             "field": "गाथा",
-                            "value": 386
+                            "value": 199
                           }
                         ]
                       },
                       {
                         "text": "( धवला 3/1,2,1/ गाथा 4/6)",
                         "inline_reference": true,
-                        "needs_manual_match": false,
+                        "needs_manual_match": true,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "धवला",
@@ -1601,14 +1646,14 @@
                           },
                           {
                             "field": "गाथा",
-                            "value": 6
+                            "value": 4
                           }
                         ]
                       },
                       {
                         "text": "( धवला 9/4,1,45/ गाथा 67/183)",
                         "inline_reference": true,
-                        "needs_manual_match": false,
+                        "needs_manual_match": true,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "धवला",
@@ -1636,7 +1681,7 @@
                           },
                           {
                             "field": "गाथा",
-                            "value": 183
+                            "value": 67
                           }
                         ]
                       },
@@ -1648,7 +1693,12 @@
                         "teeka_name": "",
                         "shastra_name": "कषायपाहुड़",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 108
+                          }
+                        ]
                       },
                       {
                         "text": "( गोम्मटसार जीवकांड/582/1023 )",
@@ -1703,7 +1753,7 @@
                       {
                         "text": "( धवला 3/1,2,1/ गाथा 3/5)",
                         "inline_reference": true,
-                        "needs_manual_match": false,
+                        "needs_manual_match": true,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "धवला",
@@ -1731,14 +1781,14 @@
                           },
                           {
                             "field": "गाथा",
-                            "value": 5
+                            "value": 3
                           }
                         ]
                       },
                       {
                         "text": "( धवला 9/4,1,45/ गाथा 66/183)",
                         "inline_reference": true,
-                        "needs_manual_match": false,
+                        "needs_manual_match": true,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "धवला",
@@ -1766,14 +1816,14 @@
                           },
                           {
                             "field": "गाथा",
-                            "value": 183
+                            "value": 66
                           }
                         ]
                       },
                       {
                         "text": "( धवला 13/5,5,59/ गाथा 32/310)",
                         "inline_reference": true,
-                        "needs_manual_match": false,
+                        "needs_manual_match": true,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "धवला",
@@ -1801,7 +1851,7 @@
                           },
                           {
                             "field": "गाथा",
-                            "value": 310
+                            "value": 32
                           }
                         ]
                       }
@@ -1850,12 +1900,17 @@
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/36",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "तत्त्वप्रदीपिका",
                         "shastra_name": "प्रवचनसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 36
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2911,12 +2966,17 @@
                       {
                         "text": "प्रवचनसार/127",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "प्रवचनसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 127
+                          }
+                        ]
                       },
                       {
                         "text": "( धवला 3/1,2,1/2/2 )",
@@ -3442,12 +3502,17 @@
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/129",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "तत्त्वप्रदीपिका",
                         "shastra_name": "प्रवचनसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 129
+                          }
+                        ]
                       },
                       {
                         "text": "( पंचाध्यायी / उत्तरार्ध/25 )",
@@ -4569,12 +4634,32 @@
                           {
                             "text": "( प्रवचनसार/144-145 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
                             "shastra_name": "प्रवचनसार",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 144
+                              }
+                            ]
+                          },
+                          {
+                            "text": "( प्रवचनसार/144-145 )",
+                            "inline_reference": true,
+                            "needs_manual_match": false,
+                            "is_teeka": false,
+                            "teeka_name": "",
+                            "shastra_name": "प्रवचनसार",
+                            "match_method": "shastra_name",
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 145
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4794,12 +4879,17 @@
                           {
                             "text": "( प्रवचनसार / तत्त्वप्रदीपिका/140 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": true,
                             "teeka_name": "तत्त्वप्रदीपिका",
                             "shastra_name": "प्रवचनसार",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 140
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -5486,12 +5576,17 @@
                           {
                             "text": "( प्रवचनसार/107 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
                             "shastra_name": "प्रवचनसार",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 107
+                              }
+                            ]
                           },
                           {
                             "text": "( धवला 8/3,4/6/4 )",
@@ -5555,12 +5650,17 @@
                           {
                             "text": "( प्रवचनसार / तत्त्वप्रदीपिका/130 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": true,
                             "teeka_name": "तत्त्वप्रदीपिका",
                             "shastra_name": "प्रवचनसार",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 130
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -5705,6 +5805,10 @@
                               {
                                 "field": "गाथा",
                                 "value": 6
+                              },
+                              {
+                                "field": "श्लोक",
+                                "value": 5
                               }
                             ]
                           }
@@ -5782,6 +5886,10 @@
                               {
                                 "field": "गाथा",
                                 "value": 183
+                              },
+                              {
+                                "field": "श्लोक",
+                                "value": 66
                               }
                             ]
                           }
@@ -5921,12 +6029,32 @@
                           {
                             "text": "( प्रवचनसार / तत्त्वप्रदीपिका/98,106 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": true,
                             "teeka_name": "तत्त्वप्रदीपिका",
                             "shastra_name": "प्रवचनसार",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 98
+                              }
+                            ]
+                          },
+                          {
+                            "text": "( प्रवचनसार / तत्त्वप्रदीपिका/98,106 )",
+                            "inline_reference": true,
+                            "needs_manual_match": false,
+                            "is_teeka": true,
+                            "teeka_name": "तत्त्वप्रदीपिका",
+                            "shastra_name": "प्रवचनसार",
+                            "match_method": "shastra_name",
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 106
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -6074,12 +6202,17 @@
                           {
                             "text": "( प्रवचनसार/105 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
                             "shastra_name": "प्रवचनसार",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 105
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -6229,12 +6362,17 @@
                           {
                             "text": "( प्रवचनसार / तत्त्वप्रदीपिका/130 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": true,
                             "teeka_name": "तत्त्वप्रदीपिका",
                             "shastra_name": "प्रवचनसार",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 130
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -6391,12 +6529,17 @@
                           {
                             "text": "( प्रवचनसार / तत्त्वप्रदीपिका/98 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": true,
                             "teeka_name": "तत्त्वप्रदीपिका",
                             "shastra_name": "प्रवचनसार",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 98
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -6615,6 +6758,10 @@
                               {
                                 "field": "गाथा",
                                 "value": 183
+                              },
+                              {
+                                "field": "श्लोक",
+                                "value": 68
                               }
                             ]
                           }
@@ -7155,12 +7302,17 @@
                           {
                             "text": "( प्रवचनसार / तात्पर्यवृत्ति/98 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": true,
                             "teeka_name": "तात्पर्यवृत्ति",
                             "shastra_name": "प्रवचनसार",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 98
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -8266,7 +8418,7 @@
       "next": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF_%E0%A4%86%E0%A4%B8%E0%A5%8D%E0%A4%B0%E0%A4%B5"
     },
     "parser_version": "jainkosh.rules/1.9.0",
-    "parsed_at": "2026-05-08T19:38:21.175227",
+    "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
   "would_write": {
@@ -10380,12 +10532,32 @@
                 {
                   "text": "( प्रवचनसार/95-96 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 95
+                    }
+                  ]
+                },
+                {
+                  "text": "( प्रवचनसार/95-96 )",
+                  "inline_reference": true,
+                  "needs_manual_match": false,
+                  "is_teeka": false,
+                  "teeka_name": "",
+                  "shastra_name": "प्रवचनसार",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 96
+                    }
+                  ]
                 },
                 {
                   "text": "( नयचक्र बृहद्/37 )",
@@ -10495,12 +10667,17 @@
                 {
                   "text": "प्रवचनसार/ ‘तत्त्व प्रदीपिका’ 96",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "‘तत्त्व प्रदीपिका’",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 96
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -10674,12 +10851,17 @@
                 {
                   "text": "( प्रवचनसार/95 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 95
+                    }
+                  ]
                 },
                 {
                   "text": "( पंचास्तिकाय/10 )",
@@ -10829,12 +11011,17 @@
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/23",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 23
+                    }
+                  ]
                 },
                 {
                   "text": "( पंचाध्यायी / पूर्वार्ध 73 )",
@@ -10976,12 +11163,17 @@
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/10",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 10
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -11002,12 +11194,17 @@
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/93",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 93
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -11046,7 +11243,7 @@
                 {
                   "text": "धवला 1/1,1,136/ गाथा 199/386",
                   "inline_reference": false,
-                  "needs_manual_match": false,
+                  "needs_manual_match": true,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "धवला",
@@ -11074,14 +11271,14 @@
                     },
                     {
                       "field": "गाथा",
-                      "value": 386
+                      "value": 199
                     }
                   ]
                 },
                 {
                   "text": "( धवला 3/1,2,1/ गाथा 4/6)",
                   "inline_reference": true,
-                  "needs_manual_match": false,
+                  "needs_manual_match": true,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "धवला",
@@ -11109,14 +11306,14 @@
                     },
                     {
                       "field": "गाथा",
-                      "value": 6
+                      "value": 4
                     }
                   ]
                 },
                 {
                   "text": "( धवला 9/4,1,45/ गाथा 67/183)",
                   "inline_reference": true,
-                  "needs_manual_match": false,
+                  "needs_manual_match": true,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "धवला",
@@ -11144,7 +11341,7 @@
                     },
                     {
                       "field": "गाथा",
-                      "value": 183
+                      "value": 67
                     }
                   ]
                 },
@@ -11156,7 +11353,12 @@
                   "teeka_name": "",
                   "shastra_name": "कषायपाहुड़",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 108
+                    }
+                  ]
                 },
                 {
                   "text": "( गोम्मटसार जीवकांड/582/1023 )",
@@ -11211,7 +11413,7 @@
                 {
                   "text": "( धवला 3/1,2,1/ गाथा 3/5)",
                   "inline_reference": true,
-                  "needs_manual_match": false,
+                  "needs_manual_match": true,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "धवला",
@@ -11239,14 +11441,14 @@
                     },
                     {
                       "field": "गाथा",
-                      "value": 5
+                      "value": 3
                     }
                   ]
                 },
                 {
                   "text": "( धवला 9/4,1,45/ गाथा 66/183)",
                   "inline_reference": true,
-                  "needs_manual_match": false,
+                  "needs_manual_match": true,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "धवला",
@@ -11274,14 +11476,14 @@
                     },
                     {
                       "field": "गाथा",
-                      "value": 183
+                      "value": 66
                     }
                   ]
                 },
                 {
                   "text": "( धवला 13/5,5,59/ गाथा 32/310)",
                   "inline_reference": true,
-                  "needs_manual_match": false,
+                  "needs_manual_match": true,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "धवला",
@@ -11309,7 +11511,7 @@
                     },
                     {
                       "field": "गाथा",
-                      "value": 310
+                      "value": 32
                     }
                   ]
                 }
@@ -11358,12 +11560,17 @@
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/36",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 36
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -12430,12 +12637,17 @@
                 {
                   "text": "प्रवचनसार/127",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 127
+                    }
+                  ]
                 },
                 {
                   "text": "( धवला 3/1,2,1/2/2 )",
@@ -12963,12 +13175,17 @@
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/129",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 129
+                    }
+                  ]
                 },
                 {
                   "text": "( पंचाध्यायी / उत्तरार्ध/25 )",
@@ -14100,12 +14317,32 @@
                 {
                   "text": "( प्रवचनसार/144-145 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 144
+                    }
+                  ]
+                },
+                {
+                  "text": "( प्रवचनसार/144-145 )",
+                  "inline_reference": true,
+                  "needs_manual_match": false,
+                  "is_teeka": false,
+                  "teeka_name": "",
+                  "shastra_name": "प्रवचनसार",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 145
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -14325,12 +14562,17 @@
                 {
                   "text": "( प्रवचनसार / तत्त्वप्रदीपिका/140 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 140
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -15017,12 +15259,17 @@
                 {
                   "text": "( प्रवचनसार/107 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 107
+                    }
+                  ]
                 },
                 {
                   "text": "( धवला 8/3,4/6/4 )",
@@ -15086,12 +15333,17 @@
                 {
                   "text": "( प्रवचनसार / तत्त्वप्रदीपिका/130 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 130
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -15236,6 +15488,10 @@
                     {
                       "field": "गाथा",
                       "value": 6
+                    },
+                    {
+                      "field": "श्लोक",
+                      "value": 5
                     }
                   ]
                 }
@@ -15313,6 +15569,10 @@
                     {
                       "field": "गाथा",
                       "value": 183
+                    },
+                    {
+                      "field": "श्लोक",
+                      "value": 66
                     }
                   ]
                 }
@@ -15452,12 +15712,32 @@
                 {
                   "text": "( प्रवचनसार / तत्त्वप्रदीपिका/98,106 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 98
+                    }
+                  ]
+                },
+                {
+                  "text": "( प्रवचनसार / तत्त्वप्रदीपिका/98,106 )",
+                  "inline_reference": true,
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "तत्त्वप्रदीपिका",
+                  "shastra_name": "प्रवचनसार",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 106
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -15605,12 +15885,17 @@
                 {
                   "text": "( प्रवचनसार/105 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 105
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -15760,12 +16045,17 @@
                 {
                   "text": "( प्रवचनसार / तत्त्वप्रदीपिका/130 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 130
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -15922,12 +16212,17 @@
                 {
                   "text": "( प्रवचनसार / तत्त्वप्रदीपिका/98 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 98
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -16146,6 +16441,10 @@
                     {
                       "field": "गाथा",
                       "value": 183
+                    },
+                    {
+                      "field": "श्लोक",
+                      "value": 68
                     }
                   ]
                 }
@@ -16686,12 +16985,17 @@
                 {
                   "text": "( प्रवचनसार / तात्पर्यवृत्ति/98 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तात्पर्यवृत्ति",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 98
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,

@@ -29,8 +29,24 @@
 
 ## 1. The `shastra.json` format DSL
 
-Every entry in `parser_configs/_manual_configs/shastra.json` carries a `"format"` string
-that describes how the numeric portion of a reference is structured.
+Every entry in `parser_configs/_manual_configs/shastra.json` carries a `"format"` **array**
+that lists one or more format strings describing how the numeric portion of a reference is
+structured.  The parser tries each string in order and uses the first one that resolves
+without `needs_manual_match`.
+
+```json
+{
+  "shastra_name": "प्रवचनसार",
+  "short_form": "प्र.सा./मू.",
+  "format": ["गाथा/पृष्ठ", "गाथा"],
+  ...
+}
+```
+
+A single-element array is the common case; multi-element arrays are used when a shastra is
+cited with varying levels of detail (e.g. sometimes with a page number, sometimes without).
+
+The loader also accepts a plain string for backward compatibility with legacy entries.
 
 ### 1.1 Separators
 
@@ -263,8 +279,9 @@ class ShastraEntry:
     shastra_name: str            # canonical key from JSON
     alternate_name: Optional[str]
     short_form: str
-    format_str: str              # raw format string, e.g. "पुस्तक/खण्ड,भाग,सूत्र/पृष्ठ/गाथा"
-    format_groups: list[FormatGroup]  # pre-parsed at load time
+    format_str: str              # first format string (backward compat)
+    format_groups: list[FormatGroup]  # pre-parsed from first format
+    all_format_groups: list[list[FormatGroup]]  # all format alternatives, in order
 
 class ShastraRegistry:
     entries: list[ShastraEntry]
@@ -277,12 +294,20 @@ class ShastraRegistry:
         raw = json.loads(path.read_text("utf-8"))
         registry = cls()
         for item in raw:
+            # Accept array (new) or plain string (legacy) for "format"
+            raw_format = item.get("format", [])
+            if isinstance(raw_format, str):
+                raw_format = [raw_format] if raw_format else []
+            format_strings = [f for f in raw_format if f]
+            all_fmt_groups = [parse_format_string(f) for f in format_strings]
+
             entry = ShastraEntry(
                 shastra_name=item["shastra_name"],
                 alternate_name=item.get("alternate_name"),
                 short_form=item.get("short_form", ""),
-                format_str=item.get("format", ""),
-                format_groups=parse_format_string(item.get("format", "")),
+                format_str=format_strings[0] if format_strings else "",
+                format_groups=all_fmt_groups[0] if all_fmt_groups else [],
+                all_format_groups=all_fmt_groups,
             )
             registry.entries.append(entry)
             registry._by_primary[_normalise(entry.shastra_name, norm_config)] = entry
@@ -843,11 +868,88 @@ independently configurable via `reference.needs_manual_match`):
 format expects is treated as a valid partial citation, not a resolution failure. Only
 extra (unrecognised) groups trigger `needs_manual_match`.
 
-**`resolved_fields` invariant**: whenever `needs_manual_match=True` (for any reason),
-`resolved_fields` **must be `[]`**. Partial field resolution is not exposed — the
-caller must treat the reference as unresolved and inspect it manually. This is enforced
-in `parse_reference_text` (§9) after `resolve_fields` returns, not inside `resolve_fields`
-itself (which still computes fields internally for its mismatch/leftover detection logic).
+**`resolved_fields` invariant (updated)**: when level-1 format matching fails
+(`needs_manual_match=True`), the format-resolved fields are discarded.  However,
+level-2 keyword extraction (§8A) may still populate `resolved_fields` from the
+original text.  Therefore `needs_manual_match=True` **no longer implies**
+`resolved_fields=[]` — it only means the structured format did not fully match.
+Callers must check `needs_manual_match` and treat `resolved_fields` as
+best-effort supplementary data in that case.
+
+---
+
+## 8A. Level-2 keyword extraction
+
+### 8A.1 Purpose
+
+After level-1 format resolution, the parser makes a second pass over the **original
+(unmodified) reference text** to find keyword–value pairs of the form
+`<keyword> <integer>`.  The keywords are the same list used for step-3 pre-processing
+(`reference.section_keywords.keywords`).
+
+This handles cases where:
+- The format rule did not fully match (needs_manual_match=True) but the keyword is
+  explicit in the text (e.g. `"समयसार / आत्मख्याति गाथा 8"`).
+- The keyword was stripped during pre-processing (step 3) so the format-match saw
+  only the numeric part, while the original still carries the semantic label.
+
+### 8A.2 Function
+
+```python
+def _extract_keyword_fields(
+    text: str,
+    keywords: list[str],
+) -> list[ResolvedField]:
+    """Scan original text for 'keyword <integer>' patterns.
+
+    Keywords must be preceded by whitespace or start-of-string so that compound
+    names like 'गाथासंग्रह' are not matched by the keyword 'गाथा'.
+    Only plain integers are extracted; ranges/lists are not supported here.
+    """
+    fields: list[ResolvedField] = []
+    for kw in keywords:
+        pattern = r"(?<!\S)" + re.escape(kw) + r"\s+(\d+)"
+        m = re.search(pattern, text)
+        if m:
+            fields.append(ResolvedField(field=kw, value=int(m.group(1))))
+    return fields
+```
+
+### 8A.3 Merging rules
+
+Keyword-extracted fields are merged into (or override) the level-1 resolved fields:
+
+```python
+field_map = {rf.field: rf for rf in resolved_fields}
+for kf in keyword_fields:
+    field_map[kf.field] = kf          # keyword takes priority
+resolved_fields = list(field_map.values())
+```
+
+Level-2 extraction only runs when the shastra was identified (entry is not None).
+When `needs_manual_match=False` (level-1 succeeded), the merged fields proceed to
+range/list expansion (§14A.4) as usual.
+When `needs_manual_match=True`, a single result is returned with the merged fields;
+no range expansion is performed.
+
+### 8A.4 Example
+
+Input: `"समयसार / आत्मख्याति गाथा 8"`
+
+- Pre-processing strips `गाथा` → `"समयसार / आत्मख्याति 8"`
+- Level-1: shastra `"समयसार/आत्मख्याति"` found; format `गाथा/कलश` (R=2); V=1 → needs_manual=True
+- Level-2: scan original → finds `गाथा 8` → `[{field: "गाथा", value: 8}]`
+- Output:
+
+```json
+{
+  "text": "समयसार / आत्मख्याति गाथा 8",
+  "needs_manual_match": true,
+  "shastra_name": "समयसार/आत्मख्याति",
+  "match_method": "shastra_name",
+  "resolved_fields": [{"field": "गाथा", "value": 8}]
+}
+```
 
 ---
 
@@ -921,13 +1023,35 @@ def parse_reference_text(
             resolved_fields=[],
         )
 
-    resolved_fields, needs_manual = resolve_fields(
-        numeric_clean, entry.format_groups, config.needs_manual_match
-    )
+    # ── Level-1: try each format alternative; first success wins ───────────
+    format_groups_list = entry.all_format_groups if entry.all_format_groups else [entry.format_groups]
+    resolved_fields = []
+    needs_manual = True
 
-    # Invariant: when needs_manual_match=True, resolved_fields must be empty
+    for fmt_groups in format_groups_list:
+        rf, nm = resolve_fields(numeric_clean, fmt_groups, config.needs_manual_match)
+        if not nm:
+            resolved_fields = rf
+            needs_manual = False
+            break
+
     if needs_manual:
         resolved_fields = []
+
+    # ── Level-2: keyword extraction from original text (§8A) ────────────────
+    keyword_fields = _extract_keyword_fields(text, config.section_keywords.keywords)
+    if keyword_fields:
+        field_map = {rf.field: rf for rf in resolved_fields}
+        for kf in keyword_fields:
+            field_map[kf.field] = kf
+        resolved_fields = list(field_map.values())
+
+    if needs_manual:
+        return [_ResolutionResult(
+            needs_manual_match=True, is_teeka=is_teeka, teeka_name=teeka_name,
+            shastra_name=entry.shastra_name, match_method=method,
+            resolved_fields=resolved_fields,  # may be non-empty from level-2
+        )]
 
     return _ResolutionResult(
         needs_manual_match=needs_manual,
@@ -1165,6 +1289,7 @@ workers/ingestion/jainkosh/
 │   ├── _strip_section_keywords(text, config) -> str # NEW
 │   ├── _collapse_ws(text) -> str                  # NEW
 │   ├── _preprocess_text(text, config) -> str      # NEW — orchestrates steps 1–4
+│   ├── _extract_keyword_fields(text, keywords) -> list[ResolvedField]  # NEW — level-2
 │   ├── split_name_and_numeric(text) -> (str, str)
 │   ├── _strip_mool(name, config) -> str
 │   ├── match_shastra(name_raw, registry, config) -> (entry, method, is_teeka, teeka_name)
@@ -1735,6 +1860,10 @@ matches format).
 - [ ] `match_shastra` step-3 teeka path detects mool keywords and retries base-only lookup instead.
 - [ ] `devanagari_normalization.substitutions` includes `{from: "ी", to: "ि"}`; `वसुनन्दि ↔ वसुनंदी` test passes.
 - [ ] `_strip_trailing_non_numeric` runs on `numeric_raw` after `split_name_and_numeric`.
+- [x] `shastra.json` `"format"` field is an **array**; loader accepts array or legacy plain string.
+- [x] `ShastraEntry.all_format_groups` holds all parsed format alternatives; `parse_reference_text` tries them in order, picking the first success.
+- [x] Level-2 `_extract_keyword_fields` scans original text for `keyword <integer>` patterns; merged into resolved_fields with priority over level-1.
+- [x] `needs_manual_match=True` no longer implies `resolved_fields=[]`; level-2 keyword fields may still be present.
 - [ ] All goldens regenerated; `द्रव्य.json` lines 688, 736, 915, 979, 1364, 2122, 2717, 3246 (cited examples) match the new expected shapes documented above.
 - [ ] `parser_rules_version` bumped to `"jainkosh.rules/1.9.0"`.
 
@@ -1750,7 +1879,7 @@ matches format).
 - [ ] `Reference.parsed` field is **removed**; new fields (`is_teeka`, `teeka_name`,
       `shastra_name`, `match_method`, `needs_manual_match`, `resolved_fields`) are present
       with correct defaults.
-- [ ] **Invariant enforced**: `needs_manual_match=True` → `resolved_fields=[]` always.
+- [ ] **Invariant (updated)**: when level-1 format matching fails, format-resolved fields are discarded; level-2 keyword extraction may still populate `resolved_fields`. `needs_manual_match=True` + non-empty `resolved_fields` is valid.
 - [ ] `ResolvedField` model exists with `field: str` and `value: Union[int, str]`.
 - [ ] Pre-processing pipeline implemented: paren removal → noise phrase removal →
       section keyword removal → whitespace collapse.

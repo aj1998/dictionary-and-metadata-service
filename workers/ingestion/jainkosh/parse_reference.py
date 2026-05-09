@@ -58,6 +58,10 @@ class ShastraEntry:
     short_form: str
     format_str: str
     format_groups: list[FormatGroup]
+    all_format_groups: list[list[FormatGroup]] = field(default_factory=list)
+    # When non-empty, parse_reference_text tries each entry in order, picking the
+    # first that resolves without needs_manual_match.  Falls back to [format_groups]
+    # for entries built by old test helpers that don't set this field.
 
 
 @dataclass
@@ -92,12 +96,19 @@ class ShastraRegistry:
                 raw_alt = [raw_alt]
             alternate_names = [a for a in raw_alt if a]
 
+            raw_format = item.get("format", [])
+            if isinstance(raw_format, str):
+                raw_format = [raw_format] if raw_format else []
+            format_strings = [f for f in raw_format if f]
+            all_fmt_groups = [parse_format_string(f) for f in format_strings]
+
             entry = ShastraEntry(
                 shastra_name=item["shastra_name"],
                 alternate_names=alternate_names,
                 short_form=item.get("short_form", ""),
-                format_str=item.get("format", ""),
-                format_groups=parse_format_string(item.get("format", "")),
+                format_str=format_strings[0] if format_strings else "",
+                format_groups=all_fmt_groups[0] if all_fmt_groups else [],
+                all_format_groups=all_fmt_groups,
             )
             registry.entries.append(entry)
             registry._by_primary[_normalise(entry.shastra_name, norm_config)] = entry
@@ -259,6 +270,31 @@ def _strip_trailing_non_numeric(numeric: str) -> str:
     while parts and not re.search(r"\d", parts[-1]):
         parts.pop()
     return "/".join(parts)
+
+
+# ---------------------------------------------------------------------------
+# Second-level keyword extraction
+# ---------------------------------------------------------------------------
+
+def _extract_keyword_fields(
+    text: str,
+    keywords: list[str],
+) -> list[ResolvedField]:
+    """Scan *original* text for 'keyword <number>' patterns.
+
+    Returns one ResolvedField per keyword found.  Keywords are matched as
+    standalone words (preceded by whitespace or start-of-string) so that
+    compound names like "गाथासंग्रह" are not accidentally matched by "गाथा".
+    Only plain integers are extracted; ranges/lists are not supported here.
+    """
+    fields: list[ResolvedField] = []
+    for kw in keywords:
+        # (?<!\S) = not preceded by a non-whitespace char  (= start or whitespace)
+        pattern = r"(?<!\S)" + re.escape(kw) + r"\s+(\d+)"
+        m = re.search(pattern, text)
+        if m:
+            fields.append(ResolvedField(field=kw, value=int(m.group(1))))
+    return fields
 
 
 # ---------------------------------------------------------------------------
@@ -541,11 +577,36 @@ def parse_reference_text(
             resolved_fields=[],
         )]
 
-    resolved_fields, needs_manual = resolve_fields(
-        numeric_clean, entry.format_groups, config.needs_manual_match
-    )
+    # ── Level 1: try each format alternative; pick the first that resolves ──
+    format_groups_list = entry.all_format_groups if entry.all_format_groups else [entry.format_groups]
+    resolved_fields: list[ResolvedField] = []
+    needs_manual = True
 
-    # Invariant: needs_manual_match=True → resolved_fields=[]
+    for fmt_groups in format_groups_list:
+        rf, nm = resolve_fields(numeric_clean, fmt_groups, config.needs_manual_match)
+        if not nm:
+            resolved_fields = rf
+            needs_manual = False
+            break
+
+    # Invariant: when first-level fails, format-resolved fields are discarded.
+    if needs_manual:
+        resolved_fields = []
+
+    # ── Level 2: scan original text for 'keyword <number>' patterns ─────────
+    # Keyword fields take priority over format-matched fields (add or override).
+    # This runs whenever the shastra was identified, regardless of level-1 outcome.
+    keyword_fields = _extract_keyword_fields(text, config.section_keywords.keywords)
+    if keyword_fields:
+        field_map: dict[str, ResolvedField] = {rf.field: rf for rf in resolved_fields}
+        for kf in keyword_fields:
+            if kf.field in field_map and not needs_manual and field_map[kf.field].value != kf.value:
+                needs_manual = True
+            field_map[kf.field] = kf
+        resolved_fields = list(field_map.values())
+
+    # When first-level failed, return a single result (no range expansion).
+    # resolved_fields may be non-empty from level-2 keyword extraction.
     if needs_manual:
         return [_ResolutionResult(
             needs_manual_match=True,
@@ -553,10 +614,10 @@ def parse_reference_text(
             teeka_name=teeka_name,
             shastra_name=entry.shastra_name,
             match_method=method,
-            resolved_fields=[],
+            resolved_fields=resolved_fields,
         )]
 
-    # 14A.4: expand range/list field values into multiple results
+    # ── Level 1 succeeded: expand range/list field values (14A.4) ───────────
     expanded = _expand_resolved_fields(resolved_fields)
     if expanded is None:
         # Overflow: too many expansions → needs_manual

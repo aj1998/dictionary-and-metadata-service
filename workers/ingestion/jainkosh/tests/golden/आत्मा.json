@@ -81,7 +81,12 @@
                     "teeka_name": "",
                     "shastra_name": "समयसार/आत्मख्याति",
                     "match_method": "shastra_name",
-                    "resolved_fields": []
+                    "resolved_fields": [
+                      {
+                        "field": "गाथा",
+                        "value": 8
+                      }
+                    ]
                   }
                 ],
                 "is_orphan_translation": false,
@@ -208,7 +213,12 @@
                     "teeka_name": "",
                     "shastra_name": "मोक्ष पाहुड़",
                     "match_method": "shastra_name",
-                    "resolved_fields": []
+                    "resolved_fields": [
+                      {
+                        "field": "गाथा",
+                        "value": 4
+                      }
+                    ]
                   }
                 ],
                 "is_orphan_translation": false,
@@ -234,7 +244,12 @@
                     "teeka_name": "",
                     "shastra_name": "समाधिशतक",
                     "match_method": "shastra_name",
-                    "resolved_fields": []
+                    "resolved_fields": [
+                      {
+                        "field": "गाथा",
+                        "value": 4
+                      }
+                    ]
                   },
                   {
                     "text": "( ज्ञानार्णव अधिकार 32/5/317)",
@@ -282,7 +297,12 @@
                     "teeka_name": "",
                     "shastra_name": "परमात्मप्रकाश",
                     "match_method": "shastra_name",
-                    "resolved_fields": []
+                    "resolved_fields": [
+                      {
+                        "field": "अधिकार",
+                        "value": 1
+                      }
+                    ]
                   },
                   {
                     "text": "(द्रव्यसंग्रह / मूल या टीका गाथा 14/46)",
@@ -358,7 +378,12 @@
                     "teeka_name": "",
                     "shastra_name": "द्रव्यसंग्रह",
                     "match_method": "shastra_name",
-                    "resolved_fields": []
+                    "resolved_fields": [
+                      {
+                        "field": "गाथा",
+                        "value": 14
+                      }
+                    ]
                   }
                 ],
                 "is_orphan_translation": false,
@@ -433,7 +458,12 @@
                     "teeka_name": "",
                     "shastra_name": "समाधिशतक",
                     "match_method": "shastra_name",
-                    "resolved_fields": []
+                    "resolved_fields": [
+                      {
+                        "field": "गाथा",
+                        "value": 4
+                      }
+                    ]
                   }
                 ],
                 "is_orphan_translation": false,
@@ -944,7 +974,12 @@
                           "teeka_name": "",
                           "shastra_name": "समयसार/आत्मख्याति",
                           "match_method": "shastra_name",
-                          "resolved_fields": []
+                          "resolved_fields": [
+                            {
+                              "field": "गाथा",
+                              "value": 8
+                            }
+                          ]
                         }
                       ],
                       "is_orphan_translation": false,
@@ -1161,7 +1196,12 @@
                   "teeka_name": "",
                   "shastra_name": "मोक्ष पाहुड़",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 4
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -1187,7 +1227,12 @@
                   "teeka_name": "",
                   "shastra_name": "समाधिशतक",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 4
+                    }
+                  ]
                 },
                 {
                   "text": "( ज्ञानार्णव अधिकार 32/5/317)",
@@ -1235,7 +1280,12 @@
                   "teeka_name": "",
                   "shastra_name": "परमात्मप्रकाश",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 1
+                    }
+                  ]
                 },
                 {
                   "text": "(द्रव्यसंग्रह / मूल या टीका गाथा 14/46)",
@@ -1313,7 +1363,12 @@
                   "teeka_name": "",
                   "shastra_name": "द्रव्यसंग्रह",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 14
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -1390,7 +1445,12 @@
                   "teeka_name": "",
                   "shastra_name": "समाधिशतक",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 4
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,

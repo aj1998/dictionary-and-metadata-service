@@ -2,7 +2,7 @@
   {
     "shastra_name": "अमितगति श्रावकाचार",
     "short_form": "अ.ग.श्र.",
-    "format": "अधिकार/श्लोक",
+    "format": ["अधिकार/श्लोक"],
     "author": "पं. वंशीधर, शोलापुर",
     "date_format": "वि.सं.",
     "date": "1979",
@@ -14,7 +14,7 @@
   {
     "shastra_name": "अनगारधर्मामृत",
     "short_form": "अन.ध.",
-    "format": "अधिकार/श्लोक/पृष्ठ",
+    "format": ["अधिकार/श्लोक/पृष्ठ"],
     "author": "पं. खूबचन्द, शोलापुर",
     "date_format": "ई.",
     "date": "1.6.1927",
@@ -26,7 +26,7 @@
   {
     "shastra_name": "आत्मानुशासन",
     "short_form": "आ.अनु.",
-    "format": "श्लोक",
+    "format": ["श्लोक"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -38,7 +38,7 @@
   {
     "shastra_name": "आलापपद्धति",
     "short_form": "आ.प.",
-    "format": "अधिकार/सूत्र/पृष्ठ",
+    "format": ["अधिकार/सूत्र/पृष्ठ"],
     "author": "",
     "date_format": "वी.नि.",
     "date": "2459",
@@ -50,7 +50,7 @@
   {
     "shastra_name": "आप्तपरीक्षा",
     "short_form": "आप्त.प.",
-    "format": "श्लोक/प्रकरण/पृष्ठ",
+    "format": ["श्लोक/प्रकरण/पृष्ठ"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "2006",
@@ -62,7 +62,7 @@
   {
     "shastra_name": "आप्तमीमांसा",
     "short_form": "आप्त.मी.",
-    "format": "श्लोक",
+    "format": ["श्लोक"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -74,7 +74,7 @@
   {
     "shastra_name": "इष्टोपदेश",
     "short_form": "इ.उ./मू.",
-    "format": "श्लोक/पृष्ठ",
+    "format": ["श्लोक/पृष्ठ"],
     "author": "पं. आशाधरजी",
     "date_format": "",
     "date": "",
@@ -86,7 +86,7 @@
   {
     "shastra_name": "कषायपाहुड़",
     "short_form": "क.पा",
-    "format": "पुस्तक,भाग/§प्रकरण/पृष्ठ/पंक्ति",
+    "format": ["पुस्तक,भाग/§प्रकरण/पृष्ठ/पंक्ति"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "2000",
@@ -98,7 +98,7 @@
   {
     "shastra_name": "कार्तिकेयानुप्रेक्षा",
     "short_form": "का.अ./मू.",
-    "format": "गाथा",
+    "format": ["गाथा"],
     "author": "",
     "date_format": "ई.",
     "date": "1960",
@@ -110,7 +110,7 @@
   {
     "shastra_name": "कुरल काव्य",
     "short_form": "कुरल",
-    "format": "परिच्छेद/श्लोक",
+    "format": ["परिच्छेद/श्लोक"],
     "author": "पं. गोविन्दराज जैन शास्त्री",
     "date_format": "वी.नि.",
     "date": "2480",
@@ -122,7 +122,7 @@
   {
     "shastra_name": "क्रियाकलाप",
     "short_form": "क्रि.क.",
-    "format": "मुख्याधिकार-प्रकरण/श्लोक/पृष्ठ",
+    "format": ["मुख्याधिकार-प्रकरण/श्लोक/पृष्ठ"],
     "author": "पन्नालाल सोनी शास्त्री, आगरा",
     "date_format": "वि.सं.",
     "date": "1913",
@@ -134,7 +134,7 @@
   {
     "shastra_name": "क्रियाकोश",
     "short_form": "क्रि.को.",
-    "format": "श्लोक",
+    "format": ["श्लोक"],
     "author": "पं. दौलतराम",
     "date_format": "",
     "date": "",
@@ -146,7 +146,7 @@
   {
     "shastra_name": "क्षपणसार",
     "short_form": "क्ष.सा./मू.",
-    "format": "गाथा/पृष्ठ",
+    "format": ["गाथा/पृष्ठ"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -158,7 +158,7 @@
   {
     "shastra_name": "गुणभद्र श्रावकाचार",
     "short_form": "गुण.श्रा.",
-    "format": "श्लोक",
+    "format": ["श्लोक"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -171,7 +171,7 @@
     "shastra_name": "गोम्मटसार कर्मकाण्ड",
     "alternate_name": "गोम्मटसार कर्मकांड",
     "short_form": "गो.क./मू.",
-    "format": "गाथा/पृष्ठ",
+    "format": ["गाथा/पृष्ठ"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -184,7 +184,7 @@
     "shastra_name": "गोम्मटसार कर्मकाण्ड/जीव तत्त्व प्रदीपिका टीका",
     "alternate_name": "गोम्मटसार कर्मकांड/जीव तत्त्व प्रदीपिका टीका",
     "short_form": "गो.क./जी.प्र.",
-    "format": "गाथा/पृष्ठ/पंक्ति",
+    "format": ["गाथा/पृष्ठ/पंक्ति"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -197,7 +197,7 @@
     "shastra_name": "गोम्मटसार जीवकाण्ड",
     "alternate_name": "गोम्मटसार जीवकांड",
     "short_form": "गो.जी./मू.",
-    "format": "गाथा/पृष्ठ",
+    "format": ["गाथा/पृष्ठ"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -210,7 +210,7 @@
     "shastra_name": "गोम्मटसार जीवकाण्ड/जीव तत्त्व प्रदीपिका टीका",
     "alternate_name": "गोम्मटसार जीवकांड/जीव तत्त्व प्रदीपिका टीका",
     "short_form": "गो.जी./जी.प्र.",
-    "format": "गाथा/पृष्ठ/पंक्ति",
+    "format": ["गाथा/पृष्ठ/पंक्ति"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -222,7 +222,7 @@
   {
     "shastra_name": "ज्ञानार्णव",
     "short_form": "ज्ञा",
-    "format": "अधिकार/दोहक/पृष्ठ",
+    "format": ["अधिकार/दोहक/पृष्ठ"],
     "author": "",
     "date_format": "ई.",
     "date": "1907",
@@ -234,7 +234,7 @@
   {
     "shastra_name": "ज्ञानसार",
     "short_form": "ज्ञा.सा.",
-    "format": "श्लोक",
+    "format": ["श्लोक"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -246,7 +246,7 @@
   {
     "shastra_name": "चरित्त पाहुड़",
     "short_form": "चा.पा./मू.",
-    "format": "गाथा/पृष्ठ",
+    "format": ["गाथा/पृष्ठ"],
     "author": "",
     "date_format": "वि.सं",
     "date": "1977",
@@ -258,7 +258,7 @@
   {
     "shastra_name": "चारित्रसार",
     "short_form": "चा.सा.",
-    "format": "पृष्ठ/पंक्ति",
+    "format": ["पृष्ठ/पंक्ति"],
     "author": "",
     "date_format": "वी.नि.",
     "date": "2488",
@@ -270,7 +270,7 @@
   {
     "shastra_name": "जम्बूद्वीपपण्णत्तिसंगहो",
     "short_form": "ज.प.",
-    "format": "अधिकार/गाथा",
+    "format": ["अधिकार/गाथा"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "2014",
@@ -282,7 +282,7 @@
   {
     "shastra_name": "जैन साहित्य इतिहास",
     "short_form": "जै.सा.",
-    "format": "खण्ड/पृष्ठ",
+    "format": ["खण्ड/पृष्ठ"],
     "author": "",
     "date_format": "वी.नि.",
     "date": "2481",
@@ -294,7 +294,7 @@
   {
     "shastra_name": "जैन साहित्य इतिहास/पूर्व पीठिका",
     "short_form": "जै.पी.",
-    "format": "पृष्ठ",
+    "format": ["पृष्ठ"],
     "author": "",
     "date_format": "वी.नि.",
     "date": "2481",
@@ -306,7 +306,7 @@
   {
     "shastra_name": "तत्त्वानुशासन",
     "short_form": "त.अनु.",
-    "format": "श्लोक",
+    "format": ["श्लोक"],
     "author": "नागसेन सूरि",
     "date_format": "ई.",
     "date": "1963",
@@ -318,7 +318,7 @@
   {
     "shastra_name": "तत्त्वार्थवृत्ति",
     "short_form": "त.वृ.",
-    "format": "अध्याय/सूत्र/पृष्ठ/पंक्ति",
+    "format": ["अध्याय/सूत्र/पृष्ठ/पंक्ति"],
     "author": "",
     "date_format": "ई.",
     "date": "1949",
@@ -330,7 +330,7 @@
   {
     "shastra_name": "तत्त्वार्थसार",
     "short_form": "त.सा.",
-    "format": "अधिकार/श्लोक/पृष्ठ",
+    "format": ["अधिकार/श्लोक/पृष्ठ"],
     "author": "",
     "date_format": "ई.",
     "date": "1929",
@@ -342,7 +342,7 @@
   {
     "shastra_name": "तत्त्वार्थ सूत्र",
     "short_form": "त.सू.",
-    "format": "अध्याय/सूत्र",
+    "format": ["अध्याय/सूत्र"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -354,7 +354,7 @@
   {
     "shastra_name": "तिलोयपण्णत्ति",
     "short_form": "ति.पं.",
-    "format": "अधिकार/गाथा",
+    "format": ["अधिकार/गाथा"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "1999",
@@ -366,7 +366,7 @@
   {
     "shastra_name": "तीर्थंकर महावीर और उनकी आचार्य परम्परा",
     "short_form": "ती.",
-    "format": "पृष्ठ",
+    "format": ["पृष्ठ"],
     "author": "",
     "date_format": "ई.",
     "date": "1974",
@@ -378,7 +378,7 @@
   {
     "shastra_name": "त्रिलोकसार",
     "short_form": "त्रि.सा.",
-    "format": "गाथा",
+    "format": ["गाथा"],
     "author": "",
     "date_format": "ई.",
     "date": "1918",
@@ -390,7 +390,7 @@
   {
     "shastra_name": "दर्शनपाहुड़",
     "short_form": "द.पा./मू.",
-    "format": "गाथा/पृष्ठ",
+    "format": ["गाथा/पृष्ठ"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "1977",
@@ -402,7 +402,7 @@
   {
     "shastra_name": "दर्शनसार",
     "short_form": "द.सा.",
-    "format": "गाथा",
+    "format": ["गाथा"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "1974",
@@ -414,7 +414,7 @@
   {
     "shastra_name": "द्रव्यसंग्रह",
     "short_form": "द्र.सं./मू.",
-    "format": "गाथा/पृष्ठ",
+    "format": ["गाथा/पृष्ठ"],
     "author": "",
     "date_format": "ई.",
     "date": "1953",
@@ -426,7 +426,7 @@
   {
     "shastra_name": "धर्म परीक्षा",
     "short_form": "ध.प.",
-    "format": "श्लोक",
+    "format": ["श्लोक"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -438,7 +438,7 @@
   {
     "shastra_name": "धवला",
     "short_form": "ध",
-    "format": "पुस्तक/खण्ड,भाग,सूत्र/पृष्ठ/गाथा",
+    "format": ["पुस्तक/खण्ड,भाग,सूत्र/पृष्ठ/गाथा"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -450,7 +450,7 @@
   {
     "shastra_name": "नयचक्र बृहद्",
     "short_form": "न.च.बृ.",
-    "format": "गाथा",
+    "format": ["गाथा"],
     "author": "श्री देवसेनाचार्य",
     "date_format": "वि.सं.",
     "date": "1977",
@@ -462,7 +462,7 @@
   {
     "shastra_name": "नयचक्र/श्रुतभवन दीपक",
     "short_form": "न.च./श्रुत.",
-    "format": "अधिकार/पृष्ठ",
+    "format": ["अधिकार/पृष्ठ"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -474,7 +474,7 @@
   {
     "shastra_name": "नियमसार",
     "short_form": "नि.सा./मू.",
-    "format": "गाथा",
+    "format": ["गाथा"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -486,7 +486,7 @@
   {
     "shastra_name": "नियमसार/तात्पर्य वृत्ति",
     "short_form": "नि.सा./ता.वृ.",
-    "format": "गाथा/कलश",
+    "format": ["गाथा/कलश"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -498,7 +498,7 @@
   {
     "shastra_name": "न्यायदीपिका",
     "short_form": "न्या.दी.",
-    "format": "अधिकार/§प्रकरण/पृष्ठ/पंक्ति",
+    "format": ["अधिकार/§प्रकरण/पृष्ठ/पंक्ति"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "2002",
@@ -510,7 +510,7 @@
   {
     "shastra_name": "न्यायबिन्दु",
     "short_form": "न्या.बि./मू.",
-    "format": "श्लोक",
+    "format": ["श्लोक"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -522,7 +522,7 @@
   {
     "shastra_name": "न्यायविनिश्चय",
     "short_form": "न्या.वि./मू.",
-    "format": "अधिकार/श्लोक/पृष्ठ/पंक्ति",
+    "format": ["अधिकार/श्लोक/पृष्ठ/पंक्ति"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -534,7 +534,7 @@
   {
     "shastra_name": "न्यायदर्शन सूत्र",
     "short_form": "न्या.सू./मू.",
-    "format": "अध्याय/आह्निक/सूत्र/पृष्ठ",
+    "format": ["अध्याय/आह्निक/सूत्र/पृष्ठ"],
     "author": "",
     "date_format": "ई.",
     "date": "1934",
@@ -546,7 +546,7 @@
   {
     "shastra_name": "पंचास्तिकाय",
     "short_form": "पं.का./मू.",
-    "format": "गाथा/पृष्ठ",
+    "format": ["गाथा/पृष्ठ"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "1972",
@@ -559,7 +559,7 @@
   {
     "shastra_name": "पंचास्तिकाय/तात्पर्यवृत्ति",
     "short_form": "पं.का./ता.वृ.",
-    "format": "गाथा/पृष्ठ/पंक्ति",
+    "format": ["गाथा/पृष्ठ/पंक्ति"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "1972",
@@ -572,7 +572,7 @@
   {
     "shastra_name": "पंचाध्यायी/पूर्वार्ध",
     "short_form": "पं.ध./पू.",
-    "format": "श्लोक",
+    "format": ["श्लोक"],
     "author": "पं. देवकीनन्दन",
     "date_format": "ई.",
     "date": "1932",
@@ -584,7 +584,7 @@
   {
     "shastra_name": "पंचाध्यायी/उत्तरार्ध",
     "short_form": "पं.ध./उ.",
-    "format": "श्लोक",
+    "format": ["श्लोक"],
     "author": "पं. देवकीनन्दन",
     "date_format": "ई.",
     "date": "1932",
@@ -596,7 +596,7 @@
   {
     "shastra_name": "पद्मनन्दि पंचविंशतिका",
     "short_form": "पं.वि.",
-    "format": "अधिकार/श्लोक",
+    "format": ["अधिकार/श्लोक"],
     "author": "",
     "date_format": "ई.",
     "date": "1932",
@@ -608,7 +608,7 @@
   {
     "shastra_name": "पंचसंग्रह/प्राकृत",
     "short_form": "पं.सं./प्रा.",
-    "format": "अधिकार/गाथा",
+    "format": ["अधिकार/गाथा"],
     "author": "",
     "date_format": "ई.",
     "date": "1960",
@@ -620,7 +620,7 @@
   {
     "shastra_name": "पंचसंग्रह/संस्कृत",
     "short_form": "पं.सं./सं.",
-    "format": "अधिकार/श्लोक",
+    "format": ["अधिकार/श्लोक"],
     "author": "",
     "date_format": "ई.",
     "date": "1960",
@@ -632,7 +632,7 @@
   {
     "shastra_name": "पद्मपुराण",
     "short_form": "प.पु.",
-    "format": "सर्ग/श्लोक",
+    "format": ["सर्ग/श्लोक"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "2016",
@@ -644,7 +644,7 @@
   {
     "shastra_name": "परीक्षामुख",
     "short_form": "प.मु.",
-    "format": "परिच्छेद/सूत्र/पृष्ठ",
+    "format": ["परिच्छेद/सूत्र/पृष्ठ"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -656,7 +656,7 @@
   {
     "shastra_name": "परमात्मप्रकाश",
     "short_form": "प.प्र./मू.",
-    "format": "अधिकार/गाथा/पृष्ठ",
+    "format": ["अधिकार/गाथा/पृष्ठ"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -668,7 +668,7 @@
   {
     "shastra_name": "पाण्डवपुराण",
     "short_form": "पा.पु.",
-    "format": "सर्ग/श्लोक",
+    "format": ["सर्ग/श्लोक"],
     "author": "",
     "date_format": "ई.",
     "date": "1962",
@@ -680,7 +680,7 @@
   {
     "shastra_name": "पुरुषार्थ सिद्ध्युपाय",
     "short_form": "पु.सि",
-    "format": "श्लोक",
+    "format": ["श्लोक"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -692,7 +692,7 @@
   {
     "shastra_name": "प्रवचनसार",
     "short_form": "प्र.सा./मू.",
-    "format": "गाथा/पृष्ठ",
+    "format": ["गाथा/पृष्ठ", "गाथा"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -704,7 +704,7 @@
   {
     "shastra_name": "प्रतिष्ठासारोद्धार",
     "short_form": "प्रति.सा.",
-    "format": "अध्याय/श्लोक",
+    "format": ["अध्याय/श्लोक"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -716,7 +716,7 @@
   {
     "shastra_name": "बारस अणुवेक्ख",
     "short_form": "बा.अ.",
-    "format": "गाथा",
+    "format": ["गाथा"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -728,7 +728,7 @@
   {
     "shastra_name": "बोधपाहुड़",
     "short_form": "बो.पा./मू.",
-    "format": "गाथा/पृष्ठ",
+    "format": ["गाथा/पृष्ठ"],
     "author": "",
     "date_format": "वि.सं",
     "date": "1977",
@@ -740,7 +740,7 @@
   {
     "shastra_name": "बृहत् जैन शब्दार्णव/द्वितीय खंड",
     "short_form": "वृ.जै.श.",
-    "format": "पृष्ठ",
+    "format": ["पृष्ठ"],
     "author": "",
     "date_format": "वी.नि.",
     "date": "2460",
@@ -752,7 +752,7 @@
   {
     "shastra_name": "भगवती आराधना",
     "short_form": "भ.आ./मू.",
-    "format": "गाथा/पृष्ठ/पंक्ति",
+    "format": ["गाथा/पृष्ठ/पंक्ति"],
     "author": "",
     "date_format": "ई.",
     "date": "1931",
@@ -764,7 +764,7 @@
   {
     "shastra_name": "भाव पाहुड़",
     "short_form": "भा.पा./मू.",
-    "format": "गाथा/पृष्ठ",
+    "format": ["गाथा/पृष्ठ"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "1977",
@@ -776,7 +776,7 @@
   {
     "shastra_name": "महापुराण",
     "short_form": "म.पु.",
-    "format": "सर्ग/श्लोक",
+    "format": ["सर्ग/श्लोक"],
     "author": "",
     "date_format": "ई.",
     "date": "1951",
@@ -788,7 +788,7 @@
   {
     "shastra_name": "महाबन्ध",
     "short_form": "म.बं.",
-    "format": "पुस्तक/§प्रकरण/पृष्ठ",
+    "format": ["पुस्तक/§प्रकरण/पृष्ठ"],
     "author": "",
     "date_format": "ई.",
     "date": "1951",
@@ -800,7 +800,7 @@
   {
     "shastra_name": "मूलाचार",
     "short_form": "मूला.",
-    "format": "गाथा",
+    "format": ["गाथा"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "1976",
@@ -812,7 +812,7 @@
   {
     "shastra_name": "मोक्ष पंचाशिका",
     "short_form": "मो.पं.",
-    "format": "श्लोक",
+    "format": ["श्लोक"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -824,7 +824,7 @@
   {
     "shastra_name": "मोक्ष पाहुड़",
     "short_form": "मो.पा./मू.",
-    "format": "गाथा/पृष्ठ",
+    "format": ["गाथा/पृष्ठ"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "1977",
@@ -836,7 +836,7 @@
   {
     "shastra_name": "मोक्षमार्गप्रकाशक",
     "short_form": "मो.मा.प्र.",
-    "format": "अधिकार/पृष्ठ/पंक्ति",
+    "format": ["अधिकार/पृष्ठ/पंक्ति"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "2010",
@@ -848,7 +848,7 @@
   {
     "shastra_name": "युक्त्यनुशासन",
     "short_form": "यु.अनु.",
-    "format": "श्लोक",
+    "format": ["श्लोक"],
     "author": "",
     "date_format": "ई.",
     "date": "1951",
@@ -861,7 +861,7 @@
     "shastra_name": "योगसार अमितगति",
     "alternate_name": "योगसार/अमितगति",
     "short_form": "यो.सा.अ.",
-    "format": "अधिकार/श्लोक",
+    "format": ["अधिकार/श्लोक"],
     "author": "आचार्य अमितगति",
     "date_format": "ई.",
     "date": "1918",
@@ -873,7 +873,7 @@
   {
     "shastra_name": "योगसार योगेन्दुदेव",
     "short_form": "यो.सा.यो.",
-    "format": "गाथा",
+    "format": ["गाथा"],
     "author": "आचार्य योगेन्दुदेव",
     "date_format": "",
     "date": "",
@@ -885,7 +885,7 @@
   {
     "shastra_name": "रत्नकरण्ड श्रावकाचार",
     "short_form": "र.क.श्रा.",
-    "format": "श्लोक",
+    "format": ["श्लोक"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -897,7 +897,7 @@
   {
     "shastra_name": "रयणसार",
     "short_form": "र.सा.",
-    "format": "गाथा",
+    "format": ["गाथा"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -909,7 +909,7 @@
   {
     "shastra_name": "राजवार्तिक",
     "short_form": "रा.वा.",
-    "format": "अध्याय/सूत्र/पृष्ठ/पंक्ति",
+    "format": ["अध्याय/सूत्र/पृष्ठ/पंक्ति"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "2008",
@@ -921,7 +921,7 @@
   {
     "shastra_name": "राजवार्तिक हिन्दी",
     "short_form": "रा.वा.टि.",
-    "format": "अध्याय/पृष्ठ/पंक्ति",
+    "format": ["अध्याय/पृष्ठ/पंक्ति"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -933,7 +933,7 @@
   {
     "shastra_name": "लब्धिसार",
     "short_form": "ल.सा./मू.",
-    "format": "गाथा/पृष्ठ",
+    "format": ["गाथा/पृष्ठ"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -945,7 +945,7 @@
   {
     "shastra_name": "लाटी संहिता",
     "short_form": "ला.सं.",
-    "format": "अधिकार/श्लोक/पृष्ठ",
+    "format": ["अधिकार/श्लोक/पृष्ठ"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -957,7 +957,7 @@
   {
     "shastra_name": "लिंग पाहुड़",
     "short_form": "लि.पा./मू.",
-    "format": "गाथा/पृष्ठ",
+    "format": ["गाथा/पृष्ठ"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "1977",
@@ -969,7 +969,7 @@
   {
     "shastra_name": "वसुनन्दि श्रावकाचार",
     "short_form": "वसु.श्रा.",
-    "format": "गाथा",
+    "format": ["गाथा"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "2007",
@@ -981,7 +981,7 @@
   {
     "shastra_name": "वैशेषिक दर्शन",
     "short_form": "वै.द.",
-    "format": "अध्याय/आह्निक/सूत्र/पृष्ठ",
+    "format": ["अध्याय/आह्निक/सूत्र/पृष्ठ"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "2017",
@@ -993,7 +993,7 @@
   {
     "shastra_name": "शील पाहुड़",
     "short_form": "शी.पा./मू",
-    "format": "गाथा/पंक्ति",
+    "format": ["गाथा/पंक्ति"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "1977",
@@ -1005,7 +1005,7 @@
   {
     "shastra_name": "श्लोकवार्तिक",
     "short_form": "श्लो.वा.",
-    "format": "पुस्तक/अध्याय/सूत्र/वार्तिक/पृष्ठ",
+    "format": ["पुस्तक/अध्याय/सूत्र/वार्तिक/पृष्ठ"],
     "author": "",
     "date_format": "ई.",
     "date": "1949-1956",
@@ -1017,7 +1017,7 @@
   {
     "shastra_name": "षट्खण्डागम",
     "short_form": "ष.खं.",
-    "format": "पुस्तक/खण्ड,भाग,सूत्र/पृष्ठ",
+    "format": ["पुस्तक/खण्ड,भाग,सूत्र/पृष्ठ"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -1029,7 +1029,7 @@
   {
     "shastra_name": "सप्तभंगीतरङ्गिनी",
     "short_form": "स.भं.तं.",
-    "format": "पृष्ठ/पंक्ति",
+    "format": ["पृष्ठ/पंक्ति"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "1972",
@@ -1042,7 +1042,7 @@
     "shastra_name": "स्याद्वादमञ्जरी",
     "alternate_name": "स्याद्वादमंजरी",
     "short_form": "स.म.",
-    "format": "श्लोक/पृष्ठ/पंक्ति",
+    "format": ["श्लोक/पृष्ठ/पंक्ति"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "1991",
@@ -1054,7 +1054,7 @@
   {
     "shastra_name": "समाधिशतक",
     "short_form": "स.श./मू.",
-    "format": "श्लोक/पृष्ठ",
+    "format": ["श्लोक/पृष्ठ"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "2021",
@@ -1066,7 +1066,7 @@
   {
     "shastra_name": "समयसार",
     "short_form": "स.सा./मू.",
-    "format": "गाथा/पृष्ठ/पंक्ति",
+    "format": ["गाथा/पृष्ठ/पंक्ति"],
     "author": "",
     "date_format": "ई.",
     "date": "31.12.1958",
@@ -1078,7 +1078,7 @@
   {
     "shastra_name": "समयसार/आत्मख्याति",
     "short_form": "स.सा./आ.",
-    "format": "गाथा/कलश",
+    "format": ["गाथा/कलश"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -1090,7 +1090,7 @@
   {
     "shastra_name": "सर्वार्थसिद्धि",
     "short_form": "स.सि.",
-    "format": "अध्याय/सूत्र/पृष्ठ",
+    "format": ["अध्याय/सूत्र/पृष्ठ"],
     "author": "",
     "date_format": "ई.",
     "date": "1955",
@@ -1102,7 +1102,7 @@
   {
     "shastra_name": "स्वयम्भू स्तोत्र",
     "short_form": "स.स्तो.",
-    "format": "श्लोक",
+    "format": ["श्लोक"],
     "author": "",
     "date_format": "ई.",
     "date": "1951",
@@ -1114,7 +1114,7 @@
   {
     "shastra_name": "सागर धर्मामृत",
     "short_form": "सा.ध.",
-    "format": "अधिकार/श्लोक",
+    "format": ["अधिकार/श्लोक"],
     "author": "",
     "date_format": "",
     "date": "",
@@ -1126,7 +1126,7 @@
   {
     "shastra_name": "सामायिक पाठ",
     "short_form": "सा.पा.",
-    "format": "श्लोक",
+    "format": ["श्लोक"],
     "author": "आचार्य अमितगति",
     "date_format": "",
     "date": "",
@@ -1138,7 +1138,7 @@
   {
     "shastra_name": "सिद्धान्तसार संग्रह",
     "short_form": "सि.सा.सं.",
-    "format": "अध्याय/श्लोक",
+    "format": ["अध्याय/श्लोक"],
     "author": "",
     "date_format": "ई.",
     "date": "1957",
@@ -1150,7 +1150,7 @@
   {
     "shastra_name": "सिद्धि विनिश्चय",
     "short_form": "सि.वि./मू.",
-    "format": "प्रस्ताव/श्लोक/पृष्ठ/पंक्ति",
+    "format": ["प्रस्ताव/श्लोक/पृष्ठ/पंक्ति"],
     "author": "",
     "date_format": "ई.",
     "date": "1961",
@@ -1162,7 +1162,7 @@
   {
     "shastra_name": "सुभाषित रत्न सदोह",
     "short_form": "सु.र.सं.",
-    "format": "श्लोक",
+    "format": ["श्लोक"],
     "author": "आचार्य अमितगति",
     "date_format": "ई.",
     "date": "1917",
@@ -1174,7 +1174,7 @@
   {
     "shastra_name": "सूत्र पाहुड़",
     "short_form": "सू.पा./मू.",
-    "format": "गाथा/पृष्ठ",
+    "format": ["गाथा/पृष्ठ"],
     "author": "",
     "date_format": "वि.सं.",
     "date": "1977",
@@ -1186,7 +1186,7 @@
   {
     "shastra_name": "हरिवंश पुराण",
     "short_form": "ह.पु.",
-    "format": "सर्ग/श्लोक",
+    "format": ["सर्ग/श्लोक"],
     "author": "",
     "date_format": "",
     "date": "",
