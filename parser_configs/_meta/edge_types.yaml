@@ -44,12 +44,17 @@ edge_types:
     from: [Gatha, GathaTeeka, GathaTeekaBhaavarth, Kalash, KalashBhaavarth, Page]
     to: [Topic]
     description: Source node cites a topic (heading or extracted reference)
+    # optional props: block_index (int), mention_path ("<topic_nk>/<block_index>"),
+    #   source_natural_key (str — natural_key of the Mongo topic_extracts doc)
 
   - name: CONTAINS_DEFINITION
     direction: directed
     from: [Gatha, GathaTeeka, GathaTeekaBhaavarth, Kalash, KalashBhaavarth, Page]
     to: [Keyword]
     description: Source node appears in the definition body of this keyword
+    # optional props: block_index (int), section_index (int), definition_index (int),
+    #   mention_path ("<section_index>/<definition_index>/<block_index>"),
+    #   source_natural_key (str — natural_key of the Mongo keyword_definitions doc)
 
   - name: IN_SHASTRA
     direction: directed

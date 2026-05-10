@@ -51,9 +51,12 @@ def _make_edge(
     src_key: str,
     target: dict,
     pankti_props: dict,
+    extra_props: Optional[dict] = None,
 ) -> dict:
     props: dict = {"weight": 1.0, "source": "jainkosh"}
     props.update(pankti_props)
+    if extra_props:
+        props.update(extra_props)
     return {
         "type": edge_type,
         "from": {"label": src_label, "key": src_key},
@@ -72,45 +75,46 @@ def _emit_gatha(
     target: dict,
     pankti_props: dict,
     config: "JainkoshConfig",
+    extra_props: Optional[dict] = None,
 ) -> list[dict]:
     sn = ref.shastra_name
     tn = ref.teeka_name
 
     if shastra_type == "shastra":
         key = f"{sn}:गाथा:{g}"
-        return [_make_edge(edge_type, "Gatha", key, target, pankti_props)]
+        return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
 
     if shastra_type == "teeka":
         if block_kind in {"sanskrit_gatha", "prakrit_gatha", "hindi_gatha"}:
             key = f"{sn}:गाथा:{g}"
-            return [_make_edge(edge_type, "Gatha", key, target, pankti_props)]
+            return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
         if block_kind in {"sanskrit_text", "prakrit_text", "hindi_text"}:
             if not tn:
                 logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
                 return []
             key = f"{sn}:{tn}:गाथा:टीका:{g}"
-            return [_make_edge(edge_type, "GathaTeeka", key, target, pankti_props)]
+            return [_make_edge(edge_type, "GathaTeeka", key, target, pankti_props, extra_props)]
         return []
 
     if shastra_type == "publication":
         if block_kind in {"sanskrit_gatha", "prakrit_gatha", "hindi_gatha"}:
             key = f"{sn}:गाथा:{g}"
-            return [_make_edge(edge_type, "Gatha", key, target, pankti_props)]
+            return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
         if block_kind in {"sanskrit_text", "prakrit_text"}:
             if not tn:
-                logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
-                return []
+                key = f"{sn}:गाथा:{g}"
+                return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
             key = f"{sn}:{tn}:गाथा:टीका:{g}"
-            return [_make_edge(edge_type, "GathaTeeka", key, target, pankti_props)]
+            return [_make_edge(edge_type, "GathaTeeka", key, target, pankti_props, extra_props)]
         if block_kind == "hindi_text":
             if not tn:
-                logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
-                return []
+                key = f"{sn}:गाथा:{g}"
+                return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
             edges = []
             key1 = f"{sn}:{tn}:गाथा:टीका:{g}"
-            edges.append(_make_edge(edge_type, "GathaTeeka", key1, target, pankti_props))
+            edges.append(_make_edge(edge_type, "GathaTeeka", key1, target, pankti_props, extra_props))
             key2 = f"{sn}:{tn}:{publisher_id}:गाथा:टीका:भावार्थ:{g}"
-            edges.append(_make_edge(edge_type, "GathaTeekaBhaavarth", key2, target, pankti_props))
+            edges.append(_make_edge(edge_type, "GathaTeekaBhaavarth", key2, target, pankti_props, extra_props))
             return edges
         return []
 
@@ -126,6 +130,7 @@ def _emit_kalash(
     edge_type: str,
     target: dict,
     pankti_props: dict,
+    extra_props: Optional[dict] = None,
 ) -> list[dict]:
     sn = ref.shastra_name
     tn = ref.teeka_name
@@ -139,7 +144,7 @@ def _emit_kalash(
                 logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
                 return []
             key = f"{sn}:{tn}:कलश:{k}"
-            return [_make_edge(edge_type, "Kalash", key, target, pankti_props)]
+            return [_make_edge(edge_type, "Kalash", key, target, pankti_props, extra_props)]
         return []
 
     if shastra_type == "publication":
@@ -148,13 +153,13 @@ def _emit_kalash(
                 logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
                 return []
             key = f"{sn}:{tn}:कलश:{k}"
-            return [_make_edge(edge_type, "Kalash", key, target, pankti_props)]
+            return [_make_edge(edge_type, "Kalash", key, target, pankti_props, extra_props)]
         if block_kind == "hindi_text":
             if not tn:
                 logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
                 return []
             key = f"{sn}:{tn}:{publisher_id}:कलश:भावार्थ:{k}"
-            return [_make_edge(edge_type, "KalashBhaavarth", key, target, pankti_props)]
+            return [_make_edge(edge_type, "KalashBhaavarth", key, target, pankti_props, extra_props)]
         return []
 
     return []
@@ -169,6 +174,7 @@ def _emit_page(
     edge_type: str,
     target: dict,
     pankti_props: dict,
+    extra_props: Optional[dict] = None,
 ) -> list[dict]:
     if shastra_type != "publication":
         return []
@@ -178,7 +184,7 @@ def _emit_page(
         logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
         return []
     key = f"{sn}:{tn}:{publisher_id}:पृष्ठ:{p}"
-    return [_make_edge(edge_type, "Page", key, target, pankti_props)]
+    return [_make_edge(edge_type, "Page", key, target, pankti_props, extra_props)]
 
 
 def _emit_gatha_inline(
@@ -190,6 +196,7 @@ def _emit_gatha_inline(
     target: dict,
     pankti_props: dict,
     config: "JainkoshConfig",
+    extra_props: Optional[dict] = None,
 ) -> list[dict]:
     """Gatha edges for non-main refs — no block-kind check.
 
@@ -200,21 +207,21 @@ def _emit_gatha_inline(
 
     if shastra_type == "shastra":
         key = f"{sn}:गाथा:{g}"
-        return [_make_edge(edge_type, "Gatha", key, target, pankti_props)]
+        return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
 
     if shastra_type == "teeka":
         if not tn:
             logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
             return []
         key = f"{sn}:{tn}:गाथा:टीका:{g}"
-        return [_make_edge(edge_type, "GathaTeeka", key, target, pankti_props)]
+        return [_make_edge(edge_type, "GathaTeeka", key, target, pankti_props, extra_props)]
 
     if shastra_type == "publication":
         if not tn:
-            logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
-            return []
+            key = f"{sn}:गाथा:{g}"
+            return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
         key = f"{sn}:{tn}:{publisher_id}:गाथा:टीका:भावार्थ:{g}"
-        return [_make_edge(edge_type, "GathaTeekaBhaavarth", key, target, pankti_props)]
+        return [_make_edge(edge_type, "GathaTeekaBhaavarth", key, target, pankti_props, extra_props)]
 
     return []
 
@@ -227,6 +234,7 @@ def _emit_kalash_inline(
     edge_type: str,
     target: dict,
     pankti_props: dict,
+    extra_props: Optional[dict] = None,
 ) -> list[dict]:
     """Kalash edges for non-main refs — no block-kind check.
 
@@ -243,14 +251,14 @@ def _emit_kalash_inline(
             logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
             return []
         key = f"{sn}:{tn}:कलश:{k}"
-        return [_make_edge(edge_type, "Kalash", key, target, pankti_props)]
+        return [_make_edge(edge_type, "Kalash", key, target, pankti_props, extra_props)]
 
     if shastra_type == "publication":
         if not tn:
             logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
             return []
         key = f"{sn}:{tn}:{publisher_id}:कलश:भावार्थ:{k}"
-        return [_make_edge(edge_type, "KalashBhaavarth", key, target, pankti_props)]
+        return [_make_edge(edge_type, "KalashBhaavarth", key, target, pankti_props, extra_props)]
 
     return []
 
@@ -261,6 +269,7 @@ def _emit_inline_ref_edges(
     edge_type: str,
     target: dict,
     config: "JainkoshConfig",
+    extra_props: Optional[dict] = None,
 ) -> list[dict]:
     """Emit edges for a single non-main (remaining) reference using simplified rules."""
     if ref.shastra_name is None:
@@ -282,20 +291,19 @@ def _emit_inline_ref_edges(
     g = _first_value(rf, ek.gatha)
     if g is not None:
         edges.extend(_emit_gatha_inline(
-            ref, shastra_type, g, publisher_id, edge_type, target, pankti_props, config,
+            ref, shastra_type, g, publisher_id, edge_type, target, pankti_props, config, extra_props,
         ))
 
     k = _first_value(rf, ek.kalash)
     if k is not None:
         edges.extend(_emit_kalash_inline(
-            ref, shastra_type, k, publisher_id, edge_type, target, pankti_props,
+            ref, shastra_type, k, publisher_id, edge_type, target, pankti_props, extra_props,
         ))
 
     p = _first_value(rf, ek.page)
     if p is not None:
-        # Page rules are the same as main: publication only, any block kind
         edges.extend(_emit_page(
-            ref, shastra_type, block_kind, p, publisher_id, edge_type, target, pankti_props,
+            ref, shastra_type, block_kind, p, publisher_id, edge_type, target, pankti_props, extra_props,
         ))
 
     return edges
@@ -307,6 +315,11 @@ def build_reference_edges(
     target: dict,
     edge_type: str,
     config: "JainkoshConfig",
+    block_index: int = 0,
+    mention_path: str = "",
+    source_natural_key: str = "",
+    section_index: Optional[int] = None,
+    definition_index: Optional[int] = None,
 ) -> list[dict]:
     """Return edge dicts for this block. May return [] if no eligible ref or
     the ref doesn't carry the required keyword fields."""
@@ -330,27 +343,37 @@ def build_reference_edges(
     publisher_id = _resolve_publisher_id(ref, config)
     pankti_props = _pankti_props(rf, cfg)
 
+    extra_props: dict = {"block_index": block_index}
+    if mention_path:
+        extra_props["mention_path"] = mention_path
+    if source_natural_key:
+        extra_props["source_natural_key"] = source_natural_key
+    if section_index is not None:
+        extra_props["section_index"] = section_index
+    if definition_index is not None:
+        extra_props["definition_index"] = definition_index
+
     edges: list[dict] = []
 
     g = _first_value(rf, ek.gatha)
     if g is not None:
         edges.extend(_emit_gatha(
             ref, shastra_type, block_kind, g, publisher_id,
-            edge_type, target, pankti_props, config,
+            edge_type, target, pankti_props, config, extra_props,
         ))
 
     k = _first_value(rf, ek.kalash)
     if k is not None:
         edges.extend(_emit_kalash(
             ref, shastra_type, block_kind, k, publisher_id,
-            edge_type, target, pankti_props,
+            edge_type, target, pankti_props, extra_props,
         ))
 
     p = _first_value(rf, ek.page)
     if p is not None:
         edges.extend(_emit_page(
             ref, shastra_type, block_kind, p, publisher_id,
-            edge_type, target, pankti_props,
+            edge_type, target, pankti_props, extra_props,
         ))
 
     # Process remaining (non-main) references with simplified inline rules
@@ -359,6 +382,6 @@ def build_reference_edges(
         if r is ref and not seen_main:
             seen_main = True
             continue
-        edges.extend(_emit_inline_ref_edges(r, block_kind, edge_type, target, config))
+        edges.extend(_emit_inline_ref_edges(r, block_kind, edge_type, target, config, extra_props))
 
     return edges

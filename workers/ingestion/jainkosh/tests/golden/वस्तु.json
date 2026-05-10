@@ -586,7 +586,112 @@
           }
         }
       ],
-      "edges": []
+      "edges": [
+        {
+          "type": "CONTAINS_DEFINITION",
+          "from": {
+            "label": "Gatha",
+            "key": "कार्तिकेयानुप्रेक्षा:गाथा:225"
+          },
+          "to": {
+            "label": "Keyword",
+            "key": "वस्तु"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "0/1/1",
+            "source_natural_key": "वस्तु",
+            "section_index": 0,
+            "definition_index": 1
+          }
+        },
+        {
+          "type": "RELATED_TO",
+          "from": {
+            "label": "Keyword",
+            "key": "वस्तु"
+          },
+          "to": {
+            "label": "Keyword",
+            "key": "द्रव्य"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "RELATED_TO",
+          "from": {
+            "label": "Keyword",
+            "key": "वस्तु"
+          },
+          "to": {
+            "label": "Topic",
+            "resolve_by": {
+              "parent_keyword": "द्रव्य",
+              "topic_path": "1.7"
+            }
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "RELATED_TO",
+          "from": {
+            "label": "Keyword",
+            "key": "वस्तु"
+          },
+          "to": {
+            "label": "Topic",
+            "resolve_by": {
+              "parent_keyword": "द्रव्य",
+              "topic_path": "1.4"
+            }
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "RELATED_TO",
+          "from": {
+            "label": "Keyword",
+            "key": "वस्तु"
+          },
+          "to": {
+            "label": "Keyword",
+            "key": "सामान्य"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "RELATED_TO",
+          "from": {
+            "label": "Keyword",
+            "key": "वस्तु"
+          },
+          "to": {
+            "label": "Topic",
+            "resolve_by": {
+              "parent_keyword": "श्रुतज्ञान",
+              "topic_path": "II"
+            }
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        }
+      ]
     },
     "idempotency_contracts": {
       "mongo:keyword_definitions": {

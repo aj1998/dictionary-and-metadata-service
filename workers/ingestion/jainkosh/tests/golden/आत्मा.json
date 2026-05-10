@@ -745,7 +745,7 @@
       "next": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%81%E0%A4%B2"
     },
     "parser_version": "jainkosh.rules/1.10.0",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parsed_at": "2026-05-10T15:58:10.387908",
     "warnings": []
   },
   "would_write": {
@@ -1728,6 +1728,37 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "समयसार:आत्मख्याति:गाथा:टीका:8",
+          "props": {
+            "shastra_natural_key": "समयसार",
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "gatha_number": "8"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "द्रव्यसंग्रह:टीका:गाथा:टीका:14",
+          "props": {
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+            "gatha_number": "14"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:46",
+          "props": {
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+            "publisher_id": "14",
+            "page_number": "46"
+          },
+          "lazy": true
         }
       ],
       "edges": [
@@ -1750,6 +1781,42 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
+            "key": "समाधिशतक:गाथा:4"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/1",
+            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "ज्ञानार्णव:गाथा:5"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/1",
+            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
             "key": "ज्ञानसार:गाथा:29"
           },
           "to": {
@@ -1758,7 +1825,46 @@
           },
           "props": {
             "weight": 1.0,
-            "source": "jainkosh"
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/1",
+            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "द्रव्यसंग्रह:गाथा:14"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/1",
+            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "कार्तिकेयानुप्रेक्षा:गाथा:192"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/1",
+            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
           }
         },
         {
@@ -1774,6 +1880,24 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "द्रव्यसंग्रह:गाथा:14"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद/0",
+            "source_natural_key": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद"
           }
         },
         {
@@ -1804,6 +1928,60 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "समाधिशतक:गाथा:4"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन/0",
+            "source_natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "परमात्मप्रकाश:गाथा:12"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन/1",
+            "source_natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "द्रव्यसंग्रह:गाथा:14"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन/2",
+            "source_natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
           }
         },
         {
@@ -1905,6 +2083,26 @@
         {
           "type": "CONTAINS_DEFINITION",
           "from": {
+            "label": "Gatha",
+            "key": "धवला:गाथा:9"
+          },
+          "to": {
+            "label": "Keyword",
+            "key": "आत्मा"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "0/1/0",
+            "source_natural_key": "आत्मा",
+            "section_index": 0,
+            "definition_index": 1
+          }
+        },
+        {
+          "type": "CONTAINS_DEFINITION",
+          "from": {
             "label": "GathaTeeka",
             "key": "समयसार:आत्मख्याति:गाथा:टीका:8"
           },
@@ -1914,7 +2112,12 @@
           },
           "props": {
             "weight": 1.0,
-            "source": "jainkosh"
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "0/2/0",
+            "source_natural_key": "आत्मा",
+            "section_index": 0,
+            "definition_index": 2
           }
         },
         {
@@ -1929,7 +2132,12 @@
           },
           "props": {
             "weight": 1.0,
-            "source": "jainkosh"
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "0/3/0",
+            "source_natural_key": "आत्मा",
+            "section_index": 0,
+            "definition_index": 3
           }
         },
         {
@@ -1944,7 +2152,32 @@
           },
           "props": {
             "weight": 1.0,
-            "source": "jainkosh"
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "0/3/0",
+            "source_natural_key": "आत्मा",
+            "section_index": 0,
+            "definition_index": 3
+          }
+        },
+        {
+          "type": "CONTAINS_DEFINITION",
+          "from": {
+            "label": "Gatha",
+            "key": "द्रव्यसंग्रह:गाथा:57"
+          },
+          "to": {
+            "label": "Keyword",
+            "key": "आत्मा"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "0/4/0",
+            "source_natural_key": "आत्मा",
+            "section_index": 0,
+            "definition_index": 4
           }
         }
       ]

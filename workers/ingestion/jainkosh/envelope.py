@@ -201,6 +201,39 @@ def _redlink_edge_allowed(target_exists: bool, to_node: dict, config: JainkoshCo
     return False
 
 
+def _see_also_kw_edge(block, *, keyword_node: str, config: JainkoshConfig) -> dict:
+    """RELATED_TO edge where the source is a Keyword (definition context)."""
+    from_node = {"label": "Keyword", "key": keyword_node}
+    if block.target_topic_path and block.target_keyword:
+        to_node = {
+            "label": "Topic",
+            "resolve_by": {
+                "parent_keyword": block.target_keyword,
+                "topic_path": block.target_topic_path,
+            },
+        }
+    elif block.target_keyword:
+        to_node = {"label": "Keyword", "key": block.target_keyword}
+    elif block.is_self and block.target_topic_path:
+        to_node = {
+            "label": "Topic",
+            "resolve_by": {
+                "parent_keyword": keyword_node,
+                "topic_path": block.target_topic_path,
+            },
+        }
+    else:
+        return {}
+    if not _redlink_edge_allowed(block.target_exists, to_node, config):
+        return {}
+    return {
+        "type": "RELATED_TO",
+        "from": from_node,
+        "to": to_node,
+        "props": {"weight": 1.0, "source": "jainkosh"},
+    }
+
+
 def _see_also_edge(block, *, source_topic_key: str, keyword_node: str, config: JainkoshConfig) -> dict:
     from_node = {"label": "Topic", "key": source_topic_key}
     if block.target_topic_path and block.target_keyword:
@@ -273,12 +306,30 @@ def _index_relation_edge(rel, src: tuple, *, keyword: str, config: JainkoshConfi
 
 
 def _dedupe(items: list[dict]) -> list[dict]:
-    """Deduplicate list of dicts by converting to JSON strings."""
-    import json
-    seen = set()
+    seen: set = set()
     out = []
     for item in items:
-        key = json.dumps(item, sort_keys=True, ensure_ascii=False)
+        if "type" in item and "from" in item and "to" in item:
+            # Edge: key on (type, from, to, mention_path) to preserve distinct citation contexts
+            frm = item["from"]
+            to = item["to"]
+            # For resolve_by targets, use the resolve_by dict as part of the key
+            rb = to.get("resolve_by")
+            to_key = (
+                to.get("label", ""),
+                to.get("key", ""),
+                rb.get("parent_keyword", "") if rb else "",
+                rb.get("topic_path", "") if rb else "",
+            )
+            key = (
+                item["type"],
+                frm.get("label", ""), frm.get("key", ""),
+                *to_key,
+                item.get("props", {}).get("mention_path", ""),
+            )
+        else:
+            import json
+            key = json.dumps(item, sort_keys=True, ensure_ascii=False)
         if key not in seen:
             seen.add(key)
             out.append(item)
@@ -518,7 +569,7 @@ def build_neo4j_fragment(result: KeywordParseResult, config: JainkoshConfig) -> 
                 })
 
             topic_target = {"label": "Topic", "key": sub.natural_key}
-            for b in sub.blocks:
+            for i, b in enumerate(sub.blocks):
                 if b.kind == "see_also":
                     edge = _see_also_edge(
                         b, source_topic_key=sub.natural_key, keyword_node=result.keyword, config=config
@@ -528,6 +579,9 @@ def build_neo4j_fragment(result: KeywordParseResult, config: JainkoshConfig) -> 
                 else:
                     ref_edges = build_reference_edges(
                         b, target=topic_target, edge_type="MENTIONS_TOPIC", config=config,
+                        block_index=i,
+                        mention_path=f"{sub.natural_key}/{i}",
+                        source_natural_key=sub.natural_key,
                     )
                     _collect_lazy_nodes(ref_edges, nodes)
                     edges.extend(ref_edges)
@@ -537,12 +591,22 @@ def build_neo4j_fragment(result: KeywordParseResult, config: JainkoshConfig) -> 
             continue
         kw_target = {"label": "Keyword", "key": result.keyword}
         for d in sec.definitions:
-            for b in d.blocks:
-                ref_edges = build_reference_edges(
-                    b, target=kw_target, edge_type="CONTAINS_DEFINITION", config=config,
-                )
-                _collect_lazy_nodes(ref_edges, nodes)
-                edges.extend(ref_edges)
+            for i, b in enumerate(d.blocks):
+                if b.kind == "see_also":
+                    edge = _see_also_kw_edge(b, keyword_node=result.keyword, config=config)
+                    if edge:
+                        edges.append(edge)
+                else:
+                    ref_edges = build_reference_edges(
+                        b, target=kw_target, edge_type="CONTAINS_DEFINITION", config=config,
+                        block_index=i,
+                        mention_path=f"{sec.section_index}/{d.definition_index}/{i}",
+                        source_natural_key=result.keyword,
+                        section_index=sec.section_index,
+                        definition_index=d.definition_index,
+                    )
+                    _collect_lazy_nodes(ref_edges, nodes)
+                    edges.extend(ref_edges)
 
     ir_nodes, ir_edges = _build_index_relation_neo4j(result, config)
     nodes.extend(ir_nodes)
