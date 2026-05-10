@@ -13,7 +13,7 @@ edge_types:
     direction: directed
     from: [Topic]
     to: [Topic]
-    description: Sub-topic of another topic
+    description: Sub-topic of another topic. Created from topic_path hierarchy.
 
   - name: RELATED_TO
     direction: undirected
@@ -41,12 +41,30 @@ edge_types:
 
   - name: MENTIONS_TOPIC
     direction: directed
-    from: [Gatha]
+    from: [Gatha, GathaTeeka, GathaTeekaBhaavarth, Kalash, KalashBhaavarth, Page]
     to: [Topic]
-    description: Gatha is associated with a topic (heading or extracted)
+    description: Source node cites a topic (heading or extracted reference)
+
+  - name: CONTAINS_DEFINITION
+    direction: directed
+    from: [Gatha, GathaTeeka, GathaTeekaBhaavarth, Kalash, KalashBhaavarth, Page]
+    to: [Keyword]
+    description: Source node appears in the definition body of this keyword
 
   - name: IN_SHASTRA
     direction: directed
-    from: [Gatha]
+    from: [Gatha, Teeka]
     to: [Shastra]
-    description: Structural membership edge
+    description: Structural membership — node belongs to this shastra
+
+  - name: IN_TEEKA
+    direction: directed
+    from: [GathaTeeka, Kalash, Publication]
+    to: [Teeka]
+    description: Structural membership — node belongs to this teeka
+
+  - name: IN_PUBLICATION
+    direction: directed
+    from: [GathaTeekaBhaavarth, KalashBhaavarth, Page]
+    to: [Publication]
+    description: Structural membership — node belongs to this publication

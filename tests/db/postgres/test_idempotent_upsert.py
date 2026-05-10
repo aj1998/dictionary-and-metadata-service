@@ -19,12 +19,16 @@ from jain_kb_common.db.postgres.pravachans import Pravachan
 from jain_kb_common.db.postgres.shastras import Shastra
 from jain_kb_common.db.postgres.teekas import Teeka
 from jain_kb_common.db.postgres.topics import Topic
+from jain_kb_common.db.postgres.kalashas import Kalash
+from jain_kb_common.db.postgres.publications import Publication
 from jain_kb_common.db.postgres.upserts import (
     upsert_author,
     upsert_book,
     upsert_gatha,
+    upsert_kalash,
     upsert_keyword,
     upsert_pravachan,
+    upsert_publication,
     upsert_shastra,
     upsert_teeka,
     upsert_topic,
@@ -294,3 +298,105 @@ async def test_upsert_gatha_idempotent(async_session):
     assert row is not None
     assert row.prakrit_doc_id == "mongo-v2"
     assert row.keyword_ids == ["kw-uuid-1"]
+
+
+@skip_no_db
+async def test_upsert_publication_idempotent(async_session):
+    author_id = await upsert_author(
+        async_session,
+        natural_key="pub-author",
+        display_name=[{"lang": "hi", "text": "अमृतचन्द्र"}],
+        kind=AuthorKind.acharya,
+    )
+    shastra_id = await upsert_shastra(
+        async_session,
+        natural_key="pub-shastra",
+        title=[{"lang": "hi", "text": "प्रवचनसार"}],
+        author_id=author_id,
+    )
+    teeka_id = await upsert_teeka(
+        async_session,
+        natural_key="pub-shastra:pub-author",
+        shastra_id=shastra_id,
+        teekakar_id=author_id,
+    )
+    nk = "pub-shastra:pub-author:jzb"
+    id1 = await upsert_publication(
+        async_session,
+        natural_key=nk,
+        teeka_id=teeka_id,
+        publisher_id="jzb",
+        public_url="https://example.com/v1",
+    )
+    id2 = await upsert_publication(
+        async_session,
+        natural_key=nk,
+        teeka_id=teeka_id,
+        publisher_id="jzb",
+        publisher={"name": "JZB"},
+        public_url="https://example.com/v2",
+    )
+    await async_session.commit()
+
+    count = await async_session.scalar(
+        select(func.count()).where(Publication.natural_key == nk)
+    )
+    assert count == 1
+    assert id1 == id2
+
+    row = await async_session.scalar(select(Publication).where(Publication.natural_key == nk))
+    assert row is not None
+    assert row.public_url == "https://example.com/v2"
+    assert row.publisher == {"name": "JZB"}
+
+
+@skip_no_db
+async def test_upsert_kalash_idempotent(async_session):
+    author_id = await upsert_author(
+        async_session,
+        natural_key="kal-author",
+        display_name=[{"lang": "hi", "text": "अमृतचन्द्र"}],
+        kind=AuthorKind.acharya,
+    )
+    shastra_id = await upsert_shastra(
+        async_session,
+        natural_key="kal-shastra",
+        title=[{"lang": "hi", "text": "प्रवचनसार"}],
+        author_id=author_id,
+    )
+    teeka_id = await upsert_teeka(
+        async_session,
+        natural_key="kal-shastra:kal-author",
+        shastra_id=shastra_id,
+        teekakar_id=author_id,
+    )
+    nk = "kal-shastra:kal-author:001"
+    id1 = await upsert_kalash(
+        async_session,
+        natural_key=nk,
+        teeka_id=teeka_id,
+        kalash_number="001",
+        sanskrit_doc_id="san-doc-1",
+    )
+    id2 = await upsert_kalash(
+        async_session,
+        natural_key=nk,
+        teeka_id=teeka_id,
+        kalash_number="001",
+        sanskrit_doc_id="san-doc-2",
+        hindi_doc_id="hin-doc-1",
+        bhaavarth_doc_ids=["bh-doc-1"],
+    )
+    await async_session.commit()
+
+    count = await async_session.scalar(
+        select(func.count()).where(Kalash.natural_key == nk)
+    )
+    assert count == 1
+    assert id1 == id2
+
+    row = await async_session.scalar(select(Kalash).where(Kalash.natural_key == nk))
+    assert row is not None
+    assert row.sanskrit_doc_id == "san-doc-2"
+    assert row.hindi_doc_id == "hin-doc-1"
+    assert row.bhaavarth_doc_ids == ["bh-doc-1"]

@@ -33,9 +33,18 @@ BlockKind = Literal[
 ]
 
 
+class ResolvedField(BaseModel):
+    field: str
+    value: int | str
+
+
 class BlockRef(BaseModel):
     text: str
     raw_html: Optional[str] = None
+    resolved_fields: list[ResolvedField] = Field(default_factory=list)
+    shastra_name: Optional[str] = None
+    teeka_name: str = ""
+    inline_reference: bool = False
 
 
 class Block(BaseModel):
@@ -165,3 +174,61 @@ class OcrPage(BaseModel):
     ocr_text: list[LangText] = []
     tables: list[Any] = []
     review_status: Literal["raw", "reviewed", "corrected"] = "raw"
+
+
+class GathaTeekaSanskrit(BaseModel):
+    natural_key: str
+    gatha_teeka_natural_key: str
+    teeka_natural_key: str
+    gatha_number: str
+    text: list[LangText]
+    ingestion_run_id: Optional[str] = None
+
+
+class GathaTeekaHindi(BaseModel):
+    natural_key: str
+    gatha_teeka_natural_key: str
+    teeka_natural_key: str
+    gatha_number: str
+    text: list[LangText]
+    ingestion_run_id: Optional[str] = None
+
+
+class GathaTeekaBhaavarth(BaseModel):
+    natural_key: str
+    gatha_teeka_bhaavarth_natural_key: str
+    publication_natural_key: str
+    gatha_teeka_natural_key: str
+    publisher_id: str
+    gatha_number: str
+    text: list[LangText]
+    ingestion_run_id: Optional[str] = None
+
+
+class KalashSanskrit(BaseModel):
+    natural_key: str
+    kalash_natural_key: str
+    teeka_natural_key: str
+    kalash_number: str
+    text: list[LangText]
+    ingestion_run_id: Optional[str] = None
+
+
+class KalashHindi(BaseModel):
+    natural_key: str
+    kalash_natural_key: str
+    teeka_natural_key: str
+    kalash_number: str
+    text: list[LangText]
+    ingestion_run_id: Optional[str] = None
+
+
+class KalashBhaavarth(BaseModel):
+    natural_key: str
+    kalash_bhaavarth_natural_key: str
+    publication_natural_key: str
+    kalash_natural_key: str
+    publisher_id: str
+    kalash_number: str
+    text: list[LangText]
+    ingestion_run_id: Optional[str] = None

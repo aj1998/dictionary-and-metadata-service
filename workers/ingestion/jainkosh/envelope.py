@@ -406,6 +406,71 @@ def _build_index_relation_neo4j(
     return nodes, edges
 
 
+LAZY_NODE_LABELS = {"GathaTeeka", "GathaTeekaBhaavarth", "KalashBhaavarth", "Page"}
+
+
+def _derive_props(label: str, key: str) -> dict:
+    if label == "GathaTeeka":
+        # key: {shastra}:{teeka}:गाथा:टीका:{n}
+        prefix, n = key.rsplit(":गाथा:टीका:", 1)
+        shastra = prefix.split(":")[0]
+        return {"shastra_natural_key": shastra, "teeka_natural_key": prefix, "gatha_number": n}
+    if label == "GathaTeekaBhaavarth":
+        # key: {shastra}:{teeka}:{pub_id}:गाथा:टीका:भावार्थ:{n}
+        prefix, n = key.rsplit(":गाथा:टीका:भावार्थ:", 1)
+        parts = prefix.split(":")
+        shastra = parts[0]
+        pub_id = parts[-1]
+        teeka_nk = ":".join(parts[:-1])
+        return {
+            "shastra_natural_key": shastra,
+            "teeka_natural_key": teeka_nk,
+            "publisher_id": pub_id,
+            "gatha_number": n,
+        }
+    if label == "KalashBhaavarth":
+        # key: {shastra}:{teeka}:{pub_id}:कलश:भावार्थ:{n}
+        prefix, n = key.rsplit(":कलश:भावार्थ:", 1)
+        parts = prefix.split(":")
+        shastra = parts[0]
+        pub_id = parts[-1]
+        teeka_nk = ":".join(parts[:-1])
+        return {
+            "shastra_natural_key": shastra,
+            "teeka_natural_key": teeka_nk,
+            "publisher_id": pub_id,
+            "kalash_number": n,
+        }
+    if label == "Page":
+        # key: {shastra}:{teeka}:{pub_id}:पृष्ठ:{n}
+        prefix, n = key.rsplit(":पृष्ठ:", 1)
+        parts = prefix.split(":")
+        shastra = parts[0]
+        pub_id = parts[-1]
+        teeka_nk = ":".join(parts[:-1])
+        return {
+            "shastra_natural_key": shastra,
+            "teeka_natural_key": teeka_nk,
+            "publisher_id": pub_id,
+            "page_number": n,
+        }
+    return {}
+
+
+def _collect_lazy_nodes(ref_edges: list[dict], nodes: list[dict]) -> None:
+    for edge in ref_edges:
+        src = edge["from"]
+        label = src["label"]
+        key = src["key"]
+        if label in LAZY_NODE_LABELS:
+            nodes.append({
+                "label": label,
+                "key": key,
+                "props": _derive_props(label, key),
+                "lazy": True,
+            })
+
+
 def build_neo4j_fragment(result: KeywordParseResult, config: JainkoshConfig) -> dict:
     from .reference_edges import build_reference_edges
 
@@ -461,9 +526,11 @@ def build_neo4j_fragment(result: KeywordParseResult, config: JainkoshConfig) -> 
                     if edge:
                         edges.append(edge)
                 else:
-                    edges.extend(build_reference_edges(
+                    ref_edges = build_reference_edges(
                         b, target=topic_target, edge_type="MENTIONS_TOPIC", config=config,
-                    ))
+                    )
+                    _collect_lazy_nodes(ref_edges, nodes)
+                    edges.extend(ref_edges)
 
     for sec in result.page_sections:
         if sec.section_kind == "puraankosh":
@@ -471,9 +538,11 @@ def build_neo4j_fragment(result: KeywordParseResult, config: JainkoshConfig) -> 
         kw_target = {"label": "Keyword", "key": result.keyword}
         for d in sec.definitions:
             for b in d.blocks:
-                edges.extend(build_reference_edges(
+                ref_edges = build_reference_edges(
                     b, target=kw_target, edge_type="CONTAINS_DEFINITION", config=config,
-                ))
+                )
+                _collect_lazy_nodes(ref_edges, nodes)
+                edges.extend(ref_edges)
 
     ir_nodes, ir_edges = _build_index_relation_neo4j(result, config)
     nodes.extend(ir_nodes)

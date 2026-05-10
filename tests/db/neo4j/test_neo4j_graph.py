@@ -16,10 +16,14 @@ from jain_kb_common.db.neo4j import get_driver, close_driver
 from jain_kb_common.db.neo4j.constraints import ensure_constraints
 from jain_kb_common.db.neo4j.schema_check import validate_edge_type, UnknownEdgeTypeError
 from jain_kb_common.db.neo4j.upserts import (
+    ensure_lazy_node,
+    sync_kalash,
     sync_keyword,
+    sync_publication,
+    sync_shastra,
+    sync_teeka,
     sync_topic,
     sync_gatha,
-    sync_shastra,
 )
 from jain_kb_common.db.neo4j.queries import (
     resolve_token,
@@ -41,7 +45,11 @@ TEST_DB = "neo4j"
 # ---------------------------------------------------------------------------
 
 def test_validate_known_edge_types():
-    for t in ["IS_A", "PART_OF", "RELATED_TO", "ALIAS_OF", "MENTIONS_KEYWORD", "HAS_TOPIC", "MENTIONS_TOPIC", "IN_SHASTRA"]:
+    for t in [
+        "IS_A", "PART_OF", "RELATED_TO", "ALIAS_OF",
+        "MENTIONS_KEYWORD", "HAS_TOPIC", "MENTIONS_TOPIC",
+        "IN_SHASTRA", "IN_TEEKA", "IN_PUBLICATION", "CONTAINS_DEFINITION",
+    ]:
         validate_edge_type(t)  # must not raise
 
 
@@ -376,3 +384,178 @@ async def test_shortest_path_disconnected(driver):
     await sync_topic(driver, natural_key="tp-dis-2", pg_id=tp2_pg_id, display_text_hi="d2", source="jainkosh", database=TEST_DB)
     path = await shortest_path(driver, from_nk="tp-dis-1", to_nk="tp-dis-2", database=TEST_DB)
     assert path is None
+
+
+# ---------------------------------------------------------------------------
+# sync_teeka
+# ---------------------------------------------------------------------------
+
+@skip_no_neo4j
+async def test_sync_teeka_idempotent(driver):
+    s_pg_id = str(uuid.uuid4())
+    t_pg_id = str(uuid.uuid4())
+    await sync_shastra(driver, natural_key="ps-t", pg_id=s_pg_id, title_hi="प्रवचनसार", database=TEST_DB)
+    await sync_teeka(driver, natural_key="ps-t:ac", pg_id=t_pg_id, shastra_natural_key="ps-t", teekakar_natural_key="ac", database=TEST_DB)
+    await sync_teeka(driver, natural_key="ps-t:ac", pg_id=t_pg_id, shastra_natural_key="ps-t", teekakar_natural_key="ac-updated", database=TEST_DB)
+
+    async with driver.session(database=TEST_DB) as session:
+        result = await session.run(
+            "MATCH (t:Teeka {natural_key: $nk}) RETURN count(t) AS cnt, t.teekakar_natural_key AS teekakar",
+            nk="ps-t:ac",
+        )
+        record = await result.single()
+    assert record["cnt"] == 1
+    assert record["teekakar"] == "ac-updated"
+
+
+@skip_no_neo4j
+async def test_sync_teeka_creates_in_shastra_edge(driver):
+    s_pg_id = str(uuid.uuid4())
+    t_pg_id = str(uuid.uuid4())
+    await sync_shastra(driver, natural_key="ps-te", pg_id=s_pg_id, title_hi="प्रवचनसार", database=TEST_DB)
+    await sync_teeka(driver, natural_key="ps-te:ac", pg_id=t_pg_id, shastra_natural_key="ps-te", database=TEST_DB)
+
+    async with driver.session(database=TEST_DB) as session:
+        result = await session.run(
+            "MATCH (t:Teeka {natural_key: $tnk})-[:IN_SHASTRA]->(s:Shastra {natural_key: $snk}) RETURN count(*) AS cnt",
+            tnk="ps-te:ac", snk="ps-te",
+        )
+        record = await result.single()
+    assert record["cnt"] == 1
+
+
+# ---------------------------------------------------------------------------
+# sync_publication
+# ---------------------------------------------------------------------------
+
+@skip_no_neo4j
+async def test_sync_publication_idempotent(driver):
+    s_pg_id = str(uuid.uuid4())
+    t_pg_id = str(uuid.uuid4())
+    p_pg_id = str(uuid.uuid4())
+    await sync_shastra(driver, natural_key="ps-p", pg_id=s_pg_id, title_hi="प्रवचनसार", database=TEST_DB)
+    await sync_teeka(driver, natural_key="ps-p:ac", pg_id=t_pg_id, shastra_natural_key="ps-p", database=TEST_DB)
+    await sync_publication(driver, natural_key="ps-p:ac:jzb", pg_id=p_pg_id, teeka_natural_key="ps-p:ac", publisher_id="jzb", database=TEST_DB)
+    await sync_publication(driver, natural_key="ps-p:ac:jzb", pg_id=p_pg_id, teeka_natural_key="ps-p:ac", publisher_id="jzb-v2", database=TEST_DB)
+
+    async with driver.session(database=TEST_DB) as session:
+        result = await session.run(
+            "MATCH (p:Publication {natural_key: $nk}) RETURN count(p) AS cnt, p.publisher_id AS pub",
+            nk="ps-p:ac:jzb",
+        )
+        record = await result.single()
+    assert record["cnt"] == 1
+    assert record["pub"] == "jzb-v2"
+
+
+@skip_no_neo4j
+async def test_sync_publication_creates_in_teeka_edge(driver):
+    s_pg_id = str(uuid.uuid4())
+    t_pg_id = str(uuid.uuid4())
+    p_pg_id = str(uuid.uuid4())
+    await sync_shastra(driver, natural_key="ps-pe", pg_id=s_pg_id, title_hi="प्रवचनसार", database=TEST_DB)
+    await sync_teeka(driver, natural_key="ps-pe:ac", pg_id=t_pg_id, shastra_natural_key="ps-pe", database=TEST_DB)
+    await sync_publication(driver, natural_key="ps-pe:ac:jzb", pg_id=p_pg_id, teeka_natural_key="ps-pe:ac", publisher_id="jzb", database=TEST_DB)
+
+    async with driver.session(database=TEST_DB) as session:
+        result = await session.run(
+            "MATCH (p:Publication {natural_key: $pnk})-[:IN_TEEKA]->(t:Teeka {natural_key: $tnk}) RETURN count(*) AS cnt",
+            pnk="ps-pe:ac:jzb", tnk="ps-pe:ac",
+        )
+        record = await result.single()
+    assert record["cnt"] == 1
+
+
+# ---------------------------------------------------------------------------
+# sync_kalash
+# ---------------------------------------------------------------------------
+
+@skip_no_neo4j
+async def test_sync_kalash_idempotent(driver):
+    s_pg_id = str(uuid.uuid4())
+    t_pg_id = str(uuid.uuid4())
+    k_pg_id = str(uuid.uuid4())
+    await sync_shastra(driver, natural_key="ps-k", pg_id=s_pg_id, title_hi="प्रवचनसार", database=TEST_DB)
+    await sync_teeka(driver, natural_key="ps-k:ac", pg_id=t_pg_id, shastra_natural_key="ps-k", database=TEST_DB)
+    await sync_kalash(driver, natural_key="ps-k:ac:001", pg_id=k_pg_id, teeka_natural_key="ps-k:ac", kalash_number="001", database=TEST_DB)
+    await sync_kalash(driver, natural_key="ps-k:ac:001", pg_id=k_pg_id, teeka_natural_key="ps-k:ac", kalash_number="001-updated", database=TEST_DB)
+
+    async with driver.session(database=TEST_DB) as session:
+        result = await session.run(
+            "MATCH (k:Kalash {natural_key: $nk}) RETURN count(k) AS cnt, k.kalash_number AS num",
+            nk="ps-k:ac:001",
+        )
+        record = await result.single()
+    assert record["cnt"] == 1
+    assert record["num"] == "001-updated"
+
+
+@skip_no_neo4j
+async def test_sync_kalash_creates_in_teeka_edge(driver):
+    s_pg_id = str(uuid.uuid4())
+    t_pg_id = str(uuid.uuid4())
+    k_pg_id = str(uuid.uuid4())
+    await sync_shastra(driver, natural_key="ps-ke", pg_id=s_pg_id, title_hi="प्रवचनसार", database=TEST_DB)
+    await sync_teeka(driver, natural_key="ps-ke:ac", pg_id=t_pg_id, shastra_natural_key="ps-ke", database=TEST_DB)
+    await sync_kalash(driver, natural_key="ps-ke:ac:001", pg_id=k_pg_id, teeka_natural_key="ps-ke:ac", kalash_number="001", database=TEST_DB)
+
+    async with driver.session(database=TEST_DB) as session:
+        result = await session.run(
+            "MATCH (k:Kalash {natural_key: $knk})-[:IN_TEEKA]->(t:Teeka {natural_key: $tnk}) RETURN count(*) AS cnt",
+            knk="ps-ke:ac:001", tnk="ps-ke:ac",
+        )
+        record = await result.single()
+    assert record["cnt"] == 1
+
+
+# ---------------------------------------------------------------------------
+# ensure_lazy_node
+# ---------------------------------------------------------------------------
+
+@skip_no_neo4j
+async def test_ensure_lazy_node_creates_node_and_edge(driver):
+    s_pg_id = str(uuid.uuid4())
+    t_pg_id = str(uuid.uuid4())
+    await sync_shastra(driver, natural_key="ps-ln", pg_id=s_pg_id, title_hi="प्रवचनसार", database=TEST_DB)
+    await sync_teeka(driver, natural_key="ps-ln:ac", pg_id=t_pg_id, shastra_natural_key="ps-ln", database=TEST_DB)
+
+    async with driver.session(database=TEST_DB) as session:
+        await ensure_lazy_node(
+            session,
+            label="GathaTeeka",
+            natural_key="ps-ln:ac:गाथा:टीका:039",
+            props={"shastra_natural_key": "ps-ln", "teeka_natural_key": "ps-ln:ac", "gatha_number": "039"},
+            parent_edge_type="IN_TEEKA",
+            parent_label="Teeka",
+            parent_natural_key="ps-ln:ac",
+        )
+
+    async with driver.session(database=TEST_DB) as session:
+        result = await session.run(
+            "MATCH (g:GathaTeeka {natural_key: $gnk})-[:IN_TEEKA]->(t:Teeka {natural_key: $tnk}) RETURN count(*) AS cnt, g.gatha_number AS num",
+            gnk="ps-ln:ac:गाथा:टीका:039", tnk="ps-ln:ac",
+        )
+        record = await result.single()
+    assert record["cnt"] == 1
+    assert record["num"] == "039"
+
+
+@skip_no_neo4j
+async def test_ensure_lazy_node_idempotent(driver):
+    s_pg_id = str(uuid.uuid4())
+    t_pg_id = str(uuid.uuid4())
+    await sync_shastra(driver, natural_key="ps-li", pg_id=s_pg_id, title_hi="प्रवचनसार", database=TEST_DB)
+    await sync_teeka(driver, natural_key="ps-li:ac", pg_id=t_pg_id, shastra_natural_key="ps-li", database=TEST_DB)
+
+    props = {"shastra_natural_key": "ps-li", "teeka_natural_key": "ps-li:ac", "gatha_number": "001"}
+    async with driver.session(database=TEST_DB) as session:
+        await ensure_lazy_node(session, "GathaTeeka", "ps-li:ac:गाथा:टीका:001", props, "IN_TEEKA", "Teeka", "ps-li:ac")
+        await ensure_lazy_node(session, "GathaTeeka", "ps-li:ac:गाथा:टीका:001", props, "IN_TEEKA", "Teeka", "ps-li:ac")
+
+    async with driver.session(database=TEST_DB) as session:
+        result = await session.run(
+            "MATCH (g:GathaTeeka {natural_key: $nk}) RETURN count(g) AS cnt",
+            nk="ps-li:ac:गाथा:टीका:001",
+        )
+        record = await result.single()
+    assert record["cnt"] == 1

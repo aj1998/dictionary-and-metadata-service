@@ -129,6 +129,118 @@ async def sync_shastra(
         )
 
 
+async def sync_teeka(
+    driver: AsyncDriver,
+    *,
+    natural_key: str,
+    pg_id: str,
+    shastra_natural_key: str,
+    teekakar_natural_key: str | None = None,
+    database: str = "jainkb",
+) -> None:
+    async with driver.session(database=database) as session:
+        await session.run(
+            """
+            MERGE (t:Teeka {natural_key: $nk})
+            SET t.pg_id = $pg_id,
+                t.shastra_natural_key = $snk,
+                t.teekakar_natural_key = $teekakar,
+                t.updated_at = datetime(),
+                t.created_at = coalesce(t.created_at, datetime())
+            WITH t
+            MATCH (s:Shastra {natural_key: $snk})
+            MERGE (t)-[:IN_SHASTRA]->(s)
+            """,
+            nk=natural_key,
+            pg_id=pg_id,
+            snk=shastra_natural_key,
+            teekakar=teekakar_natural_key,
+        )
+
+
+async def sync_publication(
+    driver: AsyncDriver,
+    *,
+    natural_key: str,
+    pg_id: str,
+    teeka_natural_key: str,
+    publisher_id: str,
+    database: str = "jainkb",
+) -> None:
+    async with driver.session(database=database) as session:
+        await session.run(
+            """
+            MERGE (p:Publication {natural_key: $nk})
+            SET p.pg_id = $pg_id,
+                p.teeka_natural_key = $tnk,
+                p.publisher_id = $pub_id,
+                p.updated_at = datetime(),
+                p.created_at = coalesce(p.created_at, datetime())
+            WITH p
+            MATCH (t:Teeka {natural_key: $tnk})
+            MERGE (p)-[:IN_TEEKA]->(t)
+            """,
+            nk=natural_key,
+            pg_id=pg_id,
+            tnk=teeka_natural_key,
+            pub_id=publisher_id,
+        )
+
+
+async def sync_kalash(
+    driver: AsyncDriver,
+    *,
+    natural_key: str,
+    pg_id: str,
+    teeka_natural_key: str,
+    kalash_number: str,
+    database: str = "jainkb",
+) -> None:
+    async with driver.session(database=database) as session:
+        await session.run(
+            """
+            MERGE (k:Kalash {natural_key: $nk})
+            SET k.pg_id = $pg_id,
+                k.teeka_natural_key = $tnk,
+                k.kalash_number = $num,
+                k.updated_at = datetime(),
+                k.created_at = coalesce(k.created_at, datetime())
+            WITH k
+            MATCH (t:Teeka {natural_key: $tnk})
+            MERGE (k)-[:IN_TEEKA]->(t)
+            """,
+            nk=natural_key,
+            pg_id=pg_id,
+            tnk=teeka_natural_key,
+            num=kalash_number,
+        )
+
+
+async def ensure_lazy_node(
+    session,
+    label: str,
+    natural_key: str,
+    props: dict,
+    parent_edge_type: str,
+    parent_label: str,
+    parent_natural_key: str,
+) -> None:
+    await session.run(
+        f"""
+        MERGE (n:{label} {{natural_key: $nk}})
+        SET n += $props,
+            n.updated_at = datetime(),
+            n.created_at = coalesce(n.created_at, datetime())
+        WITH n
+        MERGE (parent:{parent_label} {{natural_key: $parent_nk}})
+        MERGE (n)-[:{parent_edge_type}]->(parent)
+        """,
+        nk=natural_key,
+        props=props,
+        parent_nk=parent_natural_key,
+    )
+
+
 async def sync_gatha(
     driver: AsyncDriver,
     *,

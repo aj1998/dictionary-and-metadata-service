@@ -59,3 +59,27 @@ async def upsert_topic_extract(db: AsyncIOMotorDatabase, *, natural_key: str, do
 
 async def upsert_raw_html_snapshot(db: AsyncIOMotorDatabase, *, natural_key: str, doc: dict) -> ObjectId:
     return await _upsert(db, "raw_html_snapshots", natural_key, doc)
+
+
+async def upsert_gatha_teeka_sanskrit(db: AsyncIOMotorDatabase, *, natural_key: str, doc: dict) -> ObjectId:
+    return await _upsert(db, "gatha_teeka_sanskrit", natural_key, doc)
+
+
+async def upsert_gatha_teeka_hindi(db: AsyncIOMotorDatabase, *, natural_key: str, doc: dict) -> ObjectId:
+    return await _upsert(db, "gatha_teeka_hindi", natural_key, doc)
+
+
+async def upsert_gatha_teeka_bhaavarth_hindi(db: AsyncIOMotorDatabase, *, natural_key: str, doc: dict) -> ObjectId:
+    return await _upsert(db, "gatha_teeka_bhaavarth_hindi", natural_key, doc)
+
+
+async def upsert_kalash_sanskrit(db: AsyncIOMotorDatabase, *, natural_key: str, doc: dict) -> ObjectId:
+    return await _upsert(db, "kalash_sanskrit", natural_key, doc)
+
+
+async def upsert_kalash_hindi(db: AsyncIOMotorDatabase, *, natural_key: str, doc: dict) -> ObjectId:
+    return await _upsert(db, "kalash_hindi", natural_key, doc)
+
+
+async def upsert_kalash_bhaavarth_hindi(db: AsyncIOMotorDatabase, *, natural_key: str, doc: dict) -> ObjectId:
+    return await _upsert(db, "kalash_bhaavarth_hindi", natural_key, doc)

@@ -9,8 +9,10 @@ from .authors import Author
 from .books import Book
 from .enums import AuthorKind, IngestionSource
 from .gathas import Gatha
+from .kalashas import Kalash
 from .keywords import Keyword
 from .pravachans import Pravachan
+from .publications import Publication
 from .shastras import Shastra
 from .teekas import Teeka
 from .topics import Topic
@@ -282,6 +284,80 @@ async def upsert_topic(
             },
         )
         .returning(Topic.id)
+    )
+    res = await session.execute(stmt)
+    return res.scalar_one()
+
+
+async def upsert_publication(
+    session: AsyncSession,
+    *,
+    natural_key: str,
+    teeka_id: uuid.UUID,
+    publisher_id: str,
+    publisher: Any = None,
+    public_url: str | None = None,
+    publisher_url: str | None = None,
+) -> uuid.UUID:
+    stmt = (
+        pg_insert(Publication)
+        .values(
+            natural_key=natural_key,
+            teeka_id=teeka_id,
+            publisher_id=publisher_id,
+            publisher=publisher,
+            public_url=public_url,
+            publisher_url=publisher_url,
+        )
+        .on_conflict_do_update(
+            index_elements=[Publication.natural_key],
+            set_={
+                "teeka_id": teeka_id,
+                "publisher_id": publisher_id,
+                "publisher": publisher,
+                "public_url": public_url,
+                "publisher_url": publisher_url,
+                "updated_at": func.now(),
+            },
+        )
+        .returning(Publication.id)
+    )
+    res = await session.execute(stmt)
+    return res.scalar_one()
+
+
+async def upsert_kalash(
+    session: AsyncSession,
+    *,
+    natural_key: str,
+    teeka_id: uuid.UUID,
+    kalash_number: str,
+    sanskrit_doc_id: str | None = None,
+    hindi_doc_id: str | None = None,
+    bhaavarth_doc_ids: list[str] | None = None,
+) -> uuid.UUID:
+    stmt = (
+        pg_insert(Kalash)
+        .values(
+            natural_key=natural_key,
+            teeka_id=teeka_id,
+            kalash_number=kalash_number,
+            sanskrit_doc_id=sanskrit_doc_id,
+            hindi_doc_id=hindi_doc_id,
+            bhaavarth_doc_ids=bhaavarth_doc_ids or [],
+        )
+        .on_conflict_do_update(
+            index_elements=[Kalash.natural_key],
+            set_={
+                "teeka_id": teeka_id,
+                "kalash_number": kalash_number,
+                "sanskrit_doc_id": sanskrit_doc_id,
+                "hindi_doc_id": hindi_doc_id,
+                "bhaavarth_doc_ids": bhaavarth_doc_ids or [],
+                "updated_at": func.now(),
+            },
+        )
+        .returning(Kalash.id)
     )
     res = await session.execute(stmt)
     return res.scalar_one()

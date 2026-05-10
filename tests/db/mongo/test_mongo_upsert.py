@@ -33,7 +33,13 @@ from jain_kb_common.db.mongo.upserts import (
     upsert_gatha_hindi_chhand,
     upsert_gatha_prakrit,
     upsert_gatha_sanskrit,
+    upsert_gatha_teeka_bhaavarth_hindi,
+    upsert_gatha_teeka_hindi,
+    upsert_gatha_teeka_sanskrit,
     upsert_gatha_word_meanings,
+    upsert_kalash_bhaavarth_hindi,
+    upsert_kalash_hindi,
+    upsert_kalash_sanskrit,
     upsert_keyword_definition,
     upsert_teeka_gatha_mapping,
     upsert_topic_extract,
@@ -350,3 +356,118 @@ async def test_created_at_not_overwritten_on_reupsert(db):
     stored2 = await db.gatha_word_meanings.find_one({"natural_key": nk})
     assert stored2["created_at"] == created_at1
     assert stored2["updated_at"] >= updated_at1
+
+
+# ---------------------------------------------------------------------------
+# New collections: gatha_teeka_*
+# ---------------------------------------------------------------------------
+
+@skip_no_mongo
+@pytest.mark.asyncio
+async def test_upsert_gatha_teeka_sanskrit_idempotent(db):
+    nk = "pravachansaar:amritchandra:गाथा:टीका:039:sanskrit"
+    doc = {
+        "gatha_teeka_natural_key": "pravachansaar:amritchandra:गाथा:टीका:039",
+        "teeka_natural_key": "pravachansaar:amritchandra",
+        "gatha_natural_key": "pravachansaar:039",
+        "text": [{"lang": "san", "script": "Deva", "text": "तत्त्वार्थसूत्रम्"}],
+    }
+    id1 = await upsert_gatha_teeka_sanskrit(db, natural_key=nk, doc=doc)
+    id2 = await upsert_gatha_teeka_sanskrit(db, natural_key=nk, doc={**doc, "text": [{"lang": "san", "script": "Deva", "text": "updated"}]})
+    assert id1 == id2
+    count = await db.gatha_teeka_sanskrit.count_documents({"natural_key": nk})
+    assert count == 1
+    stored = await db.gatha_teeka_sanskrit.find_one({"_id": id1})
+    assert stored["text"][0]["text"] == "updated"
+
+
+@skip_no_mongo
+@pytest.mark.asyncio
+async def test_upsert_gatha_teeka_hindi_idempotent(db):
+    nk = "pravachansaar:amritchandra:गाथा:टीका:039:hindi"
+    doc = {
+        "gatha_teeka_natural_key": "pravachansaar:amritchandra:गाथा:टीका:039",
+        "teeka_natural_key": "pravachansaar:amritchandra",
+        "gatha_natural_key": "pravachansaar:039",
+        "text": [{"lang": "hin", "script": "Deva", "text": "हिंदी टीका v1"}],
+    }
+    id1 = await upsert_gatha_teeka_hindi(db, natural_key=nk, doc=doc)
+    id2 = await upsert_gatha_teeka_hindi(db, natural_key=nk, doc={**doc, "text": [{"lang": "hin", "script": "Deva", "text": "हिंदी टीका v2"}]})
+    assert id1 == id2
+    stored = await db.gatha_teeka_hindi.find_one({"_id": id1})
+    assert stored["text"][0]["text"] == "हिंदी टीका v2"
+
+
+@skip_no_mongo
+@pytest.mark.asyncio
+async def test_upsert_gatha_teeka_bhaavarth_hindi_idempotent(db):
+    nk = "pravachansaar:amritchandra:jzb:गाथा:टीका:भावार्थ:039"
+    doc = {
+        "gatha_teeka_natural_key": "pravachansaar:amritchandra:गाथा:टीका:039",
+        "publication_natural_key": "pravachansaar:amritchandra:jzb",
+        "text": [{"lang": "hin", "script": "Deva", "text": "भावार्थ v1"}],
+    }
+    id1 = await upsert_gatha_teeka_bhaavarth_hindi(db, natural_key=nk, doc=doc)
+    id2 = await upsert_gatha_teeka_bhaavarth_hindi(db, natural_key=nk, doc={**doc, "text": [{"lang": "hin", "script": "Deva", "text": "भावार्थ v2"}]})
+    assert id1 == id2
+    count = await db.gatha_teeka_bhaavarth_hindi.count_documents({"natural_key": nk})
+    assert count == 1
+    stored = await db.gatha_teeka_bhaavarth_hindi.find_one({"_id": id1})
+    assert stored["text"][0]["text"] == "भावार्थ v2"
+
+
+# ---------------------------------------------------------------------------
+# New collections: kalash_*
+# ---------------------------------------------------------------------------
+
+@skip_no_mongo
+@pytest.mark.asyncio
+async def test_upsert_kalash_sanskrit_idempotent(db):
+    nk = "pravachansaar:amritchandra:कलश:001:sanskrit"
+    doc = {
+        "kalash_natural_key": "pravachansaar:amritchandra:कलश:001",
+        "teeka_natural_key": "pravachansaar:amritchandra",
+        "kalash_number": "001",
+        "text": [{"lang": "san", "script": "Deva", "text": "कलश संस्कृत v1"}],
+    }
+    id1 = await upsert_kalash_sanskrit(db, natural_key=nk, doc=doc)
+    id2 = await upsert_kalash_sanskrit(db, natural_key=nk, doc={**doc, "text": [{"lang": "san", "script": "Deva", "text": "कलश संस्कृत v2"}]})
+    assert id1 == id2
+    stored = await db.kalash_sanskrit.find_one({"_id": id1})
+    assert stored["text"][0]["text"] == "कलश संस्कृत v2"
+
+
+@skip_no_mongo
+@pytest.mark.asyncio
+async def test_upsert_kalash_hindi_idempotent(db):
+    nk = "pravachansaar:amritchandra:कलश:001:hindi"
+    doc = {
+        "kalash_natural_key": "pravachansaar:amritchandra:कलश:001",
+        "teeka_natural_key": "pravachansaar:amritchandra",
+        "kalash_number": "001",
+        "text": [{"lang": "hin", "script": "Deva", "text": "कलश हिंदी v1"}],
+    }
+    id1 = await upsert_kalash_hindi(db, natural_key=nk, doc=doc)
+    id2 = await upsert_kalash_hindi(db, natural_key=nk, doc={**doc, "text": [{"lang": "hin", "script": "Deva", "text": "कलश हिंदी v2"}]})
+    assert id1 == id2
+    stored = await db.kalash_hindi.find_one({"_id": id1})
+    assert stored["text"][0]["text"] == "कलश हिंदी v2"
+
+
+@skip_no_mongo
+@pytest.mark.asyncio
+async def test_upsert_kalash_bhaavarth_hindi_idempotent(db):
+    nk = "pravachansaar:amritchandra:jzb:कलश:भावार्थ:001"
+    doc = {
+        "kalash_natural_key": "pravachansaar:amritchandra:कलश:001",
+        "publication_natural_key": "pravachansaar:amritchandra:jzb",
+        "kalash_number": "001",
+        "text": [{"lang": "hin", "script": "Deva", "text": "कलश भावार्थ v1"}],
+    }
+    id1 = await upsert_kalash_bhaavarth_hindi(db, natural_key=nk, doc=doc)
+    id2 = await upsert_kalash_bhaavarth_hindi(db, natural_key=nk, doc={**doc, "text": [{"lang": "hin", "script": "Deva", "text": "कलश भावार्थ v2"}]})
+    assert id1 == id2
+    count = await db.kalash_bhaavarth_hindi.count_documents({"natural_key": nk})
+    assert count == 1
+    stored = await db.kalash_bhaavarth_hindi.find_one({"_id": id1})
+    assert stored["text"][0]["text"] == "कलश भावार्थ v2"

@@ -63,3 +63,29 @@ async def ensure_indexes(db: AsyncIOMotorDatabase) -> None:
 
     # ocr_pages (scaffolded — no data yet)
     await db.ocr_pages.create_index([("natural_key", pymongo.ASCENDING)], unique=True)
+
+    # gatha_teeka_sanskrit
+    await db.gatha_teeka_sanskrit.create_index([("natural_key", pymongo.ASCENDING)], unique=True)
+    await db.gatha_teeka_sanskrit.create_index([("gatha_teeka_natural_key", pymongo.ASCENDING)])
+
+    # gatha_teeka_hindi
+    await db.gatha_teeka_hindi.create_index([("natural_key", pymongo.ASCENDING)], unique=True)
+    await db.gatha_teeka_hindi.create_index([("gatha_teeka_natural_key", pymongo.ASCENDING)])
+
+    # gatha_teeka_bhaavarth_hindi
+    await db.gatha_teeka_bhaavarth_hindi.create_index([("natural_key", pymongo.ASCENDING)], unique=True)
+    await db.gatha_teeka_bhaavarth_hindi.create_index([("publication_natural_key", pymongo.ASCENDING)])
+    await db.gatha_teeka_bhaavarth_hindi.create_index([("gatha_teeka_natural_key", pymongo.ASCENDING)])
+
+    # kalash_sanskrit
+    await db.kalash_sanskrit.create_index([("natural_key", pymongo.ASCENDING)], unique=True)
+    await db.kalash_sanskrit.create_index([("kalash_natural_key", pymongo.ASCENDING)])
+
+    # kalash_hindi
+    await db.kalash_hindi.create_index([("natural_key", pymongo.ASCENDING)], unique=True)
+    await db.kalash_hindi.create_index([("kalash_natural_key", pymongo.ASCENDING)])
+
+    # kalash_bhaavarth_hindi
+    await db.kalash_bhaavarth_hindi.create_index([("natural_key", pymongo.ASCENDING)], unique=True)
+    await db.kalash_bhaavarth_hindi.create_index([("publication_natural_key", pymongo.ASCENDING)])
+    await db.kalash_bhaavarth_hindi.create_index([("kalash_natural_key", pymongo.ASCENDING)])
