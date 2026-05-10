@@ -389,6 +389,36 @@
             }
           },
           "additionalProperties": false
+        },
+        "entity_keywords": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "gatha": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "kalash": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "page": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "pankti": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
         }
       }
     },

@@ -166,6 +166,16 @@ class ReferenceSectionKeywordsConfig(BaseModel):
     ])
 
 
+class ReferenceEntityKeywordsConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    gatha: list[str] = Field(default_factory=lambda: [
+        "गाथा", "श्लोक", "सूत्र", "दोहक", "वार्तिक",
+    ])
+    kalash: list[str] = Field(default_factory=lambda: ["कलश"])
+    page: list[str] = Field(default_factory=lambda: ["पृष्ठ"])
+    pankti: list[str] = Field(default_factory=lambda: ["पंक्ति"])
+
+
 class ReferenceConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
     selector: str
@@ -189,6 +199,9 @@ class ReferenceConfig(BaseModel):
     )
     section_keywords: ReferenceSectionKeywordsConfig = Field(
         default_factory=ReferenceSectionKeywordsConfig
+    )
+    entity_keywords: ReferenceEntityKeywordsConfig = Field(
+        default_factory=ReferenceEntityKeywordsConfig
     )
 
 
@@ -398,6 +411,7 @@ class JainkoshConfig(BaseModel):
 
     # Not loaded from YAML — populated by load_config()
     shastra_registry: Optional[Any] = Field(default=None, exclude=True)
+    publisher_registry: Optional[Any] = Field(default=None, exclude=True)
 
     def section_kind_for(self, headline_id: str) -> str:
         for entry in self.sections.kinds:
@@ -423,12 +437,16 @@ def load_config(path: Path | str | None = None, *, validate_schema: bool = True)
     cfg = JainkoshConfig.model_validate(raw)
 
     if cfg.reference.parse_strategy != "text_only" and cfg.reference.shastra_config_path:
-        from .parse_reference import ShastraRegistry
+        from .parse_reference import PublisherRegistry, ShastraRegistry
         shastra_path = Path(cfg.reference.shastra_config_path)
         if not shastra_path.is_absolute():
             shastra_path = Path(__file__).parents[3] / shastra_path
         cfg.shastra_registry = ShastraRegistry.load(
             shastra_path, cfg.reference.devanagari_normalization
         )
+        pub_path = Path(__file__).parents[3] / \
+            "parser_configs/_manual_configs/publishers.json"
+        if pub_path.exists():
+            cfg.publisher_registry = PublisherRegistry.load(pub_path)
 
     return cfg

@@ -744,8 +744,8 @@
       "prev": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%B9%E0%A4%A4%E0%A5%8D%E0%A4%AF%E0%A4%BE",
       "next": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%81%E0%A4%B2"
     },
-    "parser_version": "jainkosh.rules/1.9.0",
-    "parsed_at": "2026-05-10T09:45:43.111491",
+    "parser_version": "jainkosh.rules/1.10.0",
+    "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
   "would_write": {
@@ -1881,6 +1881,51 @@
               "parent_keyword": "मोक्षमार्ग",
               "topic_path": "2.5"
             }
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "CONTAINS_DEFINITION",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "समयसार:आत्मख्याति:गाथा:टीका:8"
+          },
+          "to": {
+            "label": "Keyword",
+            "key": "आत्मा"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "CONTAINS_DEFINITION",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "द्रव्यसंग्रह:टीका:गाथा:टीका:14"
+          },
+          "to": {
+            "label": "Keyword",
+            "key": "आत्मा"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "CONTAINS_DEFINITION",
+          "from": {
+            "label": "Page",
+            "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:46"
+          },
+          "to": {
+            "label": "Keyword",
+            "key": "आत्मा"
           },
           "props": {
             "weight": 1.0,

@@ -1,5 +1,5 @@
-version: "1.9.0"
-parser_rules_version: "jainkosh.rules/1.9.0"
+version: "1.10.0"
+parser_rules_version: "jainkosh.rules/1.10.0"
 
 normalization:
   nfc: true
@@ -109,6 +109,11 @@ reference:
     enabled: true
     split_re: '(?<=\))\s*;\s*(?=\()'
   annotate_inline_position: true
+  entity_keywords:
+    gatha: [गाथा, श्लोक, सूत्र, दोहक, वार्तिक]
+    kalash: [कलश]
+    page: [पृष्ठ]
+    pankti: [पंक्ति]
 
 ref_strip:
   enabled: true

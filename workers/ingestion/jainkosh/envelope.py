@@ -407,6 +407,8 @@ def _build_index_relation_neo4j(
 
 
 def build_neo4j_fragment(result: KeywordParseResult, config: JainkoshConfig) -> dict:
+    from .reference_edges import build_reference_edges
+
     nodes = [
         {
             "label": "Keyword",
@@ -450,14 +452,28 @@ def build_neo4j_fragment(result: KeywordParseResult, config: JainkoshConfig) -> 
                     "props": {"weight": 1.0, "source": "jainkosh"},
                 })
 
+            topic_target = {"label": "Topic", "key": sub.natural_key}
             for b in sub.blocks:
-                if b.kind != "see_also":
-                    continue
-                edge = _see_also_edge(
-                    b, source_topic_key=sub.natural_key, keyword_node=result.keyword, config=config
-                )
-                if edge:
-                    edges.append(edge)
+                if b.kind == "see_also":
+                    edge = _see_also_edge(
+                        b, source_topic_key=sub.natural_key, keyword_node=result.keyword, config=config
+                    )
+                    if edge:
+                        edges.append(edge)
+                else:
+                    edges.extend(build_reference_edges(
+                        b, target=topic_target, edge_type="MENTIONS_TOPIC", config=config,
+                    ))
+
+    for sec in result.page_sections:
+        if sec.section_kind == "puraankosh":
+            continue
+        kw_target = {"label": "Keyword", "key": result.keyword}
+        for d in sec.definitions:
+            for b in d.blocks:
+                edges.extend(build_reference_edges(
+                    b, target=kw_target, edge_type="CONTAINS_DEFINITION", config=config,
+                ))
 
     ir_nodes, ir_edges = _build_index_relation_neo4j(result, config)
     nodes.extend(ir_nodes)

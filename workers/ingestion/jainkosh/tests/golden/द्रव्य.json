@@ -8412,8 +8412,8 @@
       "prev": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A4%BF%E0%A4%A1%E0%A4%BC_%E0%A4%B8%E0%A4%82%E0%A4%98",
       "next": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF_%E0%A4%86%E0%A4%B8%E0%A5%8D%E0%A4%B0%E0%A4%B5"
     },
-    "parser_version": "jainkosh.rules/1.9.0",
-    "parsed_at": "2026-05-10T09:45:39.858792",
+    "parser_version": "jainkosh.rules/1.10.0",
+    "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
   "would_write": {
@@ -19516,6 +19516,21 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "धवला:गाथा:199"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-त्रिकाली-पर्यायों-का-पिंड"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -19539,6 +19554,21 @@
           "to": {
             "label": "Topic",
             "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "नियमसार:गाथा:9"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-के-छह-प्रधान-भेद"
           },
           "props": {
             "weight": 1.0,
@@ -19588,6 +19618,38 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "प्रवचनसार:तात्पर्यवृत्ति:गाथा:टीका:115"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:स्व-व-पर-द्रव्य-के-लक्षण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 10
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "प्रवचनसार:तात्पर्यवृत्ति:publisher_to_be_added:पृष्ठ:161"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:स्व-व-पर-द्रव्य-के-लक्षण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 10
           }
         },
         {
@@ -19717,6 +19779,53 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "कार्तिकेयानुप्रेक्षा:गाथा:204"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:षट्द्रव्यों-को-जानने-का-प्रयोजन"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:गाथा:टीका:15"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:षट्द्रव्यों-को-जानने-का-प्रयोजन"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 19
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:पृष्ठ:33"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:षट्द्रव्यों-को-जानने-का-प्रयोजन"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 19
+          }
+        },
+        {
           "type": "HAS_TOPIC",
           "from": {
             "label": "Keyword",
@@ -19774,6 +19883,38 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:गाथा:टीका:27"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:क्रियावान्-व-भाववान्-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 9
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:पृष्ठ:57"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:क्रियावान्-व-भाववान्-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 9
           }
         },
         {
@@ -20272,6 +20413,54 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:गाथा:टीका:43"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-अभेदपक्ष-में-युक्ति"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 8
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:गाथा:टीका:भावार्थ:43"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-अभेदपक्ष-में-युक्ति"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 8
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:पृष्ठ:85"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-अभेदपक्ष-में-युक्ति"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 8
           }
         },
         {

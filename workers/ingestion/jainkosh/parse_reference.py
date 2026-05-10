@@ -62,6 +62,8 @@ class ShastraEntry:
     # When non-empty, parse_reference_text tries each entry in order, picking the
     # first that resolves without needs_manual_match.  Falls back to [format_groups]
     # for entries built by old test helpers that don't set this field.
+    publisher: str = ""
+    type: str = ""
 
 
 @dataclass
@@ -109,6 +111,8 @@ class ShastraRegistry:
                 format_str=format_strings[0] if format_strings else "",
                 format_groups=all_fmt_groups[0] if all_fmt_groups else [],
                 all_format_groups=all_fmt_groups,
+                publisher=item.get("publisher", ""),
+                type=item.get("type", ""),
             )
             registry.entries.append(entry)
             registry._by_primary[_normalise(entry.shastra_name, norm_config)] = entry
@@ -125,6 +129,13 @@ class ShastraRegistry:
                 registry._by_short_form[_normalise(entry.short_form, norm_config)] = entry
         return registry
 
+    def get_type(self, shastra_name: str) -> Optional[str]:
+        """Return raw 'type' field of registry entry; None if missing."""
+        entry = self._by_primary.get(shastra_name)
+        if entry is None:
+            return None
+        return entry.type if entry.type else None
+
     def lookup(
         self,
         normalised_name: str,
@@ -139,6 +150,30 @@ class ShastraRegistry:
         if entry:
             return entry, "short_form"
         return None, None
+
+
+# ---------------------------------------------------------------------------
+# Publisher registry
+# ---------------------------------------------------------------------------
+
+class PublisherRegistry:
+    def __init__(self) -> None:
+        self._by_name: dict[str, str] = {}  # NFC publisher name -> publisher_id
+
+    @classmethod
+    def load(cls, path: Path) -> "PublisherRegistry":
+        raw = json.loads(path.read_text("utf-8"))
+        reg = cls()
+        for item in raw:
+            name_nfc = unicodedata.normalize("NFC", item["publisher"])
+            reg._by_name[name_nfc] = item["publisher_id"]
+        return reg
+
+    def get_id(self, publisher_name: str) -> str:
+        return self._by_name.get(
+            unicodedata.normalize("NFC", publisher_name),
+            "publisher_to_be_added",
+        )
 
 
 # ---------------------------------------------------------------------------
