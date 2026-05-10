@@ -4,7 +4,7 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Complements
 
 ## Usecases/Objectives
 
-- **Structured (knowledge retented) search engine** for Jain Texts expanded/enhanced on top of `JainKosh` authored by - _Kshullak Jinendra Varni Ji_ and the works done by scholars for creating its digital infrastructure at [jainkosh.org](www.jainkosh.org) by linking keywords with definitions/topics/shastras. Also, uses various shastras' OCRed data feeded systematically and categorically.
+- **Structured (knowledge retented) search engine** for Jain Texts expanded/enhanced on top of `JainKosh` authored by - _Kshullak Jinendra Varni Ji_ and the works done by scholars for creating its digital infrastructure at [jainkosh.org](www.jainkosh.org) by linking keywords with definitions/topics/shastras/references. Also, uses various shastras' OCRed data fed systematically and categorically.
 
 - **Graph traversal** of Jain Knowledge Base in an interactive UI.
 
@@ -15,16 +15,16 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Complements
 
 - **Finding exact** sanskrit/prakrit/hindi gatha from shastras and understanding it word to word.
 
-- Acts as a **cache and pre-querying dictionary** layer (finding keywords) to the existing vector search at Cataloguesearch.
+- Acts as a **cache and pre-querying dictionary** layer (finding exact keywords) to the existing vector search at cataloguesearch.
 
-- **Deep answer generation** of questions on Cataloguesearch-chat
+- **In depth answer generation** of questions on cataloguesearch-chat
 
-- Structured or metadata based questions (like questions related on a specific gatha, specific topic mentions, translations of gatha verses etc.). For ex -
+- Structured or metadata based questions (like questions related on a specific gatha, adhyaya, specific topic mentions, translations of gatha verses etc.) For ex -
   - समयसार की गाथा ६ बताओ
   - समयसार की गाथा ६ की संस्कृत समझाओ
   - षट् द्रव्य के क्रियावान् व भाववान् विभाग का वर्णन कोन कोनसे शास्त्रों में आया है?
 
-[Current vector search only extracts mentions of gatha in jain texts but does not have context of the original gatha itself, this will extract gatha content and specific keywords/topics which are relevant to it and then final answer generation with both vectored and vectorless (structured) results (GraphRAG)]
+[Current vector search only extracts excerpts of gatha mentions in texts but does not have context of the gatha itself, what does it explain at an high level etc. This will extract high-level content and specific topics which are relevant to it, feed it to chat service, and then final answer generation will utilize both vectored RAG and vectorless/graphRAG results.]
 
 - **Train a Jainism based AI model** in future with the help of Cataloguesearch OCRed data and this Knowledge Graph for the most accurate results.
 
