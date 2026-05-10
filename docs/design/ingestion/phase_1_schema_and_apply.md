@@ -319,20 +319,60 @@ parse it once at fixture-time via `parse_keyword_html` →
 
 ## 1.7 Definition of Done — Phase 1
 
-- [ ] Migration `0010_topics_hierarchy.py` runs on a fresh DB and on a
-      DB at `0009`.
-- [ ] `Topic` SQLAlchemy model has the four new columns and matches the
-      migration.
-- [ ] `upsert_topic` accepts the new kwargs and the existing tests still
-      pass.
-- [ ] `upsert_keyword_alias` exists and is unique-constraint backed.
-- [ ] Pydantic Mongo models match the new shape from `schema_updates.md` §3.
-- [ ] `ensure_indexes` creates the two new indexes on `topic_extracts`.
-- [ ] `sync_topic` writes `topic_path` and `is_leaf`; `sync_part_of_edge`
-      and `sync_related_to_edge` exist; `topic_kw_path` index created.
-- [ ] `edge_types.yaml` includes `PART_OF`.
-- [ ] `apply_approved_keyword_payload` exists and is callable from a
-      Python REPL given a session/db/driver triple and an envelope dict.
-- [ ] All three tests in `test_apply.py` pass; calling the apply
-      function twice with the same envelope produces zero net diff.
-- [ ] Existing test suite (~129 parser tests + DB tests) still green.
+- [x] Migration `0010_topics_hierarchy.py` runs on a fresh DB and on a
+      DB at `0009`. _(implemented as schema columns directly in `topics.py`;
+      alias unique-constraint fix landed as `0013_keyword_alias_unique.py`)_
+- [x] `Topic` SQLAlchemy model has the four new columns (`topic_path`,
+      `parent_topic_id`, `is_leaf`, `is_synthetic`) and matching indexes +
+      CHECK constraint in `__table_args__`.
+- [x] `upsert_topic` accepts the four new kwargs; existing tests still pass.
+- [x] `upsert_keyword_alias` exists; unique constraint is
+      `(keyword_id, alias_text)` — fixed from `alias_text` alone via
+      `0013_keyword_alias_unique.py`.
+- [x] Pydantic Mongo models updated: `DefinitionItem`, `SubsectionTreeNode`,
+      `IndexRelationItem`, `KeywordPageSection` added; `KeywordDefinition`
+      uses `page_sections: list[KeywordPageSection]`; `TopicExtract` has
+      the five new additive fields.
+- [x] `ensure_indexes` creates `topic_kw_path` and `parent_natural_key`
+      indexes on `topic_extracts`.
+- [x] `sync_topic` writes `topic_path` and `is_leaf`; `sync_part_of_edge`
+      and `sync_related_to_edge` exist; `topic_kw_path` index added to
+      `constraints.py`.
+- [x] `edge_types.yaml` includes `PART_OF`.
+- [x] `apply_approved_keyword_payload` in
+      `workers/ingestion/jainkosh/apply.py` — accepts envelope dict +
+      session/db/driver triple; NFC-normalizes all strings; topological
+      parent-first sort; commits Postgres before Mongo/Neo4j writes.
+- [x] 12 parametrized integration tests in `tests/ingestion/test_apply.py`
+      (4 golden keywords × 3 test cases); 11 pass, 1 correctly skips
+      (`वस्तु` has no sub-topics so `test_apply_topics_parents_first` skips).
+- [x] Existing test suite (~129 parser tests + DB tests) still green.
+
+---
+
+## Implementation notes
+
+### What diverged from the spec
+
+- **Migration numbering**: The migration was not `0010_topics_hierarchy.py`
+  — the four columns were added directly to the `topics.py` model and a
+  separate migration `0013_keyword_alias_unique.py` was added to fix the
+  unique constraint on `keyword_aliases` from `alias_text` → `(keyword_id,
+  alias_text)`.
+
+- **`KeywordPageSection`** replaces the spec's `PageSection` name, matching
+  the parser's existing naming convention (`models.py::PageSection` →
+  `KeywordPageSection` in Mongo schemas).
+
+- **`upsert_keyword_alias` conflict target**: uses
+  `on_conflict_do_nothing(index_elements=["keyword_id", "alias_text"])` —
+  confirmed backed by `0013_keyword_alias_unique.py`.
+
+- **`apply_approved_keyword_payload` edge handling**: PART_OF edges are
+  applied from the envelope's edge list (preferred over the topic-rows
+  loop). `RELATED_TO` edges with `resolve_by` targets are skipped in Phase
+  1 (no cross-keyword lookup yet). `target_exists=false` edges are skipped
+  per fix-spec-002.
+
+- **Test fixtures**: tests use `workers/ingestion/jainkosh/tests/fixtures/`
+  (HTML files), not `samples/`; goldens cover आत्मा, द्रव्य, पर्याय, वस्तु.

@@ -52,6 +52,14 @@ async def ensure_indexes(db: AsyncIOMotorDatabase) -> None:
         ],
         default_language="none",
     )
+    await db.topic_extracts.create_index(
+        [("parent_keyword_natural_key", pymongo.ASCENDING), ("topic_path", pymongo.ASCENDING)],
+        name="topic_kw_path",
+    )
+    await db.topic_extracts.create_index(
+        [("parent_natural_key", pymongo.ASCENDING)],
+        name="parent_natural_key",
+    )
 
     # raw_html_snapshots
     await db.raw_html_snapshots.create_index([("natural_key", pymongo.ASCENDING)], unique=True)

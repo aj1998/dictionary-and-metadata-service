@@ -72,6 +72,46 @@ class PageSection(BaseModel):
 
 
 # ---------------------------------------------------------------------------
+# Phase 1 richer keyword/topic models
+# ---------------------------------------------------------------------------
+
+class DefinitionItem(BaseModel):
+    definition_index: int
+    blocks: list[dict]  # opaque dict matching parser Block
+
+
+class SubsectionTreeNode(BaseModel):
+    natural_key: str
+    topic_path: Optional[str] = None
+    heading: list[LangText]
+    is_leaf: bool
+    is_synthetic: bool
+    children: list["SubsectionTreeNode"] = []
+
+
+SubsectionTreeNode.model_rebuild()
+
+
+class IndexRelationItem(BaseModel):
+    label_text: Optional[str] = None
+    target_keyword: Optional[str] = None
+    target_topic_path: Optional[str] = None
+    is_self: bool = False
+    target_exists: bool = True
+    source_topic_path: Optional[str] = None
+
+
+class KeywordPageSection(BaseModel):
+    section_index: int
+    section_kind: str
+    h2_text: Optional[str] = None
+    definitions: list[DefinitionItem] = []
+    subsection_tree: list[SubsectionTreeNode] = []
+    index_relations: list[IndexRelationItem] = []
+    extra_blocks: list[dict] = []
+
+
+# ---------------------------------------------------------------------------
 # Collection document schemas
 # ---------------------------------------------------------------------------
 
@@ -137,22 +177,29 @@ class TeekaGathaMapping(BaseModel):
 
 class KeywordDefinition(BaseModel):
     natural_key: str
-    keyword_id: str
+    keyword_id: Optional[str] = None
     source_url: str
-    page_sections: list[PageSection] = []
+    page_sections: list[KeywordPageSection] = []
     redirect_aliases: list[str] = []
     ingestion_run_id: Optional[str] = None
+    parser_version: Optional[str] = None
 
 
 class TopicExtract(BaseModel):
     natural_key: str
-    topic_id: str
+    topic_id: Optional[str] = None
     source: str
     source_url: str
     heading: list[LangText]
     blocks: list[Block] = []
     extracted_keyword_natural_keys: list[str] = []
     ingestion_run_id: Optional[str] = None
+    topic_path: Optional[str] = None
+    parent_natural_key: Optional[str] = None
+    parent_keyword_natural_key: Optional[str] = None
+    is_leaf: bool = True
+    is_synthetic: bool = False
+    parser_version: Optional[str] = None
 
 
 class RawHtmlSnapshot(BaseModel):

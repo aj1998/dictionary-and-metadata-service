@@ -229,7 +229,7 @@ async def test_upsert_pravachan_idempotent(async_session):
 
 @skip_no_db
 async def test_upsert_topic_idempotent(async_session):
-    nk = "jainkosh:आत्मा:बहिरात्मा"
+    nk = "आत्मा:बहिरात्मा"
     id1 = await upsert_topic(
         async_session,
         natural_key=nk,

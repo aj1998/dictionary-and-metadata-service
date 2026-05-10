@@ -261,6 +261,47 @@ See [`docs/manual_testing/jainkosh_parser.md`](docs/manual_testing/jainkosh_pars
 
 ---
 
+### ✅ Completed: Phase 1 — Schema deltas + apply-on-approve layer (`docs/design/ingestion/phase_1_schema_and_apply.md`)
+
+**Package / module**: `workers/ingestion/jainkosh/apply.py`
+
+#### What was added
+
+| Area | Change |
+|---|---|
+| `topics.py` | 4 new columns: `topic_path`, `parent_topic_id`, `is_leaf`, `is_synthetic` + new indexes + CHECK constraint |
+| `keywords.py` | `KeywordAlias` unique constraint fixed to `(keyword_id, alias_text)` |
+| `upserts.py` | `upsert_topic` extended with 4 new kwargs; new `upsert_keyword_alias` helper |
+| `mongo/schemas.py` | New types: `DefinitionItem`, `SubsectionTreeNode`, `IndexRelationItem`, `KeywordPageSection`; `KeywordDefinition` and `TopicExtract` updated |
+| `mongo/indexes.py` | `topic_kw_path` and `parent_natural_key` indexes on `topic_extracts` |
+| `neo4j/upserts.py` | `sync_topic` writes `topic_path` + `is_leaf`; new `sync_part_of_edge` and `sync_related_to_edge` |
+| `migrations/` | `0013_keyword_alias_unique.py` — fixes unique constraint on `keyword_aliases` |
+| `apply.py` | `apply_approved_keyword_payload(envelope, pg_session, mongo_db, neo4j_driver)` — idempotent, topological parent-first ordering, NFC normalization |
+
+#### Tests
+
+12 parametrized integration tests across 4 golden keywords (आत्मा, द्रव्य, पर्याय, वस्तु) × 3 test cases:
+
+1. `test_apply_idempotent_full_envelope` — double-apply produces zero net DB changes
+2. `test_apply_topics_parents_first` — every topic with a parent gets `parent_topic_id` populated
+3. `test_apply_alias_dedup` — aliases don't grow on second apply
+
+11 pass; 1 correctly skips (`वस्तु` has no sub-topics).
+
+```bash
+# Requires all three DB env vars
+export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
+export MONGO_URL="mongodb://localhost:27017"
+export NEO4J_URL="bolt://localhost:7687"
+export NEO4J_USER="neo4j"
+export NEO4J_PASSWORD="jainkb_password"
+python -m pytest tests/ingestion/ -v
+```
+
+See [`docs/manual_testing/jainkosh_ingestion.md`](docs/manual_testing/jainkosh_ingestion.md) for the manual testing guide.
+
+---
+
 ### 🔜 Not yet started
 
 Metadata-service API (`05`), dictionary-service API (`06`), ingestion workers (`08`, `09`), query engine (`12`), query-service API (`07`), enrichment loop (`11`), admin + public UIs (`13`, `14`), deployment (`15`).
@@ -323,13 +364,16 @@ export NEO4J_USER="neo4j"
 export NEO4J_PASSWORD="jainkb_password"
 python -m pytest tests/db/neo4j/ -v
 
-# All tests (all env vars set — 41 tests, 0 skipped)
+# All tests (all env vars set)
 export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
 export MONGO_URL="mongodb://localhost:27017"
 export NEO4J_URL="bolt://localhost:7687"
 export NEO4J_USER="neo4j"
 export NEO4J_PASSWORD="jainkb_password"
 python -m pytest tests/ -v
+
+# Ingestion apply tests only
+python -m pytest tests/ingestion/ -v
 ```
 
 ---
@@ -353,17 +397,23 @@ dictionary-and-metadata-service/
 │           ├── postgres/      # SQLAlchemy models + upserts
 │           ├── mongo/         # Motor client, Pydantic schemas, upserts, indexes
 │           └── neo4j/         # AsyncDriver factory, constraints, upserts, queries, schema_check
-├── migrations/                # Alembic (9 versions, 0001–0009)
+├── migrations/                # Alembic (13 versions, 0001–0013)
 ├── tests/
-│   └── db/
-│       ├── postgres/
-│       │   └── test_idempotent_upsert.py   # Postgres upsert tests
-│       ├── mongo/
-│       │   └── test_mongo_upsert.py    # MongoDB schema + upsert tests
-│       └── neo4j/
-│           └── test_neo4j_graph.py     # Neo4j constraints, upserts, queries, schema_check
+│   ├── db/
+│   │   ├── postgres/
+│   │   │   └── test_idempotent_upsert.py   # Postgres upsert tests
+│   │   ├── mongo/
+│   │   │   └── test_mongo_upsert.py    # MongoDB schema + upsert tests
+│   │   └── neo4j/
+│   │       └── test_neo4j_graph.py     # Neo4j constraints, upserts, queries, schema_check
+│   └── ingestion/
+│       └── test_apply.py               # apply_approved_keyword_payload integration tests
 ├── services/                  # (future) metadata-, dictionary-, query-service
-├── workers/                   # (future) ingestion + enrichment Celery workers
+├── workers/
+│   └── ingestion/
+│       └── jainkosh/
+│           ├── apply.py               # apply_approved_keyword_payload
+│           └── tests/fixtures/        # HTML fixtures for parser + apply tests
 ├── ui/                        # (future) Next.js public + admin apps
 ├── parser_configs/            # YAML/JSON scraper rules
 ├── samples/

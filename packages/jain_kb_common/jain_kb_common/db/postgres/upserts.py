@@ -261,6 +261,10 @@ async def upsert_topic(
     parent_keyword_id: uuid.UUID | None = None,
     extract_doc_ids: list[str] | None = None,
     graph_node_id: str | None = None,
+    topic_path: str | None = None,
+    parent_topic_id: uuid.UUID | None = None,
+    is_leaf: bool = True,
+    is_synthetic: bool = False,
 ) -> uuid.UUID:
     stmt = (
         pg_insert(Topic)
@@ -271,6 +275,10 @@ async def upsert_topic(
             parent_keyword_id=parent_keyword_id,
             extract_doc_ids=extract_doc_ids or [],
             graph_node_id=graph_node_id,
+            topic_path=topic_path,
+            parent_topic_id=parent_topic_id,
+            is_leaf=is_leaf,
+            is_synthetic=is_synthetic,
         )
         .on_conflict_do_update(
             index_elements=[Topic.natural_key],
@@ -280,6 +288,10 @@ async def upsert_topic(
                 "parent_keyword_id": parent_keyword_id,
                 "extract_doc_ids": extract_doc_ids or [],
                 "graph_node_id": graph_node_id,
+                "topic_path": topic_path,
+                "parent_topic_id": parent_topic_id,
+                "is_leaf": is_leaf,
+                "is_synthetic": is_synthetic,
                 "updated_at": func.now(),
             },
         )
@@ -287,6 +299,22 @@ async def upsert_topic(
     )
     res = await session.execute(stmt)
     return res.scalar_one()
+
+
+async def upsert_keyword_alias(
+    session: AsyncSession,
+    *,
+    keyword_id: uuid.UUID,
+    alias: str,
+    source: str,
+) -> None:
+    from .keywords import KeywordAlias
+    stmt = pg_insert(KeywordAlias).values(
+        keyword_id=keyword_id,
+        alias_text=alias,
+        source=source,
+    ).on_conflict_do_nothing(index_elements=["keyword_id", "alias_text"])
+    await session.execute(stmt)
 
 
 async def upsert_publication(

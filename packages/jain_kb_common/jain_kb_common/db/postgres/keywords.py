@@ -1,6 +1,6 @@
 import uuid
 
-from sqlalchemy import ForeignKey, Index, Text, func
+from sqlalchemy import ForeignKey, Index, Text, UniqueConstraint, func
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.types import TIMESTAMP
@@ -28,6 +28,7 @@ class KeywordAlias(Base):
     # keyword_aliases only has created_at, no updated_at per design doc
     __tablename__ = "keyword_aliases"
     __table_args__ = (
+        UniqueConstraint("keyword_id", "alias_text", name="uq_keyword_aliases_kw_alias"),
         Index("idx_keyword_aliases_keyword", "keyword_id"),
         Index("idx_keyword_aliases_alias_trgm", "alias_text", postgresql_using="gin", postgresql_ops={"alias_text": "gin_trgm_ops"}),
     )
@@ -35,7 +36,7 @@ class KeywordAlias(Base):
     id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
     )
-    alias_text: Mapped[str] = mapped_column(Text, nullable=False, unique=True)
+    alias_text: Mapped[str] = mapped_column(Text, nullable=False)
     keyword_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         ForeignKey("keywords.id", ondelete="CASCADE"),

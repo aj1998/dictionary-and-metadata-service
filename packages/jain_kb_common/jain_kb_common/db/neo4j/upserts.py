@@ -59,6 +59,8 @@ async def sync_topic(
     source: str,
     parent_keyword_natural_key: str | None = None,
     mentioned_keyword_natural_keys: list[str] | None = None,
+    topic_path: str | None = None,
+    is_leaf: bool = True,
     database: str = "jainkb",
 ) -> None:
     async with driver.session(database=database) as session:
@@ -69,6 +71,8 @@ async def sync_topic(
                 t.display_text_hi = $display,
                 t.source = $source,
                 t.parent_keyword_natural_key = $parent,
+                t.topic_path = $topic_path,
+                t.is_leaf = $is_leaf,
                 t.updated_at = datetime(),
                 t.created_at = coalesce(t.created_at, datetime())
             """,
@@ -77,6 +81,8 @@ async def sync_topic(
             display=display_text_hi,
             source=source,
             parent=parent_keyword_natural_key,
+            topic_path=topic_path,
+            is_leaf=is_leaf,
         )
 
         if parent_keyword_natural_key:
@@ -276,4 +282,46 @@ async def sync_gatha(
             """,
             gnk=natural_key,
             snk=shastra_natural_key,
+        )
+
+
+async def sync_part_of_edge(
+    driver: AsyncDriver,
+    *,
+    child_nk: str,
+    parent_nk: str,
+    database: str = "jainkb",
+) -> None:
+    async with driver.session(database=database) as session:
+        await session.run(
+            """
+            MATCH (child:Topic {natural_key: $c}), (parent:Topic {natural_key: $p})
+            MERGE (child)-[r:PART_OF]->(parent)
+            SET r.weight = coalesce(r.weight, 1.0), r.source = 'jainkosh'
+            """,
+            c=child_nk,
+            p=parent_nk,
+        )
+
+
+async def sync_related_to_edge(
+    driver: AsyncDriver,
+    *,
+    source_nk: str,
+    target_nk: str,
+    source_label: str = "Topic",
+    target_label: str = "Topic",
+    weight: float = 1.0,
+    database: str = "jainkb",
+) -> None:
+    async with driver.session(database=database) as session:
+        await session.run(
+            f"""
+            MATCH (src:{source_label} {{natural_key: $s}}), (tgt:{target_label} {{natural_key: $t}})
+            MERGE (src)-[r:RELATED_TO]->(tgt)
+            SET r.weight = coalesce(r.weight, $w), r.source = 'jainkosh'
+            """,
+            s=source_nk,
+            t=target_nk,
+            w=weight,
         )

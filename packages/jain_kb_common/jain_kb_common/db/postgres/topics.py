@@ -1,6 +1,6 @@
 import uuid
 
-from sqlalchemy import CheckConstraint, ForeignKey, Index, Integer, Text, func
+from sqlalchemy import Boolean, CheckConstraint, ForeignKey, Index, Integer, Text, func
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.types import TIMESTAMP
@@ -11,7 +11,15 @@ from .enums import IngestionSource, ingestion_source_sa
 
 class Topic(Base, TimestampMixin):
     __tablename__ = "topics"
-    __table_args__ = (Index("idx_topics_parent_keyword", "parent_keyword_id"),)
+    __table_args__ = (
+        Index("idx_topics_parent_keyword", "parent_keyword_id"),
+        Index("idx_topics_parent_topic", "parent_topic_id"),
+        Index("idx_topics_keyword_path", "parent_keyword_id", "topic_path"),
+        CheckConstraint(
+            "natural_key NOT LIKE 'jainkosh:%' AND natural_key NOT LIKE 'nj:%'",
+            name="topics_natural_key_no_source_prefix",
+        ),
+    )
 
     id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
@@ -26,6 +34,14 @@ class Topic(Base, TimestampMixin):
     )
     extract_doc_ids: Mapped[list] = mapped_column(JSONB, nullable=False, default=list)
     graph_node_id: Mapped[str | None] = mapped_column(Text, nullable=True)
+    topic_path: Mapped[str | None] = mapped_column(Text, nullable=True)
+    parent_topic_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("topics.id", ondelete="SET NULL"),
+        nullable=True,
+    )
+    is_leaf: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    is_synthetic: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
 
 
 class TopicMention(Base):

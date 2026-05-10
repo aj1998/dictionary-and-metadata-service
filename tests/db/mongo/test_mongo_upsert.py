@@ -18,11 +18,13 @@ from jain_kb_common.db.mongo.schemas import (
     Block,
     BlockRef,
     Definition,
+    DefinitionItem,
     GathaHindiChhand,
     GathaPrakrit,
     GathaSanskrit,
     GathaWordMeanings,
     KeywordDefinition,
+    KeywordPageSection,
     LangText,
     PageSection,
     TeekaGathaMapping,
@@ -110,32 +112,27 @@ def test_keyword_definition_schema():
 
 
 def test_keyword_definition_with_definitions():
-    """KeywordDefinition uses page_sections[].definitions (no subsections)."""
+    """KeywordDefinition uses KeywordPageSection with DefinitionItem blocks."""
     kd = KeywordDefinition(
         natural_key="आत्मा",
         keyword_id="uuid-001",
         source_url="https://www.jainkosh.org/wiki/आत्मा",
         page_sections=[
-            PageSection(
+            KeywordPageSection(
                 section_index=0,
                 section_kind="siddhantkosh",
-                heading=[LangText(lang="hin", script="Deva", text="सिद्धांतकोष से")],
+                h2_text="सिद्धांतकोष से",
                 definitions=[
-                    Definition(
+                    DefinitionItem(
                         definition_index=1,
                         blocks=[
-                            Block(
-                                kind="sanskrit_text",
-                                text_devanagari="आत्मा द्वादशांगम् आत्मपरिणामत्वात।",
-                                hindi_translation="द्वादशांग का नाम आत्मा है।",
-                                references=[
-                                    BlockRef(
-                                        text="धवला पुस्तक 13/5,5,50/282/9",
-                                        raw_html="<span class=\"GRef\">धवला पुस्तक 13/5,5,50/282/9</span>",
-                                    )
-                                ],
-                            ),
-                            Block(kind="see_also", target_keyword="जीव", target_url="/wiki/जीव"),
+                            {
+                                "kind": "sanskrit_text",
+                                "text_devanagari": "आत्मा द्वादशांगम् आत्मपरिणामत्वात।",
+                                "hindi_translation": "द्वादशांग का नाम आत्मा है।",
+                                "references": [{"text": "धवला पुस्तक 13/5,5,50/282/9"}],
+                            },
+                            {"kind": "see_also", "target_keyword": "जीव", "target_url": "/wiki/जीव"},
                         ],
                     )
                 ],
@@ -150,11 +147,11 @@ def test_keyword_definition_with_definitions():
     defn = sec.definitions[0]
     assert defn.definition_index == 1
     assert len(defn.blocks) == 2
-    assert defn.blocks[0].kind == "sanskrit_text"
-    assert defn.blocks[0].text_devanagari == "आत्मा द्वादशांगम् आत्मपरिणामत्वात।"
-    assert len(defn.blocks[0].references) == 1
-    assert defn.blocks[1].kind == "see_also"
-    assert defn.blocks[1].target_keyword == "जीव"
+    assert defn.blocks[0]["kind"] == "sanskrit_text"
+    assert defn.blocks[0]["text_devanagari"] == "आत्मा द्वादशांगम् आत्मपरिणामत्वात।"
+    assert len(defn.blocks[0]["references"]) == 1
+    assert defn.blocks[1]["kind"] == "see_also"
+    assert defn.blocks[1]["target_keyword"] == "जीव"
 
 
 # ---------------------------------------------------------------------------
