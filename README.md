@@ -8,6 +8,8 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Complements
 
 - **Graph traversal** of Jain Knowledge Base in an interactive UI.
 
+![neo4j-graph](images/graph.png)
+
 - **Finding exact** sanskrit/prakrit/hindi gatha from shastras and understanding it word to word.
 
 - Acts as a **cache and pre-querying dictionary** layer (finding keywords) to the existing vector search at Cataloguesearch.
