@@ -153,3 +153,58 @@ python -m pytest tests/ workers/ingestion/jainkosh/tests/ -v
 ```
 
 All tests (parser + DB + ingestion apply) should be green.
+
+--- 
+
+## 7. Script to test current golden ingestions
+
+ Added a standalone script at `scripts/ingest_goldens_apply.py` that:
+
+  - Loads the four JainKosh goldens from workers/ingestion/jainkosh/tests/fixtures
+  - Builds envelopes the same way as tests/ingestion/test_apply.py
+  - Applies them to Postgres, Mongo, and Neo4j
+  - Supports --dry-run, --keyword, --neo4j-database, and --ingestion-run-id
+
+  I also added coverage in tests/ingestion/test_ingest_goldens_script.py to verify the golden list and the dry-run path.
+
+  Verification:
+
+  - python -m pytest tests/ingestion/test_ingest_goldens_script.py -q passed
+  - python -m pytest tests/ingestion/test_apply.py -q ran cleanly, with the DB-backed tests skipped because the required DB env vars are not set in this session
+
+  Added --clear-first to scripts/ingest_goldens_apply.py.
+
+  What it does:
+
+  - Truncates all Postgres tables from Base.metadata with CASCADE
+  - Drops the Mongo collections:
+      - keyword_definitions
+      - topic_extracts
+      - raw_html_snapshots
+  - Clears the Neo4j database with MATCH (n) DETACH DELETE n
+  - Then applies the selected goldens as before
+
+  I also added a test in tests/ingestion/test_ingest_goldens_script.py to verify --clear-first runs before apply.
+
+  What changed:
+
+  - scripts/ingest_goldens_apply.py now calls Base.metadata.create_all() before:
+      - applying goldens
+      - clearing data with --clear-first
+  - That makes the script usable against a fresh Postgres database that only has an empty schema.
+
+  I also added a test to ensure the script bootstraps the schema before applying.
+
+
+  Usage:
+
+```
+  python scripts/ingest_goldens_apply.py --dry-run
+  python scripts/ingest_goldens_apply.py
+  python scripts/ingest_goldens_apply.py --keyword आत्मा
+  python scripts/ingest_goldens_apply.py --clear-first
+  python scripts/ingest_goldens_apply.py --clear-first --keyword आत्मा
+
+```
+
+  If you want, I can add one more option to clear existing rows/docs first so you can re-run the goldens against a fresh manual-testing database.
