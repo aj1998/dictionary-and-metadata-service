@@ -8,7 +8,10 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Complements
 
 - **Graph traversal** of Jain Knowledge Base in an interactive UI.
 
-![neo4j-graph](images/graph.png)
+<p float="left">
+  <img src="images/graph.png" width="49%" />
+  <img src="images/graph2.png" width="49%" />
+</p>
 
 - **Finding exact** sanskrit/prakrit/hindi gatha from shastras and understanding it word to word.
 
