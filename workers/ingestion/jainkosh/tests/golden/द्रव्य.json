@@ -19856,6 +19856,36 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:गाथा:टीका:भावार्थ:56"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:चेतनाचेतन-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:पृष्ठ:15"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:चेतनाचेतन-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -19871,6 +19901,38 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:गाथा:टीका:भावार्थ:27"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 18
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:पृष्ठ:56"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 18
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -19883,6 +19945,38 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:गाथा:टीका:भावार्थ:27"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:क्रियावान्-व-भाववान्-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 8
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:पृष्ठ:57"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:क्रियावान्-व-भाववान्-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 8
           }
         },
         {
@@ -19948,6 +20042,38 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:गाथा:टीका:भावार्थ:27"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:एक-अनेक-की-अपेक्षा-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 6
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:पृष्ठ:57"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:एक-अनेक-की-अपेक्षा-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 6
           }
         },
         {
@@ -20607,6 +20733,21 @@
           "to": {
             "label": "Topic",
             "key": "द्रव्य:द्रव्य-की-स्वतंत्रता"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:आत्मख्याति:3:गाथा:टीका:भावार्थ:3"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-की-स्वतंत्रता:द्रव्य-अपना-स्वभाव-कभी-नहीं-छोड़ता"
           },
           "props": {
             "weight": 1.0,

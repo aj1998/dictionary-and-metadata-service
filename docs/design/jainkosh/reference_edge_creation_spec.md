@@ -43,8 +43,15 @@ def _pick_reference(refs: list[Reference]) -> Optional[Reference]:
     return refs[0]             # else first inline
 ```
 
-Edges are emitted only for the picked reference. Skip the block if the picked
+The picked reference is the **main reference** and is processed using the full
+block-kind-aware rules (§4.1–§4.3). Skip the block entirely if the main
 reference has `shastra_name is None` (unresolved).
+
+All remaining references (every reference in the list except the one picked as
+main) are **inline references** and are processed after the main reference
+using the simplified rules in §4.5. Each inline reference is processed
+independently; those with `shastra_name is None` or an unknown type are
+silently skipped.
 
 ### 1.2 Block-context classification
 
@@ -246,6 +253,36 @@ A single block can emit multiple edges (gatha + kalash + page). Each edge is
 independent; all use the same target (Topic-or-Keyword) and the same `pankti`
 prop if present.
 
+### 4.5 Inline (non-main) reference edges
+
+After emitting edges for the main reference, every remaining reference in
+`block.references` is processed with **simplified rules that ignore block
+kind**. The target and edge type are the same as for the main reference.
+Per-entity rules:
+
+#### Gatha — inline
+
+| Shastra type | Emits |
+|---|---|
+| `shastra` | `Gatha("<shastra>:गाथा:<g>")` |
+| `teeka` | `GathaTeeka("<shastra>:<teeka>:गाथा:टीका:<g>")` (guard: teeka_name non-empty) |
+| `publication` | `GathaTeekaBhaavarth("<shastra>:<teeka>:<publisher_id>:गाथा:टीका:भावार्थ:<g>")` (guard: teeka_name non-empty) |
+
+#### Kalash — inline
+
+| Shastra type | Emits |
+|---|---|
+| `shastra` | nothing |
+| `teeka` | `Kalash("<shastra>:<teeka>:कलश:<k>")` (guard: teeka_name non-empty) |
+| `publication` | `KalashBhaavarth("<shastra>:<teeka>:<publisher_id>:कलश:भावार्थ:<k>")` (guard: teeka_name non-empty) |
+
+#### Page — inline
+
+Same rule as main (§4.3): `publication` only, any block kind, emits
+`Page("<shastra>:<teeka>:<publisher_id>:पृष्ठ:<p>")`.
+
+Guard rules (§5.4) apply identically to inline refs.
+
 ---
 
 ## 5. Implementation outline
@@ -273,8 +310,10 @@ Internal helpers:
 - `_pankti_props(rf, cfg)` — returns `{"pankti": int}` or `{}`
 - `_resolve_publisher_id(ref, config)` — §1.4
 - `_make_edge(edge_type, src_label, src_key, target, pankti_props)` — assembles dict
-- `_emit_gatha(...)`, `_emit_kalash(...)`, `_emit_page(...)` — implement §4.1–§4.3
-- Top-level dispatcher branches on `registry.get_type(ref.shastra_name)`.
+- `_emit_gatha(...)`, `_emit_kalash(...)`, `_emit_page(...)` — implement §4.1–§4.3 (main ref, block-kind-aware)
+- `_emit_gatha_inline(...)`, `_emit_kalash_inline(...)` — implement §4.5 (no block-kind check)
+- `_emit_inline_ref_edges(ref, block_kind, ...)` — dispatches §4.5 for a single remaining ref
+- Top-level `build_reference_edges` dispatches main ref then loops remaining refs.
 
 ### 5.2 `envelope.py` changes
 
@@ -426,7 +465,8 @@ Update `jainkosh.schema.json` to permit the new `entity_keywords` block.
 - [ ] `build_neo4j_fragment` invokes edge builder for every block in
       `Subsection.blocks` (target=Topic) and `Definition.blocks` (target=Keyword).
 - [ ] No new node objects added to `would_write.neo4j.nodes`.
-- [ ] Reference selection: first non-inline; else first inline.
+- [ ] Reference selection: first non-inline; else first inline (main ref).
+- [ ] Remaining refs processed with inline rules (§4.5): shastra→Gatha; teeka→GathaTeeka only; publication→GathaTeekaBhaavarth/KalashBhaavarth/Page only.
 - [ ] Skip rules respected (no-shastra, no-type, no-teeka where required, no-value).
 - [ ] All node keys use **canonical literals** `गाथा`, `कलश`, `पृष्ठ`, `टीका`, `भावार्थ`.
 - [ ] पंक्ति surfaces as `props.pankti: int` on edges when present.

@@ -1747,6 +1747,21 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "ज्ञानसार:गाथा:29"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "HAS_TOPIC",
           "from": {
             "label": "Keyword",

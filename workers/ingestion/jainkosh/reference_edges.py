@@ -181,6 +181,126 @@ def _emit_page(
     return [_make_edge(edge_type, "Page", key, target, pankti_props)]
 
 
+def _emit_gatha_inline(
+    ref,
+    shastra_type: str,
+    g: int,
+    publisher_id: str,
+    edge_type: str,
+    target: dict,
+    pankti_props: dict,
+    config: "JainkoshConfig",
+) -> list[dict]:
+    """Gatha edges for non-main refs — no block-kind check.
+
+    shastra → Gatha; teeka → GathaTeeka only; publication → GathaTeekaBhaavarth only.
+    """
+    sn = ref.shastra_name
+    tn = ref.teeka_name
+
+    if shastra_type == "shastra":
+        key = f"{sn}:गाथा:{g}"
+        return [_make_edge(edge_type, "Gatha", key, target, pankti_props)]
+
+    if shastra_type == "teeka":
+        if not tn:
+            logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
+            return []
+        key = f"{sn}:{tn}:गाथा:टीका:{g}"
+        return [_make_edge(edge_type, "GathaTeeka", key, target, pankti_props)]
+
+    if shastra_type == "publication":
+        if not tn:
+            logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
+            return []
+        key = f"{sn}:{tn}:{publisher_id}:गाथा:टीका:भावार्थ:{g}"
+        return [_make_edge(edge_type, "GathaTeekaBhaavarth", key, target, pankti_props)]
+
+    return []
+
+
+def _emit_kalash_inline(
+    ref,
+    shastra_type: str,
+    k: int,
+    publisher_id: str,
+    edge_type: str,
+    target: dict,
+    pankti_props: dict,
+) -> list[dict]:
+    """Kalash edges for non-main refs — no block-kind check.
+
+    shastra → nothing; teeka → Kalash; publication → KalashBhaavarth only.
+    """
+    sn = ref.shastra_name
+    tn = ref.teeka_name
+
+    if shastra_type == "shastra":
+        return []
+
+    if shastra_type == "teeka":
+        if not tn:
+            logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
+            return []
+        key = f"{sn}:{tn}:कलश:{k}"
+        return [_make_edge(edge_type, "Kalash", key, target, pankti_props)]
+
+    if shastra_type == "publication":
+        if not tn:
+            logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
+            return []
+        key = f"{sn}:{tn}:{publisher_id}:कलश:भावार्थ:{k}"
+        return [_make_edge(edge_type, "KalashBhaavarth", key, target, pankti_props)]
+
+    return []
+
+
+def _emit_inline_ref_edges(
+    ref,
+    block_kind: str,
+    edge_type: str,
+    target: dict,
+    config: "JainkoshConfig",
+) -> list[dict]:
+    """Emit edges for a single non-main (remaining) reference using simplified rules."""
+    if ref.shastra_name is None:
+        return []
+    if config.shastra_registry is None:
+        return []
+
+    shastra_type = config.shastra_registry.get_type(ref.shastra_name)
+    if shastra_type is None:
+        return []
+
+    ek = config.reference.entity_keywords
+    rf = ref.resolved_fields
+    publisher_id = _resolve_publisher_id(ref, config)
+    pankti_props = _pankti_props(rf, config)
+
+    edges: list[dict] = []
+
+    g = _first_value(rf, ek.gatha)
+    if g is not None:
+        edges.extend(_emit_gatha_inline(
+            ref, shastra_type, g, publisher_id, edge_type, target, pankti_props, config,
+        ))
+
+    k = _first_value(rf, ek.kalash)
+    if k is not None:
+        edges.extend(_emit_kalash_inline(
+            ref, shastra_type, k, publisher_id, edge_type, target, pankti_props,
+        ))
+
+    p = _first_value(rf, ek.page)
+    if p is not None:
+        # Page rules are the same as main: publication only, any block kind
+        edges.extend(_emit_page(
+            ref, shastra_type, block_kind, p, publisher_id, edge_type, target, pankti_props,
+        ))
+
+    return edges
+
+
 def build_reference_edges(
     block,
     *,
@@ -190,7 +310,8 @@ def build_reference_edges(
 ) -> list[dict]:
     """Return edge dicts for this block. May return [] if no eligible ref or
     the ref doesn't carry the required keyword fields."""
-    ref = _pick_reference(block.references)
+    refs = block.references
+    ref = _pick_reference(refs)
     if ref is None or ref.shastra_name is None:
         return []
 
@@ -231,5 +352,13 @@ def build_reference_edges(
             ref, shastra_type, block_kind, p, publisher_id,
             edge_type, target, pankti_props,
         ))
+
+    # Process remaining (non-main) references with simplified inline rules
+    seen_main = False
+    for r in refs:
+        if r is ref and not seen_main:
+            seen_main = True
+            continue
+        edges.extend(_emit_inline_ref_edges(r, block_kind, edge_type, target, config))
 
     return edges

@@ -406,6 +406,7 @@ def test_contains_definition_edge_type():
 # ---------------------------------------------------------------------------
 
 def test_multiple_refs_picks_first_non_inline():
+    """Non-inline ref is main; inline ref is processed as remaining (shastra → Gatha)."""
     cfg = _make_config()
     inline_ref = Reference(text="inline", inline_reference=True, shastra_name="समयसार",
                            resolved_fields=[_rf("गाथा", 99)])
@@ -413,11 +414,14 @@ def test_multiple_refs_picks_first_non_inline():
                                resolved_fields=[_rf("गाथा", 6)])
     b = Block(kind="sanskrit_gatha", references=[inline_ref, non_inline_ref])
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
-    assert len(edges) == 1
-    assert "6" in edges[0]["from"]["key"]
+    assert len(edges) == 2
+    keys = {e["from"]["key"] for e in edges}
+    assert "समयसार:गाथा:6" in keys   # main
+    assert "समयसार:गाथा:99" in keys  # inline (shastra → same Gatha logic)
 
 
 def test_all_inline_refs_picks_first():
+    """First inline is main; second inline is processed as remaining (shastra → Gatha)."""
     cfg = _make_config()
     r1 = Reference(text="a", inline_reference=True, shastra_name="समयसार",
                    resolved_fields=[_rf("गाथा", 1)])
@@ -425,5 +429,176 @@ def test_all_inline_refs_picks_first():
                    resolved_fields=[_rf("गाथा", 2)])
     b = Block(kind="sanskrit_gatha", references=[r1, r2])
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert len(edges) == 2
+    keys = {e["from"]["key"] for e in edges}
+    assert "समयसार:गाथा:1" in keys  # main
+    assert "समयसार:गाथा:2" in keys  # remaining inline
+
+
+# ---------------------------------------------------------------------------
+# Inline (non-main) reference edges
+# ---------------------------------------------------------------------------
+
+
+def _make_inline_ref(shastra_name, resolved_fields, teeka_name=""):
+    return Reference(
+        text="inline_test",
+        inline_reference=True,
+        shastra_name=shastra_name,
+        teeka_name=teeka_name,
+        resolved_fields=resolved_fields,
+    )
+
+
+def _main_no_fields(shastra_name="समयसार"):
+    """Non-inline main ref with no resolved fields → emits no edges."""
+    return Reference(text="main", inline_reference=False, shastra_name=shastra_name, resolved_fields=[])
+
+
+def test_inline_shastra_gatha_emits_gatha():
+    """Inline shastra ref emits Gatha — same as main, no block-kind difference."""
+    cfg = _make_config()
+    inline = _make_inline_ref("समयसार", [_rf("गाथा", 7)])
+    b = Block(kind="hindi_text", references=[_main_no_fields(), inline])
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     assert len(edges) == 1
-    assert "गाथा:1" in edges[0]["from"]["key"]
+    assert edges[0]["from"] == {"label": "Gatha", "key": "समयसार:गाथा:7"}
+
+
+def test_inline_teeka_gatha_kind_emits_gathateeka():
+    """Inline teeka ref in gatha-kind block emits GathaTeeka (not Gatha — no block-kind check)."""
+    cfg = _make_config()
+    inline = _make_inline_ref("नियमसार", [_rf("गाथा", 6)], teeka_name="आत्मख्याती")
+    b = Block(kind="hindi_gatha", references=[_main_no_fields(), inline])
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert len(edges) == 1
+    assert edges[0]["from"] == {"label": "GathaTeeka", "key": "नियमसार:आत्मख्याती:गाथा:टीका:6"}
+
+
+def test_inline_teeka_text_kind_emits_gathateeka():
+    """Inline teeka ref in text-kind block emits GathaTeeka."""
+    cfg = _make_config()
+    inline = _make_inline_ref("नियमसार", [_rf("गाथा", 6)], teeka_name="आत्मख्याती")
+    b = Block(kind="sanskrit_text", references=[_main_no_fields(), inline])
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert len(edges) == 1
+    assert edges[0]["from"]["label"] == "GathaTeeka"
+
+
+def test_inline_teeka_kalash_no_block_kind_check():
+    """Inline teeka ref with kalash emits Kalash regardless of block kind."""
+    cfg = _make_config()
+    inline = _make_inline_ref("नियमसार", [_rf("कलश", 3)], teeka_name="आत्मख्याती")
+    # Use hindi_text — for main teeka this would not emit Kalash, but inline should
+    b = Block(kind="hindi_text", references=[_main_no_fields(), inline])
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert len(edges) == 1
+    assert edges[0]["from"] == {"label": "Kalash", "key": "नियमसार:आत्मख्याती:कलश:3"}
+
+
+def test_inline_publication_gatha_emits_only_gathateekabhaavarth():
+    """Inline publication ref emits only GathaTeekaBhaavarth (no Gatha, no GathaTeeka)."""
+    cfg = _make_config()
+    inline = _make_inline_ref("धवला", [_rf("गाथा", 6)], teeka_name="जयधवला")
+    b = Block(kind="hindi_gatha", references=[_main_no_fields(), inline])
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert len(edges) == 1
+    e = edges[0]
+    assert e["from"]["label"] == "GathaTeekaBhaavarth"
+    assert e["from"]["key"] == "धवला:जयधवला:1:गाथा:टीका:भावार्थ:6"
+
+
+def test_inline_publication_kalash_emits_only_kalashbhaavarth():
+    """Inline publication ref with kalash emits only KalashBhaavarth (no Kalash)."""
+    cfg = _make_config()
+    inline = _make_inline_ref("धवला", [_rf("कलश", 3)], teeka_name="जयधवला")
+    b = Block(kind="hindi_gatha", references=[_main_no_fields(), inline])
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert len(edges) == 1
+    assert edges[0]["from"] == {"label": "KalashBhaavarth", "key": "धवला:जयधवला:1:कलश:भावार्थ:3"}
+
+
+def test_inline_publication_page_emits_page():
+    """Inline publication ref with page emits Page edge."""
+    cfg = _make_config()
+    inline = _make_inline_ref("धवला", [_rf("पृष्ठ", 50)], teeka_name="जयधवला")
+    b = Block(kind="hindi_text", references=[_main_no_fields(), inline])
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert len(edges) == 1
+    assert edges[0]["from"] == {"label": "Page", "key": "धवला:जयधवला:1:पृष्ठ:50"}
+
+
+def test_inline_teeka_missing_teeka_name_skipped(caplog):
+    """Inline teeka ref with missing teeka_name emits no edges and logs warning."""
+    import logging
+    cfg = _make_config()
+    inline = _make_inline_ref("नियमसार", [_rf("गाथा", 6)], teeka_name="")
+    b = Block(kind="hindi_gatha", references=[_main_no_fields(), inline])
+    with caplog.at_level(logging.WARNING):
+        edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert edges == []
+    assert "missing_teeka_for_edge" in caplog.text
+
+
+def test_inline_shastra_no_kalash_edge():
+    """Inline shastra ref with kalash emits nothing (same rule as main shastra)."""
+    cfg = _make_config()
+    inline = _make_inline_ref("समयसार", [_rf("कलश", 3)])
+    b = Block(kind="hindi_gatha", references=[_main_no_fields(), inline])
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert edges == []
+
+
+def test_inline_shastra_no_page_edge():
+    """Inline shastra ref with page emits nothing (publication only)."""
+    cfg = _make_config()
+    inline = _make_inline_ref("समयसार", [_rf("पृष्ठ", 10)])
+    b = Block(kind="hindi_text", references=[_main_no_fields(), inline])
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert edges == []
+
+
+def test_inline_unknown_shastra_skipped():
+    """Inline ref with unknown shastra_name emits nothing."""
+    cfg = _make_config()
+    inline = _make_inline_ref("अज्ञात", [_rf("गाथा", 5)])
+    b = Block(kind="hindi_gatha", references=[_main_no_fields(), inline])
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert edges == []
+
+
+def test_inline_no_shastra_name_skipped():
+    """Inline ref with shastra_name=None emits nothing."""
+    cfg = _make_config()
+    inline = Reference(text="inline", inline_reference=True, shastra_name=None,
+                       resolved_fields=[_rf("गाथा", 5)])
+    b = Block(kind="hindi_gatha", references=[_main_no_fields(), inline])
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert edges == []
+
+
+def test_multiple_inline_refs_all_processed():
+    """All remaining refs (inline or not) after main are processed."""
+    cfg = _make_config()
+    main = Reference(text="main", inline_reference=False, shastra_name="समयसार",
+                     resolved_fields=[_rf("गाथा", 1)])
+    inline1 = _make_inline_ref("नियमसार", [_rf("गाथा", 10)], teeka_name="त.प्र.")
+    inline2 = _make_inline_ref("धवला", [_rf("गाथा", 20)], teeka_name="जयधवला")
+    b = Block(kind="hindi_text", references=[main, inline1, inline2])
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    # main (shastra/hindi_text) → Gatha(1)
+    # inline1 (teeka/inline) → GathaTeeka(10)
+    # inline2 (publication/inline) → GathaTeekaBhaavarth(20)
+    assert len(edges) == 3
+    labels = {e["from"]["label"] for e in edges}
+    assert labels == {"Gatha", "GathaTeeka", "GathaTeekaBhaavarth"}
+
+
+def test_inline_publication_pankti_in_props():
+    """Inline publication ref with pankti surfaces pankti in edge props."""
+    cfg = _make_config()
+    inline = _make_inline_ref("धवला", [_rf("गाथा", 6), _rf("पंक्ति", 3)], teeka_name="जयधवला")
+    b = Block(kind="hindi_gatha", references=[_main_no_fields(), inline])
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert len(edges) == 1
+    assert edges[0]["props"]["pankti"] == 3
