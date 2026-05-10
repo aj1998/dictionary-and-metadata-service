@@ -227,14 +227,13 @@ def test_teeka_hindi_text_uses_gathateeka():
     assert edges[0]["from"]["label"] == "GathaTeeka"
 
 
-def test_teeka_missing_teeka_name_returns_empty(caplog):
-    import logging
+def test_teeka_missing_teeka_name_falls_back_to_default(caplog):
     cfg = _make_config()
     b = _block("sanskrit_text", "नियमसार", [_rf("गाथा", 6)], teeka_name="")
-    with caplog.at_level(logging.WARNING):
-        edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
-    assert edges == []
-    assert "missing_teeka_for_edge" in caplog.text
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert len(edges) == 1
+    assert edges[0]["from"]["label"] == "GathaTeeka"
+    assert edges[0]["from"]["key"] == "नियमसार:टीका:गाथा:टीका:6"
 
 
 # ---------------------------------------------------------------------------
@@ -528,16 +527,15 @@ def test_inline_publication_page_emits_page():
     assert edges[0]["from"] == {"label": "Page", "key": "धवला:जयधवला:1:पृष्ठ:50"}
 
 
-def test_inline_teeka_missing_teeka_name_skipped(caplog):
-    """Inline teeka ref with missing teeka_name emits no edges and logs warning."""
-    import logging
+def test_inline_teeka_missing_teeka_name_falls_back_to_default():
+    """Inline teeka ref with missing teeka_name falls back to 'टीका' and emits edge."""
     cfg = _make_config()
     inline = _make_inline_ref("नियमसार", [_rf("गाथा", 6)], teeka_name="")
     b = Block(kind="hindi_gatha", references=[_main_no_fields(), inline])
-    with caplog.at_level(logging.WARNING):
-        edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
-    assert edges == []
-    assert "missing_teeka_for_edge" in caplog.text
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert len(edges) == 1
+    assert edges[0]["from"]["label"] == "GathaTeeka"
+    assert edges[0]["from"]["key"] == "नियमसार:टीका:गाथा:टीका:6"
 
 
 def test_inline_shastra_no_kalash_edge():

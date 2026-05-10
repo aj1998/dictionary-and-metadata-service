@@ -89,10 +89,7 @@ def _emit_gatha(
             key = f"{sn}:गाथा:{g}"
             return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
         if block_kind in {"sanskrit_text", "prakrit_text", "hindi_text"}:
-            if not tn:
-                logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
-                return []
-            key = f"{sn}:{tn}:गाथा:टीका:{g}"
+            key = f"{sn}:{tn or 'टीका'}:गाथा:टीका:{g}"
             return [_make_edge(edge_type, "GathaTeeka", key, target, pankti_props, extra_props)]
         return []
 
@@ -133,31 +130,22 @@ def _emit_kalash(
     extra_props: Optional[dict] = None,
 ) -> list[dict]:
     sn = ref.shastra_name
-    tn = ref.teeka_name
+    tn = ref.teeka_name or "टीका"
 
     if shastra_type == "shastra":
         return []
 
     if shastra_type == "teeka":
         if block_kind in {"sanskrit_gatha", "prakrit_gatha", "hindi_gatha"}:
-            if not tn:
-                logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
-                return []
             key = f"{sn}:{tn}:कलश:{k}"
             return [_make_edge(edge_type, "Kalash", key, target, pankti_props, extra_props)]
         return []
 
     if shastra_type == "publication":
         if block_kind in {"sanskrit_gatha", "prakrit_gatha", "hindi_gatha"}:
-            if not tn:
-                logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
-                return []
             key = f"{sn}:{tn}:कलश:{k}"
             return [_make_edge(edge_type, "Kalash", key, target, pankti_props, extra_props)]
         if block_kind == "hindi_text":
-            if not tn:
-                logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
-                return []
             key = f"{sn}:{tn}:{publisher_id}:कलश:भावार्थ:{k}"
             return [_make_edge(edge_type, "KalashBhaavarth", key, target, pankti_props, extra_props)]
         return []
@@ -179,10 +167,7 @@ def _emit_page(
     if shastra_type != "publication":
         return []
     sn = ref.shastra_name
-    tn = ref.teeka_name
-    if not tn:
-        logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
-        return []
+    tn = ref.teeka_name or "टीका"
     key = f"{sn}:{tn}:{publisher_id}:पृष्ठ:{p}"
     return [_make_edge(edge_type, "Page", key, target, pankti_props, extra_props)]
 
@@ -210,10 +195,7 @@ def _emit_gatha_inline(
         return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
 
     if shastra_type == "teeka":
-        if not tn:
-            logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
-            return []
-        key = f"{sn}:{tn}:गाथा:टीका:{g}"
+        key = f"{sn}:{tn or 'टीका'}:गाथा:टीका:{g}"
         return [_make_edge(edge_type, "GathaTeeka", key, target, pankti_props, extra_props)]
 
     if shastra_type == "publication":
@@ -241,22 +223,16 @@ def _emit_kalash_inline(
     shastra → nothing; teeka → Kalash; publication → KalashBhaavarth only.
     """
     sn = ref.shastra_name
-    tn = ref.teeka_name
+    tn = ref.teeka_name or "टीका"
 
     if shastra_type == "shastra":
         return []
 
     if shastra_type == "teeka":
-        if not tn:
-            logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
-            return []
         key = f"{sn}:{tn}:कलश:{k}"
         return [_make_edge(edge_type, "Kalash", key, target, pankti_props, extra_props)]
 
     if shastra_type == "publication":
-        if not tn:
-            logger.warning("missing_teeka_for_edge: teeka_name empty for %s", sn)
-            return []
         key = f"{sn}:{tn}:{publisher_id}:कलश:भावार्थ:{k}"
         return [_make_edge(edge_type, "KalashBhaavarth", key, target, pankti_props, extra_props)]
 
