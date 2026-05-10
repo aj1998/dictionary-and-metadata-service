@@ -192,11 +192,33 @@ All edges have shape:
     "type": <edge_type>,           # MENTIONS_TOPIC | CONTAINS_DEFINITION
     "from": {"label": <src_label>, "key": <src_key>},
     "to":   <topic_or_keyword_node>,
-    "props": {"weight": 1.0, "source": "jainkosh", **optional_pankti},
+    "props": {
+        "weight": 1.0,
+        "source": "jainkosh",
+        "block_index": <int>,           # 0-based index of block in parent list
+        "mention_path": <str>,          # see below
+        "source_natural_key": <str>,    # natural_key of the Mongo doc being referenced
+        # CONTAINS_DEFINITION only:
+        "section_index": <int>,         # index of PageSection
+        "definition_index": <int>,      # Definition.definition_index within that section
+        **optional_pankti,
+    },
 }
 ```
 
 `optional_pankti = {"pankti": <int>}` when `पंक्ति` resolved (§2.1), else absent.
+
+**`block_index`**: 0-based index of the block (within `Subsection.blocks[]` or `Definition.blocks[]`) that produced the edge. Passed from the `enumerate()` loop in `envelope.py`.
+
+**`mention_path`**: compact string locating the block in its Mongo document.
+- For `CONTAINS_DEFINITION`: `"<section_index>/<definition_index>/<block_index>"` — matches the path in `keyword_definitions.page_sections[*].definitions[*].blocks[*]`.
+- For `MENTIONS_TOPIC`: `"<topic_natural_key>/<block_index>"`.
+
+**`source_natural_key`**: the `natural_key` of the Mongo document containing the block.
+- For `MENTIONS_TOPIC` (subsection context): equals the subsection's `topic_natural_key` (the `topic_extracts` doc).
+- For `CONTAINS_DEFINITION` (definition context): equals `result.keyword` (the `keyword_definitions` doc).
+
+**`section_index` / `definition_index`** (`CONTAINS_DEFINITION` only): together with `block_index`, these three form a triplet that uniquely locates any block in `keyword_definitions`. `section_index` is the loop index over `result.page_sections`; `definition_index` is `Definition.definition_index`.
 
 The `from` / `to` ordering is fixed: source = the `Gatha`/`Kalash`/etc. node;
 target = the Topic (subsection context) or Keyword (definition context).
@@ -295,9 +317,14 @@ Pure functions, no I/O. Public entry:
 def build_reference_edges(
     block: Block,
     *,
+    block_index: int,       # 0-based index of block in its parent list
     target: dict,           # {"label": "Topic"|"Keyword", "key": ...}
     edge_type: str,         # "MENTIONS_TOPIC" | "CONTAINS_DEFINITION"
     config: JainkoshConfig,
+    # CONTAINS_DEFINITION only:
+    section_index: int = 0,
+    definition_index: int = 0,
+    source_natural_key: str = "",
 ) -> list[dict]:
     """Return edge dicts for this block. May return [] if no eligible ref or
     the ref doesn't carry the required keyword fields."""
@@ -309,7 +336,7 @@ Internal helpers:
 - `_first_value(rf, names)` — §2.1
 - `_pankti_props(rf, cfg)` — returns `{"pankti": int}` or `{}`
 - `_resolve_publisher_id(ref, config)` — §1.4
-- `_make_edge(edge_type, src_label, src_key, target, pankti_props)` — assembles dict
+- `_make_edge(edge_type, src_label, src_key, target, pankti_props, *, block_index, mention_path, source_natural_key, section_index=None, definition_index=None)` — assembles dict
 - `_emit_gatha(...)`, `_emit_kalash(...)`, `_emit_page(...)` — implement §4.1–§4.3 (main ref, block-kind-aware)
 - `_emit_gatha_inline(...)`, `_emit_kalash_inline(...)` — implement §4.5 (no block-kind check)
 - `_emit_inline_ref_edges(ref, block_kind, ...)` — dispatches §4.5 for a single remaining ref
@@ -323,29 +350,56 @@ In `build_neo4j_fragment`, after the existing subsection loop body:
 for sub in walk_subsection_tree(sec.subsections):
     # ... existing node + HAS_TOPIC/PART_OF + see_also ...
     target = {"label": "Topic", "key": sub.natural_key}
-    for b in sub.blocks:
+    for i, b in enumerate(sub.blocks):
         edges.extend(build_reference_edges(
-            b, target=target, edge_type="MENTIONS_TOPIC", config=config,
+            b,
+            block_index=i,
+            target=target,
+            edge_type="MENTIONS_TOPIC",
+            config=config,
+            source_natural_key=sub.natural_key,
         ))
 ```
 
 And new loop for definitions:
 
 ```python
-for sec in result.page_sections:
+for sec_idx, sec in enumerate(result.page_sections):
     if sec.section_kind == "puraankosh":
         continue                         # parser already strips refs, but be safe
     target = {"label": "Keyword", "key": result.keyword}
     for d in sec.definitions:
-        for b in d.blocks:
+        for i, b in enumerate(d.blocks):
             edges.extend(build_reference_edges(
-                b, target=target, edge_type="CONTAINS_DEFINITION", config=config,
+                b,
+                block_index=i,
+                target=target,
+                edge_type="CONTAINS_DEFINITION",
+                config=config,
+                section_index=sec_idx,
+                definition_index=d.definition_index,
+                source_natural_key=result.keyword,
             ))
 ```
 
-`_dedupe(edges)` (existing) handles duplicates — desired since the same gatha
-may be cited from multiple definitions/subsections (each yields a distinct
-edge by target, so no false dedupe).
+`_dedupe(edges)` keys on `(type, from, to, mention_path)` so that distinct citation contexts (same gatha cited in two different definitions) are preserved as distinct edges:
+
+```python
+def _dedupe(edges: list[dict]) -> list[dict]:
+    seen = set()
+    out = []
+    for e in edges:
+        key = (
+            e["type"],
+            e["from"]["label"], e["from"]["key"],
+            e["to"]["label"], e["to"]["key"],
+            e["props"].get("mention_path", ""),
+        )
+        if key not in seen:
+            seen.add(key)
+            out.append(e)
+    return out
+```
 
 ### 5.3 `config.py` changes
 
@@ -471,7 +525,8 @@ Update `jainkosh.schema.json` to permit the new `entity_keywords` block.
 - [ ] All node keys use **canonical literals** `गाथा`, `कलश`, `पृष्ठ`, `टीका`, `भावार्थ`.
 - [ ] पंक्ति surfaces as `props.pankti: int` on edges when present.
 - [ ] Range/list values are not re-expanded here (parser §14A.4 already handled).
-- [ ] `_dedupe(edges)` continues to apply.
+- [ ] Edge props include `block_index`, `mention_path`, `source_natural_key`; `CONTAINS_DEFINITION` also includes `section_index` and `definition_index`.
+- [ ] `_dedupe(edges)` keys on `(type, from, to, mention_path)` to preserve distinct citation contexts.
 - [ ] All new unit + integration tests pass.
 - [ ] Goldens regenerated and human-reviewed.
 - [ ] `parser_rules_version` bumped (`jainkosh.rules/1.10.0`).

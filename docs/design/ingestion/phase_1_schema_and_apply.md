@@ -274,6 +274,26 @@ Constraints / invariants:
 
 ---
 
+## 1.5b Teeka Content Ingestion stage
+
+This is a distinct pipeline stage that populates teeka content from nikkyjain HTML (local clone) or cataloguesearch OCR. It must run **after** Teeka and Publication rows exist in Postgres.
+
+```
+Stage: Teeka Content Ingestion
+Source: nikkyjain HTML (local clone) or cataloguesearch OCR
+Output:
+  - Postgres: kalashas rows
+  - Mongo: gatha_teeka_sanskrit, gatha_teeka_hindi, gatha_teeka_bhaavarth_hindi
+  - Mongo: kalash_sanskrit, kalash_hindi, kalash_bhaavarth_hindi
+  - Neo4j: sync_kalash, ensure_lazy_node for GathaTeeka and bhaavarth nodes
+  - Neo4j: IN_TEEKA and IN_PUBLICATION edges
+Trigger: after Teeka and Publication rows exist in Postgres
+```
+
+The `IngestionSource` value for nikkyjain is `'nj'` (already defined). If teeka-content ingestion becomes a separate pipeline (e.g., from OCR), add `'teeka_content'` as an additional value.
+
+---
+
 ## 1.6 Tests
 
 `tests/ingestion/test_apply.py` (new):

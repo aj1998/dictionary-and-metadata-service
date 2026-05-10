@@ -104,13 +104,25 @@ async def resolve_tokens(pg, tokens: list[str]) -> list[Resolution]:
 
 One Cypher round trip with all seed keywords as input. Default depth = 2. Edge types restricted by request param.
 
+Structural edges (`IN_SHASTRA`, `IN_TEEKA`, `IN_PUBLICATION`) form the backbone tree and are excluded from traversal — they reflect document hierarchy, not semantic proximity.
+
+The traversal also follows `CONTAINS_DEFINITION` edges (in reverse) so that a keyword seed can reach `Topic` nodes via gatha cross-references in 2 hops:
+
+```
+Keyword_A ← [CONTAINS_DEFINITION] ← Gatha → [MENTIONS_TOPIC] → Topic_B
+```
+
 ```python
 # pipeline/traverse.py
+STRUCTURAL_EDGE_TYPES = {"IN_SHASTRA", "IN_TEEKA", "IN_PUBLICATION"}
+
 TRAVERSE_QUERY = """
 UNWIND $seed_kws AS seed
 MATCH (k:Keyword {natural_key: seed})
-MATCH (k)-[r*1..%d]-(t:Topic)
-WITH t, collect(DISTINCT k.natural_key) AS reached_seeds, r AS path_rels
+MATCH p = (k)-[r*1..%d]-(t:Topic)
+WHERE NOT any(rel IN relationships(p) WHERE type(rel) IN ['IN_SHASTRA','IN_TEEKA','IN_PUBLICATION'])
+WITH t, collect(DISTINCT k.natural_key) AS reached_seeds,
+     relationships(p) AS path_rels
 WITH t, reached_seeds,
      [rel IN path_rels | type(rel)] AS rel_types,
      reduce(w = 0.0, rel IN path_rels | w + coalesce(rel.weight, 1.0)) AS path_weight
@@ -127,7 +139,6 @@ async def traverse(neo4j, seed_kws: list[str], max_hops: int,
                    edge_types: list[str] | None) -> list[TopicHit]:
     cypher = TRAVERSE_QUERY % max_hops
     if edge_types:
-        # restrict relationship pattern; substitute pipe-joined types
         cypher = cypher.replace("[r*1..", f"[r:{ '|'.join(edge_types) }*1..")
     async with neo4j.session(database="jainkb") as s:
         result = await s.run(cypher, seed_kws=seed_kws)
@@ -137,6 +148,8 @@ async def traverse(neo4j, seed_kws: list[str], max_hops: int,
 `TopicHit` is one row per (topic, path) — multiple paths to the same topic remain as separate rows. The ranker collapses them.
 
 ## Stage 5 — Weighted-overlap ranking
+
+Container topics (`is_leaf = false`) are heading nodes that add traversal noise. They are kept in traversal results but penalized in scoring: `score × 0.5` for `is_leaf = false`. Leaf topics (`is_leaf = true`) receive full score.
 
 ```python
 # pipeline/ranking.py
@@ -172,7 +185,9 @@ def rank(hits: list[TopicHit], seed_kws: list[str]) -> list[RankedTopic]:
 
         overlap = len(seeds_reached)
         # v1 score: dominate by overlap, tiebreak by weight_sum, penalize long paths.
-        score = overlap * 10.0 + min(weight_sum, 5.0)
+        is_leaf = paths[0].is_leaf if hasattr(paths[0], "is_leaf") else True
+        leaf_factor = 1.0 if is_leaf else 0.5
+        score = (overlap * 10.0 + min(weight_sum, 5.0)) * leaf_factor
 
         ranked.append(RankedTopic(
             topic_nk=topic_nk,
@@ -199,6 +214,38 @@ Batch fetch:
 - Postgres `topic_mentions` for the top_k → single `IN` query.
 
 Embed only Hindi blocks in extracts when `include_extracts=true`. Truncate each block to ~1500 chars to bound payload size.
+
+### `block_index`-aware hydration
+
+`MENTIONS_TOPIC` and `CONTAINS_DEFINITION` edges carry a `block_index: int` property — the 0-based index of the block within the referenced `Subsection.blocks[]` or `Definition.blocks[]` that produced the edge. Hydration uses this to slice a single block rather than returning the full block list:
+
+```python
+# services/query_service/pipeline/hydrate.py
+
+async def hydrate_mention(db, topic_nk: str, block_index: int | None) -> dict:
+    doc = await db.topic_extracts.find_one({"natural_key": topic_nk})
+    if doc is None or block_index is None:
+        return doc or {}
+    blocks = doc.get("blocks", [])
+    if 0 <= block_index < len(blocks):
+        return {**doc, "blocks": [blocks[block_index]]}   # single-block slice
+    return doc
+```
+
+This reduces payload size from ~5–20 blocks per hit to 1 block.
+
+### `source_natural_key` for multi-source hydration
+
+Edges also carry `source_natural_key: str` — the `natural_key` of the Mongo document containing the referenced block:
+
+- `MENTIONS_TOPIC` (subsection context): `source_natural_key = topic_natural_key` (the `topic_extracts` doc).
+- `CONTAINS_DEFINITION` (definition context): `source_natural_key = keyword_natural_key` (the `keyword_definitions` doc).
+
+Stage 6 uses `source_natural_key` to select the correct collection and document without ambiguity as new ingestion sources (nikkyjain, vyakaran OCR) are added.
+
+### `mention_path` for precise Mongo lookup
+
+For `CONTAINS_DEFINITION` edges, the edge also carries `mention_path` of the form `"<section_index>/<definition_index>/<block_index>"`, enabling a single `$elemMatch` query to fetch only the relevant block from `keyword_definitions`. For `MENTIONS_TOPIC` edges: `"<topic_natural_key>/<block_index>"`.
 
 ## v2 extension points
 
