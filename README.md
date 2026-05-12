@@ -90,10 +90,13 @@ All models use SQLAlchemy 2 `Mapped`/`mapped_column` style with `JSONB` and `UUI
 | `0007_ingestion_ops.py` | `parser_configs`, `ingestion_runs`, `ingestion_review_queue` |
 | `0008_chat_enrichment.py` | `topic_candidates`, `chat_puller_state` |
 | `0009_query_logs.py` | `query_logs` |
+| `0010_topics_hierarchy.py` | `topic_path`, `parent_topic_id`, `is_leaf`, `is_synthetic` columns + CHECK constraint on `topics` |
+| `0011_publications.py` | `publications` table + `idx_publications_teeka` |
+| `0012_kalashas.py` | `kalashas` table + `idx_kalashas_teeka` |
 
 #### Upsert helpers (`jain_kb_common/db/postgres/upserts.py`)
 
-`upsert_author`, `upsert_shastra`, `upsert_teeka`, `upsert_book`, `upsert_pravachan`, `upsert_keyword`, `upsert_topic`, `upsert_gatha` — all idempotent via `ON CONFLICT (natural_key) DO UPDATE`.
+`upsert_author`, `upsert_shastra`, `upsert_teeka`, `upsert_book`, `upsert_pravachan`, `upsert_keyword`, `upsert_topic`, `upsert_gatha`, `upsert_publication`, `upsert_kalash` — all idempotent via `ON CONFLICT (natural_key) DO UPDATE`.
 
 #### Tests
 
@@ -137,6 +140,12 @@ See [`dev_docs/testing.md`](docs/manual_testing/postgres/testing.md) for the ful
 | `topic_extracts` | `TopicExtract` | `upsert_topic_extract` |
 | `raw_html_snapshots` | `RawHtmlSnapshot` | `upsert_raw_html_snapshot` |
 | `ocr_pages` | `OcrPage` | _(scaffolded — indexes only, no upsert yet)_ |
+| `gatha_teeka_sanskrit` | `GathaTeekaSanskrit` | `upsert_gatha_teeka_sanskrit` |
+| `gatha_teeka_hindi` | `GathaTeekkaHindi` | `upsert_gatha_teeka_hindi` |
+| `gatha_teeka_bhaavarth_hindi` | `GathaTeekaBhaavarth` | `upsert_gatha_teeka_bhaavarth_hindi` |
+| `kalash_sanskrit` | `KalashSanskrit` | `upsert_kalash_sanskrit` |
+| `kalash_hindi` | `KalashHindi` | `upsert_kalash_hindi` |
+| `kalash_bhaavarth_hindi` | `KalashBhaavarth` | `upsert_kalash_bhaavarth_hindi` |
 
 #### Key conventions
 
@@ -178,19 +187,23 @@ See [`docs/manual_testing/mongo/testing.md`](docs/manual_testing/mongo/testing.m
 
 #### Node labels implemented
 
-`Keyword` · `Topic` · `Alias` · `Gatha` · `Shastra`
+**Postgres-backed**: `Keyword` · `Topic` · `Alias` · `Gatha` · `Shastra` · `Teeka` · `Publication` · `Kalash`
+
+**Graph-only (lazy MERGE)**: `GathaTeeka` · `GathaTeekaBhaavarth` · `KalashBhaavarth` · `Page`
 
 #### Edge types (`parser_configs/_meta/edge_types.yaml`)
 
-`IS_A` · `PART_OF` · `RELATED_TO` · `ALIAS_OF` · `MENTIONS_KEYWORD` · `HAS_TOPIC` · `MENTIONS_TOPIC` · `IN_SHASTRA`
+`IS_A` · `PART_OF` · `RELATED_TO` · `ALIAS_OF` · `MENTIONS_KEYWORD` · `HAS_TOPIC` · `MENTIONS_TOPIC` · `CONTAINS_DEFINITION` · `IN_SHASTRA` · `IN_TEEKA` · `IN_PUBLICATION`
 
 #### Key conventions
 
 - **Cypher 25 compatible** — uses `coalesce(n.created_at, datetime())` instead of `ON CREATE SET` (Neo4j 2026 ships with `db.query.default_language=CYPHER_25`).
 - **Idempotent MERGE** — every upsert uses `MERGE` with full `SET`; safe to re-run on the same data.
-- **`ensure_constraints()`** — all constraints and indexes use `IF NOT EXISTS`; safe to call on every service startup.
+- **`ensure_constraints()`** — all constraints and indexes use `IF NOT EXISTS`; safe to call on every service startup. Covers 7 uniqueness constraints + 3 `pg_id` lookup indexes for Postgres-backed node labels.
 - **Edge type validation** — `validate_edge_type(edge_type)` raises `UnknownEdgeTypeError` for any edge type not in `edge_types.yaml`. Add new types there; no code changes needed.
 - **Driver factory** — `get_driver()` reads `NEO4J_URL`, `NEO4J_USER`, `NEO4J_PASSWORD` from environment; singleton pattern matches Motor/SQLAlchemy conventions.
+- **Lazy-node pattern** — `ensure_lazy_node` creates pure-graph nodes (`GathaTeeka`, `GathaTeekaBhaavarth`, `KalashBhaavarth`, `Page`) + their structural edge in one MERGE round trip; called by the envelope layer before emitting reference edges.
+- **Structural edges excluded from traversal** — `IN_SHASTRA`, `IN_TEEKA`, `IN_PUBLICATION` carry `weight = 0.0` and are excluded from Stage 4 query patterns to prevent backbone noise in ranking.
 
 #### Tests
 
@@ -399,10 +412,10 @@ dictionary-and-metadata-service/
 ├── packages/
 │   └── jain_kb_common/        # Shared DB clients, models, upserts
 │       └── jain_kb_common/db/
-│           ├── postgres/      # SQLAlchemy models + upserts
-│           ├── mongo/         # Motor client, Pydantic schemas, upserts, indexes
+│           ├── postgres/      # SQLAlchemy models + upserts (incl. publications.py, kalashas.py)
+│           ├── mongo/         # Motor client, Pydantic schemas, upserts, indexes (15 collections)
 │           └── neo4j/         # AsyncDriver factory, constraints, upserts, queries, schema_check
-├── migrations/                # Alembic (13 versions, 0001–0013)
+├── migrations/                # Alembic (15 versions, 0001–0009 + 0010–0013 schema sync + Phase 1)
 ├── tests/
 │   ├── db/
 │   │   ├── postgres/
