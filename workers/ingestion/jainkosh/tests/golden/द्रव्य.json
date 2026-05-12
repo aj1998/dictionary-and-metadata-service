@@ -910,12 +910,32 @@
                       {
                         "text": "( प्रवचनसार/95-96 )",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "प्रवचनसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 95
+                          }
+                        ]
+                      },
+                      {
+                        "text": "( प्रवचनसार/95-96 )",
+                        "inline_reference": true,
+                        "needs_manual_match": false,
+                        "is_teeka": false,
+                        "teeka_name": "",
+                        "shastra_name": "प्रवचनसार",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 96
+                          }
+                        ]
                       },
                       {
                         "text": "( नयचक्र बृहद्/37 )",
@@ -1025,12 +1045,17 @@
                       {
                         "text": "प्रवचनसार/ ‘तत्त्व प्रदीपिका’ 96",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "‘तत्त्व प्रदीपिका’",
                         "shastra_name": "प्रवचनसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 96
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1219,12 +1244,17 @@
                       {
                         "text": "( प्रवचनसार/95 )",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "प्रवचनसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 95
+                          }
+                        ]
                       },
                       {
                         "text": "( पंचास्तिकाय/10 )",
@@ -1374,12 +1404,17 @@
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/23",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "तत्त्वप्रदीपिका",
                         "shastra_name": "प्रवचनसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 23
+                          }
+                        ]
                       },
                       {
                         "text": "( पंचाध्यायी / पूर्वार्ध 73 )",
@@ -1520,12 +1555,17 @@
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/10",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "तत्त्वप्रदीपिका",
                         "shastra_name": "प्रवचनसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 10
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1546,12 +1586,17 @@
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/93",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "तत्त्वप्रदीपिका",
                         "shastra_name": "प्रवचनसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 93
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1906,12 +1951,17 @@
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/36",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "तत्त्वप्रदीपिका",
                         "shastra_name": "प्रवचनसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 36
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2997,12 +3047,17 @@
                       {
                         "text": "प्रवचनसार/127",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "प्रवचनसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 127
+                          }
+                        ]
                       },
                       {
                         "text": "( धवला 3/1,2,1/2/2 )",
@@ -3541,12 +3596,17 @@
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/129",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "तत्त्वप्रदीपिका",
                         "shastra_name": "प्रवचनसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 129
+                          }
+                        ]
                       },
                       {
                         "text": "( पंचाध्यायी / उत्तरार्ध/25 )",
@@ -4531,12 +4591,32 @@
                           {
                             "text": "(प्रवचनसार/तत्त्वप्रदीपिका/97-98)",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": true,
                             "teeka_name": "तत्त्वप्रदीपिका",
                             "shastra_name": "प्रवचनसार",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 97
+                              }
+                            ]
+                          },
+                          {
+                            "text": "(प्रवचनसार/तत्त्वप्रदीपिका/97-98)",
+                            "inline_reference": true,
+                            "needs_manual_match": false,
+                            "is_teeka": true,
+                            "teeka_name": "तत्त्वप्रदीपिका",
+                            "shastra_name": "प्रवचनसार",
+                            "match_method": "shastra_name",
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 98
+                              }
+                            ]
                           },
                           {
                             "text": "(आप्त मीमांसा/34)",
@@ -4668,12 +4748,32 @@
                           {
                             "text": "( प्रवचनसार/144-145 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
                             "shastra_name": "प्रवचनसार",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 144
+                              }
+                            ]
+                          },
+                          {
+                            "text": "( प्रवचनसार/144-145 )",
+                            "inline_reference": true,
+                            "needs_manual_match": false,
+                            "is_teeka": false,
+                            "teeka_name": "",
+                            "shastra_name": "प्रवचनसार",
+                            "match_method": "shastra_name",
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 145
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -4893,12 +4993,17 @@
                           {
                             "text": "( प्रवचनसार / तत्त्वप्रदीपिका/140 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": true,
                             "teeka_name": "तत्त्वप्रदीपिका",
                             "shastra_name": "प्रवचनसार",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 140
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -5585,12 +5690,17 @@
                           {
                             "text": "( प्रवचनसार/107 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
                             "shastra_name": "प्रवचनसार",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 107
+                              }
+                            ]
                           },
                           {
                             "text": "( धवला 8/3,4/6/4 )",
@@ -5654,12 +5764,17 @@
                           {
                             "text": "( प्रवचनसार / तत्त्वप्रदीपिका/130 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": true,
                             "teeka_name": "तत्त्वप्रदीपिका",
                             "shastra_name": "प्रवचनसार",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 130
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -6015,12 +6130,32 @@
                           {
                             "text": "( प्रवचनसार / तत्त्वप्रदीपिका/98,106 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": true,
                             "teeka_name": "तत्त्वप्रदीपिका",
                             "shastra_name": "प्रवचनसार",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 98
+                              }
+                            ]
+                          },
+                          {
+                            "text": "( प्रवचनसार / तत्त्वप्रदीपिका/98,106 )",
+                            "inline_reference": true,
+                            "needs_manual_match": false,
+                            "is_teeka": true,
+                            "teeka_name": "तत्त्वप्रदीपिका",
+                            "shastra_name": "प्रवचनसार",
+                            "match_method": "shastra_name",
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 106
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -6168,12 +6303,17 @@
                           {
                             "text": "( प्रवचनसार/105 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
                             "shastra_name": "प्रवचनसार",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 105
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -6323,12 +6463,17 @@
                           {
                             "text": "( प्रवचनसार / तत्त्वप्रदीपिका/130 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": true,
                             "teeka_name": "तत्त्वप्रदीपिका",
                             "shastra_name": "प्रवचनसार",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 130
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -6485,12 +6630,17 @@
                           {
                             "text": "( प्रवचनसार / तत्त्वप्रदीपिका/98 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": true,
                             "teeka_name": "तत्त्वप्रदीपिका",
                             "shastra_name": "प्रवचनसार",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 98
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -7270,12 +7420,17 @@
                           {
                             "text": "( प्रवचनसार / तात्पर्यवृत्ति/98 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": true,
                             "teeka_name": "तात्पर्यवृत्ति",
                             "shastra_name": "प्रवचनसार",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 98
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -8413,7 +8568,7 @@
       "next": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF_%E0%A4%86%E0%A4%B8%E0%A5%8D%E0%A4%B0%E0%A4%B5"
     },
     "parser_version": "jainkosh.rules/1.10.0",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parsed_at": "2026-05-12T13:52:29.447828",
     "warnings": []
   },
   "would_write": {
@@ -10561,12 +10716,32 @@
                 {
                   "text": "( प्रवचनसार/95-96 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 95
+                    }
+                  ]
+                },
+                {
+                  "text": "( प्रवचनसार/95-96 )",
+                  "inline_reference": true,
+                  "needs_manual_match": false,
+                  "is_teeka": false,
+                  "teeka_name": "",
+                  "shastra_name": "प्रवचनसार",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 96
+                    }
+                  ]
                 },
                 {
                   "text": "( नयचक्र बृहद्/37 )",
@@ -10676,12 +10851,17 @@
                 {
                   "text": "प्रवचनसार/ ‘तत्त्व प्रदीपिका’ 96",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "‘तत्त्व प्रदीपिका’",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 96
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -10872,12 +11052,17 @@
                 {
                   "text": "( प्रवचनसार/95 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 95
+                    }
+                  ]
                 },
                 {
                   "text": "( पंचास्तिकाय/10 )",
@@ -11027,12 +11212,17 @@
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/23",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 23
+                    }
+                  ]
                 },
                 {
                   "text": "( पंचाध्यायी / पूर्वार्ध 73 )",
@@ -11174,12 +11364,17 @@
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/10",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 10
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -11200,12 +11395,17 @@
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/93",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 93
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -11561,12 +11761,17 @@
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/36",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 36
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -12663,12 +12868,17 @@
                 {
                   "text": "प्रवचनसार/127",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 127
+                    }
+                  ]
                 },
                 {
                   "text": "( धवला 3/1,2,1/2/2 )",
@@ -13209,12 +13419,17 @@
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/129",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 129
+                    }
+                  ]
                 },
                 {
                   "text": "( पंचाध्यायी / उत्तरार्ध/25 )",
@@ -14209,12 +14424,32 @@
                 {
                   "text": "(प्रवचनसार/तत्त्वप्रदीपिका/97-98)",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 97
+                    }
+                  ]
+                },
+                {
+                  "text": "(प्रवचनसार/तत्त्वप्रदीपिका/97-98)",
+                  "inline_reference": true,
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "तत्त्वप्रदीपिका",
+                  "shastra_name": "प्रवचनसार",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 98
+                    }
+                  ]
                 },
                 {
                   "text": "(आप्त मीमांसा/34)",
@@ -14346,12 +14581,32 @@
                 {
                   "text": "( प्रवचनसार/144-145 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 144
+                    }
+                  ]
+                },
+                {
+                  "text": "( प्रवचनसार/144-145 )",
+                  "inline_reference": true,
+                  "needs_manual_match": false,
+                  "is_teeka": false,
+                  "teeka_name": "",
+                  "shastra_name": "प्रवचनसार",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 145
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -14571,12 +14826,17 @@
                 {
                   "text": "( प्रवचनसार / तत्त्वप्रदीपिका/140 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 140
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -15263,12 +15523,17 @@
                 {
                   "text": "( प्रवचनसार/107 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 107
+                    }
+                  ]
                 },
                 {
                   "text": "( धवला 8/3,4/6/4 )",
@@ -15332,12 +15597,17 @@
                 {
                   "text": "( प्रवचनसार / तत्त्वप्रदीपिका/130 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 130
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -15693,12 +15963,32 @@
                 {
                   "text": "( प्रवचनसार / तत्त्वप्रदीपिका/98,106 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 98
+                    }
+                  ]
+                },
+                {
+                  "text": "( प्रवचनसार / तत्त्वप्रदीपिका/98,106 )",
+                  "inline_reference": true,
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "तत्त्वप्रदीपिका",
+                  "shastra_name": "प्रवचनसार",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 106
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -15846,12 +16136,17 @@
                 {
                   "text": "( प्रवचनसार/105 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 105
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -16001,12 +16296,17 @@
                 {
                   "text": "( प्रवचनसार / तत्त्वप्रदीपिका/130 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 130
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -16163,12 +16463,17 @@
                 {
                   "text": "( प्रवचनसार / तत्त्वप्रदीपिका/98 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 98
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -16948,12 +17253,17 @@
                 {
                   "text": "( प्रवचनसार / तात्पर्यवृत्ति/98 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तात्पर्यवृत्ति",
                   "shastra_name": "प्रवचनसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 98
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -18481,6 +18791,15 @@
           }
         },
         {
+          "label": "Gatha",
+          "key": "सर्वार्थसिद्धि:गाथा:5",
+          "props": {
+            "shastra_natural_key": "सर्वार्थसिद्धि",
+            "gatha_number": "5"
+          },
+          "lazy": true
+        },
+        {
           "label": "Page",
           "key": "सर्वार्थसिद्धि:टीका:18:पृष्ठ:17",
           "props": {
@@ -18488,6 +18807,15 @@
             "teeka_natural_key": "सर्वार्थसिद्धि:टीका",
             "publisher_id": "18",
             "page_number": "17"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "सर्वार्थसिद्धि:गाथा:2",
+          "props": {
+            "shastra_natural_key": "सर्वार्थसिद्धि",
+            "gatha_number": "2"
           },
           "lazy": true
         },
@@ -18503,6 +18831,15 @@
           "lazy": true
         },
         {
+          "label": "Gatha",
+          "key": "धवला:गाथा:11",
+          "props": {
+            "shastra_natural_key": "धवला",
+            "gatha_number": "11"
+          },
+          "lazy": true
+        },
+        {
           "label": "Page",
           "key": "धवला:टीका:2:पृष्ठ:183",
           "props": {
@@ -18514,6 +18851,15 @@
           "lazy": true
         },
         {
+          "label": "Gatha",
+          "key": "धवला:गाथा:1",
+          "props": {
+            "shastra_natural_key": "धवला",
+            "gatha_number": "1"
+          },
+          "lazy": true
+        },
+        {
           "label": "Page",
           "key": "धवला:टीका:2:पृष्ठ:2",
           "props": {
@@ -18521,6 +18867,15 @@
             "teeka_natural_key": "धवला:टीका",
             "publisher_id": "2",
             "page_number": "2"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "धवला:गाथा:10",
+          "props": {
+            "shastra_natural_key": "धवला",
+            "gatha_number": "10"
           },
           "lazy": true
         },
@@ -18545,6 +18900,34 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "Gatha",
+          "key": "प्रवचनसार:गाथा:95",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "gatha_number": "95"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "प्रवचनसार:गाथा:96",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "gatha_number": "96"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "प्रवचनसार:‘तत्त्व प्रदीपिका’:गाथा:टीका:96",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार:‘तत्त्व प्रदीपिका’",
+            "gatha_number": "96"
+          },
+          "lazy": true
         },
         {
           "label": "Topic",
@@ -18590,6 +18973,33 @@
           "lazy": true
         },
         {
+          "label": "Gatha",
+          "key": "कार्तिकेयानुप्रेक्षा:गाथा:242",
+          "props": {
+            "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
+            "gatha_number": "242"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "तत्त्वानुशासन:गाथा:100",
+          "props": {
+            "shastra_natural_key": "तत्त्वानुशासन",
+            "gatha_number": "100"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "सर्वार्थसिद्धि:गाथा:38",
+          "props": {
+            "shastra_natural_key": "सर्वार्थसिद्धि",
+            "gatha_number": "38"
+          },
+          "lazy": true
+        },
+        {
           "label": "Page",
           "key": "सर्वार्थसिद्धि:टीका:18:पृष्ठ:309",
           "props": {
@@ -18597,6 +19007,16 @@
             "teeka_natural_key": "सर्वार्थसिद्धि:टीका",
             "publisher_id": "18",
             "page_number": "309"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:23",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
+            "gatha_number": "23"
           },
           "lazy": true
         },
@@ -18612,6 +19032,26 @@
           }
         },
         {
+          "label": "GathaTeeka",
+          "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:10",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
+            "gatha_number": "10"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:93",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
+            "gatha_number": "93"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-त्रिकाली-पर्यायों-का-पिंड",
           "props": {
@@ -18623,6 +19063,15 @@
           }
         },
         {
+          "label": "Gatha",
+          "key": "धवला:गाथा:199",
+          "props": {
+            "shastra_natural_key": "धवला",
+            "gatha_number": "199"
+          },
+          "lazy": true
+        },
+        {
           "label": "Page",
           "key": "धवला:टीका:2:पृष्ठ:199",
           "props": {
@@ -18630,6 +19079,15 @@
             "teeka_natural_key": "धवला:टीका",
             "publisher_id": "2",
             "page_number": "199"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "धवला:गाथा:4",
+          "props": {
+            "shastra_natural_key": "धवला",
+            "gatha_number": "4"
           },
           "lazy": true
         },
@@ -18645,6 +19103,15 @@
           "lazy": true
         },
         {
+          "label": "Gatha",
+          "key": "धवला:गाथा:67",
+          "props": {
+            "shastra_natural_key": "धवला",
+            "gatha_number": "67"
+          },
+          "lazy": true
+        },
+        {
           "label": "Page",
           "key": "धवला:टीका:2:पृष्ठ:67",
           "props": {
@@ -18652,6 +19119,16 @@
             "teeka_natural_key": "धवला:टीका",
             "publisher_id": "2",
             "page_number": "67"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:36",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
+            "gatha_number": "36"
           },
           "lazy": true
         },
@@ -18665,6 +19142,15 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "Gatha",
+          "key": "सर्वार्थसिद्धि:गाथा:33",
+          "props": {
+            "shastra_natural_key": "सर्वार्थसिद्धि",
+            "gatha_number": "33"
+          },
+          "lazy": true
         },
         {
           "label": "Page",
@@ -18689,6 +19175,15 @@
           }
         },
         {
+          "label": "Gatha",
+          "key": "नियमसार:गाथा:9",
+          "props": {
+            "shastra_natural_key": "नियमसार",
+            "gatha_number": "9"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-के-दो-भेद-संयोग-व-समवाय-द्रव्य",
           "props": {
@@ -18698,6 +19193,15 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "Gatha",
+          "key": "धवला:गाथा:6",
+          "props": {
+            "shastra_natural_key": "धवला",
+            "gatha_number": "6"
+          },
+          "lazy": true
         },
         {
           "label": "Page",
@@ -18798,6 +19302,15 @@
           }
         },
         {
+          "label": "Gatha",
+          "key": "श्लोकवार्तिक:गाथा:269",
+          "props": {
+            "shastra_natural_key": "श्लोकवार्तिक",
+            "gatha_number": "269"
+          },
+          "lazy": true
+        },
+        {
           "label": "Page",
           "key": "श्लोकवार्तिक:टीका:4:पृष्ठ:1",
           "props": {
@@ -18842,6 +19355,15 @@
           }
         },
         {
+          "label": "Gatha",
+          "key": "कार्तिकेयानुप्रेक्षा:गाथा:204",
+          "props": {
+            "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
+            "gatha_number": "204"
+          },
+          "lazy": true
+        },
+        {
           "label": "GathaTeeka",
           "key": "पंचास्तिकाय:तात्पर्यवृत्ति:गाथा:टीका:15",
           "props": {
@@ -18883,6 +19405,24 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "Gatha",
+          "key": "प्रवचनसार:गाथा:127",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "gatha_number": "127"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "धवला:गाथा:2",
+          "props": {
+            "shastra_natural_key": "धवला",
+            "gatha_number": "2"
+          },
+          "lazy": true
         },
         {
           "label": "GathaTeekaBhaavarth",
@@ -18951,6 +19491,15 @@
           }
         },
         {
+          "label": "Gatha",
+          "key": "सर्वार्थसिद्धि:गाथा:7",
+          "props": {
+            "shastra_natural_key": "सर्वार्थसिद्धि",
+            "gatha_number": "7"
+          },
+          "lazy": true
+        },
+        {
           "label": "Page",
           "key": "सर्वार्थसिद्धि:टीका:18:पृष्ठ:273",
           "props": {
@@ -18969,6 +19518,16 @@
             "teeka_natural_key": "पंचास्तिकाय:तात्पर्यवृत्ति",
             "publisher_id": "17",
             "page_number": "57"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:129",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
+            "gatha_number": "129"
           },
           "lazy": true
         },
@@ -19115,6 +19674,47 @@
           }
         },
         {
+          "label": "GathaTeeka",
+          "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:97",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
+            "gatha_number": "97"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:97",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
+            "publisher_id": "publisher_to_be_added",
+            "gatha_number": "97"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:98",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
+            "publisher_id": "publisher_to_be_added",
+            "gatha_number": "98"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "कार्तिकेयानुप्रेक्षा:गाथा:236",
+          "props": {
+            "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
+            "gatha_number": "236"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद",
           "props": {
@@ -19137,6 +19737,24 @@
           }
         },
         {
+          "label": "Gatha",
+          "key": "प्रवचनसार:गाथा:144",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "gatha_number": "144"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "प्रवचनसार:गाथा:145",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "gatha_number": "145"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:आकाश-के-प्रदेशत्व-में-हेतु",
           "props": {
@@ -19146,6 +19764,27 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:140",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
+            "gatha_number": "140"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:140",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
+            "publisher_id": "publisher_to_be_added",
+            "gatha_number": "140"
+          },
+          "lazy": true
         },
         {
           "label": "Topic",
@@ -19214,6 +19853,15 @@
           }
         },
         {
+          "label": "Gatha",
+          "key": "प्रवचनसार:गाथा:107",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "gatha_number": "107"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-भेद-पक्ष-में-युक्ति",
           "props": {
@@ -19223,6 +19871,27 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:130",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
+            "gatha_number": "130"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:130",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
+            "publisher_id": "publisher_to_be_added",
+            "gatha_number": "130"
+          },
+          "lazy": true
         },
         {
           "label": "Topic",
@@ -19236,6 +19905,15 @@
           }
         },
         {
+          "label": "Gatha",
+          "key": "कार्तिकेयानुप्रेक्षा:गाथा:245",
+          "props": {
+            "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
+            "gatha_number": "245"
+          },
+          "lazy": true
+        },
+        {
           "label": "Page",
           "key": "धवला:टीका:2:पृष्ठ:5",
           "props": {
@@ -19243,6 +19921,15 @@
             "teeka_natural_key": "धवला:टीका",
             "publisher_id": "2",
             "page_number": "5"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "धवला:गाथा:183",
+          "props": {
+            "shastra_natural_key": "धवला",
+            "gatha_number": "183"
           },
           "lazy": true
         },
@@ -19291,6 +19978,17 @@
           "lazy": true
         },
         {
+          "label": "GathaTeekaBhaavarth",
+          "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:106",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
+            "publisher_id": "publisher_to_be_added",
+            "gatha_number": "106"
+          },
+          "lazy": true
+        },
+        {
           "label": "Page",
           "key": "धवला:टीका:2:पृष्ठ:40",
           "props": {
@@ -19298,6 +19996,15 @@
             "teeka_natural_key": "धवला:टीका",
             "publisher_id": "2",
             "page_number": "40"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "प्रवचनसार:गाथा:105",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "gatha_number": "105"
           },
           "lazy": true
         },
@@ -19345,6 +20052,15 @@
           }
         },
         {
+          "label": "Gatha",
+          "key": "धवला:गाथा:3",
+          "props": {
+            "shastra_natural_key": "धवला",
+            "gatha_number": "3"
+          },
+          "lazy": true
+        },
+        {
           "label": "Page",
           "key": "धवला:टीका:2:पृष्ठ:6",
           "props": {
@@ -19352,6 +20068,15 @@
             "teeka_natural_key": "धवला:टीका",
             "publisher_id": "2",
             "page_number": "6"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "कार्तिकेयानुप्रेक्षा:गाथा:180",
+          "props": {
+            "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
+            "gatha_number": "180"
           },
           "lazy": true
         },
@@ -19365,6 +20090,16 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:98",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
+            "gatha_number": "98"
+          },
+          "lazy": true
         },
         {
           "label": "Topic",
@@ -19409,6 +20144,27 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "प्रवचनसार:तात्पर्यवृत्ति:गाथा:टीका:98",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार:तात्पर्यवृत्ति",
+            "gatha_number": "98"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "प्रवचनसार:तात्पर्यवृत्ति:publisher_to_be_added:गाथा:टीका:भावार्थ:98",
+          "props": {
+            "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार:तात्पर्यवृत्ति",
+            "publisher_id": "publisher_to_be_added",
+            "gatha_number": "98"
+          },
+          "lazy": true
         },
         {
           "label": "Topic",
@@ -19772,6 +20528,270 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "Keyword",
+          "key": "सत्",
+          "is_stub_seed": true,
+          "props": {
+            "display_text": "सत्"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "केवलज्ञान:5:2",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "2",
+            "topic_path": "5.2",
+            "parent_keyword_natural_key": "केवलज्ञान"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "जीव:3:8",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "8",
+            "topic_path": "3.8",
+            "parent_keyword_natural_key": "जीव"
+          }
+        },
+        {
+          "label": "Keyword",
+          "key": "अस्तिकाय",
+          "is_stub_seed": true,
+          "props": {
+            "display_text": "अस्तिकाय"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "आकाश:3",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "3",
+            "topic_path": "3",
+            "parent_keyword_natural_key": "आकाश"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "आकाश:2",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "2",
+            "topic_path": "2",
+            "parent_keyword_natural_key": "आकाश"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "जीव:4:1",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "1",
+            "topic_path": "4.1",
+            "parent_keyword_natural_key": "जीव"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "जीव:4",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "4",
+            "topic_path": "4",
+            "parent_keyword_natural_key": "जीव"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "इंद्रिय:3:5",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "5",
+            "topic_path": "3.5",
+            "parent_keyword_natural_key": "इंद्रिय"
+          }
+        },
+        {
+          "label": "Keyword",
+          "key": "समवाय",
+          "is_stub_seed": true,
+          "props": {
+            "display_text": "समवाय"
+          }
+        },
+        {
+          "label": "Keyword",
+          "key": "वस्तु",
+          "is_stub_seed": true,
+          "props": {
+            "display_text": "वस्तु"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "गुण:3",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "3",
+            "topic_path": "3",
+            "parent_keyword_natural_key": "गुण"
+          }
+        },
+        {
+          "label": "Keyword",
+          "key": "सामान्य",
+          "is_stub_seed": true,
+          "props": {
+            "display_text": "सामान्य"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "उत्पाद:2",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "2",
+            "topic_path": "2",
+            "parent_keyword_natural_key": "उत्पाद"
+          }
+        },
+        {
+          "label": "Keyword",
+          "key": "अल्पबहुत्व",
+          "is_stub_seed": true,
+          "props": {
+            "display_text": "अल्पबहुत्व"
+          }
+        },
+        {
+          "label": "Keyword",
+          "key": "न्याय",
+          "is_stub_seed": true,
+          "props": {
+            "display_text": "न्याय"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "राग:2",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "2",
+            "topic_path": "2",
+            "parent_keyword_natural_key": "राग"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "चैत्य:1:11",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "11",
+            "topic_path": "1.11",
+            "parent_keyword_natural_key": "चैत्य"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "दान:5",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "5",
+            "topic_path": "5",
+            "parent_keyword_natural_key": "दान"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "पूजा:4",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "4",
+            "topic_path": "4",
+            "parent_keyword_natural_key": "पूजा"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "मूर्त:2",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "2",
+            "topic_path": "2",
+            "parent_keyword_natural_key": "मूर्त"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "सम्यग्दर्शन:II:3:3",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "3",
+            "topic_path": "II.3.3",
+            "parent_keyword_natural_key": "सम्यग्दर्शन"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "कारण:III:1",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "1",
+            "topic_path": "III.1",
+            "parent_keyword_natural_key": "कारण"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "परमाणु:3",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "3",
+            "topic_path": "3",
+            "parent_keyword_natural_key": "परमाणु"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "उपचार:3",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "3",
+            "topic_path": "3",
+            "parent_keyword_natural_key": "उपचार"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "सप्तभंगी:5",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "5",
+            "topic_path": "5",
+            "parent_keyword_natural_key": "सप्तभंगी"
+          }
+        },
+        {
+          "label": "Keyword",
+          "key": "कारक",
+          "is_stub_seed": true,
+          "props": {
+            "display_text": "कारक"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "कारण:II",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "II",
+            "topic_path": "II",
+            "parent_keyword_natural_key": "कारण"
+          }
         }
       ],
       "edges": [
@@ -20005,6 +21025,42 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "प्रवचनसार:गाथा:95"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-सत्-तथा-उत्पादव्ययध्रौव्य"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-सत्-तथा-उत्पादव्ययध्रौव्य/1",
+            "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-सत्-तथा-उत्पादव्ययध्रौव्य"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "प्रवचनसार:गाथा:96"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-सत्-तथा-उत्पादव्ययध्रौव्य"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-सत्-तथा-उत्पादव्ययध्रौव्य/1",
+            "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-सत्-तथा-उत्पादव्ययध्रौव्य"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
@@ -20017,6 +21073,24 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "प्रवचनसार:‘तत्त्व प्रदीपिका’:गाथा:टीका:96"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-सत्-तथा-उत्पादव्ययध्रौव्य"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 3,
+            "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-सत्-तथा-उत्पादव्ययध्रौव्य/3",
+            "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-सत्-तथा-उत्पादव्ययध्रौव्य"
           }
         },
         {
@@ -20109,6 +21183,24 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
+            "key": "प्रवचनसार:गाथा:95"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-गुणपर्यायवान्"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-गुणपर्यायवान्/1",
+            "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-गुणपर्यायवान्"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
             "key": "कार्तिकेयानुप्रेक्षा:गाथा:242"
           },
           "to": {
@@ -20178,6 +21270,24 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:23"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-गुणपर्यायवान्"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 3,
+            "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-गुणपर्यायवान्/3",
+            "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-गुणपर्यायवान्"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -20190,6 +21300,42 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:10"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-ऊर्ध्व-व-तिर्यगंश-आदि-का-समूह"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-ऊर्ध्व-व-तिर्यगंश-आदि-का-समूह/1",
+            "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-ऊर्ध्व-व-तिर्यगंश-आदि-का-समूह"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:93"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-ऊर्ध्व-व-तिर्यगंश-आदि-का-समूह"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-ऊर्ध्व-व-तिर्यगंश-आदि-का-समूह/2",
+            "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-ऊर्ध्व-व-तिर्यगंश-आदि-का-समूह"
           }
         },
         {
@@ -20312,6 +21458,24 @@
             "source": "jainkosh",
             "block_index": 0,
             "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-त्रिकाली-पर्यायों-का-पिंड/0",
+            "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-त्रिकाली-पर्यायों-का-पिंड"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:36"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-त्रिकाली-पर्यायों-का-पिंड"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 3,
+            "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-त्रिकाली-पर्यायों-का-पिंड/3",
             "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-त्रिकाली-पर्यायों-का-पिंड"
           }
         },
@@ -20609,10 +21773,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "द्रव्य",
-              "topic_path": "1.4"
-            }
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-गुणपर्यायवान्"
           },
           "props": {
             "weight": 1.0,
@@ -20714,10 +21875,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "केवलज्ञान",
-              "topic_path": "5.2"
-            }
+            "key": "केवलज्ञान:5:2"
           },
           "props": {
             "weight": 1.0,
@@ -20838,6 +21996,24 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "प्रवचनसार:गाथा:127"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:चेतनाचेतन-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:चेतनाचेतन-विभाग/0",
+            "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:चेतनाचेतन-विभाग"
           }
         },
         {
@@ -21060,6 +22236,24 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:129"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:क्रियावान्-व-भाववान्-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:क्रियावान्-व-भाववान्-विभाग/2",
+            "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:क्रियावान्-व-भाववान्-विभाग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
             "key": "पंचास्तिकाय:तात्पर्यवृत्ति:गाथा:टीका:27"
           },
           "to": {
@@ -21102,10 +22296,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "जीव",
-              "topic_path": "3.8"
-            }
+            "key": "जीव:3:8"
           },
           "props": {
             "weight": 1.0,
@@ -21233,10 +22424,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "आकाश",
-              "topic_path": "3"
-            }
+            "key": "आकाश:3"
           },
           "props": {
             "weight": 1.0,
@@ -21366,6 +22554,60 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
+            "label": "GathaTeeka",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:97"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:सत्-या-द्रव्य-की-अपेक्षा-द्वैतअद्वैत:कथंचित्-द्वैत-व-अद्वैत-का-समन्वय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:सत्-या-द्रव्य-की-अपेक्षा-द्वैतअद्वैत:कथंचित्-द्वैत-व-अद्वैत-का-समन्वय/0",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:सत्-या-द्रव्य-की-अपेक्षा-द्वैतअद्वैत:कथंचित्-द्वैत-व-अद्वैत-का-समन्वय"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:97"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:सत्-या-द्रव्य-की-अपेक्षा-द्वैतअद्वैत:कथंचित्-द्वैत-व-अद्वैत-का-समन्वय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:सत्-या-द्रव्य-की-अपेक्षा-द्वैतअद्वैत:कथंचित्-द्वैत-व-अद्वैत-का-समन्वय/0",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:सत्-या-द्रव्य-की-अपेक्षा-द्वैतअद्वैत:कथंचित्-द्वैत-व-अद्वैत-का-समन्वय"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:98"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:सत्-या-द्रव्य-की-अपेक्षा-द्वैतअद्वैत:कथंचित्-द्वैत-व-अद्वैत-का-समन्वय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:सत्-या-द्रव्य-की-अपेक्षा-द्वैतअद्वैत:कथंचित्-द्वैत-व-अद्वैत-का-समन्वय/0",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:सत्-या-द्रव्य-की-अपेक्षा-द्वैतअद्वैत:कथंचित्-द्वैत-व-अद्वैत-का-समन्वय"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
             "label": "Gatha",
             "key": "कार्तिकेयानुप्रेक्षा:गाथा:236"
           },
@@ -21412,6 +22654,42 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "प्रवचनसार:गाथा:144"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:द्रव्य-में-प्रदेशकल्पना-का-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:द्रव्य-में-प्रदेशकल्पना-का-निर्देश/0",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:द्रव्य-में-प्रदेशकल्पना-का-निर्देश"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "प्रवचनसार:गाथा:145"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:द्रव्य-में-प्रदेशकल्पना-का-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:द्रव्य-में-प्रदेशकल्पना-का-निर्देश/0",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:द्रव्य-में-प्रदेशकल्पना-का-निर्देश"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -21427,6 +22705,42 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:140"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:आकाश-के-प्रदेशत्व-में-हेतु"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 5,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:आकाश-के-प्रदेशत्व-में-हेतु/5",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:आकाश-के-प्रदेशत्व-में-हेतु"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:140"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:आकाश-के-प्रदेशत्व-में-हेतु"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 5,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:आकाश-के-प्रदेशत्व-में-हेतु/5",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:क्षेत्र-या-प्रदेशों-की-अपेक्षा-द्रव्य-में-भेद-कथंचित्-भेदाभेद:आकाश-के-प्रदेशत्व-में-हेतु"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
@@ -21434,10 +22748,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "आकाश",
-              "topic_path": "2"
-            }
+            "key": "आकाश:2"
           },
           "props": {
             "weight": 1.0,
@@ -21467,10 +22778,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "जीव",
-              "topic_path": "4.1"
-            }
+            "key": "जीव:4:1"
           },
           "props": {
             "weight": 1.0,
@@ -21485,10 +22793,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "जीव",
-              "topic_path": "4"
-            }
+            "key": "जीव:4"
           },
           "props": {
             "weight": 1.0,
@@ -21503,10 +22808,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "इंद्रिय",
-              "topic_path": "3.5"
-            }
+            "key": "इंद्रिय:3:5"
           },
           "props": {
             "weight": 1.0,
@@ -21589,6 +22891,24 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "प्रवचनसार:गाथा:107"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-अभेद-पक्ष-में-युक्ति"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-अभेद-पक्ष-में-युक्ति/1",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-अभेद-पक्ष-में-युक्ति"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -21601,6 +22921,42 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:130"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-भेद-पक्ष-में-युक्ति"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-भेद-पक्ष-में-युक्ति/0",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-भेद-पक्ष-में-युक्ति"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:130"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-भेद-पक्ष-में-युक्ति"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-भेद-पक्ष-में-युक्ति/0",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-भेद-पक्ष-में-युक्ति"
           }
         },
         {
@@ -21777,6 +23133,42 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:98"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-अभेदपक्ष-में-युक्ति"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-अभेदपक्ष-में-युक्ति/0",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-अभेदपक्ष-में-युक्ति"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:106"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-अभेदपक्ष-में-युक्ति"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-अभेदपक्ष-में-युक्ति/0",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-अभेदपक्ष-में-युक्ति"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
             "label": "Gatha",
             "key": "धवला:गाथा:6"
           },
@@ -21807,6 +23199,24 @@
             "source": "jainkosh",
             "block_index": 2,
             "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-अभेदपक्ष-में-युक्ति/2",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-अभेदपक्ष-में-युक्ति"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "प्रवचनसार:गाथा:105"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-अभेदपक्ष-में-युक्ति"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 3,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-अभेदपक्ष-में-युक्ति/3",
             "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-अभेदपक्ष-में-युक्ति"
           }
         },
@@ -21885,6 +23295,42 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
+            "label": "GathaTeeka",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:130"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-भेदपक्ष-में-युक्ति"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-भेदपक्ष-में-युक्ति/0",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-भेदपक्ष-में-युक्ति"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:130"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-भेदपक्ष-में-युक्ति"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-भेदपक्ष-में-युक्ति/0",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:कथंचित्-भेदपक्ष-में-युक्ति"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
             "label": "Gatha",
             "key": "धवला:गाथा:3"
           },
@@ -21949,6 +23395,42 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:98"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:भेदाभेद-का-समन्वय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:भेदाभेद-का-समन्वय/2",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:भेदाभेद-का-समन्वय"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:98"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:भेदाभेद-का-समन्वय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:भेदाभेद-का-समन्वय/2",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:भाव-की-अर्थात्-धर्मधर्मी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:भेदाभेद-का-समन्वय"
           }
         },
         {
@@ -22047,6 +23529,42 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "प्रवचनसार:तात्पर्यवृत्ति:गाथा:टीका:98"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:एकांत-भेद-या-अभेद-पक्ष-का-निरास:धर्मधर्मी-में-संयोग-संबंध-का-निरास"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 4,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:एकांत-भेद-या-अभेद-पक्ष-का-निरास:धर्मधर्मी-में-संयोग-संबंध-का-निरास/4",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:एकांत-भेद-या-अभेद-पक्ष-का-निरास:धर्मधर्मी-में-संयोग-संबंध-का-निरास"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "प्रवचनसार:तात्पर्यवृत्ति:publisher_to_be_added:गाथा:टीका:भावार्थ:98"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:एकांत-भेद-या-अभेद-पक्ष-का-निरास:धर्मधर्मी-में-संयोग-संबंध-का-निरास"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 4,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:एकांत-भेद-या-अभेद-पक्ष-का-निरास:धर्मधर्मी-में-संयोग-संबंध-का-निरास/4",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:एकांत-भेद-या-अभेद-पक्ष-का-निरास:धर्मधर्मी-में-संयोग-संबंध-का-निरास"
           }
         },
         {
@@ -22264,10 +23782,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "द्रव्य",
-              "topic_path": "3"
-            }
+            "key": "द्रव्य:षट्द्रव्य-विभाजन"
           },
           "props": {
             "weight": 1.0,
@@ -22329,10 +23844,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "गुण",
-              "topic_path": "3"
-            }
+            "key": "गुण:3"
           },
           "props": {
             "weight": 1.0,
@@ -22394,10 +23906,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "उत्पाद",
-              "topic_path": "2"
-            }
+            "key": "उत्पाद:2"
           },
           "props": {
             "weight": 1.0,
@@ -22428,10 +23937,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "द्रव्य",
-              "topic_path": "3"
-            }
+            "key": "द्रव्य:षट्द्रव्य-विभाजन"
           },
           "props": {
             "weight": 1.0,
@@ -22477,10 +23983,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "आकाश",
-              "topic_path": "3"
-            }
+            "key": "आकाश:3"
           },
           "props": {
             "weight": 1.0,
@@ -22573,10 +24076,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "राग",
-              "topic_path": "2"
-            }
+            "key": "राग:2"
           },
           "props": {
             "weight": 1.0,
@@ -22607,10 +24107,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "चैत्य",
-              "topic_path": "1.11"
-            }
+            "key": "चैत्य:1:11"
           },
           "props": {
             "weight": 1.0,
@@ -22641,10 +24138,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "दान",
-              "topic_path": "5"
-            }
+            "key": "दान:5"
           },
           "props": {
             "weight": 1.0,
@@ -22675,10 +24169,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "पूजा",
-              "topic_path": "4"
-            }
+            "key": "पूजा:4"
           },
           "props": {
             "weight": 1.0,
@@ -22709,10 +24200,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "मूर्त",
-              "topic_path": "2"
-            }
+            "key": "मूर्त:2"
           },
           "props": {
             "weight": 1.0,
@@ -22743,10 +24231,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "सम्यग्दर्शन",
-              "topic_path": "II.3.3"
-            }
+            "key": "सम्यग्दर्शन:II:3:3"
           },
           "props": {
             "weight": 1.0,
@@ -22777,10 +24262,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "जीव",
-              "topic_path": "3.8"
-            }
+            "key": "जीव:3:8"
           },
           "props": {
             "weight": 1.0,
@@ -22811,10 +24293,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "कारण",
-              "topic_path": "III.1"
-            }
+            "key": "कारण:III:1"
           },
           "props": {
             "weight": 1.0,
@@ -22845,10 +24324,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "परमाणु",
-              "topic_path": "3"
-            }
+            "key": "परमाणु:3"
           },
           "props": {
             "weight": 1.0,
@@ -22879,10 +24355,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "उत्पाद",
-              "topic_path": "2"
-            }
+            "key": "उत्पाद:2"
           },
           "props": {
             "weight": 1.0,
@@ -22913,10 +24386,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "उपचार",
-              "topic_path": "3"
-            }
+            "key": "उपचार:3"
           },
           "props": {
             "weight": 1.0,
@@ -22947,10 +24417,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "सप्तभंगी",
-              "topic_path": "5"
-            }
+            "key": "सप्तभंगी:5"
           },
           "props": {
             "weight": 1.0,
@@ -23043,10 +24510,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "कारण",
-              "topic_path": "II"
-            }
+            "key": "कारण:II"
           },
           "props": {
             "weight": 1.0,

@@ -745,7 +745,7 @@
       "next": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%81%E0%A4%B2"
     },
     "parser_version": "jainkosh.rules/1.10.0",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parsed_at": "2026-05-12T13:52:18.156544",
     "warnings": []
   },
   "would_write": {
@@ -1664,6 +1664,24 @@
           }
         },
         {
+          "label": "Gatha",
+          "key": "समाधिशतक:गाथा:4",
+          "props": {
+            "shastra_natural_key": "समाधिशतक",
+            "gatha_number": "4"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "ज्ञानार्णव:गाथा:5",
+          "props": {
+            "shastra_natural_key": "ज्ञानार्णव",
+            "gatha_number": "5"
+          },
+          "lazy": true
+        },
+        {
           "label": "Page",
           "key": "ज्ञानार्णव:टीका:23:पृष्ठ:317",
           "props": {
@@ -1675,6 +1693,24 @@
           "lazy": true
         },
         {
+          "label": "Gatha",
+          "key": "ज्ञानसार:गाथा:29",
+          "props": {
+            "shastra_natural_key": "ज्ञानसार",
+            "gatha_number": "29"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "द्रव्यसंग्रह:गाथा:14",
+          "props": {
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "gatha_number": "14"
+          },
+          "lazy": true
+        },
+        {
           "label": "Page",
           "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:46",
           "props": {
@@ -1682,6 +1718,15 @@
             "teeka_natural_key": "द्रव्यसंग्रह:टीका",
             "publisher_id": "14",
             "page_number": "46"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "कार्तिकेयानुप्रेक्षा:गाथा:192",
+          "props": {
+            "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
+            "gatha_number": "192"
           },
           "lazy": true
         },
@@ -1717,6 +1762,15 @@
             "source": "jainkosh",
             "is_leaf": false
           }
+        },
+        {
+          "label": "Gatha",
+          "key": "परमात्मप्रकाश:गाथा:12",
+          "props": {
+            "shastra_natural_key": "परमात्मप्रकाश",
+            "gatha_number": "12"
+          },
+          "lazy": true
         },
         {
           "label": "Page",
@@ -1763,6 +1817,15 @@
           }
         },
         {
+          "label": "Gatha",
+          "key": "धवला:गाथा:9",
+          "props": {
+            "shastra_natural_key": "धवला",
+            "gatha_number": "9"
+          },
+          "lazy": true
+        },
+        {
           "label": "Page",
           "key": "धवला:टीका:2:पृष्ठ:282",
           "props": {
@@ -1794,6 +1857,15 @@
           "lazy": true
         },
         {
+          "label": "Gatha",
+          "key": "द्रव्यसंग्रह:गाथा:57",
+          "props": {
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "gatha_number": "57"
+          },
+          "lazy": true
+        },
+        {
           "label": "Page",
           "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:267",
           "props": {
@@ -1803,6 +1875,34 @@
             "page_number": "267"
           },
           "lazy": true
+        },
+        {
+          "label": "Keyword",
+          "key": "जीव",
+          "is_stub_seed": true,
+          "props": {
+            "display_text": "जीव"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "प्रमाण:3:3",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "3",
+            "topic_path": "3.3",
+            "parent_keyword_natural_key": "प्रमाण"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "मोक्षमार्ग:2:5",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "5",
+            "topic_path": "2.5",
+            "parent_keyword_natural_key": "मोक्षमार्ग"
+          }
         }
       ],
       "edges": [
@@ -2153,10 +2253,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "प्रमाण",
-              "topic_path": "3.3"
-            }
+            "key": "प्रमाण:3:3"
           },
           "props": {
             "weight": 1.0,
@@ -2186,10 +2283,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "मोक्षमार्ग",
-              "topic_path": "2.5"
-            }
+            "key": "मोक्षमार्ग:2:5"
           },
           "props": {
             "weight": 1.0,

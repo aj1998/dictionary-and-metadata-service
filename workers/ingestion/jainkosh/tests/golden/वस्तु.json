@@ -279,7 +279,7 @@
       "next": "/wiki/%E0%A4%B5%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%81_%E0%A4%B5%E0%A4%BF%E0%A4%A6%E0%A5%8D%E0%A4%AF%E0%A4%BE"
     },
     "parser_version": "jainkosh.rules/1.10.0",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parsed_at": "2026-05-12T13:52:34.899987",
     "warnings": []
   },
   "would_write": {
@@ -584,6 +584,61 @@
             "display_text": "वस्तु",
             "source_url": "https://www.jainkosh.org/wiki/%E0%A4%B5%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%81"
           }
+        },
+        {
+          "label": "Gatha",
+          "key": "कार्तिकेयानुप्रेक्षा:गाथा:225",
+          "props": {
+            "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
+            "gatha_number": "225"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Keyword",
+          "key": "द्रव्य",
+          "is_stub_seed": true,
+          "props": {
+            "display_text": "द्रव्य"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:1:7",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "7",
+            "topic_path": "1.7",
+            "parent_keyword_natural_key": "द्रव्य"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "द्रव्य:1:4",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "4",
+            "topic_path": "1.4",
+            "parent_keyword_natural_key": "द्रव्य"
+          }
+        },
+        {
+          "label": "Keyword",
+          "key": "सामान्य",
+          "is_stub_seed": true,
+          "props": {
+            "display_text": "सामान्य"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "श्रुतज्ञान:II",
+          "is_stub_seed": true,
+          "props": {
+            "display_text_hi": "II",
+            "topic_path": "II",
+            "parent_keyword_natural_key": "श्रुतज्ञान"
+          }
         }
       ],
       "edges": [
@@ -630,10 +685,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "द्रव्य",
-              "topic_path": "1.7"
-            }
+            "key": "द्रव्य:1:7"
           },
           "props": {
             "weight": 1.0,
@@ -648,10 +700,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "द्रव्य",
-              "topic_path": "1.4"
-            }
+            "key": "द्रव्य:1:4"
           },
           "props": {
             "weight": 1.0,
@@ -681,10 +730,7 @@
           },
           "to": {
             "label": "Topic",
-            "resolve_by": {
-              "parent_keyword": "श्रुतज्ञान",
-              "topic_path": "II"
-            }
+            "key": "श्रुतज्ञान:II"
           },
           "props": {
             "weight": 1.0,
