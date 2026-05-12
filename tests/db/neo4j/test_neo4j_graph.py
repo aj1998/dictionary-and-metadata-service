@@ -17,6 +17,7 @@ from jain_kb_common.db.neo4j.constraints import ensure_constraints
 from jain_kb_common.db.neo4j.schema_check import validate_edge_type, UnknownEdgeTypeError
 from jain_kb_common.db.neo4j.upserts import (
     ensure_lazy_node,
+    sync_has_topic_edge,
     sync_kalash,
     sync_keyword,
     sync_publication,
@@ -175,7 +176,7 @@ async def test_sync_topic_creates_node(driver):
 
 
 @skip_no_neo4j
-async def test_sync_topic_creates_has_topic_edge(driver):
+async def test_sync_has_topic_edge(driver):
     kw_pg_id = str(uuid.uuid4())
     tp_pg_id = str(uuid.uuid4())
     await sync_keyword(driver, natural_key="आत्मा-e", pg_id=kw_pg_id, display_text="आत्मा", database=TEST_DB)
@@ -187,6 +188,9 @@ async def test_sync_topic_creates_has_topic_edge(driver):
         source="jainkosh",
         parent_keyword_natural_key="आत्मा-e",
         database=TEST_DB,
+    )
+    await sync_has_topic_edge(
+        driver, keyword_nk="आत्मा-e", topic_nk="jainkosh:आत्मा-e:भेद", database=TEST_DB
     )
     async with driver.session(database=TEST_DB) as session:
         result = await session.run(

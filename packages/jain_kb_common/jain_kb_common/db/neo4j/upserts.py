@@ -85,18 +85,6 @@ async def sync_topic(
             is_leaf=is_leaf,
         )
 
-        if parent_keyword_natural_key:
-            await session.run(
-                """
-                MATCH (k:Keyword {natural_key: $kw}), (t:Topic {natural_key: $tp})
-                MERGE (k)-[r:HAS_TOPIC]->(t)
-                SET r.weight = coalesce(r.weight, 1.0), r.source = $source
-                """,
-                kw=parent_keyword_natural_key,
-                tp=natural_key,
-                source=source,
-            )
-
         for kw_nk in mentioned_keyword_natural_keys or []:
             await session.run(
                 """
@@ -282,6 +270,27 @@ async def sync_gatha(
             """,
             gnk=natural_key,
             snk=shastra_natural_key,
+        )
+
+
+async def sync_has_topic_edge(
+    driver: AsyncDriver,
+    *,
+    keyword_nk: str,
+    topic_nk: str,
+    source: str = "jainkosh",
+    database: str = "jainkb",
+) -> None:
+    async with driver.session(database=database) as session:
+        await session.run(
+            """
+            MATCH (k:Keyword {natural_key: $kw}), (t:Topic {natural_key: $tp})
+            MERGE (k)-[r:HAS_TOPIC]->(t)
+            SET r.weight = coalesce(r.weight, 1.0), r.source = $source
+            """,
+            kw=keyword_nk,
+            tp=topic_nk,
+            source=source,
         )
 
 

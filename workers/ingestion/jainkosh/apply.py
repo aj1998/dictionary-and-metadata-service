@@ -25,6 +25,7 @@ from jain_kb_common.db.postgres.upserts import (
 from jain_kb_common.db.neo4j.upserts import (
     sync_keyword,
     sync_topic,
+    sync_has_topic_edge,
     sync_part_of_edge,
     sync_related_to_edge,
 )
@@ -251,7 +252,11 @@ async def apply_approved_keyword_payload(
         if not frm_key or not to_key:
             continue
 
-        if etype == "PART_OF" and frm.get("label") == "Topic" and to.get("label") == "Topic":
+        if etype == "HAS_TOPIC" and frm.get("label") == "Keyword" and to.get("label") == "Topic":
+            await sync_has_topic_edge(
+                neo4j_driver, keyword_nk=frm_key, topic_nk=to_key, database=neo4j_database
+            )
+        elif etype == "PART_OF" and frm.get("label") == "Topic" and to.get("label") == "Topic":
             await sync_part_of_edge(
                 neo4j_driver, child_nk=frm_key, parent_nk=to_key, database=neo4j_database
             )
