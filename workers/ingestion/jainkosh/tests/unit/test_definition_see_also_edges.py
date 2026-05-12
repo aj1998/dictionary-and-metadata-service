@@ -239,7 +239,7 @@ class TestDefinitionSeeAlsoIntegration:
         assert rt[0]["from"] == {"label": "Keyword", "key": "वस्तु"}
         assert rt[0]["to"] == {"label": "Keyword", "key": "द्रव्य"}
 
-    def test_see_also_topic_path_emits_resolve_by(self):
+    def test_see_also_topic_path_emits_resolved_key(self):
         cfg = _make_config()
         result = _make_result("वस्तु", definition_blocks=[
             _see_also_block(target_keyword="द्रव्य", target_topic_path="1.7"),
@@ -247,10 +247,11 @@ class TestDefinitionSeeAlsoIntegration:
         frag = build_neo4j_fragment(result, cfg)
         rt = [e for e in frag["edges"] if e["type"] == "RELATED_TO"]
         assert len(rt) == 1
-        assert rt[0]["to"] == {
-            "label": "Topic",
-            "resolve_by": {"parent_keyword": "द्रव्य", "topic_path": "1.7"},
-        }
+        # resolve_by replaced with concrete key; cross-page → placeholder key
+        assert rt[0]["to"] == {"label": "Topic", "key": "द्रव्य:1:7"}
+        # stub seed emitted for this topic
+        stubs = [n for n in frag["nodes"] if n.get("is_stub_seed") and n["label"] == "Topic"]
+        assert any(n["key"] == "द्रव्य:1:7" for n in stubs)
 
     def test_multiple_see_also_all_emitted(self):
         """All five see_also blocks from वस्तु's definition produce distinct edges."""

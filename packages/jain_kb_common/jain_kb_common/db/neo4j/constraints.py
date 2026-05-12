@@ -22,6 +22,14 @@ _INDEXES = [
     "CREATE INDEX publication_pg_id IF NOT EXISTS FOR (n:Publication) ON (n.pg_id)",
     "CREATE INDEX kalash_pg_id IF NOT EXISTS FOR (n:Kalash) ON (n.pg_id)",
     "CREATE INDEX topic_kw_path IF NOT EXISTS FOR (n:Topic) ON (n.parent_keyword_natural_key, n.topic_path)",
+    "CREATE INDEX keyword_is_stub IF NOT EXISTS FOR (n:Keyword) ON (n.is_stub)",
+    "CREATE INDEX topic_is_stub IF NOT EXISTS FOR (n:Topic) ON (n.is_stub)",
+    "CREATE INDEX gatha_is_stub IF NOT EXISTS FOR (n:Gatha) ON (n.is_stub)",
+    "CREATE INDEX gatha_teeka_is_stub IF NOT EXISTS FOR (n:GathaTeeka) ON (n.is_stub)",
+    "CREATE INDEX gatha_teeka_bhaavarth_is_stub IF NOT EXISTS FOR (n:GathaTeekaBhaavarth) ON (n.is_stub)",
+    "CREATE INDEX kalash_is_stub IF NOT EXISTS FOR (n:Kalash) ON (n.is_stub)",
+    "CREATE INDEX kalash_bhaavarth_is_stub IF NOT EXISTS FOR (n:KalashBhaavarth) ON (n.is_stub)",
+    "CREATE INDEX page_is_stub IF NOT EXISTS FOR (n:Page) ON (n.is_stub)",
 ]
 
 

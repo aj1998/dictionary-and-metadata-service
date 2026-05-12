@@ -4,6 +4,11 @@ from typing import Any
 
 from neo4j import AsyncDriver
 
+_VALID_LABELS = frozenset({
+    "Keyword", "Topic", "Gatha", "GathaTeeka", "GathaTeekaBhaavarth",
+    "Kalash", "KalashBhaavarth", "Page", "Shastra", "Teeka", "Publication", "Alias",
+})
+
 
 async def sync_keyword(
     driver: AsyncDriver,
@@ -22,6 +27,8 @@ async def sync_keyword(
             SET k.pg_id = $pg_id,
                 k.display_text = $display,
                 k.source_url = $url,
+                k.is_stub = false,
+                k.stub_source = null,
                 k.updated_at = datetime(),
                 k.created_at = coalesce(k.created_at, datetime())
             """,
@@ -73,6 +80,8 @@ async def sync_topic(
                 t.parent_keyword_natural_key = $parent,
                 t.topic_path = $topic_path,
                 t.is_leaf = $is_leaf,
+                t.is_stub = false,
+                t.stub_source = null,
                 t.updated_at = datetime(),
                 t.created_at = coalesce(t.created_at, datetime())
             """,
@@ -88,7 +97,12 @@ async def sync_topic(
         for kw_nk in mentioned_keyword_natural_keys or []:
             await session.run(
                 """
-                MATCH (t:Topic {natural_key: $tp}), (k:Keyword {natural_key: $kw})
+                MERGE (t:Topic {natural_key: $tp})
+                  SET t.is_stub = coalesce(t.is_stub, true),
+                      t.created_at = coalesce(t.created_at, datetime())
+                MERGE (k:Keyword {natural_key: $kw})
+                  SET k.is_stub = coalesce(k.is_stub, true),
+                      k.created_at = coalesce(k.created_at, datetime())
                 MERGE (t)-[r:MENTIONS_KEYWORD]->(k)
                 SET r.weight = coalesce(r.weight, 1.0)
                 """,
@@ -113,6 +127,8 @@ async def sync_shastra(
             SET s.pg_id = $pg_id,
                 s.title_hi = $title,
                 s.author_natural_key = $author,
+                s.is_stub = false,
+                s.stub_source = null,
                 s.updated_at = datetime(),
                 s.created_at = coalesce(s.created_at, datetime())
             """,
@@ -139,6 +155,8 @@ async def sync_teeka(
             SET t.pg_id = $pg_id,
                 t.shastra_natural_key = $snk,
                 t.teekakar_natural_key = $teekakar,
+                t.is_stub = false,
+                t.stub_source = null,
                 t.updated_at = datetime(),
                 t.created_at = coalesce(t.created_at, datetime())
             WITH t
@@ -168,6 +186,8 @@ async def sync_publication(
             SET p.pg_id = $pg_id,
                 p.teeka_natural_key = $tnk,
                 p.publisher_id = $pub_id,
+                p.is_stub = false,
+                p.stub_source = null,
                 p.updated_at = datetime(),
                 p.created_at = coalesce(p.created_at, datetime())
             WITH p
@@ -197,6 +217,8 @@ async def sync_kalash(
             SET k.pg_id = $pg_id,
                 k.teeka_natural_key = $tnk,
                 k.kalash_number = $num,
+                k.is_stub = false,
+                k.stub_source = null,
                 k.updated_at = datetime(),
                 k.created_at = coalesce(k.created_at, datetime())
             WITH k
@@ -253,6 +275,8 @@ async def sync_gatha(
                 g.shastra_natural_key = $snk,
                 g.gatha_number = $num,
                 g.heading_hi = $heading,
+                g.is_stub = false,
+                g.stub_source = null,
                 g.updated_at = datetime(),
                 g.created_at = coalesce(g.created_at, datetime())
             """,
@@ -284,7 +308,14 @@ async def sync_has_topic_edge(
     async with driver.session(database=database) as session:
         await session.run(
             """
-            MATCH (k:Keyword {natural_key: $kw}), (t:Topic {natural_key: $tp})
+            MERGE (k:Keyword {natural_key: $kw})
+              SET k.is_stub = coalesce(k.is_stub, true),
+                  k.stub_source = coalesce(k.stub_source, 'jainkosh_ingestion'),
+                  k.created_at = coalesce(k.created_at, datetime())
+            MERGE (t:Topic {natural_key: $tp})
+              SET t.is_stub = coalesce(t.is_stub, true),
+                  t.stub_source = coalesce(t.stub_source, 'jainkosh_ingestion'),
+                  t.created_at = coalesce(t.created_at, datetime())
             MERGE (k)-[r:HAS_TOPIC]->(t)
             SET r.weight = coalesce(r.weight, 1.0), r.source = $source
             """,
@@ -304,7 +335,14 @@ async def sync_part_of_edge(
     async with driver.session(database=database) as session:
         await session.run(
             """
-            MATCH (child:Topic {natural_key: $c}), (parent:Topic {natural_key: $p})
+            MERGE (child:Topic {natural_key: $c})
+              SET child.is_stub = coalesce(child.is_stub, true),
+                  child.stub_source = coalesce(child.stub_source, 'jainkosh_ingestion'),
+                  child.created_at = coalesce(child.created_at, datetime())
+            MERGE (parent:Topic {natural_key: $p})
+              SET parent.is_stub = coalesce(parent.is_stub, true),
+                  parent.stub_source = coalesce(parent.stub_source, 'jainkosh_ingestion'),
+                  parent.created_at = coalesce(parent.created_at, datetime())
             MERGE (child)-[r:PART_OF]->(parent)
             SET r.weight = coalesce(r.weight, 1.0), r.source = 'jainkosh'
             """,
@@ -323,10 +361,21 @@ async def sync_related_to_edge(
     weight: float = 1.0,
     database: str = "jainkb",
 ) -> None:
+    if source_label not in _VALID_LABELS:
+        raise ValueError(f"Unknown source_label: {source_label!r}")
+    if target_label not in _VALID_LABELS:
+        raise ValueError(f"Unknown target_label: {target_label!r}")
     async with driver.session(database=database) as session:
         await session.run(
             f"""
-            MATCH (src:{source_label} {{natural_key: $s}}), (tgt:{target_label} {{natural_key: $t}})
+            MERGE (src:{source_label} {{natural_key: $s}})
+              SET src.is_stub = coalesce(src.is_stub, true),
+                  src.stub_source = coalesce(src.stub_source, 'jainkosh_ingestion'),
+                  src.created_at = coalesce(src.created_at, datetime())
+            MERGE (tgt:{target_label} {{natural_key: $t}})
+              SET tgt.is_stub = coalesce(tgt.is_stub, true),
+                  tgt.stub_source = coalesce(tgt.stub_source, 'jainkosh_ingestion'),
+                  tgt.created_at = coalesce(tgt.created_at, datetime())
             MERGE (src)-[r:RELATED_TO]->(tgt)
             SET r.weight = coalesce(r.weight, $w), r.source = 'jainkosh'
             """,

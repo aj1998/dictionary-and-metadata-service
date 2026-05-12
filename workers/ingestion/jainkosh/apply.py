@@ -22,6 +22,7 @@ from jain_kb_common.db.postgres.upserts import (
     upsert_keyword_alias,
     upsert_topic,
 )
+from jain_kb_common.db.neo4j.stubs import sync_stub_node, sync_reference_edge
 from jain_kb_common.db.neo4j.upserts import (
     sync_keyword,
     sync_topic,
@@ -235,19 +236,24 @@ async def apply_approved_keyword_payload(
             database=neo4j_database,
         )
 
-    # Wire PART_OF and RELATED_TO edges from the envelope
+    # Write stub-seed and lazy nodes before edges so endpoints always exist
+    for node in neo4j_nodes:
+        if node.get("is_stub_seed") or node.get("lazy"):
+            await sync_stub_node(
+                neo4j_driver,
+                label=node["label"],
+                natural_key=node["key"],
+                props=node.get("props", {}),
+                database=neo4j_database,
+            )
+
+    # Wire edges from the envelope
     for edge in neo4j_edges:
         etype = edge.get("type")
         frm = edge.get("from", {})
         to = edge.get("to", {})
         frm_key = frm.get("key")
         to_key = to.get("key")
-        to_rb = to.get("resolve_by")
-
-        # Resolve resolve_by targets
-        if to_rb:
-            # We skip unresolvable resolve_by edges in Phase 1 (no cross-keyword lookup)
-            continue
 
         if not frm_key or not to_key:
             continue
@@ -261,7 +267,6 @@ async def apply_approved_keyword_payload(
                 neo4j_driver, child_nk=frm_key, parent_nk=to_key, database=neo4j_database
             )
         elif etype == "RELATED_TO":
-            # Only emit if target_exists is True (or not specified)
             if edge.get("props", {}).get("target_exists", True):
                 await sync_related_to_edge(
                     neo4j_driver,
@@ -269,5 +274,18 @@ async def apply_approved_keyword_payload(
                     target_nk=to_key,
                     source_label=frm.get("label", "Topic"),
                     target_label=to.get("label", "Topic"),
+                    database=neo4j_database,
+                )
+        elif etype in ("MENTIONS_TOPIC", "CONTAINS_DEFINITION"):
+            src_label = frm.get("label", "")
+            tgt_label = to.get("label", "")
+            if src_label and tgt_label:
+                await sync_reference_edge(
+                    neo4j_driver,
+                    edge_type=etype,
+                    src_label=src_label,
+                    src_nk=frm_key,
+                    tgt_label=tgt_label,
+                    tgt_nk=to_key,
                     database=neo4j_database,
                 )

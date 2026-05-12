@@ -306,14 +306,21 @@ def _index_relation_edge(rel, src: tuple, *, keyword: str, config: JainkoshConfi
 
 
 def _dedupe(items: list[dict]) -> list[dict]:
-    seen: set = set()
-    out = []
+    """Deduplicate nodes and edges.
+
+    Nodes: keyed on (label, key); real nodes win over stub seeds / lazy nodes.
+    Edges: keyed on (type, from, to, mention_path); resolve_by fields included
+           so that distinct cross-page targets are preserved.
+    """
+    seen_edges: set = set()
+    out_edges: list[dict] = []
+    node_map: dict = {}   # (label, key) → item
+    node_order: list = []  # insertion-order list of (label, key) tuples
+
     for item in items:
         if "type" in item and "from" in item and "to" in item:
-            # Edge: key on (type, from, to, mention_path) to preserve distinct citation contexts
             frm = item["from"]
             to = item["to"]
-            # For resolve_by targets, use the resolve_by dict as part of the key
             rb = to.get("resolve_by")
             to_key = (
                 to.get("label", ""),
@@ -327,13 +334,22 @@ def _dedupe(items: list[dict]) -> list[dict]:
                 *to_key,
                 item.get("props", {}).get("mention_path", ""),
             )
+            if key not in seen_edges:
+                seen_edges.add(key)
+                out_edges.append(item)
         else:
-            import json
-            key = json.dumps(item, sort_keys=True, ensure_ascii=False)
-        if key not in seen:
-            seen.add(key)
-            out.append(item)
-    return out
+            nk = (item.get("label", ""), item.get("key", ""))
+            is_stub = item.get("is_stub_seed") or item.get("lazy")
+            if nk not in node_map:
+                node_map[nk] = item
+                node_order.append(nk)
+            else:
+                existing = node_map[nk]
+                existing_is_stub = existing.get("is_stub_seed") or existing.get("lazy")
+                if existing_is_stub and not is_stub:
+                    node_map[nk] = item  # real node wins
+
+    return [node_map[nk] for nk in node_order] + out_edges
 
 
 def _index_relation_topic_natural_key(
@@ -457,10 +473,42 @@ def _build_index_relation_neo4j(
     return nodes, edges
 
 
-LAZY_NODE_LABELS = {"GathaTeeka", "GathaTeekaBhaavarth", "KalashBhaavarth", "Page"}
+LAZY_NODE_LABELS = {"Gatha", "GathaTeeka", "GathaTeekaBhaavarth", "Kalash", "KalashBhaavarth", "Page"}
+
+
+def _last_segment_unhyphen(topic_path: str) -> str:
+    """Return the last dot-separated segment with hyphens replaced by spaces."""
+    seg = topic_path.split(".")[-1] if topic_path else ""
+    return seg.replace("-", " ")
+
+
+def _resolve_rb_natural_key(
+    parent_keyword: str,
+    topic_path: str,
+    current_keyword: str,
+    path_to_nk: dict[str, str],
+) -> str:
+    """Convert a resolve_by target to a natural key.
+
+    For same-keyword references, looks up the exact heading-based key from the
+    current envelope.  For cross-page references, falls back to a placeholder
+    key ({parent_keyword}:{path_with_colons}) which allows edge creation but
+    may not match when the target page is later ingested.
+    """
+    if parent_keyword == current_keyword:
+        return path_to_nk.get(topic_path, f"{parent_keyword}:{topic_path.replace('.', ':')}")
+    return f"{parent_keyword}:{topic_path.replace('.', ':')}"
 
 
 def _derive_props(label: str, key: str) -> dict:
+    if label == "Gatha":
+        # key: {shastra}:गाथा:{n}
+        prefix, n = key.rsplit(":गाथा:", 1)
+        return {"shastra_natural_key": prefix, "gatha_number": n}
+    if label == "Kalash":
+        # key: {shastra}:{teeka}:कलश:{n}
+        prefix, n = key.rsplit(":कलश:", 1)
+        return {"teeka_natural_key": prefix, "kalash_number": n}
     if label == "GathaTeeka":
         # key: {shastra}:{teeka}:गाथा:टीका:{n}
         prefix, n = key.rsplit(":गाथा:टीका:", 1)
@@ -610,9 +658,60 @@ def build_neo4j_fragment(result: KeywordParseResult, config: JainkoshConfig) -> 
 
     ir_nodes, ir_edges = _build_index_relation_neo4j(result, config)
     nodes.extend(ir_nodes)
+    _collect_lazy_nodes(ir_edges, nodes)
     edges.extend(ir_edges)
 
-    return {"nodes": _dedupe(nodes), "edges": _dedupe(edges)}
+    # Build topic_path → natural_key map for same-keyword resolve_by lookup
+    _path_to_nk: dict[str, str] = {}
+    for sec in result.page_sections:
+        for sub in walk_subsection_tree(sec.subsections):
+            if sub.topic_path:
+                _path_to_nk[sub.topic_path] = sub.natural_key
+
+    # Resolve resolve_by edges → concrete keys; collect stub seeds
+    stub_seeds: list[dict] = []
+    resolved_edges: list[dict] = []
+    for edge in edges:
+        to = edge.get("to", {})
+        rb = to.get("resolve_by")
+        if rb:
+            rb_parent = rb["parent_keyword"]
+            rb_path = rb["topic_path"]
+            target_exists = edge.get("props", {}).get("target_exists", True)
+            if not target_exists:
+                # Redlinks: drop per spec (no stub for non-existent pages)
+                continue
+            nk = _resolve_rb_natural_key(rb_parent, rb_path, result.keyword, _path_to_nk)
+            stub_seeds.append({
+                "label": "Topic",
+                "key": nk,
+                "is_stub_seed": True,
+                "props": {
+                    "display_text_hi": _last_segment_unhyphen(rb_path),
+                    "topic_path": rb_path,
+                    "parent_keyword_natural_key": rb_parent,
+                },
+            })
+            new_edge = dict(edge)
+            new_edge["to"] = {"label": "Topic", "key": nk}
+            resolved_edges.append(new_edge)
+        else:
+            # Cross-page Keyword references get a Keyword stub seed
+            if (
+                to.get("label") == "Keyword"
+                and to.get("key")
+                and to["key"] != result.keyword
+            ):
+                stub_seeds.append({
+                    "label": "Keyword",
+                    "key": to["key"],
+                    "is_stub_seed": True,
+                    "props": {"display_text": to["key"]},
+                })
+            resolved_edges.append(edge)
+
+    nodes.extend(stub_seeds)
+    return {"nodes": _dedupe(nodes), "edges": _dedupe(resolved_edges)}
 
 
 def build_envelope(result: KeywordParseResult, config: Optional[JainkoshConfig] = None) -> WouldWriteEnvelope:
