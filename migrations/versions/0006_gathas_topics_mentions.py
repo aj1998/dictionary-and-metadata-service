@@ -1,4 +1,4 @@
-"""Create gathas, topics, and topic_mentions tables."""
+"""Create gathas, topics tables."""
 
 revision = "0006"
 down_revision = "0005"
@@ -58,31 +58,31 @@ def upgrade() -> None:
         FOR EACH ROW EXECUTE FUNCTION set_updated_at()
     """)
 
-    op.execute("""
-        CREATE TABLE topic_mentions (
-            id                       UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-            topic_id                 UUID NOT NULL REFERENCES topics(id) ON DELETE CASCADE,
-            teeka_id                 UUID REFERENCES teekas(id),
-            gatha_id                 UUID REFERENCES gathas(id),
-            book_id                  UUID REFERENCES books(id),
-            pravachan_id             UUID REFERENCES pravachans(id),
-            page                     INT,
-            cataloguesearch_chunk_id TEXT,
-            mongo_doc_id             TEXT,
-            created_at               TIMESTAMPTZ NOT NULL DEFAULT now(),
-            CHECK (
-                (teeka_id IS NOT NULL)::int +
-                (gatha_id IS NOT NULL)::int +
-                (book_id IS NOT NULL)::int +
-                (pravachan_id IS NOT NULL)::int = 1
-            )
-        )
-    """)
-    op.execute("CREATE INDEX idx_topic_mentions_topic ON topic_mentions(topic_id)")
-    op.execute("CREATE INDEX idx_topic_mentions_chunk ON topic_mentions(cataloguesearch_chunk_id)")
+    # op.execute("""
+    #     CREATE TABLE topic_mentions (
+    #         id                       UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    #         topic_id                 UUID NOT NULL REFERENCES topics(id) ON DELETE CASCADE,
+    #         teeka_id                 UUID REFERENCES teekas(id),
+    #         gatha_id                 UUID REFERENCES gathas(id),
+    #         book_id                  UUID REFERENCES books(id),
+    #         pravachan_id             UUID REFERENCES pravachans(id),
+    #         page                     INT,
+    #         cataloguesearch_chunk_id TEXT,
+    #         mongo_doc_id             TEXT,
+    #         created_at               TIMESTAMPTZ NOT NULL DEFAULT now(),
+    #         CHECK (
+    #             (teeka_id IS NOT NULL)::int +
+    #             (gatha_id IS NOT NULL)::int +
+    #             (book_id IS NOT NULL)::int +
+    #             (pravachan_id IS NOT NULL)::int = 1
+    #         )
+    #     )
+    # """)
+    # op.execute("CREATE INDEX idx_topic_mentions_topic ON topic_mentions(topic_id)")
+    # op.execute("CREATE INDEX idx_topic_mentions_chunk ON topic_mentions(cataloguesearch_chunk_id)")
 
 
 def downgrade() -> None:
-    op.execute("DROP TABLE IF EXISTS topic_mentions")
+    # op.execute("DROP TABLE IF EXISTS topic_mentions")
     op.execute("DROP TABLE IF EXISTS topics")
     op.execute("DROP TABLE IF EXISTS gathas")

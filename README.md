@@ -87,7 +87,7 @@ All models use SQLAlchemy 2 `Mapped`/`mapped_column` style with `JSONB` and `UUI
 | `0003_authors_shastras.py` | `authors`, `shastras`, `anuyogas`, `shastra_anuyogas` |
 | `0004_teekas_books_pravachans.py` | `teekas`, `books`, `book_anuyogas`, `pravachans` |
 | `0005_keywords_aliases.py` | `keywords`, `keyword_aliases` (GIN + trgm indexes) |
-| `0006_gathas_topics_mentions.py` | `gathas`, `topics`, `topic_mentions` (GIN jsonb_path_ops indexes, CHECK constraint) |
+| `0006_gathas_topics_mentions.py` | `gathas`, `topics` , mentions removed|
 | `0007_ingestion_ops.py` | `parser_configs`, `ingestion_runs`, `ingestion_review_queue` |
 | `0008_chat_enrichment.py` | `topic_candidates`, `chat_puller_state` |
 | `0009_query_logs.py` | `query_logs` |
@@ -398,9 +398,84 @@ python -m pytest services/metadata_service/tests/ -v
 
 ---
 
+### ✅ Completed: Data Service API (`docs/design/api/data/01_spec.md`)
+
+**Module**: `services/data_service/` — FastAPI service on port `8002`.
+
+#### Endpoints
+
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/healthz` | Health check |
+| `GET` | `/v1/keywords/letters` | Alphabet letter index with counts (cached 1h) |
+| `GET` | `/v1/keywords` | List keywords (filter: `?q=`, `?letter=`) |
+| `GET` | `/v1/keywords/{id\|natural_key}` | Keyword detail: Postgres row + aliases + Mongo definition |
+| `PATCH` | `/v1/admin/keywords/{id}` | Correct `display_text` / `source_url` |
+| `GET` | `/v1/topics` | List topics (filter: `?q=`, `?parent_keyword_id=`, `?source=`, `?is_leaf=`) |
+| `GET` | `/v1/topics/{id\|natural_key}` | Topic detail: Postgres row + parent refs + Mongo extracts |
+| `GET` | `/v1/gathas` | List gathas (filter: `?shastra_id=`, `?q=`) |
+| `GET` | `/v1/gathas/{id\|natural_key}` | Gatha detail: core content always; teeka content gated behind `?include=` |
+| `GET` | `/v1/kalashas` | List kalashas (filter: `?teeka_id=`) |
+| `GET` | `/v1/kalashas/{id\|natural_key}` | Kalasha detail: all Mongo collections by default; selective via `?include=` |
+| `GET` | `/v1/browse/shastras` | All shastras with gatha/teeka counts (cached 1h) |
+| `GET` | `/v1/browse/shastras/{nk}/index` | Shastra ToC: gathas grouped by adhikaar |
+| `GET` | `/v1/browse/teekas/{nk}/index` | Teeka ToC: gathas + kalashas interleaved |
+| `GET` | `/v1/search` | Cross-entity pg_trgm search across keywords, topics, gathas, kalashas |
+
+All `GET` endpoints are unauthenticated. `PATCH /v1/admin/keywords/{id}` requires HTTP Basic Auth. `Cache-Control: public, max-age=60` is set on every public `GET` response.
+
+#### Gatha `include` param
+
+| Value | Mongo collection fetched |
+|---|---|
+| `teeka_mapping` | `teeka_gatha_mapping` |
+| `teeka_sanskrit` | `gatha_teeka_sanskrit` |
+| `teeka_hindi` | `gatha_teeka_hindi` |
+| `teeka_bhaavarth` | `gatha_teeka_bhaavarth_hindi` |
+
+Fields not requested are **absent** from the response (not null). All included collections are fetched in a single `asyncio.gather` alongside core content.
+
+#### Layout
+
+```
+services/data_service/
+├── main.py          # FastAPI app, lifespan, routers
+├── config.py        # pydantic-settings: DATABASE_URL, MONGO_URL, ADMIN_USER, ADMIN_PASSWORD
+├── deps.py          # get_session(), get_mongo_db(), require_admin()
+├── routers/         # keywords, topics, gathas, kalashas, browse, search
+├── services/        # Business logic (SQLAlchemy async + Motor queries + asyncio.gather)
+├── schemas/         # Pydantic request/response models
+└── tests/           # 60 integration tests (httpx AsyncClient, Postgres real, MongoDB mocked)
+```
+
+#### Run
+
+```bash
+export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_dev"
+export MONGO_URL="mongodb://localhost:27017"
+export ADMIN_USER="admin"
+export ADMIN_PASSWORD="secret"
+uvicorn services.data_service.main:app --port 8002 --reload
+```
+
+OpenAPI docs auto-served at `http://localhost:8002/openapi.json`.
+
+#### Tests
+
+```bash
+export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
+export ADMIN_USER=admin
+export ADMIN_PASSWORD=secret
+python -m pytest services/data_service/tests/ -v
+# 60 tests, 0 skipped — MongoDB is mocked, no real Mongo required
+```
+
+See [`docs/manual_testing/api/data/testing.md`](docs/manual_testing/api/data/testing.md) for the full manual testing guide.
+
+---
+
 ### 🔜 Not yet started
 
-- **Data service** (`docs/design/api/data/01_spec.md`) — gathas, keywords, topics, kalashas, browse, search.
 - **Navigation service** (`docs/design/api/navigation/01_spec.md`) — Neo4j graph navigation, alias CRUD, topic edge admin.
 - Ingestion workers (`08`, `09`), query engine (`12`), query service (`07`), enrichment loop (`11`), admin + public UIs (`13`, `14`), deployment (`15`).
 
@@ -472,6 +547,12 @@ python -m pytest tests/ -v
 
 # Ingestion apply tests only
 python -m pytest tests/ingestion/ -v
+
+# Metadata service tests only (no Mongo/Neo4j required)
+python -m pytest services/metadata_service/tests/ -v
+
+# Data service tests only (MongoDB mocked, no real Mongo required)
+python -m pytest services/data_service/tests/ -v
 ```
 
 ---
@@ -485,7 +566,10 @@ dictionary-and-metadata-service/
 │   └── manual_testing/
 │       ├── postgres/testing.md
 │       ├── mongo/testing.md
-│       └── neo4j/testing.md
+│       ├── neo4j/testing.md
+│       └── api/
+│           ├── metadata/testing.md
+│           └── data/testing.md
 ├── parser_configs/
 │   └── _meta/
 │       └── edge_types.yaml    # Canonical Neo4j edge type registry
@@ -507,7 +591,8 @@ dictionary-and-metadata-service/
 │   └── ingestion/
 │       └── test_apply.py               # apply_approved_keyword_payload integration tests
 ├── services/
-│   └── metadata_service/      # FastAPI metadata service (port 8001) — authors, shastras, teekas, publications, books, pravachans
+│   ├── metadata_service/      # FastAPI metadata service (port 8001) — authors, shastras, teekas, publications, books, pravachans
+│   └── data_service/          # FastAPI data service (port 8002) — keywords, gathas, topics, kalashas, browse, search
 ├── workers/
 │   └── ingestion/
 │       └── jainkosh/
