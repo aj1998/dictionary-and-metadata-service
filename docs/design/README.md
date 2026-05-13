@@ -11,8 +11,9 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Companion t
 | 02 | [Postgres data model](./02_data_model_postgres.md) | Full DDL, enums, indexes, migrations, idempotent upsert pattern |
 | 03 | [Mongo data model](./03_data_model_mongo.md) | Per-type collections, JSON schemas, stable IDs |
 | 04 | [Graph data model](./04_data_model_graph.md) | Neo4j labels, edge types, constraints, sync rules |
-| 05 | [Metadata service API](./05_api_metadata_service.md) | Authors / shastras / teekas / books / pravachans REST |
-| 06 | [Dictionary service API](./06_api_dictionary_service.md) | Keywords / gathas / topics / browse / public search |
+| 05 | [Metadata service API](./api/metadata/01_spec.md) | Authors / shastras / teekas / books / pravachans REST ✅ implemented |
+| 06 | [Data service API](./api/data/01_spec.md) | Keywords / gathas / topics / kalashas / browse / public search |
+| 06b | [Navigation service API](./api/navigation/01_spec.md) | Neo4j graph navigation, alias writes, topic graph traversal |
 | 07 | [Query service API](./07_api_query_service.md) | GraphRAG endpoint contract for cataloguesearch-chat |
 | 08 | [Ingestion: jainkosh](./08_ingestion_jainkosh.md) | Orchestrator pipeline, fetch, alias mining. Parsing rules in [`jainkosh/parsing_rules.md`](./jainkosh/parsing_rules.md), parser spec in [`jainkosh/parser_spec.md`](./jainkosh/parser_spec.md), schema updates in [`jainkosh/schema_updates.md`](./jainkosh/schema_updates.md), reference parser in [`jainkosh/reference_parser_spec.md`](./jainkosh/reference_parser_spec.md) |
 | 09 | [Ingestion: nikkyjain](./09_ingestion_nikkyjain.md) | Local-clone parser for shastras, gathas, anvayartha |

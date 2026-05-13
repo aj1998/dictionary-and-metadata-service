@@ -2,13 +2,16 @@
 
 This is the contract consumed by `cataloguesearch-chat` to enrich its vector hits with structured topic context. It is **the most performance-sensitive surface** — chat can call up to ~10 req/sec.
 
+> **Architecture note**: Simple graph navigation (topic neighbors, alias resolution, shortest path, graph edge admin) lives in the **navigation service** (`services/navigation_service/`, port 8003, see `docs/design/api/navigation/01_spec.md`). The query service focuses exclusively on the high-throughput GraphRAG pipeline for `cataloguesearch-chat`.
+
 ## Service identity
 
 - **Module path**: `services/query_service/`
-- **Default port**: `8003`
+- **Default port**: `8004`
 - **Base path**: `/v1`
 - **Auth**: simple API-key (`x-api-key` header) shared with `cataloguesearch-chat`. Public UI may also call read-only endpoints unauthenticated.
 - **Performance target**: p95 ≤ 250ms for `/v1/graphrag/topics` at 10 req/sec.
+- **Token resolution**: delegates to `navigation_service GET /v1/keywords/{token}/resolve` (or replicates the same Postgres alias lookup inline — the pipeline code in `services/query_service/pipeline/resolve.py` handles this directly against Postgres for latency).
 
 ## The core endpoint
 

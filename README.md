@@ -38,13 +38,14 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Complements
 
 ## Architecture
 
-Three separate FastAPI services sharing `jain_kb_common`:
+Four separate FastAPI services sharing `jain_kb_common`:
 
-| Service | Role |
-|---|---|
-| `metadata-service` | CRUD on authors / shastras / teekas / books / pravachans |
-| `dictionary-service` | CRUD on gathas / keywords / topics + definition lookups |
-| `query-service` | GraphRAG endpoint: tokenize → resolve → graph-traverse → rank |
+| Service | Port | Role |
+|---|---|---|
+| `metadata-service` | 8001 | CRUD on authors / shastras / teekas / publications / books / pravachans |
+| `data-service` | 8002 | Read API for gathas, keywords, topics, kalashas; browse and cross-entity search |
+| `navigation-service` | 8003 | Neo4j graph navigation: alias resolution, topic neighbors, keyword↔topic links; alias and edge admin |
+| `query-service` | 8004 | GraphRAG endpoint for `cataloguesearch-chat`: tokenize → resolve → graph-traverse → rank |
 
 Data stores: **PostgreSQL 16** (source of truth for IDs) · **MongoDB 7** (long-form text) · **Neo4j 5** (graph) · **Redis 7** (Celery broker).
 
@@ -399,7 +400,13 @@ python -m pytest services/metadata_service/tests/ -v
 
 ### 🔜 Not yet started
 
-Dictionary-service API (`06`), ingestion workers (`08`, `09`), query engine (`12`), query-service API (`07`), enrichment loop (`11`), admin + public UIs (`13`, `14`), deployment (`15`).
+- **Data service** (`docs/design/api/data/01_spec.md`) — gathas, keywords, topics, kalashas, browse, search.
+- **Navigation service** (`docs/design/api/navigation/01_spec.md`) — Neo4j graph navigation, alias CRUD, topic edge admin.
+- Ingestion workers (`08`, `09`), query engine (`12`), query service (`07`), enrichment loop (`11`), admin + public UIs (`13`, `14`), deployment (`15`).
+
+### ⚠️ Pending correction
+
+Remove `topic_mentions` Postgres table — see `docs/design/updates/drop_topic_mentions.md`. Requires migration `0014`.
 
 ---
 

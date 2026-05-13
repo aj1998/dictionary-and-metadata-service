@@ -522,6 +522,31 @@ POST/PATCH for all resources behind `require_admin`. Enables manual data entry w
 
 ---
 
+## Example handler
+
+```python
+# services/metadata_service/routers/shastras.py
+@router.get("/{ident}", response_model=ShastraDetail)
+async def get_shastra(ident: str, session: AsyncSession = Depends(get_session)):
+    shastra = await shastras_svc.get_by_id_or_natural_key(session, ident)
+    if shastra is None:
+        raise NotFound("shastra", ident)
+    return ShastraDetail.from_orm(shastra)
+```
+
+---
+
+## Definition of Done
+
+- [ ] All listed endpoints implemented and reachable.
+- [ ] OpenAPI spec served at `/openapi.json` includes all routes with examples.
+- [ ] All `GET` endpoints covered by integration tests against a Postgres test container.
+- [ ] All `POST/PATCH` admin endpoints validated against Pydantic models and reject unauthenticated requests (401) and duplicate `natural_key` (409).
+- [ ] `pytest -q` passes; coverage ≥ 80% on `routers/` and `services/`.
+- [ ] Service starts with `uvicorn services.metadata_service.main:app --port 8001`.
+
+---
+
 ## Open questions
 
 **Q-1 — Anuyoga filter on Books**
