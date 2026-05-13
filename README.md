@@ -320,9 +320,86 @@ See [`docs/manual_testing/jainkosh_ingestion.md`](docs/manual_testing/jainkosh_i
 
 ---
 
+### ✅ Completed: Metadata Service API (`docs/design/api/metadata/01_spec.md`)
+
+**Module**: `services/metadata_service/` — FastAPI service on port `8001`.
+
+#### Endpoints
+
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/healthz` | Health check |
+| `GET` | `/v1/authors` | List authors (paginated) |
+| `GET` | `/v1/authors/{id\|natural_key}` | Fetch author |
+| `POST` | `/v1/admin/authors` | Create author |
+| `PATCH` | `/v1/admin/authors/{id}` | Update author |
+| `GET` | `/v1/shastras` | List shastras (filter: `?author_id=`, `?anuyoga=`, `?q=`) |
+| `GET` | `/v1/shastras/{id\|natural_key}` | Fetch shastra with embedded author + anuyogas + stats |
+| `GET` | `/v1/shastras/{id\|natural_key}/teekas` | List teekas for shastra |
+| `POST` | `/v1/admin/shastras` | Create shastra |
+| `PATCH` | `/v1/admin/shastras/{id}` | Update shastra |
+| `GET` | `/v1/anuyogas` | List all four anuyogas |
+| `GET` | `/v1/teekas` | List teekas (filter: `?shastra_id=`, `?teekakar_id=`) |
+| `GET` | `/v1/teekas/{id\|natural_key}` | Fetch teeka with embedded shastra + teekakar + stats |
+| `GET` | `/v1/teekas/{id\|natural_key}/publications` | List publications for teeka |
+| `POST` | `/v1/admin/teekas` | Create teeka |
+| `PATCH` | `/v1/admin/teekas/{id}` | Update teeka |
+| `GET` | `/v1/publications` | List publications (filter: `?teeka_id=`, `?publisher_id=`) |
+| `GET` | `/v1/publications/{id\|natural_key}` | Fetch publication |
+| `POST` | `/v1/admin/publications` | Create publication |
+| `PATCH` | `/v1/admin/publications/{id}` | Update publication |
+| `GET` | `/v1/publishers` | List publishers (read-only from `publishers.json`) |
+| `GET` | `/v1/books` | List books (filter: `?shastra_id=`, `?anuyoga=`) |
+| `GET` | `/v1/books/{id\|natural_key}` | Fetch book with embedded shastra + anuyogas |
+| `POST` | `/v1/admin/books` | Create book |
+| `PATCH` | `/v1/admin/books/{id}` | Update book |
+| `GET` | `/v1/pravachans` | List pravachans (filter: `?shastra_id=`, `?speaker_id=`) |
+| `GET` | `/v1/pravachans/{id\|natural_key}` | Fetch pravachan with embedded shastra + speaker |
+| `POST` | `/v1/admin/pravachans` | Create pravachan |
+| `PATCH` | `/v1/admin/pravachans/{id}` | Update pravachan |
+| `GET` | `/v1/admin/search` | Cross-entity pg_trgm fuzzy search |
+
+All `GET` endpoints are unauthenticated. `POST`/`PATCH`/admin endpoints require HTTP Basic Auth (`ADMIN_USER` / `ADMIN_PASSWORD`).
+
+#### Layout
+
+```
+services/metadata_service/
+├── main.py          # FastAPI app, lifespan (publishers.json load), routers
+├── config.py        # pydantic-settings: DATABASE_URL, ADMIN_USER, ADMIN_PASSWORD
+├── deps.py          # get_session(), require_admin() (HTTP Basic)
+├── routers/         # One router per resource
+├── services/        # Business logic (SQLAlchemy async queries)
+├── schemas/         # Pydantic request/response models
+└── tests/           # 60 integration tests (httpx AsyncClient against real DB)
+```
+
+#### Run
+
+```bash
+export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_dev"
+export ADMIN_USER="admin"
+export ADMIN_PASSWORD="secret"
+uvicorn services.metadata_service.main:app --port 8001 --reload
+```
+
+OpenAPI docs auto-served at `http://localhost:8001/openapi.json`.
+
+#### Tests
+
+```bash
+export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
+export ADMIN_USER=admin
+export ADMIN_PASSWORD=secret
+python -m pytest services/metadata_service/tests/ -v
+# 60 tests, 0 skipped — no Mongo/Neo4j required
+```
+
+---
+
 ### 🔜 Not yet started
 
-Metadata-service API (`05`), dictionary-service API (`06`), ingestion workers (`08`, `09`), query engine (`12`), query-service API (`07`), enrichment loop (`11`), admin + public UIs (`13`, `14`), deployment (`15`).
+Dictionary-service API (`06`), ingestion workers (`08`, `09`), query engine (`12`), query-service API (`07`), enrichment loop (`11`), admin + public UIs (`13`, `14`), deployment (`15`).
 
 ---
 
@@ -426,7 +503,8 @@ dictionary-and-metadata-service/
 │   │       └── test_neo4j_graph.py     # Neo4j constraints, upserts, queries, schema_check
 │   └── ingestion/
 │       └── test_apply.py               # apply_approved_keyword_payload integration tests
-├── services/                  # (future) metadata-, dictionary-, query-service
+├── services/
+│   └── metadata_service/      # FastAPI metadata service (port 8001) — authors, shastras, teekas, publications, books, pravachans
 ├── workers/
 │   └── ingestion/
 │       └── jainkosh/
