@@ -31,12 +31,14 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Complements
 ## What this service does
 
 - **Master Metadata** — authors, shastras, teekas, books, pravachans, anuyogas stored in PostgreSQL with stable UUIDs.
-- **Dictionary** — gathas (Prakrit/Sanskrit/Hindi), keyword definitions, keyword↔topic mappings stored in MongoDB (long-form text) with index rows in PostgreSQL.
-- **Knowledge Graph** — keyword↔topic↔topic relations in Neo4j, enabling GraphRAG retrieval.
+- **Dictionary** — gathas, kalashas (Prakrit/Sanskrit/Hindi), keyword definitions, topic extracts stored in MongoDB (long-form text) with index rows in PostgreSQL.
+- **Knowledge Graph** — `keyword↔topic↔topic↔gathas↔teekas↔shastras↔pages` all kind of relations in Neo4j, enabling GraphRAG retrieval.
 - **Ingestion pipeline** — scrapers for JainKosh and nikkyjain.github.io; an enrichment loop that pulls topic candidates from `cataloguesearch-chat`.
 - **Admin + Public APIs** — FastAPI services for curating content and serving the public UI.
 
 ## Architecture
+
+> See [`docs/design/00_overview.md`](docs/design/00_overview.md) for the full design reading order.
 
 ### Services
 
@@ -138,19 +140,35 @@ See [`IMPLEMENTATION_NOTES.md`](IMPLEMENTATION_NOTES.md) for full details on eac
 | Admin + Public UI (Next.js) | 🔜 |
 | Deployment (Docker Compose) | 🔜 |
 
-#### JainKosh Parser — sample results (v1.6.0)
 
-The JainKosh HTML parser (`workers/ingestion/jainkosh/`) converts raw MediaWiki HTML into a `WouldWriteEnvelope` — a structured preview of exactly what each store (Postgres / Mongo / Neo4j) would receive on admin approval. Results on three representative keyword pages:
+### JainKosh Parser —
 
-| Page | SK defs | PK defs | Index relations | Total subsections | Keywords | Topics | Nodes | Edges | Warnings |
-|------|---------|---------|-----------------|-------------------|----------|--------|-------|-------|---------|
-| आत्मा | 4 | 2 | 0 | 7 | 1 | 7 | 8 | 10 | 0 |
-| द्रव्य | 1 | 1 | 26 | 59 | 1 | 85 | 86 | 121 | 0 |
-| पर्याय | 1 | 2 | 8 | 43 | 1 | 51 | 52 | 59 | 0 |
+The JainKosh HTML parser (`workers/ingestion/jainkosh/`) converts raw MediaWiki HTML into a `WouldWriteEnvelope` — a structured preview of exactly what each store (Postgres / Mongo / Neo4j) would receive on admin approval.
 
-_SK defs = Siddhantkosh definitions; PK defs = Puraankosh definitions. To regenerate from latest goldens: `python workers/ingestion/jainkosh/golden_stats.py`_
+Results on sample keyword pages:
 
-See [`docs/design/00_overview.md`](docs/design/00_overview.md) for the full design reading order.
+#### Summary
+| Page   | SK defs | PK defs | Idx rels | Subsections | Keywords (int+ext) | Topics (int+ext) | Nodes | Edges | Refs (Res) | Warnings |
+| ------ | ------- | ------- | -------- | ----------- | ------------------ | ---------------- | ----- | ----- | ---------- | -------- |
+| आत्मा  | 4       | 2       | 0        | 7           | 2                  | 9                | 11    | 30    | 15         | 0        |
+| द्रव्य | 1       | 1       | 26       | 59          | 9                  | 105              | 114   | 224   | 164        | 0        |
+| पर्याय | 1       | 2       | 8        | 43          | 3                  | 56               | 59    | 152   | 114        | 0        |
+
+#### Nodes
+| Page   | Keyword (int) | Keyword (ext) | Topic (int) | Topic (ext) | Gatha (lazy) | GathaTeeka (lazy) | GathaTeekaBhaavarth (lazy) | Page (lazy) |
+| ------ | ------------- | ------------- | ----------- | ----------- | ------------ | ----------------- | -------------------------- | ----------- |
+| आत्मा  | 1             | 1             | 7           | 2           | 8            | 2                 | 0                          | 5           |
+| द्रव्य | 1             | 8             | 85          | 20          | 30           | 16                | 10                         | 26          |
+| पर्याय | 1             | 2             | 51          | 5           | 9            | 19                | 9                          | 20          |
+
+#### Edges
+| Page   | CONTAINS_DEFINITION | HAS_TOPIC | MENTIONS_TOPIC | PART_OF | RELATED_TO |
+| ------ | ------------------- | --------- | -------------- | ------- | ---------- |
+| आत्मा  | 7                   | 3         | 13             | 4       | 3          |
+| द्रव्य | 0                   | 5         | 103            | 80      | 36         |
+| पर्याय | 0                   | 3         | 93             | 48      | 8          |
+
+To regenerate from latest goldens, run: `python scripts/golden_stats.py`
 
 ---
 ## Local setup

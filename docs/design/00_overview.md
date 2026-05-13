@@ -159,12 +159,12 @@ dictionary-and-metadata-service/
 
 ## Reading Order for Implementers
 
-1. `01_clarifications.md` — captured Q&A, the *why* behind decisions.
-2. `02_data_model_postgres.md` → `03_data_model_mongo.md` → `04_data_model_graph.md` — schemas first.
-3. `08_ingestion_jainkosh.md` and `09_ingestion_nikkyjain.md` — fill the stores.
-4. `api/metadata/01_spec.md` — ✅ implemented.
-5. `api/data/01_spec.md` — data service (gathas, keywords, topics, kalashas, browse).
-6. `api/navigation/01_spec.md` — navigation service (Neo4j graph navigation, alias writes).
+1. `01_clarifications.md` — captured Q&A, the *why* behind decisions. ✅
+2. `02_data_model_postgres.md` → `03_data_model_mongo.md` → `04_data_model_graph.md` — schemas first. ✅ implemented.
+3. `08_ingestion_jainkosh.md` and `09_ingestion_nikkyjain.md` — fill the stores. [_Partially Implemented_]
+4. `api/metadata/01_spec.md` — metadata service. ✅ implemented.
+5. `api/data/01_spec.md` — data service (gathas, keywords, topics, kalashas, browse). ✅ implemented.
+6. `api/navigation/01_spec.md` — navigation service (Neo4j graph navigation, alias writes). ✅ implemented.
 7. `12_query_engine.md` then `07_api_query_service.md` — GraphRAG pipeline (future).
 8. `11_chat_enrichment_loop.md` — incremental graph growth.
 9. `13_admin_ui.md` and `14_public_ui.md`.
