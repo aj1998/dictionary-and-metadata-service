@@ -474,9 +474,79 @@ See [`docs/manual_testing/api/data/testing.md`](docs/manual_testing/api/data/tes
 
 ---
 
+### ✅ Completed: Navigation Service API (`docs/design/api/navigation/01_spec.md`)
+
+**Module**: `services/navigation_service/` — FastAPI service on port `8003`.
+
+#### Endpoints
+
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/healthz` | Health check with Neo4j node count (5-min cache) |
+| `GET` | `/v1/keywords/{token}/resolve` | Keyword resolution: exact → alias → suffix-strip → none |
+| `GET` | `/v1/keywords/{nk}/topics` | Topics reachable from a keyword via the graph |
+| `GET` | `/v1/topics/{nk}/neighbors` | Topic neighborhood traversal (depth 1–3, configurable edge types) |
+| `GET` | `/v1/topics/{nk}/keywords` | Keywords referenced by a topic (`MENTIONS_KEYWORD` edges) |
+| `GET` | `/v1/graph/shortest_path` | Shortest path between two Topic nodes (max depth 6) |
+| `POST` | `/v1/admin/keywords/{id}/aliases` | Add alias (Postgres + Neo4j ALIAS_OF edge) |
+| `DELETE` | `/v1/admin/keywords/{id}/aliases/{alias_id}` | Remove alias (Postgres row + Neo4j Alias node if orphaned) |
+| `POST` | `/v1/admin/topics/{nk}/edges` | Add semantic topic edge (IS_A / PART_OF / RELATED_TO) |
+| `DELETE` | `/v1/admin/topics/{nk}/edges` | Remove semantic topic edge |
+| `POST` | `/v1/admin/graph/resync` | Rebuild Neo4j graph from Postgres (`scope=full\|keyword\|topic\|shastra`) |
+| `GET` | `/v1/admin/graph/stubs` | List stub nodes (paginated, label filter) |
+
+All `GET` endpoints are unauthenticated. Admin writes require HTTP Basic Auth.
+
+#### Key design choices
+
+- **One Cypher round-trip per neighbor query** — UNION query handles outbound, inbound, and undirected (RELATED_TO) in a single call.
+- **Stub filtering is Cypher-side** (`WHERE NOT coalesce(n.is_stub, false)`) — no unnecessary data fetched to Python.
+- **Postgres alias writes commit before Neo4j writes** — retry of the same POST is idempotent (Neo4j MERGE).
+- **Structural edge types (`IN_SHASTRA`, `IN_TEEKA`, `IN_PUBLICATION`) silently excluded** from public neighbor responses.
+- **Full resync requires `X-Confirm: resync-full` header** — guards against accidental graph wipe.
+
+#### Layout
+
+```
+services/navigation_service/
+├── main.py          # FastAPI app, lifespan (Neo4j ping), 5-min node count cache
+├── config.py        # pydantic-settings: DATABASE_URL, NEO4J_*, ADMIN_USER, ADMIN_PASSWORD
+├── deps.py          # get_session(), get_neo4j_driver(), require_admin()
+├── routers/         # keywords, topics, graph, admin
+├── services/        # resolution (Postgres), traversal (Neo4j), aliases, edges, resync
+├── schemas/         # resolution, neighbors, admin
+└── tests/           # 32 integration tests (Postgres real, Neo4j mocked)
+```
+
+#### Run
+
+```bash
+export NEO4J_URL="bolt://localhost:7687"
+export NEO4J_USER="neo4j"
+export NEO4J_PASSWORD="jainkb_password"
+export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_dev"
+export ADMIN_USER="admin"
+export ADMIN_PASSWORD="secret"
+uvicorn services.navigation_service.main:app --port 8003 --reload
+```
+
+#### Tests
+
+```bash
+export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
+export ADMIN_USER=admin
+export ADMIN_PASSWORD=secret
+export NEO4J_PASSWORD=jainkb_password
+python -m pytest services/navigation_service/tests/ -v
+# 32 tests, 0 skipped — Neo4j is mocked, no live Neo4j required
+```
+
+See [`docs/manual_testing/api/navigation/testing.md`](docs/manual_testing/api/navigation/testing.md) for the full manual testing guide.
+
+---
+
 ### 🔜 Not yet started
 
-- **Navigation service** (`docs/design/api/navigation/01_spec.md`) — Neo4j graph navigation, alias CRUD, topic edge admin.
 - Ingestion workers (`08`, `09`), query engine (`12`), query service (`07`), enrichment loop (`11`), admin + public UIs (`13`, `14`), deployment (`15`).
 
 ---
@@ -553,6 +623,10 @@ python -m pytest services/metadata_service/tests/ -v
 
 # Data service tests only (MongoDB mocked, no real Mongo required)
 python -m pytest services/data_service/tests/ -v
+
+# Navigation service tests only (Neo4j mocked, no real Neo4j required)
+export NEO4J_PASSWORD=jainkb_password
+python -m pytest services/navigation_service/tests/ -v
 ```
 
 ---
@@ -569,7 +643,8 @@ dictionary-and-metadata-service/
 │       ├── neo4j/testing.md
 │       └── api/
 │           ├── metadata/testing.md
-│           └── data/testing.md
+│           ├── data/testing.md
+│           └── navigation/testing.md
 ├── parser_configs/
 │   └── _meta/
 │       └── edge_types.yaml    # Canonical Neo4j edge type registry
@@ -592,7 +667,8 @@ dictionary-and-metadata-service/
 │       └── test_apply.py               # apply_approved_keyword_payload integration tests
 ├── services/
 │   ├── metadata_service/      # FastAPI metadata service (port 8001) — authors, shastras, teekas, publications, books, pravachans
-│   └── data_service/          # FastAPI data service (port 8002) — keywords, gathas, topics, kalashas, browse, search
+│   ├── data_service/          # FastAPI data service (port 8002) — keywords, gathas, topics, kalashas, browse, search
+│   └── navigation_service/    # FastAPI navigation service (port 8003) — Neo4j graph navigation, alias CRUD, topic edge admin
 ├── workers/
 │   └── ingestion/
 │       └── jainkosh/
