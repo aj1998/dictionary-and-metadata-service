@@ -259,38 +259,6 @@ CREATE TABLE topics (
 CREATE INDEX idx_topics_parent_keyword ON topics(parent_keyword_id);
 ```
 
-### `topic_mentions` (where a topic is cited)
-
-```sql
-CREATE TABLE topic_mentions (
-  id                          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  topic_id                    UUID NOT NULL REFERENCES topics(id) ON DELETE CASCADE,
-
-  -- exactly one of the following groupings should be non-null:
-  teeka_id                    UUID REFERENCES teekas(id),
-  gatha_id                    UUID REFERENCES gathas(id),
-  book_id                     UUID REFERENCES books(id),
-  pravachan_id                UUID REFERENCES pravachans(id),
-
-  page                        INT,
-  -- foreign references (no FK):
-  cataloguesearch_chunk_id    TEXT,         -- preferred when the source is in cataloguesearch
-  mongo_doc_id                TEXT,         -- when the source is in our Mongo
-
-  created_at                  TIMESTAMPTZ NOT NULL DEFAULT now(),
-
-  CHECK (
-    (teeka_id IS NOT NULL)::int +
-    (gatha_id IS NOT NULL)::int +
-    (book_id IS NOT NULL)::int +
-    (pravachan_id IS NOT NULL)::int = 1
-  )
-);
-
-CREATE INDEX idx_topic_mentions_topic ON topic_mentions(topic_id);
-CREATE INDEX idx_topic_mentions_chunk ON topic_mentions(cataloguesearch_chunk_id);
-```
-
 ## Ingestion / operations tables
 
 ### `parser_configs` (registry — files live in `parser_configs/`)

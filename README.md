@@ -71,7 +71,7 @@ See [`docs/design/00_overview.md`](docs/design/00_overview.md) for the full arch
 | `pravachans.py` | `Pravachan` |
 | `keywords.py` | `Keyword`, `KeywordAlias` |
 | `gathas.py` | `Gatha` |
-| `topics.py` | `Topic`, `TopicMention` |
+| `topics.py` | `Topic` |
 | `ingestion.py` | `ParserConfig`, `IngestionRun`, `IngestionReviewQueue` |
 | `enrichment.py` | `TopicCandidate`, `ChatPullerState` |
 | `query_logs.py` | `QueryLog` |
@@ -403,10 +403,6 @@ python -m pytest services/metadata_service/tests/ -v
 - **Data service** (`docs/design/api/data/01_spec.md`) — gathas, keywords, topics, kalashas, browse, search.
 - **Navigation service** (`docs/design/api/navigation/01_spec.md`) — Neo4j graph navigation, alias CRUD, topic edge admin.
 - Ingestion workers (`08`, `09`), query engine (`12`), query service (`07`), enrichment loop (`11`), admin + public UIs (`13`, `14`), deployment (`15`).
-
-### ⚠️ Pending correction
-
-Remove `topic_mentions` Postgres table — see `docs/design/updates/drop_topic_mentions.md`. Requires migration `0014`.
 
 ---
 

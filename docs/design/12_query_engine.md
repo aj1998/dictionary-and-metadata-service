@@ -211,7 +211,7 @@ This module is intentionally tiny so a **v2** swap to PageRank or to a hybrid gr
 
 Batch fetch:
 - Mongo `topic_extracts` for every `topic_pg_id` in the top_k → single `find({_id: {$in: stable_ids}})`.
-- Postgres `topic_mentions` for the top_k → single `IN` query.
+- Neo4j `MENTIONS_TOPIC` edges for the top_k → neighbors query via navigation service.
 
 Embed only Hindi blocks in extracts when `include_extracts=true`. Truncate each block to ~1500 chars to bound payload size.
 

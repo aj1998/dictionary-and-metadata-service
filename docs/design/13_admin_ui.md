@@ -26,7 +26,7 @@ Internal control plane for the service. Lives in the same Next.js app as the pub
 | `/admin/keywords` | Search keywords; edit aliases | Postgres `keywords` + `keyword_aliases` |
 | `/admin/keywords/[nk]` | Aliases editor (add/remove), "scrape now" if `unscraped` stub | + Neo4j |
 | `/admin/topics` | Search topics; manage edges | Postgres `topics` + Neo4j |
-| `/admin/topics/[nk]` | Edges editor (add/remove IS_A, PART_OF, RELATED_TO); mentions list (add manual mention) | Neo4j + Postgres `topic_mentions` |
+| `/admin/topics/[nk]` | Edges editor (add/remove IS_A, PART_OF, RELATED_TO); mentions list (read from Neo4j) | Neo4j |
 | `/admin/graph` | Graph stats, full resync trigger, node/edge counts by label/type | Neo4j |
 | `/admin/logs/queries` | Recent query logs (top tokens, zero-match queries, latency p50/p95) | Postgres `query_logs` |
 | `/admin/ocr` | OCR pages awaiting review (placeholder for v1 stub) | Mongo `ocr_pages` |
