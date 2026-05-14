@@ -190,3 +190,12 @@ Updated:
 
 ### Tests
 - 5 test files covering success paths, error paths (ApiError with correct status), URL construction, and Devanagari encoding 
+
+From regressions -
+
+- nav.test.ts (+1 suite) -> locale-prefixed paths fail isNavActive -> Documents the contract: isNavActive must receive the locale-stripped path, proving why next-intl's usePathname is required
+- i18n/routing.test.ts -> locales, defaultLocale, localePrefix, localeCookie -> Locks the config that makes [locale] folder mandatory — changing defaultLocale or localePrefix must be an intentional decision
+- i18n/navigation.test.ts -> 4 exports exist and are functions -> next-intl/navigation is mocked (it pulls in next/navigation which isn't resolvable in Node) — verifies the destructuring in navigation.ts is correct
+- lib/locale-pages.test.ts -> every nav route has a page file on disk -> Acts as a manifest: adding a nav item in nav.ts without a matching page.tsx under [locale]/ will fail here
+
+---
