@@ -470,3 +470,66 @@ Both passed.
 8. Open `/[locale]/search?q=<term>`; verify ranked result cards, overlap/score pill, and both CTAs render.
 9. Try `/[locale]/search?q=<gibberish>`; verify empty-state text "कोई परिणाम नहीं मिला" appears.
 10. Resize at mobile (`~375px`), tablet (`~768px`), desktop (`>=1280px`) and verify the list/grid layouts reflow without overlap.
+
+---
+## Phase 7:
+
+Implemented Phase 7 detail views and supporting reusable components.
+
+### Files added
+- `ui/src/components/GathaPanel.tsx`
+- `ui/src/components/TaggedTermPopover.tsx`
+- `ui/src/components/MiniGraphPreview.tsx`
+- `ui/src/lib/gatha-content.ts`
+- `ui/src/app/[locale]/(content)/shastras/[nk]/page.tsx`
+- `ui/src/app/[locale]/(reading)/shastras/[nk]/gathas/[number]/page.tsx`
+- `ui/src/app/[locale]/(content)/dictionary/[nk]/page.tsx`
+- `ui/src/app/[locale]/(content)/topics/[nk]/page.tsx`
+- `ui/src/lib/api/metadata.phase7.test.ts`
+- `ui/src/components/GathaPanel.test.ts`
+- `ui/src/components/MiniGraphPreview.test.ts`
+- `ui/src/lib/gatha-content.test.ts`
+
+### Files updated
+- `ui/src/lib/api/metadata.ts`
+
+### What was implemented
+- Added `GathaPanel` with language-specific accent variants and preserved line breaks.
+- Added `TaggedTermPopover` with dialog semantics and optional topic deep-link.
+- Added server `MiniGraphPreview` with static SVG and graph CTA overlay.
+- Added gatha teeka parsing helpers for bracketed inline terms.
+- Added detail routes for:
+  - `/[locale]/shastras/[nk]`
+  - `/[locale]/shastras/[nk]/gathas/[number]`
+  - `/[locale]/dictionary/[nk]`
+  - `/[locale]/topics/[nk]`
+- Extended metadata API client with `getShastraGathas(nk, {limit, offset})`.
+- Added defensive logging fallbacks where dependent detail-side data can fail independently.
+
+### Tests added
+- `ui/src/lib/api/metadata.phase7.test.ts`:
+  - validates `getShastraGathas` endpoint and querystring contract.
+- `ui/src/components/GathaPanel.test.ts`:
+  - validates language-to-accent class mapping.
+- `ui/src/components/MiniGraphPreview.test.ts`:
+  - validates preview coordinate projection bounds.
+- `ui/src/lib/gatha-content.test.ts`:
+  - validates extraction and splitting of bracket-tagged teeka terms.
+
+### Verification commands run
+- `cd ui && pnpm test`
+- `cd ui && pnpm build` (with network permission required for Google Fonts fetch)
+
+Both passed.
+
+### Manual UI verification checklist
+
+1. Open /hi/shastras/<nk> and confirm hero card, stat tiles, teeka table, gatha cards, right rail CTA + mini graph.
+2. Click a gatha from shastra detail and verify /hi/shastras/<nk>/gathas/<number> shows prakrit/sanskrit/hindi panels.
+3. On gatha detail, click tagged terms in शब्दार्थ/टीका and verify popover appears with dialog semantics.
+4. Verify related topics/keywords chips render in gatha sidebar and navigation links work.
+5. Verify “ग्राफ में खोलें” from gatha and shastra detail opens /graph?node=....
+6. Open /hi/dictionary/<nk> and verify aliases, source/graph CTAs, सिद्धांतकोष section, graph relation rows.
+7. Open /hi/topics/<nk> and verify hero, extracts section, grouped neighbors (IS_A/PART_OF/RELATED_TO), right rail preview.
+8. Hover mini graph preview on any detail page and verify overlay link “ग्राफ में खोलें” appears.
+

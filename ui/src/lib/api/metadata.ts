@@ -1,5 +1,5 @@
 import { apiFetch } from './_fetch';
-import type { Paginated, ShastraSummary, ShastraDetail, TeekaSummary } from '@/lib/types';
+import type { Paginated, ShastraSummary, ShastraDetail, TeekaSummary, GathaSummary } from '@/lib/types';
 
 const BASE_URL = process.env.METADATA_SVC_URL ?? '/api/metadata';
 
@@ -24,4 +24,15 @@ export async function getShastra(nk: string): Promise<ShastraDetail> {
 
 export async function getShastraTeekas(nk: string): Promise<TeekaSummary[]> {
   return apiFetch<TeekaSummary[]>(BASE_URL, `/v1/shastras/${nk}/teekas`);
+}
+
+export async function getShastraGathas(
+  nk: string,
+  params?: { limit?: number; offset?: number }
+): Promise<Paginated<GathaSummary>> {
+  const qs = new URLSearchParams();
+  if (params?.limit !== undefined) qs.set('limit', String(params.limit));
+  if (params?.offset !== undefined) qs.set('offset', String(params.offset));
+  const query = qs.toString();
+  return apiFetch<Paginated<GathaSummary>>(BASE_URL, `/v1/shastras/${nk}/gathas${query ? `?${query}` : ''}`);
 }

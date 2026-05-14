@@ -40,6 +40,7 @@ export interface DetailsPanelProps {
 
 export function DetailsPanel({ open, selected, nodes, edges, depth, onClose, onSelectNode, onExpand }: DetailsPanelProps) {
   const [detail, setDetail] = useState<EntityDetail | null>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   const selectedNode = selected?.kind === 'node' ? nodes[selected.id] : null;
   const selectedEdge = selected?.kind === 'edge' ? edges[selected.id] : null;
@@ -69,6 +70,14 @@ export function DetailsPanel({ open, selected, nodes, edges, depth, onClose, onS
     if (!selectedEdge) return { src: null, dst: null };
     return { src: nodes[selectedEdge.src] ?? null, dst: nodes[selectedEdge.dst] ?? null };
   }, [selectedEdge, nodes]);
+
+  useEffect(() => {
+    const media = window.matchMedia('(min-width: 1280px)');
+    const sync = () => setIsDesktop(media.matches);
+    sync();
+    media.addEventListener('change', sync);
+    return () => media.removeEventListener('change', sync);
+  }, []);
 
   const body = selectedNode ? (
     <div className="flex h-full flex-col">
@@ -124,25 +133,26 @@ export function DetailsPanel({ open, selected, nodes, edges, depth, onClose, onS
 
   if (!open || !body) return null;
 
-  return (
-    <>
-      <aside className="hidden w-[380px] shrink-0 border-l border-border bg-surface xl:block">
+  if (isDesktop) {
+    return (
+      <aside className="w-[380px] shrink-0 border-l border-border bg-surface">
         <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border bg-surface px-4 py-3">
           <p className="text-sm font-medium">विवरण</p>
           <button type="button" aria-label="Close details" onClick={onClose}><X className="size-4" /></button>
         </div>
         {body}
       </aside>
-      <div className="xl:hidden">
-        <Sheet open={open} onOpenChange={(v) => { if (!v) onClose(); }}>
-          <SheetContent side="bottom" className="h-[75vh] p-0">
-            <SheetHeader className="border-b border-border px-4 py-3">
-              <SheetTitle>विवरण</SheetTitle>
-            </SheetHeader>
-            {body}
-          </SheetContent>
-        </Sheet>
-      </div>
-    </>
+    );
+  }
+
+  return (
+    <Sheet open={open} onOpenChange={(v) => { if (!v) onClose(); }}>
+      <SheetContent side="bottom" className="h-[75vh] p-0">
+        <SheetHeader className="border-b border-border px-4 py-3">
+          <SheetTitle>विवरण</SheetTitle>
+        </SheetHeader>
+        {body}
+      </SheetContent>
+    </Sheet>
   );
 }
