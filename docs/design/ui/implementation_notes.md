@@ -199,3 +199,160 @@ From regressions -
 - lib/locale-pages.test.ts -> every nav route has a page file on disk -> Acts as a manifest: adding a nav item in nav.ts without a matching page.tsx under [locale]/ will fail here
 
 ---
+## Phase 4:
+
+Completed in two parts:
+
+1) Previously implemented UI modules:
+- `ui/src/components/NodeCard.tsx` — 4 entity kinds and 5 visual states (`resting`, `hover`, `selected`, `faded`, `pinned`), plus exported `NODE_KIND_META` for deterministic tests.
+- `ui/src/components/RelationConnector.tsx` — static cubic Bézier connector with endpoint circles and midpoint pill label; exported `EDGE_LABELS` and `EDGE_TOOLTIPS`.
+- `ui/src/components/CategoryFilterList.tsx` — category toggles, layout radio group, depth stepper (1–4), reset action; exported `CATEGORY_DATA`.
+- `ui/src/app/[locale]/graph/useForceSimulation.ts` — D3-force hook that updates SVG/foreignObject refs directly per tick; exported pure `buildBezierPath`.
+- `ui/src/app/[locale]/graph/ZoomControls.tsx` — zoom in/out + fit controls.
+- `ui/src/app/[locale]/graph/GraphCanvas.tsx` — dotted grid, pan/zoom camera, memoized edge/node subtree for force-sim compatibility.
+- `ui/src/app/[locale]/graph/layout.tsx` — left pane mounts `CategoryFilterList` with local Phase 4 state.
+- `ui/src/app/[locale]/graph/page.tsx` — demo graph with 5 nodes and 4 edges.
+
+2) Completed now (remaining deliverables):
+- Added the 4 planned test files:
+  - `ui/src/components/NodeCard.test.ts`
+  - `ui/src/components/RelationConnector.test.ts`
+  - `ui/src/components/CategoryFilterList.test.ts`
+  - `ui/src/app/[locale]/graph/useForceSimulation.test.ts`
+- Updated this document with the Phase 4 architecture notes and verification.
+- Build verification run: `pnpm build && pnpm test` in `ui/`.
+
+### Phase 4 architecture decisions
+
+- `React.memo` boundary (`EdgesAndNodes`) isolates camera React state from force-simulation-managed DOM refs. Camera updates re-render only transform wrappers/patterns, not the edge/node DOM subtree that D3 mutates.
+- Grid pattern is screen-space driven via `<pattern>` transform offsets (`camera.x % tileSize`, `camera.y % tileSize`), with dot radius clamped to `[0.75, 1.5]` so dots remain readable across zoom levels.
+- `RelationConnector` remains a standalone static component for gallery/static previews. `GraphCanvas` renders raw edge SVG primitives (`path`, two `circle`, `foreignObject`) so each piece can be registered and updated directly by the simulation hook.
+- `useForceSimulation` exposes `restart` (and registration handlers) through stable `useRef(...).current` function identities, avoiding memo-boundary invalidation during re-execution.
+- `accumulateEdgeRef` registers each edge part independently and only calls `registerEdge` when all 4 elements exist, ensuring complete edge handles before simulation ticks.
+- `CategoryFilterList` state is intentionally local in Phase 4; planned lift to Zustand graph state is deferred to Phase 5.
+
+### Phase 4 tests added
+
+- `NodeCard.test.ts`
+  - Verifies `NODE_KIND_META` covers all 4 `EntityKind`s.
+  - Ensures each metadata entry has non-empty Hindi/English labels, `catVar` prefix `var(--cat-`, and renderable icon function.
+  - Spot-checks `shastra` Hindi label and category variable.
+- `RelationConnector.test.ts`
+  - Verifies `EDGE_LABELS` covers all 11 `EdgeKind` values.
+  - Ensures `EDGE_TOOLTIPS` keys exactly match `EDGE_LABELS`.
+  - Ensures every label/tooltip is non-empty.
+  - Spot-checks `IS_A` and `RELATED_TO` Hindi labels.
+- `CategoryFilterList.test.ts`
+  - Verifies `CATEGORY_DATA` has exactly 4 items.
+  - Ensures required fields exist and `catVar` has `var(--cat-` prefix.
+  - Ensures all 4 `EntityKind`s are covered without duplicates.
+- `useForceSimulation.test.ts`
+  - Verifies `buildBezierPath` path-string shape.
+  - Verifies horizontal anchors (`a1`, `a2`) for left-to-right edges.
+  - Verifies angle clamp range `[-20, +20]`.
+  - Verifies midpoint coordinates are defined.
+
+### Manual UI verification checklist for phase 4 (/[locale]/graph):
+
+1. Dotted grid renders, pans with drag, and scales correctly on zoom.
+2. Node cards show all visual states (selected/faded/pinned/rest/hover behavior).
+3. Edges render as Bézier with endpoint circles and midpoint pill labels.
+4. Active edge uses accent styling; inactive edges use muted graph-edge color.
+5. Force simulation starts and settles automatically.
+6. Left filter pane shows 4 category toggles, layout radios (only Force enabled), depth stepper clamped 1–4, and reset action.
+7. Zoom controls: plus/minus and fit/reset behavior work.
+8. Empty state appears when nodes=[].
+9. Responsive behavior: left pane hidden below xl, canvas expands; reduced-motion doesn’t break functionality.
+
+## Phase 5:
+
+Implemented Phase 5 graph interactivity/state in `ui/` with Zustand-backed graph state, URL sync, live expansion, and details panel rendering.
+
+### Files added
+- `ui/src/lib/store/graphStore.ts`
+  - Added `useGraphStore` Zustand store with Phase 5 state + actions:
+    - selection (`selectNode`, `selectEdge`, `clearSelection`)
+    - pinning (`togglePin`)
+    - expansion (`expandFromNode`) with merge/de-dupe by `nk`/`id`
+    - category visibility / depth / layout / camera setters
+    - reset + seeded payload merge (`seedFromPayload`)
+  - Added 300-node guard in `expandFromNode` with confirmation gate.
+  - Added `loading`/`lastError` for error visibility.
+
+- `ui/src/lib/store/graphUrlState.ts`
+  - Added URL parser/serializer helpers:
+    - `parseGraphQuery(...)` for `node`, `edge`, `depth`, `cat`
+    - `buildGraphQuery(...)` for debounced URL writeback
+
+- `ui/src/components/DetailsPanel.tsx`
+  - Implemented node-mode and edge-mode details panel:
+    - Node mode: badge, title, stats row, description, related rows, expand action, bottom CTA
+    - Edge mode: relation pill, src→dst header, edge kind + description, two connected rows
+  - Desktop: right panel (380px); Mobile: bottom sheet (75vh)
+  - Node detail fetch via `data.getEntityDetail(kind, nk)` on selection change
+
+### Files updated
+- `ui/src/app/[locale]/graph/page.tsx`
+  - Replaced static Phase 4 demo data with store-driven graph.
+  - Boot sequence:
+    - reads URL params (`node`, `edge`, `depth`, `cat`)
+    - applies depth/category visibility
+    - `?node` path triggers `expandFromNode`
+    - no `?node` path seeds from `navigation.getNavLanding()`
+  - Added URL sync (500ms debounce, `history.replaceState`).
+  - Added keyboard `Esc` to clear selection.
+  - Added SR-only linear graph nav tree (`aria-label="ग्राफ लीनियर दृश्य"`).
+  - Wired interaction handlers (node click/double-click, edge click, canvas click clear, pin toggle).
+
+- `ui/src/app/[locale]/graph/layout.tsx`
+  - Replaced local Phase 4 filter state with store-backed filter state.
+  - Wired right `DetailsPanel` into shell.
+
+- `ui/src/app/[locale]/graph/GraphCanvas.tsx`
+  - Added callbacks:
+    - `onEdgeClick`
+    - `onCanvasClick`
+    - `onNodePinToggle`
+  - Edge groups now dispatch click selection.
+  - Empty-canvas click clears selection before drag.
+
+- `ui/src/components/CategoryFilterList.tsx`
+  - Added controlled layout props:
+    - `layout`
+    - `onLayoutChange`
+  - Radio group now fully controlled by graph store.
+
+### Tests added (TDD)
+- `ui/src/lib/store/graphStore.test.ts`
+  - Seed merge + selected state
+  - Pin toggling behavior
+  - `expandFromNode` de-dupe + expanded marker
+  - 300-node guard cancel path
+
+- `ui/src/lib/store/graphUrlState.test.ts`
+  - URL parse for node/depth/category
+  - depth bound clamp and invalid cat filtering
+  - stable query serialization
+
+### Verification commands run
+- `cd ui && pnpm test -- src/lib/store/graphStore.test.ts src/lib/store/graphUrlState.test.ts`
+- `cd ui && pnpm build` (successful after running with network permission due Google Fonts fetch)
+- `cd ui && pnpm test`
+
+### Notes / implementation deltas
+- The Phase 5 keyboard map is partially implemented (`Esc`). Other shortcuts (`f`, `+/-`, `0`, arrows, `/`, `Cmd+K`, `Space+drag`) remain to be wired end-to-end.
+- Category-off behavior currently filters hidden categories from canvas data, which effectively hides those nodes/edges without re-simulation control flags.
+- Expand error visuals/toasts and node shake animation are not yet implemented; errors are logged and kept in store `lastError`.
+
+### Manual UI checks for phase 5:
+
+1. Open /en/graph and /graph; verify graph seeds when no ?node.
+2. Open /graph?node=<nk>&depth=3&cat=topic; verify selected node expands and category/depth reflect URL.
+3. Click a node; details panel opens with title, stats, description, related rows, CTA.
+4. Click edge pill; edge details mode shows relation + source/target rows.
+5. Click empty canvas; selection clears and panel closes.
+6. Toggle category switches; matching nodes/edges disappear/reappear.
+7. Change depth stepper; click unexpanded node; URL updates after ~500ms debounce.
+8. Pin/unpin from node pin icon and verify pin state persists in current session.
+9. On mobile width (<1100), verify details open as bottom sheet.
+10. Inspect DOM for SR-only nav: nav[aria-label="ग्राफ लीनियर दृश्य"] contains visible-node links.
