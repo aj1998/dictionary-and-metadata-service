@@ -182,7 +182,7 @@ big number `text-h1` Devanagari numerals 600, small caption
 ```
 ┌──────────┐
 │   १०     │
-│ संबंध    │
+│ संबंध      │
 └──────────┘
 ```
 
