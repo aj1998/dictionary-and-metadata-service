@@ -1,0 +1,139 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "../styles/theme.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Map design tokens to Tailwind utilities */
+@theme inline {
+  /* Surfaces */
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+
+  /* Text */
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-subtle: var(--foreground-subtle);
+
+  /* Borders */
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  /* Accent */
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+
+  /* Focus */
+  --color-ring: var(--ring);
+
+  /* Semantic */
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+
+  /* Graph */
+  --color-graph-grid-dot: var(--graph-grid-dot);
+  --color-graph-edge: var(--graph-edge);
+  --color-graph-edge-muted: var(--graph-edge-muted);
+
+  /* Nodes */
+  --color-node-bg: var(--node-bg);
+  --color-node-bg-selected: var(--node-bg-selected);
+  --color-node-border: var(--node-border);
+
+  /* Entity categories */
+  --color-cat-shastra: var(--cat-shastra);
+  --color-cat-gatha: var(--cat-gatha);
+  --color-cat-topic: var(--cat-topic);
+  --color-cat-keyword: var(--cat-keyword);
+
+  /* Radii */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-pill: var(--radius-pill);
+
+  /* Shadows */
+  --shadow-node: var(--node-shadow);
+  --shadow-node-hover: var(--node-shadow-hover);
+  --shadow-modal: 0 24px 48px rgba(16,24,40,0.18);
+
+  /* Typography scale */
+  --font-size-display: 2rem;
+  --line-height-display: 2.5rem;
+  --font-size-h1: 1.5rem;
+  --line-height-h1: 2rem;
+  --font-size-h2: 1.25rem;
+  --line-height-h2: 1.75rem;
+  --font-size-h3: 1rem;
+  --line-height-h3: 1.5rem;
+  --font-size-body: 0.9375rem;
+  --line-height-body: 1.5rem;
+  --font-size-sm: 0.8125rem;
+  --line-height-sm: 1.25rem;
+  --font-size-xs: 0.6875rem;
+  --line-height-xs: 1rem;
+
+  /* Fonts */
+  --font-serif-hindi: var(--font-serif-hindi);
+  --font-sans: var(--font-sans);
+
+  /* shadcn compat */
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--accent-foreground);
+  --color-secondary: var(--surface-muted);
+  --color-secondary-foreground: var(--foreground);
+  --color-muted: var(--surface-muted);
+  --color-muted-foreground: var(--foreground-muted);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--foreground);
+  --color-popover: var(--surface);
+  --color-popover-foreground: var(--foreground);
+  --color-destructive: var(--danger);
+  --color-input: var(--border);
+  --radius-xl: calc(var(--radius-lg) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/30;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-serif-hindi);
+  }
+}
+
+/* Shimmer animation for skeleton loading blocks */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--surface-muted) 25%,
+    var(--surface)       50%,
+    var(--surface-muted) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0ms !important;
+    transition-duration: 80ms !important;
+  }
+  .shimmer {
+    animation: none;
+    background: var(--surface-muted);
+  }
+}

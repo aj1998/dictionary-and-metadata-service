@@ -1,0 +1,135 @@
+{
+  "nav": {
+    "home": "होम",
+    "graph": "ज्ञान ग्राफ",
+    "shastras": "शास्त्र",
+    "dictionary": "शब्दकोश",
+    "topics": "विषय",
+    "feedback": "प्रतिक्रिया",
+    "about": "परिचय",
+    "more": "और ▾",
+    "search_placeholder": "शब्द, शास्त्र, विषय खोजें…",
+    "open_menu": "मेनू खोलें"
+  },
+  "entity": {
+    "shastra": "शास्त्र",
+    "gatha": "गाथा",
+    "topic": "विषय",
+    "keyword": "शब्द"
+  },
+  "graph": {
+    "title": "ज्ञान ग्राफ",
+    "categories": "विषय",
+    "categories_label": "श्रेणियाँ",
+    "layout": "लेआउट",
+    "layout_force": "फोर्स",
+    "layout_radial": "रेडियल",
+    "layout_hierarchical": "श्रेणीबद्ध",
+    "depth": "गहराई",
+    "reset": "ग्राफ रीसेट करें",
+    "loading": "लोड हो रहा है…",
+    "empty": "अभी कोई डेटा नहीं है",
+    "empty_sub": "No graph data yet",
+    "aria_canvas": "ज्ञान ग्राफ",
+    "aria_linear_nav": "ग्राफ लीनियर दृश्य",
+    "fit": "सब दिखाएँ",
+    "zoom_in": "बड़ा करें",
+    "zoom_out": "छोटा करें",
+    "expand_confirm": "यह {count} और नोड्स लोड करेगा — जारी रखें?"
+  },
+  "details": {
+    "description": "विवरण",
+    "related": "संबंधित",
+    "view_all": "सभी संबंध देखें →",
+    "read_more": "विस्तार से पढ़ें",
+    "read_more_en": "Read More",
+    "close": "बंद करें"
+  },
+  "filters": {
+    "shastra": "शास्त्र",
+    "gatha": "गाथा",
+    "topic": "विषय",
+    "keyword": "शब्द"
+  },
+  "home": {
+    "hero": "जैन ज्ञान कोष",
+    "hero_sub": "Jain Knowledge Base",
+    "search_label": "खोजें",
+    "search_alt": "विषय खोज",
+    "entry_shastras": "शास्त्र",
+    "entry_dictionary": "शब्दकोश",
+    "entry_topics": "विषय",
+    "entry_graph": "ज्ञान ग्राफ",
+    "recent_activity": "जारी प्रवृत्ति"
+  },
+  "shastras": {
+    "title": "शास्त्र",
+    "filter_anuyog": "अनुयोग",
+    "filter_author": "लेखक",
+    "sort": "क्रम",
+    "search_within": "शास्त्र में खोजें",
+    "open": "खोलें →",
+    "gathas": "गाथाएँ",
+    "teekas": "टीकाएँ",
+    "pages": "पृष्ठ"
+  },
+  "dictionary": {
+    "title": "शब्दकोश",
+    "recent": "हाल ही में जोड़े गए शब्द",
+    "search_within": "शब्द खोजें"
+  },
+  "topics": {
+    "title": "विषय",
+    "open": "विषय खोलें →",
+    "mentions": "उल्लेख",
+    "search_within": "विषय खोजें"
+  },
+  "search": {
+    "title": "खोज",
+    "placeholder": "खोजें…",
+    "button": "खोजें",
+    "empty": "कोई परिणाम नहीं मिला",
+    "open_topic": "विषय खोलें →",
+    "open_graph": "ग्राफ में खोलें →"
+  },
+  "feedback": {
+    "title": "प्रतिक्रिया",
+    "name": "नाम",
+    "email": "ईमेल",
+    "type": "प्रकार",
+    "type_bug": "बग रिपोर्ट",
+    "type_suggestion": "सुझाव",
+    "type_content": "सामग्री त्रुटि",
+    "message": "संदेश",
+    "submit": "भेजें",
+    "submit_en": "Submit",
+    "success": "आपकी प्रतिक्रिया सफलतापूर्वक भेज दी गई।",
+    "error": "कुछ गलत हो गया। कृपया पुनः प्रयास करें।"
+  },
+  "about": {
+    "title": "परिचय"
+  },
+  "footer": {
+    "copyright": "© जैन ज्ञान कोष",
+    "about": "परिचय",
+    "switch_locale_en": "English",
+    "switch_locale_hi": "हिन्दी"
+  },
+  "errors": {
+    "not_found": "पृष्ठ नहीं मिला",
+    "server_error": "सर्वर त्रुटि",
+    "retry": "पुनः प्रयास करें",
+    "graph_load_failed": "ग्राफ लोड नहीं हो सका",
+    "expand_failed": "विस्तार विफल हुआ"
+  },
+  "breadcrumb": {
+    "home": "होम"
+  },
+  "pagination": {
+    "prev": "पिछला",
+    "next": "अगला"
+  },
+  "skeleton": {
+    "loading": "लोड हो रहा है…"
+  }
+}

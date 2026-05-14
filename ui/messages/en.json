@@ -1,0 +1,135 @@
+{
+  "nav": {
+    "home": "Home",
+    "graph": "Knowledge Graph",
+    "shastras": "Shastras",
+    "dictionary": "Dictionary",
+    "topics": "Topics",
+    "feedback": "Feedback",
+    "about": "About",
+    "more": "More ▾",
+    "search_placeholder": "Search words, shastras, topics…",
+    "open_menu": "Open menu"
+  },
+  "entity": {
+    "shastra": "Shastra",
+    "gatha": "Gatha",
+    "topic": "Topic",
+    "keyword": "Keyword"
+  },
+  "graph": {
+    "title": "Knowledge Graph",
+    "categories": "Categories",
+    "categories_label": "Categories",
+    "layout": "Layout",
+    "layout_force": "Force",
+    "layout_radial": "Radial",
+    "layout_hierarchical": "Hierarchical",
+    "depth": "Depth",
+    "reset": "Reset graph",
+    "loading": "Loading…",
+    "empty": "No graph data yet",
+    "empty_sub": "Start by searching or browsing a Shastra.",
+    "aria_canvas": "Knowledge graph",
+    "aria_linear_nav": "Graph linear view",
+    "fit": "Fit to view",
+    "zoom_in": "Zoom in",
+    "zoom_out": "Zoom out",
+    "expand_confirm": "This will load {count} more nodes — continue?"
+  },
+  "details": {
+    "description": "Description",
+    "related": "Related",
+    "view_all": "View all connections →",
+    "read_more": "Read More",
+    "read_more_en": "Read More",
+    "close": "Close"
+  },
+  "filters": {
+    "shastra": "Shastra",
+    "gatha": "Gatha",
+    "topic": "Topic",
+    "keyword": "Keyword"
+  },
+  "home": {
+    "hero": "Jain Knowledge Base",
+    "hero_sub": "जैन ज्ञान कोष",
+    "search_label": "Search",
+    "search_alt": "Browse topics",
+    "entry_shastras": "Shastras",
+    "entry_dictionary": "Dictionary",
+    "entry_topics": "Topics",
+    "entry_graph": "Knowledge Graph",
+    "recent_activity": "Recent activity"
+  },
+  "shastras": {
+    "title": "Shastras",
+    "filter_anuyog": "Anuyog",
+    "filter_author": "Author",
+    "sort": "Sort",
+    "search_within": "Search within shastras",
+    "open": "Open →",
+    "gathas": "Gathas",
+    "teekas": "Teekas",
+    "pages": "Pages"
+  },
+  "dictionary": {
+    "title": "Dictionary",
+    "recent": "Recently added words",
+    "search_within": "Search words"
+  },
+  "topics": {
+    "title": "Topics",
+    "open": "Open topic →",
+    "mentions": "Mentions",
+    "search_within": "Search topics"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search…",
+    "button": "Search",
+    "empty": "No results found",
+    "open_topic": "Open topic →",
+    "open_graph": "Open in graph →"
+  },
+  "feedback": {
+    "title": "Feedback",
+    "name": "Name",
+    "email": "Email",
+    "type": "Type",
+    "type_bug": "Bug report",
+    "type_suggestion": "Suggestion",
+    "type_content": "Content error",
+    "message": "Message",
+    "submit": "Submit",
+    "submit_en": "Submit",
+    "success": "Your feedback has been submitted successfully.",
+    "error": "Something went wrong. Please try again."
+  },
+  "about": {
+    "title": "About"
+  },
+  "footer": {
+    "copyright": "© Jain Knowledge Base",
+    "about": "About",
+    "switch_locale_en": "English",
+    "switch_locale_hi": "हिन्दी"
+  },
+  "errors": {
+    "not_found": "Page not found",
+    "server_error": "Server error",
+    "retry": "Retry",
+    "graph_load_failed": "Could not load graph",
+    "expand_failed": "Expansion failed"
+  },
+  "breadcrumb": {
+    "home": "Home"
+  },
+  "pagination": {
+    "prev": "Previous",
+    "next": "Next"
+  },
+  "skeleton": {
+    "loading": "Loading…"
+  }
+}
