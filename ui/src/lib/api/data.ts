@@ -1,4 +1,4 @@
-import { apiFetch } from './_fetch';
+import { ApiError, apiFetch } from './_fetch';
 import type {
   ActivityRow,
   EntityCounts,
@@ -18,11 +18,32 @@ const BASE_URL = process.env.DATA_SVC_URL ?? '/api/data';
 const METADATA_BASE_URL = process.env.METADATA_SVC_URL ?? '/api/metadata';
 
 export async function getActivityRecent(): Promise<ActivityRow[]> {
-  return apiFetch<ActivityRow[]>(BASE_URL, '/v1/activity/recent');
+  try {
+    return await apiFetch<ActivityRow[]>(BASE_URL, '/v1/activity/recent');
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) {
+      console.warn('data-service missing /v1/activity/recent, returning empty activity list');
+      return [];
+    }
+    throw error;
+  }
 }
 
 export async function getStatsCounts(): Promise<EntityCounts> {
-  return apiFetch<EntityCounts>(BASE_URL, '/v1/stats/counts');
+  try {
+    return await apiFetch<EntityCounts>(BASE_URL, '/v1/stats/counts');
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) {
+      console.warn('data-service missing /v1/stats/counts, returning zero counts');
+      return {
+        shastras: 0,
+        gathas: 0,
+        topics: 0,
+        keywords: 0,
+      };
+    }
+    throw error;
+  }
 }
 
 export async function getEntityDetail(kind: EntityKind, nk: string): Promise<EntityDetail> {

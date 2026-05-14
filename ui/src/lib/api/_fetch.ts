@@ -9,6 +9,35 @@ export class ApiError extends Error {
   }
 }
 
+function resolveOrigin(): string {
+  if (typeof window !== 'undefined' && window.location?.origin) {
+    return window.location.origin;
+  }
+
+  const explicitOrigin =
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    process.env.SITE_URL ??
+    process.env.APP_URL;
+  if (explicitOrigin) return explicitOrigin.replace(/\/$/, '');
+
+  const vercelUrl = process.env.VERCEL_URL;
+  if (vercelUrl) {
+    return vercelUrl.startsWith('http') ? vercelUrl.replace(/\/$/, '') : `https://${vercelUrl.replace(/\/$/, '')}`;
+  }
+
+  return 'http://localhost:3000';
+}
+
+function resolveBaseUrl(baseUrl: string): string {
+  if (/^https?:\/\//i.test(baseUrl)) {
+    return baseUrl.replace(/\/$/, '');
+  }
+  if (baseUrl.startsWith('/')) {
+    return `${resolveOrigin()}${baseUrl}`.replace(/\/$/, '');
+  }
+  return `${resolveOrigin()}/${baseUrl}`.replace(/\/$/, '');
+}
+
 // Encode each path segment individually (Devanagari-safe).
 // Input: "/v1/keywords/आत्मा" → encodes each slash-separated segment
 // Query strings (after ?) are passed through unchanged.
@@ -28,7 +57,7 @@ export async function apiFetch<T>(
   path: string,
   init?: RequestInit
 ): Promise<T> {
-  const url = baseUrl.replace(/\/$/, '') + encodePath(path);
+  const url = resolveBaseUrl(baseUrl) + encodePath(path);
   const res = await fetch(url, init);
   if (!res.ok) {
     let body: unknown;

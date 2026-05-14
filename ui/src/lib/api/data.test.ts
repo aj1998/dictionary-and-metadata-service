@@ -15,7 +15,7 @@ import {
   getGathaRelatedKeywords,
 } from './data';
 
-const BASE = '/api/data';
+const BASE = 'http://localhost:3000/api/data';
 
 describe('data API', () => {
   beforeEach(() => {
@@ -55,6 +55,12 @@ describe('data API', () => {
       await expect(getActivityRecent()).rejects.toThrow(ApiError);
       await expect(getActivityRecent()).rejects.toMatchObject({ status: 500 });
     });
+
+    it('returns empty list on 404 fallback', async () => {
+      mockError(404);
+      const result = await getActivityRecent();
+      expect(result).toEqual([]);
+    });
   });
 
   describe('getStatsCounts', () => {
@@ -69,6 +75,17 @@ describe('data API', () => {
     it('throws ApiError on error', async () => {
       mockError(500);
       await expect(getStatsCounts()).rejects.toThrow(ApiError);
+    });
+
+    it('returns zero counts on 404 fallback', async () => {
+      mockError(404);
+      const result = await getStatsCounts();
+      expect(result).toEqual({
+        shastras: 0,
+        gathas: 0,
+        topics: 0,
+        keywords: 0,
+      });
     });
   });
 
@@ -102,7 +119,7 @@ describe('data API', () => {
       mockSuccess(fixture);
       await getEntityDetail('shastra', 'tattvaartha');
       expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(
-        `/api/metadata/v1/shastras/tattvaartha`
+        `http://localhost:3000/api/metadata/v1/shastras/tattvaartha`
       );
     });
 

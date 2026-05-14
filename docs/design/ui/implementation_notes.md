@@ -402,3 +402,71 @@ Implemented Phase 5 graph interactivity/state in `ui/` with Zustand-backed graph
 
 **Verification commands run:**
 - `cd ui && pnpm test -- src/lib/api/data.test.ts`
+
+---
+## Phase 6:
+
+Implemented Phase 6 content list/index pages with real API-backed data fetching, filters, and pagination.
+
+### Files added
+- `ui/src/app/[locale]/(content)/dictionary/letters/[letter]/page.tsx`
+- `ui/src/app/[locale]/(content)/search/page.tsx`
+- `ui/src/lib/content-listing.ts`
+- `ui/src/lib/content-listing.test.ts`
+
+### Files updated
+- `ui/src/app/[locale]/(content)/page.tsx` (Home)
+- `ui/src/app/[locale]/(content)/shastras/page.tsx`
+- `ui/src/app/[locale]/(content)/dictionary/page.tsx`
+- `ui/src/app/[locale]/(content)/topics/page.tsx`
+
+### What was implemented
+- Home (`/[locale]`):
+  - ISR (`revalidate = 60`)
+  - Fetches `getStatsCounts()` + `getActivityRecent()`
+  - Hero, search row, 4 entry cards with Devanagari counts, and recent activity table
+- Shastras (`/[locale]/shastras`):
+  - ISR (`revalidate = 60`)
+  - Fetches `getShastras({ q, anuyoga, limit, offset })`
+  - Sticky filter row, 3/2/1 card grid, and previous/next pagination labels in Hindi
+- Dictionary index (`/[locale]/dictionary`):
+  - ISR (`revalidate = 60`)
+  - Fetches `getKeywordsLetters()` + `getKeywordsRecent()`
+  - Letter grid and "हाल ही में जोड़े गए शब्द" side list
+- Dictionary letter listing (`/[locale]/dictionary/letters/[letter]`):
+  - ISR (`revalidate = 60`)
+  - Fetches `getKeywords({ letter, q, limit, offset })`
+  - Search-within + list rows + pagination
+- Topics (`/[locale]/topics`):
+  - ISR (`revalidate = 60`)
+  - Fetches `getTopics({ q, source, limit, offset })`
+  - Filter row + card grid + pagination
+- Search (`/[locale]/search`):
+  - Dynamic (`revalidate = 0`)
+  - Calls `query.searchTopics({ q, caller: 'public-ui' })`
+  - Result cards, empty state, and inline error block
+
+### Tests added
+- `ui/src/lib/content-listing.test.ts`
+  - `getHindiText` picks Hindi text when available
+  - `getHindiText` fallback behavior
+  - `buildPageHref` offset generation
+  - `paginatedMeta` page/flags computation
+
+### Verification commands run
+- `cd ui && pnpm test`
+- `cd ui && pnpm build`
+
+Both passed.
+
+### Manual UI verification checklist (Phase 6)
+1. Open `http://localhost:3000/hi` and `http://localhost:3000/en`; verify Home hero, 4 entry cards, and recent activity table render.
+2. On Home, submit the local search input; verify it routes to locale-preserved `/[locale]/search?q=...`.
+3. Open `/[locale]/shastras`; verify filter row is visible, cards render, and previous/next pagination updates `?page=`.
+4. Open `/[locale]/dictionary`; verify letter grid cells and recent keyword list render.
+5. Click a letter cell; verify `/[locale]/dictionary/letters/[letter]` opens with keyword list and page controls.
+6. Use `q` search-within on letter listing; verify list narrows and query param persists.
+7. Open `/[locale]/topics`; verify source filter + search work and pagination updates.
+8. Open `/[locale]/search?q=<term>`; verify ranked result cards, overlap/score pill, and both CTAs render.
+9. Try `/[locale]/search?q=<gibberish>`; verify empty-state text "कोई परिणाम नहीं मिला" appears.
+10. Resize at mobile (`~375px`), tablet (`~768px`), desktop (`>=1280px`) and verify the list/grid layouts reflow without overlap.

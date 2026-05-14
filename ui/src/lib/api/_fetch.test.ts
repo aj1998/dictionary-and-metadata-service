@@ -33,6 +33,18 @@ describe('apiFetch', () => {
     );
   });
 
+  it('resolves relative base URLs on the server to localhost origin by default', async () => {
+    (fetch as ReturnType<typeof vi.fn>).mockResolvedValue({
+      ok: true,
+      json: async () => ({}),
+    });
+
+    await apiFetch('/api/data', '/v1/stats/counts');
+    expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(
+      'http://localhost:3000/api/data/v1/stats/counts'
+    );
+  });
+
   it('throws ApiError with correct status on 4xx', async () => {
     (fetch as ReturnType<typeof vi.fn>).mockResolvedValue({
       ok: false,

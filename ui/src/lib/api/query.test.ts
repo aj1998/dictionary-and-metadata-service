@@ -2,7 +2,7 @@ import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { ApiError } from './_fetch';
 import { searchTopics } from './query';
 
-const BASE = '/api/query';
+const BASE = 'http://localhost:3000/api/query';
 
 describe('query API', () => {
   beforeEach(() => {
