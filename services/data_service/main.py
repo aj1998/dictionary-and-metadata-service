@@ -8,7 +8,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 from .config import settings
-from .routers import browse, gathas, kalashas, keywords, search, topics
+from .routers import browse, gathas, kalashas, keywords, search, stats, topics
 
 logging.basicConfig(level=settings.LOG_LEVEL)
 
@@ -37,6 +37,7 @@ app.include_router(gathas.router)
 app.include_router(kalashas.router)
 app.include_router(browse.router)
 app.include_router(search.router)
+app.include_router(stats.router)
 
 
 if __name__ == "__main__":

@@ -614,3 +614,13 @@ uvicorn services.data_service.main:app --port 8002 --reload
 - [ ] `Cache-Control` headers set on all public GET responses.
 - [ ] OpenAPI spec includes example payloads for every endpoint.
 - [ ] Service starts with `uvicorn services.data_service.main:app --port 8002`.
+
+---
+
+## Implementation Notes
+
+- Added `GET /v1/stats/counts` to return aggregate counts for `shastras`, `gathas`, `topics`, and `keywords` from Postgres.
+- Added `GET /v1/activity/recent` to return latest ingestion runs with fields `{id, run_at, source, entities_touched}`.
+- `run_at` is selected from `finished_at`, then `started_at`, then `created_at`.
+- `entities_touched` is sourced from `ingestion_runs.stats.entities_touched` and defaults to `0` when absent.
+- Both endpoints set `Cache-Control: public, max-age=60` and emit basic info logs on fetch.
