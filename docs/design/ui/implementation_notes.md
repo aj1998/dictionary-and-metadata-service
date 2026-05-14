@@ -115,6 +115,27 @@ Proxy (Middleware) row confirms next-intl locale routing is active.
 - `localhost:3000/en` → English
 
 ---
+## Bug fix: locale-aware navigation + stub pages (applied after Phase 3)
+
+**Symptom:** Nav links from `/en` dropped the locale prefix (clicking शब्दकोश went to `/dictionary` not `/en/dictionary`); active-state highlight never fired on `/en/...` routes; `/en/dictionary` and all other nav routes returned 404.
+
+**Root causes:**
+1. `TopBar` imported `Link`, `usePathname`, `useRouter` from `next/navigation`. Next.js's own versions are not locale-aware: `usePathname()` returns the full path including the locale prefix (so `/en/dictionary` never matched `/dictionary` in `isNavActive`), and `Link` never prepends the locale segment.
+2. Stub pages for nav routes (dictionary, about, shastras, topics, feedback) were never created — so even correct locale-prefixed URLs returned 404.
+
+**Changes made:**
+- Added `src/i18n/navigation.ts` — exports locale-aware `Link`, `redirect`, `usePathname`, `useRouter` via `createNavigation(routing)` from next-intl. These automatically strip the locale prefix from `usePathname()` output and prepend it on `Link` hrefs.
+- Updated `src/components/TopBar.tsx` to import `Link`, `usePathname`, `useRouter` from `@/i18n/navigation` instead of `next/navigation`.
+- Created stub pages (Shell B content shell) for all nav routes:
+  - `src/app/[locale]/(content)/dictionary/page.tsx`
+  - `src/app/[locale]/(content)/about/page.tsx`
+  - `src/app/[locale]/(content)/shastras/page.tsx`
+  - `src/app/[locale]/(content)/topics/page.tsx`
+  - `src/app/[locale]/(content)/feedback/page.tsx`
+
+**Nav label language:** Nav labels always render in Hindi (Devanagari) regardless of locale — this is by design for a Jain scripture application. The `locale` prop on `TopBar` is reserved for future phase use (e.g. aria attributes, locale-specific formatting).
+
+---
 ## Phase 2:
     
     ┌─────────────────────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────┐

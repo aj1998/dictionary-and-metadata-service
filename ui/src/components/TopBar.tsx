@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useRef, type FormEvent } from "react";
-import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import {
   BookOpen,
   Search,
