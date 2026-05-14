@@ -37,6 +37,26 @@ describe("isNavActive", () => {
   it("trailing slash edge case: sub-path must start with route + '/'", () => {
     expect(isNavActive("/graphextra", "/graph")).toBe(false);
   });
+
+  it("locale-prefixed paths do NOT match nav routes (regression: next/navigation usePathname bug)", () => {
+    // Bug: TopBar previously used next/navigation's usePathname(), which returns
+    // the full locale-prefixed path (e.g. "/en/dictionary"). isNavActive then
+    // compared "/en/dictionary" against "/dictionary" and returned false, so
+    // the active-state pill never lit up on any /en/* route.
+    // Fix: TopBar now uses next-intl's usePathname() which strips the locale prefix
+    // before passing the path to isNavActive. These assertions document the contract:
+    // isNavActive must receive the locale-STRIPPED path.
+    expect(isNavActive("/en/dictionary", "/dictionary")).toBe(false);
+    expect(isNavActive("/en/graph", "/graph")).toBe(false);
+    expect(isNavActive("/en/shastras/samaysar", "/shastras")).toBe(false);
+    expect(isNavActive("/en", "/")).toBe(false);
+
+    // Locale-stripped paths (what next-intl's usePathname delivers) work correctly:
+    expect(isNavActive("/dictionary", "/dictionary")).toBe(true);
+    expect(isNavActive("/graph", "/graph")).toBe(true);
+    expect(isNavActive("/shastras/samaysar", "/shastras")).toBe(true);
+    expect(isNavActive("/", "/")).toBe(true);
+  });
 });
 
 // ── truncateLabel ────────────────────────────────────────────────────────────
