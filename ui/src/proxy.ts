@@ -5,7 +5,9 @@ export default createMiddleware(routing);
 
 export const config = {
   matcher: [
-    // Match all pathnames except for Next.js internals and static files
-    "/((?!_next|_vercel|.*\\..*).*)",
+    // Match all pathnames except API routes, Next internals, and static files.
+    // API calls must bypass locale middleware so rewrites like /api/navigation/*
+    // are not transformed into /en/api/navigation/*.
+    "/((?!api|_next|_vercel|.*\\..*).*)",
   ],
 };

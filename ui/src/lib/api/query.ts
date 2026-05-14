@@ -1,7 +1,7 @@
 import { apiFetch } from './_fetch';
 import type { SearchResponse } from '@/lib/types';
 
-const BASE_URL = process.env.QUERY_SVC_URL ?? 'http://localhost:8004';
+const BASE_URL = process.env.QUERY_SVC_URL ?? '/api/query';
 
 export async function searchTopics(params: {
   q: string;

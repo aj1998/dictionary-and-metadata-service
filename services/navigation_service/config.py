@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     NEO4J_URL: str = "bolt://localhost:7687"
     NEO4J_USER: str = "neo4j"
     NEO4J_PASSWORD: str
-    NEO4J_DATABASE: str = "jainkb"
+    NEO4J_DATABASE: str = "neo4j"
     NEO4J_USE_DEFAULT_DATABASE: bool = False
     ADMIN_USER: str
     ADMIN_PASSWORD: str

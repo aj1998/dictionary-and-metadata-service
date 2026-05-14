@@ -11,9 +11,11 @@ import type {
   TopicSummary,
   TopicDetail,
   GathaDetail,
+  ShastraDetail,
 } from '@/lib/types';
 
-const BASE_URL = process.env.DATA_SVC_URL ?? 'http://localhost:8002';
+const BASE_URL = process.env.DATA_SVC_URL ?? '/api/data';
+const METADATA_BASE_URL = process.env.METADATA_SVC_URL ?? '/api/metadata';
 
 export async function getActivityRecent(): Promise<ActivityRow[]> {
   return apiFetch<ActivityRow[]>(BASE_URL, '/v1/activity/recent');
@@ -24,7 +26,66 @@ export async function getStatsCounts(): Promise<EntityCounts> {
 }
 
 export async function getEntityDetail(kind: EntityKind, nk: string): Promise<EntityDetail> {
-  return apiFetch<EntityDetail>(BASE_URL, `/v1/entity/${kind}/${nk}/detail`);
+  if (kind === 'keyword') {
+    const keyword = await apiFetch<KeywordDetail>(BASE_URL, `/v1/keywords/${nk}`);
+    return {
+      nk: keyword.natural_key,
+      kind: 'keyword',
+      title_hi: keyword.display_text,
+      description: keyword.definition ? JSON.stringify(keyword.definition) : undefined,
+      stats: { aliases: keyword.aliases.length },
+      connected: [],
+    };
+  }
+
+  if (kind === 'topic') {
+    const topic = await apiFetch<TopicDetail>(BASE_URL, `/v1/topics/${nk}`);
+    const hi = topic.display_text.find((row) => row.lang === 'hi')?.text ?? topic.natural_key;
+    const parent = topic.parent_keyword;
+    return {
+      nk: topic.natural_key,
+      kind: 'topic',
+      title_hi: hi,
+      description: topic.topic_path,
+      stats: { extracts: topic.extracts.length, is_leaf: topic.is_leaf ? 1 : 0 },
+      connected: parent
+        ? [{
+            nk: parent.natural_key,
+            kind: 'keyword',
+            title_hi: parent.display_text,
+            edge_kind: 'HAS_TOPIC',
+          }]
+        : [],
+    };
+  }
+
+  if (kind === 'gatha') {
+    const gatha = await apiFetch<GathaDetail>(BASE_URL, `/v1/gathas/${nk}`);
+    return {
+      nk: gatha.natural_key,
+      kind: 'gatha',
+      title_hi: `गाथा ${gatha.gatha_number}`,
+      description: gatha.heading.find((row) => row.lang === 'hi')?.text,
+      stats: { hindi_chhand: gatha.hindi_chhand.length },
+      connected: [{
+        nk: gatha.shastra.natural_key,
+        kind: 'shastra',
+        title_hi: gatha.shastra.title.find((row) => row.lang === 'hi')?.text ?? gatha.shastra.natural_key,
+        edge_kind: 'IN_SHASTRA',
+      }],
+    };
+  }
+
+  const shastra = await apiFetch<ShastraDetail>(METADATA_BASE_URL, `/v1/shastras/${nk}`);
+  const hi = shastra.title.find((row) => row.lang === 'hi')?.text ?? shastra.natural_key;
+  return {
+    nk: shastra.natural_key,
+    kind: 'shastra',
+    title_hi: hi,
+    description: shastra.source_url,
+    stats: { teekas: shastra.teekas?.length ?? 0 },
+    connected: [],
+  };
 }
 
 export async function getKeywordsLetters(): Promise<LetterCount[]> {

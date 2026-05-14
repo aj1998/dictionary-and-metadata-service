@@ -2,7 +2,7 @@ import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { ApiError } from './_fetch';
 import { getShastras, getShastra, getShastraTeekas } from './metadata';
 
-const BASE = 'http://localhost:8001';
+const BASE = '/api/metadata';
 
 describe('metadata API', () => {
   beforeEach(() => {

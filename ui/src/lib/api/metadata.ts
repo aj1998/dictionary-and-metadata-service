@@ -1,7 +1,7 @@
 import { apiFetch } from './_fetch';
 import type { Paginated, ShastraSummary, ShastraDetail, TeekaSummary } from '@/lib/types';
 
-const BASE_URL = process.env.METADATA_SVC_URL ?? 'http://localhost:8001';
+const BASE_URL = process.env.METADATA_SVC_URL ?? '/api/metadata';
 
 export async function getShastras(params?: {
   q?: string;

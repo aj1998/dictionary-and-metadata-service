@@ -1,7 +1,7 @@
 import { apiFetch } from './_fetch';
 import type { GraphPayload, TopicNeighborsResponse } from '@/lib/types';
 
-const BASE_URL = process.env.NAV_SVC_URL ?? 'http://localhost:8003';
+const BASE_URL = process.env.NAV_SVC_URL ?? '/api/navigation';
 
 export async function getNavLanding(): Promise<GraphPayload> {
   return apiFetch<GraphPayload>(BASE_URL, '/v1/landing');

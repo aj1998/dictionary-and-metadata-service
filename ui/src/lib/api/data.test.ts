@@ -15,7 +15,7 @@ import {
   getGathaRelatedKeywords,
 } from './data';
 
-const BASE = 'http://localhost:8002';
+const BASE = '/api/data';
 
 describe('data API', () => {
   beforeEach(() => {
@@ -73,27 +73,74 @@ describe('data API', () => {
   });
 
   describe('getEntityDetail', () => {
-    it('calls correct URL for keyword kind', async () => {
+    it('calls keywords endpoint and maps response for keyword kind', async () => {
       const fixture = {
-        nk: 'atma',
-        kind: 'keyword' as const,
-        title_hi: 'आत्मा',
-        stats: {},
-        connected: [],
+        id: 'kw-1',
+        natural_key: 'atma',
+        display_text: 'आत्मा',
+        aliases: [],
+        definition: null,
       };
       mockSuccess(fixture);
       const result = await getEntityDetail('keyword', 'atma');
       expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(
-        `${BASE}/v1/entity/keyword/atma/detail`
+        `${BASE}/v1/keywords/atma`
       );
-      expect(result).toEqual(fixture);
+      expect(result).toMatchObject({
+        nk: 'atma',
+        kind: 'keyword',
+        title_hi: 'आत्मा',
+      });
     });
 
-    it('calls correct URL for shastra kind', async () => {
-      mockSuccess({});
+    it('calls metadata-backed shastra endpoint and maps response', async () => {
+      const fixture = {
+        id: 'sh-1',
+        natural_key: 'tattvaartha',
+        title: [{ lang: 'hi', script: 'devanagari', text: 'तत्त्वार्थसूत्र' }],
+      };
+      mockSuccess(fixture);
       await getEntityDetail('shastra', 'tattvaartha');
       expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(
-        `${BASE}/v1/entity/shastra/tattvaartha/detail`
+        `/api/metadata/v1/shastras/tattvaartha`
+      );
+    });
+
+    it('calls topics endpoint for topic kind', async () => {
+      mockSuccess({
+        id: 'tp-1',
+        natural_key: 'moksha',
+        display_text: [{ lang: 'hi', script: 'devanagari', text: 'मोक्ष' }],
+        source: 'manual',
+        is_leaf: true,
+        topic_path: '/moksha',
+        parent_keyword: null,
+        is_synthetic: false,
+        parent_topic: null,
+        extracts: [],
+      });
+      await getEntityDetail('topic', 'moksha');
+      expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(
+        `${BASE}/v1/topics/moksha`
+      );
+    });
+
+    it('calls gathas endpoint for gatha kind', async () => {
+      mockSuccess({
+        id: 'g-1',
+        natural_key: 'gatha-1',
+        gatha_number: '1',
+        shastra: { natural_key: 'ts', title: [] },
+        adhikaar: [],
+        heading: [],
+        prakrit: null,
+        sanskrit: null,
+        hindi_chhand: [],
+        word_meanings: null,
+      });
+      await getEntityDetail('gatha', 'gatha-1');
+      expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(
+        `${BASE}/v1/gathas/gatha-1`
       );
     });
 

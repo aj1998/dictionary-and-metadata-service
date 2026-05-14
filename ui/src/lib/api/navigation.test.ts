@@ -2,7 +2,7 @@ import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { ApiError } from './_fetch';
 import { getNavLanding, expandNode, getPreview, getTopicNeighbors } from './navigation';
 
-const BASE = 'http://localhost:8003';
+const BASE = '/api/navigation';
 
 const emptyGraph = {
   nodes: [],

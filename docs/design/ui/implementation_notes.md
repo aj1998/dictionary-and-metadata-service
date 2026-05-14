@@ -258,6 +258,30 @@ Completed in two parts:
 2. Node cards show all visual states (selected/faded/pinned/rest/hover behavior).
 3. Edges render as Bézier with endpoint circles and midpoint pill labels.
 4. Active edge uses accent styling; inactive edges use muted graph-edge color.
+
+---
+## Bug fix: graph bootstrap blocked by cross-origin API calls (applied after Phase 5)
+
+**Symptom:** `/[locale]/graph` showed empty state ("No graph data yet") even when navigation service logs showed:
+`GET /v1/landing 200` with records returned.
+
+**Root cause:** Phase 3 API clients called service ports directly from the browser (`http://localhost:8001..8004`). In browser runtime this introduces cross-origin restrictions; requests can still reach backend, but response access can fail in UI runtime and boot falls back to empty graph state.
+
+**Changes made:**
+- Added Next.js rewrites in `ui/next.config.ts`:
+  - `/api/metadata/:path* -> METADATA_SVC_URL (default http://localhost:8001)`
+  - `/api/data/:path* -> DATA_SVC_URL (default http://localhost:8002)`
+  - `/api/navigation/:path* -> NAV_SVC_URL (default http://localhost:8003)`
+  - `/api/query/:path* -> QUERY_SVC_URL (default http://localhost:8004)`
+- Updated UI API base URLs to same-origin proxy paths:
+  - `metadata.ts`: `/api/metadata`
+  - `data.ts`: `/api/data`
+  - `navigation.ts`: `/api/navigation`
+  - `query.ts`: `/api/query`
+- Updated API unit tests to assert rewritten same-origin URLs.
+
+**Operational alignment:**
+- Navigation service default Neo4j database is set to `neo4j` in `services/navigation_service/config.py` to match the expected default graph DB name.
 5. Force simulation starts and settles automatically.
 6. Left filter pane shows 4 category toggles, layout radios (only Force enabled), depth stepper clamped 1–4, and reset action.
 7. Zoom controls: plus/minus and fit/reset behavior work.
@@ -356,3 +380,25 @@ Implemented Phase 5 graph interactivity/state in `ui/` with Zustand-backed graph
 8. Pin/unpin from node pin icon and verify pin state persists in current session.
 9. On mobile width (<1100), verify details open as bottom sheet.
 10. Inspect DOM for SR-only nav: nav[aria-label="ग्राफ लीनियर दृश्य"] contains visible-node links.
+
+---
+## Bug fix: details panel used non-existent composite data-service endpoint
+
+**Symptom:** Selecting graph nodes (notably keyword nodes like `वस्तु`) triggered requests such as:
+`GET /v1/entity/keyword/{nk}/detail` and resulted in `404 Not Found` from `data-service`.
+
+**Root cause:** UI `getEntityDetail(...)` still followed a planned composite endpoint contract from phase docs, but backend exposes per-entity endpoints:
+- `data-service`: `/v1/keywords/{nk}`, `/v1/topics/{nk}`, `/v1/gathas/{nk}`
+- `metadata-service`: `/v1/shastras/{nk}`
+
+**Changes made:**
+- Updated `ui/src/lib/api/data.ts`:
+  - `getEntityDetail('keyword', nk)` -> calls `/v1/keywords/{nk}`
+  - `getEntityDetail('topic', nk)` -> calls `/v1/topics/{nk}`
+  - `getEntityDetail('gatha', nk)` -> calls `/v1/gathas/{nk}`
+  - `getEntityDetail('shastra', nk)` -> calls metadata `/v1/shastras/{nk}`
+  - Added response normalization into the existing `EntityDetail` shape consumed by `DetailsPanel`.
+- Updated `ui/src/lib/api/data.test.ts` (TDD) to assert per-kind endpoint mapping and normalized output for keyword kind.
+
+**Verification commands run:**
+- `cd ui && pnpm test -- src/lib/api/data.test.ts`
