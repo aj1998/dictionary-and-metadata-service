@@ -4,7 +4,7 @@ export default function GraphLayout({
   children: React.ReactNode;
 }) {
   return (
-    /* Full-bleed three-pane shell. TopBar is in root layout.
+    /* Full-bleed three-pane shell. TopBar is in locale layout.
        Left pane: hidden at <xl, fixed 280px at xl+.
        Right pane: hidden (details panel — wired in Phase 5).
        Center: flex-1 full-bleed canvas. */

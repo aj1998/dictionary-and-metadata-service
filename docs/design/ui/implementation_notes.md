@@ -84,6 +84,37 @@ Run with pnpm test (single pass) or pnpm test:watch (interactive).
     │ nav item data │ Item counts, PRIMARY+MORE = ALL, unique routes, Devanagari labels non-empty, every labelKey maps to a real hi.json nav.* entry │
 
 ---
+## Bug fix: locale routing (applied after Phase 3)
+
+**Symptom:** `localhost:3000/en` returned 404 despite next-intl being configured.
+
+**Root cause:** next-intl with URL-based locale switching (`localePrefix: "as-needed"`) requires an `src/app/[locale]/` folder so Next.js App Router can capture the locale segment from the URL. Without it, `/en` has no matching page component. The proxy.ts file itself was correct — Next.js 16 did rename `middleware.ts` → `proxy.ts` — but the `[locale]` folder structure was never created.
+
+**Changes made:**
+
+- Created `src/app/[locale]/layout.tsx` — locale shell: validates locale via `hasLocale()`, calls `getMessages()`, mounts `NextIntlClientProvider` and `TopBar`. Calls `notFound()` for unrecognised locales.
+- Moved all route files under `src/app/[locale]/`:
+  - `(content)/layout.tsx` + `(content)/page.tsx` (Shell B — homepage)
+  - `(reading)/layout.tsx` (Shell C — reading view)
+  - `graph/layout.tsx` + `graph/page.tsx` (Shell A — graph)
+  - `dev/page.tsx` (component gallery)
+- Simplified `src/app/layout.tsx` to a pure html/body shell (fonts + `lang` attribute via `getLocale()`). `NextIntlClientProvider` and `TopBar` moved to locale layout.
+
+**Route table after fix:**
+
+```
+/[locale]        → homepage (Shell B)
+/[locale]/dev    → component gallery
+/[locale]/graph  → graph shell (Shell A)
+```
+
+Proxy (Middleware) row confirms next-intl locale routing is active.
+
+**URL behaviour** (`localePrefix: "as-needed"`, defaultLocale `hi`):
+- `localhost:3000/` → Hindi (no prefix for default locale)
+- `localhost:3000/en` → English
+
+---
 ## Phase 2:
     
     ┌─────────────────────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────┐

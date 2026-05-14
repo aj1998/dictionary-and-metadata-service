@@ -6,7 +6,7 @@ export default function ReadingLayout({
   children: React.ReactNode;
 }) {
   return (
-    /* Split-reading shell (Shell C). TopBar is in root layout.
+    /* Split-reading shell (Shell C). TopBar is in locale layout.
        65% reader column + 35% sticky sidebar.
        Stacks to single column at <1024px. */
     <div className="flex flex-1 flex-col">

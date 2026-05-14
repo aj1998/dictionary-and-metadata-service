@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Serif_Devanagari, Inter } from "next/font/google";
-import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages } from "next-intl/server";
-import { TopBar } from "@/components/TopBar";
+import { getLocale } from "next-intl/server";
 import "./globals.css";
 
 const notoSerifDevanagari = Noto_Serif_Devanagari({
@@ -33,7 +31,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getLocale();
-  const messages = await getMessages();
 
   return (
     <html
@@ -41,10 +38,7 @@ export default async function RootLayout({
       className={`${notoSerifDevanagari.variable} ${inter.variable} h-full`}
     >
       <body className="flex min-h-full flex-col antialiased">
-        <NextIntlClientProvider messages={messages}>
-          <TopBar locale={locale as "hi" | "en"} />
-          {children}
-        </NextIntlClientProvider>
+        {children}
       </body>
     </html>
   );
