@@ -44,6 +44,11 @@ from workers.ingestion.jainkosh.parse_keyword import parse_keyword_html
 
 
 FIXTURE_DIR = Path(__file__).resolve().parents[1] / "workers" / "ingestion" / "jainkosh" / "tests" / "fixtures"
+_POSTGRES_EXTENSION_STMTS: tuple[str, ...] = (
+    "CREATE EXTENSION IF NOT EXISTS pgcrypto",
+    "CREATE EXTENSION IF NOT EXISTS pg_trgm",
+    "CREATE EXTENSION IF NOT EXISTS btree_gin",
+)
 
 
 @dataclass(frozen=True)
@@ -73,6 +78,11 @@ def _selected_goldens(keyword: str | None) -> tuple[GoldenSpec, ...]:
     return tuple(spec for spec in GOLDENS if spec.keyword == keyword)
 
 
+async def _ensure_postgres_extensions(conn) -> None:
+    for stmt in _POSTGRES_EXTENSION_STMTS:
+        await conn.execute(text(stmt))
+
+
 async def _run_apply(selected: tuple[GoldenSpec, ...], *, neo4j_database: str, ingestion_run_id: uuid.UUID | None) -> None:
     database_url = os.environ["DATABASE_URL"]
     mongo_url = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
@@ -89,6 +99,7 @@ async def _run_apply(selected: tuple[GoldenSpec, ...], *, neo4j_database: str, i
 
     try:
         async with engine.begin() as conn:
+            await _ensure_postgres_extensions(conn)
             await conn.run_sync(Base.metadata.create_all)
         await ensure_constraints(neo4j_driver, database=neo4j_database)
         async with session_factory() as pg_session:
@@ -117,6 +128,7 @@ async def _clear_existing_data(*, database_url: str, mongo_url: str, mongo_db_na
 
     try:
         async with engine.begin() as conn:
+            await _ensure_postgres_extensions(conn)
             await conn.run_sync(Base.metadata.create_all)
         async with engine.begin() as conn:
             for table in reversed(Base.metadata.sorted_tables):

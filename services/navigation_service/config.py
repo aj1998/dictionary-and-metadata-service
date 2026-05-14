@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import model_validator
 
 
 class Settings(BaseSettings):
@@ -9,10 +10,17 @@ class Settings(BaseSettings):
     NEO4J_USER: str = "neo4j"
     NEO4J_PASSWORD: str
     NEO4J_DATABASE: str = "jainkb"
+    NEO4J_USE_DEFAULT_DATABASE: bool = False
     ADMIN_USER: str
     ADMIN_PASSWORD: str
     LOG_LEVEL: str = "INFO"
     PORT: int = 8003
+
+    @model_validator(mode="after")
+    def apply_neo4j_database_switch(self) -> "Settings":
+        if self.NEO4J_USE_DEFAULT_DATABASE:
+            self.NEO4J_DATABASE = "neo4j"
+        return self
 
 
 settings = Settings()  # type: ignore[call-arg]

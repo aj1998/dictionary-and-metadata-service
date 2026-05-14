@@ -23,6 +23,7 @@ _NODE_COUNT_TTL = 300.0  # 5 minutes
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     # Verify Neo4j connectivity on startup
     driver = get_neo4j_driver()
+    logging.info("Navigation service using Neo4j database: %s", settings.NEO4J_DATABASE)
     try:
         async with driver.session(database=settings.NEO4J_DATABASE) as session:
             await session.run("RETURN 1")
