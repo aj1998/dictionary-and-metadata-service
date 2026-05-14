@@ -8,3 +8,5 @@ __pycache__/
 .pytest_cache/
 .DS_Store
 .code-review-graph/
+ui_template
+ux_template_images
