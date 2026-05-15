@@ -213,7 +213,7 @@ export function DetailsPanel({ open, selected, nodes, edges, depth, onClose, onS
   if (isDesktop) {
     return (
       <>
-        <aside className="flex h-screen w-[380px] shrink-0 flex-col overflow-hidden border-l border-border bg-surface">
+        <aside role="complementary" aria-label="विवरण" className="flex h-screen w-[380px] shrink-0 flex-col overflow-hidden border-l border-border bg-surface">
           <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border bg-surface px-4 py-3">
             <p className="text-sm font-medium">विवरण</p>
             <button type="button" aria-label="Close details" onClick={onClose}><X className="size-4" /></button>

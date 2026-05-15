@@ -576,3 +576,52 @@ Tests added (214 pass):
 - _fetch.test.ts: 5 new tests locking ApiError instanceof + status
   checks and the DetailsPanel 404 guard pattern.
 
+---
+## Phase 8: Remaining Pages & Accessibility Polish
+
+### Files added
+- `ui/src/app/[locale]/(content)/about/page.tsx` — Full static about page
+- `ui/src/app/[locale]/(content)/feedback/page.tsx` — Interactive feedback form (`'use client'`)
+- `ui/src/app/api/feedback/route.ts` — POST route handler writing to MongoDB `jain_kb.feedback`
+- `ui/src/lib/feedback-validation.ts` — Pure form validation logic (EMAIL_REGEX, validateFeedback, isValid, MESSAGE_MIN/MAX)
+- `ui/src/lib/feedback-validation.test.ts` — 10 tests
+
+### Files updated
+- `ui/src/components/DetailsPanel.tsx` — Added `role="complementary" aria-label="विवरण"` to desktop `<aside>` element
+- `ui/src/app/globals.css` — Added second `@layer base` block with `:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }` for keyboard focus ring
+- `ui/src/app/[locale]/graph/useForceSimulation.ts` — Exported `REDUCED_MOTION_ALPHA_THRESHOLD = 0.05`; added post-restart logic that detects `prefers-reduced-motion: reduce` and synchronously ticks the sim to alpha < 0.05 then stops, preventing animation for motion-sensitive users
+
+### Dependencies added
+- `mongodb` — npm package for the feedback API route handler
+
+### What was implemented
+
+#### 8.1 — About page
+Single static server component, `max-w-[720px] mx-auto` single column:
+- Mission section (h1 "परिचय") — 3 Devanagari paragraphs about the project
+- Sources & acknowledgments (h2 "स्रोत और आभार") — 3 source cards: jainkosh.org (Creative Commons), nikkyjain.github.io (Open source), Vyakaran Vishleshan (Original research corpus)
+- Tech stack footer in muted `text-sm`: FastAPI · PostgreSQL · MongoDB · Neo4j · Next.js 16 · Tailwind 4
+
+#### 8.2 — Feedback page + API route
+- `feedback/page.tsx`: `'use client'` form, 640px centered. Fields: name, email (blur validation with regex), type radio group (bug/suggestion/content_error), message textarea with Devanagari char counter (`toDevanagariNumerals`), hidden route field auto-populated from `document.referrer` or current pathname. POSTs to `/api/feedback`. On success: green inline confirmation card. On error: inline `text-danger` block.
+- `api/feedback/route.ts`: POST handler validates input server-side (type required, message ≥ 10 chars); writes to MongoDB using `MONGODB_URI` env var (default `mongodb://localhost:27017`), DB `MONGODB_DB` (default `jain_kb`), collection `feedback`.
+- Validation logic extracted to `lib/feedback-validation.ts` (MESSAGE_MIN=200, MESSAGE_MAX=4000) so it can be tested without JSX.
+
+#### 8.3 — ARIA completeness
+- `DetailsPanel` desktop `<aside>` — added `role="complementary" aria-label="विवरण"`. (Other components were already compliant: NodeCard has `role="button" aria-pressed` + `aria-label`; RelationConnector has `role="button" aria-label`; CategoryFilterList has `<fieldset>/<legend>`; TaggedTermPopover has `aria-haspopup="dialog"` + `role="dialog" aria-modal="false"`.)
+
+#### 8.4 — Focus ring
+Added `:focus-visible` rule in `globals.css` to ensure a visible 2px `var(--ring)` outline on all keyboard-focused elements, consistent with the spec requirement (never `outline: none` without a ring replacement).
+
+#### 8.5 — prefers-reduced-motion in useForceSimulation
+Exported `REDUCED_MOTION_ALPHA_THRESHOLD = 0.05`. When `restart()` is called and `window.matchMedia('(prefers-reduced-motion: reduce)').matches`, the sim is ticked synchronously until `alpha < 0.05` then stopped — no progressive animation.
+
+### Tests added
+- `src/lib/feedback-validation.test.ts` — 10 tests covering: valid data passes, type required, short message rejected, long message rejected, invalid email rejected, empty email allowed, valid email passes, EMAIL_REGEX bad patterns, MESSAGE_MIN=200, MESSAGE_MAX=4000.
+- `src/app/[locale]/graph/useForceSimulation.test.ts` — 2 new tests: `REDUCED_MOTION_ALPHA_THRESHOLD` is 0.05; value is > 0 and < 0.1.
+
+### Architecture decisions
+- Feedback validation logic was extracted to `lib/feedback-validation.ts` (not inline in the page component) so it can be unit-tested without JSX/React rendering — consistent with the project's test pattern of pure logic tests only.
+- The feedback API route uses a new `MongoClient` per request (connect + close). A connection pool would be better for production but is out of scope for this phase.
+- The `prefers-reduced-motion` check in `useForceSimulation` uses `typeof window !== 'undefined'` guard for SSR safety.
+- Items 8.6 (Devanagari cross-browser), 8.7 (locale switch end-to-end), 8.8 (Lighthouse ≥ 95), and 8.9 (final visual review against reference images) are manual verification steps — see `manual_verification_checklist.md`.

@@ -110,6 +110,13 @@
   }
 }
 
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
 /* Shimmer animation for skeleton loading blocks */
 @keyframes shimmer {
   0%   { background-position: -200% 0; }

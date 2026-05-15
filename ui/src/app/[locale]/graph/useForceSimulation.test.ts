@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { buildBezierPath, LINK_DISTANCE, CHARGE_STRENGTH, GRAVITY_STRENGTH } from "./useForceSimulation";
+import { buildBezierPath, LINK_DISTANCE, CHARGE_STRENGTH, GRAVITY_STRENGTH, REDUCED_MOTION_ALPHA_THRESHOLD } from "./useForceSimulation";
 
 // ─── Bug 2: force constants keep disconnected nodes close to the viewport ─────
 //
@@ -61,5 +61,16 @@ describe("buildBezierPath", () => {
     const { mid } = buildBezierPath(0, 0, 300, 200);
     expect(typeof mid.x).toBe("number");
     expect(typeof mid.y).toBe("number");
+  });
+});
+
+describe("REDUCED_MOTION_ALPHA_THRESHOLD", () => {
+  test("REDUCED_MOTION_ALPHA_THRESHOLD is 0.05", () => {
+    expect(REDUCED_MOTION_ALPHA_THRESHOLD).toBe(0.05);
+  });
+
+  test("REDUCED_MOTION_ALPHA_THRESHOLD is in a valid range (> 0 and < 0.1)", () => {
+    expect(REDUCED_MOTION_ALPHA_THRESHOLD).toBeGreaterThan(0);
+    expect(REDUCED_MOTION_ALPHA_THRESHOLD).toBeLessThan(0.1);
   });
 });

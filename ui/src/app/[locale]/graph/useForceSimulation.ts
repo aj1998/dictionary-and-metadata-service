@@ -24,6 +24,8 @@ const CONTROL_OFFSET = 80;
 // ─── Force tuning constants (exported for tests) ──────────────────────────────
 
 export const LINK_DISTANCE   = 140;
+/** Alpha threshold used when prefers-reduced-motion is active — exported for tests. */
+export const REDUCED_MOTION_ALPHA_THRESHOLD = 0.05;
 export const CHARGE_STRENGTH = -500;
 /** Per-node gravity toward canvas centre — keeps disconnected nodes visible. */
 export const GRAVITY_STRENGTH = 0.07;
@@ -275,6 +277,17 @@ export function useForceSimulation(canvasW: number, canvasH: number) {
     sim.nodes(d3Nodes);
     (sim.force('link') as ReturnType<typeof forceLink<D3Node, D3Link>>).links(links);
     sim.alpha(0.3).restart();
+
+    // If user prefers reduced motion, skip progressive animation
+    const reducedMotion = typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reducedMotion) {
+      // Run sim synchronously until alpha drops below 0.05
+      while (sim.alpha() > REDUCED_MOTION_ALPHA_THRESHOLD) {
+        sim.tick();
+      }
+      sim.stop();
+    }
   }).current;
 
   return { registerNode, registerEdge, restart };
