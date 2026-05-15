@@ -249,27 +249,45 @@ describe('data API', () => {
         expect(result.topicExtracts).toEqual(['पहला अंश', 'दूसरा अंश']);
       });
 
-      it('extracts heading text from extract objects (hin lang)', async () => {
+      it('prefers hindi_translation from blocks over text_devanagari', async () => {
         const objExtract = {
-          blocks: [],
-          heading: [{ lang: 'hin', script: 'Deva', text: 'शुद्ध द्रव्य का स्वरूप' }],
-          is_leaf: true,
-          natural_key: 'dravya:shudh',
+          blocks: [{ kind: 'sanskrit_text', text_devanagari: 'गुणसमुदायो द्रव्यमिति।', hindi_translation: 'गुणों का समुदाय द्रव्य होता है।' }],
+          heading: [{ lang: 'hin', script: 'Deva', text: 'द्रव्य का लक्षण गुण समुदाय' }],
         };
         mockSuccess({ ...baseTopic, extracts: [objExtract] });
         const result = await getEntityDetail('topic', 'dharma');
-        expect(result.topicExtracts).toEqual(['शुद्ध द्रव्य का स्वरूप']);
+        expect(result.topicExtracts).toEqual(['गुणों का समुदाय द्रव्य होता है।']);
       });
 
-      it('extracts text_devanagari from extract objects when present', async () => {
+      it('falls back to text_devanagari from blocks when hindi_translation is absent', async () => {
+        const objExtract = {
+          blocks: [{ kind: 'hindi_text', text_devanagari: 'द्रव्य नित्य है।', hindi_translation: null }],
+          heading: [],
+        };
+        mockSuccess({ ...baseTopic, extracts: [objExtract] });
+        const result = await getEntityDetail('topic', 'dharma');
+        expect(result.topicExtracts).toEqual(['द्रव्य नित्य है।']);
+      });
+
+      it('extracts top-level text_devanagari when no blocks array', async () => {
         const objExtract = { text_devanagari: 'द्रव्य का लक्षण' };
         mockSuccess({ ...baseTopic, extracts: [objExtract] });
         const result = await getEntityDetail('topic', 'dharma');
         expect(result.topicExtracts).toEqual(['द्रव्य का लक्षण']);
       });
 
+      it('does NOT use heading text (heading is the topic title, not content)', async () => {
+        const objExtract = {
+          blocks: [],
+          heading: [{ lang: 'hin', script: 'Deva', text: 'शुद्ध द्रव्य का स्वरूप' }],
+        };
+        mockSuccess({ ...baseTopic, extracts: [objExtract] });
+        const result = await getEntityDetail('topic', 'dharma');
+        expect(result.topicExtracts).toBeUndefined();
+      });
+
       it('omits topicExtracts when extract objects have no meaningful text', async () => {
-        const objExtract = { blocks: [], heading: [], natural_key: 'x' };
+        const objExtract = { blocks: [], natural_key: 'x' };
         mockSuccess({ ...baseTopic, extracts: [objExtract] });
         const result = await getEntityDetail('topic', 'dharma');
         expect(result.topicExtracts).toBeUndefined();

@@ -51,15 +51,21 @@ function extractTopicText(e: unknown): string | null {
   if (typeof e === 'string') return e.trim() || null;
   if (e && typeof e === 'object') {
     const obj = e as Record<string, unknown>;
+    // Pull text from the first block that has content.
+    // hindi_translation is preferred (prose Hindi), text_devanagari is fallback.
+    if (Array.isArray(obj.blocks)) {
+      for (const block of obj.blocks as Array<Record<string, unknown>>) {
+        const hi = typeof block.hindi_translation === 'string' ? block.hindi_translation.trim() : '';
+        if (hi) return hi;
+        const dev = typeof block.text_devanagari === 'string' ? block.text_devanagari.trim() : '';
+        if (dev) return dev;
+      }
+    }
+    // Top-level text_devanagari (simple extract shape)
     if (typeof obj.text_devanagari === 'string' && obj.text_devanagari.trim()) {
       return obj.text_devanagari;
     }
-    if (Array.isArray(obj.heading)) {
-      const row = (obj.heading as Array<Record<string, string>>).find(
-        (h) => h.lang === 'hin' || h.lang === 'hi'
-      );
-      if (row?.text?.trim()) return row.text;
-    }
+    // Intentionally NOT using heading — it's the topic title, already in the panel header
   }
   return null;
 }
