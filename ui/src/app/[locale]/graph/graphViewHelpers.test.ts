@@ -135,15 +135,51 @@ describe('buildCanvasEdges', () => {
   });
 
   it('marks the active edge', () => {
+    const nodes = { a: makeNode('a'), b: makeNode('b'), c: makeNode('c') };
+    const edges = {
+      e1: makeEdge('e1', 'a', 'b'),
+      e2: makeEdge('e2', 'b', 'c'),
+    };
+    const rendered = new Set(['a', 'b', 'c']);
+    const result = buildCanvasEdges(edges, nodes, rendered, ALL_VISIBLE, 'e1');
+    expect(result.find((e) => e.id === 'e1')!.active).toBe(true);
+    expect(result.find((e) => e.id === 'e2')!.active).toBe(false);
+  });
+
+  it('deduplicates A→B and B→A edges with the same kind into one rendered edge', () => {
     const nodes = { a: makeNode('a'), b: makeNode('b') };
     const edges = {
       e1: makeEdge('e1', 'a', 'b'),
       e2: makeEdge('e2', 'b', 'a'),
     };
     const rendered = new Set(['a', 'b']);
-    const result = buildCanvasEdges(edges, nodes, rendered, ALL_VISIBLE, 'e1');
-    expect(result.find((e) => e.id === 'e1')!.active).toBe(true);
-    expect(result.find((e) => e.id === 'e2')!.active).toBe(false);
+    const result = buildCanvasEdges(edges, nodes, rendered, ALL_VISIBLE, null);
+    expect(result).toHaveLength(1);
+  });
+
+  it('marks the representative active when the duplicate direction is selected', () => {
+    const nodes = { a: makeNode('a'), b: makeNode('b') };
+    const edges = {
+      e1: makeEdge('e1', 'a', 'b'),
+      e2: makeEdge('e2', 'b', 'a'),
+    };
+    const rendered = new Set(['a', 'b']);
+    // e2 is the duplicate direction — the representative (e1) should still be active
+    const result = buildCanvasEdges(edges, nodes, rendered, ALL_VISIBLE, 'e2');
+    expect(result).toHaveLength(1);
+    expect(result[0].active).toBe(true);
+  });
+
+  it('keeps distinct edges between different node pairs', () => {
+    const nodes = { a: makeNode('a'), b: makeNode('b'), c: makeNode('c') };
+    const edges = {
+      e1: makeEdge('e1', 'a', 'b'),
+      e2: makeEdge('e2', 'b', 'c'),
+      e3: makeEdge('e3', 'a', 'c'),
+    };
+    const rendered = new Set(['a', 'b', 'c']);
+    const result = buildCanvasEdges(edges, nodes, rendered, ALL_VISIBLE, null);
+    expect(result).toHaveLength(3);
   });
 });
 

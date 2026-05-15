@@ -138,6 +138,12 @@ export function computeHierarchicalPositions(
  * Returns only edges where both endpoints are in `renderedNks` AND
  * both categories are visible.  Edges that reference nodes outside the
  * rendered set would produce dangling lines in the force simulation.
+ *
+ * Bidirectional duplicates (A→B and B→A with the same kind) are collapsed
+ * into a single rendered edge — the backend sometimes returns both directions
+ * of the same relationship, which would otherwise draw overlapping lines.
+ * If either direction's ID matches `selectedEdgeId`, the representative edge
+ * is marked active.
  */
 export function buildCanvasEdges(
   edges: Record<string, GraphEdge>,
@@ -146,19 +152,33 @@ export function buildCanvasEdges(
   categoryVisibility: Record<EntityKind, boolean>,
   selectedEdgeId: string | null,
 ): RenderedEdge[] {
-  return Object.values(edges)
-    .filter(
-      (e) =>
-        renderedNks.has(e.src) &&
-        renderedNks.has(e.dst) &&
-        categoryVisibility[nodes[e.src]?.kind ?? 'topic'] &&
-        categoryVisibility[nodes[e.dst]?.kind ?? 'topic'],
-    )
-    .map((e) => ({
-      id: e.id,
-      src: e.src,
-      dst: e.dst,
-      kind: e.kind,
-      active: e.id === selectedEdgeId,
-    }));
+  const filtered = Object.values(edges).filter(
+    (e) =>
+      renderedNks.has(e.src) &&
+      renderedNks.has(e.dst) &&
+      categoryVisibility[nodes[e.src]?.kind ?? 'topic'] &&
+      categoryVisibility[nodes[e.dst]?.kind ?? 'topic'],
+  );
+
+  // Deduplicate: treat {A→B, kind} and {B→A, kind} as the same visual edge.
+  // Keep the first-seen representative; mark it active if either direction is selected.
+  const seen = new Map<string, { edge: GraphEdge; active: boolean }>();
+  for (const e of filtered) {
+    const [a, b] = e.src < e.dst ? [e.src, e.dst] : [e.dst, e.src];
+    const key = `${a}\x00${b}\x00${e.kind}`;
+    const isActive = e.id === selectedEdgeId;
+    if (!seen.has(key)) {
+      seen.set(key, { edge: e, active: isActive });
+    } else if (isActive) {
+      seen.get(key)!.active = true;
+    }
+  }
+
+  return Array.from(seen.values()).map(({ edge: e, active }) => ({
+    id: e.id,
+    src: e.src,
+    dst: e.dst,
+    kind: e.kind,
+    active,
+  }));
 }
