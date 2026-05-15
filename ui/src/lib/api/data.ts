@@ -129,7 +129,16 @@ export async function getKeywordsLetters(): Promise<LetterCount[]> {
 }
 
 export async function getKeywordsRecent(): Promise<KeywordSummary[]> {
-  return apiFetch<KeywordSummary[]>(BASE_URL, '/v1/keywords/recent');
+  try {
+    const result = await apiFetch<{ items: KeywordSummary[] }>(BASE_URL, '/v1/keywords?limit=10');
+    return result.items ?? [];
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) {
+      console.warn('data-service /v1/keywords not available, returning empty list');
+      return [];
+    }
+    throw error;
+  }
 }
 
 export async function getKeywords(params?: {

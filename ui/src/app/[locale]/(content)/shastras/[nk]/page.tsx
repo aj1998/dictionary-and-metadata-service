@@ -11,7 +11,8 @@ export const revalidate = 60;
 type PageProps = { params: Promise<{ nk: string }> };
 
 export default async function ShastraDetailPage({ params }: PageProps) {
-  const { nk } = await params;
+  const { nk: rawNk } = await params;
+  const nk = decodeURIComponent(rawNk);
 
   const [shastra, teekas, gathas] = await Promise.all([
     getShastra(nk),

@@ -330,12 +330,12 @@ describe('data API', () => {
   });
 
   describe('getKeywordsRecent', () => {
-    it('calls correct URL and returns data', async () => {
-      const fixture = [{ id: '1', natural_key: 'atma', display_text: 'आत्मा' }];
-      mockSuccess(fixture);
+    it('calls /v1/keywords?limit=10 and returns items array', async () => {
+      const items = [{ id: '1', natural_key: 'atma', display_text: 'आत्मा' }];
+      mockSuccess({ pagination: { total: 1, limit: 10, offset: 0 }, items });
       const result = await getKeywordsRecent();
-      expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(`${BASE}/v1/keywords/recent`);
-      expect(result).toEqual(fixture);
+      expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(`${BASE}/v1/keywords?limit=10`);
+      expect(result).toEqual(items);
     });
   });
 

@@ -10,7 +10,8 @@ export const revalidate = 60;
 type PageProps = { params: Promise<{ nk: string }> };
 
 export default async function TopicDetailPage({ params }: PageProps) {
-  const { nk } = await params;
+  const { nk: rawNk } = await params;
+  const nk = decodeURIComponent(rawNk);
 
   const [topic, neighborResponse] = await Promise.all([
     getTopic(nk),

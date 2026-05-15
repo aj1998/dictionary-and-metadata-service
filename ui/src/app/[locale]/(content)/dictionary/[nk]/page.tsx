@@ -8,7 +8,8 @@ export const revalidate = 60;
 type PageProps = { params: Promise<{ nk: string }> };
 
 export default async function KeywordDetailPage({ params }: PageProps) {
-  const { nk } = await params;
+  const { nk: rawNk } = await params;
+  const nk = decodeURIComponent(rawNk);
   const keyword = await getKeyword(nk);
 
   const aliases = keyword.aliases.map((alias) => alias.alias_text).filter(Boolean);

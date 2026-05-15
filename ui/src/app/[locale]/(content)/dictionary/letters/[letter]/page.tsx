@@ -19,7 +19,8 @@ function first(value: string | string[] | undefined): string {
 const PAGE_SIZE = 20;
 
 export default async function DictionaryLetterPage({ params, searchParams }: PageProps) {
-  const { letter } = await params;
+  const { letter: rawLetter } = await params;
+  const letter = decodeURIComponent(rawLetter);
   const query = await searchParams;
   const q = first(query.q).trim();
   const page = Math.max(1, Number.parseInt(first(query.page), 10) || 1);

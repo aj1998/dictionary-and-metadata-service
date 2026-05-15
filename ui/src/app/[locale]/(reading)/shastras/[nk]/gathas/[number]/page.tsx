@@ -16,7 +16,9 @@ function joinedLangText(rows: Array<{ lang: string; text: string }> | undefined)
 }
 
 export default async function GathaDetailPage({ params }: PageProps) {
-  const { nk, number } = await params;
+  const { nk: rawNk, number: rawNumber } = await params;
+  const nk = decodeURIComponent(rawNk);
+  const number = decodeURIComponent(rawNumber);
 
   const [gatha, topics, keywords] = await Promise.all([
     getGatha(number),
