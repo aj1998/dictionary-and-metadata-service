@@ -252,13 +252,6 @@ Completed in two parts:
   - Verifies angle clamp range `[-20, +20]`.
   - Verifies midpoint coordinates are defined.
 
-### Manual UI verification checklist for phase 4 (/[locale]/graph):
-
-1. Dotted grid renders, pans with drag, and scales correctly on zoom.
-2. Node cards show all visual states (selected/faded/pinned/rest/hover behavior).
-3. Edges render as Bézier with endpoint circles and midpoint pill labels.
-4. Active edge uses accent styling; inactive edges use muted graph-edge color.
-
 ---
 ## Bug fix: graph bootstrap blocked by cross-origin API calls (applied after Phase 5)
 
@@ -358,28 +351,10 @@ Implemented Phase 5 graph interactivity/state in `ui/` with Zustand-backed graph
   - depth bound clamp and invalid cat filtering
   - stable query serialization
 
-### Verification commands run
-- `cd ui && pnpm test -- src/lib/store/graphStore.test.ts src/lib/store/graphUrlState.test.ts`
-- `cd ui && pnpm build` (successful after running with network permission due Google Fonts fetch)
-- `cd ui && pnpm test`
-
 ### Notes / implementation deltas
 - The Phase 5 keyboard map is partially implemented (`Esc`). Other shortcuts (`f`, `+/-`, `0`, arrows, `/`, `Cmd+K`, `Space+drag`) remain to be wired end-to-end.
 - Category-off behavior currently filters hidden categories from canvas data, which effectively hides those nodes/edges without re-simulation control flags.
 - Expand error visuals/toasts and node shake animation are not yet implemented; errors are logged and kept in store `lastError`.
-
-### Manual UI checks for phase 5:
-
-1. Open /en/graph and /graph; verify graph seeds when no ?node.
-2. Open /graph?node=<nk>&depth=3&cat=topic; verify selected node expands and category/depth reflect URL.
-3. Click a node; details panel opens with title, stats, description, related rows, CTA.
-4. Click edge pill; edge details mode shows relation + source/target rows.
-5. Click empty canvas; selection clears and panel closes.
-6. Toggle category switches; matching nodes/edges disappear/reappear.
-7. Change depth stepper; click unexpanded node; URL updates after ~500ms debounce.
-8. Pin/unpin from node pin icon and verify pin state persists in current session.
-9. On mobile width (<1100), verify details open as bottom sheet.
-10. Inspect DOM for SR-only nav: nav[aria-label="ग्राफ लीनियर दृश्य"] contains visible-node links.
 
 ---
 ## Bug fix: details panel used non-existent composite data-service endpoint
@@ -399,9 +374,6 @@ Implemented Phase 5 graph interactivity/state in `ui/` with Zustand-backed graph
   - `getEntityDetail('shastra', nk)` -> calls metadata `/v1/shastras/{nk}`
   - Added response normalization into the existing `EntityDetail` shape consumed by `DetailsPanel`.
 - Updated `ui/src/lib/api/data.test.ts` (TDD) to assert per-kind endpoint mapping and normalized output for keyword kind.
-
-**Verification commands run:**
-- `cd ui && pnpm test -- src/lib/api/data.test.ts`
 
 ---
 ## Phase 6:
@@ -453,24 +425,6 @@ Implemented Phase 6 content list/index pages with real API-backed data fetching,
   - `buildPageHref` offset generation
   - `paginatedMeta` page/flags computation
 
-### Verification commands run
-- `cd ui && pnpm test`
-- `cd ui && pnpm build`
-
-Both passed.
-
-### Manual UI verification checklist (Phase 6)
-1. Open `http://localhost:3000/hi` and `http://localhost:3000/en`; verify Home hero, 4 entry cards, and recent activity table render.
-2. On Home, submit the local search input; verify it routes to locale-preserved `/[locale]/search?q=...`.
-3. Open `/[locale]/shastras`; verify filter row is visible, cards render, and previous/next pagination updates `?page=`.
-4. Open `/[locale]/dictionary`; verify letter grid cells and recent keyword list render.
-5. Click a letter cell; verify `/[locale]/dictionary/letters/[letter]` opens with keyword list and page controls.
-6. Use `q` search-within on letter listing; verify list narrows and query param persists.
-7. Open `/[locale]/topics`; verify source filter + search work and pagination updates.
-8. Open `/[locale]/search?q=<term>`; verify ranked result cards, overlap/score pill, and both CTAs render.
-9. Try `/[locale]/search?q=<gibberish>`; verify empty-state text "कोई परिणाम नहीं मिला" appears.
-10. Resize at mobile (`~375px`), tablet (`~768px`), desktop (`>=1280px`) and verify the list/grid layouts reflow without overlap.
-
 ---
 ## Phase 7:
 
@@ -516,20 +470,42 @@ Implemented Phase 7 detail views and supporting reusable components.
 - `ui/src/lib/gatha-content.test.ts`:
   - validates extraction and splitting of bracket-tagged teeka terms.
 
-### Verification commands run
-- `cd ui && pnpm test`
-- `cd ui && pnpm build` (with network permission required for Google Fonts fetch)
+---
+## Bugfixes -
 
-Both passed.
+bugfix: graph node limit, stability on panel open, 404 handling, disconnected node gravity
 
-### Manual UI verification checklist
+Bug 1 — Node limit (MAX_GRAPH_NODES = 20):
+- Extracted buildCanvasNodes / buildCanvasEdges as pure helpers in
+  graphViewHelpers.ts; page.tsx imports them.
+- canvasNodes is sliced to MAX_GRAPH_NODES before edge filtering, so
+  canvasEdges never references nodes outside the rendered set (which
+  previously produced dangling lines from the force simulation).
 
-1. Open /hi/shastras/<nk> and confirm hero card, stat tiles, teeka table, gatha cards, right rail CTA + mini graph.
-2. Click a gatha from shastra detail and verify /hi/shastras/<nk>/gathas/<number> shows prakrit/sanskrit/hindi panels.
-3. On gatha detail, click tagged terms in शब्दार्थ/टीका and verify popover appears with dialog semantics.
-4. Verify related topics/keywords chips render in gatha sidebar and navigation links work.
-5. Verify “ग्राफ में खोलें” from gatha and shastra detail opens /graph?node=....
-6. Open /hi/dictionary/<nk> and verify aliases, source/graph CTAs, सिद्धांतकोष section, graph relation rows.
-7. Open /hi/topics/<nk> and verify hero, extracts section, grouped neighbors (IS_A/PART_OF/RELATED_TO), right rail preview.
-8. Hover mini graph preview on any detail page and verify overlay link “ग्राफ में खोलें” appears.
+Bug 2 — Graph shifts when DetailsPanel opens:
+- useForceSimulation: split the single useEffect([canvasW, canvasH])
+  into (a) sim creation that runs once on mount, and (b) a separate
+  effect that only nudges forceCenter / forceX / forceY targets on
+  resize — no simulation teardown or position reset.
+- GraphCanvas: restart effect depends only on nodes.length; canvas size
+  is read from a ref so resize never triggers a reseed.
+
+Bug 3 — 404 console error:
+- DetailsPanel catches ApiError with status 404 silently (no
+  console.error); other statuses still log. Entity not found renders
+  the panel with the fallback text.
+
+Disconnected node gravity (follow-up):
+- Replaced forceManyBody(-1200) with -500 and added forceX / forceY
+  (strength 0.07) so every node, connected or not, has a per-node pull
+  toward the canvas centre. Also reduced link distance 180 to 140 and
+  initial spread 200 to 80.
+
+Tests added (214 pass):
+- graphViewHelpers.test.ts: 14 tests covering limit, slicing,
+  category filter, active/selected/pinned flags, dangling-edge exclusion.
+- useForceSimulation.test.ts: 4 new tests asserting GRAVITY_STRENGTH
+  positive, CHARGE_STRENGTH bounded, LINK_DISTANCE bounded, ratio check.
+- _fetch.test.ts: 5 new tests locking ApiError instanceof + status
+  checks and the DetailsPanel 404 guard pattern.
 
