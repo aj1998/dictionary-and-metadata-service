@@ -476,45 +476,66 @@ Implemented Phase 7 detail views and supporting reusable components.
 
 **Spec:** `docs/design/ui/updates/01_side_panel_vivaran.md`
 
-Three issues in the graph page `DetailsPanel` (380 px right panel) were fixed:
+Three issues in the graph page `DetailsPanel` (380 px right panel) were fixed across three commits.
 
 ### Issue 1 — Keyword definition rendering
 
-Previously the vivaran section rendered `JSON.stringify(keyword.definition)` — raw JSON blob. Now:
+Previously the vivaran section rendered `JSON.stringify(keyword.definition)` — a raw JSON blob. Now:
 
 - `types.ts` gains fully-typed interfaces for the definition tree: `DefinitionReference`, `DefinitionBlock`, `DefinitionEntry`, `KeywordPageSection`, `KeywordDefinitionData`. `KeywordDetail.definition` is now `KeywordDefinitionData | null` instead of `unknown | null`.
-- `EntityDetail` gains two optional fields: `definitionSections?: KeywordPageSection[]` and `topicExtracts?: unknown[]`.
+- `EntityDetail` gains two optional typed fields: `definitionSections?: KeywordPageSection[]` and `topicExtracts?: DefinitionBlock[]`.
 - `getEntityDetail` keyword branch extracts `page_sections`, derives `description` from the first block's `text_devanagari` (sliced at 250 chars), and passes `definitionSections` when non-empty.
-- `DetailsPanel` renders a `KeywordDefinitionPreview` inline component: first section, first 2 blocks, each truncated at 180 chars with `…`. Section header shown as small-caps muted label. References are omitted in preview.
+- `DetailsPanel` renders `KeywordDefinitionPreview`: first section only, first 2 blocks, each `text_devanagari` truncated at 180 chars. Section header in small-caps muted label. References omitted in preview.
 
 ### Issue 2 — CTA button color + footer clip
 
-**Color:** `PrimaryCTA` now accepts `variant?: 'primary' | 'soft'` (default `'primary'`). Soft variant: `bg-accent-soft text-accent border border-accent/30 hover:bg-accent/10`. Text and icon colors follow the variant — no hardcoded `text-white` when soft.
+**Color:** `PrimaryCTA` now accepts `variant?: 'primary' | 'soft'` (default `'primary'`). Soft variant: `bg-accent-soft text-accent border border-accent/30 hover:bg-accent/10`. Text and icon colours follow the variant — no hardcoded `text-white` when soft.
 
-**Footer clip:** The desktop `<aside>` lacked height constraints, causing it to grow unbounded and clip the footer. Fixed by adding `h-screen flex-col overflow-hidden` to the aside and wrapping the body in `flex flex-col flex-1 overflow-hidden`.
+**Footer clip:** The desktop `<aside>` lacked a height constraint, causing it to grow unbounded and clip the sticky footer. Fixed by adding `h-screen flex-col overflow-hidden` to the aside and wrapping the body in `flex flex-col flex-1 overflow-hidden`.
 
-**CTA wiring:** "पूरा वर्णन पढ़ें" is now a `button` (`onClick`) that opens `DefinitionModal`, using `variant="soft"`. It only renders when `detail?.definitionSections` or `detail?.topicExtracts` is present.
+**CTA wiring:** "पूरा वर्णन पढ़ें" is a `button` (`onClick`) that opens `DefinitionModal` with `variant="soft"`. It only renders when `detail?.definitionSections` or `detail?.topicExtracts` is present.
 
 ### Issue 3 — Topic extracts
 
-`getEntityDetail` topic branch now passes `topicExtracts: topic.extracts` when non-empty. The vivaran section for topics shows up to 2 extracts as left-accented blocks (`border-l-4 border-accent/40`), with overflow count ("+ N और…").
+`getEntityDetail` topic branch flattens `blocks[]` from all extract objects into `topicExtracts: DefinitionBlock[]`. The vivaran preview shows up to 2 blocks via the shared `BlockPreview` component, with overflow count ("+ N और…").
 
 ### New component — `DefinitionModal`
 
-`ui/src/components/DefinitionModal.tsx` — `@base-ui/react/dialog`-backed full-screen overlay (same primitive used by Sheet).
+`ui/src/components/DefinitionModal.tsx` — `@base-ui/react/dialog`-backed full-screen overlay (same primitive as `Sheet`).
 
-- Keyword path: renders all sections with `h2_text` header, blocks with kind-based styling (`sanskrit_text`/`prakrit_text` get `bg-surface-muted border-l-4 border-cat-keyword`), italic references below each block.
-- Topic path: shows all extracts with count header.
+- Keyword path: all sections with `h2_text` header → `ModalBlock` per block (styled by kind) → italic references.
+- Topic path: "विषय अंश (N)" header → `ModalBlock` per block.
 - Modal resets (`definitionModalOpen = false`) on node selection change.
 
-### Tests added
+### Shared block rendering — `BlockPreview` / `ModalBlock`
 
-`ui/src/lib/api/data.test.ts` — 10 new tests in two `describe` blocks:
+Both `DetailsPanel` and `DefinitionModal` use the same rendering rules for a `DefinitionBlock`:
+
+| `block.kind` | Wrapper | `text_devanagari` | `hindi_translation` |
+|---|---|---|---|
+| `sanskrit_text` / `prakrit_text` | `bg-surface-muted rounded border-l-4 border-cat-keyword p-3` | `font-serif-hindi text-sm` | shown below, `text-foreground-muted text-sm` |
+| anything else | none | `font-serif-hindi text-[--font-size-body]` | shown below, `text-foreground-muted text-sm` |
+
+References (modal only): rendered as `text-xs italic text-foreground-muted` below the block, separated by a thin border.
+
+### Bug fix — topic vivaran showed heading text (topic title) instead of content
+
+**Symptom:** After the initial implementation, topic nodes showed the topic title again in the vivaran (e.g. "द्रव्य का लक्षण गुण समुदाय") rather than actual text content.
+
+**Root cause (first attempt):** `extractTopicText()` fell through to `heading[lang=hin].text` as a last resort — but that is the topic title, identical to the panel header.
+
+**Root cause (second attempt):** Converting extracts to strings at all discarded the block structure needed for styled rendering.
+
+**Final fix:** `extractBlocks()` in `data.ts` flatmaps `blocks[]` from each extract object and returns the raw `DefinitionBlock[]`. `topicExtracts` is now typed as `DefinitionBlock[]` (not `unknown[]`), and both `DetailsPanel` and `DefinitionModal` render them through the same `BlockPreview` / `ModalBlock` component as keyword definitions. Extracts whose `blocks` are all empty produce `topicExtracts: undefined` (no CTA shown, fallback to description).
+
+### Tests
+
+`ui/src/lib/api/data.test.ts` — tests in two `describe` blocks (224 total passing):
 
 | Suite | What it covers |
 |---|---|
-| keyword branch — definition normalisation | `definitionSections` populated when sections exist; `description` truncated at 250 chars; both fields absent when `definition: null`; `definitionSections` absent when `page_sections: []` |
-| topic branch — extracts normalisation | `topicExtracts` populated when non-empty; absent when empty; `description` set to `topic_path` |
+| keyword branch — definition normalisation | `definitionSections` populated when sections exist; `description` truncated at 250 chars; both absent when `definition: null`; absent when `page_sections: []` |
+| topic branch — extracts normalisation | blocks flattened from multiple extracts; `hindi_translation` preserved per block; `topicExtracts` undefined when all extracts have empty blocks; `description` = `topic_path`; `description` undefined when `topic_path` is null |
 
 ---
 ## Bugfixes -
