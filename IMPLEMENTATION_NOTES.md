@@ -484,7 +484,7 @@ See [`docs/manual_testing/api/navigation/testing.md`](docs/manual_testing/api/na
 
 **Module**: `ui/` — Next.js 16 (App Router), Tailwind 4, `next-intl`, Zustand, D3-force.
 
-See [`docs/ui/README.md`](docs/ui/README.md) for the full developer wiki (directory layout, component catalogue, API wiring, test map, bug log).
+See [`docs/ui/README.md`](ui/README.md) for the full developer wiki (directory layout, component catalogue, API wiring, test map, bug log).
 
 #### Phases delivered
 

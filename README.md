@@ -71,7 +71,7 @@ Postgres is the **source of truth for IDs**. Every entity in Mongo or Neo4j has 
 - **Neo4j client**: official `neo4j` driver (async)
 - **Job queue**: Celery + Redis
 - **Scraping**: `httpx` + `selectolax` (HTML), `trafilatura` fallback
-- **Frontend**: Next.js 16 (App Router) + Tailwind 4 + `next-intl` (Hindi-first, Devanagari-forward); see [`docs/ui/README.md`](docs/ui/README.md)
+- **Frontend**: Next.js 16 (App Router) + Tailwind 4 + `next-intl` (Hindi-first, Devanagari-forward); see [`docs/ui/README.md`](ui/README.md)
 - **Deploy**: Docker Compose on a single VM
 
 ### Data Sources
