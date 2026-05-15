@@ -18,6 +18,7 @@ import {
   type EdgeEl,
 } from './useForceSimulation';
 import { cn } from '@/lib/utils';
+import { computeHierarchicalPositions } from './graphViewHelpers';
 import type { EntityKind, EdgeKind } from '@/lib/types';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -171,6 +172,9 @@ const EdgesAndNodes = memo(function EdgesAndNodes({
 interface GraphCanvasProps {
   nodes: CanvasNode[];
   edges: CanvasEdge[];
+  layout?: 'force' | 'radial' | 'hierarchical';
+  /** BFS root for hierarchical mode. Falls back to first node when null. */
+  focusNk?: string | null;
   onNodeClick?(nk: string): void;
   onNodeDoubleClick?(nk: string): void;
   onNodePinToggle?(nk: string): void;
@@ -182,6 +186,8 @@ interface GraphCanvasProps {
 export function GraphCanvas({
   nodes,
   edges,
+  layout = 'force',
+  focusNk,
   onNodeClick,
   onNodeDoubleClick,
   onNodePinToggle,
@@ -201,6 +207,11 @@ export function GraphCanvas({
   cameraRef.current  = camera;
   const canvasSizeRef = useRef(canvasSize);
   canvasSizeRef.current = canvasSize;
+  // Keep a stable ref to focusNk so the restart effect doesn't re-fire on
+  // every node selection — hierarchical positions are recomputed only when
+  // the node set or layout changes.
+  const focusNkRef = useRef(focusNk ?? null);
+  focusNkRef.current = focusNk ?? null;
 
   // Measure canvas on mount / resize
   useEffect(() => {
@@ -245,30 +256,47 @@ export function GraphCanvas({
     [],
   );
 
-  // Seed / restart simulation only when the node set changes — NOT on canvas resize.
-  // canvasSizeRef is read via ref so this effect doesn't re-fire on resize, which
-  // would reset node positions every time DetailsPanel opens or the window is resized.
+  // Seed / restart simulation when the node set or layout changes.
+  // canvasSizeRef and focusNkRef are read via refs so this effect doesn't
+  // re-fire on resize or node selection, which would reset positions.
   useEffect(() => {
     const { w, h } = canvasSizeRef.current;
     if (w === 0 || nodes.length === 0) return;
 
-    const cx = w / 2;
-    const cy = h / 2;
-    const spread = 80;
-
-    const simNodes: SimNodeInput[] = nodes.map(n => ({
-      nk: n.nk,
-      x:  n.x ?? cx + (Math.random() - 0.5) * spread,
-      y:  n.y ?? cy + (Math.random() - 0.5) * spread,
-    }));
     const simEdges: SimEdgeInput[] = edges.map(e => ({
       id:  e.id,
       src: e.src,
       dst: e.dst,
     }));
-    restart(simNodes, simEdges);
+
+    if (layout === 'hierarchical') {
+      const positions = computeHierarchicalPositions(
+        nodes.map(n => n.nk),
+        simEdges,
+        focusNkRef.current,
+        w,
+        h,
+      );
+      const simNodes: SimNodeInput[] = nodes.map(n => {
+        const pos = positions.get(n.nk);
+        const x = pos?.x ?? w / 2;
+        const y = pos?.y ?? h / 2;
+        return { nk: n.nk, x, y, fx: x, fy: y };
+      });
+      restart(simNodes, simEdges, 'static');
+    } else {
+      const cx = w / 2;
+      const cy = h / 2;
+      const spread = 80;
+      const simNodes: SimNodeInput[] = nodes.map(n => ({
+        nk:  n.nk,
+        x:   n.x ?? cx + (Math.random() - 0.5) * spread,
+        y:   n.y ?? cy + (Math.random() - 0.5) * spread,
+      }));
+      restart(simNodes, simEdges);
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nodes.length]);
+  }, [nodes.length, layout]);
 
   // ── Camera helpers ───────────────────────────────────────────────────────────
 

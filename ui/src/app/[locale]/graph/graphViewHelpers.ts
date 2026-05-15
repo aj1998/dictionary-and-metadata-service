@@ -2,6 +2,15 @@ import type { GraphNode, GraphEdge, EntityKind, EdgeKind } from '@/lib/types';
 
 export const MAX_GRAPH_NODES = 20;
 
+// ─── Hierarchical layout constants (exported for tests) ───────────────────────
+
+/** Vertical distance (px) between BFS depth levels in hierarchical mode. */
+export const HIER_LEVEL_HEIGHT = 180;
+/** Horizontal gap (px) between nodes within the same BFS level. */
+export const HIER_NODE_SPACING = 260;
+/** Top padding (px) before the first level row. */
+export const HIER_PADDING_TOP = 100;
+
 export interface RenderedNode {
   nk: string;
   kind: EntityKind;
@@ -42,6 +51,78 @@ export function buildCanvasNodes(
       selected: n.nk === selectedNodeId,
       pinned: pinned.has(n.nk),
     }));
+}
+
+/**
+ * Computes hierarchical node positions using BFS depth from `focusNk`.
+ * The focus node is at the top (depth 0); each hop adds one row below.
+ * Nodes at the same depth are spread evenly around the horizontal center.
+ * Nodes unreachable from focusNk are placed one row below the deepest
+ * reachable level. Traversal treats all edges as bidirectional.
+ */
+export function computeHierarchicalPositions(
+  nodeNks: string[],
+  edges: Array<{ src: string; dst: string }>,
+  focusNk: string | null,
+  canvasW: number,
+  canvasH: number,
+): Map<string, { x: number; y: number }> {
+  if (nodeNks.length === 0) return new Map();
+
+  const startNk = focusNk && nodeNks.includes(focusNk) ? focusNk : nodeNks[0];
+
+  // Build bidirectional adjacency list restricted to rendered nodes
+  const nkSet = new Set(nodeNks);
+  const adj = new Map<string, string[]>();
+  for (const nk of nodeNks) adj.set(nk, []);
+  for (const e of edges) {
+    if (nkSet.has(e.src) && nkSet.has(e.dst)) {
+      adj.get(e.src)!.push(e.dst);
+      adj.get(e.dst)!.push(e.src);
+    }
+  }
+
+  // BFS to assign depth levels
+  const level = new Map<string, number>();
+  level.set(startNk, 0);
+  const queue: string[] = [startNk];
+  let qi = 0;
+  while (qi < queue.length) {
+    const cur = queue[qi++];
+    const curLevel = level.get(cur)!;
+    for (const neighbor of adj.get(cur) ?? []) {
+      if (!level.has(neighbor)) {
+        level.set(neighbor, curLevel + 1);
+        queue.push(neighbor);
+      }
+    }
+  }
+
+  // Unreachable nodes go one row past the deepest reachable node
+  const maxReachable = level.size > 0 ? Math.max(...level.values()) : 0;
+  for (const nk of nodeNks) {
+    if (!level.has(nk)) level.set(nk, maxReachable + 1);
+  }
+
+  // Group nks by level
+  const byLevel = new Map<number, string[]>();
+  for (const [nk, lv] of level) {
+    if (!byLevel.has(lv)) byLevel.set(lv, []);
+    byLevel.get(lv)!.push(nk);
+  }
+
+  // Place each level as a horizontal row centered on canvasW/2
+  const cx = canvasW / 2;
+  const result = new Map<string, { x: number; y: number }>();
+  for (const [lv, nks] of byLevel) {
+    const y = HIER_PADDING_TOP + lv * HIER_LEVEL_HEIGHT;
+    for (let i = 0; i < nks.length; i++) {
+      const x = cx + (i - (nks.length - 1) / 2) * HIER_NODE_SPACING;
+      result.set(nks[i], { x, y });
+    }
+  }
+
+  return result;
 }
 
 /**

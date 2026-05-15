@@ -14,6 +14,7 @@ export default function GraphPage() {
   const pinned = useGraphStore((s) => s.pinned);
   const expanded = useGraphStore((s) => s.expanded);
   const depth = useGraphStore((s) => s.depth);
+  const layout = useGraphStore((s) => s.layout);
   const categoryVisibility = useGraphStore((s) => s.categoryVisibility);
 
   const selectNode = useGraphStore((s) => s.selectNode);
@@ -81,6 +82,14 @@ export default function GraphPage() {
     return () => window.removeEventListener('keydown', onKey);
   }, [clearSelection]);
 
+  // BFS root for hierarchical layout: prefer the selected node, then the
+  // first expanded node, then let GraphCanvas fall back to the first node.
+  const focusNk = useMemo(() => {
+    if (selected?.kind === 'node') return selected.id;
+    const [first] = expanded;
+    return first ?? null;
+  }, [selected, expanded]);
+
   const canvasNodes = useMemo<CanvasNode[]>(() => {
     const selectedNodeId = selected?.kind === 'node' ? selected.id : null;
     return buildCanvasNodes(nodes, categoryVisibility, selectedNodeId, pinned) as CanvasNode[];
@@ -97,6 +106,8 @@ export default function GraphPage() {
       <GraphCanvas
         nodes={canvasNodes}
         edges={canvasEdges}
+        layout={layout}
+        focusNk={focusNk}
         onNodeClick={(nk) => {
           selectNode(nk);
           if (!expanded.has(nk)) void expandFromNode(nk, depth);

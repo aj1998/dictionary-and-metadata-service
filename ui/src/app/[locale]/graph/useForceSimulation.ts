@@ -247,7 +247,12 @@ export function useForceSimulation(canvasW: number, canvasH: number) {
     (sim.force('y') as ReturnType<typeof forceY> | null)?.y(cy);
   }, [canvasW, canvasH]);
 
-  const restart = useRef((nodes: SimNodeInput[], edges: SimEdgeInput[]) => {
+  const restart = useRef((
+    nodes: SimNodeInput[],
+    edges: SimEdgeInput[],
+    /** 'static' — positions are pre-fixed (hierarchical); tick once, no animation. */
+    mode: 'force' | 'static' = 'force',
+  ) => {
     const sim = simRef.current;
     if (!sim) return;
 
@@ -276,17 +281,31 @@ export function useForceSimulation(canvasW: number, canvasH: number) {
     linksRef.current = links;
     sim.nodes(d3Nodes);
     (sim.force('link') as ReturnType<typeof forceLink<D3Node, D3Link>>).links(links);
-    sim.alpha(0.3).restart();
 
-    // If user prefers reduced motion, skip progressive animation
-    const reducedMotion = typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reducedMotion) {
-      // Run sim synchronously until alpha drops below 0.05
-      while (sim.alpha() > REDUCED_MOTION_ALPHA_THRESHOLD) {
-        sim.tick();
-      }
+    if (mode === 'static') {
+      // sim.tick() (the public method) runs D3 physics but does NOT emit the
+      // "tick" event — only the internal step() called by the timer does.
+      // So we can't use sim.tick() to drive our DOM update handler.
+      //
+      // Instead, restart with alpha = alphaMin (0.001).  The timer fires on
+      // the next animation frame (by which time React refs are registered),
+      // emits exactly one "tick" event (after which alpha < alphaMin → auto-stop),
+      // and pushes the fixed fx/fy positions to all node foreignObjects and edges.
       sim.stop();
+      sim.alpha(0.001).restart();
+    } else {
+      sim.alpha(0.3).restart();
+
+      // If user prefers reduced motion, skip progressive animation
+      const reducedMotion = typeof window !== 'undefined' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reducedMotion) {
+        // Run sim synchronously until alpha drops below 0.05
+        while (sim.alpha() > REDUCED_MOTION_ALPHA_THRESHOLD) {
+          sim.tick();
+        }
+        sim.stop();
+      }
     }
   }).current;
 

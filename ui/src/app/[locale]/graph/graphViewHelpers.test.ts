@@ -3,6 +3,10 @@ import {
   MAX_GRAPH_NODES,
   buildCanvasNodes,
   buildCanvasEdges,
+  computeHierarchicalPositions,
+  HIER_LEVEL_HEIGHT,
+  HIER_NODE_SPACING,
+  HIER_PADDING_TOP,
 } from './graphViewHelpers';
 import type { GraphNode, GraphEdge, EntityKind } from '@/lib/types';
 
@@ -139,5 +143,99 @@ describe('buildCanvasEdges', () => {
     const result = buildCanvasEdges(edges, nodes, rendered, ALL_VISIBLE, 'e1');
     expect(result.find((e) => e.id === 'e1')!.active).toBe(true);
     expect(result.find((e) => e.id === 'e2')!.active).toBe(false);
+  });
+});
+
+// ─── computeHierarchicalPositions ─────────────────────────────────────────────
+
+describe('computeHierarchicalPositions', () => {
+  const W = 1000;
+  const H = 800;
+
+  it('returns an empty map when given no nodes', () => {
+    const result = computeHierarchicalPositions([], [], null, W, H);
+    expect(result.size).toBe(0);
+  });
+
+  it('places the focus node at depth 0 (top row)', () => {
+    const nodeNks = ['a', 'b', 'c'];
+    const edges = [{ src: 'a', dst: 'b' }, { src: 'b', dst: 'c' }];
+    const result = computeHierarchicalPositions(nodeNks, edges, 'a', W, H);
+    expect(result.get('a')!.y).toBe(HIER_PADDING_TOP);
+  });
+
+  it('places 1-hop neighbors one level below the focus node', () => {
+    const nodeNks = ['a', 'b'];
+    const edges = [{ src: 'a', dst: 'b' }];
+    const result = computeHierarchicalPositions(nodeNks, edges, 'a', W, H);
+    expect(result.get('b')!.y).toBe(HIER_PADDING_TOP + HIER_LEVEL_HEIGHT);
+  });
+
+  it('places 2-hop neighbors two levels below the focus node', () => {
+    const nodeNks = ['a', 'b', 'c'];
+    const edges = [{ src: 'a', dst: 'b' }, { src: 'b', dst: 'c' }];
+    const result = computeHierarchicalPositions(nodeNks, edges, 'a', W, H);
+    expect(result.get('c')!.y).toBe(HIER_PADDING_TOP + 2 * HIER_LEVEL_HEIGHT);
+  });
+
+  it('centers a single node in each row horizontally', () => {
+    const nodeNks = ['root'];
+    const result = computeHierarchicalPositions(nodeNks, [], 'root', W, H);
+    expect(result.get('root')!.x).toBe(W / 2);
+  });
+
+  it('spreads two same-level nodes symmetrically around the center', () => {
+    // b and c are both 1-hop from a, so they share level 1
+    const nodeNks = ['a', 'b', 'c'];
+    const edges = [{ src: 'a', dst: 'b' }, { src: 'a', dst: 'c' }];
+    const result = computeHierarchicalPositions(nodeNks, edges, 'a', W, H);
+    const xB = result.get('b')!.x;
+    const xC = result.get('c')!.x;
+    // The two nodes should be symmetric around W/2
+    expect(xB + xC).toBeCloseTo(W);
+    // And separated by HIER_NODE_SPACING
+    expect(Math.abs(xB - xC)).toBeCloseTo(HIER_NODE_SPACING);
+  });
+
+  it('assigns unreachable nodes one row past the deepest reachable level', () => {
+    // 'isolated' has no edges to the focus node
+    const nodeNks = ['focus', 'child', 'isolated'];
+    const edges = [{ src: 'focus', dst: 'child' }];
+    const result = computeHierarchicalPositions(nodeNks, edges, 'focus', W, H);
+    // deepest reachable = 1 (child), so isolated → level 2
+    expect(result.get('isolated')!.y).toBe(HIER_PADDING_TOP + 2 * HIER_LEVEL_HEIGHT);
+  });
+
+  it('falls back to the first node as root when focusNk is null', () => {
+    const nodeNks = ['x', 'y'];
+    const edges = [{ src: 'x', dst: 'y' }];
+    const result = computeHierarchicalPositions(nodeNks, edges, null, W, H);
+    // 'x' (first) should be at depth 0
+    expect(result.get('x')!.y).toBe(HIER_PADDING_TOP);
+    expect(result.get('y')!.y).toBe(HIER_PADDING_TOP + HIER_LEVEL_HEIGHT);
+  });
+
+  it('falls back to the first node when focusNk is not in the node list', () => {
+    const nodeNks = ['a', 'b'];
+    const edges = [{ src: 'a', dst: 'b' }];
+    const result = computeHierarchicalPositions(nodeNks, edges, 'nonexistent', W, H);
+    expect(result.get('a')!.y).toBe(HIER_PADDING_TOP);
+  });
+
+  it('returns a position for every node in the input', () => {
+    const nodeNks = ['a', 'b', 'c', 'd'];
+    const edges = [{ src: 'a', dst: 'b' }, { src: 'b', dst: 'c' }];
+    const result = computeHierarchicalPositions(nodeNks, edges, 'a', W, H);
+    for (const nk of nodeNks) {
+      expect(result.has(nk)).toBe(true);
+    }
+  });
+
+  it('treats edges as bidirectional (child can be the BFS start)', () => {
+    // Edge goes b→a but focus is 'a', so 'b' should still be reachable
+    const nodeNks = ['a', 'b'];
+    const edges = [{ src: 'b', dst: 'a' }];
+    const result = computeHierarchicalPositions(nodeNks, edges, 'a', W, H);
+    expect(result.get('b')!.y).toBe(HIER_PADDING_TOP + HIER_LEVEL_HEIGHT);
   });
 });

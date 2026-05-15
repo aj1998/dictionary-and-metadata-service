@@ -20,7 +20,7 @@ export const CATEGORY_DATA: Array<{
 const LAYOUT_OPTIONS = [
   { value: 'force', labelHi: 'बल', labelEn: 'Force', enabled: true },
   { value: 'radial', labelHi: 'रेडियल', labelEn: 'Radial', enabled: false },
-  { value: 'hierarchical', labelHi: 'पदानुक्रम', labelEn: 'Hierarchical', enabled: false },
+  { value: 'hierarchical', labelHi: 'पदानुक्रम', labelEn: 'Hierarchical', enabled: true },
 ] as const;
 
 export interface CategoryFilterListProps {

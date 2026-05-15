@@ -301,7 +301,7 @@ Exports `isNavActive(pathname, route)`, `truncateLabel(label, max?)`, and the th
 |---|---|---|
 | `NodeCard` | `components/NodeCard.tsx` | 220px wide graph node. 5 states: resting/hover/selected/faded/pinned. Top 4px category stripe. Exports `NODE_KIND_META`. Used in `<foreignObject>`. |
 | `RelationConnector` | `components/RelationConnector.tsx` | Static cubic Bézier SVG connector. Endpoint circles + midpoint pill label. Pill rotates with path tangent clamped ±20°. Exports `EDGE_LABELS`, `EDGE_TOOLTIPS`. |
-| `CategoryFilterList` | `components/CategoryFilterList.tsx` | 4 category toggles, layout radio (Force/Radial/Hierarchical — only Force functional), depth stepper 1–4. Fully controlled; wired to graph store. Exports `CATEGORY_DATA`. |
+| `CategoryFilterList` | `components/CategoryFilterList.tsx` | 4 category toggles, layout radio (Force and Hierarchical functional; Radial placeholder), depth stepper 1–4. Fully controlled; wired to graph store. Exports `CATEGORY_DATA`. |
 | `DetailsPanel` | `components/DetailsPanel.tsx` | Right panel (380px desktop, 75vh bottom sheet mobile). Node mode: badge + title + stats + vivaran + connected rows + CTA. Edge mode: relation pill + src→dst + description. Fetches entity detail on selection. |
 | `DefinitionModal` | `components/DefinitionModal.tsx` | Full-screen `@base-ui/react` dialog. Keyword path: all sections → `ModalBlock` per block. Topic path: extracts list. Closes on node selection change. |
 | `MiniGraphPreview` | `components/MiniGraphPreview.tsx` | Server component. Static SVG of 1-hop neighborhood. Hover overlay links to `/graph?node={nk}`. |
@@ -381,13 +381,14 @@ Files: `src/app/[locale]/graph/`
 - Layering: dot grid → edges `<g>` → nodes `<g>` (nodes on top).
 - `React.memo` boundary (`EdgesAndNodes`) isolates camera React state from D3-managed DOM — camera changes only re-render transform wrappers, not the node/edge subtree.
 - Node cards rendered as `<foreignObject>` wrapping `NodeCard` HTML components.
+- Accepts `layout` and `focusNk` props. Restart effect deps are `[nodes.length, layout]` — switches layout to trigger position recompute. `focusNkRef` is a stable ref so node selection does not re-trigger the layout.
 - Callbacks: `onEdgeClick`, `onCanvasClick`, `onNodePinToggle`.
 
 ### Force simulation (`useForceSimulation.ts`)
 - D3 force simulation updating SVG/foreignObject refs directly **without React re-renders** (direct DOM mutation via `requestAnimationFrame`).
 - Parameters: `forceLink` (distance 140, strength 0.6), `forceManyBody` (strength −500), `forceCenter`, `forceCollide`, `forceX`/`forceY` (strength 0.07 toward center — prevents disconnected node drift).
 - Simulation lifecycle: two separate effects — (a) sim creation on mount, (b) resize-only nudge for forceCenter target. **No sim teardown on canvas resize** (this fixed the graph-shift-on-panel-open bug).
-- `restart()` stable identity via `useRef` to avoid memo invalidation.
+- `restart(nodes, edges, mode?)` — stable identity via `useRef`. `mode: 'force'` (default) runs the animation loop; `mode: 'static'` stops the sim and ticks once synchronously (used by hierarchical layout).
 - `prefers-reduced-motion`: if active, sim is ticked synchronously to `alpha < REDUCED_MOTION_ALPHA_THRESHOLD (0.05)` then stopped.
 - `buildBezierPath` — pure exported helper for Bézier path string generation.
 - `accumulateEdgeRef` registers all 4 edge parts (path + 2 circles + foreignObject) before calling `registerEdge`.
@@ -396,6 +397,7 @@ Files: `src/app/[locale]/graph/`
 Pure functions, no React:
 - `buildCanvasNodes` — slices to `MAX_GRAPH_NODES = 20`, applies category visibility, sets active/selected/pinned flags.
 - `buildCanvasEdges` — filters to edges whose both endpoints exist in the sliced node set (prevents dangling lines).
+- `computeHierarchicalPositions(nodeNks, edges, focusNk, canvasW, canvasH)` — BFS from focusNk to assign depth levels; spreads nodes horizontally within each level; places unreachable nodes one row past the deepest reachable level. Returns `Map<nk, {x, y}>`. Constants `HIER_PADDING_TOP` (100 px), `HIER_LEVEL_HEIGHT` (180 px), `HIER_NODE_SPACING` (260 px) are exported for tests.
 
 ### URL state (`graphUrlState.ts`)
 - `parseGraphQuery(params)` — parses `node`, `edge`, `depth` (clamped 1–4), `cat` (CSV of hidden kinds) from URL.
@@ -563,6 +565,7 @@ All tests are pure logic tests — no JSX rendering, no component mounting. This
 | 8 | ✅ | About page, Feedback form + API route, ARIA pass, focus ring, prefers-reduced-motion |
 | Vivaran fix | ✅ | Keyword definition rendering, topic extracts, DefinitionModal, CTA soft variant, footer clip fix |
 | Bugfixes | ✅ | Node limit (MAX=20), graph stability on panel open, 404 handling, disconnected node gravity |
+| Hierarchical layout | ✅ | BFS-depth hierarchical layout mode; made default; Force and Hierarchical both functional |
 
 ---
 
@@ -584,4 +587,5 @@ All design documents are in `docs/design/ui/`. Read them for pixel-level specifi
 | `implementation_notes.md` | Phase-by-phase implementation log with all bugs fixed and key decisions |
 | `implementation_phases.md` | Step-by-step build plan for all 8 phases |
 | `updates/01_side_panel_vivaran.md` | Spec for keyword definition rendering, topic extracts, DefinitionModal (implemented 2026-05-15) |
+| `implementation_notes/graph_changes_implementation_nodes.md` | Hierarchical layout implementation details — design decisions, files changed, constants, known limitations |
 | `manual_verification_checklist.md` | Manual testing steps that cannot be automated (Lighthouse, cross-browser Devanagari, locale switch) |

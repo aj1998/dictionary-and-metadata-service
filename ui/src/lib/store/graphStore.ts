@@ -59,7 +59,7 @@ const initialState = {
   selected: null as Selected,
   categoryVisibility: { ...DEFAULT_VISIBILITY },
   depth: 2 as 1 | 2 | 3 | 4,
-  layout: 'force' as const,
+  layout: 'hierarchical' as const,
   camera: { x: 0, y: 0, k: 1 },
   loading: false,
   lastError: null,
