@@ -2,17 +2,22 @@
 
 This file provides guidance to Agents like claude-code and codex when working with code in this repository.
 
-## Implementation Guidelines
-- After analysis of every task, ask all the clarifying questions (if any) to the user in one go itself.
+## Guidelines
+- After analysis of every task, ask all the clarifying questions (even minor doubts) to the user in one go itself.
 
-## Operating Instructions:
+## Spec Creation Instruction:
+When asked for spec creations, based on the complexity of the implementation, create separate phase-wise specs in such a way that an agent implementing it should not have to delegate it to a sub-agent and the implementation can be completed in one context window itsel.
+
+## Implementation Instructions:
 1. **Context Discovery**: Always start by reading the specified plan provided to you and the relevant files mentioned in the plan.
 2. **Test Driven Development**: Add a failing test before implementing any new feature or making a change. Write tests that cover the new logic and potential edge cases ensuring you have a clear goal for your implementation and can verify that your changes are effective.
 3. **Atomic Changes**: Implement changes one logical step at a time.
 4. **Logging**: Add necessary logs for visibility/debugging in whatever you are implementing.
 5. **Strict Adherence**: Do not deviate from the architectural decisions in the plan. If you find a technical blocker, report it back rather than guessing and ask user for help/clarifications.
 6. **Verification**: After each major change, run the relevant full build/lint/test-suite commands to ensure stability.
-7. **Updating Relevant Docs**: Always update the given spec/design doc with Implementation Notes/Diversions.
+7. **Updating Relevant Docs**: Always update the given spec/design doc with Implementation Notes/Diversions after the implementation.
+8. **Testing**: Always add tests for new implementations.
+9. **Manual Testing Steps/Docs**: Provide the user a set of verification commands/steps so that the change can be manually tested.
 
 ### Coding Conventions
 - **Pattern**: Functional components with named exports.
