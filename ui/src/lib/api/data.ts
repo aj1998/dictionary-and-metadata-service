@@ -6,6 +6,7 @@ import type {
   EntityKind,
   KeywordSummary,
   KeywordDetail,
+  KeywordPageSection,
   LetterCount,
   Paginated,
   TopicSummary,
@@ -46,16 +47,36 @@ export async function getStatsCounts(): Promise<EntityCounts> {
   }
 }
 
+function extractTopicText(e: unknown): string | null {
+  if (typeof e === 'string') return e.trim() || null;
+  if (e && typeof e === 'object') {
+    const obj = e as Record<string, unknown>;
+    if (typeof obj.text_devanagari === 'string' && obj.text_devanagari.trim()) {
+      return obj.text_devanagari;
+    }
+    if (Array.isArray(obj.heading)) {
+      const row = (obj.heading as Array<Record<string, string>>).find(
+        (h) => h.lang === 'hin' || h.lang === 'hi'
+      );
+      if (row?.text?.trim()) return row.text;
+    }
+  }
+  return null;
+}
+
 export async function getEntityDetail(kind: EntityKind, nk: string): Promise<EntityDetail> {
   if (kind === 'keyword') {
     const keyword = await apiFetch<KeywordDetail>(BASE_URL, `/v1/keywords/${nk}`);
+    const sections: KeywordPageSection[] = keyword.definition?.page_sections ?? [];
+    const firstText = sections[0]?.definitions[0]?.blocks[0]?.text_devanagari ?? '';
     return {
       nk: keyword.natural_key,
       kind: 'keyword',
       title_hi: keyword.display_text,
-      description: keyword.definition ? JSON.stringify(keyword.definition) : undefined,
+      description: firstText.slice(0, 250) || undefined,
       stats: { aliases: keyword.aliases.length },
       connected: [],
+      definitionSections: sections.length ? sections : undefined,
     };
   }
 
@@ -63,11 +84,14 @@ export async function getEntityDetail(kind: EntityKind, nk: string): Promise<Ent
     const topic = await apiFetch<TopicDetail>(BASE_URL, `/v1/topics/${nk}`);
     const hi = topic.display_text.find((row) => row.lang === 'hi')?.text ?? topic.natural_key;
     const parent = topic.parent_keyword;
+    const textExtracts = topic.extracts
+      .map(extractTopicText)
+      .filter((t): t is string => t !== null);
     return {
       nk: topic.natural_key,
       kind: 'topic',
       title_hi: hi,
-      description: topic.topic_path,
+      description: topic.topic_path ?? undefined,
       stats: { extracts: topic.extracts.length, is_leaf: topic.is_leaf ? 1 : 0 },
       connected: parent
         ? [{
@@ -77,6 +101,7 @@ export async function getEntityDetail(kind: EntityKind, nk: string): Promise<Ent
             edge_kind: 'HAS_TOPIC',
           }]
         : [],
+      topicExtracts: textExtracts.length ? textExtracts : undefined,
     };
   }
 

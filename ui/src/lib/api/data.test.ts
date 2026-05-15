@@ -142,6 +142,158 @@ describe('data API', () => {
       );
     });
 
+    describe('keyword branch — definition normalisation', () => {
+      const makeDefinition = (firstText: string) => ({
+        created_at: '2024-01-01T00:00:00Z',
+        keyword_id: 'kw-1',
+        natural_key: 'dravya',
+        page_sections: [{
+          section_index: 0,
+          section_kind: 'siddhantkosh',
+          h2_text: 'सिद्धांतकोष से',
+          definitions: [{
+            definition_index: 0,
+            blocks: [{
+              kind: 'hindi_text',
+              text_devanagari: firstText,
+              hindi_translation: null,
+              references: [],
+              is_orphan_translation: false,
+              is_bullet_point: false,
+              raw_html: null,
+              table_rows: null,
+              target_keyword: null,
+              target_topic_path: null,
+              target_url: null,
+              is_self: false,
+              target_exists: true,
+            }],
+            raw_html: null,
+          }],
+          label_topic_seeds: [],
+          extra_blocks: [],
+        }],
+        redirect_aliases: [],
+        source_url: 'https://example.com',
+        updated_at: '2024-01-01T00:00:00Z',
+      });
+
+      it('populates definitionSections when definition has page_sections', async () => {
+        mockSuccess({
+          id: 'kw-1',
+          natural_key: 'dravya',
+          display_text: 'द्रव्य',
+          aliases: [],
+          definition: makeDefinition('लोक द्रव्यों का समूह है।'),
+        });
+        const result = await getEntityDetail('keyword', 'dravya');
+        expect(result.definitionSections).toHaveLength(1);
+        expect(result.definitionSections![0].h2_text).toBe('सिद्धांतकोष से');
+      });
+
+      it('sets description from first block text (up to 250 chars)', async () => {
+        const longText = 'अ'.repeat(300);
+        mockSuccess({
+          id: 'kw-1',
+          natural_key: 'dravya',
+          display_text: 'द्रव्य',
+          aliases: [],
+          definition: makeDefinition(longText),
+        });
+        const result = await getEntityDetail('keyword', 'dravya');
+        expect(result.description).toHaveLength(250);
+      });
+
+      it('omits definitionSections when definition is null', async () => {
+        mockSuccess({
+          id: 'kw-1',
+          natural_key: 'dravya',
+          display_text: 'द्रव्य',
+          aliases: [],
+          definition: null,
+        });
+        const result = await getEntityDetail('keyword', 'dravya');
+        expect(result.definitionSections).toBeUndefined();
+        expect(result.description).toBeUndefined();
+      });
+
+      it('omits definitionSections when page_sections is empty', async () => {
+        mockSuccess({
+          id: 'kw-1',
+          natural_key: 'dravya',
+          display_text: 'द्रव्य',
+          aliases: [],
+          definition: { ...makeDefinition('text'), page_sections: [] },
+        });
+        const result = await getEntityDetail('keyword', 'dravya');
+        expect(result.definitionSections).toBeUndefined();
+      });
+    });
+
+    describe('topic branch — extracts normalisation', () => {
+      const baseTopic = {
+        id: 'tp-1',
+        natural_key: 'dharma',
+        display_text: [{ lang: 'hi', script: 'devanagari', text: 'धर्म' }],
+        source: 'manual',
+        is_leaf: true,
+        topic_path: '1.2',
+        parent_keyword: null,
+        is_synthetic: false,
+        parent_topic: null,
+      };
+
+      it('populates topicExtracts when extracts are non-empty strings', async () => {
+        mockSuccess({ ...baseTopic, extracts: ['पहला अंश', 'दूसरा अंश'] });
+        const result = await getEntityDetail('topic', 'dharma');
+        expect(result.topicExtracts).toEqual(['पहला अंश', 'दूसरा अंश']);
+      });
+
+      it('extracts heading text from extract objects (hin lang)', async () => {
+        const objExtract = {
+          blocks: [],
+          heading: [{ lang: 'hin', script: 'Deva', text: 'शुद्ध द्रव्य का स्वरूप' }],
+          is_leaf: true,
+          natural_key: 'dravya:shudh',
+        };
+        mockSuccess({ ...baseTopic, extracts: [objExtract] });
+        const result = await getEntityDetail('topic', 'dharma');
+        expect(result.topicExtracts).toEqual(['शुद्ध द्रव्य का स्वरूप']);
+      });
+
+      it('extracts text_devanagari from extract objects when present', async () => {
+        const objExtract = { text_devanagari: 'द्रव्य का लक्षण' };
+        mockSuccess({ ...baseTopic, extracts: [objExtract] });
+        const result = await getEntityDetail('topic', 'dharma');
+        expect(result.topicExtracts).toEqual(['द्रव्य का लक्षण']);
+      });
+
+      it('omits topicExtracts when extract objects have no meaningful text', async () => {
+        const objExtract = { blocks: [], heading: [], natural_key: 'x' };
+        mockSuccess({ ...baseTopic, extracts: [objExtract] });
+        const result = await getEntityDetail('topic', 'dharma');
+        expect(result.topicExtracts).toBeUndefined();
+      });
+
+      it('omits topicExtracts when extracts array is empty', async () => {
+        mockSuccess({ ...baseTopic, extracts: [] });
+        const result = await getEntityDetail('topic', 'dharma');
+        expect(result.topicExtracts).toBeUndefined();
+      });
+
+      it('sets description to topic_path', async () => {
+        mockSuccess({ ...baseTopic, extracts: [] });
+        const result = await getEntityDetail('topic', 'dharma');
+        expect(result.description).toBe('1.2');
+      });
+
+      it('sets description to undefined when topic_path is null', async () => {
+        mockSuccess({ ...baseTopic, topic_path: null, extracts: [] });
+        const result = await getEntityDetail('topic', 'dharma');
+        expect(result.description).toBeUndefined();
+      });
+    });
+
     it('calls gathas endpoint for gatha kind', async () => {
       mockSuccess({
         id: 'g-1',

@@ -471,6 +471,52 @@ Implemented Phase 7 detail views and supporting reusable components.
   - validates extraction and splitting of bracket-tagged teeka terms.
 
 ---
+---
+## Side Panel Vivaran — Three Fixes (2026-05-15)
+
+**Spec:** `docs/design/ui/updates/01_side_panel_vivaran.md`
+
+Three issues in the graph page `DetailsPanel` (380 px right panel) were fixed:
+
+### Issue 1 — Keyword definition rendering
+
+Previously the vivaran section rendered `JSON.stringify(keyword.definition)` — raw JSON blob. Now:
+
+- `types.ts` gains fully-typed interfaces for the definition tree: `DefinitionReference`, `DefinitionBlock`, `DefinitionEntry`, `KeywordPageSection`, `KeywordDefinitionData`. `KeywordDetail.definition` is now `KeywordDefinitionData | null` instead of `unknown | null`.
+- `EntityDetail` gains two optional fields: `definitionSections?: KeywordPageSection[]` and `topicExtracts?: unknown[]`.
+- `getEntityDetail` keyword branch extracts `page_sections`, derives `description` from the first block's `text_devanagari` (sliced at 250 chars), and passes `definitionSections` when non-empty.
+- `DetailsPanel` renders a `KeywordDefinitionPreview` inline component: first section, first 2 blocks, each truncated at 180 chars with `…`. Section header shown as small-caps muted label. References are omitted in preview.
+
+### Issue 2 — CTA button color + footer clip
+
+**Color:** `PrimaryCTA` now accepts `variant?: 'primary' | 'soft'` (default `'primary'`). Soft variant: `bg-accent-soft text-accent border border-accent/30 hover:bg-accent/10`. Text and icon colors follow the variant — no hardcoded `text-white` when soft.
+
+**Footer clip:** The desktop `<aside>` lacked height constraints, causing it to grow unbounded and clip the footer. Fixed by adding `h-screen flex-col overflow-hidden` to the aside and wrapping the body in `flex flex-col flex-1 overflow-hidden`.
+
+**CTA wiring:** "पूरा वर्णन पढ़ें" is now a `button` (`onClick`) that opens `DefinitionModal`, using `variant="soft"`. It only renders when `detail?.definitionSections` or `detail?.topicExtracts` is present.
+
+### Issue 3 — Topic extracts
+
+`getEntityDetail` topic branch now passes `topicExtracts: topic.extracts` when non-empty. The vivaran section for topics shows up to 2 extracts as left-accented blocks (`border-l-4 border-accent/40`), with overflow count ("+ N और…").
+
+### New component — `DefinitionModal`
+
+`ui/src/components/DefinitionModal.tsx` — `@base-ui/react/dialog`-backed full-screen overlay (same primitive used by Sheet).
+
+- Keyword path: renders all sections with `h2_text` header, blocks with kind-based styling (`sanskrit_text`/`prakrit_text` get `bg-surface-muted border-l-4 border-cat-keyword`), italic references below each block.
+- Topic path: shows all extracts with count header.
+- Modal resets (`definitionModalOpen = false`) on node selection change.
+
+### Tests added
+
+`ui/src/lib/api/data.test.ts` — 10 new tests in two `describe` blocks:
+
+| Suite | What it covers |
+|---|---|
+| keyword branch — definition normalisation | `definitionSections` populated when sections exist; `description` truncated at 250 chars; both fields absent when `definition: null`; `definitionSections` absent when `page_sections: []` |
+| topic branch — extracts normalisation | `topicExtracts` populated when non-empty; absent when empty; `description` set to `topic_path` |
+
+---
 ## Bugfixes -
 
 bugfix: graph node limit, stability on panel open, 404 handling, disconnected node gravity

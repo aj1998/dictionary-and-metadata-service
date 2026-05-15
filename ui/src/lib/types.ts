@@ -73,6 +73,8 @@ export interface EntityDetail {
     title_en?: string;
     edge_kind: EdgeKind;
   }>;
+  definitionSections?: KeywordPageSection[];
+  topicExtracts?: unknown[];
 }
 
 // Shastra (metadata service)
@@ -113,9 +115,61 @@ export interface KeywordSummary {
   source_url?: string;
 }
 
+export interface DefinitionReference {
+  text: string;
+  inline_reference: boolean;
+  needs_manual_match: boolean;
+  is_teeka: boolean;
+  teeka_name: string;
+  shastra_name: string | null;
+  match_method: string | null;
+  resolved_fields: Array<{ field: string; value: string }>;
+}
+
+export interface DefinitionBlock {
+  kind: string;
+  text_devanagari: string;
+  hindi_translation: string | null;
+  references: DefinitionReference[];
+  is_orphan_translation: boolean;
+  is_bullet_point: boolean;
+  raw_html: string | null;
+  table_rows: unknown | null;
+  target_keyword: unknown | null;
+  target_topic_path: string | null;
+  target_url: string | null;
+  is_self: boolean;
+  target_exists: boolean;
+}
+
+export interface DefinitionEntry {
+  definition_index: number;
+  blocks: DefinitionBlock[];
+  raw_html: string | null;
+}
+
+export interface KeywordPageSection {
+  section_index: number;
+  section_kind: string;
+  h2_text: string;
+  definitions: DefinitionEntry[];
+  label_topic_seeds: unknown[];
+  extra_blocks: unknown[];
+}
+
+export interface KeywordDefinitionData {
+  created_at: string;
+  keyword_id: string;
+  natural_key: string;
+  page_sections: KeywordPageSection[];
+  redirect_aliases: unknown[];
+  source_url: string;
+  updated_at: string;
+}
+
 export interface KeywordDetail extends KeywordSummary {
   aliases: Array<{ id: string; alias_text: string; source: string }>;
-  definition: unknown | null;
+  definition: KeywordDefinitionData | null;
 }
 
 export interface LetterCount {
