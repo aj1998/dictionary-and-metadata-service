@@ -1,5 +1,38 @@
 import { describe, expect, test } from "vitest";
-import { buildBezierPath } from "./useForceSimulation";
+import { buildBezierPath, LINK_DISTANCE, CHARGE_STRENGTH, GRAVITY_STRENGTH } from "./useForceSimulation";
+
+// ─── Bug 2: force constants keep disconnected nodes close to the viewport ─────
+//
+// The key invariant is that GRAVITY_STRENGTH > 0, so every node — including
+// disconnected ones — receives a per-node pull toward the canvas centre.
+// Without this, isolated nodes are only repelled by CHARGE_STRENGTH and drift
+// out of view.
+
+describe("force simulation constants", () => {
+  test("GRAVITY_STRENGTH is positive so disconnected nodes are attracted to centre", () => {
+    expect(GRAVITY_STRENGTH).toBeGreaterThan(0);
+  });
+
+  test("CHARGE_STRENGTH is negative (repulsion) but not so strong it overwhelms gravity", () => {
+    expect(CHARGE_STRENGTH).toBeLessThan(0);
+    // If charge were stronger than -1000, gravity at 0.07 can no longer
+    // keep unconnected nodes within a typical viewport.
+    expect(CHARGE_STRENGTH).toBeGreaterThan(-1000);
+  });
+
+  test("LINK_DISTANCE is within a usable screen range", () => {
+    expect(LINK_DISTANCE).toBeGreaterThan(50);
+    expect(LINK_DISTANCE).toBeLessThan(300);
+  });
+
+  test("gravity-to-repulsion ratio keeps disconnected nodes reachable", () => {
+    // A rough proxy: |GRAVITY_STRENGTH| / |CHARGE_STRENGTH| should be large
+    // enough that gravity wins at short distances (~200 px from centre).
+    // The ratio below is the threshold that was validated visually.
+    const ratio = Math.abs(GRAVITY_STRENGTH) / Math.abs(CHARGE_STRENGTH);
+    expect(ratio).toBeGreaterThan(0.00005);
+  });
+});
 
 describe("buildBezierPath", () => {
   test("returns a valid SVG cubic Bézier path string", () => {

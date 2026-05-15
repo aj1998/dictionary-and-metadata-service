@@ -9,6 +9,7 @@ import { PrimaryCTA } from '@/components/PrimaryCTA';
 import { EDGE_LABELS } from '@/components/RelationConnector';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import * as dataApi from '@/lib/api/data';
+import { ApiError } from '@/lib/api/_fetch';
 import type { EdgeKind, EntityDetail, GraphEdge, GraphNode } from '@/lib/types';
 
 const EDGE_DESCRIPTIONS: Partial<Record<EdgeKind, string>> = {
@@ -56,7 +57,9 @@ export function DetailsPanel({ open, selected, nodes, edges, depth, onClose, onS
         const response = await dataApi.getEntityDetail(selectedNode.kind, selectedNode.nk);
         if (!cancelled) setDetail(response);
       } catch (err) {
-        console.error('details fetch failed', err);
+        if (!(err instanceof ApiError && err.status === 404)) {
+          console.error('details fetch failed', err);
+        }
         if (!cancelled) setDetail(null);
       }
     }

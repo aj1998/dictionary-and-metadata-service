@@ -7,6 +7,8 @@ import {
   forceManyBody,
   forceCenter,
   forceCollide,
+  forceX,
+  forceY,
   type SimulationNodeDatum,
   type SimulationLinkDatum,
 } from 'd3-force';
@@ -18,6 +20,13 @@ const CARD_H = 88; // approximate rendered height used for anchor / collide calc
 const CARD_HALF_W = CARD_W / 2;
 const CARD_HALF_H = CARD_H / 2;
 const CONTROL_OFFSET = 80;
+
+// ─── Force tuning constants (exported for tests) ──────────────────────────────
+
+export const LINK_DISTANCE   = 140;
+export const CHARGE_STRENGTH = -500;
+/** Per-node gravity toward canvas centre — keeps disconnected nodes visible. */
+export const GRAVITY_STRENGTH = 0.07;
 
 // ─── Bézier helpers (exported for testing) ────────────────────────────────────
 
@@ -160,14 +169,17 @@ export function useForceSimulation(canvasW: number, canvasH: number) {
 
   const simRef = useRef<ReturnType<typeof forceSimulation<D3Node, D3Link>> | null>(null);
 
+  // Create simulation once — canvas size handled by the effect below.
   useEffect(() => {
     const halfDiag = Math.sqrt(CARD_W ** 2 + CARD_H ** 2) / 2;
 
     const sim = forceSimulation<D3Node, D3Link>()
-      .force('link',    forceLink<D3Node, D3Link>().distance(180).strength(0.6))
-      .force('charge',  forceManyBody<D3Node>().strength(-1200))
+      .force('link',    forceLink<D3Node, D3Link>().distance(LINK_DISTANCE).strength(0.7))
+      .force('charge',  forceManyBody<D3Node>().strength(CHARGE_STRENGTH))
       .force('center',  forceCenter(canvasW / 2, canvasH / 2))
-      .force('collide', forceCollide<D3Node>(halfDiag + 12))
+      .force('x',       forceX<D3Node>(canvasW / 2).strength(GRAVITY_STRENGTH))
+      .force('y',       forceY<D3Node>(canvasH / 2).strength(GRAVITY_STRENGTH))
+      .force('collide', forceCollide<D3Node>(halfDiag + 8))
       .stop()
       .on('tick', () => {
         const nodes = sim.nodes();
@@ -218,6 +230,19 @@ export function useForceSimulation(canvasW: number, canvasH: number) {
       sim.stop();
       simRef.current = null;
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // intentionally run once; canvas size is handled by the effect below
+
+  // When the canvas is resized (e.g. DetailsPanel opens), nudge all positioning
+  // forces without tearing down or restarting the simulation.
+  useEffect(() => {
+    const sim = simRef.current;
+    if (!sim) return;
+    const cx = canvasW / 2;
+    const cy = canvasH / 2;
+    (sim.force('center') as ReturnType<typeof forceCenter> | null)?.x(cx).y(cy);
+    (sim.force('x') as ReturnType<typeof forceX> | null)?.x(cx);
+    (sim.force('y') as ReturnType<typeof forceY> | null)?.y(cy);
   }, [canvasW, canvasH]);
 
   const restart = useRef((nodes: SimNodeInput[], edges: SimEdgeInput[]) => {

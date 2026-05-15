@@ -196,9 +196,11 @@ export function GraphCanvas({
   const [canvasSize, setCanvasSize] = useState({ w: 800, h: 600 });
   const [isDragging, setIsDragging] = useState(false);
 
-  const lastPosRef = useRef({ x: 0, y: 0 });
-  const cameraRef  = useRef(camera);
-  cameraRef.current = camera;
+  const lastPosRef   = useRef({ x: 0, y: 0 });
+  const cameraRef    = useRef(camera);
+  cameraRef.current  = camera;
+  const canvasSizeRef = useRef(canvasSize);
+  canvasSizeRef.current = canvasSize;
 
   // Measure canvas on mount / resize
   useEffect(() => {
@@ -243,13 +245,16 @@ export function GraphCanvas({
     [],
   );
 
-  // Seed / restart simulation when the node/edge list changes or canvas is sized
+  // Seed / restart simulation only when the node set changes — NOT on canvas resize.
+  // canvasSizeRef is read via ref so this effect doesn't re-fire on resize, which
+  // would reset node positions every time DetailsPanel opens or the window is resized.
   useEffect(() => {
-    if (canvasSize.w === 0 || nodes.length === 0) return;
+    const { w, h } = canvasSizeRef.current;
+    if (w === 0 || nodes.length === 0) return;
 
-    const cx = canvasSize.w / 2;
-    const cy = canvasSize.h / 2;
-    const spread = 200;
+    const cx = w / 2;
+    const cy = h / 2;
+    const spread = 80;
 
     const simNodes: SimNodeInput[] = nodes.map(n => ({
       nk: n.nk,
@@ -262,9 +267,8 @@ export function GraphCanvas({
       dst: e.dst,
     }));
     restart(simNodes, simEdges);
-  // Re-seed when node count or canvas size changes (not every render)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [canvasSize.w, canvasSize.h, nodes.length]);
+  }, [nodes.length]);
 
   // ── Camera helpers ───────────────────────────────────────────────────────────
 

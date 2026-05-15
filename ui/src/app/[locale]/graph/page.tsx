@@ -5,6 +5,7 @@ import { GraphCanvas, type CanvasEdge, type CanvasNode } from './GraphCanvas';
 import * as navigationApi from '@/lib/api/navigation';
 import { useGraphStore } from '@/lib/store/graphStore';
 import { buildGraphQuery, parseGraphQuery } from '@/lib/store/graphUrlState';
+import { buildCanvasNodes, buildCanvasEdges } from './graphViewHelpers';
 
 export default function GraphPage() {
   const nodes = useGraphStore((s) => s.nodes);
@@ -82,30 +83,14 @@ export default function GraphPage() {
 
   const canvasNodes = useMemo<CanvasNode[]>(() => {
     const selectedNodeId = selected?.kind === 'node' ? selected.id : null;
-    return Object.values(nodes)
-      .filter((n) => categoryVisibility[n.kind])
-      .map((n) => ({
-        nk: n.nk,
-        kind: n.kind,
-        titleHi: n.title_hi,
-        titleEn: n.title_en,
-        selected: n.nk === selectedNodeId,
-        pinned: pinned.has(n.nk),
-      }));
+    return buildCanvasNodes(nodes, categoryVisibility, selectedNodeId, pinned) as CanvasNode[];
   }, [nodes, selected, pinned, categoryVisibility]);
 
   const canvasEdges = useMemo<CanvasEdge[]>(() => {
+    const renderedNks = new Set(canvasNodes.map((n) => n.nk));
     const selectedEdgeId = selected?.kind === 'edge' ? selected.id : null;
-    return Object.values(edges)
-      .filter((e) => categoryVisibility[nodes[e.src]?.kind ?? 'topic'] && categoryVisibility[nodes[e.dst]?.kind ?? 'topic'])
-      .map((e) => ({
-        id: e.id,
-        src: e.src,
-        dst: e.dst,
-        kind: e.kind,
-        active: e.id === selectedEdgeId,
-      }));
-  }, [edges, nodes, selected, categoryVisibility]);
+    return buildCanvasEdges(edges, nodes, renderedNks, categoryVisibility, selectedEdgeId) as CanvasEdge[];
+  }, [edges, nodes, selected, categoryVisibility, canvasNodes]);
 
   return (
     <>

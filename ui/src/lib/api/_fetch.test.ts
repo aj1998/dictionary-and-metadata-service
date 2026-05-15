@@ -108,3 +108,46 @@ describe('apiFetch', () => {
     });
   });
 });
+
+// ─── Bug 3: 404 classification for graceful handling in DetailsPanel ──────────
+//
+// DetailsPanel checks `err instanceof ApiError && err.status === 404` to decide
+// whether to suppress console.error.  These tests lock the ApiError shape so
+// that the check remains valid if the class is ever refactored.
+
+describe('ApiError 404 classification', () => {
+  it('is an instance of ApiError', () => {
+    const err = new ApiError(404, { error: 'not found' }, 'API 404: /v1/keywords/foo');
+    expect(err).toBeInstanceOf(ApiError);
+    expect(err).toBeInstanceOf(Error);
+  });
+
+  it('exposes status 404 as a numeric property', () => {
+    const err = new ApiError(404, null, 'not found');
+    expect(err.status).toBe(404);
+  });
+
+  it('distinguishes 404 from other error statuses', () => {
+    const err404 = new ApiError(404, null, 'not found');
+    const err500 = new ApiError(500, null, 'server error');
+    expect(err404.status === 404).toBe(true);
+    expect(err500.status === 404).toBe(false);
+  });
+
+  it('carries the original body payload', () => {
+    const body = { detail: 'keyword does not exist' };
+    const err = new ApiError(404, body, 'API 404: /v1/keywords/सामान्य');
+    expect(err.body).toEqual(body);
+  });
+
+  it('the 404 guard pattern used in DetailsPanel evaluates correctly', () => {
+    // Mirrors: err instanceof ApiError && err.status === 404
+    const shouldSuppress = (err: unknown) =>
+      err instanceof ApiError && err.status === 404;
+
+    expect(shouldSuppress(new ApiError(404, null, ''))).toBe(true);
+    expect(shouldSuppress(new ApiError(500, null, ''))).toBe(false);
+    expect(shouldSuppress(new Error('plain error'))).toBe(false);
+    expect(shouldSuppress('string error')).toBe(false);
+  });
+});
