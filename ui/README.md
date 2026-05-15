@@ -19,9 +19,8 @@ Comprehensive reference for the `ui/` Next.js application. Read this before touc
 11. [State Management](#11-state-management)
 12. [Content Pages](#12-content-pages)
 13. [Testing](#13-testing)
-14. [Known Bugs Fixed & Architectural Decisions](#14-known-bugs-fixed--architectural-decisions)
-15. [Implementation Phase Log](#15-implementation-phase-log)
-16. [Design Docs Index](#16-design-docs-index)
+14. [Implementation Phase Log](#14-implementation-phase-log)
+15. [Design Docs Index](#15-design-docs-index)
 
 ---
 
@@ -367,7 +366,7 @@ apiFetch<T>(baseUrl: string, path: string, init?: RequestInit): Promise<T>
 | `gatha` | `data:/v1/gathas/{nk}` |
 | `shastra` | `metadata:/v1/shastras/{nk}` |
 
-Response is normalised into the `EntityDetail` shape consumed by `DetailsPanel`.
+Response is normalised into the `EntityDetail` shape consumed by `DetailsPanel`. For topics, `extractBlocks()` flatmaps `blocks[]` from extract objects — an earlier bug returned the topic title instead of content because the code fell through to `heading[lang=hin].text`.
 
 ### Shared types (`src/lib/types.ts`)
 
@@ -406,7 +405,7 @@ Files: `src/app/[locale]/graph/`
 - D3 force simulation updating SVG/foreignObject refs directly **without React re-renders** (direct DOM mutation via `requestAnimationFrame`).
 - Parameters: `forceLink` (distance 140, strength 0.6), `forceManyBody` (strength −500), `forceCenter`, `forceCollide`, `forceX`/`forceY` (strength 0.07 toward center — prevents disconnected node drift).
 - Simulation lifecycle: two separate effects — (a) sim creation on mount, (b) resize-only nudge for forceCenter target. **No sim teardown on canvas resize** (this fixed the graph-shift-on-panel-open bug).
-- `restart(nodes, edges, mode?)` — stable identity via `useRef`. `mode: 'force'` (default) runs the animation loop; `mode: 'static'` stops the sim and ticks once synchronously (used by hierarchical layout).
+- `restart(nodes, edges, mode?)` — stable identity via `useRef`. `mode: 'force'` (default) runs the animation loop; `mode: 'static'` uses `sim.alpha(0.001).restart()` rather than `sim.tick()` — because `tick()` updates internal coordinates but never emits the `"tick"` event (only the internal `step()` does), so direct DOM handlers would never fire. Setting alpha=alphaMin causes the timer to fire one `step()` async, emit `"tick"`, apply positions, then auto-stop. The async firing also guarantees React has committed the DOM and `registerNode` refs are populated before the tick runs.
 - `prefers-reduced-motion`: if active, sim is ticked synchronously to `alpha < REDUCED_MOTION_ALPHA_THRESHOLD (0.05)` then stopped.
 - `buildBezierPath` — pure exported helper for Bézier path string generation.
 - `accumulateEdgeRef` registers all 4 edge parts (path + 2 circles + foreignObject) before calling `registerEdge`.
@@ -414,8 +413,8 @@ Files: `src/app/[locale]/graph/`
 ### Graph view helpers (`graphViewHelpers.ts`)
 Pure functions, no React:
 - `buildCanvasNodes` — slices to `MAX_GRAPH_NODES = 20`, applies category visibility, sets active/selected/pinned flags.
-- `buildCanvasEdges` — filters to edges whose both endpoints exist in the sliced node set (prevents dangling lines).
-- `computeHierarchicalPositions(nodeNks, edges, focusNk, canvasW, canvasH)` — BFS from focusNk to assign depth levels; spreads nodes horizontally within each level; places unreachable nodes one row past the deepest reachable level. Returns `Map<nk, {x, y}>`. Constants `HIER_PADDING_TOP` (100 px), `HIER_LEVEL_HEIGHT` (180 px), `HIER_NODE_SPACING` (260 px) are exported for tests.
+- `buildCanvasEdges` — filters to edges whose both endpoints exist in the sliced node set (prevents dangling lines). Also deduplicates bidirectional edges (the backend returns both A→B and B→A as separate IDs) via a canonical key `min(src,dst) + '\x00' + max(src,dst) + '\x00' + kind`; first-seen edge wins, but is promoted to `active: true` if the other direction's ID is the selected one.
+- `computeHierarchicalPositions(nodeNks, edges, focusNk, canvasW, canvasH)` — BFS from focusNk to assign depth levels; nodes in each level are chunked into rows of `HIER_MAX_PER_ROW = 4` (prevents sprawling single rows for wide levels); places unreachable nodes one row past the deepest reachable level. Returns `Map<nk, {x, y}>`. Exported constants: `HIER_PADDING_TOP` (120 px), `HIER_LEVEL_HEIGHT` (240 px), `HIER_NODE_SPACING` (320 px).
 
 ### URL state (`graphUrlState.ts`)
 - `parseGraphQuery(params)` — parses `node`, `edge`, `depth` (clamped 1–4), `cat` (CSV of hidden kinds) from URL.
@@ -528,47 +527,7 @@ All tests are pure logic tests — no JSX rendering, no component mounting. This
 
 ---
 
-## 14. Known Bugs Fixed & Architectural Decisions
-
-### 404 on `/en` (after Phase 3)
-**Problem:** next-intl requires `src/app/[locale]/` folder for URL-based locale routing. The folder didn't exist.  
-**Fix:** Created `[locale]/layout.tsx`; moved all routes under `[locale]/`.
-
-### Nav links dropped locale prefix (after Phase 3)
-**Problem:** `TopBar` imported `Link`/`usePathname` from `next/navigation` — not locale-aware.  
-**Fix:** Created `src/i18n/navigation.ts`; `TopBar` now imports from `@/i18n/navigation`.
-
-### Graph showed empty state despite backend returning data (after Phase 5)
-**Problem:** Phase 3 API clients called `http://localhost:800X` directly from the browser — cross-origin.  
-**Fix:** Added Next.js rewrites in `next.config.ts`; all API base URLs changed to same-origin `/api/*` paths.
-
-### DetailsPanel 404 console errors
-**Problem:** `getEntityDetail` called non-existent composite endpoint `/v1/entity/{kind}/{nk}/detail`.  
-**Fix:** Dispatcher now calls per-entity backend endpoints; 404s caught silently in `DetailsPanel`.
-
-### Graph shifts when DetailsPanel opens
-**Problem:** `useForceSimulation` had a single `useEffect([canvasW, canvasH])` that tore down and re-seeded positions on resize.  
-**Fix:** Split into (a) creation effect running once on mount, (b) resize-only effect that only nudges force targets — no position reset.
-
-### Dangling force-simulation lines
-**Problem:** `buildCanvasEdges` referenced nodes outside the `MAX_GRAPH_NODES` slice.  
-**Fix:** `buildCanvasEdges` now filters to edges whose both endpoints are in the sliced node set.
-
-### Topic vivaran showed topic title instead of content
-**Problem:** `extractTopicText()` fell through to `heading[lang=hin].text` — which is the topic title.  
-**Fix:** `extractBlocks()` flatmaps `blocks[]` from extract objects directly; returns `DefinitionBlock[]`. Topic and keyword definitions share the same `BlockPreview`/`ModalBlock` render path.
-
-### DetailsPanel footer clipped
-**Problem:** `<aside>` had no height constraint — grew unbounded.  
-**Fix:** `<aside className="... h-screen flex-col overflow-hidden">` with inner wrapper `flex flex-col flex-1 overflow-hidden`.
-
-### Disconnected node gravity
-**Problem:** `forceManyBody(-1200)` caused disconnected nodes to fly off-screen.  
-**Fix:** Replaced with `forceManyBody(-500)` + `forceX`/`forceY` (strength 0.07) pulling all nodes toward canvas center. Also reduced link distance 180→140, initial spread 200→80.
-
----
-
-## 15. Implementation Phase Log
+## 14. Implementation Phase Log
 
 | Phase | Status | What was built |
 |---|---|---|
@@ -587,7 +546,7 @@ All tests are pure logic tests — no JSX rendering, no component mounting. This
 
 ---
 
-## 16. Design Docs Index
+## 15. Design Docs Index
 
 All design documents are in `docs/design/ui/`. Read them for pixel-level specifications.
 

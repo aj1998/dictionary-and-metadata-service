@@ -56,3 +56,19 @@ The fix uses sim.alpha(0.001).restart() in static mode:
 Also a secondary benefit: the async firing guarantees React has already committed the DOM and registerNode ref callbacks have populated nodeElsRef before the tick runs.
 
 Also,  instead of placing all nodes of a BFS level in a single row, it chunks them into groups of HIER_MAX_PER_ROW = 5 and increments currentY after each chunk. For a landing page with 10 topic nodes at the same level, you'd get two rows of 5 instead of one row of 10 sprawling off-screen.
+
+## Bugfix - 2
+
+bugfix: duplicate edges, The fix is in graphViewHelpers.ts:buildCanvasEdges. Here's what changed:
+
+Root cause: The backend returns both A→B PART_OF and B→A PART_OF as separate edges with different IDs. Both survived the filter and were rendered as overlapping SVG paths between the same node pair — producing
+the visual duplicate lines (and a loop artifact when the force sim placed them on top of each other).
+
+Fix: After filtering valid edges, buildCanvasEdges now deduplicates by a canonical key min(src,dst) + '\x00' + max(src,dst) + '\x00' + kind. The first-seen edge is kept as the representative; if the other
+direction's ID happens to be the selected one, the representative is promoted to active: true so the highlight still works.
+
+Tests added/updated:
+- Updated 'marks the active edge' to use genuinely different edge pairs (not a bidirectional duplicate)
+- New: 'deduplicates A→B and B→A edges with the same kind into one rendered edge'
+- New: 'marks the representative active when the duplicate direction is selected'
+- New: 'keeps distinct edges between different node pairs'
