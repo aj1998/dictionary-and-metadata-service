@@ -5,13 +5,13 @@ export const MAX_GRAPH_NODES = 20;
 // ─── Hierarchical layout constants (exported for tests) ───────────────────────
 
 /** Vertical distance (px) between BFS depth levels in hierarchical mode. */
-export const HIER_LEVEL_HEIGHT = 180;
+export const HIER_LEVEL_HEIGHT = 240;
 /** Horizontal gap (px) between nodes within the same BFS level. */
-export const HIER_NODE_SPACING = 260;
+export const HIER_NODE_SPACING = 320;
 /** Top padding (px) before the first level row. */
-export const HIER_PADDING_TOP = 100;
+export const HIER_PADDING_TOP = 120;
 /** Max nodes placed in a single horizontal row before wrapping to the next row. */
-export const HIER_MAX_PER_ROW = 5;
+export const HIER_MAX_PER_ROW = 4;
 
 export interface RenderedNode {
   nk: string;

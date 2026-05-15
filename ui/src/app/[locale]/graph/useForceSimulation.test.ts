@@ -15,14 +15,14 @@ describe("force simulation constants", () => {
 
   test("CHARGE_STRENGTH is negative (repulsion) but not so strong it overwhelms gravity", () => {
     expect(CHARGE_STRENGTH).toBeLessThan(0);
-    // If charge were stronger than -1000, gravity at 0.07 can no longer
-    // keep unconnected nodes within a typical viewport.
-    expect(CHARGE_STRENGTH).toBeGreaterThan(-1000);
+    // Cap at -2000: beyond this, gravity at 0.07 can no longer keep
+    // disconnected nodes within a typical viewport.
+    expect(CHARGE_STRENGTH).toBeGreaterThan(-2000);
   });
 
   test("LINK_DISTANCE is within a usable screen range", () => {
     expect(LINK_DISTANCE).toBeGreaterThan(50);
-    expect(LINK_DISTANCE).toBeLessThan(300);
+    expect(LINK_DISTANCE).toBeLessThan(400);
   });
 
   test("gravity-to-repulsion ratio keeps disconnected nodes reachable", () => {

@@ -23,10 +23,10 @@ const CONTROL_OFFSET = 80;
 
 // ─── Force tuning constants (exported for tests) ──────────────────────────────
 
-export const LINK_DISTANCE   = 140;
+export const LINK_DISTANCE   = 300;
 /** Alpha threshold used when prefers-reduced-motion is active — exported for tests. */
 export const REDUCED_MOTION_ALPHA_THRESHOLD = 0.05;
-export const CHARGE_STRENGTH = -500;
+export const CHARGE_STRENGTH = -1300;
 /** Per-node gravity toward canvas centre — keeps disconnected nodes visible. */
 export const GRAVITY_STRENGTH = 0.07;
 
@@ -176,7 +176,7 @@ export function useForceSimulation(canvasW: number, canvasH: number) {
     const halfDiag = Math.sqrt(CARD_W ** 2 + CARD_H ** 2) / 2;
 
     const sim = forceSimulation<D3Node, D3Link>()
-      .force('link',    forceLink<D3Node, D3Link>().distance(LINK_DISTANCE).strength(0.7))
+      .force('link',    forceLink<D3Node, D3Link>().distance(LINK_DISTANCE).strength(0.35))
       .force('charge',  forceManyBody<D3Node>().strength(CHARGE_STRENGTH))
       .force('center',  forceCenter(canvasW / 2, canvasH / 2))
       .force('x',       forceX<D3Node>(canvasW / 2).strength(GRAVITY_STRENGTH))

@@ -35,9 +35,10 @@ In hierarchical mode the D3 force sim is stopped and nodes are fixed via `fx`/`f
 
 | Constant | Value | Meaning |
 |---|---|---|
-| `HIER_PADDING_TOP` | 100 px | Top margin before depth-0 row |
-| `HIER_LEVEL_HEIGHT` | 180 px | Vertical gap between consecutive depth levels |
-| `HIER_NODE_SPACING` | 260 px | Horizontal gap between nodes in the same level |
+| `HIER_PADDING_TOP` | 120 px | Top margin before depth-0 row |
+| `HIER_LEVEL_HEIGHT` | 240 px | Vertical gap between consecutive depth levels |
+| `HIER_NODE_SPACING` | 320 px | Horizontal gap between nodes in the same level |
+| `HIER_MAX_PER_ROW` | 4 | Max nodes per horizontal row before wrapping |
 
 ### Known limitations / future work
 
