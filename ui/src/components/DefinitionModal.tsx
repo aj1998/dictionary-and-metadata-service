@@ -15,6 +15,13 @@ interface DefinitionModalProps {
 
 function ModalBlock({ block }: { block: DefinitionBlock }) {
   const isSanskrit = block.kind === 'sanskrit_text' || block.kind === 'prakrit_text';
+
+  // Prefer non-inline references; fall back to inline ones only if no non-inline exist.
+  // Skip any reference that has no resolved_fields.
+  const nonInline = block.references.filter(r => !r.inline_reference);
+  const candidates = nonInline.length > 0 ? nonInline : block.references.filter(r => r.inline_reference);
+  const refsToShow = candidates.filter(r => r.resolved_fields.length > 0);
+
   return (
     <div>
       <div className={cn(isSanskrit && 'rounded border-l-4 border-cat-keyword bg-surface-muted p-3')}>
@@ -33,11 +40,43 @@ function ModalBlock({ block }: { block: DefinitionBlock }) {
           </p>
         )}
       </div>
-      {block.references.length > 0 && (
-        <div className="mt-1 space-y-0.5 border-t border-border pt-1">
-          {block.references.map((ref, ri) => (
-            <p key={ri} className="text-xs italic text-foreground-muted">{ref.text}</p>
-          ))}
+      {refsToShow.length > 0 && (
+        <div className="mt-1.5 flex flex-wrap gap-1.5 border-t border-border pt-1.5">
+          {refsToShow.map((ref, ri) => {
+            const sourceName = ref.is_teeka ? ref.teeka_name : ref.shastra_name;
+            return (
+              <span
+                key={ri}
+                className={cn(
+                  'inline-flex items-center gap-0 rounded-full px-2.5 py-0.5 text-xs ring-1',
+                  ref.is_teeka
+                    ? 'bg-amber-50 text-amber-800 ring-amber-200'
+                    : 'bg-surface-muted text-foreground-muted ring-border',
+                )}
+              >
+                {sourceName && (
+                  <>
+                    <span className={cn(
+                      'font-semibold',
+                      ref.is_teeka ? 'text-amber-700' : 'text-sky-700',
+                    )}>
+                      {sourceName}
+                    </span>
+                    {ref.resolved_fields.length > 0 && (
+                      <span className="mx-1.5 opacity-30">|</span>
+                    )}
+                  </>
+                )}
+                {ref.resolved_fields.map((f, fi) => (
+                  <span key={fi} className="flex items-center">
+                    {fi > 0 && <span className="mx-1 opacity-30">·</span>}
+                    <span className="opacity-60">{f.field}:</span>
+                    <span className="ml-0.5 font-medium">{f.value}</span>
+                  </span>
+                ))}
+              </span>
+            );
+          })}
         </div>
       )}
     </div>
