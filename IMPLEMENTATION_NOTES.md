@@ -479,9 +479,41 @@ python -m pytest services/navigation_service/tests/ -v
 See [`docs/manual_testing/api/navigation/testing.md`](docs/manual_testing/api/navigation/testing.md) for the full manual testing guide.
 
 ---
+
+### ✅ Completed: Public UI (`docs/design/ui/`)
+
+**Module**: `ui/` — Next.js 16 (App Router), Tailwind 4, `next-intl`, Zustand, D3-force.
+
+See [`docs/ui/README.md`](docs/ui/README.md) for the full developer wiki (directory layout, component catalogue, API wiring, test map, bug log).
+
+#### Phases delivered
+
+| Phase | Scope |
+|---|---|
+| 0 | Bootstrap: CSS token layer (30+ vars), Noto Serif Devanagari + Inter fonts, `next-intl` hi/en routing, Devanagari utils |
+| 1 | Global shell: `TopBar`, `BreadcrumbBar`, `Footer`, 3 page shells (graph / content / reading), `Skeleton` |
+| 2 | Atomic components: `BadgeChip`, `StatTile`, `ConnectedItemRow`, `PrimaryCTA`, `ListCards`, icon registry |
+| 3 | API client layer: typed `apiFetch` + `ApiError`; clients for all 4 backend services; same-origin proxy via `next.config.ts` rewrites |
+| 4 | Graph canvas: `NodeCard` (5 states), `RelationConnector` (cubic Bézier), `GraphCanvas` (dotted-grid, pan/zoom, D3 force sim), `ZoomControls`, `CategoryFilterList` |
+| 5 | Graph interactivity: Zustand `useGraphStore`, URL ↔ state sync, `DetailsPanel` (node + edge mode), 300-node guard, SR-only nav tree |
+| 6 | Content list pages: Home, Shastras, Dictionary index + letter listing, Topics browser, Search (ISR + dynamic) |
+| 7 | Content detail pages: Shastra, Gatha (Shell C reader), Keyword, Topic; `GathaPanel`, `TaggedTermPopover`, `MiniGraphPreview` |
+| 8 | About + Feedback (MongoDB write), full ARIA pass, focus ring, `prefers-reduced-motion` in force sim |
+| Bugfixes | Node limit (MAX=20), graph stability on panel open, per-kind `getEntityDetail` dispatch, 404 silencing, disconnected node gravity |
+| Vivaran fix | Keyword definition tree rendering, topic extract rendering, `DefinitionModal`, `PrimaryCTA` soft variant, footer clip |
+
+#### Run
+
+```bash
+cd ui && pnpm install && pnpm dev   # http://localhost:3000
+pnpm build                          # production build (0 errors, 0 warnings)
+pnpm test                           # vitest — ~224 pure logic tests
+```
+
+---
 ### 🔜 Not yet started
 
-- Ingestion workers (`08`, `09`), query engine (`12`), query service (`07`), enrichment loop (`11`), admin + public UIs (`13`, `14`), deployment (`15`).
+- Ingestion workers (`08`, `09`), query engine (`12`), query service (`07`), enrichment loop (`11`), admin UI (`13`), deployment (`15`).
 
 ---
 ## Key conventions

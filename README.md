@@ -71,7 +71,7 @@ Postgres is the **source of truth for IDs**. Every entity in Mongo or Neo4j has 
 - **Neo4j client**: official `neo4j` driver (async)
 - **Job queue**: Celery + Redis
 - **Scraping**: `httpx` + `selectolax` (HTML), `trafilatura` fallback
-- **Frontend** _(future)_: Next.js 14 (App Router) + Tailwind + `next-intl` (Hindi-first)
+- **Frontend**: Next.js 16 (App Router) + Tailwind 4 + `next-intl` (Hindi-first, Devanagari-forward); see [`docs/ui/README.md`](docs/ui/README.md)
 - **Deploy**: Docker Compose on a single VM
 
 ### Data Sources
@@ -137,7 +137,7 @@ See [`IMPLEMENTATION_NOTES.md`](IMPLEMENTATION_NOTES.md) for full details on eac
 | Navigation Service API (port 8003, 32 tests) | ✅ |
 | Query Service API (port 8004, GraphRAG) | 🔜 |
 | Ingestion workers (nikkyjain, vyakaran OCR) | 🔜 |
-| Admin + Public UI (Next.js) | 🔜 |
+| Public UI — Next.js 16 (8 phases: shells, graph, content pages, a11y) | ✅ |
 | Deployment (Docker Compose) | 🔜 |
 
 
@@ -294,7 +294,7 @@ dictionary-and-metadata-service/
 │       └── jainkosh/
 │           ├── apply.py               # apply_approved_keyword_payload
 │           └── tests/fixtures/        # HTML fixtures for parser + apply tests
-├── ui/                        # (future) Next.js public + admin apps
+├── ui/                        # Next.js 16 public UI — see docs/ui/README.md
 ├── parser_configs/            # YAML/JSON scraper rules
 ├── samples/
 │   ├── sample_html_granths_nj/    # Sample nikkyjain HTML for parser development
