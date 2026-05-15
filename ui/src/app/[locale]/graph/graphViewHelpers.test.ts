@@ -7,6 +7,7 @@ import {
   HIER_LEVEL_HEIGHT,
   HIER_NODE_SPACING,
   HIER_PADDING_TOP,
+  HIER_MAX_PER_ROW,
 } from './graphViewHelpers';
 import type { GraphNode, GraphEdge, EntityKind } from '@/lib/types';
 
@@ -237,5 +238,33 @@ describe('computeHierarchicalPositions', () => {
     const edges = [{ src: 'b', dst: 'a' }];
     const result = computeHierarchicalPositions(nodeNks, edges, 'a', W, H);
     expect(result.get('b')!.y).toBe(HIER_PADDING_TOP + HIER_LEVEL_HEIGHT);
+  });
+
+  it('wraps a level with more than HIER_MAX_PER_ROW nodes into multiple rows', () => {
+    // focusNk has HIER_MAX_PER_ROW + 2 direct neighbors → they fill one full row
+    // plus a second partial row, both below the focus node.
+    const count = HIER_MAX_PER_ROW + 2;
+    const neighbors = Array.from({ length: count }, (_, i) => `n${i}`);
+    const nodeNks = ['root', ...neighbors];
+    const edges = neighbors.map(n => ({ src: 'root', dst: n }));
+    const result = computeHierarchicalPositions(nodeNks, edges, 'root', W, H);
+
+    // root is at depth 0 → first row
+    expect(result.get('root')!.y).toBe(HIER_PADDING_TOP);
+
+    // First HIER_MAX_PER_ROW neighbors share the second row (y = HIER_PADDING_TOP + HIER_LEVEL_HEIGHT)
+    for (let i = 0; i < HIER_MAX_PER_ROW; i++) {
+      expect(result.get(`n${i}`)!.y).toBe(HIER_PADDING_TOP + HIER_LEVEL_HEIGHT);
+    }
+
+    // Remaining 2 neighbors wrap into a third row
+    for (let i = HIER_MAX_PER_ROW; i < count; i++) {
+      expect(result.get(`n${i}`)!.y).toBe(HIER_PADDING_TOP + 2 * HIER_LEVEL_HEIGHT);
+    }
+  });
+
+  it('HIER_MAX_PER_ROW is a positive integer', () => {
+    expect(Number.isInteger(HIER_MAX_PER_ROW)).toBe(true);
+    expect(HIER_MAX_PER_ROW).toBeGreaterThan(0);
   });
 });
