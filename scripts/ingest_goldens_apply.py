@@ -86,7 +86,7 @@ async def _ensure_postgres_extensions(conn) -> None:
 async def _run_apply(selected: tuple[GoldenSpec, ...], *, neo4j_database: str, ingestion_run_id: uuid.UUID | None) -> None:
     database_url = os.environ["DATABASE_URL"]
     mongo_url = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
-    mongo_db_name = os.environ.get("MONGO_DB", "jain_kb_manual")
+    mongo_db_name = os.environ.get("MONGO_DB_NAME") or os.environ.get("MONGO_DB", "jain_kb")
     neo4j_url = os.environ["NEO4J_URL"]
     neo4j_user = os.environ.get("NEO4J_USER", "neo4j")
     neo4j_password = os.environ["NEO4J_PASSWORD"]
@@ -177,7 +177,7 @@ def main(argv: list[str] | None = None) -> int:
             try:
                 database_url = os.environ["DATABASE_URL"]
                 mongo_url = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
-                mongo_db_name = os.environ.get("MONGO_DB", "jain_kb_manual")
+                mongo_db_name = os.environ.get("MONGO_DB_NAME") or os.environ.get("MONGO_DB", "jain_kb")
                 neo4j_url = os.environ["NEO4J_URL"]
                 neo4j_user = os.environ.get("NEO4J_USER", "neo4j")
                 neo4j_password = os.environ["NEO4J_PASSWORD"]

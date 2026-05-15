@@ -73,8 +73,6 @@ async def get_letter_counts(session: AsyncSession) -> list[dict]:
 
 
 async def get_definition(mongo: AsyncIOMotorDatabase, keyword: Keyword) -> dict | None:
-    if not keyword.definition_doc_ids:
-        return None
     doc = await mongo[KEYWORD_DEFINITIONS].find_one({"natural_key": keyword.natural_key})
     if doc is None:
         return None

@@ -118,12 +118,15 @@ async def shortest_path(
 
 @router.get("/landing", response_model=GraphPayload)
 async def landing(
+    exclude_stubs: bool = Query(True),
     driver: AsyncDriver = Depends(get_neo4j_driver),
 ) -> GraphPayload:
-    cypher = """
+    stub_clause = "AND NOT (coalesce(s.is_stub, false) OR coalesce(t.is_stub, false))" if exclude_stubs else ""
+    cypher = f"""
     MATCH (s)-[r:IS_A|PART_OF|RELATED_TO]-(t)
     WHERE (s:Topic OR s:Keyword OR s:Shastra OR s:Gatha)
       AND (t:Topic OR t:Keyword OR t:Shastra OR t:Gatha)
+      {stub_clause}
     RETURN coalesce(s.natural_key, '') AS src_nk,
            labels(s)[0] AS src_label,
            coalesce(s.display_text_hi, s.display_text, s.natural_key, '') AS src_hi,
@@ -137,7 +140,7 @@ async def landing(
     async with driver.session(database=settings.NEO4J_DATABASE) as session:
         records = await (await session.run(cypher)).data()
     focus_nk = records[0].get("src_nk") if records else "topic:landing"
-    logger.info("Graph landing payload generated with %s records", len(records))
+    logger.info("Graph landing payload generated with %s records (exclude_stubs=%s)", len(records), exclude_stubs)
     return _build_payload(records, focus_nk=focus_nk or "topic:landing", depth=1)
 
 
@@ -145,15 +148,18 @@ async def landing(
 async def expand(
     natural_key: str,
     depth: int = Query(2, ge=1, le=4),
+    exclude_stubs: bool = Query(True),
     driver: AsyncDriver = Depends(get_neo4j_driver),
 ) -> GraphPayload:
-    cypher = """
-    MATCH (focus {natural_key: $nk})
+    stub_clause = "AND NOT (coalesce(s.is_stub, false) OR coalesce(t.is_stub, false))" if exclude_stubs else ""
+    cypher = f"""
+    MATCH (focus {{natural_key: $nk}})
     OPTIONAL MATCH p=(focus)-[r:IS_A|PART_OF|RELATED_TO|HAS_TOPIC|MENTIONS_KEYWORD*1..4]-(n)
     WITH focus, p, n, relationships(p) AS rels
     WHERE p IS NULL OR length(p) <= $depth
     UNWIND CASE WHEN p IS NULL THEN [] ELSE rels END AS rel
     WITH focus, startNode(rel) AS s, endNode(rel) AS t, rel
+    WHERE true {stub_clause}
     RETURN coalesce(s.natural_key, '') AS src_nk,
            labels(s)[0] AS src_label,
            coalesce(s.display_text_hi, s.display_text, s.natural_key, '') AS src_hi,
@@ -166,7 +172,7 @@ async def expand(
     """
     async with driver.session(database=settings.NEO4J_DATABASE) as session:
         records = await (await session.run(cypher, nk=natural_key, depth=depth)).data()
-    logger.info("Graph expand payload generated for nk=%s, depth=%s, records=%s", natural_key, depth, len(records))
+    logger.info("Graph expand payload generated for nk=%s, depth=%s, records=%s (exclude_stubs=%s)", natural_key, depth, len(records), exclude_stubs)
     return _build_payload(records, focus_nk=natural_key, depth=depth)
 
 
@@ -174,8 +180,9 @@ async def expand(
 async def preview(
     natural_key: str,
     hops: int = Query(1, ge=1, le=2),
+    exclude_stubs: bool = Query(True),
     driver: AsyncDriver = Depends(get_neo4j_driver),
 ) -> GraphPayload:
-    payload = await expand(natural_key=natural_key, depth=hops, driver=driver)
+    payload = await expand(natural_key=natural_key, depth=hops, exclude_stubs=exclude_stubs, driver=driver)
     logger.info("Graph preview payload generated for nk=%s, hops=%s", natural_key, hops)
     return payload

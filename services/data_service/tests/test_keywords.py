@@ -124,3 +124,86 @@ class TestAdminKeyword:
             auth=ADMIN_AUTH,
         )
         assert r.status_code == 404
+
+
+@pytest_asyncio.fixture
+async def client_with_definition(client: AsyncClient):
+    """Override mongo so keyword_definitions.find_one returns a real document."""
+    from unittest.mock import AsyncMock, MagicMock
+    from services.data_service import deps
+    from services.data_service.main import app
+
+    kdef_doc = {
+        "natural_key": "आत्मा",
+        "source_url": "https://jainkosh.org/wiki/आत्मा",
+        "page_sections": [],
+    }
+
+    def _make_mongo():
+        mongo = MagicMock()
+
+        def _col(name):
+            col = MagicMock()
+            col.find_one = AsyncMock(
+                return_value=kdef_doc if name == "keyword_definitions" else None
+            )
+            cursor = MagicMock()
+            cursor.to_list = AsyncMock(return_value=[])
+            col.find = MagicMock(return_value=cursor)
+            return col
+
+        mongo.__getitem__ = MagicMock(side_effect=_col)
+        return mongo
+
+    async def _override():
+        return _make_mongo()
+
+    app.dependency_overrides[deps.get_mongo_db] = _override
+    yield client
+
+    # Restore the empty-mongo override that the base `client` fixture uses
+    from services.data_service.tests.conftest import make_mock_mongo
+
+    async def _restore():
+        return make_mock_mongo()
+
+    app.dependency_overrides[deps.get_mongo_db] = _restore
+
+
+class TestKeywordDefinitionWithMongo:
+    async def test_definition_returned_when_doc_ids_empty(
+        self, client_with_definition: AsyncClient
+    ):
+        from jain_kb_common.db.postgres.keywords import Keyword
+
+        async with client_with_definition.state() as session:  # type: ignore[attr-defined]
+            kw = Keyword(
+                natural_key="आत्मा",
+                display_text="आत्मा",
+                source_url="https://www.jainkosh.org/wiki/आत्मा",
+            )
+            session.add(kw)
+            await session.commit()
+
+        r = await client_with_definition.get("/v1/keywords/आत्मा")
+        assert r.status_code == 200
+        data = r.json()
+        assert data["definition"] is not None
+        assert data["definition"]["natural_key"] == "आत्मा"
+
+    async def test_definition_none_when_not_in_mongo(self, client: AsyncClient):
+        from jain_kb_common.db.postgres.keywords import Keyword
+
+        async with client.state() as session:  # type: ignore[attr-defined]
+            kw = Keyword(
+                natural_key="आत्मा",
+                display_text="आत्मा",
+                source_url="https://www.jainkosh.org/wiki/आत्मा",
+            )
+            session.add(kw)
+            await session.commit()
+
+        r = await client.get("/v1/keywords/आत्मा")
+        assert r.status_code == 200
+        data = r.json()
+        assert data["definition"] is None

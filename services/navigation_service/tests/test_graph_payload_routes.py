@@ -43,3 +43,62 @@ class TestGraphPayloadRoutes:
         data = r.json()
         assert data["focus_nk"] == "आत्मा:बहिरात्मादि-3-भेद"
         assert data["depth"] == 2
+
+
+_STUB_RECORDS = [
+    {
+        "src_nk": "द्रव्य:भेद",
+        "src_label": "Topic",
+        "src_hi": "द्रव्य के भेद",
+        "dst_nk": "द्रव्य:stub-topic",
+        "dst_label": "Topic",
+        "dst_hi": "Stub Topic",
+        "rel_type": "RELATED_TO",
+        "weight": 1.0,
+    }
+]
+
+
+@pytest.mark.parametrize("client_with_neo4j", [_STUB_RECORDS], indirect=True)
+class TestExcludeStubs:
+    async def test_landing_exclude_stubs_true_returns_200(self, client_with_neo4j: AsyncClient):
+        r = await client_with_neo4j.get("/v1/landing?exclude_stubs=true")
+        assert r.status_code == 200
+        data = r.json()
+        assert "nodes" in data
+        assert "edges" in data
+
+    async def test_landing_exclude_stubs_false_returns_200(self, client_with_neo4j: AsyncClient):
+        r = await client_with_neo4j.get("/v1/landing?exclude_stubs=false")
+        assert r.status_code == 200
+        data = r.json()
+        assert "nodes" in data
+        assert "edges" in data
+
+    async def test_expand_exclude_stubs_true_returns_200(self, client_with_neo4j: AsyncClient):
+        r = await client_with_neo4j.get("/v1/expand/द्रव्य:भेद?depth=1&exclude_stubs=true")
+        assert r.status_code == 200
+        data = r.json()
+        assert "nodes" in data
+        assert "edges" in data
+
+    async def test_expand_exclude_stubs_false_returns_200(self, client_with_neo4j: AsyncClient):
+        r = await client_with_neo4j.get("/v1/expand/द्रव्य:भेद?depth=1&exclude_stubs=false")
+        assert r.status_code == 200
+        data = r.json()
+        assert "nodes" in data
+        assert "edges" in data
+
+    async def test_preview_exclude_stubs_true_returns_200(self, client_with_neo4j: AsyncClient):
+        r = await client_with_neo4j.get("/v1/preview/द्रव्य:भेद?hops=1&exclude_stubs=true")
+        assert r.status_code == 200
+        data = r.json()
+        assert "nodes" in data
+        assert "edges" in data
+
+    async def test_preview_exclude_stubs_false_returns_200(self, client_with_neo4j: AsyncClient):
+        r = await client_with_neo4j.get("/v1/preview/द्रव्य:भेद?hops=1&exclude_stubs=false")
+        assert r.status_code == 200
+        data = r.json()
+        assert "nodes" in data
+        assert "edges" in data
