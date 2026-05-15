@@ -1,6 +1,7 @@
 import { ApiError, apiFetch } from './_fetch';
 import type {
   ActivityRow,
+  DefinitionBlock,
   EntityCounts,
   EntityDetail,
   EntityKind,
@@ -47,27 +48,12 @@ export async function getStatsCounts(): Promise<EntityCounts> {
   }
 }
 
-function extractTopicText(e: unknown): string | null {
-  if (typeof e === 'string') return e.trim() || null;
+function extractBlocks(e: unknown): DefinitionBlock[] {
   if (e && typeof e === 'object') {
     const obj = e as Record<string, unknown>;
-    // Pull text from the first block that has content.
-    // hindi_translation is preferred (prose Hindi), text_devanagari is fallback.
-    if (Array.isArray(obj.blocks)) {
-      for (const block of obj.blocks as Array<Record<string, unknown>>) {
-        const hi = typeof block.hindi_translation === 'string' ? block.hindi_translation.trim() : '';
-        if (hi) return hi;
-        const dev = typeof block.text_devanagari === 'string' ? block.text_devanagari.trim() : '';
-        if (dev) return dev;
-      }
-    }
-    // Top-level text_devanagari (simple extract shape)
-    if (typeof obj.text_devanagari === 'string' && obj.text_devanagari.trim()) {
-      return obj.text_devanagari;
-    }
-    // Intentionally NOT using heading — it's the topic title, already in the panel header
+    if (Array.isArray(obj.blocks)) return obj.blocks as DefinitionBlock[];
   }
-  return null;
+  return [];
 }
 
 export async function getEntityDetail(kind: EntityKind, nk: string): Promise<EntityDetail> {
@@ -90,9 +76,7 @@ export async function getEntityDetail(kind: EntityKind, nk: string): Promise<Ent
     const topic = await apiFetch<TopicDetail>(BASE_URL, `/v1/topics/${nk}`);
     const hi = topic.display_text.find((row) => row.lang === 'hi')?.text ?? topic.natural_key;
     const parent = topic.parent_keyword;
-    const textExtracts = topic.extracts
-      .map(extractTopicText)
-      .filter((t): t is string => t !== null);
+    const allBlocks = topic.extracts.flatMap(extractBlocks);
     return {
       nk: topic.natural_key,
       kind: 'topic',
@@ -107,7 +91,7 @@ export async function getEntityDetail(kind: EntityKind, nk: string): Promise<Ent
             edge_kind: 'HAS_TOPIC',
           }]
         : [],
-      topicExtracts: textExtracts.length ? textExtracts : undefined,
+      topicExtracts: allBlocks.length ? allBlocks : undefined,
     };
   }
 

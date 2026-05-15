@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { X, ArrowRight } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { BadgeChip } from '@/components/BadgeChip';
 import { StatTileRow } from '@/components/StatTileRow';
 import { ConnectedItemRow } from '@/components/ConnectedItemRow';
@@ -11,7 +12,7 @@ import { EDGE_LABELS } from '@/components/RelationConnector';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import * as dataApi from '@/lib/api/data';
 import { ApiError } from '@/lib/api/_fetch';
-import type { EdgeKind, EntityDetail, GraphEdge, GraphNode, KeywordPageSection } from '@/lib/types';
+import type { DefinitionBlock, EdgeKind, EntityDetail, GraphEdge, GraphNode, KeywordPageSection } from '@/lib/types';
 
 const EDGE_DESCRIPTIONS: Partial<Record<EdgeKind, string>> = {
   RELATED_TO: 'These two entities are contextually related.',
@@ -29,6 +30,28 @@ function buildTiles(detail: EntityDetail): [{ count: number; label: string }, { 
   ];
 }
 
+function BlockPreview({ block }: { block: DefinitionBlock }) {
+  const isSanskrit = block.kind === 'sanskrit_text' || block.kind === 'prakrit_text';
+  const devanagari = block.text_devanagari.length > 180
+    ? block.text_devanagari.slice(0, 180) + '…'
+    : block.text_devanagari;
+  return (
+    <div className={cn(isSanskrit && 'rounded border-l-4 border-cat-keyword bg-surface-muted p-3')}>
+      <p className={cn(
+        'font-serif-hindi text-foreground',
+        isSanskrit ? 'text-sm' : 'text-[length:var(--font-size-body)]',
+      )}>
+        {devanagari}
+      </p>
+      {block.hindi_translation && (
+        <p className="mt-1 font-serif-hindi text-sm text-foreground-muted">
+          {block.hindi_translation}
+        </p>
+      )}
+    </div>
+  );
+}
+
 function KeywordDefinitionPreview({ sections }: { sections: KeywordPageSection[] }) {
   const section = sections[0];
   if (!section) return null;
@@ -36,14 +59,7 @@ function KeywordDefinitionPreview({ sections }: { sections: KeywordPageSection[]
   return (
     <div className="space-y-2">
       <p className="text-xs font-medium uppercase tracking-wide text-foreground-muted">{section.h2_text}</p>
-      {blocks.map((block, i) => {
-        const text = block.text_devanagari.length > 180
-          ? block.text_devanagari.slice(0, 180) + '…'
-          : block.text_devanagari;
-        return (
-          <p key={i} className="font-serif-hindi text-[length:var(--font-size-body)] text-foreground">{text}</p>
-        );
-      })}
+      {blocks.map((block, i) => <BlockPreview key={i} block={block} />)}
     </div>
   );
 }
@@ -113,10 +129,8 @@ export function DetailsPanel({ open, selected, nodes, edges, depth, onClose, onS
     <KeywordDefinitionPreview sections={detail.definitionSections} />
   ) : detail?.topicExtracts?.length ? (
     <div className="space-y-2">
-      {detail.topicExtracts.slice(0, 2).map((extract, i) => (
-        <p key={i} className="rounded border-l-4 border-accent/40 bg-background px-3 py-2 font-serif-hindi text-sm">
-          {typeof extract === 'string' ? extract : JSON.stringify(extract)}
-        </p>
+      {detail.topicExtracts.slice(0, 2).map((block, i) => (
+        <BlockPreview key={i} block={block} />
       ))}
       {detail.topicExtracts.length > 2 && (
         <p className="text-xs text-foreground-muted">+{detail.topicExtracts.length - 2} और…</p>

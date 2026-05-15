@@ -74,7 +74,7 @@ export interface EntityDetail {
     edge_kind: EdgeKind;
   }>;
   definitionSections?: KeywordPageSection[];
-  topicExtracts?: unknown[];
+  topicExtracts?: DefinitionBlock[];
 }
 
 // Shastra (metadata service)
