@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { NODE_KIND_META } from "./NodeCard";
+import { NODE_KIND_META, EXPAND_ARIA_LABEL, DETAILS_ARIA_LABEL } from "./NodeCard";
 import type { EntityKind } from "@/lib/types";
 
 describe("NODE_KIND_META", () => {
@@ -24,5 +24,15 @@ describe("NODE_KIND_META", () => {
   test("matches shastra spot-check values", () => {
     expect(NODE_KIND_META.shastra.labelHi).toBe("शास्त्र");
     expect(NODE_KIND_META.shastra.catVar).toBe("var(--cat-shastra)");
+  });
+});
+
+describe("expand/collapse button constants", () => {
+  test("EXPAND_ARIA_LABEL is the Hindi label for expand", () => {
+    expect(EXPAND_ARIA_LABEL).toBe('इस नोड से ग्राफ़ का विस्तार करें');
+  });
+
+  test("DETAILS_ARIA_LABEL is the Hindi label for open details", () => {
+    expect(DETAILS_ARIA_LABEL).toBe('विवरण देखें');
   });
 });

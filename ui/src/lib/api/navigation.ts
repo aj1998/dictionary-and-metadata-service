@@ -1,5 +1,6 @@
 import { apiFetch } from './_fetch';
 import type { GraphPayload, TopicNeighborsResponse } from '@/lib/types';
+import { DEFAULT_GRAPH_DEPTH } from '@/lib/config';
 
 const BASE_URL = process.env.NAV_SVC_URL ?? '/api/navigation';
 
@@ -13,7 +14,7 @@ export async function getNavLanding(): Promise<GraphPayload> {
   return apiFetch<GraphPayload>(BASE_URL, `/v1/landing${qs}`);
 }
 
-export async function getNavLandingRandom(depth: 1 | 2 | 3 | 4 = 2): Promise<GraphPayload> {
+export async function getNavLandingRandom(depth: 1 | 2 | 3 | 4 = DEFAULT_GRAPH_DEPTH): Promise<GraphPayload> {
   const params = new URLSearchParams({ depth: String(depth) });
   if (!EXCLUDE_STUBS) params.set('exclude_stubs', 'false');
   return apiFetch<GraphPayload>(BASE_URL, `/v1/landing/random?${params.toString()}`);

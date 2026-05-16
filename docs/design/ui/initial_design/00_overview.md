@@ -2,7 +2,7 @@
 
 This folder contains the detailed UI specification for the public-facing
 **Jain Knowledge Base** website. It is the implementation-level companion
-to [`../14_public_ui.md`](../14_public_ui.md), which lists routes and data
+to [`../14_public_ui.md`](../../14_public_ui.md), which lists routes and data
 contracts. This folder fixes **design, theme, layout, components, and
 interaction patterns** — pixel-level enough that two engineers building
 independently produce visually identical results.

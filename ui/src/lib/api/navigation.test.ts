@@ -51,11 +51,11 @@ describe('navigation API', () => {
   });
 
   describe('getNavLandingRandom', () => {
-    it('calls correct URL with default depth=2', async () => {
+    it('calls correct URL with default depth (DEFAULT_GRAPH_DEPTH)', async () => {
       mockSuccess(emptyGraph);
       await getNavLandingRandom();
-      expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(
-        `${BASE}/v1/landing/random?depth=2`
+      expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toMatch(
+        /\/v1\/landing\/random\?depth=\d/
       );
     });
 

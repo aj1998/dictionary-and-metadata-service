@@ -38,6 +38,7 @@ export interface CanvasNode extends SimNodeInput {
   selected?: boolean;
   faded?: boolean;
   pinned?: boolean;
+  expanded?: boolean;
 }
 
 export interface CanvasEdge extends SimEdgeInput {
@@ -87,6 +88,7 @@ interface EdgesAndNodesProps {
   onNodeClick?: (nk: string) => void;
   onNodeDoubleClick?: (nk: string) => void;
   onNodePinToggle?: (nk: string) => void;
+  onNodeExpand?: (nk: string) => void;
   onEdgeClick?: (id: string) => void;
 }
 
@@ -98,6 +100,7 @@ const EdgesAndNodes = memo(function EdgesAndNodes({
   onNodeClick,
   onNodeDoubleClick,
   onNodePinToggle,
+  onNodeExpand,
   onEdgeClick,
 }: EdgesAndNodesProps) {
   return (
@@ -156,9 +159,11 @@ const EdgesAndNodes = memo(function EdgesAndNodes({
               selected={node.selected}
               faded={node.faded}
               pinned={node.pinned}
+              expanded={node.expanded}
               onClick={() => onNodeClick?.(node.nk)}
               onDoubleClick={() => onNodeDoubleClick?.(node.nk)}
               onPinToggle={() => onNodePinToggle?.(node.nk)}
+              onExpand={() => onNodeExpand?.(node.nk)}
             />
           </foreignObject>
         ))}
@@ -178,6 +183,7 @@ interface GraphCanvasProps {
   onNodeClick?(nk: string): void;
   onNodeDoubleClick?(nk: string): void;
   onNodePinToggle?(nk: string): void;
+  onNodeExpand?(nk: string): void;
   onEdgeClick?(id: string): void;
   onCanvasClick?(): void;
   className?: string;
@@ -191,6 +197,7 @@ export function GraphCanvas({
   onNodeClick,
   onNodeDoubleClick,
   onNodePinToggle,
+  onNodeExpand,
   onEdgeClick,
   onCanvasClick,
   className,
@@ -423,6 +430,7 @@ export function GraphCanvas({
             onNodeClick={onNodeClick}
             onNodeDoubleClick={onNodeDoubleClick}
             onNodePinToggle={onNodePinToggle}
+            onNodeExpand={onNodeExpand}
             onEdgeClick={onEdgeClick}
           />
         </g>

@@ -95,8 +95,7 @@ Manual verification steps (from the spec, for Phase 1):
 2. Navigate to /graph with no query params — confirm a different seed renders each refresh, depth=2 by default, URL rewrites to ?node=…
 3. Change depth stepper — confirm node count grows with depth
 
----
-Bugfixes:
+### Bugfixes:
 
 Bug 1 - Depth stepper had no effect on the graph data layout.tsx was calling setDepth() which only updated the number in the store — it never re-fetched from the backend. So changing depth=2 → depth=1 kept all the same (accumulated) nodes visible.
  
@@ -115,4 +114,15 @@ When loading with no ?node= param, the boot picked a random seed and called seed
 Fix: Added seedNk: string | null to the store state, set on every seedFromPayload call. The URL sync in page.tsx now uses selectedNode ?? seedNk so ?node= is always preserved in the URL even when no node is 
 explicitly selected
 
----
+### Section 2
+
+Behavior changes:
+- onNodeClick / onNodeDoubleClick → now only call selectNode (no auto-expand)
+- Each NodeCard has two new icon buttons: Maximize2 (expand) and ChevronRight (details), both with proper aria-label and stopPropagation 
+- The expand button is visually accented (text-accent) when the node is already expanded 
+ 
+Collapse logic:
+- nodeOrigins: Record<string, Set<string>> tracks which expander (or 'seed') brought each node into the graph
+- Seed nodes get origin 'seed' and are never removable by collapse 
+- expandFromNode adds the expander's nk to each node's origin set
+- collapseNode(nk) removes nk from all origin sets, then deletes any node whose origin set is now empty (except seedNk), and cleans up dangling edges

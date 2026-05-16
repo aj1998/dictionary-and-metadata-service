@@ -1,8 +1,11 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { ChevronRight, Pin, BookOpen, ScrollText, Tag, Sparkles } from '@/lib/icons';
+import { ChevronRight, Maximize2, Pin, BookOpen, ScrollText, Tag, Sparkles } from '@/lib/icons';
 import type { EntityKind } from '@/lib/types';
+
+export const EXPAND_ARIA_LABEL = 'इस नोड से ग्राफ़ का विस्तार करें';
+export const DETAILS_ARIA_LABEL = 'विवरण देखें';
 
 export const NODE_KIND_META: Record<
   EntityKind,
@@ -27,9 +30,11 @@ export interface NodeCardProps {
   selected?: boolean;
   pinned?: boolean;
   faded?: boolean;
+  expanded?: boolean;
   onClick?(): void;
   onDoubleClick?(): void;
   onPinToggle?(): void;
+  onExpand?(): void;
   className?: string;
 }
 
@@ -41,9 +46,11 @@ export function NodeCard({
   selected = false,
   pinned = false,
   faded = false,
+  expanded = false,
   onClick,
   onDoubleClick,
   onPinToggle,
+  onExpand,
   className,
 }: NodeCardProps) {
   const { labelHi, labelEn, Icon, catVar } = NODE_KIND_META[kind];
@@ -133,7 +140,7 @@ export function NodeCard({
               onPinToggle?.();
             }}
             className={cn(
-              'absolute right-7 top-2 rounded p-0.5',
+              'absolute right-[72px] top-2 rounded p-0.5',
               selected ? 'text-white/80 hover:text-white' : 'text-foreground-muted hover:text-foreground',
             )}
           >
@@ -141,12 +148,45 @@ export function NodeCard({
           </button>
         )}
 
-        {/* Expand chevron */}
-        <ChevronRight
-          size={16}
-          strokeWidth={1.5}
-          className={selected ? 'text-white/60' : 'text-foreground-subtle'}
-        />
+        {/* Expand button */}
+        <button
+          type="button"
+          aria-label={EXPAND_ARIA_LABEL}
+          aria-pressed={expanded}
+          onClick={(e) => {
+            e.stopPropagation();
+            onExpand?.();
+          }}
+          className={cn(
+            'flex h-8 w-8 shrink-0 items-center justify-center rounded focus-visible:outline-2 focus-visible:outline-offset-1',
+            selected
+              ? 'text-white/60 hover:text-white focus-visible:outline-white'
+              : [
+                  'text-foreground-subtle hover:text-foreground focus-visible:outline-accent',
+                  expanded && 'text-accent',
+                ],
+          )}
+        >
+          <Maximize2 size={14} strokeWidth={1.5} />
+        </button>
+
+        {/* Details button */}
+        <button
+          type="button"
+          aria-label={DETAILS_ARIA_LABEL}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick?.();
+          }}
+          className={cn(
+            'flex h-8 w-8 shrink-0 items-center justify-center rounded focus-visible:outline-2 focus-visible:outline-offset-1',
+            selected
+              ? 'text-white/60 hover:text-white focus-visible:outline-white'
+              : 'text-foreground-subtle hover:text-foreground focus-visible:outline-accent',
+          )}
+        >
+          <ChevronRight size={16} strokeWidth={1.5} />
+        </button>
       </div>
 
       {/* Separator */}

@@ -1,4 +1,5 @@
 import type { EntityKind } from '@/lib/types';
+import { DEFAULT_GRAPH_DEPTH } from '@/lib/config';
 
 const VALID_CATS: EntityKind[] = ['shastra', 'gatha', 'topic', 'keyword'];
 
@@ -10,8 +11,8 @@ export interface ParsedGraphQuery {
 }
 
 export function parseGraphQuery(params: URLSearchParams): ParsedGraphQuery {
-  const rawDepth = Number(params.get('depth') ?? 2);
-  const bounded = Math.max(1, Math.min(4, Number.isFinite(rawDepth) ? rawDepth : 2)) as 1 | 2 | 3 | 4;
+  const rawDepth = Number(params.get('depth') ?? DEFAULT_GRAPH_DEPTH);
+  const bounded = Math.max(1, Math.min(4, Number.isFinite(rawDepth) ? rawDepth : DEFAULT_GRAPH_DEPTH)) as 1 | 2 | 3 | 4;
 
   const hiddenCats = (params.get('cat') ?? '')
     .split(',')

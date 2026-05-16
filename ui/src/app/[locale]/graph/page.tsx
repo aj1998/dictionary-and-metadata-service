@@ -23,6 +23,7 @@ export default function GraphPage() {
   const clearSelection = useGraphStore((s) => s.clearSelection);
   const togglePin = useGraphStore((s) => s.togglePin);
   const expandFromNode = useGraphStore((s) => s.expandFromNode);
+  const collapseNode = useGraphStore((s) => s.collapseNode);
   const seedFromPayload = useGraphStore((s) => s.seedFromPayload);
   const setDepth = useGraphStore((s) => s.setDepth);
 
@@ -98,8 +99,11 @@ export default function GraphPage() {
 
   const canvasNodes = useMemo<CanvasNode[]>(() => {
     const selectedNodeId = selected?.kind === 'node' ? selected.id : null;
-    return buildCanvasNodes(nodes, categoryVisibility, selectedNodeId, pinned) as CanvasNode[];
-  }, [nodes, selected, pinned, categoryVisibility]);
+    return buildCanvasNodes(nodes, categoryVisibility, selectedNodeId, pinned).map((n) => ({
+      ...n,
+      expanded: expanded.has(n.nk),
+    })) as CanvasNode[];
+  }, [nodes, selected, pinned, categoryVisibility, expanded]);
 
   const canvasEdges = useMemo<CanvasEdge[]>(() => {
     const renderedNks = new Set(canvasNodes.map((n) => n.nk));
@@ -114,15 +118,16 @@ export default function GraphPage() {
         edges={canvasEdges}
         layout={layout}
         focusNk={focusNk}
-        onNodeClick={(nk) => {
-          selectNode(nk);
-          if (!expanded.has(nk)) void expandFromNode(nk, depth);
-        }}
-        onNodeDoubleClick={(nk) => {
-          selectNode(nk);
-          void expandFromNode(nk, 1);
-        }}
+        onNodeClick={(nk) => selectNode(nk)}
+        onNodeDoubleClick={(nk) => selectNode(nk)}
         onNodePinToggle={togglePin}
+        onNodeExpand={(nk) => {
+          if (expanded.has(nk)) {
+            collapseNode(nk);
+          } else {
+            void expandFromNode(nk, depth);
+          }
+        }}
         onEdgeClick={selectEdge}
         onCanvasClick={clearSelection}
       />

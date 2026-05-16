@@ -22,7 +22,8 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Companion t
 | 12 | [Query engine](./12_query_engine.md) | Tokenize → normalize → resolve → traverse → rank |
 | 13 | [Admin UI](./13_admin_ui.md) | Internal control plane — pages, endpoints, auth |
 | 14 | [Public UI](./14_public_ui.md) | Hindi-first browse + search frontend (routes & data contracts) |
-| 14a | [Public UI — detailed design](./ui/00_overview.md) | Design system, layout, graph traversal page, components, interactions, a11y |
+| 14a | [Public UI — inital design](./ui/initial_design/00_overview.md) | Initial design system, layout, graph traversal page, components, interactions, a11y |
+| 14b | [Public UI — updated wiki and directory](/ui/README.md) | UI directory |
 | 15 | [Deployment](./15_deployment.md) | docker-compose, nginx, env vars, backups, sizing |
 | 16 | [Testing & fixtures](./16_testing_and_fixtures.md) | Per-module test plans, goldens, e2e happy path |
 

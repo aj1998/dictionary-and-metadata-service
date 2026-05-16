@@ -101,6 +101,7 @@ ui/
 │   │   ├── request.ts          # getRequestConfig
 │   │   └── navigation.ts       # Locale-aware Link, usePathname, useRouter, redirect
 │   ├── lib/
+│   │   ├── config.ts           # Runtime config — reads NEXT_PUBLIC_* env vars (e.g. DEFAULT_GRAPH_DEPTH)
 │   │   ├── types.ts            # All shared TypeScript types
 │   │   ├── icons.ts            # Reserved lucide-react icon re-exports
 │   │   ├── nav.ts              # isNavActive, truncateLabel, nav item arrays
@@ -177,6 +178,22 @@ The UI never calls backend ports directly from the browser — always through th
 - `localhost:3000/en` → English
 
 Component gallery: `localhost:3000/dev` (or `/en/dev`).
+
+### Environment variables (graph)
+
+Create `ui/.env.local` to override defaults without touching committed code:
+
+| Variable | Default | Description |
+|---|---|---|
+| `NEXT_PUBLIC_DEFAULT_GRAPH_DEPTH` | `1` | Initial traversal depth when no `?depth=` URL param is present. Valid values: `1`, `2`, `3`, `4`. Invalid values silently fall back to `1`. |
+
+Example `.env.local`:
+
+```env
+NEXT_PUBLIC_DEFAULT_GRAPH_DEPTH=2
+```
+
+The value is read once at module load time by `src/lib/config.ts` and consumed by the graph store initial state, the URL parser fallback, and the `getNavLandingRandom` default parameter.
 
 ---
 
@@ -386,9 +403,9 @@ Key interfaces:
 Files: `src/app/[locale]/graph/`
 
 ### Boot sequence (`page.tsx`)
-1. Read URL params: `?node`, `?edge`, `?depth`, `?cat`.
+1. Read URL params: `?node`, `?edge`, `?depth`, `?cat`. Depth falls back to `DEFAULT_GRAPH_DEPTH` (from `lib/config.ts`) when absent.
 2. Apply depth and category visibility to store.
-3. If `?node` → `expandFromNode(nk, depth)`. Otherwise → `getNavLanding()` → `seedFromPayload()`.
+3. If `?node` → `expandFromNode(nk, depth)`. Otherwise → `getNavLandingRandom(depth)` → `seedFromPayload()`. On first random landing the chosen `focus_nk` is immediately written to `?node=` via `history.replaceState` so refresh is deterministic.
 4. Force simulation starts and settles automatically.
 5. URL sync: 500ms debounce, `history.replaceState`.
 
@@ -444,7 +461,7 @@ type GraphState = {
   pinned: Set<string>;
   selected: { kind: 'node'; id: string } | { kind: 'edge'; id: string } | null;
   categoryVisibility: Record<EntityKind, boolean>;
-  depth: 1 | 2 | 3 | 4;
+  depth: 1 | 2 | 3 | 4;          // initial value = DEFAULT_GRAPH_DEPTH (env-configurable, default 1)
   layout: 'force' | 'radial' | 'hierarchical';
   camera: { x: number; y: number; k: number };
   loading: boolean;
