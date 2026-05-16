@@ -94,3 +94,25 @@ Manual verification steps (from the spec, for Phase 1):
 1. pnpm dev + navigation service running 
 2. Navigate to /graph with no query params — confirm a different seed renders each refresh, depth=2 by default, URL rewrites to ?node=…
 3. Change depth stepper — confirm node count grows with depth
+
+---
+Bugfixes:
+
+Bug 1 - Depth stepper had no effect on the graph data layout.tsx was calling setDepth() which only updated the number in the store — it never re-fetched from the backend. So changing depth=2 → depth=1 kept all the same (accumulated) nodes visible.
+ 
+Fix: Added a changeDepth(depth) action to the store (graphStore.ts:125-144) that:
+1. Updates the depth value
+2. Re-fetches expandNode from the current focus node at the new depth (selected node → seed node → nothing)
+3. Replaces (not merges) the graph data so the canvas reflects exactly depth-N from the focus
+ 
+layout.tsx now calls changeDepth instead of setDepth.
+ 
+Bug 2 — URL lost the seed node 500ms after boot
+
+When loading with no ?node= param, the boot picked a random seed and called seedFromPayload(landing, null). 500ms later the URL sync effect fired and wrote ?depth=2 with no ?node= (because nothing was 
+"selected"). On the next refresh, a different random seed was picked.
+ 
+Fix: Added seedNk: string | null to the store state, set on every seedFromPayload call. The URL sync in page.tsx now uses selectedNode ?? seedNk so ?node= is always preserved in the URL even when no node is 
+explicitly selected
+
+---
