@@ -13,7 +13,7 @@ export default function GraphLayout({ children }: { children: React.ReactNode })
   const edges = useGraphStore((s) => s.edges);
   const selected = useGraphStore((s) => s.selected);
   const setCategoryVisibility = useGraphStore((s) => s.setCategoryVisibility);
-  const setDepth = useGraphStore((s) => s.setDepth);
+  const changeDepth = useGraphStore((s) => s.changeDepth);
   const setLayout = useGraphStore((s) => s.setLayout);
   const reset = useGraphStore((s) => s.reset);
   const clearSelection = useGraphStore((s) => s.clearSelection);
@@ -27,7 +27,7 @@ export default function GraphLayout({ children }: { children: React.ReactNode })
           visibility={categoryVisibility}
           onToggle={(kind: EntityKind) => setCategoryVisibility(kind, !categoryVisibility[kind])}
           depth={depth}
-          onDepthChange={(next) => setDepth(next as 1 | 2 | 3 | 4)}
+          onDepthChange={(next) => void changeDepth(next as 1 | 2 | 3 | 4)}
           layout={layout}
           onLayoutChange={setLayout}
           onReset={reset}

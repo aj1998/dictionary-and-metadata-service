@@ -26,6 +26,7 @@ type GraphState = {
   camera: { x: number; y: number; k: number };
   loading: boolean;
   lastError: string | null;
+  seedNk: string | null;
   selectNode: (id: string) => void;
   selectEdge: (id: string) => void;
   clearSelection: () => void;
@@ -34,6 +35,7 @@ type GraphState = {
   expandFromNode: (nk: string, depth: 1 | 2 | 3 | 4, confirm?: (newCount: number) => boolean) => Promise<void>;
   setCategoryVisibility: (kind: EntityKind, visible: boolean) => void;
   setDepth: (depth: 1 | 2 | 3 | 4) => void;
+  changeDepth: (depth: 1 | 2 | 3 | 4) => Promise<void>;
   setLayout: (layout: 'force' | 'radial' | 'hierarchical') => void;
   setCamera: (camera: { x: number; y: number; k: number }) => void;
   reset: () => void;
@@ -63,6 +65,7 @@ const initialState = {
   camera: { x: 0, y: 0, k: 1 },
   loading: false,
   lastError: null,
+  seedNk: null as string | null,
 };
 
 export const useGraphStore = create<GraphState>((set, get) => ({
@@ -84,6 +87,7 @@ export const useGraphStore = create<GraphState>((set, get) => ({
       selected: selectedNk ? { kind: 'node', id: selectedNk } : state.selected,
       expanded: new Set(state.expanded).add(payload.focus_nk),
       depth: Math.max(1, Math.min(4, payload.depth)) as 1 | 2 | 3 | 4,
+      seedNk: payload.focus_nk,
     };
   }),
   expandFromNode: async (nk, depth, confirm) => {
@@ -105,6 +109,7 @@ export const useGraphStore = create<GraphState>((set, get) => ({
         return {
           ...merged,
           expanded: new Set(state.expanded).add(nk),
+          seedNk: state.seedNk ?? nk,
           loading: false,
         };
       });
@@ -117,6 +122,26 @@ export const useGraphStore = create<GraphState>((set, get) => ({
     categoryVisibility: { ...state.categoryVisibility, [kind]: visible },
   })),
   setDepth: (depth) => set({ depth }),
+  changeDepth: async (depth) => {
+    const { selected, seedNk } = get();
+    const focusNk = (selected?.kind === 'node' ? selected.id : null) ?? seedNk;
+    set({ depth });
+    if (!focusNk) return;
+    set({ loading: true, lastError: null });
+    try {
+      const payload = await navigationApi.expandNode(focusNk, depth);
+      set({
+        nodes: Object.fromEntries(payload.nodes.map((n) => [n.nk, n])),
+        edges: Object.fromEntries(payload.edges.map((e) => [e.id, e])),
+        expanded: new Set([focusNk]),
+        pinned: new Set<string>(),
+        loading: false,
+      });
+    } catch {
+      console.warn('changeDepth failed');
+      set({ loading: false, lastError: 'depth change failed' });
+    }
+  },
   setLayout: (layout) => set({ layout }),
   setCamera: (camera) => set({ camera }),
   reset: () => set({ ...initialState, categoryVisibility: { ...DEFAULT_VISIBILITY } }),

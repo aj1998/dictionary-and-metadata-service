@@ -7,9 +7,16 @@ const BASE_URL = process.env.NAV_SVC_URL ?? '/api/navigation';
 // Defaults to true (stubs hidden) to keep the graph uncluttered.
 const EXCLUDE_STUBS = process.env.NEXT_PUBLIC_GRAPH_EXCLUDE_STUBS !== 'false';
 
+// deprecated: replaced by /v1/landing/random
 export async function getNavLanding(): Promise<GraphPayload> {
   const qs = EXCLUDE_STUBS ? '' : '?exclude_stubs=false';
   return apiFetch<GraphPayload>(BASE_URL, `/v1/landing${qs}`);
+}
+
+export async function getNavLandingRandom(depth: 1 | 2 | 3 | 4 = 2): Promise<GraphPayload> {
+  const params = new URLSearchParams({ depth: String(depth) });
+  if (!EXCLUDE_STUBS) params.set('exclude_stubs', 'false');
+  return apiFetch<GraphPayload>(BASE_URL, `/v1/landing/random?${params.toString()}`);
 }
 
 export async function expandNode(nk: string, depth: 1 | 2 | 3 | 4): Promise<GraphPayload> {

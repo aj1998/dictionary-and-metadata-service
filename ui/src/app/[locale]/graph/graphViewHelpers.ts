@@ -1,7 +1,5 @@
 import type { GraphNode, GraphEdge, EntityKind, EdgeKind } from '@/lib/types';
 
-export const MAX_GRAPH_NODES = 20;
-
 // ─── Hierarchical layout constants (exported for tests) ───────────────────────
 
 /** Vertical distance (px) between BFS depth levels in hierarchical mode. */
@@ -31,20 +29,17 @@ export interface RenderedEdge {
 }
 
 /**
- * Returns at most `limit` visible nodes, mapped to canvas shape.
- * Nodes with hidden categories are excluded before the slice, so the
- * limit always applies to what is actually rendered.
+ * Returns all visible nodes mapped to canvas shape.
+ * Nodes with hidden categories are excluded.
  */
 export function buildCanvasNodes(
   nodes: Record<string, GraphNode>,
   categoryVisibility: Record<EntityKind, boolean>,
   selectedNodeId: string | null,
   pinned: Set<string>,
-  limit = MAX_GRAPH_NODES,
 ): RenderedNode[] {
   return Object.values(nodes)
     .filter((n) => categoryVisibility[n.kind])
-    .slice(0, limit)
     .map((n) => ({
       nk: n.nk,
       kind: n.kind,

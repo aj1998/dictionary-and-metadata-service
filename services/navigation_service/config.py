@@ -1,6 +1,11 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import model_validator
 
+LANDING_SEED_KEYWORDS: list[str] = [
+    "द्रव्य",
+    "पर्याय",
+]
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")

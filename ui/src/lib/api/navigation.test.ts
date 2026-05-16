@@ -1,6 +1,6 @@
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { ApiError } from './_fetch';
-import { getNavLanding, expandNode, getPreview, getTopicNeighbors } from './navigation';
+import { getNavLanding, getNavLandingRandom, expandNode, getPreview, getTopicNeighbors } from './navigation';
 
 const BASE = 'http://localhost:3000/api/navigation';
 
@@ -47,6 +47,36 @@ describe('navigation API', () => {
       mockError(500);
       await expect(getNavLanding()).rejects.toThrow(ApiError);
       await expect(getNavLanding()).rejects.toMatchObject({ status: 500 });
+    });
+  });
+
+  describe('getNavLandingRandom', () => {
+    it('calls correct URL with default depth=2', async () => {
+      mockSuccess(emptyGraph);
+      await getNavLandingRandom();
+      expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(
+        `${BASE}/v1/landing/random?depth=2`
+      );
+    });
+
+    it('passes custom depth to the URL', async () => {
+      mockSuccess(emptyGraph);
+      await getNavLandingRandom(3);
+      expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(
+        `${BASE}/v1/landing/random?depth=3`
+      );
+    });
+
+    it('returns graph payload', async () => {
+      mockSuccess(emptyGraph);
+      const result = await getNavLandingRandom(2);
+      expect(result).toEqual(emptyGraph);
+    });
+
+    it('throws ApiError on error', async () => {
+      mockError(503);
+      await expect(getNavLandingRandom()).rejects.toThrow(ApiError);
+      await expect(getNavLandingRandom()).rejects.toMatchObject({ status: 503 });
     });
   });
 

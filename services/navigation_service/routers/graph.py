@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 import logging
+import random
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from neo4j import AsyncDriver
 from pydantic import BaseModel
 
-from ..config import settings
+from ..config import LANDING_SEED_KEYWORDS, settings
 from ..deps import get_neo4j_driver
 from ..schemas.neighbors import ShortestPathResponse
 from ..services import traversal as trav_svc
@@ -142,6 +143,29 @@ async def landing(
     focus_nk = records[0].get("src_nk") if records else "topic:landing"
     logger.info("Graph landing payload generated with %s records (exclude_stubs=%s)", len(records), exclude_stubs)
     return _build_payload(records, focus_nk=focus_nk or "topic:landing", depth=1)
+
+
+@router.get("/landing/random", response_model=GraphPayload)
+async def landing_random(
+    depth: int = Query(2, ge=1, le=4),
+    exclude_stubs: bool = Query(True),
+    driver: AsyncDriver = Depends(get_neo4j_driver),
+) -> GraphPayload:
+    seeds = list(LANDING_SEED_KEYWORDS)
+    random.shuffle(seeds)
+    attempts = seeds[:4]
+
+    for seed_nk in attempts:
+        payload = await expand(natural_key=seed_nk, depth=depth, exclude_stubs=exclude_stubs, driver=driver)
+        if payload.edges:
+            logger.info(
+                "Graph landing/random: using seed=%s, depth=%s, nodes=%s, edges=%s",
+                seed_nk, depth, len(payload.nodes), len(payload.edges),
+            )
+            return payload
+
+    logger.warning("Graph landing/random: no seed available after %d attempts", len(attempts))
+    raise HTTPException(503, detail={"code": "no_seed_available"})
 
 
 @router.get("/expand/{natural_key}", response_model=GraphPayload)

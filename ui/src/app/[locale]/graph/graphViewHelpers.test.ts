@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest';
 import {
-  MAX_GRAPH_NODES,
   buildCanvasNodes,
   buildCanvasEdges,
   computeHierarchicalPositions,
@@ -28,26 +27,43 @@ function makeEdge(id: string, src: string, dst: string): GraphEdge {
   return { id, src, dst, kind: 'RELATED_TO', weight: 1 };
 }
 
-// ─── Bug 1a: MAX_GRAPH_NODES constant ─────────────────────────────────────────
-
-describe('MAX_GRAPH_NODES', () => {
-  it('is 20', () => {
-    expect(MAX_GRAPH_NODES).toBe(20);
-  });
-});
-
-// ─── Bug 1b: buildCanvasNodes — node limit ────────────────────────────────────
+// ─── buildCanvasNodes ─────────────────────────────────────────────────────────
 
 describe('buildCanvasNodes', () => {
-  it('returns at most MAX_GRAPH_NODES nodes when the store has more', () => {
+  it('returns all nodes — no cap', () => {
     const nodes: Record<string, GraphNode> = {};
     for (let i = 0; i < 30; i++) nodes[`n${i}`] = makeNode(`n${i}`);
 
     const result = buildCanvasNodes(nodes, ALL_VISIBLE, null, new Set());
-    expect(result).toHaveLength(MAX_GRAPH_NODES);
+    expect(result).toHaveLength(30);
   });
 
-  it('returns fewer than MAX_GRAPH_NODES when fewer nodes are present', () => {
+  it('returns all depth-1 neighbors from a depth-1 fixture', () => {
+    // Focus + 5 direct neighbors → all 6 should be returned
+    const nodes: Record<string, GraphNode> = {
+      focus: makeNode('focus'),
+      n1: makeNode('n1'),
+      n2: makeNode('n2'),
+      n3: makeNode('n3'),
+      n4: makeNode('n4'),
+      n5: makeNode('n5'),
+    };
+    const result = buildCanvasNodes(nodes, ALL_VISIBLE, null, new Set());
+    expect(result).toHaveLength(6);
+    expect(result.map((n) => n.nk)).toContain('focus');
+  });
+
+  it('returns the union of depth-1 and depth-2 neighbors from a depth-2 fixture', () => {
+    const nodes: Record<string, GraphNode> = {};
+    // 3 depth-1 neighbors + 4 depth-2 neighbors + focus = 8
+    ['focus', 'd1a', 'd1b', 'd1c', 'd2a', 'd2b', 'd2c', 'd2d'].forEach((nk) => {
+      nodes[nk] = makeNode(nk);
+    });
+    const result = buildCanvasNodes(nodes, ALL_VISIBLE, null, new Set());
+    expect(result).toHaveLength(8);
+  });
+
+  it('returns fewer nodes when fewer are present', () => {
     const nodes: Record<string, GraphNode> = {
       a: makeNode('a'),
       b: makeNode('b'),
@@ -56,15 +72,7 @@ describe('buildCanvasNodes', () => {
     expect(result).toHaveLength(2);
   });
 
-  it('respects a custom limit passed as the fifth argument', () => {
-    const nodes: Record<string, GraphNode> = {};
-    for (let i = 0; i < 10; i++) nodes[`n${i}`] = makeNode(`n${i}`);
-
-    expect(buildCanvasNodes(nodes, ALL_VISIBLE, null, new Set(), 5)).toHaveLength(5);
-    expect(buildCanvasNodes(nodes, ALL_VISIBLE, null, new Set(), 3)).toHaveLength(3);
-  });
-
-  it('excludes nodes whose category is toggled off before slicing', () => {
+  it('excludes nodes whose category is toggled off', () => {
     const nodes: Record<string, GraphNode> = {
       t1: makeNode('t1', 'topic'),
       k1: makeNode('k1', 'keyword'),
@@ -91,13 +99,13 @@ describe('buildCanvasNodes', () => {
   });
 });
 
-// ─── Bug 1c: buildCanvasEdges — no dangling edges ────────────────────────────
+// ─── buildCanvasEdges — no dangling edges ────────────────────────────────────
 
 describe('buildCanvasEdges', () => {
   it('excludes edges whose source is not in the rendered set', () => {
     const nodes = { a: makeNode('a'), b: makeNode('b'), c: makeNode('c') };
     const edges = { e1: makeEdge('e1', 'a', 'b'), e2: makeEdge('e2', 'c', 'b') };
-    // c is in the store but NOT in the rendered set (beyond the 20-node slice)
+    // c is in the store but NOT in the rendered set (category hidden)
     const rendered = new Set(['a', 'b']);
     const result = buildCanvasEdges(edges, nodes, rendered, ALL_VISIBLE, null);
     expect(result.map((e) => e.id)).toEqual(['e1']);

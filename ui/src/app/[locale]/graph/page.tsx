@@ -13,6 +13,7 @@ export default function GraphPage() {
   const selected = useGraphStore((s) => s.selected);
   const pinned = useGraphStore((s) => s.pinned);
   const expanded = useGraphStore((s) => s.expanded);
+  const seedNk = useGraphStore((s) => s.seedNk);
   const depth = useGraphStore((s) => s.depth);
   const layout = useGraphStore((s) => s.layout);
   const categoryVisibility = useGraphStore((s) => s.categoryVisibility);
@@ -44,8 +45,10 @@ export default function GraphPage() {
           selectNode(parsed.node);
           await expandFromNode(parsed.node, parsed.depth);
         } else {
-          const landing = await navigationApi.getNavLanding();
+          const landing = await navigationApi.getNavLandingRandom(parsed.depth);
           seedFromPayload(landing, null);
+          // seedNk is now stored in the store; the URL sync effect will write ?node=seedNk
+          // within 500 ms so that page refresh loads the same graph.
         }
         if (parsed.edge) selectEdge(parsed.edge);
       } catch {
@@ -60,8 +63,11 @@ export default function GraphPage() {
   useEffect(() => {
     const handle = window.setTimeout(() => {
       const hiddenCats = (Object.entries(categoryVisibility).filter(([, v]) => !v).map(([k]) => k)) as Array<'shastra' | 'gatha' | 'topic' | 'keyword'>;
+      // Preserve the seed node in the URL even when nothing is explicitly selected,
+      // so that page refresh loads the same graph instead of picking a new random seed.
+      const nodeForUrl = (selected?.kind === 'node' ? selected.id : null) ?? seedNk;
       const query = buildGraphQuery({
-        selectedNode: selected?.kind === 'node' ? selected.id : null,
+        selectedNode: nodeForUrl,
         selectedEdge: selected?.kind === 'edge' ? selected.id : null,
         depth,
         hiddenCats,
@@ -70,7 +76,7 @@ export default function GraphPage() {
       window.history.replaceState(null, '', url);
     }, 500);
     return () => window.clearTimeout(handle);
-  }, [selected, depth, categoryVisibility]);
+  }, [selected, depth, categoryVisibility, seedNk]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {

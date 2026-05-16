@@ -48,7 +48,7 @@ Four separate FastAPI apps, each a separate process/Dockerfile, sharing the `jai
 |---|---|---|---|---|
 | `metadata-service` | 8001 | CRUD on authors / shastras / teekas / publications / books / pravachans | Postgres | Postgres |
 | `data-service` | 8002 | Read API for gathas, keywords, topics, kalashas; browse and cross-entity search | Postgres + Mongo | Postgres (admin edits only) |
-| `navigation-service` | 8003 | Neo4j graph navigation: alias resolution, topic neighbors, keyword↔topic links; alias and edge admin | Neo4j + Postgres | Neo4j + Postgres |
+| `navigation-service` | 8003 | Neo4j graph navigation: alias resolution, topic neighbors, keyword↔topic links; random-seed graph landing (`/v1/landing/random`); alias and edge admin | Neo4j + Postgres | Neo4j + Postgres |
 | `query-service` | 8004 | GraphRAG endpoint for `cataloguesearch-chat`: tokenize → resolve → graph-traverse → rank | Postgres + Mongo + Neo4j | Postgres (query_logs) |
 
 ### Data Stores
@@ -134,7 +134,7 @@ See [`IMPLEMENTATION_NOTES.md`](IMPLEMENTATION_NOTES.md) for full details on eac
 | Phase 1 ingestion apply layer (`apply_approved_keyword_payload`) | ✅ |
 | Metadata Service API (port 8001, 60 tests) | ✅ |
 | Data Service API (port 8002, 60 tests) | ✅ |
-| Navigation Service API (port 8003, 32 tests) | ✅ |
+| Navigation Service API (port 8003, 44 passing tests) | ✅ |
 | Query Service API (port 8004, GraphRAG) | 🔜 |
 | Ingestion workers (nikkyjain, vyakaran OCR) | 🔜 |
 | Public UI — Next.js 16 (8 phases: shells, graph, content pages, a11y) | ✅ |

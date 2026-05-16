@@ -72,3 +72,25 @@ Tests added/updated:
 - New: 'deduplicates A→B and B→A edges with the same kind into one rendered edge'
 - New: 'marks the representative active when the duplicate direction is selected'
 - New: 'keeps distinct edges between different node pairs'
+
+---
+## 02_graph_traversal_and_node_colors.md changes
+
+### Section 1
+
+Backend (navigation_service) 
+ 
+- config.py: Added LANDING_SEED_KEYWORDS = ["keyword:द्रव्य", "keyword:पर्याय"] r uters/graph.py: Added GET /v1/landing/random?depth=&exclud _stubs= — picks a random seed, calls the existing expand logic, falls back across seeds if empty, returns 503 with {"code": "no_seed_available"} if 
+all fail ─ ── ─ ─ ── ─ ─ ──── ─── ─── ─ ── ──
+- tests/test_landing_random.py: 6 tests covering focus_nk in seed list, depth param, depth=5 rejection, and fallback behavior
+
+Frontend 
+- navigation.ts: Added getNavLandingRandom(depth) calling the new endpoint; getNavLanding marked deprecated
+- page.tsx: Boot sequence uses getNavLandingRandom(parsed.depth) when no ?node in URL; immediately writes ?node=focus_nk via history.replaceState so refresh is deterministic
+- graphViewHelpers.ts: Removed MAX_GRAPH_NODES = 20 constant and the .slice() in buildCanvasNodes; limit parameter removed 
+- graphViewHelpers.test.ts + navigation.test.ts: Tests updated/added (256 frontend tests all pass, 44/48 backend tests pass — 4 pre-existing failures unrelated to this change)
+ 
+Manual verification steps (from the spec, for Phase 1):
+1. pnpm dev + navigation service running 
+2. Navigate to /graph with no query params — confirm a different seed renders each refresh, depth=2 by default, URL rewrites to ?node=…
+3. Change depth stepper — confirm node count grows with depth
