@@ -4,6 +4,7 @@
   --background: #F7F7F8;
   --surface: #FFFFFF;
   --surface-muted: #FAFAFB;
+  --surface-strong: #f9ecec;
 
   /* Text */
   --foreground: #1A1A1A;
@@ -15,7 +16,7 @@
   --border-strong: #D1D5DB;
 
   /* Accent (red) */
-  --accent: #E63946;
+  --accent: #bf4040;
   --accent-hover: #D62839;
   --accent-foreground: #FFFFFF;
   --accent-soft: #FDECEE;
@@ -43,8 +44,8 @@
   /* Entity category colors */
   --cat-shastra: #E63946;
   --cat-gatha: #F4A261;
-  --cat-topic: #7DCEC6;
-  --cat-keyword: #4A90B5;
+  --cat-topic: #6bc7be;
+  --cat-keyword: #3382ab;
 
   /* Category band foreground colors (text on the header band) */
   --cat-shastra-fg: #FFFFFF;

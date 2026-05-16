@@ -9,8 +9,8 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Complements
 - **Graph traversal** of Jain Knowledge Base in an interactive UI.
 
 <p float="left">
-  <img src="images/graph1.png" width="49%" />
-  <img src="images/graph2.png" width="49%" />
+  <img src="images/website_graph.png" width="49%" />
+  <img src="images/website_node_expanded_details.png" width="49%" />
 </p>
 
 - **Finding exact** sanskrit/prakrit/hindi gatha from shastras and understanding it word to word.

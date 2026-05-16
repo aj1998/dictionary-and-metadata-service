@@ -58,7 +58,7 @@ describe("theme.css token completeness", () => {
 
   it("uses the correct category colors", () => {
     expect(css).toContain("#F4A261"); // --cat-gatha
-    expect(css).toContain("#7DCEC6"); // --cat-topic
+    expect(css).toContain("#6bc7be"); // --cat-topic
     expect(css).toContain("#4A90B5"); // --cat-keyword
   });
 
