@@ -33,6 +33,10 @@ const REQUIRED_TOKENS = [
   "--cat-gatha",
   "--cat-topic",
   "--cat-keyword",
+  "--cat-shastra-fg",
+  "--cat-gatha-fg",
+  "--cat-topic-fg",
+  "--cat-keyword-fg",
   "--radius-sm",
   "--radius-md",
   "--radius-lg",
@@ -54,7 +58,14 @@ describe("theme.css token completeness", () => {
 
   it("uses the correct category colors", () => {
     expect(css).toContain("#F4A261"); // --cat-gatha
-    expect(css).toContain("#2A9D8F"); // --cat-topic
-    expect(css).toContain("#264653"); // --cat-keyword
+    expect(css).toContain("#7DCEC6"); // --cat-topic
+    expect(css).toContain("#4A90B5"); // --cat-keyword
+  });
+
+  it("declares category foreground tokens with correct hex values", () => {
+    expect(css).toContain("--cat-shastra-fg: #FFFFFF");
+    expect(css).toContain("--cat-gatha-fg:   #1A1A1A");
+    expect(css).toContain("--cat-topic-fg:   #1A1A1A");
+    expect(css).toContain("--cat-keyword-fg: #1A1A1A");
   });
 });

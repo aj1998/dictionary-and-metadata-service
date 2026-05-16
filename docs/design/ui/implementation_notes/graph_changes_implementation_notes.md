@@ -78,6 +78,14 @@ Tests added/updated:
 
 ### Section 1
 
+### Decisions / Diversions
+
+- **Seed fallback condition**: uses `payload.edges` (non-empty) rather than `len(nodes) > 1`. An isolated node with no edges is not useful as a landing seed regardless of whether Neo4j returned a record for it.
+- **Fallback attempts**: capped at `min(4, len(LANDING_SEED_KEYWORDS))` — shuffles the list and tries up to 4. With only 2 seeds this tries both.
+- **URL rewrite in boot**: writes `?node=focus_nk` directly via `history.replaceState` inside the `boot` function (not via the 500 ms debounce), so the URL is deterministic immediately on first render before the debounce fires.
+- **`buildCanvasNodes` signature**: `limit` parameter removed entirely (was dead code after removing the slice). No callers used it except tests.
+- **Pre-existing test failures**: `test_edges.py` (4 tests) fails due to a missing `edge_types.yaml` — unrelated to this change.
+
 Backend (navigation_service) 
  
 - config.py: Added LANDING_SEED_KEYWORDS = ["keyword:द्रव्य", "keyword:पर्याय"] r uters/graph.py: Added GET /v1/landing/random?depth=&exclud _stubs= — picks a random seed, calls the existing expand logic, falls back across seeds if empty, returns 503 with {"code": "no_seed_available"} if 
@@ -89,11 +97,6 @@ Frontend
 - page.tsx: Boot sequence uses getNavLandingRandom(parsed.depth) when no ?node in URL; immediately writes ?node=focus_nk via history.replaceState so refresh is deterministic
 - graphViewHelpers.ts: Removed MAX_GRAPH_NODES = 20 constant and the .slice() in buildCanvasNodes; limit parameter removed 
 - graphViewHelpers.test.ts + navigation.test.ts: Tests updated/added (256 frontend tests all pass, 44/48 backend tests pass — 4 pre-existing failures unrelated to this change)
- 
-Manual verification steps (from the spec, for Phase 1):
-1. pnpm dev + navigation service running 
-2. Navigate to /graph with no query params — confirm a different seed renders each refresh, depth=2 by default, URL rewrites to ?node=…
-3. Change depth stepper — confirm node count grows with depth
 
 ### Bugfixes:
 
@@ -126,3 +129,21 @@ Collapse logic:
 - Seed nodes get origin 'seed' and are never removable by collapse 
 - expandFromNode adds the expander's nk to each node's origin set
 - collapseNode(nk) removes nk from all origin sets, then deletes any node whose origin set is now empty (except seedNk), and cleans up dangling edges
+
+### Section 3
+
+#### Decisions / Diversions
+
+- **`bandIconBoxBg` field added to `NODE_KIND_META`**: The spec only mentions `bandFg`, but the icon box needs a distinct translucent overlay per band lightness. Rather than deriving it from `bandFg` at render time (fragile string comparison), the value is stored explicitly in the META: `rgba(255,255,255,0.18)` for white-text bands (shastra, topic, keyword) and `rgba(0,0,0,0.10)` for the dark-text gatha band.
+- **`--cat-topic` darkened to `#1D7A6F`**: Spec preferred this route over bumping font size. The existing theme test's `#2A9D8F` assertion was updated to `#1D7A6F`. The old value no longer appears anywhere in the CSS.
+- **Button idle/hover**: Instead of `text-foreground-subtle hover:text-foreground` (which relied on absolute token colors), buttons inside the band now use `opacity-70 hover:opacity-100` so they lighten/darken relative to the inherited `bandFg` color. This keeps hover behavior correct across all four band colors without needing per-kind button token overrides.
+- **Label font size**: Spec suggested bumping Topic band label to `14px` for WCAG. Since the fix is to darken the token instead, the label size was unified at `14px` (`text-[14px]`) across all four kinds (previously `var(--font-size-sm)` = 13px). This is a minor size bump that also improves readability on the colored bands generally.
+- **Pin indicator position**: Kept `absolute right-[72px] top-2` unchanged — the band wraps the inner flex row at the same depth as the old header div, so relative positioning is unaffected.
+
+#### Files Changed
+
+- `ui/src/styles/theme.css` — `--cat-topic` darkened to `#1D7A6F`; `--cat-*-fg` tokens added
+- `ui/src/app/globals.css` — `--color-cat-*-fg` mapped in `@theme inline`
+- `ui/src/components/NodeCard.tsx` — `bandFg`/`bandIconBoxBg` added to `NODE_KIND_META`; 4 px stripe removed; header band replaces old header row
+- `ui/src/components/NodeCard.test.ts` — two new `describe` blocks for `bandFg` field and CSS variable values
+- `ui/src/styles/theme.test.ts` — `--cat-*-fg` tokens added to `REQUIRED_TOKENS`; topic color assertion updated; new `it` block for fg hex values

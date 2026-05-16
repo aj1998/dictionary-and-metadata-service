@@ -36,3 +36,19 @@ describe("expand/collapse button constants", () => {
     expect(DETAILS_ARIA_LABEL).toBe('विवरण देखें');
   });
 });
+
+describe("Section 3 — full-band color coding", () => {
+  test("all four kinds expose a non-empty bandFg field", () => {
+    for (const entry of Object.values(NODE_KIND_META)) {
+      expect(entry.bandFg).toBeTruthy();
+      expect(typeof entry.bandFg).toBe('string');
+    }
+  });
+
+  test("bandFg references the correct CSS variable per kind", () => {
+    expect(NODE_KIND_META.shastra.bandFg).toBe('var(--cat-shastra-fg)');
+    expect(NODE_KIND_META.gatha.bandFg).toBe('var(--cat-gatha-fg)');
+    expect(NODE_KIND_META.topic.bandFg).toBe('var(--cat-topic-fg)');
+    expect(NODE_KIND_META.keyword.bandFg).toBe('var(--cat-keyword-fg)');
+  });
+});

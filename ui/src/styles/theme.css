@@ -43,8 +43,14 @@
   /* Entity category colors */
   --cat-shastra: #E63946;
   --cat-gatha: #F4A261;
-  --cat-topic: #2A9D8F;
-  --cat-keyword: #264653;
+  --cat-topic: #7DCEC6;
+  --cat-keyword: #4A90B5;
+
+  /* Category band foreground colors (text on the header band) */
+  --cat-shastra-fg: #FFFFFF;
+  --cat-gatha-fg:   #1A1A1A;
+  --cat-topic-fg:   #1A1A1A;
+  --cat-keyword-fg: #1A1A1A;
 
   /* Radii */
   --radius-sm: 6px;

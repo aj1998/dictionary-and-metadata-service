@@ -14,12 +14,14 @@ export const NODE_KIND_META: Record<
     labelEn: string;
     Icon: React.ComponentType<{ size?: number; className?: string; strokeWidth?: number }>;
     catVar: string;
+    bandFg: string;
+    bandIconBoxBg: string;
   }
 > = {
-  shastra: { labelHi: 'शास्त्र', labelEn: 'Shastra', Icon: BookOpen,   catVar: 'var(--cat-shastra)' },
-  gatha:   { labelHi: 'गाथा',   labelEn: 'Gatha',   Icon: ScrollText, catVar: 'var(--cat-gatha)'   },
-  topic:   { labelHi: 'विषय',   labelEn: 'Topic',   Icon: Tag,        catVar: 'var(--cat-topic)'   },
-  keyword: { labelHi: 'कीवर्ड',  labelEn: 'Keyword', Icon: Sparkles,   catVar: 'var(--cat-keyword)' },
+  shastra: { labelHi: 'शास्त्र', labelEn: 'Shastra', Icon: BookOpen,   catVar: 'var(--cat-shastra)', bandFg: 'var(--cat-shastra-fg)', bandIconBoxBg: 'rgba(255,255,255,0.18)' },
+  gatha:   { labelHi: 'गाथा',   labelEn: 'Gatha',   Icon: ScrollText, catVar: 'var(--cat-gatha)',   bandFg: 'var(--cat-gatha-fg)',   bandIconBoxBg: 'rgba(0,0,0,0.10)'       },
+  topic:   { labelHi: 'विषय',   labelEn: 'Topic',   Icon: Tag,        catVar: 'var(--cat-topic)',   bandFg: 'var(--cat-topic-fg)',   bandIconBoxBg: 'rgba(0,0,0,0.10)' },
+  keyword: { labelHi: 'कीवर्ड',  labelEn: 'Keyword', Icon: Sparkles,   catVar: 'var(--cat-keyword)', bandFg: 'var(--cat-keyword-fg)', bandIconBoxBg: 'rgba(0,0,0,0.10)' },
 };
 
 export interface NodeCardProps {
@@ -53,7 +55,7 @@ export function NodeCard({
   onExpand,
   className,
 }: NodeCardProps) {
-  const { labelHi, labelEn, Icon, catVar } = NODE_KIND_META[kind];
+  const { labelHi, labelEn, Icon, catVar, bandFg, bandIconBoxBg } = NODE_KIND_META[kind];
 
   return (
     <div
@@ -81,112 +83,92 @@ export function NodeCard({
         className,
       )}
     >
-      {/* 4 px cat-stripe (hidden when selected — fill replaces it) */}
-      {!selected && (
-        <div
-          className="h-1 rounded-t-[var(--radius-md)]"
-          style={{ backgroundColor: catVar }}
-        />
-      )}
-
-      {/* Header row */}
+      {/* Header band — full-width, tinted with category color when not selected */}
       <div
-        className={cn(
-          'relative flex items-center gap-2 px-3 pb-2',
-          selected ? 'pt-3' : 'pt-2',
-        )}
+        className="relative rounded-t-[var(--radius-md)] px-3 pb-2 pt-3"
+        style={selected ? undefined : { backgroundColor: catVar, color: bandFg }}
       >
-        {/* Icon box */}
-        <div
-          className={cn(
-            'flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--radius-sm)]',
-            selected ? 'bg-white/20' : 'bg-surface-muted',
+        <div className="flex items-center gap-2">
+          {/* Icon box */}
+          <div
+            className={cn('flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--radius-sm)]', selected && 'bg-white/20')}
+            style={selected ? undefined : { backgroundColor: bandIconBoxBg }}
+          >
+            <Icon
+              size={16}
+              strokeWidth={1.5}
+              className={selected ? 'text-white' : undefined}
+            />
+          </div>
+
+          {/* Type labels */}
+          <div className="min-w-0 flex-1">
+            <div className={cn('text-[14px] font-semibold leading-tight', selected && 'text-white')}>
+              {labelHi}
+            </div>
+            <div className={cn('text-[length:var(--font-size-xs)] leading-tight', selected ? 'text-white/70' : 'opacity-80')}>
+              {labelEn}
+            </div>
+          </div>
+
+          {/* Pin indicator */}
+          {pinned && (
+            <button
+              type="button"
+              aria-label="Unpin node"
+              onClick={(e) => {
+                e.stopPropagation();
+                onPinToggle?.();
+              }}
+              className={cn(
+                'absolute right-[72px] top-2 rounded p-0.5',
+                selected ? 'text-white/80 hover:text-white' : 'opacity-60 hover:opacity-100',
+              )}
+            >
+              <Pin size={12} strokeWidth={1.5} />
+            </button>
           )}
-        >
-          <Icon
-            size={16}
-            strokeWidth={1.5}
-            className={selected ? 'text-white' : 'text-foreground-muted'}
-          />
-        </div>
 
-        {/* Type labels */}
-        <div className="min-w-0 flex-1">
-          <div
-            className={cn(
-              'text-[length:var(--font-size-sm)] font-semibold leading-tight',
-              selected ? 'text-white' : 'text-foreground',
-            )}
-          >
-            {labelHi}
-          </div>
-          <div
-            className={cn(
-              'text-[length:var(--font-size-xs)] leading-tight',
-              selected ? 'text-white/70' : 'text-foreground-muted',
-            )}
-          >
-            {labelEn}
-          </div>
-        </div>
-
-        {/* Pin indicator */}
-        {pinned && (
+          {/* Expand button */}
           <button
             type="button"
-            aria-label="Unpin node"
+            aria-label={EXPAND_ARIA_LABEL}
+            aria-pressed={expanded}
             onClick={(e) => {
               e.stopPropagation();
-              onPinToggle?.();
+              onExpand?.();
             }}
             className={cn(
-              'absolute right-[72px] top-2 rounded p-0.5',
-              selected ? 'text-white/80 hover:text-white' : 'text-foreground-muted hover:text-foreground',
+              'flex h-8 w-8 shrink-0 items-center justify-center rounded focus-visible:outline-2 focus-visible:outline-offset-1',
+              selected
+                ? 'text-white/60 hover:text-white focus-visible:outline-white'
+                : [
+                    'opacity-70 hover:opacity-100 focus-visible:outline-accent',
+                    expanded && 'opacity-100',
+                  ],
             )}
           >
-            <Pin size={12} strokeWidth={1.5} />
+            <Maximize2 size={14} strokeWidth={1.5} />
           </button>
-        )}
 
-        {/* Expand button */}
-        <button
-          type="button"
-          aria-label={EXPAND_ARIA_LABEL}
-          aria-pressed={expanded}
-          onClick={(e) => {
-            e.stopPropagation();
-            onExpand?.();
-          }}
-          className={cn(
-            'flex h-8 w-8 shrink-0 items-center justify-center rounded focus-visible:outline-2 focus-visible:outline-offset-1',
-            selected
-              ? 'text-white/60 hover:text-white focus-visible:outline-white'
-              : [
-                  'text-foreground-subtle hover:text-foreground focus-visible:outline-accent',
-                  expanded && 'text-accent',
-                ],
-          )}
-        >
-          <Maximize2 size={14} strokeWidth={1.5} />
-        </button>
-
-        {/* Details button */}
-        <button
-          type="button"
-          aria-label={DETAILS_ARIA_LABEL}
-          onClick={(e) => {
-            e.stopPropagation();
-            onClick?.();
-          }}
-          className={cn(
-            'flex h-8 w-8 shrink-0 items-center justify-center rounded focus-visible:outline-2 focus-visible:outline-offset-1',
-            selected
-              ? 'text-white/60 hover:text-white focus-visible:outline-white'
-              : 'text-foreground-subtle hover:text-foreground focus-visible:outline-accent',
-          )}
-        >
-          <ChevronRight size={16} strokeWidth={1.5} />
-        </button>
+          {/* Details button */}
+          <button
+            type="button"
+            aria-label={DETAILS_ARIA_LABEL}
+            onClick={(e) => {
+              e.stopPropagation();
+              onClick?.();
+            }}
+            className={cn(
+              'flex h-8 w-8 shrink-0 items-center justify-center rounded focus-visible:outline-2 focus-visible:outline-offset-1',
+              selected
+                ? 'text-white/60 hover:text-white focus-visible:outline-white'
+                : 'opacity-70 hover:opacity-100 focus-visible:outline-accent',
+            )}
+          >
+            <ChevronRight size={16} strokeWidth={1.5} />
+          </button>
+        </div>
       </div>
 
       {/* Separator */}

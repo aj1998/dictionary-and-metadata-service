@@ -2,7 +2,7 @@
 
 **Date:** 2026-05-15
 **Scope:** Graph page UX — depth-driven node loading, in-graph expand-to-source action, full-band category color coding. Includes a new navigation-service endpoint for picking a random seed keyword.
-**Status:** Phase 1 implemented (2026-05-15); Phases 2–3 pending
+**Status:** Phases 1–3 implemented (Phase 1: 2026-05-15; Phase 3: 2026-05-16)
 
 ---
 
@@ -242,26 +242,3 @@ Please confirm before implementation:
 1. **Random seed scope** — only keywords ✅ confirmed
 2. **Topic color** — okay to darken `--cat-topic` from `#2A9D8F` to `#1D7A6F` for WCAG AA (pending Phase 3)
 3. **Default depth** — keep 2 only ✅ confirmed
-
----
-
-## Implementation Notes — Phase 1 (2026-05-15)
-
-### Decisions / Diversions
-
-- **Seed fallback condition**: uses `payload.edges` (non-empty) rather than `len(nodes) > 1`. An isolated node with no edges is not useful as a landing seed regardless of whether Neo4j returned a record for it.
-- **Fallback attempts**: capped at `min(4, len(LANDING_SEED_KEYWORDS))` — shuffles the list and tries up to 4. With only 2 seeds this tries both.
-- **URL rewrite in boot**: writes `?node=focus_nk` directly via `history.replaceState` inside the `boot` function (not via the 500 ms debounce), so the URL is deterministic immediately on first render before the debounce fires.
-- **`buildCanvasNodes` signature**: `limit` parameter removed entirely (was dead code after removing the slice). No callers used it except tests.
-- **Pre-existing test failures**: `test_edges.py` (4 tests) fails due to a missing `edge_types.yaml` — unrelated to this change.
-
-### Files Changed
-
-- `services/navigation_service/config.py` — added `LANDING_SEED_KEYWORDS`
-- `services/navigation_service/routers/graph.py` — added `GET /v1/landing/random`
-- `services/navigation_service/tests/test_landing_random.py` — new (6 tests)
-- `ui/src/lib/api/navigation.ts` — added `getNavLandingRandom`; deprecated `getNavLanding`
-- `ui/src/app/[locale]/graph/page.tsx` — boot uses `getNavLandingRandom`; URL rewrite on first load
-- `ui/src/app/[locale]/graph/graphViewHelpers.ts` — removed `MAX_GRAPH_NODES` and `limit` param
-- `ui/src/app/[locale]/graph/graphViewHelpers.test.ts` — updated node-cap tests to depth-neighborhood assertions
-- `ui/src/lib/api/navigation.test.ts` — added 4 tests for `getNavLandingRandom`
