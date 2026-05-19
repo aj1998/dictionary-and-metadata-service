@@ -21,8 +21,10 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Complements
 
 - Structured or metadata based questions (like questions related on a specific gatha, adhyaya, specific topic mentions, translations of gatha verses etc.) For ex -
   - समयसार की गाथा ६ बताओ
+  - समयसार की 6th गाथा का भावार्थ बताओ
   - समयसार की गाथा ६ की संस्कृत समझाओ
-  - षट् द्रव्य के क्रियावान् व भाववान् विभाग का वर्णन कोन कोनसे शास्त्रों में आया है?
+  - समयसार की 6th गाथा में किन किन विषयों का वर्णन आया है?
+  - द्रव्य की स्वतंत्रता का वर्णन कोन कोनसे शास्त्रों में आया है?
 
 [Current vector search only extracts excerpts of gatha mentions in texts but does not have context of the gatha itself, what does it explain at an high level etc. This will extract high-level content and specific topics which are relevant to it, feed it to chat service, and then final answer generation will utilize both vectored RAG and vectorless/graphRAG results.]
 
