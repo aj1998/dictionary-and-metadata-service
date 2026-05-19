@@ -103,7 +103,6 @@ dictionary-and-metadata-service/
 │   │   ├── 08_ingestion_jainkosh.md
 │   │   ├── 09_ingestion_nikkyjain.md
 │   │   ├── 10_ingestion_vyakaran_ocr.md
-│   │   ├── 11_chat_enrichment_loop.md
 │   │   ├── 12_query_engine.md
 │   │   ├── 13_admin_ui.md
 │   │   ├── 14_public_ui.md
@@ -166,6 +165,5 @@ dictionary-and-metadata-service/
 5. `api/data/01_spec.md` — data service (gathas, keywords, topics, kalashas, browse). ✅ implemented.
 6. `api/navigation/01_spec.md` — navigation service (Neo4j graph navigation, alias writes). ✅ implemented.
 7. `12_query_engine.md` then `07_api_query_service.md` — GraphRAG pipeline (future).
-8. `11_chat_enrichment_loop.md` — incremental graph growth.
-9. `13_admin_ui.md` and `14_public_ui.md`.
-10. `15_deployment.md`, `16_testing_and_fixtures.md`.
+8. `13_admin_ui.md` and `14_public_ui.md`.
+9. `15_deployment.md`, `16_testing_and_fixtures.md`.

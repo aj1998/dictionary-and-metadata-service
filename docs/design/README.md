@@ -18,7 +18,6 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Companion t
 | 08 | [Ingestion: jainkosh](./08_ingestion_jainkosh.md) | Orchestrator pipeline, fetch, alias mining. Parsing rules in [`jainkosh/parsing_rules.md`](./jainkosh/parsing_rules.md), parser spec in [`jainkosh/parser_spec.md`](./jainkosh/parser_spec.md), schema updates in [`jainkosh/schema_updates.md`](./jainkosh/schema_updates.md), reference parser in [`jainkosh/reference_parser_spec.md`](./jainkosh/reference_parser_spec.md) |
 | 09 | [Ingestion: nikkyjain](./09_ingestion_nikkyjain.md) | Local-clone parser for shastras, gathas, anvayartha |
 | 10 | [Ingestion: vyakaran OCR](./10_ingestion_vyakaran_ocr.md) | Pluggable OCR scaffold (v1 stub) |
-| 11 | [Chat enrichment loop](./11_chat_enrichment_loop.md) | Daily puller → admin review → graph merge |
 | 12 | [Query engine](./12_query_engine.md) | Tokenize → normalize → resolve → traverse → rank |
 | 13 | [Admin UI](./13_admin_ui.md) | Internal control plane — pages, endpoints, auth |
 | 14 | [Public UI](./14_public_ui.md) | Hindi-first browse + search frontend (routes & data contracts) |
