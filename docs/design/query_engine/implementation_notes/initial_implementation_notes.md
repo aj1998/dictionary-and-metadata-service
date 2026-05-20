@@ -245,3 +245,139 @@ Teekas ILIKE: `natural_key ILIKE :pattern`
 | Per-item detail load (shastras: author + anuyogas) | 2N Postgres (existing pattern) |
 
 For small result sets (default limit=10, cap=50) the N+1 detail loading is acceptable.
+
+---
+
+# Phase 4 Implementation Notes — Sub-workflow Endpoints
+
+## Status
+
+Phase 4 fully implemented. 128 query-service + data-service tests pass (24 new + 104 existing). Zero regressions.
+
+## Files Created
+
+| File | Purpose |
+|---|---|
+| `services/query_service/schemas/subworkflow.py` | Pydantic schemas for `topics_in_shastra` and `shastras_for_topic` |
+| `services/query_service/pipeline/subworkflow.py` | Neo4j Cypher functions: `fetch_topics_in_shastra`, `fetch_shastras_for_topic` |
+| `services/data_service/tests/test_gatha_detail_shape.py` | 4A audit: 10 tests verifying direct_retrieval field coverage |
+| `services/query_service/tests/test_topics_in_shastra_with_gatha.py` | 4 tests: per-gatha mentions, sorted order, empty result, missing field 422 |
+| `services/query_service/tests/test_topics_in_shastra_whole.py` | 4 tests: whole-shastra rollup, sort, limit, ancestor computation |
+| `services/query_service/tests/test_shastras_for_topic.py` | 6 tests: basic shape, gatha cap, include_gathas=false, field presence, 422, keywords fallback |
+
+## Files Modified
+
+| File | Change |
+|---|---|
+| `services/query_service/routers/query.py` | Added `POST /v1/query/topics_in_shastra` and `POST /v1/query/shastras_for_topic` endpoints; imported `sw_pipeline` and subworkflow schemas |
+| `services/query_service/tests/conftest.py` | Added `make_mock_neo4j_subworkflow()` factory and `client_with_neo4j_subworkflow` fixture |
+
+## 4A — GathaDetail Shape Audit
+
+| Spec field | Current response field | Status |
+|---|---|---|
+| `shastra_natural_key` | `shastra.natural_key` | ✅ Present |
+| `number` | `gatha_number` | ✅ Present (different name) |
+| `prakrit` | `prakrit` | ✅ Present (None if no Mongo doc) |
+| `sanskrit_chhaya` | `sanskrit` | ✅ Present (different name) |
+| `hindi_anyavaarth` | `hindi_chhand` | ✅ Present (different name) |
+| `bhavarth_hi` | `teeka_bhaavarth` | ✅ Present via `?include=teeka_bhaavarth` |
+| `teeka_blocks_hi` | `teeka_hindi` | ✅ Present via `?include=teeka_hindi` |
+| `page_numbers` | — | ❌ **NOT in Postgres model or Mongo schema** |
+
+**`page_numbers` gap**: The `Gatha` SQLAlchemy model (`packages/jain_kb_common/jain_kb_common/db/postgres/gathas.py`) has no `page_number` column. Page data does not exist in any Mongo collection either. This requires a new migration + Mongo document field to backfill. The test `test_page_numbers_audit_not_in_model` documents this gap.
+
+**Field naming**: The spec uses different field names than the current schema (`sanskrit_chhaya` vs `sanskrit`, `hindi_anyavaarth` vs `hindi_chhand`). The chat service must map these field names. No rename was done to avoid breaking existing chat integrations.
+
+**No filter by `number` in list endpoint**: `GET /v1/gathas` has no `number` query param. For `direct_retrieval`, the chat service should use `GET /v1/gathas/{shastra_nk}:{padded_number}` (natural_key format) to fetch a single gatha directly.
+
+## 4B — `POST /v1/query/topics_in_shastra`
+
+### Cypher (per-gatha)
+```cypher
+MATCH (s:Shastra {natural_key: $shastra_nk})<-[:IN_SHASTRA]-(g:Gatha {number: $gatha_n})
+MATCH (g)-[:MENTIONS_TOPIC]->(t:Topic)
+RETURN t.natural_key AS topic_nk,
+       t.display_text_hi AS display_text_hi,
+       t.is_leaf AS is_leaf,
+       count(*) AS mention_count
+ORDER BY mention_count DESC, t.natural_key
+LIMIT $limit
+```
+
+### Cypher (whole-shastra, when `gatha_number` is null)
+```cypher
+MATCH (s:Shastra {natural_key: $shastra_nk})<-[:IN_SHASTRA]-(g:Gatha)
+MATCH (g)-[:MENTIONS_TOPIC]->(t:Topic)
+RETURN t.natural_key AS topic_nk,
+       t.display_text_hi AS display_text_hi,
+       t.is_leaf AS is_leaf,
+       count(*) AS mention_count
+ORDER BY mention_count DESC, t.natural_key
+LIMIT $limit
+```
+
+`ancestors_hi` is computed in Python via `ancestors_from_natural_key(topic_nk)` (same helper as `topics_match`), not from Neo4j.
+
+## 4C — `POST /v1/query/shastras_for_topic`
+
+### Cypher
+```cypher
+MATCH (t:Topic {natural_key: $topic_nk})<-[:MENTIONS_TOPIC]-(g:Gatha)-[:IN_SHASTRA]->(s:Shastra)
+WITH s,
+     collect({number: g.number, page_number: g.page_number}) AS all_gathas,
+     count(g) AS total_mentions
+ORDER BY total_mentions DESC
+LIMIT $limit_shastras
+RETURN s.natural_key AS shastra_nk,
+       s.name_hi     AS name_hi,
+       total_mentions,
+       all_gathas[0..$limit_gpp] AS gathas
+```
+
+`limit_gathas_per_shastra` is applied **both** in Neo4j (via array slice `[0..$limit_gpp]`) and in Python (via `row.gathas[:body.limit_gathas_per_shastra]`). The Python cap ensures correctness when running against mocks or when the Neo4j slice is not respected.
+
+### `keywords` fallback
+When `topic_natural_key` is not provided, `keywords[]` is joined into a phrase and run through `tm_pipeline.search_topics_trigram` (Postgres pg_trgm, `leaf_only=True`, `min_similarity=0.3`). The top-1 result's `natural_key` is used. If no topic is found, `{"topic_natural_key": "", "shastras": []}` is returned.
+
+## Neo4j Node Properties Assumed
+
+| Node | Property used | Notes |
+|---|---|---|
+| `Shastra` | `natural_key`, `name_hi` | `name_hi` assumed; may need mapping if stored differently |
+| `Gatha` | `number`, `page_number` | `number` used per spec; existing codebase uses `gatha_number` in neighbors query |
+| `Topic` | `natural_key`, `display_text_hi`, `is_leaf` | Consistent with Phase 2 traverse query |
+
+**Action needed**: Verify `Shastra.name_hi` and `Gatha.number` property names against the actual Neo4j ingestion pipeline before production use.
+
+## Mock Neo4j Dispatch Strategy
+
+`make_mock_neo4j_subworkflow` distinguishes queries by:
+- `"MENTIONS_TOPIC]->(t:Topic)"` in Cypher → `topics_in_shastra_rows`
+- anything else → `shastras_for_topic_rows`
+
+## DB Roundtrips per Request
+
+### `POST /v1/query/topics_in_shastra`
+| Step | Roundtrip |
+|---|---|
+| Neo4j Cypher | 1 Neo4j |
+
+### `POST /v1/query/shastras_for_topic` (topic_natural_key path)
+| Step | Roundtrip |
+|---|---|
+| Neo4j Cypher | 1 Neo4j |
+
+### `POST /v1/query/shastras_for_topic` (keywords path)
+| Step | Roundtrip |
+|---|---|
+| Postgres trigram search | 1 Postgres |
+| Neo4j Cypher | 1 Neo4j |
+
+## Deviations from Spec
+
+1. **`gatha_number` vs `number` in Neo4j**: The spec Cypher uses `{number: $n}` for Gatha node matching and `g.number` for the collect. The existing Phase 2 neighbor query uses `n.gatha_number`. This inconsistency will surface only when testing against a live Neo4j. The implementation follows the spec's `g.number`; if the actual graph uses `gatha_number`, the Cypher in `pipeline/subworkflow.py` needs one-line updates.
+
+2. **`Shastra.name_hi` property**: The spec response shape has `name_hi: "समयसार"`. Used `s.name_hi` in the Cypher. The actual property name depends on the Neo4j ingestion pipeline and may differ (e.g., `s.title_hi` or `s.display_name_hi`).
+
+3. **No `include_extracts` for `topics_in_shastra`**: The request schema includes `include_extracts: bool = False` but the field is not yet wired to Mongo hydration (Phase 5 concern). The field is accepted to avoid a breaking schema change later.

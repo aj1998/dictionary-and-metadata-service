@@ -12,6 +12,7 @@ from ..deps import get_mongo_db, get_neo4j_driver, get_session
 from ..pipeline import resolve as resolve_pipeline
 from ..pipeline import topics_match as tm_pipeline
 from ..pipeline import graphrag as graphrag_pipeline
+from ..pipeline import subworkflow as sw_pipeline
 from ..schemas.keyword_resolve import (
     DefinitionBlock,
     KeywordResolveBatchRequest,
@@ -32,6 +33,15 @@ from ..schemas.topic_match import (
     TopicReference,
     TopicsMatchRequest,
     TopicsMatchResponse,
+)
+from ..schemas.subworkflow import (
+    GathaRef,
+    ShastrasForTopicRequest,
+    ShastrasForTopicResponse,
+    ShastraTopicItem,
+    TopicMentionItem,
+    TopicsInShastraRequest,
+    TopicsInShastraResponse,
 )
 from ..config import settings
 
@@ -261,5 +271,115 @@ async def graphrag(
     return GraphRAGResponse(
         ranked_topics=ranked_items,
         unresolved_tokens=unresolved,
+        tool_trace_id=trace_id,
+    )
+
+
+@router.post("/topics_in_shastra", response_model=TopicsInShastraResponse)
+async def topics_in_shastra(
+    body: TopicsInShastraRequest,
+    neo4j: object = Depends(get_neo4j_driver),
+) -> TopicsInShastraResponse:
+    t0 = time.monotonic()
+    trace_id = str(uuid.uuid4())
+
+    rows = await sw_pipeline.fetch_topics_in_shastra(
+        driver=neo4j,
+        shastra_nk=body.shastra_natural_key,
+        gatha_number=body.gatha_number,
+        limit=body.limit,
+        database=settings.NEO4J_DATABASE,
+    )
+
+    topics: list[TopicMentionItem] = []
+    for row in rows:
+        topics.append(TopicMentionItem(
+            topic_natural_key=row.topic_nk,
+            display_text_hi=row.display_text_hi,
+            ancestors_hi=tm_pipeline.ancestors_from_natural_key(row.topic_nk),
+            is_leaf=row.is_leaf,
+            mention_count=row.mention_count,
+        ))
+
+    elapsed_ms = int((time.monotonic() - t0) * 1000)
+    logger.info(
+        "topics_in_shastra trace=%s shastra=%s gatha=%s topics=%d ms=%d",
+        trace_id, body.shastra_natural_key, body.gatha_number, len(topics), elapsed_ms,
+    )
+
+    return TopicsInShastraResponse(topics=topics, tool_trace_id=trace_id)
+
+
+@router.post("/shastras_for_topic", response_model=ShastrasForTopicResponse)
+async def shastras_for_topic(
+    body: ShastrasForTopicRequest,
+    session: AsyncSession = Depends(get_session),
+    neo4j: object = Depends(get_neo4j_driver),
+) -> ShastrasForTopicResponse:
+    t0 = time.monotonic()
+    trace_id = str(uuid.uuid4())
+
+    topic_nk = body.topic_natural_key
+    if topic_nk is None:
+        # Fall back: resolve keywords via topics_match, take top-1
+        search_str = " ".join(body.keywords or [])
+        hits = await tm_pipeline.search_topics_trigram(
+            session,
+            search_str=search_str,
+            limit=1,
+            min_similarity=0.3,
+            leaf_only=True,
+        )
+        if not hits:
+            logger.info(
+                "shastras_for_topic trace=%s keywords=%r resolved no topic",
+                trace_id, body.keywords,
+            )
+            return ShastrasForTopicResponse(
+                topic_natural_key="",
+                shastras=[],
+                tool_trace_id=trace_id,
+            )
+        topic_nk = hits[0].natural_key
+
+    rows = await sw_pipeline.fetch_shastras_for_topic(
+        driver=neo4j,
+        topic_nk=topic_nk,
+        limit_shastras=body.limit_shastras,
+        limit_gathas_per_shastra=body.limit_gathas_per_shastra,
+        database=settings.NEO4J_DATABASE,
+    )
+
+    shastras: list[ShastraTopicItem] = []
+    for row in rows:
+        gathas: list[GathaRef] = []
+        if body.include_gathas:
+            gatha_src = row.gathas[: body.limit_gathas_per_shastra]
+            for g in gatha_src:
+                try:
+                    num = int(g.get("number") or 0)
+                    page = g.get("page_number")
+                    page_int: int | None = int(page) if page is not None else None
+                except (TypeError, ValueError):
+                    num = 0
+                    page_int = None
+                gathas.append(GathaRef(number=num, page_number=page_int))
+
+        shastras.append(ShastraTopicItem(
+            shastra_natural_key=row.shastra_nk,
+            name_hi=row.name_hi,
+            total_mentions=row.total_mentions,
+            gathas=gathas,
+        ))
+
+    elapsed_ms = int((time.monotonic() - t0) * 1000)
+    logger.info(
+        "shastras_for_topic trace=%s topic=%s shastras=%d ms=%d",
+        trace_id, topic_nk, len(shastras), elapsed_ms,
+    )
+
+    return ShastrasForTopicResponse(
+        topic_natural_key=topic_nk,
+        shastras=shastras,
         tool_trace_id=trace_id,
     )

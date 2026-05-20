@@ -552,3 +552,244 @@ python -m pytest services/metadata_service/tests/ -v
 ```bash
 alembic upgrade 0017
 ```
+
+---
+
+# Manual Verification Checklist — Phase 4: Sub-workflow Endpoints
+
+## Prerequisites
+
+1. Start query-service with Neo4j config (same as Phase 2):
+   ```bash
+   DATABASE_URL="postgresql+asyncpg://..." \
+   MONGO_URL="mongodb://localhost:27017" \
+   NEO4J_URL="bolt://localhost:7687" \
+   NEO4J_USER=neo4j NEO4J_PASSWORD=<password> \
+   NEO4J_DATABASE=neo4j \
+   ADMIN_USER=admin ADMIN_PASSWORD=secret \
+   python -m uvicorn services.query_service.main:app --port 8004 --reload
+   ```
+
+2. Ensure Neo4j has `Shastra`, `Gatha`, and `Topic` nodes connected via
+   `IN_SHASTRA` and `MENTIONS_TOPIC` edges.
+
+---
+
+## 4A — `GET /v1/gathas/{ident}` Shape Audit
+
+### A1. Basic fields present
+```bash
+curl -s http://localhost:8002/v1/gathas/samaysaar:006 | python3 -m json.tool
+```
+Expected: response contains `gatha_number`, `shastra.natural_key`, `prakrit`, `sanskrit`, `hindi_chhand`, `word_meanings`.
+
+---
+
+### A2. Bhāvarth and Teeka Hindi via include
+```bash
+curl -s "http://localhost:8002/v1/gathas/samaysaar:006?include=teeka_hindi,teeka_bhaavarth" \
+  | python3 -m json.tool
+```
+Expected: `teeka_hindi` and `teeka_bhaavarth` fields present (arrays, may be empty).
+
+---
+
+### A3. page_numbers gap
+```bash
+curl -s http://localhost:8002/v1/gathas/samaysaar:006 | python3 -c "import sys,json; d=json.load(sys.stdin); print('page_numbers' in d)"
+```
+Expected: `False` — field not yet in model (documented gap).
+
+---
+
+## 4B — `POST /v1/query/topics_in_shastra`
+
+### B1. Per-gatha topics
+Requires Gatha node `{number: 6}` in shastra `samaysaar` with `MENTIONS_TOPIC` edges in Neo4j.
+
+```bash
+curl -s -X POST http://localhost:8004/v1/query/topics_in_shastra \
+  -H "Content-Type: application/json" \
+  -d '{
+    "shastra_natural_key": "samaysaar",
+    "gatha_number": 6,
+    "limit": 25
+  }' | python3 -m json.tool
+```
+
+Expected:
+- `topics` is a non-empty array
+- Items sorted by `mention_count` DESC
+- Each item has `topic_natural_key`, `display_text_hi`, `ancestors_hi`, `is_leaf`, `mention_count`
+- `tool_trace_id` present
+
+---
+
+### B2. Whole-shastra rollup (no gatha_number)
+```bash
+curl -s -X POST http://localhost:8004/v1/query/topics_in_shastra \
+  -H "Content-Type: application/json" \
+  -d '{
+    "shastra_natural_key": "samaysaar",
+    "limit": 25
+  }' | python3 -m json.tool
+```
+
+Expected: more topics than per-gatha query (aggregated across all gathas); sorted by `mention_count` DESC.
+
+---
+
+### B3. Unknown shastra → empty list
+```bash
+curl -s -X POST http://localhost:8004/v1/query/topics_in_shastra \
+  -H "Content-Type: application/json" \
+  -d '{"shastra_natural_key": "nonexistent_shastra"}' | python3 -m json.tool
+```
+Expected: `{"topics": [], "tool_trace_id": "..."}` (empty, not an error).
+
+---
+
+### B4. Missing required field → 422
+```bash
+curl -s -X POST http://localhost:8004/v1/query/topics_in_shastra \
+  -H "Content-Type: application/json" \
+  -d '{"gatha_number": 6}' | python3 -m json.tool
+```
+Expected: HTTP 422 with validation error for `shastra_natural_key`.
+
+---
+
+### B5. ancestors_hi derived from natural_key
+For a topic `द्रव्य/स्वतंत्रता` in the response:
+- `ancestors_hi` must be `["द्रव्य"]`
+- `display_text_hi` must be `"स्वतंत्रता"` (leaf text)
+
+---
+
+## 4C — `POST /v1/query/shastras_for_topic`
+
+### C1. Basic by topic_natural_key
+Requires `Topic {natural_key: "द्रव्य/स्वतंत्रता"}` with `MENTIONS_TOPIC` edges in Neo4j.
+
+```bash
+curl -s -X POST http://localhost:8004/v1/query/shastras_for_topic \
+  -H "Content-Type: application/json" \
+  -d '{
+    "topic_natural_key": "द्रव्य/स्वतंत्रता",
+    "include_gathas": true,
+    "limit_shastras": 5,
+    "limit_gathas_per_shastra": 5
+  }' | python3 -m json.tool
+```
+
+Expected:
+- `topic_natural_key == "द्रव्य/स्वतंत्रता"`
+- `shastras` sorted by `total_mentions` DESC
+- Each shastra has `shastra_natural_key`, `name_hi`, `total_mentions`, `gathas`
+- Each gatha entry has `number` (int) and `page_number` (int or null)
+
+---
+
+### C2. limit_gathas_per_shastra cap
+```bash
+curl -s -X POST http://localhost:8004/v1/query/shastras_for_topic \
+  -H "Content-Type: application/json" \
+  -d '{
+    "topic_natural_key": "द्रव्य/स्वतंत्रता",
+    "include_gathas": true,
+    "limit_gathas_per_shastra": 2
+  }' | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+for s in d['shastras']:
+    assert len(s['gathas']) <= 2, f'{s[\"shastra_natural_key\"]} has {len(s[\"gathas\"])} gathas'
+print('cap verified')
+"
+```
+Expected: `cap verified`
+
+---
+
+### C3. include_gathas=false → empty gatha lists
+```bash
+curl -s -X POST http://localhost:8004/v1/query/shastras_for_topic \
+  -H "Content-Type: application/json" \
+  -d '{"topic_natural_key": "द्रव्य/स्वतंत्रता", "include_gathas": false}' \
+  | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+for s in d['shastras']:
+    assert s['gathas'] == [], f'Expected empty gathas for {s[\"shastra_natural_key\"]}'
+print('ok')
+"
+```
+Expected: `ok`
+
+---
+
+### C4. keywords input (fallback via topics_match)
+Requires topic `द्रव्य/स्वतंत्रता` in Postgres topics table with trigram index.
+
+```bash
+curl -s -X POST http://localhost:8004/v1/query/shastras_for_topic \
+  -H "Content-Type: application/json" \
+  -d '{"keywords": ["स्वतंत्रता"], "include_gathas": true}' | python3 -m json.tool
+```
+
+Expected:
+- `topic_natural_key` is the resolved topic's natural_key (e.g. `"द्रव्य/स्वतंत्रता"`)
+- `shastras` populated if Neo4j has data
+
+---
+
+### C5. No input → 422
+```bash
+curl -s -X POST http://localhost:8004/v1/query/shastras_for_topic \
+  -H "Content-Type: application/json" \
+  -d '{"include_gathas": true}' | python3 -m json.tool
+```
+Expected: HTTP 422
+
+---
+
+### C6. Unknown topic → empty shastras
+```bash
+curl -s -X POST http://localhost:8004/v1/query/shastras_for_topic \
+  -H "Content-Type: application/json" \
+  -d '{"topic_natural_key": "अज्ञात/अज्ञात", "include_gathas": true}' | python3 -m json.tool
+```
+Expected: `{"topic_natural_key": "अज्ञात/अज्ञात", "shastras": [], "tool_trace_id": "..."}`
+
+---
+
+## Running automated tests
+
+```bash
+# From repo root
+python -m pytest services/query_service/tests/ services/data_service/tests/ -v
+# Expected: 128 passed (Phase 1+2+3+4)
+```
+
+## Neo4j EXPLAIN checks (Cypher index safety)
+
+Connect to Neo4j browser (`http://localhost:7474`) and run:
+
+```cypher
+EXPLAIN
+MATCH (s:Shastra {natural_key: "samaysaar"})<-[:IN_SHASTRA]-(g:Gatha {number: 6})
+MATCH (g)-[:MENTIONS_TOPIC]->(t:Topic)
+RETURN t.natural_key, count(*) AS mention_count
+ORDER BY mention_count DESC, t.natural_key
+LIMIT 25
+```
+Expected: no full-scan (`NodeByLabelScan`) — should show `NodeIndexSeek` for `Shastra(natural_key)`.
+
+```cypher
+EXPLAIN
+MATCH (t:Topic {natural_key: "द्रव्य/स्वतंत्रता"})<-[:MENTIONS_TOPIC]-(g:Gatha)-[:IN_SHASTRA]->(s:Shastra)
+WITH s, collect({number: g.number, page_number: g.page_number}) AS all_gathas, count(g) AS total_mentions
+ORDER BY total_mentions DESC
+LIMIT 10
+RETURN s.natural_key, total_mentions, all_gathas[0..5] AS gathas
+```
+Expected: `NodeIndexSeek` for `Topic(natural_key)` entry point.
