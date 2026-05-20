@@ -170,7 +170,7 @@ Expected: `resolutions` has exactly 1 item (deduplicated by input_token)
 # From repo root
 python -m pytest services/query_service/tests/ -v
 
-# Expected: 21 passed
+# Expected: 21 passed (Phase 1)
 ```
 
 ## Applying migration (against real DB)
@@ -184,4 +184,202 @@ Verify index was created:
 SELECT indexname, indexdef
 FROM pg_indexes
 WHERE tablename = 'keywords' AND indexname = 'keywords_natural_key_trgm_idx';
+```
+
+---
+
+# Manual Verification Checklist — Phase 2: `topics_match` + `graphrag`
+
+## Prerequisites
+
+1. Start query-service with Neo4j config:
+   ```bash
+   DATABASE_URL="postgresql+asyncpg://..." \
+   MONGO_URL="mongodb://localhost:27017" \
+   NEO4J_URL="bolt://localhost:7687" \
+   NEO4J_USER=neo4j NEO4J_PASSWORD=<password> \
+   NEO4J_DATABASE=neo4j \
+   ADMIN_USER=admin ADMIN_PASSWORD=secret \
+   python -m uvicorn services.query_service.main:app --port 8004 --reload
+   ```
+
+2. Apply migration:
+   ```bash
+   alembic upgrade 0016
+   ```
+
+3. Verify topics trigram index exists:
+   ```sql
+   SELECT indexname, indexdef FROM pg_indexes
+   WHERE tablename = 'topics' AND indexname = 'topics_natural_key_trgm_idx';
+   ```
+
+---
+
+## `POST /v1/query/topics_match` — Test Cases
+
+### A. Phrase search (parent-aware)
+Requires at least one topic with `natural_key` containing `द्रव्य` (e.g. `द्रव्य/स्वतंत्रता/लक्षण`).
+
+```bash
+curl -s -X POST http://localhost:8004/v1/query/topics_match \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phrase": "द्रव्य स्वतंत्रता",
+    "limit": 5,
+    "include_extracts": false,
+    "include_references": false
+  }' | python3 -m json.tool
+```
+
+Expected:
+- `matches` is an array sorted by `score` DESC
+- Topics whose `natural_key` contains `द्रव्य` or `स्वतंत्रता` appear
+- Each match has `ancestors_hi` (path segments minus leaf), e.g. `["द्रव्य"]`
+- Each match has `similarity` and `score` fields; `score = similarity * 0.6` for containers, `score = similarity` for leaves
+- `tool_trace_id` present
+
+---
+
+### B. Keywords array input
+```bash
+curl -s -X POST http://localhost:8004/v1/query/topics_match \
+  -H "Content-Type: application/json" \
+  -d '{"keywords": ["द्रव्य", "गुण", "पर्याय"], "include_extracts": false}' \
+  | python3 -m json.tool
+```
+
+Expected: identical behavior to phrase `"द्रव्य गुण पर्याय"`
+
+---
+
+### C. leaf_only filter
+```bash
+curl -s -X POST http://localhost:8004/v1/query/topics_match \
+  -H "Content-Type: application/json" \
+  -d '{"phrase": "द्रव्य", "leaf_only": true, "include_extracts": false}' \
+  | python3 -m json.tool
+```
+
+Expected: all returned matches have `"is_leaf": true`
+
+---
+
+### D. With extracts (Hindi only)
+```bash
+curl -s -X POST http://localhost:8004/v1/query/topics_match \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phrase": "द्रव्य",
+    "include_extracts": true,
+    "include_references": true,
+    "limit": 3
+  }' | python3 -m json.tool
+```
+
+Expected:
+- `extracts_hi` is a list of `{block_index, text_hi}` objects; all text is Devanagari
+- No Sanskrit or Prakrit text in `text_hi` fields
+- `references` is a list (may be empty) of `{shastra_natural_key, gatha_number, teeka_natural_key, page_number}` objects
+
+---
+
+### E. Missing input validation
+```bash
+curl -s -X POST http://localhost:8004/v1/query/topics_match \
+  -H "Content-Type: application/json" \
+  -d '{"limit": 5}' | python3 -m json.tool
+```
+
+Expected: HTTP 422
+
+---
+
+## `POST /v1/query/graphrag` — Test Cases
+
+### F. Basic GraphRAG call
+```bash
+curl -s -X POST http://localhost:8004/v1/query/graphrag \
+  -H "Content-Type: application/json" \
+  -d '{
+    "tokens": ["द्रव्य", "स्वतंत्रता"],
+    "max_hops": 2,
+    "limit": 5,
+    "include_extracts": false,
+    "include_neighbors": false,
+    "include_references": false
+  }' | python3 -m json.tool
+```
+
+Expected:
+- `ranked_topics` is sorted by `score` DESC
+- `unresolved_tokens` contains any tokens that had no keyword match
+- Each topic has `ancestors_hi`, `matched_seed_keywords`, `overlap_count`, `score`
+- `tool_trace_id` present
+
+---
+
+### G. Unknown tokens → unresolved
+```bash
+curl -s -X POST http://localhost:8004/v1/query/graphrag \
+  -H "Content-Type: application/json" \
+  -d '{"tokens": ["xyznonexistent123"], "include_extracts": false, "include_neighbors": false}' \
+  | python3 -m json.tool
+```
+
+Expected: `ranked_topics: []`, `unresolved_tokens: ["xyznonexistent123"]`
+
+---
+
+### H. With neighbors
+```bash
+curl -s -X POST http://localhost:8004/v1/query/graphrag \
+  -H "Content-Type: application/json" \
+  -d '{
+    "tokens": ["आत्मा"],
+    "include_extracts": false,
+    "include_neighbors": true,
+    "include_references": false
+  }' | python3 -m json.tool
+```
+
+Expected: each topic in `ranked_topics` has `neighbors` with keys `related_topics`, `mentioned_in_gathas`, `related_keywords`. Values may be empty arrays if no neighbors in Neo4j.
+
+---
+
+### I. Fuzzy mode
+```bash
+curl -s -X POST http://localhost:8004/v1/query/graphrag \
+  -H "Content-Type: application/json" \
+  -d '{"tokens": ["आतम"], "fuzzy": true, "include_extracts": false, "include_neighbors": false}' \
+  | python3 -m json.tool
+```
+
+Expected: `आतम` → resolves via fuzzy to `आत्मा` (or similar) → traversal runs → topics returned. Without `"fuzzy": true`, `आतम` goes to `unresolved_tokens`.
+
+---
+
+## Running all automated tests
+
+```bash
+python -m pytest services/query_service/tests/ -v
+# Expected: 40 passed
+```
+
+## UI Verification
+
+1. Start backend services + UI: `cd ui && pnpm dev`
+2. Open `http://localhost:3000/topics`
+3. Without search: paginated listing from data-service (exact behavior unchanged)
+4. Search for `द्रव्य स्वतंत्रता` in the search box → click "लागू करें"
+5. Verify:
+   - Results show cards with breadcrumb ancestors (e.g. `द्रव्य › स्वतंत्रता › `)
+   - Match percentage shown (e.g. `71% मिलान`)
+   - Topics not found by exact match but similar via trigram now appear
+   - "विषय खोलें →" links work
+
+## Applying migrations
+
+```bash
+alembic upgrade head  # runs both 0015 and 0016
 ```

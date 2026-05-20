@@ -10,6 +10,7 @@ from .config import settings
 _engine = None
 _session_factory: async_sessionmaker | None = None
 _mongo_client: AsyncIOMotorClient | None = None
+_neo4j_driver = None
 
 
 def _get_factory() -> async_sessionmaker:
@@ -36,3 +37,14 @@ def _get_mongo_client() -> AsyncIOMotorClient:
 async def get_mongo_db() -> AsyncIOMotorDatabase:  # type: ignore[return]
     client = _get_mongo_client()
     return client[settings.MONGO_DB_NAME]
+
+
+def get_neo4j_driver() -> object:
+    global _neo4j_driver
+    if _neo4j_driver is None:
+        from neo4j import AsyncGraphDatabase  # type: ignore[import]
+        _neo4j_driver = AsyncGraphDatabase.driver(
+            settings.NEO4J_URL,
+            auth=(settings.NEO4J_USER, settings.NEO4J_PASSWORD),
+        )
+    return _neo4j_driver

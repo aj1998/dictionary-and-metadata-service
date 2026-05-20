@@ -92,6 +92,59 @@ def make_mock_mongo(docs: list[dict] | None = None) -> object:
     return FakeDB(docs)
 
 
+def make_mock_neo4j(
+    traverse_rows: list[dict] | None = None,
+    neighbor_rows: list[dict] | None = None,
+) -> object:
+    """Return a mock Neo4j async driver that returns preset rows."""
+    traverse_rows = traverse_rows or []
+    neighbor_rows = neighbor_rows or []
+
+    class FakeResult:
+        def __init__(self, rows: list[dict]) -> None:
+            self._rows = rows
+
+        async def data(self) -> list[dict]:
+            return list(self._rows)
+
+        def __aiter__(self) -> "FakeResult":
+            self._iter = iter(self._rows)
+            return self
+
+        async def __anext__(self) -> dict:
+            try:
+                return next(self._iter)  # type: ignore[attr-defined]
+            except StopIteration:
+                raise StopAsyncIteration
+
+    class FakeSession:
+        def __init__(self, t_rows: list[dict], n_rows: list[dict]) -> None:
+            self._t_rows = t_rows
+            self._n_rows = n_rows
+
+        async def run(self, cypher: str, **kwargs: object) -> FakeResult:
+            # Distinguish traverse (uses MATCH p =) vs neighbors
+            if "MATCH p =" in cypher:
+                return FakeResult(self._t_rows)
+            return FakeResult(self._n_rows)
+
+        async def __aenter__(self) -> "FakeSession":
+            return self
+
+        async def __aexit__(self, *args: object) -> None:
+            pass
+
+    class FakeDriver:
+        def __init__(self, t_rows: list[dict], n_rows: list[dict]) -> None:
+            self._t_rows = t_rows
+            self._n_rows = n_rows
+
+        def session(self, database: str | None = None) -> FakeSession:
+            return FakeSession(self._t_rows, self._n_rows)
+
+    return FakeDriver(traverse_rows, neighbor_rows)
+
+
 @pytest_asyncio.fixture
 async def client():  # type: ignore[return]
     if not DATABASE_URL:
@@ -159,6 +212,59 @@ async def client_with_mongo(request):  # type: ignore[return]
 
     app.dependency_overrides[deps.get_session] = _override_pg
     app.dependency_overrides[deps.get_mongo_db] = _override_mongo
+
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as c:
+        c.state = factory  # type: ignore[attr-defined]
+        yield c
+
+    app.dependency_overrides.clear()
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
+        for stmt in _TEARDOWN_STMTS:
+            await conn.execute(text(stmt))
+    await engine.dispose()
+
+
+@pytest_asyncio.fixture
+async def client_with_neo4j(request):  # type: ignore[return]
+    """Client with injected Postgres + Mongo + Neo4j mocks.
+
+    Pass (mongo_docs, traverse_rows, neighbor_rows) via request.param.
+    """
+    if not DATABASE_URL:
+        pytest.skip("DATABASE_URL not set")
+
+    params = getattr(request, "param", ([], [], []))
+    mongo_docs: list[dict] = params[0] if len(params) > 0 else []
+    traverse_rows: list[dict] = params[1] if len(params) > 1 else []
+    neighbor_rows: list[dict] = params[2] if len(params) > 2 else []
+
+    engine = create_async_engine(DATABASE_URL, echo=False)
+    async with engine.begin() as conn:
+        for stmt in _SETUP_STMTS:
+            await conn.execute(text(stmt))
+        await conn.run_sync(Base.metadata.create_all)
+
+    factory = async_sessionmaker(engine, expire_on_commit=False)
+    mock_mongo = make_mock_mongo(mongo_docs)
+    mock_neo4j = make_mock_neo4j(traverse_rows, neighbor_rows)
+
+    from services.query_service.main import app
+    from services.query_service import deps
+
+    async def _override_pg() -> AsyncSession:  # type: ignore[return]
+        async with factory() as s:
+            yield s  # type: ignore[misc]
+
+    async def _override_mongo() -> object:
+        return mock_mongo
+
+    def _override_neo4j() -> object:
+        return mock_neo4j
+
+    app.dependency_overrides[deps.get_session] = _override_pg
+    app.dependency_overrides[deps.get_mongo_db] = _override_mongo
+    app.dependency_overrides[deps.get_neo4j_driver] = _override_neo4j
 
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as c:
         c.state = factory  # type: ignore[attr-defined]

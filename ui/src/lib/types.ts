@@ -228,6 +228,78 @@ export interface TopicNeighborsResponse {
   neighbors: TopicNeighborItem[];
 }
 
+// Query service — topic match (Phase 2)
+export interface TopicExtractBlock {
+  block_index: number;
+  text_hi: string;
+}
+
+export interface TopicRef {
+  shastra_natural_key: string | null;
+  gatha_number: number | null;
+  teeka_natural_key: string | null;
+  page_number: number | null;
+}
+
+export interface TopicMatchItem {
+  topic_natural_key: string;
+  topic_pg_id: string;
+  display_text_hi: string;
+  ancestors_hi: string[];
+  is_leaf: boolean;
+  source: string;
+  similarity: number;
+  score: number;
+  extracts_hi: TopicExtractBlock[] | null;
+  references: TopicRef[] | null;
+}
+
+export interface TopicsMatchResponse {
+  matches: TopicMatchItem[];
+  tool_trace_id: string;
+}
+
+export interface NeighborTopic {
+  topic_natural_key: string;
+  display_text_hi: string;
+}
+
+export interface NeighborGatha {
+  shastra_natural_key: string;
+  gatha_number: number | null;
+}
+
+export interface NeighborKeyword {
+  keyword_natural_key: string;
+}
+
+export interface TopicNeighbors {
+  related_topics: NeighborTopic[];
+  mentioned_in_gathas: NeighborGatha[];
+  related_keywords: NeighborKeyword[];
+}
+
+export interface RankedTopicItem {
+  topic_natural_key: string;
+  topic_pg_id: string;
+  display_text_hi: string;
+  ancestors_hi: string[];
+  score: number;
+  overlap_count: number;
+  matched_seed_keywords: string[];
+  is_leaf: boolean;
+  source: string;
+  extracts_hi: TopicExtractBlock[] | null;
+  references: TopicRef[] | null;
+  neighbors: TopicNeighbors | null;
+}
+
+export interface GraphRAGResponse {
+  ranked_topics: RankedTopicItem[];
+  unresolved_tokens: string[];
+  tool_trace_id: string;
+}
+
 // Query service search result
 export interface SearchResult {
   topic_nk: string;
