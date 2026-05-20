@@ -7,12 +7,10 @@ from typing import Optional
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from jain_kb_common.hydration.definitions import hydrate_definitions_hi
 from .normalize import nfc, strip_one_suffix
 
 logger = logging.getLogger(__name__)
-
-HINDI_KINDS = {"hindi_text", "hindi_gatha"}
-BLOCK_TEXT_CAP = 1500
 
 
 @dataclass
@@ -184,34 +182,9 @@ async def fetch_definitions_batch(
     natural_keys: list[str],
     definitions_per_keyword: int = 0,
 ) -> dict[str, list[dict]]:
-    """Returns {natural_key: [DefinitionBlock dicts]}"""
-    from jain_kb_common.db.mongo.collections import KEYWORD_DEFINITIONS
-
-    cursor = mongo_db[KEYWORD_DEFINITIONS].find(  # type: ignore[index]
-        {"natural_key": {"$in": natural_keys}},
-        {"natural_key": 1, "page_sections": 1, "_id": 0},
+    """Returns {natural_key: [DefinitionBlock dicts]}. Delegates to common hydration."""
+    return await hydrate_definitions_hi(
+        mongo_db,
+        natural_keys,
+        cap_per_keyword=definitions_per_keyword,
     )
-
-    result: dict[str, list[dict]] = {}
-    async for doc in cursor:
-        nk = doc["natural_key"]
-        blocks_out: list[dict] = []
-        block_index = 0
-        for section in doc.get("page_sections", []):
-            for defn in section.get("definitions", []):
-                for block in defn.get("blocks", []):
-                    kind = block.get("kind", "")
-                    if kind in HINDI_KINDS:
-                        raw_text = block.get("text_devanagari") or ""
-                        text_hi = raw_text[:BLOCK_TEXT_CAP]
-                        if text_hi:
-                            blocks_out.append({
-                                "source_natural_key": nk,
-                                "block_index": block_index,
-                                "text_hi": text_hi,
-                            })
-                        block_index += 1
-        if definitions_per_keyword > 0:
-            blocks_out = blocks_out[:definitions_per_keyword]
-        result[nk] = blocks_out
-    return result

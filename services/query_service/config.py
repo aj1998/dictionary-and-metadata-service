@@ -18,5 +18,19 @@ class Settings(BaseSettings):
     LOG_LEVEL: str = "INFO"
     PORT: int = 8004
 
+    # Phase 6 — configurable caps / thresholds
+    QUERY_KEYWORD_RESOLVE_MAX_TOKENS: int = 32
+    QUERY_KEYWORD_FUZZY_MIN_SIM: float = 0.35
+    QUERY_KEYWORD_FUZZY_TOP_K: int = 5
+
+    QUERY_TOPICS_MATCH_DEFAULT_LIMIT: int = 5
+    QUERY_TOPICS_MATCH_MIN_SIM: float = 0.30
+
+    QUERY_GRAPHRAG_DEFAULT_LIMIT: int = 5
+    QUERY_GRAPHRAG_DEFAULT_MAX_HOPS: int = 2
+
+    QUERY_TOPICS_IN_SHASTRA_LIMIT: int = 25
+    QUERY_SHASTRAS_FOR_TOPIC_LIMIT: int = 10
+
 
 settings = Settings()  # type: ignore[call-arg]

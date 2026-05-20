@@ -4,12 +4,9 @@ import logging
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from jain_kb_common.hydration.topic_extracts import hydrate_topic_extracts_hi
 from . import resolve as resolve_pipeline
 from .ranking import RankedTopic, rank
-from .topics_match import (
-    extract_references_from_blocks,
-    fetch_topic_extracts_batch,
-)
 from .traverse import bucket_neighbors, fetch_neighbors, traverse_topics
 
 logger = logging.getLogger(__name__)
@@ -87,26 +84,38 @@ async def hydrate_topics(
     """
     Stage 6: batch-fetch topic_extracts + optional neighbor rows.
 
-    Returns a dict keyed by topic_nk with hydration payloads:
-    {topic_nk: {"extracts_hi": [...], "references": [...], "neighbors": {...}}}
+    Returns {topic_nk: {"extracts_hi": [...], "references": [...], "neighbors": {...}}}.
+
+    Single Mongo query via common hydrate_topic_extracts_hi covers both extracts
+    and per-block references (eliminating the previous 2-query pattern).
     """
     topic_nks = [r.topic_nk for r in ranked]
     hydration: dict[str, dict] = {nk: {} for nk in topic_nks}
 
-    if include_extracts and topic_nks:
-        extracts_map = await fetch_topic_extracts_batch(mongo_db, topic_nks)
+    if (include_extracts or include_references) and topic_nks:
+        rich_map = await hydrate_topic_extracts_hi(mongo_db, topic_nks)
         for nk in topic_nks:
-            blocks = extracts_map.get(nk, [])
-            hydration[nk]["extracts_hi"] = blocks
+            rich_blocks = rich_map.get(nk, [])
+            if include_extracts:
+                hydration[nk]["extracts_hi"] = [
+                    {"block_index": b["block_index"], "text_hi": b["text_hi"]}
+                    for b in rich_blocks
+                ]
             if include_references:
-                # need raw block dicts for reference extraction - re-fetch raw
-                pass  # handled below
-
-    if (include_extracts and include_references) and topic_nks:
-        raw_extracts = await _fetch_raw_blocks(mongo_db, topic_nks)
-        for nk, raw_blocks in raw_extracts.items():
-            refs = extract_references_from_blocks(raw_blocks)
-            hydration[nk]["references"] = refs
+                seen: set[tuple] = set()
+                flat_refs: list[dict] = []
+                for b in rich_blocks:
+                    for r in b.get("references", []):
+                        key = (
+                            r.get("shastra_natural_key"),
+                            r.get("gatha_number"),
+                            r.get("teeka_natural_key"),
+                            r.get("page_number"),
+                        )
+                        if key not in seen:
+                            seen.add(key)
+                            flat_refs.append(r)
+                hydration[nk]["references"] = flat_refs
 
     if include_neighbors and topic_nks:
         neighbor_rows = await fetch_neighbors(neo4j_driver, topic_nks, neo4j_database)
@@ -119,16 +128,3 @@ async def hydrate_topics(
             })
 
     return hydration
-
-
-async def _fetch_raw_blocks(mongo_db: object, natural_keys: list[str]) -> dict[str, list[dict]]:
-    """Fetch raw block dicts from topic_extracts for reference extraction."""
-    from jain_kb_common.db.mongo.collections import TOPIC_EXTRACTS
-    result: dict[str, list[dict]] = {}
-    cursor = mongo_db[TOPIC_EXTRACTS].find(  # type: ignore[index]
-        {"natural_key": {"$in": natural_keys}},
-        {"natural_key": 1, "blocks": 1, "_id": 0},
-    )
-    async for doc in cursor:
-        result[doc["natural_key"]] = doc.get("blocks", [])
-    return result

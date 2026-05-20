@@ -793,3 +793,103 @@ LIMIT 10
 RETURN s.natural_key, total_mentions, all_gathas[0..5] AS gathas
 ```
 Expected: `NodeIndexSeek` for `Topic(natural_key)` entry point.
+
+---
+
+# Manual Verification Checklist — Phase 5 & 6: Hydration Helpers + Rollout
+
+## Prerequisites
+
+Same as Phase 2 / Phase 4 (query-service running with Postgres + Mongo + Neo4j).
+
+---
+
+## Phase 5 — Truncation marker `…`
+
+### 1. Definition block truncated at 1500 chars with `…` suffix
+Requires a keyword `आत्मा` with a `keyword_definitions` doc containing a Hindi block of >1500 chars.
+
+```bash
+curl -s -X POST http://localhost:8004/v1/query/keyword_resolve_batch \
+  -H "Content-Type: application/json" \
+  -d '{"tokens": ["आत्मा"], "include_definitions": true}' \
+  | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+for defn in d['resolutions'][0].get('definitions') or []:
+    if len(defn['text_hi']) > 1499:
+        assert defn['text_hi'].endswith('…'), 'truncated text must end with …'
+        assert len(defn['text_hi']) == 1501
+        print('truncation ok:', len(defn['text_hi']), 'chars')
+"
+```
+Expected: `truncation ok: 1501 chars`
+
+---
+
+### 2. Topic extract truncated at 1500 chars with `…` suffix
+Requires a topic with a `topic_extracts` doc with a Hindi block of >1500 chars.
+
+```bash
+curl -s -X POST http://localhost:8004/v1/query/topics_match \
+  -H "Content-Type: application/json" \
+  -d '{"phrase": "आत्मा", "include_extracts": true, "include_references": false}' \
+  | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+for m in d['matches']:
+    for e in m.get('extracts_hi') or []:
+        if len(e['text_hi']) > 1499:
+            assert e['text_hi'].endswith('…'), 'truncated extract must end with …'
+            print('extract truncation ok')
+"
+```
+
+---
+
+### 3. GraphRAG single Mongo query (verify no extra query)
+Enable query logging in Mongo (or add a breakpoint) and confirm only **one** `find()` on `topic_extracts` is made when `include_extracts=True` and `include_references=True`:
+
+```bash
+curl -s -X POST http://localhost:8004/v1/query/graphrag \
+  -H "Content-Type: application/json" \
+  -d '{
+    "tokens": ["आत्मा"],
+    "include_extracts": true,
+    "include_references": true,
+    "include_neighbors": false
+  }' | python3 -m json.tool
+```
+Expected: `extracts_hi` and `references` both populated; no duplicate Mongo calls in logs.
+
+---
+
+## Phase 6 — Env variables
+
+### 4. Configurable limits honoured
+Start the service with a custom env var override:
+```bash
+QUERY_TOPICS_MATCH_DEFAULT_LIMIT=2 \
+DATABASE_URL="..." ADMIN_USER=admin ADMIN_PASSWORD=secret \
+python -m uvicorn services.query_service.main:app --port 8004 --reload
+```
+
+Then verify the setting is loaded:
+```python
+from services.query_service.config import settings
+assert settings.QUERY_TOPICS_MATCH_DEFAULT_LIMIT == 2
+```
+
+---
+
+## Running all automated tests
+
+```bash
+# Unit tests for hydration helpers (no DB required)
+python -m pytest packages/jain_kb_common/tests/hydration/ -v
+# Expected: 26 passed
+
+# Full query-service suite (requires DATABASE_URL)
+python -m pytest services/query_service/tests/ -v
+# Expected: 65 passed (Phases 1–6)
+```

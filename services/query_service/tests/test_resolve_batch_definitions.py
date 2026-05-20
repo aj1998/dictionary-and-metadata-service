@@ -118,7 +118,7 @@ async def test_only_hindi_blocks_returned(client_with_mongo: AsyncClient) -> Non
 @pytest.mark.asyncio
 @pytest.mark.parametrize("client_with_mongo", [[_MONGO_DOC_LONG]], indirect=True)
 async def test_block_text_truncated_to_1500(client_with_mongo: AsyncClient) -> None:
-    """Block text is truncated to 1500 characters."""
+    """Block text is truncated to 1500 chars and suffixed with '…' (1501 total)."""
     factory = client_with_mongo.state  # type: ignore[attr-defined]
     await _insert_keyword(factory, _ATMA_NATURAL_KEY)
 
@@ -130,7 +130,9 @@ async def test_block_text_truncated_to_1500(client_with_mongo: AsyncClient) -> N
     r = resp.json()["resolutions"][0]
     assert r["definitions"] is not None
     assert len(r["definitions"]) == 1
-    assert len(r["definitions"][0]["text_hi"]) == 1500
+    text = r["definitions"][0]["text_hi"]
+    assert text.endswith("…"), "truncated text must end with '…'"
+    assert len(text) == 1501  # 1500 content chars + '…'
 
 
 @pytest.mark.asyncio
