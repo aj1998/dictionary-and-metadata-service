@@ -12,6 +12,7 @@ class Keyword(Base, TimestampMixin):
     __tablename__ = "keywords"
     __table_args__ = (
         Index("idx_keywords_text_trgm", "display_text", postgresql_using="gin", postgresql_ops={"display_text": "gin_trgm_ops"}),
+        Index("keywords_natural_key_trgm_idx", "natural_key", postgresql_using="gin", postgresql_ops={"natural_key": "gin_trgm_ops"}),
     )
 
     id: Mapped[uuid.UUID] = mapped_column(
