@@ -383,3 +383,172 @@ python -m pytest services/query_service/tests/ -v
 ```bash
 alembic upgrade head  # runs both 0015 and 0016
 ```
+
+---
+
+# Manual Verification Checklist — Phase 3: Metadata Fuzzy Match
+
+## Prerequisites
+
+1. Apply migration:
+   ```bash
+   alembic upgrade 0017
+   ```
+
+2. Verify indexes were created:
+   ```sql
+   SELECT indexname FROM pg_indexes
+   WHERE tablename IN ('shastras', 'authors', 'teekas')
+     AND indexname LIKE '%trgm%';
+   -- Expected 5 rows: shastras_nk_trgm, shastras_title_trgm,
+   --   authors_nk_trgm, authors_display_name_trgm, teekas_nk_trgm
+   ```
+
+3. Start metadata-service:
+   ```bash
+   DATABASE_URL="postgresql+asyncpg://..." \
+   ADMIN_USER=admin ADMIN_PASSWORD=secret \
+   python -m uvicorn services.metadata_service.main:app --port 8001 --reload
+   ```
+
+---
+
+## `GET /v1/shastras?q=&fuzzy=true` — Test Cases
+
+### A. Typo match (Latin)
+Requires a shastra with `natural_key="samaysaar"`.
+
+```bash
+curl -s "http://localhost:8001/v1/shastras?q=samaysar&fuzzy=true&limit=5" \
+  | python3 -m json.tool
+```
+
+Expected:
+- `items[0].natural_key == "samaysaar"`
+- `items[0].similarity` is a float between 0 and 1
+- `pagination.total` equals number of items returned
+
+---
+
+### B. Devanagari typo match
+Requires a shastra with Hindi title containing "समयसार".
+
+```bash
+curl -s "http://localhost:8001/v1/shastras?q=समयसर&fuzzy=true&limit=5" \
+  | python3 -m json.tool
+```
+
+Expected: `samaysaar` appears in results (matched via `title::text` similarity)
+
+---
+
+### C. Cutoff — no garbage
+```bash
+curl -s "http://localhost:8001/v1/shastras?q=xyzunknownentity999&fuzzy=true" \
+  | python3 -m json.tool
+```
+
+Expected: `items: []`
+
+---
+
+### D. Non-fuzzy q unchanged (ILIKE)
+```bash
+curl -s "http://localhost:8001/v1/shastras?q=समय" | python3 -m json.tool
+```
+
+Expected: shastras whose title contains "समय" (no `similarity` field in items)
+
+---
+
+### E. No similarity in non-fuzzy list
+```bash
+curl -s "http://localhost:8001/v1/shastras" | python3 -m json.tool
+```
+
+Expected: `items[*].similarity` is null (or absent)
+
+---
+
+## `GET /v1/authors?q=&fuzzy=true` — Test Cases
+
+### F. Partial match
+Requires an author with `natural_key="kundkundacharya"`.
+
+```bash
+curl -s "http://localhost:8001/v1/authors?q=kundkund&fuzzy=true&limit=5" \
+  | python3 -m json.tool
+```
+
+Expected:
+- `items[0].natural_key == "kundkundacharya"`
+- `items[0].similarity` is a float > 0
+
+---
+
+### G. Non-fuzzy q with ILIKE
+```bash
+curl -s "http://localhost:8001/v1/authors?q=kundkund" | python3 -m json.tool
+```
+
+Expected: `kundkundacharya` in results; no `similarity` field
+
+---
+
+### H. Cutoff
+```bash
+curl -s "http://localhost:8001/v1/authors?q=xyzunknownentity999&fuzzy=true" \
+  | python3 -m json.tool
+```
+
+Expected: `items: []`
+
+---
+
+## `GET /v1/teekas?q=&fuzzy=true` — Test Cases
+
+### I. Partial natural_key match
+Requires a teeka with `natural_key="samaysaar:amritchandra"`.
+
+```bash
+curl -s "http://localhost:8001/v1/teekas?q=samaysaar:amrit&fuzzy=true&limit=5" \
+  | python3 -m json.tool
+```
+
+Expected:
+- `items[0].natural_key == "samaysaar:amritchandra"`
+- `items[0].similarity` is a float > 0
+
+---
+
+### J. Non-fuzzy q with ILIKE
+```bash
+curl -s "http://localhost:8001/v1/teekas?q=samaysaar" | python3 -m json.tool
+```
+
+Expected: `samaysaar:amritchandra` in results; no `similarity` field
+
+---
+
+### K. Limit cap
+```bash
+curl -s "http://localhost:8001/v1/teekas?q=samaysaar&fuzzy=true&limit=200" \
+  | python3 -m json.tool
+```
+
+Expected: responds 200; actual result count ≤ 50
+
+---
+
+## Running automated tests
+
+```bash
+python -m pytest services/metadata_service/tests/ -v
+# Expected: 84 passed
+```
+
+## Applying migrations
+
+```bash
+alembic upgrade 0017
+```

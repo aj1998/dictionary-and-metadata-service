@@ -44,6 +44,7 @@ class ShastraSummaryResponse(BaseModel):
     title: list[LangText]
     author: AuthorSummary | None = None
     anuyogas: list[AnuyogaSummary] = []
+    similarity: float | None = None
 
     @field_validator("title", mode="before")
     @classmethod

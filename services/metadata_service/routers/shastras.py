@@ -53,15 +53,39 @@ async def list_shastras(
     author_id: uuid.UUID | None = None,
     anuyoga: str | None = None,
     q: str | None = None,
+    fuzzy: bool = Query(False),
     session: AsyncSession = Depends(get_session),
     lo: tuple[int, int] = Depends(_limit_offset),
 ) -> ShastraListResponse:
     limit, offset = lo
+    if fuzzy and q is not None:
+        results = await svc.fuzzy_search_shastras(session, q, limit)
+        items = []
+        for s, sim in results:
+            author = await svc.get_author_for(session, s)
+            anuyogas_list = await svc.get_anuyogas_for(session, s)
+            items.append(ShastraSummaryResponse(
+                id=s.id,
+                natural_key=s.natural_key,
+                title=s.title,
+                author=AuthorSummary(
+                    id=author.id,
+                    natural_key=author.natural_key,
+                    display_name=author.display_name,
+                    kind=author.kind,
+                ) if author else None,
+                anuyogas=[AnuyogaSummary(kind=a.kind, display_name=a.display_name) for a in anuyogas_list],
+                similarity=sim,
+            ))
+        return ShastraListResponse(
+            items=items,
+            pagination=Pagination(total=len(items), limit=min(limit, 50), offset=0),
+        )
     shastras, total = await svc.list_shastras(session, limit, offset, author_id, anuyoga, q)
     items = []
     for s in shastras:
         author = await svc.get_author_for(session, s)
-        anuyogas = await svc.get_anuyogas_for(session, s)
+        anuyogas_list = await svc.get_anuyogas_for(session, s)
         items.append(ShastraSummaryResponse(
             id=s.id,
             natural_key=s.natural_key,
@@ -72,7 +96,7 @@ async def list_shastras(
                 display_name=author.display_name,
                 kind=author.kind,
             ) if author else None,
-            anuyogas=[AnuyogaSummary(kind=a.kind, display_name=a.display_name) for a in anuyogas],
+            anuyogas=[AnuyogaSummary(kind=a.kind, display_name=a.display_name) for a in anuyogas_list],
         ))
     return ShastraListResponse(
         items=items,

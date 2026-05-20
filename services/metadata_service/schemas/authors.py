@@ -16,6 +16,7 @@ class AuthorResponse(BaseModel):
     bio: list[LangText] | None = None
     created_at: datetime
     updated_at: datetime
+    similarity: float | None = None
 
     @field_validator("display_name", mode="before")
     @classmethod

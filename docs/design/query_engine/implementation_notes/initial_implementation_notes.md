@@ -165,3 +165,83 @@ When both `include_extracts=True` and `include_references=True`, pipeline makes 
 | Neighbors (Stage 6, optional) | 1 Neo4j |
 
 Worst case: 3 Postgres + 2 Mongo + 2 Neo4j.
+
+---
+
+# Phase 3 Implementation Notes — Metadata Fuzzy Match
+
+## Status
+
+Phase 3 fully implemented. 84 metadata-service tests pass (24 new + 60 existing).
+
+## Files Changed
+
+### New
+| File | Purpose |
+|---|---|
+| `migrations/versions/0017_metadata_trgm_indexes.py` | GIN trigram indexes on shastras, authors, teekas |
+| `services/metadata_service/tests/test_fuzzy_metadata.py` | 24 tests covering all three fuzzy endpoints |
+
+### Modified
+| File | Change |
+|---|---|
+| `services/metadata_service/services/shastras.py` | Added `fuzzy_search_shastras()` |
+| `services/metadata_service/services/authors.py` | Added `q` param to `list_authors()`, added `fuzzy_search_authors()` |
+| `services/metadata_service/services/teekas.py` | Added `q` param to `list_teekas()`, added `fuzzy_search_teekas()` |
+| `services/metadata_service/schemas/shastras.py` | Added `similarity: float \| None = None` to `ShastraSummaryResponse` |
+| `services/metadata_service/schemas/authors.py` | Added `similarity: float \| None = None` to `AuthorResponse` |
+| `services/metadata_service/schemas/teekas.py` | Added `similarity: float \| None = None` to `TeekaSummaryResponse` |
+| `services/metadata_service/routers/shastras.py` | Added `fuzzy: bool` param; fuzzy path calls `fuzzy_search_shastras` |
+| `services/metadata_service/routers/authors.py` | Added `q` and `fuzzy` params |
+| `services/metadata_service/routers/teekas.py` | Added `q` and `fuzzy` params; extracted `_build_teeka_summary()` helper |
+
+## Fuzzy SQL Pattern
+
+All three services use a two-step pattern (same as `topics_match.py`):
+
+```sql
+WITH ranked AS (
+    SELECT id, GREATEST(similarity(natural_key, :q), similarity(col2::text, :q)) AS sim
+    FROM <table>
+)
+SELECT id::text AS id, sim FROM ranked
+WHERE sim >= :min_sim
+ORDER BY sim DESC
+LIMIT :limit
+```
+
+Then batch-load ORM objects by the returned IDs and re-order by similarity. This avoids manual ORM construction from raw rows.
+
+## Schema Adaptation
+
+The spec referred to flat columns `name_hi` / `name_en` / `display_name_hi` etc. These don't exist — all names are stored in JSONB arrays (`title`, `display_name`). The adaptation:
+- Shastras: `GREATEST(similarity(natural_key, :q), similarity(title::text, :q))`
+- Authors: `GREATEST(similarity(natural_key, :q), similarity(display_name::text, :q))`
+- Teekas: `similarity(natural_key, :q)` only (no dedicated name column)
+
+Casting JSONB to `::text` produces the full JSON string. Trigram similarity still works because the Devanagari text is present as a substring (e.g., `"text": "समयसार"`). Natural-key queries (ASCII typos like `samaysar` → `samaysaar`) use the `natural_key` column directly.
+
+## New Behaviour: `q` param on authors + teekas
+
+`/v1/authors` and `/v1/teekas` previously had no `q` param. Phase 3 adds it with ILIKE semantics for the non-fuzzy case (same pattern as existing `/v1/shastras?q=`).
+
+Authors ILIKE: `natural_key ILIKE :pattern OR display_name::text ILIKE :pattern`
+Teekas ILIKE: `natural_key ILIKE :pattern`
+
+## Deviations from Spec
+
+1. **No separate `name_hi`/`name_en` indexes**: The spec called for `CREATE INDEX shastras_name_hi_trgm ON shastras USING gin (name_hi gin_trgm_ops)`. These columns don't exist; indexes are on `natural_key` and `(title::text)` / `(display_name::text)` instead.
+
+2. **`q` param added to authors and teekas** (non-fuzzy ILIKE path): Spec only mentioned fuzzy=true switching to trigram, implying a pre-existing `q` param. Since these endpoints had none, an ILIKE non-fuzzy `q` path was added too.
+
+3. **Hard cap applied silently**: When `fuzzy=true` and `limit > 50`, the limit is silently capped to 50 in the service layer rather than returning a 422.
+
+## DB Roundtrips per fuzzy request
+
+| Step | Roundtrips |
+|---|---|
+| Similarity CTE (get IDs + scores) | 1 Postgres |
+| Batch load ORM objects by IDs | 1 Postgres |
+| Per-item detail load (shastras: author + anuyogas) | 2N Postgres (existing pattern) |
+
+For small result sets (default limit=10, cap=50) the N+1 detail loading is acceptable.

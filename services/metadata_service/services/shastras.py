@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import uuid
 from typing import Any, TypedDict
 
@@ -9,6 +10,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from jain_kb_common.db.postgres.anuyogas import Anuyoga
 from jain_kb_common.db.postgres.authors import Author
 from jain_kb_common.db.postgres.shastras import Shastra, ShastrasAnuyoga
+
+logger = logging.getLogger(__name__)
 
 
 class ShastraDetail(TypedDict):
@@ -93,6 +96,44 @@ async def list_shastras(
     total = await session.scalar(cnt_stmt)
     rows = await session.execute(stmt.order_by(Shastra.natural_key).limit(limit).offset(offset))
     return list(rows.scalars()), int(total or 0)
+
+
+_FUZZY_MIN_SIMILARITY = 0.25
+_FUZZY_HARD_CAP = 50
+
+
+async def fuzzy_search_shastras(
+    session: AsyncSession,
+    q: str,
+    limit: int,
+    min_similarity: float = _FUZZY_MIN_SIMILARITY,
+) -> list[tuple[Shastra, float]]:
+    """pg_trgm similarity search over natural_key and title JSONB text."""
+    capped = min(limit, _FUZZY_HARD_CAP)
+    sql = text("""
+        WITH ranked AS (
+            SELECT
+                id,
+                GREATEST(
+                    similarity(natural_key, :q),
+                    similarity(title::text, :q)
+                ) AS sim
+            FROM shastras
+        )
+        SELECT id::text AS id, sim FROM ranked
+        WHERE sim >= :min_sim
+        ORDER BY sim DESC
+        LIMIT :limit
+    """)
+    rows = list(await session.execute(sql, {"q": q, "min_sim": min_similarity, "limit": capped}))
+    logger.debug("fuzzy_search_shastras q=%r min_sim=%.2f → %d rows", q, min_similarity, len(rows))
+    if not rows:
+        return []
+    id_to_sim = {uuid.UUID(row.id): float(row.sim) for row in rows}
+    id_order = [uuid.UUID(row.id) for row in rows]
+    shastra_rows = await session.execute(select(Shastra).where(Shastra.id.in_(id_order)))
+    shastra_map = {s.id: s for s in shastra_rows.scalars()}
+    return [(shastra_map[sid], id_to_sim[sid]) for sid in id_order if sid in shastra_map]
 
 
 async def get_author_for(session: AsyncSession, shastra: Shastra) -> Author | None:

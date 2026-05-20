@@ -66,6 +66,6 @@ CREATE INDEX shastras_nk_trgm        ON shastras USING gin (natural_key gin_trgm
 
 ### DoD
 
-- [ ] Three migrations + indexes.
-- [ ] Three endpoints updated; OpenAPI regenerated.
-- [ ] Existing tests still green; new fuzzy tests added.
+- [x] Three migrations + indexes. (`migrations/versions/0017_metadata_trgm_indexes.py`)
+- [x] Three endpoints updated; OpenAPI regenerated.
+- [x] Existing tests still green; new fuzzy tests added. (84 passed, 24 new)

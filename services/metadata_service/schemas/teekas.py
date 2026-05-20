@@ -40,6 +40,7 @@ class TeekaSummaryResponse(BaseModel):
     natural_key: str
     shastra: ShastraSummary | None = None
     teekakar: AuthorSummary | None = None
+    similarity: float | None = None
 
     @field_validator("shastra", mode="before")
     @classmethod

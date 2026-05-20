@@ -69,44 +69,61 @@ def _build_teeka_response(detail: dict) -> TeekaResponse:
     )
 
 
+def _build_teeka_summary(t: object, detail: dict, similarity: float | None = None) -> TeekaSummaryResponse:
+    shastra = detail["shastra"]
+    shastra_author = detail["shastra_author"]
+    shastra_anuyogas = detail["shastra_anuyogas"]
+    teekakar = detail["teekakar"]
+    return TeekaSummaryResponse(
+        id=t.id,  # type: ignore[attr-defined]
+        natural_key=t.natural_key,  # type: ignore[attr-defined]
+        shastra=ShastraSummary(
+            id=shastra.id,
+            natural_key=shastra.natural_key,
+            title=shastra.title,
+            author=AuthorSummary(
+                id=shastra_author.id,
+                natural_key=shastra_author.natural_key,
+                display_name=shastra_author.display_name,
+                kind=shastra_author.kind,
+            ) if shastra_author else None,
+            anuyogas=[AnuyogaSummary(kind=a.kind, display_name=a.display_name) for a in shastra_anuyogas],
+        ) if shastra else None,
+        teekakar=AuthorSummary(
+            id=teekakar.id,
+            natural_key=teekakar.natural_key,
+            display_name=teekakar.display_name,
+            kind=teekakar.kind,
+        ) if teekakar else None,
+        similarity=similarity,
+    )
+
+
 @router.get("/teekas", response_model=TeekaListResponse)
 async def list_teekas(
     shastra_id: uuid.UUID | None = None,
     teekakar_id: uuid.UUID | None = None,
+    q: str | None = None,
+    fuzzy: bool = Query(False),
     session: AsyncSession = Depends(get_session),
     lo: tuple[int, int] = Depends(_limit_offset),
 ) -> TeekaListResponse:
     limit, offset = lo
-    teekas, total = await svc.list_teekas(session, limit, offset, shastra_id, teekakar_id)
+    if fuzzy and q is not None:
+        results = await svc.fuzzy_search_teekas(session, q, limit)
+        items = []
+        for t, sim in results:
+            detail = await svc.get_detail(session, t)
+            items.append(_build_teeka_summary(t, detail, similarity=sim))
+        return TeekaListResponse(
+            items=items,
+            pagination=Pagination(total=len(items), limit=min(limit, 50), offset=0),
+        )
+    teekas, total = await svc.list_teekas(session, limit, offset, shastra_id, teekakar_id, q)
     items = []
     for t in teekas:
         detail = await svc.get_detail(session, t)
-        shastra = detail["shastra"]
-        shastra_author = detail["shastra_author"]
-        shastra_anuyogas = detail["shastra_anuyogas"]
-        teekakar = detail["teekakar"]
-        items.append(TeekaSummaryResponse(
-            id=t.id,
-            natural_key=t.natural_key,
-            shastra=ShastraSummary(
-                id=shastra.id,
-                natural_key=shastra.natural_key,
-                title=shastra.title,
-                author=AuthorSummary(
-                    id=shastra_author.id,
-                    natural_key=shastra_author.natural_key,
-                    display_name=shastra_author.display_name,
-                    kind=shastra_author.kind,
-                ) if shastra_author else None,
-                anuyogas=[AnuyogaSummary(kind=a.kind, display_name=a.display_name) for a in shastra_anuyogas],
-            ) if shastra else None,
-            teekakar=AuthorSummary(
-                id=teekakar.id,
-                natural_key=teekakar.natural_key,
-                display_name=teekakar.display_name,
-                kind=teekakar.kind,
-            ) if teekakar else None,
-        ))
+        items.append(_build_teeka_summary(t, detail))
     return TeekaListResponse(
         items=items,
         pagination=Pagination(total=total, limit=limit, offset=offset),

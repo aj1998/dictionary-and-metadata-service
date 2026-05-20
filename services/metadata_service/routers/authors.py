@@ -21,13 +21,25 @@ def _limit_offset(
 
 @router.get("/authors", response_model=AuthorListResponse)
 async def list_authors(
+    q: str | None = None,
+    fuzzy: bool = Query(False),
     session: AsyncSession = Depends(get_session),
     lo: tuple[int, int] = Depends(_limit_offset),
 ) -> AuthorListResponse:
     limit, offset = lo
-    items, total = await svc.list_authors(session, limit, offset)
+    if fuzzy and q is not None:
+        results = await svc.fuzzy_search_authors(session, q, limit)
+        items = [
+            AuthorResponse.model_validate(a, from_attributes=True).model_copy(update={"similarity": sim})
+            for a, sim in results
+        ]
+        return AuthorListResponse(
+            items=items,
+            pagination=Pagination(total=len(items), limit=min(limit, 50), offset=0),
+        )
+    authors, total = await svc.list_authors(session, limit, offset, q)
     return AuthorListResponse(
-        items=[AuthorResponse.model_validate(a, from_attributes=True) for a in items],
+        items=[AuthorResponse.model_validate(a, from_attributes=True) for a in authors],
         pagination=Pagination(total=total, limit=limit, offset=offset),
     )
 
