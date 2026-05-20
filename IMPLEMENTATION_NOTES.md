@@ -511,9 +511,125 @@ pnpm test                           # vitest — ~224 pure logic tests
 ```
 
 ---
+### ✅ Completed: Query Service API — GraphRAG Engine (`docs/design/query_engine/`)
+
+**Module**: `services/query_service/` — FastAPI service on port `8004`. Implements the full GraphRAG pipeline for `cataloguesearch-chat`: tokenise → resolve → graph-traverse → rank → hydrate.
+
+Delivered across 6 phases. 91 tests pass (65 query-service + 26 hydration unit tests). Zero regressions across all other services.
+
+#### Phases delivered
+
+| Phase | Scope | Tests |
+|---|---|---|
+| 1 | `POST /v1/query/keyword_resolve_batch` — 4-pass resolution pipeline (exact, alias, suffix-strip, fuzzy trigram) + Mongo definition hydration | 5 test files |
+| 2 | `POST /v1/query/topics_match` + `POST /v1/query/graphrag` — trigram topic search, Neo4j traversal, weighted-overlap ranking | 17 new API tests + 17 UI type/api tests |
+| 3 | Fuzzy search on Metadata Service (`?q=&fuzzy=true`) for shastras, authors, teekas; GIN trigram indexes (migration 0017) | 24 new tests |
+| 4 | `POST /v1/query/topics_in_shastra` + `POST /v1/query/shastras_for_topic`; GathaDetail shape audit; `page_numbers` gap documented | 14 new tests |
+| 5 | Shared hydration helpers in `jain_kb_common/hydration/`; GraphRAG Mongo queries reduced from 2 to 1 | 26 new unit tests |
+| 6 | `test_e2e.py` (11 round-trip tests), 9 env-configurable `QUERY_*` vars, 5 manual-testing docs | — |
+
+#### Endpoints
+
+| Method | Path | Description |
+|---|---|---|
+| `POST` | `/v1/query/keyword_resolve_batch` | Resolve up to 32 tokens via 4-pass pipeline; returns definitions from Mongo |
+| `POST` | `/v1/query/topics_match` | Trigram search for topics; optional extract + reference hydration |
+| `POST` | `/v1/query/graphrag` | Full GraphRAG: resolve tokens → traverse graph → rank topics → hydrate |
+| `POST` | `/v1/query/topics_in_shastra` | Topics mentioned in a shastra (optionally narrowed to one gatha) |
+| `POST` | `/v1/query/shastras_for_topic` | Shastras that mention a topic, with gatha list |
+
+#### Resolution pipeline (`keyword_resolve_batch`)
+
+| Pass | Method | DB |
+|---|---|---|
+| 1+2 | Exact `natural_key` + alias lookup (single CTE) | 1 Postgres |
+| 3 | Suffix-strip retry (Hindi suffix list) | 1 Postgres (only if misses) |
+| 4 | `pg_trgm` fuzzy similarity (default threshold 0.35) | 1 Postgres (only if still unresolved) |
+| — | Definition hydration (`keyword_definitions` collection) | 1 Mongo |
+
+Worst case: 3 Postgres + 1 Mongo per request.
+
+#### Shared hydration package (`packages/jain_kb_common/jain_kb_common/hydration/`)
+
+| Function | Purpose |
+|---|---|
+| `hydrate_definitions_hi(mongo_db, nks, cap)` | Fetch Hindi blocks from `keyword_definitions`; truncates at 1500 chars with `…` |
+| `hydrate_topic_extracts_hi(mongo_db, nks, index_map, cap)` | Fetch Hindi blocks + inline references from `topic_extracts`; single Mongo query |
+| `extract_references(blocks)` | Pure function; deduplicates `(shastra_nk, gatha_num, teeka_nk, page_num)` refs |
+
+#### DB Migrations added
+
+| Migration | Contents |
+|---|---|
+| `0015_keywords_natural_key_trgm_idx.py` | GIN trigram index on `keywords.natural_key` |
+| `0016_topics_natural_key_trgm_idx.py` | GIN trigram index on `REPLACE(topics.natural_key,'/',' ')` expression |
+| `0017_metadata_trgm_indexes.py` | GIN trigram indexes on `shastras`, `authors`, `teekas` |
+
+#### Env variables
+
+```
+QUERY_KEYWORD_RESOLVE_MAX_TOKENS=32
+QUERY_KEYWORD_FUZZY_MIN_SIM=0.35
+QUERY_KEYWORD_FUZZY_TOP_K=5
+QUERY_TOPICS_MATCH_DEFAULT_LIMIT=5
+QUERY_TOPICS_MATCH_MIN_SIM=0.30
+QUERY_GRAPHRAG_DEFAULT_LIMIT=5
+QUERY_GRAPHRAG_DEFAULT_MAX_HOPS=2
+QUERY_TOPICS_IN_SHASTRA_LIMIT=25
+QUERY_SHASTRAS_FOR_TOPIC_LIMIT=10
+```
+
+#### Key deviations / gaps
+
+- **`page_numbers` not in data model** — `Gatha` has no `page_number` column in Postgres or Mongo; documented in Phase 4, requires a new migration + backfill before production use.
+- **`include_extracts` on `topics_in_shastra` not yet wired** — field accepted in schema but Mongo hydration not connected (deferred).
+- **`gatha_number` vs `number` in Neo4j** — Phase 4 Cypher uses `g.number`; actual graph may use `g.gatha_number` (verify against live Neo4j before production).
+- **`Shastra.name_hi` property** — used in `shastras_for_topic` Cypher; actual Neo4j property name must be confirmed against ingestion pipeline.
+
+#### Run
+
+```bash
+export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_dev"
+export MONGO_URL="mongodb://localhost:27017"
+export NEO4J_URL="bolt://localhost:7687"
+export NEO4J_USER="neo4j"
+export NEO4J_PASSWORD="jainkb_password"
+uvicorn services.query_service.main:app --port 8004 --reload
+```
+
+#### Tests
+
+```bash
+export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
+export ADMIN_USER=admin
+export ADMIN_PASSWORD=secret
+# Query-service tests (Neo4j + Mongo mocked; Postgres real)
+python -m pytest services/query_service/tests/ -v
+# Hydration unit tests (no DB required)
+python -m pytest packages/jain_kb_common/tests/hydration/ -v
+```
+
+See [`docs/manual_testing/api/query/`](docs/manual_testing/api/query/) for curl examples and diagnostic SQL/Cypher for each endpoint.
+
+---
+
+### ✅ Updated: Metadata Service — fuzzy search (`docs/design/query_engine/03_metadata_fuzzy_match.md`)
+
+Phase 3 of the query engine added fuzzy (`?fuzzy=true`) search to three existing metadata endpoints:
+
+| Endpoint | Fuzzy behaviour |
+|---|---|
+| `GET /v1/shastras?q=&fuzzy=true` | pg_trgm on `natural_key` + `title::text` |
+| `GET /v1/authors?q=&fuzzy=true` | pg_trgm on `natural_key` + `display_name::text` |
+| `GET /v1/teekas?q=&fuzzy=true` | pg_trgm on `natural_key` |
+
+`?q=` (non-fuzzy ILIKE) was also added to `/v1/authors` and `/v1/teekas` (previously missing). Response shapes gain an optional `similarity: float | None` field. Hard cap: limit silently capped to 50 when `fuzzy=true`.
+
+---
+
 ### 🔜 Not yet started
 
-- Ingestion workers (`08`, `09`), query engine (`12`), query service (`07`), enrichment loop (`11`), admin UI (`13`), deployment (`15`).
+- Ingestion workers (`08`, `09`), enrichment loop (`11`), admin UI (`13`), deployment (`15`).
 
 ---
 ## Key conventions

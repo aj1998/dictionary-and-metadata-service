@@ -137,7 +137,7 @@ See [`IMPLEMENTATION_NOTES.md`](IMPLEMENTATION_NOTES.md) for full details on eac
 | Metadata Service API (port 8001, 60 tests) | ✅ |
 | Data Service API (port 8002, 60 tests) | ✅ |
 | Navigation Service API (port 8003, 44 passing tests) | ✅ |
-| Query Service API (port 8004, GraphRAG) | 🔜 |
+| Query Service API (port 8004, GraphRAG — 6 phases, 91 tests) | ✅ |
 | Ingestion workers (nikkyjain, vyakaran OCR) | 🔜 |
 | Public UI — Next.js 16 (8 phases: shells, graph, content pages, a11y) | ✅ |
 | Deployment (Docker Compose) | 🔜 |
@@ -249,6 +249,13 @@ python -m pytest services/data_service/tests/ -v
 # Navigation service tests only (Neo4j mocked, no real Neo4j required)
 export NEO4J_PASSWORD=jainkb_password
 python -m pytest services/navigation_service/tests/ -v
+
+# Query service tests only (Neo4j + Mongo mocked; Postgres real)
+export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
+python -m pytest services/query_service/tests/ -v
+
+# Hydration unit tests (no DB required)
+python -m pytest packages/jain_kb_common/tests/hydration/ -v
 ```
 
 ---
@@ -266,17 +273,20 @@ dictionary-and-metadata-service/
 │       └── api/
 │           ├── metadata/testing.md
 │           ├── data/testing.md
-│           └── navigation/testing.md
+│           ├── navigation/testing.md
+│           └── query/          # keyword_resolve_batch, topics_match, graphrag, topics_in_shastra, shastras_for_topic
 ├── parser_configs/
 │   └── _meta/
 │       └── edge_types.yaml    # Canonical Neo4j edge type registry
 ├── packages/
-│   └── jain_kb_common/        # Shared DB clients, models, upserts
-│       └── jain_kb_common/db/
-│           ├── postgres/      # SQLAlchemy models + upserts (incl. publications.py, kalashas.py)
-│           ├── mongo/         # Motor client, Pydantic schemas, upserts, indexes (15 collections)
-│           └── neo4j/         # AsyncDriver factory, constraints, upserts, queries, schema_check
-├── migrations/                # Alembic (15 versions, 0001–0009 + 0010–0013 schema sync + Phase 1)
+│   └── jain_kb_common/        # Shared DB clients, models, upserts, hydration helpers
+│       └── jain_kb_common/
+│           ├── db/
+│           │   ├── postgres/  # SQLAlchemy models + upserts (incl. publications.py, kalashas.py)
+│           │   ├── mongo/     # Motor client, Pydantic schemas, upserts, indexes (15 collections)
+│           │   └── neo4j/     # AsyncDriver factory, constraints, upserts, queries, schema_check
+│           └── hydration/     # hydrate_definitions_hi, hydrate_topic_extracts_hi, extract_references
+├── migrations/                # Alembic (17 versions, 0001–0017 incl. trgm indexes for query engine)
 ├── tests/
 │   ├── db/
 │   │   ├── postgres/
@@ -288,9 +298,10 @@ dictionary-and-metadata-service/
 │   └── ingestion/
 │       └── test_apply.py               # apply_approved_keyword_payload integration tests
 ├── services/
-│   ├── metadata_service/      # FastAPI metadata service (port 8001) — authors, shastras, teekas, publications, books, pravachans
+│   ├── metadata_service/      # FastAPI metadata service (port 8001) — authors, shastras, teekas, publications, books, pravachans; fuzzy search
 │   ├── data_service/          # FastAPI data service (port 8002) — keywords, gathas, topics, kalashas, browse, search
-│   └── navigation_service/    # FastAPI navigation service (port 8003) — Neo4j graph navigation, alias CRUD, topic edge admin
+│   ├── navigation_service/    # FastAPI navigation service (port 8003) — Neo4j graph navigation, alias CRUD, topic edge admin
+│   └── query_service/         # FastAPI query service (port 8004) — GraphRAG: keyword resolve, topics match, graphrag, subworkflow endpoints
 ├── workers/
 │   └── ingestion/
 │       └── jainkosh/
