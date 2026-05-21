@@ -247,3 +247,35 @@ async def test_full_path():
 - [ ] e2e test passes against `docker compose up` stack.
 - [ ] Coverage ≥ 80% on `packages/jain_kb_common/` and each `services/*/`.
 - [ ] README at repo root has a "Running tests" section pointing here.
+
+## SAAR additions (additive, see [`scope/02_foundation_status.md`](../scope/02_foundation_status.md))
+
+Each SAAR scope spec carries its own TDD test list. This file is extended only for the *cross-cutting* fixtures and goldens new features need.
+
+### Fixtures
+
+| Fixture | Path | Used by |
+|---|---|---|
+| Users + prefs + saved views/highlights | `tests/fixtures/users/` | [`scope/01_user_accounts_spec.md`](./scope/01_user_accounts_spec.md) |
+| Shastra layout YAMLs (samaysaar, pravachansaar, tatvarth-sutra, padma-puraan, gommatsaar) | `tests/fixtures/shastra_layouts/` | [`scope/02_shastra_layout_configs_spec.md`](./scope/02_shastra_layout_configs_spec.md) |
+| Extraction spans JSONL | `tests/fixtures/extraction_spans/` | [`scope/08`](./scope/08_translation_pipeline_extraction_spec.md), [`scope/09`](./scope/09_translation_pipeline_ai_flow_spec.md) |
+| Expected counter values | `tests/fixtures/counters/` | [`scope/10`](./scope/10_topic_keyword_counters_spec.md) |
+| Vitrag Hin↔En entries | `tests/fixtures/vitrag_dict/` | [`scope/14`](./scope/14_vitrag_dictionary_ingest_spec.md) |
+| Kn/Gu/Sa/Pr keyword translations | `tests/fixtures/translations/` | [`scope/15`](./scope/15_multilingual_keyword_storage_spec.md) |
+| Figures (5 tables + 5 flowcharts with bboxes) | `tests/fixtures/figures/` | [`scope/20`](./scope/20_flowchart_table_graph_scanner_spec.md) |
+| Jinswara Q/A pairs | `tests/fixtures/jinswara/` | [`scope/19`](./scope/19_jinswara_qna_ingest_spec.md) |
+| YouTube transcript JSON + sample WAV ≤30s | `tests/fixtures/youtube_chunks/` | [`scope/18`](./scope/18_av_rag_pipeline_spec.md) |
+| Extraction eval goldens (≥100 spans across 3 shastras) | `tests/fixtures/eval/extraction/` | [`scope/24`](./scope/24_finetune_eval_harness_spec.md) |
+| Relation eval goldens (approved edge set) | `tests/fixtures/eval/relations/` | same |
+| Q/A eval set (25 expert-graded items) | `tests/fixtures/eval/qa/` | same |
+| Bhoovalay chakra + canonical path + expected syllables | `tests/fixtures/bhoovalay/` | [`scope/27`](./scope/27_siri_bhoovalay_workspace_spec.md) |
+
+### New cross-cutting goldens
+
+- **LLM-call replay goldens.** Every prompt path (enrichment, hierarchy, categorisation, drush-taant prompt rewrite) persists a recorded request/response pair under `tests/golden/llm/<task>/`. Tests run against the replay file unless `LLM_LIVE=1`, in which case the harness re-records.
+- **Image / audio determinism.** Drush-taant + audio jobs assert metadata (provider, model, prompt, seed, ts) match the expected row — binary blob bytes are not compared.
+
+### New CI matrix entries
+
+- `extraction-eval` — runs `workers/finetune/eval/extraction.py` against the latest active model + the golden set; fails CI if F1 regresses > 2 points vs. the score stored in `model_registry.eval_scores`.
+- `ui-visual-regression` — Playwright screenshots of ShastraExplorer / Graph / AI / ResearchTools shells; diff gated at 0.5% pixel threshold.

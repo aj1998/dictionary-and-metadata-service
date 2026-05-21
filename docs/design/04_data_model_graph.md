@@ -197,3 +197,32 @@ Because the graph mirrors Postgres+Mongo, **graph backup is optional** — full 
 - [ ] Admin endpoint `POST /admin/graph/resync` exists and triggers a full rebuild.
 - [ ] `parser_configs/_meta/edge_types.yaml` lists the canonical edge types; `schema_check.py` rejects writes with unknown types.
 - [ ] Smoke test: ingest 2 sample JainKosh keywords + 1 nikkyjain shastra → graph has correct labels, 5+ nodes, ≥1 edge of each defined type.
+
+## SAAR additions (additive)
+
+New labels and edge types are introduced by their owning scope spec. Each must also be appended to `parser_configs/_meta/edge_types.yaml`.
+
+### New node labels
+
+| Label | Identifier | Owning spec |
+|---|---|---|
+| `Translation` | `natural_key = "<entity_kind>:<entity_nk>:<lang>:<script>"` | [`scope/15_multilingual_keyword_storage_spec.md`](./scope/15_multilingual_keyword_storage_spec.md) |
+| `Flowchart` | `natural_key = "fig:<source>:<page>:<bbox-hash>"` | [`scope/20_flowchart_table_graph_scanner_spec.md`](./scope/20_flowchart_table_graph_scanner_spec.md) |
+| `JinswaraQnA` | `natural_key` (e.g. `jinswara:<author>:<qid>`) | [`scope/19_jinswara_qna_ingest_spec.md`](./scope/19_jinswara_qna_ingest_spec.md) |
+| `PravachanChunk` | `natural_key = "<pravachan_nk>:<sequence>"` | [`scope/18_av_rag_pipeline_spec.md`](./scope/18_av_rag_pipeline_spec.md) |
+| `ResearchCategory` | `code` (e.g. `maths`, `astronomy`) | [`scope/13_categorisation_pipeline_spec.md`](./scope/13_categorisation_pipeline_spec.md) |
+
+### New edge types
+
+| Type | From → To | Owning spec |
+|---|---|---|
+| `TRANSLATES_TO` | `Keyword|Topic → Translation` | [`scope/15`](./scope/15_multilingual_keyword_storage_spec.md) |
+| `HAS_FLOWCHART` | `Topic|Gatha → Flowchart` | [`scope/20`](./scope/20_flowchart_table_graph_scanner_spec.md) |
+| `ANSWERS` | `Author → JinswaraQnA` | [`scope/19`](./scope/19_jinswara_qna_ingest_spec.md) |
+| `MENTIONS_TOPIC` (extended) | `JinswaraQnA|PravachanChunk → Topic` | [`scope/18`](./scope/18_av_rag_pipeline_spec.md), [`scope/19`](./scope/19_jinswara_qna_ingest_spec.md) |
+| `MENTIONS_KEYWORD` (extended) | `JinswaraQnA|PravachanChunk → Keyword` | same |
+| `IN_PRAVACHAN` | `PravachanChunk → Pravachan` (Pravachan node added to mirror PG) | [`scope/18`](./scope/18_av_rag_pipeline_spec.md) |
+| `CATEGORISED_AS` | `Topic|Keyword|Gatha → ResearchCategory` | [`scope/13`](./scope/13_categorisation_pipeline_spec.md) |
+| `DRUSHTAANT_OF` | `DrushtaantImage → Gatha` (DrushtaantImage node optional; PG-only acceptable) | [`scope/05`](./scope/05_drushtaant_image_gen_spec.md) |
+
+All new edges carry the standard `{weight, source}` properties. Sync is still Postgres-driven; the `graph_sync` worker grows new helpers per spec.

@@ -442,3 +442,20 @@ async def upsert_keyword(session, *, natural_key: str, display_text: str,
 - [ ] All SQLAlchemy models pass `mypy --strict` and round-trip a sample fixture.
 - [ ] `upsert_*` functions exist for keywords, topics, gathas, shastras, teekas, books, pravachans.
 - [ ] `pytest tests/db/postgres/test_idempotent_upsert.py` proves running ingestion twice produces identical row count and overwrites fields.
+
+## SAAR additions (additive)
+
+New tables are introduced by their owning scope spec. Each spec ships its own Alembic migration with raw DDL. The migration-number allocation across batches is:
+
+| Range | Owner |
+|---|---|
+| 0017–0019 | [`scope/01_user_accounts_spec.md`](./scope/01_user_accounts_spec.md) — `users`, `magic_link_tokens`, `refresh_tokens`, `user_preferences`, `saved_views`, `saved_highlights`, `query_logs.user_id` |
+| 0020–0029 | Reading layer (specs 02–07, 12) — `shastra_layouts`, `drushtaant_jobs`, `audio_jobs`, `export_history` |
+| 0020–0029 (cont.) | Translation/enrichment (specs 08–11, 13–16) — `extraction_spans`, `enrichment_runs`, `llm_calls`, `topic_counters`, `keyword_counters`, `proposed_topic_edges`, `research_categories`, `entity_categories`, `vitrag_dict_entries`, `keyword_translations`, `topic_translations` |
+| 0030–0039 | RAG / A-V (specs 17–20) — `rag_query_logs`, `chunk_graph_coverage`, `pravachan_chunks`, `jinswara_qna`, `figures` |
+| 0040–0049 | Finetuning (specs 21–26) — `finetune_datasets`, `finetune_jobs`, `model_registry` |
+| 0050+ | Research workspaces (specs 27–29) — `bhoovalay_chakras`, `bhoovalay_mappings`, `bhoovalay_paths`, `research_tools` |
+
+New enum values are appended to `ingestion_source`: `jinswara`, `youtube`, `vitrag_dict`. New enum `user_role` introduced in 0017.
+
+Multilingual JSONB shape `[{lang, script, text}]` is reused as-is for all new tables. The `natural_key` + UUID convention is unchanged.

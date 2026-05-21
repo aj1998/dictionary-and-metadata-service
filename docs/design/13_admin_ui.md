@@ -183,3 +183,25 @@ ui/app/admin/
 - [ ] Alias add/remove reflected in Postgres and Neo4j within 5s of action.
 - [ ] Basic auth enforced at nginx and re-validated app-side.
 - [ ] Hindi labels default; English available via locale switcher.
+
+## SAAR additions (additive, see [`scope/02_foundation_status.md`](../scope/02_foundation_status.md))
+
+Once user accounts ship ([`scope/01_user_accounts_spec.md`](./scope/01_user_accounts_spec.md)), nginx basic auth is replaced by `require_role('admin' | 'reviewer')` middleware against the auth-service JWT. The page list grows by the following routes; each is fully specified in its corresponding scope spec:
+
+| Route | Purpose | Spec |
+|---|---|---|
+| `/admin/shastra-layouts` | Edit per-shastra layout YAML; validate; preview reader | [`scope/02_shastra_layout_configs_spec.md`](./scope/02_shastra_layout_configs_spec.md) |
+| `/admin/drushtaant-review` | Approve/reject AI-generated illustrations per gatha | [`scope/05_drushtaant_image_gen_spec.md`](./scope/05_drushtaant_image_gen_spec.md) |
+| `/admin/audio-jobs` | Trigger / monitor ElevenLabs jobs per adhikaar | [`scope/06_audio_reader_elevenlabs_spec.md`](./scope/06_audio_reader_elevenlabs_spec.md) |
+| `/admin/extraction-spans` | Review topic/keyword extraction proposals (Stage A+B) | [`scope/08_translation_pipeline_extraction_spec.md`](./scope/08_translation_pipeline_extraction_spec.md) |
+| `/admin/proposed-edges` | Approve/reject IS_A / PART_OF / RELATED_TO from hierarchy AI | [`scope/11_topic_hierarchy_ai_spec.md`](./scope/11_topic_hierarchy_ai_spec.md) |
+| `/admin/categories` | Manage research-category seed + curated assignments | [`scope/13_categorisation_pipeline_spec.md`](./scope/13_categorisation_pipeline_spec.md) |
+| `/admin/vitrag-dict` | Approve scraped Hin→En entries | [`scope/14_vitrag_dictionary_ingest_spec.md`](./scope/14_vitrag_dictionary_ingest_spec.md) |
+| `/admin/translations` | Approve keyword/topic translations across Kn/Gu/Sa/Pr | [`scope/15_multilingual_keyword_storage_spec.md`](./scope/15_multilingual_keyword_storage_spec.md) |
+| `/admin/figures` | Associate detected flowcharts/tables to topics/gathas | [`scope/20_flowchart_table_graph_scanner_spec.md`](./scope/20_flowchart_table_graph_scanner_spec.md) |
+| `/admin/jinswara-authors` | Maintain verified-author allowlist | [`scope/19_jinswara_qna_ingest_spec.md`](./scope/19_jinswara_qna_ingest_spec.md) |
+| `/admin/finetune-jobs` | Trigger / monitor LoRA training | [`scope/22_finetune_training_infra_spec.md`](./scope/22_finetune_training_infra_spec.md) |
+| `/admin/model-registry` | Promote/retire models, surface eval scores | [`scope/23_model_serving_registry_spec.md`](./scope/23_model_serving_registry_spec.md) |
+| `/admin/research-tools` | Plugin registry + per-tool config | [`scope/28_research_tools_framework_spec.md`](./scope/28_research_tools_framework_spec.md) |
+| `/admin/users` | List users, change role, force-logout, deletion queue | [`scope/01_user_accounts_spec.md`](./scope/01_user_accounts_spec.md) |
+| `/admin/observability/rag` | Graph-coverage dashboards, zero-graph-hit queries | [`scope/17_advanced_rag_enhancements_spec.md`](./scope/17_advanced_rag_enhancements_spec.md) |

@@ -149,12 +149,33 @@ dictionary-and-metadata-service/
 | `samples/vyakaran_vishleshan/<shastra>/*.png` | PNG scans | Future, manual | Word-by-word breakdowns per gatha |
 | (**enrichment**) `cataloguesearch-chat` candidate topics DB | Read-only pull (cron) | Daily | `topic_candidates` rows for admin review |
 
+## SAAR additions
+
+The Jinvani SAAR vision extends the original 4-service platform. The scope and per-feature design specs live in [`scope/`](./scope/) and [`design/scope/`](./scope/). New services and sources added by SAAR are summarised below; see [`scope/02_foundation_status.md`](../scope/02_foundation_status.md) for the foundation gap analysis.
+
+### Additional services
+
+| Service | Port | Purpose |
+|---|---|---|
+| `auth-service` | 8005 | JWT auth (magic-link + Google OAuth), user preferences, saved views/highlights (spec 01) |
+| `pdf-export-service` | 8006 | WeasyPrint-based PDF export of shastra chapters (spec 07) |
+| `rag-enhancer-service` | 8007 | Graph-aware re-ranking on top of `query-service /graphrag` (spec 17), A/V RAG (spec 18) |
+| `model-serving-service` | 8008 | vLLM-served LoRA finetunes + registry router (specs 22, 23) |
+| `bhoovalay-service` | 8009 | Siri Bhoovalay chakra workspace + decoding helpers (spec 27) |
+
+### Additional sources
+
+| Source | Format | Output |
+|---|---|---|
+| `vitrag-elibrary` (Hi↔En dictionary) | Live HTML | Constrained translation vocabulary (spec 14) |
+| Jinswara Q/A archive | HTML | Q/A pairs linked to graph topics (spec 19) |
+| YouTube pravachan transcripts | YouTube API + STT fallback | Time-coded chunks indexed for A/V RAG (spec 18) |
+| Scanned Kn/Gu shastra PDFs | PDF | OCR + multilingual keyword aliases (spec 16) |
+
 ## Out of Scope
 
-- Training a Jainism LLM
 - Mobile apps
-- Owning OCR of the cataloguesearch corpus (we only OCR `vyakaran_vishleshan` here)
-- User accounts and auth (public read; admin protected by basic auth or IP allowlist for v1)
+- Owning OCR of the cataloguesearch corpus (we only OCR `vyakaran_vishleshan` and the Kn/Gu sources from spec 16 here)
 
 ## Reading Order for Implementers
 

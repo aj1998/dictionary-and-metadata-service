@@ -317,3 +317,68 @@ Vertical scale is the path — if Neo4j becomes the bottleneck, sharding the gra
 - [ ] Backup cron scripts exist under `deploy/backup/` and run dry-run successfully.
 - [ ] Resource sizing documented in README with current and projected numbers.
 - [ ] `.env.example` checked in; `.env` and `.env.local` are gitignored.
+
+## SAAR additions (additive, see [`scope/02_foundation_status.md`](../scope/02_foundation_status.md))
+
+These pieces come online as SAAR-feature specs ship; defer the deploy work until the spec's "Definition of done" is hit.
+
+### New services
+
+| Service | Port | Compose profile | Notes |
+|---|---|---|---|
+| `auth-service` | 8005 | core | Replaces nginx basic-auth on `/admin/`. Needs `JWT_SECRET`, provider keys. |
+| `pdf-service` | 8006 | extras | Headless Chromium; ~500 MB extra RAM. |
+| `rag-enhancer-service` | 8007 | extras | Stateless wrapper around cataloguesearch + query-service. |
+| `model-serving-service` | 8008 | gpu | Router only; vLLM workers run on the GPU host. |
+| `bhoovalay-service` | 8009 | research | Depends on `model-serving-service`. |
+
+### GPU host
+
+vLLM/Ollama live outside the main VM. Either a second host or rented Modal containers (per [`scope/06_advanced_rag_and_finetuning.md`](../scope/06_advanced_rag_and_finetuning.md)):
+
+| Component | Initial | Year-1 |
+|---|---|---|
+| GPU | 1× L4 / A10G (24 GB) for 7–8B LoRA inference | 1× A100-80GB / H100 for the 34B+ Jainism main (quantised) |
+| RAM | 64 GB | 128 GB |
+| Disk | 500 GB NVMe (weights cache) | 2 TB |
+
+Compose extension `docker-compose.gpu.yml` keeps GPU services out of the default boot.
+
+### Object storage (S3-compatible)
+
+Required for: drushtaant images, audio chapters, figures crops, PDF exports, finetune datasets + checkpoints. Dev uses MinIO Compose service (`compose --profile s3`). Production: any S3-compatible (R2, B2, Wasabi). Buckets: `jinvani-drushtaant`, `jinvani-audio`, `jinvani-figures`, `jinvani-exports`, `jinvani-finetune-datasets`, `jinvani-finetune-checkpoints`.
+
+### Third-party API keys (env)
+
+| Env | Used by |
+|---|---|
+| `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` | LLM router (enrichment + AI page) |
+| `ELEVENLABS_API_KEY` | Audio reader |
+| `OPENAI_IMAGE_API_KEY` / `STABILITY_API_KEY` / `GOOGLE_IMAGEN_KEY` | Drush-taant |
+| `RESEND_API_KEY` (or Postmark / SES creds) | Magic-link email |
+| `GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET` | Google login |
+| `MODAL_TOKEN_ID`, `MODAL_TOKEN_SECRET` | Finetune runner |
+| `ASSEMBLYAI_API_KEY` (optional) | Higher-accuracy STT for A/V RAG |
+| `<PROVIDER>_MONTHLY_USD_CAP` | Hard cost cap per provider (router enforces) |
+
+### Updated resource sizing (single main VM, SAAR baseline)
+
+| Component | Initial | Year-1 |
+|---|---|---|
+| CPU | 8 vCPU | 24 vCPU |
+| RAM | 32 GB | 96 GB |
+| Disk | 500 GB SSD | 2 TB SSD |
+| Postgres heap | 8 GB | 24 GB; partition `query_logs`, `rag_query_logs`, `llm_calls` by month |
+| Mongo cache | 8 GB | 32 GB |
+| Neo4j heap + page cache | 4 + 4 GB | 16 + 16 GB |
+
+### nginx additions
+
+`location /v1/auth/`, `/v1/me/`, `/v1/pdf/`, `/v1/rag/`, `/v1/models/`, `/v1/bhoovalay/` fanout to their respective services. `/admin/` keeps an extra IP allowlist as defence-in-depth on top of the JWT role gate.
+
+### Backups (updated)
+
+- Postgres dump now covers ~80 tables; same nightly job.
+- Mongo backups include `drushtaant_images`, `audio_chapters`, `figures_blobs`, `user_scratchpads`.
+- S3 buckets: enable versioning + weekly cross-region replication.
+- Finetune checkpoints retained for the latest 5 versions per `model_id`; older pruned monthly.
