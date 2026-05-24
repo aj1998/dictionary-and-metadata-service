@@ -12,9 +12,9 @@ A drush-taant in a Jain teeka is a worldly analogy. For every gatha with a bhaav
 All artefacts are reproducible: `(provider, model, prompt, seed, ts)` recorded per [`scope/09 Q24`](../../scope/09_open_questions.md).
 
 Depends on:
-- The `gathas` table from [`02_data_model_postgres.md`](../02_data_model_postgres.md).
+- The `gathas` table from [`02_data_model_postgres.md`](../data_model/02_data_model_postgres.md).
 - The `<DrushtaantPanel>` slot defined in [`03_shastra_reader_ui_spec.md`](./03_shastra_reader_ui_spec.md).
-- The Mongo `teeka_gatha_mapping` collection from [`03_data_model_mongo.md`](../03_data_model_mongo.md) (source of the bhaavarth text).
+- The Mongo `teeka_gatha_mapping` collection from [`03_data_model_mongo.md`](../data_model/03_data_model_mongo.md) (source of the bhaavarth text).
 - Auth role gating from [`01_user_accounts_spec.md`](./01_user_accounts_spec.md).
 
 ## Phase A — generation worker
@@ -80,7 +80,7 @@ CREATE UNIQUE INDEX idx_drushtaant_one_approved_per_gatha
 
 ### Mongo collection (`drushtaant_images`)
 
-Added to [`03_data_model_mongo.md`](../03_data_model_mongo.md) catalogue:
+Added to [`03_data_model_mongo.md`](../data_model/03_data_model_mongo.md) catalogue:
 
 ```json
 {

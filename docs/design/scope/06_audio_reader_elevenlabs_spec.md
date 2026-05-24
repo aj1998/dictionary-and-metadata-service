@@ -68,7 +68,7 @@ CREATE UNIQUE INDEX idx_audio_jobs_one_approved_per_chapter
 
 ### Mongo collection (`audio_chapters`)
 
-Added to [`03_data_model_mongo.md`](../03_data_model_mongo.md) catalogue:
+Added to [`03_data_model_mongo.md`](../data_model/03_data_model_mongo.md) catalogue:
 
 ```json
 {

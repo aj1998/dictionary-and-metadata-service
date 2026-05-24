@@ -135,6 +135,46 @@ CREATE INDEX idx_teekas_shastra ON teekas(shastra_id);
 CREATE INDEX idx_teekas_teekakar ON teekas(teekakar_id);
 ```
 
+### `publications`
+
+A specific printed edition/publication of a Teeka. Separates publisher metadata (who printed it, what edition) from the Teeka itself.
+
+```sql
+CREATE TABLE publications (
+  id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  natural_key    TEXT NOT NULL UNIQUE,                          -- e.g. 'pravachansaar:amritchandra:todarmal'
+  teeka_id       UUID NOT NULL REFERENCES teekas(id) ON DELETE CASCADE,
+  publisher_id   TEXT NOT NULL,                                 -- opaque publisher identifier
+  publisher      JSONB,                                         -- multilingual
+  public_url     TEXT,
+  publisher_url  TEXT,
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at     TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX idx_publications_teeka ON publications(teeka_id);
+```
+
+### `kalashas`
+
+Kalashas are special commentary gathas added by teekakar within a Teeka. A Kalash has Sanskrit verse + Hindi bhaavarth.
+
+```sql
+CREATE TABLE kalashas (
+  id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  natural_key       TEXT NOT NULL UNIQUE,                       -- e.g. 'pravachansaar:amritchandra:kalash:001'
+  teeka_id          UUID NOT NULL REFERENCES teekas(id) ON DELETE CASCADE,
+  kalash_number     TEXT NOT NULL,
+  sanskrit_doc_id   TEXT,                                       -- mongo id for Sanskrit verse
+  hindi_doc_id      TEXT,                                       -- mongo id for Hindi verse
+  bhaavarth_doc_ids JSONB NOT NULL DEFAULT '[]'::jsonb,        -- [mongo_id, ...] per publication
+  created_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at        TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX idx_kalashas_teeka ON kalashas(teeka_id);
+```
+
 ### `books`
 
 ```sql
@@ -207,7 +247,7 @@ CREATE TABLE keyword_aliases (
   keyword_id   UUID NOT NULL REFERENCES keywords(id) ON DELETE CASCADE,
   source       TEXT NOT NULL,              -- 'jainkosh_redirect' | 'admin' | 'manual_seed'
   created_at   TIMESTAMPTZ NOT NULL DEFAULT now(),
-  UNIQUE (alias_text)
+  UNIQUE (keyword_id, alias_text)          -- composite; same alias_text can map to multiple keywords
 );
 
 CREATE INDEX idx_keyword_aliases_keyword ON keyword_aliases(keyword_id);
@@ -246,17 +286,26 @@ CREATE INDEX idx_gathas_topic_ids ON gathas USING gin (topic_ids jsonb_path_ops)
 ```sql
 CREATE TABLE topics (
   id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  natural_key     TEXT NOT NULL UNIQUE,         -- e.g. 'jainkosh:आत्मा:बहिरात्मादि-3-भेद'
+  natural_key     TEXT NOT NULL UNIQUE,         -- e.g. 'आत्मा:बहिरात्मादि-3-भेद' (no source prefix)
   display_text    JSONB NOT NULL,               -- multilingual heading
   source          ingestion_source NOT NULL,
-  parent_keyword_id UUID REFERENCES keywords(id) ON DELETE SET NULL,  -- topic was extracted from this keyword's page
+  parent_keyword_id UUID REFERENCES keywords(id) ON DELETE SET NULL,  -- keyword page this topic was extracted from
+  parent_topic_id UUID REFERENCES topics(id) ON DELETE SET NULL,      -- parent in topic hierarchy
+  topic_path      TEXT,                         -- materialized path for hierarchy traversal, e.g. 'आत्मा/बहिरात्मादि-3-भेद'
+  is_leaf         BOOLEAN NOT NULL DEFAULT true,
+  is_synthetic    BOOLEAN NOT NULL DEFAULT false,
   extract_doc_ids JSONB NOT NULL DEFAULT '[]'::jsonb,                 -- [mongo_id, ...]
   graph_node_id   TEXT,                         -- Neo4j node natural_key (= this.natural_key)
   created_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
-  updated_at      TIMESTAMPTZ NOT NULL DEFAULT now()
+  updated_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
+  CONSTRAINT topics_natural_key_no_source_prefix CHECK (
+    natural_key NOT LIKE 'jainkosh:%' AND natural_key NOT LIKE 'nj:%'
+  )
 );
 
 CREATE INDEX idx_topics_parent_keyword ON topics(parent_keyword_id);
+CREATE INDEX idx_topics_parent_topic ON topics(parent_topic_id);
+CREATE INDEX idx_topics_keyword_path ON topics(parent_keyword_id, topic_path);
 ```
 
 ## Ingestion / operations tables
@@ -379,15 +428,23 @@ CREATE INDEX idx_query_logs_created ON query_logs(created_at DESC);
 
 ```
 migrations/
-├── 0001_setup.sql              extensions, enums, updated_at trigger
-├── 0002_seed_anuyogas.sql      insert four anuyoga rows
+├── 0001_setup.py               extensions, enums, updated_at trigger
+├── 0002_seed_anuyogas.py       insert four anuyoga rows
 ├── 0003_authors_shastras.py    authors, shastras, link tables
 ├── 0004_teekas_books_pravachans.py
 ├── 0005_keywords_aliases.py
 ├── 0006_gathas_topics_mentions.py
 ├── 0007_ingestion_ops.py       parser_configs, ingestion_runs, review_queue
 ├── 0008_chat_enrichment.py     topic_candidates, chat_puller_state
-└── 0009_query_logs.py
+├── 0009_query_logs.py
+├── 0010_topics_hierarchy.py    parent_topic_id, topic_path, is_leaf, is_synthetic on topics
+├── 0011_publications.py        publications table (per-edition of a teeka)
+├── 0012_kalashas.py            kalashas table (teekakar commentary gathas)
+├── 0013_keyword_alias_unique.py change keyword_aliases UNIQUE from alias_text to (keyword_id, alias_text)
+├── 0014_drop_topic_mentions.py drop topic_mentions table (superseded by graph edges)
+├── 0015_keywords_natural_key_trgm_idx.py  gin trgm index on keywords.natural_key
+├── 0016_topics_natural_key_trgm_idx.py    gin trgm index on topics.natural_key
+└── 0017_metadata_trgm_indexes.py          trgm indexes on metadata tables for fuzzy search
 ```
 
 ## SQLAlchemy model layout
@@ -401,6 +458,8 @@ packages/jain_kb_common/db/postgres/
 ├── shastras.py
 ├── anuyogas.py
 ├── teekas.py
+├── publications.py    # publications (per-edition of a teeka)
+├── kalashas.py        # kalashas (teekakar commentary gathas)
 ├── books.py
 ├── pravachans.py
 ├── keywords.py
@@ -449,7 +508,7 @@ New tables are introduced by their owning scope spec. Each spec ships its own Al
 
 | Range | Owner |
 |---|---|
-| 0017–0019 | [`scope/01_user_accounts_spec.md`](./scope/01_user_accounts_spec.md) — `users`, `magic_link_tokens`, `refresh_tokens`, `user_preferences`, `saved_views`, `saved_highlights`, `query_logs.user_id` |
+| 0017–0019 | [`scope/01_user_accounts_spec.md`](../scope/01_user_accounts_spec.md) — `users`, `magic_link_tokens`, `refresh_tokens`, `user_preferences`, `saved_views`, `saved_highlights`, `query_logs.user_id` |
 | 0020–0029 | Reading layer (specs 02–07, 12) — `shastra_layouts`, `drushtaant_jobs`, `audio_jobs`, `export_history` |
 | 0020–0029 (cont.) | Translation/enrichment (specs 08–11, 13–16) — `extraction_spans`, `enrichment_runs`, `llm_calls`, `topic_counters`, `keyword_counters`, `proposed_topic_edges`, `research_categories`, `entity_categories`, `vitrag_dict_entries`, `keyword_translations`, `topic_translations` |
 | 0030–0039 | RAG / A-V (specs 17–20) — `rag_query_logs`, `chunk_graph_coverage`, `pravachan_chunks`, `jinswara_qna`, `figures` |

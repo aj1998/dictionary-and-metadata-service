@@ -5,7 +5,7 @@ Code-level, phase-wise implementation specs for the SAAR vision. Each spec is si
 ## Reading order
 
 1. Read scope docs first: [`scope/00_overview.md`](../../scope/00_overview.md) → [`02_foundation_status.md`](../../scope/02_foundation_status.md).
-2. Read foundational design docs: [`02_data_model_postgres.md`](../02_data_model_postgres.md), [`03_data_model_mongo.md`](../03_data_model_mongo.md), [`04_data_model_graph.md`](../04_data_model_graph.md).
+2. Read foundational design docs: [`02_data_model_postgres.md`](../data_model/02_data_model_postgres.md), [`03_data_model_mongo.md`](../data_model/03_data_model_mongo.md), [`04_data_model_graph.md`](../data_model/04_data_model_graph.md).
 3. Pick a spec and ship it; the "definition of done" at the bottom is the merge bar.
 
 ## Spec index

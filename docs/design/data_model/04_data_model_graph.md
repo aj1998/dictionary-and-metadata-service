@@ -12,11 +12,20 @@ Authoritative for: keyword↔topic relationships used by the GraphRAG query path
 
 | Label | Identifier | Stored properties | Source of truth |
 |---|---|---|---|
-| `Keyword` | `natural_key` (NFC Devanagari, e.g. `आत्मा`) | `pg_id` (uuid string), `display_text`, `source_url`, `created_at`, `updated_at` | Postgres `keywords` |
-| `Topic` | `natural_key` (e.g. `jainkosh:आत्मा:बहिरात्मादि-3-भेद`) | `pg_id`, `display_text_hi`, `source` (enum), `parent_keyword_natural_key`, `created_at`, `updated_at` | Postgres `topics` |
+| `Keyword` | `natural_key` (NFC Devanagari, e.g. `आत्मा`) | `pg_id` (uuid string), `display_text`, `source_url`, `is_stub`, `created_at`, `updated_at` | Postgres `keywords` |
+| `Topic` | `natural_key` (e.g. `आत्मा:बहिरात्मादि-3-भेद`) | `pg_id`, `display_text_hi`, `source` (enum), `parent_keyword_natural_key`, `topic_path`, `is_stub`, `created_at`, `updated_at` | Postgres `topics` |
 | `Alias` | `alias_text` (NFC Devanagari) | `pg_id`, `source` (`jainkosh_redirect` \| `admin` \| `manual_seed`), `created_at` | Postgres `keyword_aliases` |
-| `Gatha` | `natural_key` (e.g. `pravachansaar:039`) | `pg_id`, `shastra_natural_key`, `gatha_number`, `heading_hi` | Postgres `gathas` |
+| `Gatha` | `natural_key` (e.g. `pravachansaar:039`) | `pg_id`, `shastra_natural_key`, `gatha_number`, `heading_hi`, `is_stub` | Postgres `gathas` |
 | `Shastra` | `natural_key` | `pg_id`, `title_hi`, `author_natural_key` | Postgres `shastras` |
+| `Teeka` | `natural_key` (e.g. `pravachansaar:amritchandra`) | `pg_id`, `shastra_natural_key`, `teekakar_natural_key` | Postgres `teekas` |
+| `Publication` | `natural_key` (e.g. `pravachansaar:amritchandra:todarmal`) | `pg_id`, `teeka_natural_key`, `publisher_id` | Postgres `publications` |
+| `GathaTeeka` | `natural_key` (e.g. `pravachansaar:amritchandra:039`) | `shastra_natural_key`, `teeka_natural_key`, `gatha_number`, `is_stub` | Derived during ingestion |
+| `GathaTeekaBhaavarth` | `natural_key` (e.g. `pravachansaar:amritchandra:todarmal:039`) | `shastra_natural_key`, `teeka_natural_key`, `publisher_id`, `gatha_number`, `is_stub` | Derived during ingestion |
+| `Kalash` | `natural_key` (e.g. `pravachansaar:amritchandra:kalash:001`) | `teeka_natural_key`, `kalash_number`, `is_stub` | Postgres `kalashas` |
+| `KalashBhaavarth` | `natural_key` (e.g. `pravachansaar:amritchandra:todarmal:kalash:001`) | `shastra_natural_key`, `teeka_natural_key`, `publisher_id`, `kalash_number`, `is_stub` | Derived during ingestion |
+| `Page` | `natural_key` (e.g. `pravachansaar:amritchandra:todarmal:p-042`) | `shastra_natural_key`, `teeka_natural_key`, `publisher_id`, `page_number`, `is_stub` | Derived during ingestion |
+
+**Stub nodes**: Nodes created during ingestion before the full Postgres row is approved carry `is_stub = true`. The real sync (`sync_keyword`, `sync_topic`, etc.) sets `is_stub = false`. Stub properties use `coalesce()` to never overwrite real data.
 
 Note: only properties needed for traversal/ranking live on graph nodes. Anything heavier (full text, multilingual arrays) stays in Postgres/Mongo and is fetched on demand using `pg_id`.
 
@@ -32,34 +41,53 @@ All edges are directed unless noted. Edge type names are uppercase (Neo4j conven
 | `ALIAS_OF` | directed | `Alias → Keyword` | `source` | Synonym / variant spelling |
 | `MENTIONS_KEYWORD` | directed | `Topic → Keyword` | `weight`, `source_chunk_id` (nullable) | Topic body mentions this keyword (used to seed query) |
 | `HAS_TOPIC` | directed | `Keyword → Topic` | `weight`, `source` | Keyword's JainKosh page yielded this topic |
-| `MENTIONS_TOPIC` | directed | `Gatha → Topic` | `weight`, `source` | Gatha is associated with a topic (heading or extracted) |
-| `IN_SHASTRA` | directed | `Gatha → Shastra` | — | Structural |
+| `MENTIONS_TOPIC` | directed | `Gatha\|GathaTeeka → Topic` | `weight`, `source` | Gatha/teeka-mapping is associated with a topic |
+| `CONTAINS_DEFINITION` | directed | `Keyword → Topic` | `weight`, `source` | Keyword page contains a definition block for this topic |
+| `IN_SHASTRA` | directed | `Gatha → Shastra` | — | Structural: gatha belongs to shastra |
+| `IN_TEEKA` | directed | `GathaTeeka\|Kalash → Teeka` | — | Structural: teeka node belongs to teeka |
+| `IN_PUBLICATION` | directed | `GathaTeekaBhaavarth\|KalashBhaavarth\|Page → Publication` | — | Structural: bhaavarth/page belongs to publication |
 
 **Extending edge types:** add the new type name to `parser_configs/_meta/edge_types.yaml`. Validation on graph writes consults this file. Adding a type requires no migration.
 
 ## Constraints & indexes
 
 ```cypher
-// Uniqueness
-CREATE CONSTRAINT keyword_natural_key IF NOT EXISTS
-  FOR (n:Keyword) REQUIRE n.natural_key IS UNIQUE;
+// Uniqueness — one per node label
+CREATE CONSTRAINT keyword_natural_key IF NOT EXISTS FOR (n:Keyword) REQUIRE n.natural_key IS UNIQUE;
+CREATE CONSTRAINT topic_natural_key IF NOT EXISTS FOR (n:Topic) REQUIRE n.natural_key IS UNIQUE;
+CREATE CONSTRAINT alias_text IF NOT EXISTS FOR (n:Alias) REQUIRE n.alias_text IS UNIQUE;
+CREATE CONSTRAINT gatha_natural_key IF NOT EXISTS FOR (n:Gatha) REQUIRE n.natural_key IS UNIQUE;
+CREATE CONSTRAINT shastra_natural_key IF NOT EXISTS FOR (n:Shastra) REQUIRE n.natural_key IS UNIQUE;
+CREATE CONSTRAINT teeka_natural_key IF NOT EXISTS FOR (n:Teeka) REQUIRE n.natural_key IS UNIQUE;
+CREATE CONSTRAINT publication_natural_key IF NOT EXISTS FOR (n:Publication) REQUIRE n.natural_key IS UNIQUE;
+CREATE CONSTRAINT gatha_teeka_natural_key IF NOT EXISTS FOR (n:GathaTeeka) REQUIRE n.natural_key IS UNIQUE;
+CREATE CONSTRAINT gatha_teeka_bhaavarth_natural_key IF NOT EXISTS FOR (n:GathaTeekaBhaavarth) REQUIRE n.natural_key IS UNIQUE;
+CREATE CONSTRAINT kalash_natural_key IF NOT EXISTS FOR (n:Kalash) REQUIRE n.natural_key IS UNIQUE;
+CREATE CONSTRAINT kalash_bhaavarth_natural_key IF NOT EXISTS FOR (n:KalashBhaavarth) REQUIRE n.natural_key IS UNIQUE;
+CREATE CONSTRAINT page_natural_key IF NOT EXISTS FOR (n:Page) REQUIRE n.natural_key IS UNIQUE;
 
-CREATE CONSTRAINT topic_natural_key IF NOT EXISTS
-  FOR (n:Topic) REQUIRE n.natural_key IS UNIQUE;
-
-CREATE CONSTRAINT alias_text IF NOT EXISTS
-  FOR (n:Alias) REQUIRE n.alias_text IS UNIQUE;
-
-CREATE CONSTRAINT gatha_natural_key IF NOT EXISTS
-  FOR (n:Gatha) REQUIRE n.natural_key IS UNIQUE;
-
-CREATE CONSTRAINT shastra_natural_key IF NOT EXISTS
-  FOR (n:Shastra) REQUIRE n.natural_key IS UNIQUE;
-
-// Lookup speed
+// Lookup speed — pg_id for fast Postgres cross-reference
 CREATE INDEX keyword_pg_id IF NOT EXISTS FOR (n:Keyword) ON (n.pg_id);
 CREATE INDEX topic_pg_id IF NOT EXISTS FOR (n:Topic) ON (n.pg_id);
+CREATE INDEX teeka_pg_id IF NOT EXISTS FOR (n:Teeka) ON (n.pg_id);
+CREATE INDEX publication_pg_id IF NOT EXISTS FOR (n:Publication) ON (n.pg_id);
+CREATE INDEX kalash_pg_id IF NOT EXISTS FOR (n:Kalash) ON (n.pg_id);
+
+// Traversal speed
+CREATE INDEX topic_kw_path IF NOT EXISTS FOR (n:Topic) ON (n.parent_keyword_natural_key, n.topic_path);
+
+// Stub node identification (used to find nodes that haven't been fully synced yet)
+CREATE INDEX keyword_is_stub IF NOT EXISTS FOR (n:Keyword) ON (n.is_stub);
+CREATE INDEX topic_is_stub IF NOT EXISTS FOR (n:Topic) ON (n.is_stub);
+CREATE INDEX gatha_is_stub IF NOT EXISTS FOR (n:Gatha) ON (n.is_stub);
+CREATE INDEX gatha_teeka_is_stub IF NOT EXISTS FOR (n:GathaTeeka) ON (n.is_stub);
+CREATE INDEX gatha_teeka_bhaavarth_is_stub IF NOT EXISTS FOR (n:GathaTeekaBhaavarth) ON (n.is_stub);
+CREATE INDEX kalash_is_stub IF NOT EXISTS FOR (n:Kalash) ON (n.is_stub);
+CREATE INDEX kalash_bhaavarth_is_stub IF NOT EXISTS FOR (n:KalashBhaavarth) ON (n.is_stub);
+CREATE INDEX page_is_stub IF NOT EXISTS FOR (n:Page) ON (n.is_stub);
 ```
+
+All constraints and indexes are created by `ensure_constraints()` in `packages/jain_kb_common/db/neo4j/constraints.py` on service startup.
 
 ## Sync from Postgres
 
@@ -179,8 +207,9 @@ RETURN p;
 ```
 packages/jain_kb_common/db/neo4j/
 ├── __init__.py        # AsyncDriver factory
-├── constraints.py     # ensure_constraints() at startup
+├── constraints.py     # ensure_constraints() at startup (all node labels + is_stub indexes)
 ├── upserts.py         # sync_keyword, sync_topic, sync_gatha, sync_shastra
+├── stubs.py           # sync_stub_node, sync_reference_edge — idempotent stub helpers used during ingestion before admin approval
 ├── queries.py         # resolve_token, traverse_topics, shortest_path
 └── schema_check.py    # validates edge type names against parser_configs/_meta/edge_types.yaml
 ```
@@ -206,23 +235,23 @@ New labels and edge types are introduced by their owning scope spec. Each must a
 
 | Label | Identifier | Owning spec |
 |---|---|---|
-| `Translation` | `natural_key = "<entity_kind>:<entity_nk>:<lang>:<script>"` | [`scope/15_multilingual_keyword_storage_spec.md`](./scope/15_multilingual_keyword_storage_spec.md) |
-| `Flowchart` | `natural_key = "fig:<source>:<page>:<bbox-hash>"` | [`scope/20_flowchart_table_graph_scanner_spec.md`](./scope/20_flowchart_table_graph_scanner_spec.md) |
-| `JinswaraQnA` | `natural_key` (e.g. `jinswara:<author>:<qid>`) | [`scope/19_jinswara_qna_ingest_spec.md`](./scope/19_jinswara_qna_ingest_spec.md) |
-| `PravachanChunk` | `natural_key = "<pravachan_nk>:<sequence>"` | [`scope/18_av_rag_pipeline_spec.md`](./scope/18_av_rag_pipeline_spec.md) |
-| `ResearchCategory` | `code` (e.g. `maths`, `astronomy`) | [`scope/13_categorisation_pipeline_spec.md`](./scope/13_categorisation_pipeline_spec.md) |
+| `Translation` | `natural_key = "<entity_kind>:<entity_nk>:<lang>:<script>"` | [`scope/15_multilingual_keyword_storage_spec.md`](../scope/15_multilingual_keyword_storage_spec.md) |
+| `Flowchart` | `natural_key = "fig:<source>:<page>:<bbox-hash>"` | [`scope/20_flowchart_table_graph_scanner_spec.md`](../scope/20_flowchart_table_graph_scanner_spec.md) |
+| `JinswaraQnA` | `natural_key` (e.g. `jinswara:<author>:<qid>`) | [`scope/19_jinswara_qna_ingest_spec.md`](../scope/19_jinswara_qna_ingest_spec.md) |
+| `PravachanChunk` | `natural_key = "<pravachan_nk>:<sequence>"` | [`scope/18_av_rag_pipeline_spec.md`](../scope/18_av_rag_pipeline_spec.md) |
+| `ResearchCategory` | `code` (e.g. `maths`, `astronomy`) | [`scope/13_categorisation_pipeline_spec.md`](../scope/13_categorisation_pipeline_spec.md) |
 
 ### New edge types
 
 | Type | From → To | Owning spec |
 |---|---|---|
-| `TRANSLATES_TO` | `Keyword|Topic → Translation` | [`scope/15`](./scope/15_multilingual_keyword_storage_spec.md) |
-| `HAS_FLOWCHART` | `Topic|Gatha → Flowchart` | [`scope/20`](./scope/20_flowchart_table_graph_scanner_spec.md) |
-| `ANSWERS` | `Author → JinswaraQnA` | [`scope/19`](./scope/19_jinswara_qna_ingest_spec.md) |
-| `MENTIONS_TOPIC` (extended) | `JinswaraQnA|PravachanChunk → Topic` | [`scope/18`](./scope/18_av_rag_pipeline_spec.md), [`scope/19`](./scope/19_jinswara_qna_ingest_spec.md) |
+| `TRANSLATES_TO` | `Keyword|Topic → Translation` | [`scope/15`](../scope/15_multilingual_keyword_storage_spec.md) |
+| `HAS_FLOWCHART` | `Topic|Gatha → Flowchart` | [`scope/20`](../scope/20_flowchart_table_graph_scanner_spec.md) |
+| `ANSWERS` | `Author → JinswaraQnA` | [`scope/19`](../scope/19_jinswara_qna_ingest_spec.md) |
+| `MENTIONS_TOPIC` (extended) | `JinswaraQnA|PravachanChunk → Topic` | [`scope/18`](../scope/18_av_rag_pipeline_spec.md), [`scope/19`](../scope/19_jinswara_qna_ingest_spec.md) |
 | `MENTIONS_KEYWORD` (extended) | `JinswaraQnA|PravachanChunk → Keyword` | same |
-| `IN_PRAVACHAN` | `PravachanChunk → Pravachan` (Pravachan node added to mirror PG) | [`scope/18`](./scope/18_av_rag_pipeline_spec.md) |
-| `CATEGORISED_AS` | `Topic|Keyword|Gatha → ResearchCategory` | [`scope/13`](./scope/13_categorisation_pipeline_spec.md) |
-| `DRUSHTAANT_OF` | `DrushtaantImage → Gatha` (DrushtaantImage node optional; PG-only acceptable) | [`scope/05`](./scope/05_drushtaant_image_gen_spec.md) |
+| `IN_PRAVACHAN` | `PravachanChunk → Pravachan` (Pravachan node added to mirror PG) | [`scope/18`](../scope/18_av_rag_pipeline_spec.md) |
+| `CATEGORISED_AS` | `Topic|Keyword|Gatha → ResearchCategory` | [`scope/13`](../scope/13_categorisation_pipeline_spec.md) |
+| `DRUSHTAANT_OF` | `DrushtaantImage → Gatha` (DrushtaantImage node optional; PG-only acceptable) | [`scope/05`](../scope/05_drushtaant_image_gen_spec.md) |
 
 All new edges carry the standard `{weight, source}` properties. Sync is still Postgres-driven; the `graph_sync` worker grows new helpers per spec.

@@ -326,12 +326,12 @@ New collections introduced by their owning scope spec. Same `_id = sha1(natural_
 
 | Collection | Stores | Owning spec |
 |---|---|---|
-| `shastra_layouts` | per-shastra layout YAML body (mirror of file on disk + version) | [`scope/02_shastra_layout_configs_spec.md`](./scope/02_shastra_layout_configs_spec.md) |
-| `drushtaant_images` | image blob URL + prompt + reproducibility metadata per gatha | [`scope/05_drushtaant_image_gen_spec.md`](./scope/05_drushtaant_image_gen_spec.md) |
-| `audio_chapters` | per-adhikaar MP3 URL + voice + duration + segments | [`scope/06_audio_reader_elevenlabs_spec.md`](./scope/06_audio_reader_elevenlabs_spec.md) |
-| `figures_blobs` | cropped flowchart/table images + OCR text + bbox | [`scope/20_flowchart_table_graph_scanner_spec.md`](./scope/20_flowchart_table_graph_scanner_spec.md) |
-| `youtube_transcripts` | STT transcript + word-level timestamps per pravachan | [`scope/18_av_rag_pipeline_spec.md`](./scope/18_av_rag_pipeline_spec.md) |
-| `jinswara_qna_extracts` | long-form answer text + provenance | [`scope/19_jinswara_qna_ingest_spec.md`](./scope/19_jinswara_qna_ingest_spec.md) |
-| `vitrag_dict_extracts` | long-form Hin↔En entries (examples, etymology) | [`scope/14_vitrag_dictionary_ingest_spec.md`](./scope/14_vitrag_dictionary_ingest_spec.md) |
-| `user_scratchpads` | per-user research-tool scratchpad notes | [`scope/01_user_accounts_spec.md`](./scope/01_user_accounts_spec.md), [`scope/28_research_tools_framework_spec.md`](./scope/28_research_tools_framework_spec.md) |
-| `llm_call_replays` | recorded prompt + response for golden replay (testing only) | [`scope/09_translation_pipeline_ai_flow_spec.md`](./scope/09_translation_pipeline_ai_flow_spec.md) |
+| `shastra_layouts` | per-shastra layout YAML body (mirror of file on disk + version) | [`scope/02_shastra_layout_configs_spec.md`](../scope/02_shastra_layout_configs_spec.md) |
+| `drushtaant_images` | image blob URL + prompt + reproducibility metadata per gatha | [`scope/05_drushtaant_image_gen_spec.md`](../scope/05_drushtaant_image_gen_spec.md) |
+| `audio_chapters` | per-adhikaar MP3 URL + voice + duration + segments | [`scope/06_audio_reader_elevenlabs_spec.md`](../scope/06_audio_reader_elevenlabs_spec.md) |
+| `figures_blobs` | cropped flowchart/table images + OCR text + bbox | [`scope/20_flowchart_table_graph_scanner_spec.md`](../scope/20_flowchart_table_graph_scanner_spec.md) |
+| `youtube_transcripts` | STT transcript + word-level timestamps per pravachan | [`scope/18_av_rag_pipeline_spec.md`](../scope/18_av_rag_pipeline_spec.md) |
+| `jinswara_qna_extracts` | long-form answer text + provenance | [`scope/19_jinswara_qna_ingest_spec.md`](../scope/19_jinswara_qna_ingest_spec.md) |
+| `vitrag_dict_extracts` | long-form Hin↔En entries (examples, etymology) | [`scope/14_vitrag_dictionary_ingest_spec.md`](../scope/14_vitrag_dictionary_ingest_spec.md) |
+| `user_scratchpads` | per-user research-tool scratchpad notes | [`scope/01_user_accounts_spec.md`](../scope/01_user_accounts_spec.md), [`scope/28_research_tools_framework_spec.md`](../scope/28_research_tools_framework_spec.md) |
+| `llm_call_replays` | recorded prompt + response for golden replay (testing only) | [`scope/09_translation_pipeline_ai_flow_spec.md`](../scope/09_translation_pipeline_ai_flow_spec.md) |

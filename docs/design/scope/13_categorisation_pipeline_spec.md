@@ -1,6 +1,6 @@
 # 13 — Categorisation Pipeline Spec
 
-Scope context: [`scope/04_translation_enrichment_pipeline.md`](../../scope/04_translation_enrichment_pipeline.md) (Categorisation section). Depends on the LLM router + audit table from [`09_translation_pipeline_ai_flow_spec.md`](./09_translation_pipeline_ai_flow_spec.md) and the graph node taxonomy in [`docs/design/04_data_model_graph.md`](../04_data_model_graph.md) (specifically the `CATEGORISED_AS` edge already reserved there).
+Scope context: [`scope/04_translation_enrichment_pipeline.md`](../../scope/04_translation_enrichment_pipeline.md) (Categorisation section). Depends on the LLM router + audit table from [`09_translation_pipeline_ai_flow_spec.md`](./09_translation_pipeline_ai_flow_spec.md) and the graph node taxonomy in [`docs/design/04_data_model_graph.md`](../data_model/04_data_model_graph.md) (specifically the `CATEGORISED_AS` edge already reserved there).
 
 Auto-categorises every content unit (shastra / adhikaar / gatha / paragraph / teeka chunk) into the **four anuyoga** branches and their sub-categories used across Jain research:
 

@@ -129,7 +129,7 @@ See [`IMPLEMENTATION_NOTES.md`](IMPLEMENTATION_NOTES.md) for full details on eac
 
 | Component | Status |
 |---|---|
-| Postgres data model + Alembic migrations (13 versions) | ✅ |
+| Postgres data model + Alembic migrations (17 versions) | ✅ |
 | MongoDB data model (15 collections, Motor async) | ✅ |
 | Neo4j graph data model (constraints, upserts, queries) | ✅ |
 | JainKosh HTML parser (`workers/ingestion/jainkosh/`) | ✅ |

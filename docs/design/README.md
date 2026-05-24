@@ -8,9 +8,9 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Companion t
 |---|---|---|
 | 00 | [Overview](./00_overview.md) | Mission, services, stack, repo layout, data flow diagram |
 | 01 | [Clarifications](./01_clarifications.md) | Verbatim Q&A; the *why* behind every decision |
-| 02 | [Postgres data model](./02_data_model_postgres.md) | Full DDL, enums, indexes, migrations, idempotent upsert pattern |
-| 03 | [Mongo data model](./03_data_model_mongo.md) | Per-type collections, JSON schemas, stable IDs |
-| 04 | [Graph data model](./04_data_model_graph.md) | Neo4j labels, edge types, constraints, sync rules |
+| 02 | [Postgres data model](./data_model/02_data_model_postgres.md) | Full DDL, enums, indexes, migrations, idempotent upsert pattern |
+| 03 | [Mongo data model](./data_model/03_data_model_mongo.md) | Per-type collections, JSON schemas, stable IDs |
+| 04 | [Graph data model](./data_model/04_data_model_graph.md) | Neo4j labels, edge types, constraints, sync rules |
 | 05 | [Metadata service API](./api/metadata/01_spec.md) | Authors / shastras / teekas / books / pravachans REST ✅ implemented |
 | 06 | [Data service API](./api/data/01_spec.md) | Keywords / gathas / topics / kalashas / browse / public search |
 | 06b | [Navigation service API](./api/navigation/01_spec.md) | Neo4j graph navigation, alias writes, topic graph traversal |

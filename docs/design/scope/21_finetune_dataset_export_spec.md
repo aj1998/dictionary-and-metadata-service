@@ -1,7 +1,7 @@
 # 21 — Finetune Dataset Export Spec
 
 Scope context: [`scope/06_advanced_rag_and_finetuning.md`](../../scope/06_advanced_rag_and_finetuning.md) (pipeline diagram, model families).
-Related: [`design/02_data_model_postgres.md`](../02_data_model_postgres.md), [`design/03_data_model_mongo.md`](../03_data_model_mongo.md), [`design/04_data_model_graph.md`](../04_data_model_graph.md), [`design/scope/15_multilingual_keyword_storage_spec.md`](./15_multilingual_keyword_storage_spec.md).
+Related: [`design/02_data_model_postgres.md`](../data_model/02_data_model_postgres.md), [`design/03_data_model_mongo.md`](../data_model/03_data_model_mongo.md), [`design/04_data_model_graph.md`](../data_model/04_data_model_graph.md), [`design/scope/15_multilingual_keyword_storage_spec.md`](./15_multilingual_keyword_storage_spec.md).
 
 Build a deterministic exporter that snapshots Postgres + Mongo + Neo4j into versioned JSONL training datasets, uploads them to an S3-compatible store, and records a metadata row per snapshot. Consumed by spec 22 (training) and spec 24 (eval).
 
