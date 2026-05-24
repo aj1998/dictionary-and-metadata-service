@@ -111,13 +111,13 @@ Postgres is the **source of truth for IDs**. Every entity in Mongo or Neo4j has 
               ┌─────────┴──┐  ┌────┴──────┐ ┌──┴──────────────┐
               │metadata-svc│  │data-svc   │ │navigation-svc   │
               │ (port 8001)│  │(port 8002)│ │(port 8003)      │
-              └─────────┬──┘  └────┬──────┘ └──┬──────────────┘
+              └─────────┬──┘  └────┬──────┘ └───┬─────────────┘
                         │          │            │
-                        │          └─────┬──────┘
+                        │──────────└─────┬──────┘
                         │                │
                         ▼                ▼
                    Public UI          query-svc
-                (metadata browse)    (port 8004 - public)
+                                 (port 8004 - public)
                                         │
                                         ▼
                                 cataloguesearch-chat
