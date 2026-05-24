@@ -14,9 +14,9 @@ from workers.ingestion.nj.models import (
 
 
 def test_build_envelope_has_expected_topology():
-    cfg = load_config_for_shastra("samaysar")
+    cfg = load_config_for_shastra("samaysaar")
     g = GathaExtract(
-        shastra_natural_key="samaysar",
+        shastra_natural_key="samaysaar",
         gatha_number="009",
         page_html_id="009-010",
         html_filename="009-010.html",
@@ -32,7 +32,7 @@ def test_build_envelope_has_expected_topology():
         ),
     )
     result = ShastraParseResult(
-        shastra_natural_key="samaysar",
+        shastra_natural_key="samaysaar",
         gathas=[g],
         secondary_kalashes=[],
         total_html_files_processed=1,
@@ -44,16 +44,16 @@ def test_build_envelope_has_expected_topology():
     assert "shastra_parse_result" in env
     assert "would_write" in env
     ww = env["would_write"]
-    assert ww["mongo"]["gatha_prakrit"][0]["natural_key"] == "samaysar:009:prakrit"
-    assert ww["mongo"]["teeka_gatha_mapping"][0]["natural_key"] == "samaysar:amritchandra:009"
+    assert ww["mongo"]["gatha_prakrit"][0]["natural_key"] == "samaysaar:009:prakrit"
+    assert ww["mongo"]["teeka_gatha_mapping"][0]["natural_key"] == "samaysaar:amritchandra:009"
     assert ww["mongo"]["teeka_gatha_mapping"][0]["is_related"] == ["010"]
     assert ww["postgres"]["gathas"][0]["adhikaar_number"] == 2
 
 
 def test_build_envelope_maps_local_kalash_wm_to_global_index():
-    cfg = load_config_for_shastra("samaysar")
+    cfg = load_config_for_shastra("samaysaar")
     g = GathaExtract(
-        shastra_natural_key="samaysar",
+        shastra_natural_key="samaysaar",
         gatha_number="011",
         page_html_id="011",
         html_filename="011.html",
@@ -72,7 +72,7 @@ def test_build_envelope_maps_local_kalash_wm_to_global_index():
         ),
     )
     result = ShastraParseResult(
-        shastra_natural_key="samaysar",
+        shastra_natural_key="samaysaar",
         gathas=[g],
         secondary_kalashes=[],
         total_html_files_processed=1,

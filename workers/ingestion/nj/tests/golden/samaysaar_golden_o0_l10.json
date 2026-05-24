@@ -1,9 +1,9 @@
 {
   "shastra_parse_result": {
-    "shastra_natural_key": "samaysar",
+    "shastra_natural_key": "samaysaar",
     "gathas": [
       {
-        "shastra_natural_key": "samaysar",
+        "shastra_natural_key": "samaysaar",
         "gatha_number": "001",
         "page_html_id": "001",
         "html_filename": "001.html",
@@ -181,7 +181,7 @@
         }
       },
       {
-        "shastra_natural_key": "samaysar",
+        "shastra_natural_key": "samaysaar",
         "gatha_number": "002",
         "page_html_id": "002",
         "html_filename": "002.html",
@@ -272,7 +272,7 @@
         }
       },
       {
-        "shastra_natural_key": "samaysar",
+        "shastra_natural_key": "samaysaar",
         "gatha_number": "003",
         "page_html_id": "003",
         "html_filename": "003.html",
@@ -358,7 +358,7 @@
         }
       },
       {
-        "shastra_natural_key": "samaysar",
+        "shastra_natural_key": "samaysaar",
         "gatha_number": "004",
         "page_html_id": "004",
         "html_filename": "004.html",
@@ -444,7 +444,7 @@
         }
       },
       {
-        "shastra_natural_key": "samaysar",
+        "shastra_natural_key": "samaysaar",
         "gatha_number": "005",
         "page_html_id": "005",
         "html_filename": "005.html",
@@ -540,7 +540,7 @@
         }
       },
       {
-        "shastra_natural_key": "samaysar",
+        "shastra_natural_key": "samaysaar",
         "gatha_number": "006",
         "page_html_id": "006",
         "html_filename": "006.html",
@@ -631,7 +631,7 @@
         }
       },
       {
-        "shastra_natural_key": "samaysar",
+        "shastra_natural_key": "samaysaar",
         "gatha_number": "007",
         "page_html_id": "007",
         "html_filename": "007.html",
@@ -717,7 +717,7 @@
         }
       },
       {
-        "shastra_natural_key": "samaysar",
+        "shastra_natural_key": "samaysaar",
         "gatha_number": "008",
         "page_html_id": "008",
         "html_filename": "008.html",
@@ -823,7 +823,7 @@
         }
       },
       {
-        "shastra_natural_key": "samaysar",
+        "shastra_natural_key": "samaysaar",
         "gatha_number": "009",
         "page_html_id": "009-010",
         "html_filename": "009-010.html",
@@ -976,7 +976,7 @@
         }
       },
       {
-        "shastra_natural_key": "samaysar",
+        "shastra_natural_key": "samaysaar",
         "gatha_number": "010",
         "page_html_id": "009-010",
         "html_filename": "009-010.html",
@@ -1131,7 +1131,7 @@
     ],
     "secondary_kalashes": [
       {
-        "shastra_natural_key": "samaysar",
+        "shastra_natural_key": "samaysaar",
         "kalash_number": "011",
         "html_filename": "011.html",
         "heading_hi": null,
@@ -1221,7 +1221,7 @@
     "total_html_files_processed": 10,
     "warnings": [],
     "parser_version": "1.0.0",
-    "parsed_at": "2026-05-24T15:12:03.098076Z"
+    "parsed_at": "2026-05-24T16:14:53.358319Z"
   },
   "would_write": {
     "postgres": {
@@ -1262,7 +1262,7 @@
       ],
       "shastras": [
         {
-          "natural_key": "samaysar",
+          "natural_key": "samaysaar",
           "title": [
             {
               "lang": "hin",
@@ -1275,32 +1275,32 @@
       ],
       "teekas": [
         {
-          "natural_key": "samaysar:amritchandra",
-          "shastra_natural_key": "samaysar",
+          "natural_key": "samaysaar:amritchandra",
+          "shastra_natural_key": "samaysaar",
           "teekakar_natural_key": "amritchandracharya"
         },
         {
-          "natural_key": "samaysar:jaysenacharya",
-          "shastra_natural_key": "samaysar",
+          "natural_key": "samaysaar:jaysenacharya",
+          "shastra_natural_key": "samaysaar",
           "teekakar_natural_key": "jaysenacharya"
         }
       ],
       "publications": [
         {
-          "natural_key": "samaysar:amritchandra:nikkyjain",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:nikkyjain",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "publisher_id": "nikkyjain"
         },
         {
-          "natural_key": "samaysar:jaysenacharya:nikkyjain",
-          "teeka_natural_key": "samaysar:jaysenacharya",
+          "natural_key": "samaysaar:jaysenacharya:nikkyjain",
+          "teeka_natural_key": "samaysaar:jaysenacharya",
           "publisher_id": "nikkyjain"
         }
       ],
       "gathas": [
         {
-          "natural_key": "samaysar:001",
-          "shastra_natural_key": "samaysar",
+          "natural_key": "samaysaar:001",
+          "shastra_natural_key": "samaysaar",
           "gatha_number": "001",
           "adhikaar_number": 1,
           "adhikaar": [
@@ -1319,8 +1319,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:002",
-          "shastra_natural_key": "samaysar",
+          "natural_key": "samaysaar:002",
+          "shastra_natural_key": "samaysaar",
           "gatha_number": "002",
           "adhikaar_number": 2,
           "adhikaar": [
@@ -1339,8 +1339,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:003",
-          "shastra_natural_key": "samaysar",
+          "natural_key": "samaysaar:003",
+          "shastra_natural_key": "samaysaar",
           "gatha_number": "003",
           "adhikaar_number": 2,
           "adhikaar": [
@@ -1359,8 +1359,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:004",
-          "shastra_natural_key": "samaysar",
+          "natural_key": "samaysaar:004",
+          "shastra_natural_key": "samaysaar",
           "gatha_number": "004",
           "adhikaar_number": 2,
           "adhikaar": [
@@ -1379,8 +1379,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:005",
-          "shastra_natural_key": "samaysar",
+          "natural_key": "samaysaar:005",
+          "shastra_natural_key": "samaysaar",
           "gatha_number": "005",
           "adhikaar_number": 2,
           "adhikaar": [
@@ -1399,8 +1399,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:006",
-          "shastra_natural_key": "samaysar",
+          "natural_key": "samaysaar:006",
+          "shastra_natural_key": "samaysaar",
           "gatha_number": "006",
           "adhikaar_number": 2,
           "adhikaar": [
@@ -1419,8 +1419,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:007",
-          "shastra_natural_key": "samaysar",
+          "natural_key": "samaysaar:007",
+          "shastra_natural_key": "samaysaar",
           "gatha_number": "007",
           "adhikaar_number": 2,
           "adhikaar": [
@@ -1439,8 +1439,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:008",
-          "shastra_natural_key": "samaysar",
+          "natural_key": "samaysaar:008",
+          "shastra_natural_key": "samaysaar",
           "gatha_number": "008",
           "adhikaar_number": 2,
           "adhikaar": [
@@ -1459,8 +1459,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:009",
-          "shastra_natural_key": "samaysar",
+          "natural_key": "samaysaar:009",
+          "shastra_natural_key": "samaysaar",
           "gatha_number": "009",
           "adhikaar_number": 2,
           "adhikaar": [
@@ -1479,8 +1479,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:010",
-          "shastra_natural_key": "samaysar",
+          "natural_key": "samaysaar:010",
+          "shastra_natural_key": "samaysaar",
           "gatha_number": "010",
           "adhikaar_number": 2,
           "adhikaar": [
@@ -1501,37 +1501,37 @@
       ],
       "kalashas": [
         {
-          "natural_key": "samaysar:amritchandra:kalash:001",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:kalash:001",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "kalash_number": "001",
-          "gatha_natural_key": "samaysar:001"
+          "gatha_natural_key": "samaysaar:001"
         },
         {
-          "natural_key": "samaysar:amritchandra:kalash:002",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:kalash:002",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "kalash_number": "002",
-          "gatha_natural_key": "samaysar:001"
+          "gatha_natural_key": "samaysaar:001"
         },
         {
-          "natural_key": "samaysar:amritchandra:kalash:003",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:kalash:003",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "kalash_number": "003",
-          "gatha_natural_key": "samaysar:001"
+          "gatha_natural_key": "samaysaar:001"
         },
         {
-          "natural_key": "samaysar:jaysenacharya:kalash:011",
-          "teeka_natural_key": "samaysar:jaysenacharya",
+          "natural_key": "samaysaar:jaysenacharya:kalash:011",
+          "teeka_natural_key": "samaysaar:jaysenacharya",
           "kalash_number": "011",
-          "gatha_natural_key": "samaysar:009-010"
+          "gatha_natural_key": "samaysaar:009-010"
         }
       ]
     },
     "mongo": {
       "gatha_prakrit": [
         {
-          "natural_key": "samaysar:001:prakrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:001",
+          "natural_key": "samaysaar:001:prakrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:001",
           "gatha_number": "001",
           "text": [
             {
@@ -1544,9 +1544,9 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysar:002:prakrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:002",
+          "natural_key": "samaysaar:002:prakrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:002",
           "gatha_number": "002",
           "text": [
             {
@@ -1559,9 +1559,9 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysar:003:prakrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:003",
+          "natural_key": "samaysaar:003:prakrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:003",
           "gatha_number": "003",
           "text": [
             {
@@ -1574,9 +1574,9 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysar:004:prakrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:004",
+          "natural_key": "samaysaar:004:prakrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:004",
           "gatha_number": "004",
           "text": [
             {
@@ -1589,9 +1589,9 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysar:005:prakrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:005",
+          "natural_key": "samaysaar:005:prakrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:005",
           "gatha_number": "005",
           "text": [
             {
@@ -1604,9 +1604,9 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysar:006:prakrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:006",
+          "natural_key": "samaysaar:006:prakrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:006",
           "gatha_number": "006",
           "text": [
             {
@@ -1619,9 +1619,9 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysar:007:prakrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:007",
+          "natural_key": "samaysaar:007:prakrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:007",
           "gatha_number": "007",
           "text": [
             {
@@ -1634,9 +1634,9 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysar:008:prakrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:008",
+          "natural_key": "samaysaar:008:prakrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:008",
           "gatha_number": "008",
           "text": [
             {
@@ -1649,9 +1649,9 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysar:009:prakrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:009",
+          "natural_key": "samaysaar:009:prakrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:009",
           "gatha_number": "009",
           "text": [
             {
@@ -1664,9 +1664,9 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysar:010:prakrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:010",
+          "natural_key": "samaysaar:010:prakrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:010",
           "gatha_number": "010",
           "text": [
             {
@@ -1679,9 +1679,9 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysar:jaysenacharya:kalash:011:prakrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:jaysenacharya:kalash:011",
+          "natural_key": "samaysaar:jaysenacharya:kalash:011:prakrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:jaysenacharya:kalash:011",
           "gatha_number": "011",
           "text": [
             {
@@ -1696,9 +1696,9 @@
       ],
       "gatha_sanskrit": [
         {
-          "natural_key": "samaysar:001:sanskrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:001",
+          "natural_key": "samaysaar:001:sanskrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:001",
           "gatha_number": "001",
           "text": [
             {
@@ -1709,9 +1709,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:002:sanskrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:002",
+          "natural_key": "samaysaar:002:sanskrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:002",
           "gatha_number": "002",
           "text": [
             {
@@ -1722,9 +1722,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:003:sanskrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:003",
+          "natural_key": "samaysaar:003:sanskrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:003",
           "gatha_number": "003",
           "text": [
             {
@@ -1735,9 +1735,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:004:sanskrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:004",
+          "natural_key": "samaysaar:004:sanskrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:004",
           "gatha_number": "004",
           "text": [
             {
@@ -1748,9 +1748,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:005:sanskrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:005",
+          "natural_key": "samaysaar:005:sanskrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:005",
           "gatha_number": "005",
           "text": [
             {
@@ -1761,9 +1761,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:006:sanskrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:006",
+          "natural_key": "samaysaar:006:sanskrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:006",
           "gatha_number": "006",
           "text": [
             {
@@ -1774,9 +1774,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:007:sanskrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:007",
+          "natural_key": "samaysaar:007:sanskrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:007",
           "gatha_number": "007",
           "text": [
             {
@@ -1787,9 +1787,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:008:sanskrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:008",
+          "natural_key": "samaysaar:008:sanskrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:008",
           "gatha_number": "008",
           "text": [
             {
@@ -1800,9 +1800,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:009:sanskrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:009",
+          "natural_key": "samaysaar:009:sanskrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:009",
           "gatha_number": "009",
           "text": [
             {
@@ -1813,9 +1813,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:010:sanskrit",
-          "shastra_natural_key": "samaysar",
-          "gatha_natural_key": "samaysar:010",
+          "natural_key": "samaysaar:010:sanskrit",
+          "shastra_natural_key": "samaysaar",
+          "gatha_natural_key": "samaysaar:010",
           "gatha_number": "010",
           "text": [
             {
@@ -1828,8 +1828,8 @@
       ],
       "gatha_hindi_chhand": [
         {
-          "natural_key": "samaysar:001:chhand:01",
-          "gatha_natural_key": "samaysar:001",
+          "natural_key": "samaysaar:001:chhand:01",
+          "gatha_natural_key": "samaysaar:001",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -1848,8 +1848,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:002:chhand:01",
-          "gatha_natural_key": "samaysar:002",
+          "natural_key": "samaysaar:002:chhand:01",
+          "gatha_natural_key": "samaysaar:002",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -1868,8 +1868,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:003:chhand:01",
-          "gatha_natural_key": "samaysar:003",
+          "natural_key": "samaysaar:003:chhand:01",
+          "gatha_natural_key": "samaysaar:003",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -1888,8 +1888,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:004:chhand:01",
-          "gatha_natural_key": "samaysar:004",
+          "natural_key": "samaysaar:004:chhand:01",
+          "gatha_natural_key": "samaysaar:004",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -1908,8 +1908,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:005:chhand:01",
-          "gatha_natural_key": "samaysar:005",
+          "natural_key": "samaysaar:005:chhand:01",
+          "gatha_natural_key": "samaysaar:005",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -1928,8 +1928,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:006:chhand:01",
-          "gatha_natural_key": "samaysar:006",
+          "natural_key": "samaysaar:006:chhand:01",
+          "gatha_natural_key": "samaysaar:006",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -1948,8 +1948,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:007:chhand:01",
-          "gatha_natural_key": "samaysar:007",
+          "natural_key": "samaysaar:007:chhand:01",
+          "gatha_natural_key": "samaysaar:007",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -1968,8 +1968,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:008:chhand:01",
-          "gatha_natural_key": "samaysar:008",
+          "natural_key": "samaysaar:008:chhand:01",
+          "gatha_natural_key": "samaysaar:008",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -1988,8 +1988,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:009:chhand:01",
-          "gatha_natural_key": "samaysar:009",
+          "natural_key": "samaysaar:009:chhand:01",
+          "gatha_natural_key": "samaysaar:009",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2008,8 +2008,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:010:chhand:01",
-          "gatha_natural_key": "samaysar:010",
+          "natural_key": "samaysaar:010:chhand:01",
+          "gatha_natural_key": "samaysaar:010",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2030,8 +2030,8 @@
       ],
       "gatha_word_meanings": [
         {
-          "natural_key": "samaysar:001:word_meanings:prakrit",
-          "gatha_natural_key": "samaysar:001",
+          "natural_key": "samaysaar:001:word_meanings:prakrit",
+          "gatha_natural_key": "samaysaar:001",
           "source_language": "pra",
           "full_anyavaarth": "ध्रुव, अचल और अनुपम गति को प्राप्त हुए सर्व सिद्धों को नमस्कार करके अहो भव्यों ! श्रुतकेवलियों के द्वारा कथित यह समयसार नामक प्राभृत / शास्त्र कहूँगा ।",
           "entries": [
@@ -2191,8 +2191,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:002:word_meanings:prakrit",
-          "gatha_natural_key": "samaysar:002",
+          "natural_key": "samaysaar:002:word_meanings:prakrit",
+          "gatha_natural_key": "samaysaar:002",
           "source_language": "pra",
           "full_anyavaarth": "जो जीव दर्शन, ज्ञान, चारित्र में स्थित हो रहा है उसे निश्चय से स्वसमय जानो और जो जीव पुदगल कर्म के प्रदेशों में स्थित है उसे परसमय जानो ।",
           "entries": [
@@ -2386,8 +2386,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:003:word_meanings:prakrit",
-          "gatha_natural_key": "samaysar:003",
+          "natural_key": "samaysaar:003:word_meanings:prakrit",
+          "gatha_natural_key": "samaysaar:003",
           "source_language": "pra",
           "full_anyavaarth": "एकत्व निश्चय को प्राप्त जो समय है वह लोक में सर्वत्र / सब जगह सुन्दर है इसलिए एकत्व में दूसरे के साथ बंध की कथा विसंवाद / विरोध करनेवाली होती है ।",
           "entries": [
@@ -2564,8 +2564,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:004:word_meanings:prakrit",
-          "gatha_natural_key": "samaysar:004",
+          "natural_key": "samaysaar:004:word_meanings:prakrit",
+          "gatha_natural_key": "samaysaar:004",
           "source_language": "pra",
           "full_anyavaarth": "सर्व लोक को कामभोग संबंधी बंध की कथा तो सुनने मेँ आ गई है, परिचय में आ गई है और अनुभव मेँ भी आ गई है किन्तु रागादि रहित आत्मा के एकत्व को उपयोग में लाना एकमात्र वही सुलभ नहीं है ।",
           "entries": [
@@ -2742,8 +2742,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:005:word_meanings:prakrit",
-          "gatha_natural_key": "samaysar:005",
+          "natural_key": "samaysaar:005:word_meanings:prakrit",
+          "gatha_natural_key": "samaysaar:005",
           "source_language": "pra",
           "full_anyavaarth": "उस एकत्व-विभक्त आत्मा को आत्मा के निज बुद्धि-वैभव से मैं दिखाता हूँ यदि मैं दिखाऊँ तो प्रमाण (स्वीकार) करना, और यदि कहीँ चूक जाऊँ तो छल नहीं ग्रहण करना ।",
           "entries": [
@@ -2954,8 +2954,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:006:word_meanings:prakrit",
-          "gatha_natural_key": "samaysar:006",
+          "natural_key": "samaysaar:006:word_meanings:prakrit",
+          "gatha_natural_key": "samaysaar:006",
           "source_language": "pra",
           "full_anyavaarth": "जो ज्ञायक भाव अप्रमत्त भी नहीं और प्रमत्त भी नहीं है, इस प्रकार उसे शुद्ध कहते हैं और जिसे ज्ञायक भाव द्वारा जान लिया है वह वही है, और कोई नहीं ।",
           "entries": [
@@ -3149,8 +3149,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:007:word_meanings:prakrit",
-          "gatha_natural_key": "samaysar:007",
+          "natural_key": "samaysaar:007:word_meanings:prakrit",
+          "gatha_natural_key": "samaysaar:007",
           "source_language": "pra",
           "full_anyavaarth": "ज्ञानी (आत्मा) के चारित्र, दर्शन और ज्ञान - ये तीन भाव व्यवहार से कहे जाते हैं; निश्चय से ज्ञान भी नहीं है, दर्शन भी नहीं है और चारित्र भी नहीं है; ज्ञानी (आत्मा) तो एक रागादि रहित ज्ञायक ही है ।",
           "entries": [
@@ -3327,8 +3327,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:008:word_meanings:prakrit",
-          "gatha_natural_key": "samaysar:008",
+          "natural_key": "samaysaar:008:word_meanings:prakrit",
+          "gatha_natural_key": "samaysaar:008",
           "source_language": "pra",
           "full_anyavaarth": "जिसप्रकार अनार्य (म्लेच्छ) भाषा के बिना अनार्य (म्लेच्छ) जन को कुछ भी समझाना संभव नहीं है; उसीप्रकार व्यवहार के बिना परमार्थ (निश्चय) का कथन अशक्य है ।",
           "entries": [
@@ -3573,8 +3573,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:009:word_meanings:prakrit",
-          "gatha_natural_key": "samaysar:009",
+          "natural_key": "samaysaar:009:word_meanings:prakrit",
+          "gatha_natural_key": "samaysaar:009",
           "source_language": "pra",
           "full_anyavaarth": "जो जीव निश्चय से केवल राग द्वेष रहित इस अनुभव गोचर आत्मा को श्रुतज्ञान के सम्मुख होता हुआ जानते हैं, उसे लोक के प्रकाशक ऋषिगण (निश्चय) श्रुतकेवली कहते हैं और जो सर्वश्रुतज्ञान को जानते हैं, उन्हें जिनदेव (व्यवहार) श्रुतकेवली कहते हैं; क्योंकि सब ज्ञान आत्मा ही है इसलिए वह श्रुत-केवली है ।",
           "entries": [
@@ -3972,8 +3972,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:010:word_meanings:prakrit",
-          "gatha_natural_key": "samaysar:010",
+          "natural_key": "samaysaar:010:word_meanings:prakrit",
+          "gatha_natural_key": "samaysaar:010",
           "source_language": "pra",
           "full_anyavaarth": "जो जीव निश्चय से केवल राग द्वेष रहित इस अनुभव गोचर आत्मा को श्रुतज्ञान के सम्मुख होता हुआ जानते हैं, उसे लोक के प्रकाशक ऋषिगण (निश्चय) श्रुतकेवली कहते हैं और जो सर्वश्रुतज्ञान को जानते हैं, उन्हें जिनदेव (व्यवहार) श्रुतकेवली कहते हैं; क्योंकि सब ज्ञान आत्मा ही है इसलिए वह श्रुत-केवली है ।",
           "entries": [
@@ -4371,8 +4371,8 @@
           ]
         },
         {
-          "natural_key": "samaysar:jaysenacharya:kalash:011:word_meanings:prakrit",
-          "gatha_natural_key": "samaysar:jaysenacharya:kalash:011",
+          "natural_key": "samaysaar:jaysenacharya:kalash:011:word_meanings:prakrit",
+          "gatha_natural_key": "samaysaar:jaysenacharya:kalash:011",
           "source_language": "pra",
           "full_anyavaarth": "ज्ञान में, दर्शन में और चारित्र में अवश्य भावना करनी चाहिए क्योंकि ये तीनों आत्मा के स्वरूप हैं । इसलिए आत्मा की भावना बार-बार करनी चाहिए ।",
           "entries": [
@@ -4619,9 +4619,9 @@
       ],
       "teeka_gatha_mapping": [
         {
-          "natural_key": "samaysar:amritchandra:001",
-          "teeka_natural_key": "samaysar:amritchandra",
-          "gatha_natural_key": "samaysar:001",
+          "natural_key": "samaysaar:amritchandra:001",
+          "teeka_natural_key": "samaysaar:amritchandra",
+          "gatha_natural_key": "samaysaar:001",
           "anvayartha": [
             {
               "lang": "hin",
@@ -4671,9 +4671,9 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysar:jaysenacharya:001",
-          "teeka_natural_key": "samaysar:jaysenacharya",
-          "gatha_natural_key": "samaysar:001",
+          "natural_key": "samaysaar:jaysenacharya:001",
+          "teeka_natural_key": "samaysaar:jaysenacharya",
+          "gatha_natural_key": "samaysaar:001",
           "anvayartha": [
             {
               "lang": "hin",
@@ -4723,9 +4723,9 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysar:amritchandra:002",
-          "teeka_natural_key": "samaysar:amritchandra",
-          "gatha_natural_key": "samaysar:002",
+          "natural_key": "samaysaar:amritchandra:002",
+          "teeka_natural_key": "samaysaar:amritchandra",
+          "gatha_natural_key": "samaysaar:002",
           "anvayartha": [
             {
               "lang": "hin",
@@ -4783,9 +4783,9 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysar:jaysenacharya:002",
-          "teeka_natural_key": "samaysar:jaysenacharya",
-          "gatha_natural_key": "samaysar:002",
+          "natural_key": "samaysaar:jaysenacharya:002",
+          "teeka_natural_key": "samaysaar:jaysenacharya",
+          "gatha_natural_key": "samaysaar:002",
           "anvayartha": [
             {
               "lang": "hin",
@@ -4843,9 +4843,9 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysar:amritchandra:003",
-          "teeka_natural_key": "samaysar:amritchandra",
-          "gatha_natural_key": "samaysar:003",
+          "natural_key": "samaysaar:amritchandra:003",
+          "teeka_natural_key": "samaysaar:amritchandra",
+          "gatha_natural_key": "samaysaar:003",
           "anvayartha": [
             {
               "lang": "hin",
@@ -4899,9 +4899,9 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysar:jaysenacharya:003",
-          "teeka_natural_key": "samaysar:jaysenacharya",
-          "gatha_natural_key": "samaysar:003",
+          "natural_key": "samaysaar:jaysenacharya:003",
+          "teeka_natural_key": "samaysaar:jaysenacharya",
+          "gatha_natural_key": "samaysaar:003",
           "anvayartha": [
             {
               "lang": "hin",
@@ -4955,9 +4955,9 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysar:amritchandra:004",
-          "teeka_natural_key": "samaysar:amritchandra",
-          "gatha_natural_key": "samaysar:004",
+          "natural_key": "samaysaar:amritchandra:004",
+          "teeka_natural_key": "samaysaar:amritchandra",
+          "gatha_natural_key": "samaysaar:004",
           "anvayartha": [
             {
               "lang": "hin",
@@ -5011,9 +5011,9 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysar:jaysenacharya:004",
-          "teeka_natural_key": "samaysar:jaysenacharya",
-          "gatha_natural_key": "samaysar:004",
+          "natural_key": "samaysaar:jaysenacharya:004",
+          "teeka_natural_key": "samaysaar:jaysenacharya",
+          "gatha_natural_key": "samaysaar:004",
           "anvayartha": [
             {
               "lang": "hin",
@@ -5067,9 +5067,9 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysar:amritchandra:005",
-          "teeka_natural_key": "samaysar:amritchandra",
-          "gatha_natural_key": "samaysar:005",
+          "natural_key": "samaysaar:amritchandra:005",
+          "teeka_natural_key": "samaysaar:amritchandra",
+          "gatha_natural_key": "samaysaar:005",
           "anvayartha": [
             {
               "lang": "hin",
@@ -5131,9 +5131,9 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysar:jaysenacharya:005",
-          "teeka_natural_key": "samaysar:jaysenacharya",
-          "gatha_natural_key": "samaysar:005",
+          "natural_key": "samaysaar:jaysenacharya:005",
+          "teeka_natural_key": "samaysaar:jaysenacharya",
+          "gatha_natural_key": "samaysaar:005",
           "anvayartha": [
             {
               "lang": "hin",
@@ -5195,9 +5195,9 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysar:amritchandra:006",
-          "teeka_natural_key": "samaysar:amritchandra",
-          "gatha_natural_key": "samaysar:006",
+          "natural_key": "samaysaar:amritchandra:006",
+          "teeka_natural_key": "samaysaar:amritchandra",
+          "gatha_natural_key": "samaysaar:006",
           "anvayartha": [
             {
               "lang": "hin",
@@ -5255,9 +5255,9 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysar:jaysenacharya:006",
-          "teeka_natural_key": "samaysar:jaysenacharya",
-          "gatha_natural_key": "samaysar:006",
+          "natural_key": "samaysaar:jaysenacharya:006",
+          "teeka_natural_key": "samaysaar:jaysenacharya",
+          "gatha_natural_key": "samaysaar:006",
           "anvayartha": [
             {
               "lang": "hin",
@@ -5315,9 +5315,9 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysar:amritchandra:007",
-          "teeka_natural_key": "samaysar:amritchandra",
-          "gatha_natural_key": "samaysar:007",
+          "natural_key": "samaysaar:amritchandra:007",
+          "teeka_natural_key": "samaysaar:amritchandra",
+          "gatha_natural_key": "samaysaar:007",
           "anvayartha": [
             {
               "lang": "hin",
@@ -5371,9 +5371,9 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysar:jaysenacharya:007",
-          "teeka_natural_key": "samaysar:jaysenacharya",
-          "gatha_natural_key": "samaysar:007",
+          "natural_key": "samaysaar:jaysenacharya:007",
+          "teeka_natural_key": "samaysaar:jaysenacharya",
+          "gatha_natural_key": "samaysaar:007",
           "anvayartha": [
             {
               "lang": "hin",
@@ -5427,9 +5427,9 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysar:amritchandra:008",
-          "teeka_natural_key": "samaysar:amritchandra",
-          "gatha_natural_key": "samaysar:008",
+          "natural_key": "samaysaar:amritchandra:008",
+          "teeka_natural_key": "samaysaar:amritchandra",
+          "gatha_natural_key": "samaysaar:008",
           "anvayartha": [
             {
               "lang": "hin",
@@ -5499,9 +5499,9 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysar:jaysenacharya:008",
-          "teeka_natural_key": "samaysar:jaysenacharya",
-          "gatha_natural_key": "samaysar:008",
+          "natural_key": "samaysaar:jaysenacharya:008",
+          "teeka_natural_key": "samaysaar:jaysenacharya",
+          "gatha_natural_key": "samaysaar:008",
           "anvayartha": [
             {
               "lang": "hin",
@@ -5571,9 +5571,9 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysar:amritchandra:009",
-          "teeka_natural_key": "samaysar:amritchandra",
-          "gatha_natural_key": "samaysar:009",
+          "natural_key": "samaysaar:amritchandra:009",
+          "teeka_natural_key": "samaysaar:amritchandra",
+          "gatha_natural_key": "samaysaar:009",
           "anvayartha": [
             {
               "lang": "hin",
@@ -5681,9 +5681,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:jaysenacharya:009",
-          "teeka_natural_key": "samaysar:jaysenacharya",
-          "gatha_natural_key": "samaysar:009",
+          "natural_key": "samaysaar:jaysenacharya:009",
+          "teeka_natural_key": "samaysaar:jaysenacharya",
+          "gatha_natural_key": "samaysaar:009",
           "anvayartha": [
             {
               "lang": "hin",
@@ -5791,9 +5791,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:010",
-          "teeka_natural_key": "samaysar:amritchandra",
-          "gatha_natural_key": "samaysar:010",
+          "natural_key": "samaysaar:amritchandra:010",
+          "teeka_natural_key": "samaysaar:amritchandra",
+          "gatha_natural_key": "samaysaar:010",
           "anvayartha": [
             {
               "lang": "hin",
@@ -5901,9 +5901,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:jaysenacharya:010",
-          "teeka_natural_key": "samaysar:jaysenacharya",
-          "gatha_natural_key": "samaysar:010",
+          "natural_key": "samaysaar:jaysenacharya:010",
+          "teeka_natural_key": "samaysaar:jaysenacharya",
+          "gatha_natural_key": "samaysaar:010",
           "anvayartha": [
             {
               "lang": "hin",
@@ -6013,9 +6013,9 @@
       ],
       "gatha_teeka_sanskrit": [
         {
-          "natural_key": "samaysar:amritchandra:001:teeka:san",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:001",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:001:teeka:san",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:001",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "gatha_number": "001",
           "text": [
             {
@@ -6026,9 +6026,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:jaysenacharya:001:teeka:san",
-          "gatha_teeka_natural_key": "samaysar:jaysenacharya:001",
-          "teeka_natural_key": "samaysar:jaysenacharya",
+          "natural_key": "samaysaar:jaysenacharya:001:teeka:san",
+          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:001",
+          "teeka_natural_key": "samaysaar:jaysenacharya",
           "gatha_number": "001",
           "text": [
             {
@@ -6039,9 +6039,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:002:teeka:san",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:002",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:002:teeka:san",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:002",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "gatha_number": "002",
           "text": [
             {
@@ -6052,9 +6052,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:003:teeka:san",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:003",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:003:teeka:san",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:003",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "gatha_number": "003",
           "text": [
             {
@@ -6065,9 +6065,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:004:teeka:san",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:004",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:004:teeka:san",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:004",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "gatha_number": "004",
           "text": [
             {
@@ -6078,9 +6078,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:005:teeka:san",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:005",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:005:teeka:san",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:005",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "gatha_number": "005",
           "text": [
             {
@@ -6091,9 +6091,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:006:teeka:san",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:006",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:006:teeka:san",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:006",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "gatha_number": "006",
           "text": [
             {
@@ -6104,9 +6104,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:007:teeka:san",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:007",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:007:teeka:san",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:007",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "gatha_number": "007",
           "text": [
             {
@@ -6117,9 +6117,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:008:teeka:san",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:008",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:008:teeka:san",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:008",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "gatha_number": "008",
           "text": [
             {
@@ -6130,9 +6130,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:009:teeka:san",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:009",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:009:teeka:san",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:009",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "gatha_number": "009",
           "text": [
             {
@@ -6143,9 +6143,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:010:teeka:san",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:010",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:010:teeka:san",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:010",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "gatha_number": "010",
           "text": [
             {
@@ -6158,10 +6158,10 @@
       ],
       "gatha_teeka_bhaavarth_hindi": [
         {
-          "natural_key": "samaysar:amritchandra:nikkyjain:001:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:amritchandra:nikkyjain:001:bhaavarth:hi",
-          "publication_natural_key": "samaysar:amritchandra:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:001",
+          "natural_key": "samaysaar:amritchandra:nikkyjain:001:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:amritchandra:nikkyjain:001:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:amritchandra:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:001",
           "publisher_id": "nikkyjain",
           "gatha_number": "001",
           "text": [
@@ -6173,10 +6173,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:jaysenacharya:nikkyjain:001:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:jaysenacharya:nikkyjain:001:bhaavarth:hi",
-          "publication_natural_key": "samaysar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:jaysenacharya:001",
+          "natural_key": "samaysaar:jaysenacharya:nikkyjain:001:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:001:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:001",
           "publisher_id": "nikkyjain",
           "gatha_number": "001",
           "text": [
@@ -6188,10 +6188,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:nikkyjain:002:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:amritchandra:nikkyjain:002:bhaavarth:hi",
-          "publication_natural_key": "samaysar:amritchandra:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:002",
+          "natural_key": "samaysaar:amritchandra:nikkyjain:002:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:amritchandra:nikkyjain:002:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:amritchandra:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:002",
           "publisher_id": "nikkyjain",
           "gatha_number": "002",
           "text": [
@@ -6203,10 +6203,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:jaysenacharya:nikkyjain:002:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:jaysenacharya:nikkyjain:002:bhaavarth:hi",
-          "publication_natural_key": "samaysar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:jaysenacharya:002",
+          "natural_key": "samaysaar:jaysenacharya:nikkyjain:002:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:002:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:002",
           "publisher_id": "nikkyjain",
           "gatha_number": "002",
           "text": [
@@ -6218,10 +6218,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:nikkyjain:003:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:amritchandra:nikkyjain:003:bhaavarth:hi",
-          "publication_natural_key": "samaysar:amritchandra:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:003",
+          "natural_key": "samaysaar:amritchandra:nikkyjain:003:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:amritchandra:nikkyjain:003:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:amritchandra:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:003",
           "publisher_id": "nikkyjain",
           "gatha_number": "003",
           "text": [
@@ -6233,10 +6233,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:jaysenacharya:nikkyjain:003:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:jaysenacharya:nikkyjain:003:bhaavarth:hi",
-          "publication_natural_key": "samaysar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:jaysenacharya:003",
+          "natural_key": "samaysaar:jaysenacharya:nikkyjain:003:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:003:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:003",
           "publisher_id": "nikkyjain",
           "gatha_number": "003",
           "text": [
@@ -6248,10 +6248,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:nikkyjain:004:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:amritchandra:nikkyjain:004:bhaavarth:hi",
-          "publication_natural_key": "samaysar:amritchandra:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:004",
+          "natural_key": "samaysaar:amritchandra:nikkyjain:004:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:amritchandra:nikkyjain:004:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:amritchandra:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:004",
           "publisher_id": "nikkyjain",
           "gatha_number": "004",
           "text": [
@@ -6263,10 +6263,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:jaysenacharya:nikkyjain:004:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:jaysenacharya:nikkyjain:004:bhaavarth:hi",
-          "publication_natural_key": "samaysar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:jaysenacharya:004",
+          "natural_key": "samaysaar:jaysenacharya:nikkyjain:004:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:004:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:004",
           "publisher_id": "nikkyjain",
           "gatha_number": "004",
           "text": [
@@ -6278,10 +6278,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:nikkyjain:005:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:amritchandra:nikkyjain:005:bhaavarth:hi",
-          "publication_natural_key": "samaysar:amritchandra:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:005",
+          "natural_key": "samaysaar:amritchandra:nikkyjain:005:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:amritchandra:nikkyjain:005:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:amritchandra:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:005",
           "publisher_id": "nikkyjain",
           "gatha_number": "005",
           "text": [
@@ -6293,10 +6293,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:jaysenacharya:nikkyjain:005:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:jaysenacharya:nikkyjain:005:bhaavarth:hi",
-          "publication_natural_key": "samaysar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:jaysenacharya:005",
+          "natural_key": "samaysaar:jaysenacharya:nikkyjain:005:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:005:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:005",
           "publisher_id": "nikkyjain",
           "gatha_number": "005",
           "text": [
@@ -6308,10 +6308,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:nikkyjain:006:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:amritchandra:nikkyjain:006:bhaavarth:hi",
-          "publication_natural_key": "samaysar:amritchandra:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:006",
+          "natural_key": "samaysaar:amritchandra:nikkyjain:006:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:amritchandra:nikkyjain:006:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:amritchandra:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:006",
           "publisher_id": "nikkyjain",
           "gatha_number": "006",
           "text": [
@@ -6323,10 +6323,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:jaysenacharya:nikkyjain:006:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:jaysenacharya:nikkyjain:006:bhaavarth:hi",
-          "publication_natural_key": "samaysar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:jaysenacharya:006",
+          "natural_key": "samaysaar:jaysenacharya:nikkyjain:006:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:006:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:006",
           "publisher_id": "nikkyjain",
           "gatha_number": "006",
           "text": [
@@ -6338,10 +6338,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:nikkyjain:007:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:amritchandra:nikkyjain:007:bhaavarth:hi",
-          "publication_natural_key": "samaysar:amritchandra:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:007",
+          "natural_key": "samaysaar:amritchandra:nikkyjain:007:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:amritchandra:nikkyjain:007:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:amritchandra:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:007",
           "publisher_id": "nikkyjain",
           "gatha_number": "007",
           "text": [
@@ -6353,10 +6353,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:jaysenacharya:nikkyjain:007:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:jaysenacharya:nikkyjain:007:bhaavarth:hi",
-          "publication_natural_key": "samaysar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:jaysenacharya:007",
+          "natural_key": "samaysaar:jaysenacharya:nikkyjain:007:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:007:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:007",
           "publisher_id": "nikkyjain",
           "gatha_number": "007",
           "text": [
@@ -6368,10 +6368,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:nikkyjain:008:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:amritchandra:nikkyjain:008:bhaavarth:hi",
-          "publication_natural_key": "samaysar:amritchandra:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:008",
+          "natural_key": "samaysaar:amritchandra:nikkyjain:008:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:amritchandra:nikkyjain:008:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:amritchandra:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:008",
           "publisher_id": "nikkyjain",
           "gatha_number": "008",
           "text": [
@@ -6383,10 +6383,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:jaysenacharya:nikkyjain:008:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:jaysenacharya:nikkyjain:008:bhaavarth:hi",
-          "publication_natural_key": "samaysar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:jaysenacharya:008",
+          "natural_key": "samaysaar:jaysenacharya:nikkyjain:008:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:008:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:008",
           "publisher_id": "nikkyjain",
           "gatha_number": "008",
           "text": [
@@ -6398,10 +6398,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:nikkyjain:009:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:amritchandra:nikkyjain:009:bhaavarth:hi",
-          "publication_natural_key": "samaysar:amritchandra:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:009",
+          "natural_key": "samaysaar:amritchandra:nikkyjain:009:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:amritchandra:nikkyjain:009:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:amritchandra:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:009",
           "publisher_id": "nikkyjain",
           "gatha_number": "009",
           "text": [
@@ -6413,10 +6413,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:jaysenacharya:nikkyjain:009:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:jaysenacharya:nikkyjain:009:bhaavarth:hi",
-          "publication_natural_key": "samaysar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:jaysenacharya:009",
+          "natural_key": "samaysaar:jaysenacharya:nikkyjain:009:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:009:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:009",
           "publisher_id": "nikkyjain",
           "gatha_number": "009",
           "text": [
@@ -6428,10 +6428,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:nikkyjain:010:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:amritchandra:nikkyjain:010:bhaavarth:hi",
-          "publication_natural_key": "samaysar:amritchandra:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:amritchandra:010",
+          "natural_key": "samaysaar:amritchandra:nikkyjain:010:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:amritchandra:nikkyjain:010:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:amritchandra:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:amritchandra:010",
           "publisher_id": "nikkyjain",
           "gatha_number": "010",
           "text": [
@@ -6443,10 +6443,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:jaysenacharya:nikkyjain:010:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:jaysenacharya:nikkyjain:010:bhaavarth:hi",
-          "publication_natural_key": "samaysar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:jaysenacharya:010",
+          "natural_key": "samaysaar:jaysenacharya:nikkyjain:010:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:010:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:010",
           "publisher_id": "nikkyjain",
           "gatha_number": "010",
           "text": [
@@ -6458,10 +6458,10 @@
           ]
         },
         {
-          "natural_key": "samaysar:jaysenacharya:nikkyjain:kalash:011:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysar:jaysenacharya:nikkyjain:kalash:011:bhaavarth:hi",
-          "publication_natural_key": "samaysar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysar:jaysenacharya:kalash:011",
+          "natural_key": "samaysaar:jaysenacharya:nikkyjain:kalash:011:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:kalash:011:bhaavarth:hi",
+          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
+          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:kalash:011",
           "publisher_id": "nikkyjain",
           "gatha_number": "011",
           "text": [
@@ -6475,9 +6475,9 @@
       ],
       "kalash_sanskrit": [
         {
-          "natural_key": "samaysar:amritchandra:kalash:001:san",
-          "kalash_natural_key": "samaysar:amritchandra:kalash:001",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:kalash:001:san",
+          "kalash_natural_key": "samaysaar:amritchandra:kalash:001",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "kalash_number": "001",
           "text": [
             {
@@ -6489,9 +6489,9 @@
           "chhand_type": "अनुष्टुभ्"
         },
         {
-          "natural_key": "samaysar:amritchandra:kalash:002:san",
-          "kalash_natural_key": "samaysar:amritchandra:kalash:002",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:kalash:002:san",
+          "kalash_natural_key": "samaysaar:amritchandra:kalash:002",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "kalash_number": "002",
           "text": [
             {
@@ -6503,9 +6503,9 @@
           "chhand_type": "मालिनी"
         },
         {
-          "natural_key": "samaysar:amritchandra:kalash:003:san",
-          "kalash_natural_key": "samaysar:amritchandra:kalash:003",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:kalash:003:san",
+          "kalash_natural_key": "samaysaar:amritchandra:kalash:003",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "kalash_number": "003",
           "text": [
             {
@@ -6519,9 +6519,9 @@
       ],
       "kalash_hindi": [
         {
-          "natural_key": "samaysar:amritchandra:kalash:001:hi",
-          "kalash_natural_key": "samaysar:amritchandra:kalash:001",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:kalash:001:hi",
+          "kalash_natural_key": "samaysaar:amritchandra:kalash:001",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "kalash_number": "001",
           "text": [
             {
@@ -6533,9 +6533,9 @@
           "chhand_type": "दोहा"
         },
         {
-          "natural_key": "samaysar:amritchandra:kalash:002:hi",
-          "kalash_natural_key": "samaysar:amritchandra:kalash:002",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:kalash:002:hi",
+          "kalash_natural_key": "samaysaar:amritchandra:kalash:002",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "kalash_number": "002",
           "text": [
             {
@@ -6547,9 +6547,9 @@
           "chhand_type": "दोहा"
         },
         {
-          "natural_key": "samaysar:amritchandra:kalash:003:hi",
-          "kalash_natural_key": "samaysar:amritchandra:kalash:003",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:kalash:003:hi",
+          "kalash_natural_key": "samaysaar:amritchandra:kalash:003",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "kalash_number": "003",
           "text": [
             {
@@ -6563,9 +6563,9 @@
       ],
       "kalash_word_meanings": [
         {
-          "natural_key": "samaysar:amritchandra:kalash:001:word_meanings",
-          "kalash_natural_key": "samaysar:amritchandra:kalash:001",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:kalash:001:word_meanings",
+          "kalash_natural_key": "samaysaar:amritchandra:kalash:001",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "kalash_number": "001",
           "entries": [
             {
@@ -6591,9 +6591,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:kalash:002:word_meanings",
-          "kalash_natural_key": "samaysar:amritchandra:kalash:002",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:kalash:002:word_meanings",
+          "kalash_natural_key": "samaysaar:amritchandra:kalash:002",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "kalash_number": "002",
           "entries": [
             {
@@ -6619,9 +6619,9 @@
           ]
         },
         {
-          "natural_key": "samaysar:amritchandra:kalash:003:word_meanings",
-          "kalash_natural_key": "samaysar:amritchandra:kalash:003",
-          "teeka_natural_key": "samaysar:amritchandra",
+          "natural_key": "samaysaar:amritchandra:kalash:003:word_meanings",
+          "kalash_natural_key": "samaysaar:amritchandra:kalash:003",
+          "teeka_natural_key": "samaysaar:amritchandra",
           "kalash_number": "003",
           "entries": [
             {

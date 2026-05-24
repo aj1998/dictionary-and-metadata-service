@@ -1,11 +1,11 @@
-# NJ Parser Manual Testing (Batch Run)
+# NJ Parser Manual Testing
 
 This document covers manual verification for the nikkyjain (`nj`) parser batch mode in `dictionary-and-metadata-service`.
 
 ## Scope
 
 - Parser: `workers/ingestion/nj/orchestrator.py`
-- Shastra config: `parser_configs/nj/samaysar.yaml`
+- Shastra config: `parser_configs/nj/samaysaar.yaml`
 - Batch controls:
   - `batch_offset`
   - `batch_limit`
@@ -51,7 +51,7 @@ NIKKYJAIN_LOCAL_PATH=/Users/anubhavjain/Coding/Jinvani/nikkyjain.github.io \
 from workers.ingestion.nj.config import load_config_for_shastra
 from workers.ingestion.nj.orchestrator import parse_shastra
 
-cfg = load_config_for_shastra('samaysar')
+cfg = load_config_for_shastra('samaysaar')
 res = parse_shastra(cfg, batch_offset=0, batch_limit=10)
 print('processed_pages=', res.total_html_files_processed)
 print('gathas=', len(res.gathas))
@@ -74,7 +74,7 @@ NIKKYJAIN_LOCAL_PATH=/Users/anubhavjain/Coding/Jinvani/nikkyjain.github.io \
 from workers.ingestion.nj.config import load_config_for_shastra
 from workers.ingestion.nj.orchestrator import parse_shastra
 
-cfg = load_config_for_shastra('samaysar')
+cfg = load_config_for_shastra('samaysaar')
 res = parse_shastra(cfg, batch_offset=10, batch_limit=10)
 print('processed_pages=', res.total_html_files_processed)
 print('gathas=', len(res.gathas))
@@ -89,7 +89,7 @@ PY
 cd /Users/anubhavjain/Coding/Jinvani/dictionary-and-metadata-service
 NIKKYJAIN_LOCAL_PATH=/Users/anubhavjain/Coding/Jinvani/nikkyjain.github.io \
 .venv/bin/python -m workers.ingestion.nj.cli parse \
-  --config parser_configs/nj/samaysar.yaml \
+  --config parser_configs/nj/samaysaar.yaml \
   --batch-offset 0 \
   --batch-limit 10 \
   --format golden
@@ -98,12 +98,12 @@ NIKKYJAIN_LOCAL_PATH=/Users/anubhavjain/Coding/Jinvani/nikkyjain.github.io \
 Expected output line:
 
 ```text
-wrote: workers/ingestion/nj/tests/golden/samaysar_golden_o0_l10.json
+wrote: workers/ingestion/nj/tests/golden/samaysaar_golden_o0_l10.json
 ```
 
 Golden JSON absolute path (this repo):
 
-`/Users/anubhavjain/Coding/Jinvani/dictionary-and-metadata-service/workers/ingestion/nj/tests/golden/samaysar_golden_o0_l10.json`
+`/Users/anubhavjain/Coding/Jinvani/dictionary-and-metadata-service/workers/ingestion/nj/tests/golden/samaysaar_golden_o0_l10.json`
 
 ## Manual Verification Checklist
 
