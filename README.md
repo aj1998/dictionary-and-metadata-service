@@ -101,13 +101,13 @@ Postgres is the **source of truth for IDs**. Every entity in Mongo or Neo4j has 
 │nj(local)│◄────────│  - vyakaran OCR (future)             │
 │ CS OCRs │         │                                      │
 │         │         │  enrichment workers (Celery)         │
-│         │         │  - chat-candidate puller (cron)      │
+│         │         │                                      │
 └─────────┘         └────┬──────────┬──────────┬───────────┘
                          ▼          ▼          ▼
                    ┌─────────┐ ┌────────┐ ┌─────────┐
                    │Postgres │ │ Mongo  │ │ Neo4j   │
                    └────┬────┘ └───┬────┘ └────┬────┘
-                        │          │            │
+                        │          │           │
               ┌─────────┴──┐  ┌────┴──────┐ ┌──┴──────────────┐
               │metadata-svc│  │data-svc   │ │navigation-svc   │
               │ (port 8001)│  │(port 8002)│ │(port 8003)      │
@@ -117,7 +117,7 @@ Postgres is the **source of truth for IDs**. Every entity in Mongo or Neo4j has 
                         │                │
                         ▼                ▼
                    Public UI          query-svc
-                (metadata browse)    (port 8004)
+                (metadata browse)    (port 8004 - public)
                                         │
                                         ▼
                                 cataloguesearch-chat
