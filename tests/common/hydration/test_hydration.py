@@ -9,11 +9,11 @@ import pytest_asyncio
 
 sys.path.insert(
     0,
-    os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."),
+    os.path.join(os.path.dirname(__file__), "..", "..", ".."),  # repo root
 )
 sys.path.insert(
     0,
-    os.path.join(os.path.dirname(__file__), "..", "..", ".."),
+    os.path.join(os.path.dirname(__file__), "..", "..", "..", "packages", "jain_kb_common"),
 )
 
 from jain_kb_common.hydration.definitions import hydrate_definitions_hi  # noqa: E402

@@ -18,7 +18,7 @@ SKIP = not NJ_PATH
 
 @pytest.fixture(scope="module")
 def cfg():
-    return load_config_for_shastra("samaysar")
+    return load_config_for_shastra("samaysaar")
 
 
 @pytest.fixture(scope="module")

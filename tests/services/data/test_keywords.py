@@ -162,7 +162,7 @@ async def client_with_definition(client: AsyncClient):
     yield client
 
     # Restore the empty-mongo override that the base `client` fixture uses
-    from services.data_service.tests.conftest import make_mock_mongo
+    from tests.services.data.conftest import make_mock_mongo
 
     async def _restore():
         return make_mock_mongo()

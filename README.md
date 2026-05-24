@@ -214,48 +214,72 @@ alembic upgrade head
 
 ### Run tests
 
+All tests now live under `tests/`. Tightly-correlated suites:
+
+| Suite | Path | Why grouped |
+|---|---|---|
+| **DB layer** | `tests/db/` | Raw Postgres / Mongo / Neo4j upsert tests |
+| **Ingestion apply** | `tests/ingestion/` | Integration tests for `apply_approved_keyword_payload` |
+| **metadata + data services** | `tests/services/metadata/` + `tests/services/data/` | Both use the same Postgres schema; data entities FK-depend on metadata entities |
+| **navigation + query services** | `tests/services/navigation/` + `tests/services/query/` | Both mock Neo4j and share the same Postgres schema |
+| **All four services together** | `tests/services/` | Run as one suite to catch cross-service regressions from shared Postgres model changes |
+| **Workers / parsers** | `tests/workers/` | Ingestion pipeline unit tests — no DB required |
+| **Common library** | `tests/common/` | `jain_kb_common` hydration unit tests — no DB required |
+
 ```bash
-# Postgres tests only
-export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
-python -m pytest tests/db/test_idempotent_upsert.py -v
-
-# MongoDB tests only
-export MONGO_URL="mongodb://localhost:27017"
-python -m pytest tests/db/mongo/ -v
-
-# Neo4j tests only
-export NEO4J_URL="bolt://localhost:7687"
-export NEO4J_USER="neo4j"
-export NEO4J_PASSWORD="jainkb_password"
-python -m pytest tests/db/neo4j/ -v
-
-# All tests (all env vars set)
+# DB layer tests
 export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
 export MONGO_URL="mongodb://localhost:27017"
 export NEO4J_URL="bolt://localhost:7687"
 export NEO4J_USER="neo4j"
 export NEO4J_PASSWORD="jainkb_password"
-python -m pytest tests/ -v
+python -m pytest tests/db/ -v
 
-# Ingestion apply tests only
+# Ingestion apply tests
+export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
 python -m pytest tests/ingestion/ -v
 
-# Metadata service tests only (no Mongo/Neo4j required)
-python -m pytest services/metadata_service/tests/ -v
-
-# Data service tests only (MongoDB mocked, no real Mongo required)
-python -m pytest services/data_service/tests/ -v
-
-# Navigation service tests only (Neo4j mocked, no real Neo4j required)
-export NEO4J_PASSWORD=jainkb_password
-python -m pytest services/navigation_service/tests/ -v
-
-# Query service tests only (Neo4j + Mongo mocked; Postgres real)
+# All four services (tightly coupled via shared Postgres schema — run together)
 export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
-python -m pytest services/query_service/tests/ -v
+export NEO4J_PASSWORD=jainkb_password
+python -m pytest tests/services/ -v
+
+# Metadata service only (no Mongo/Neo4j required)
+export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
+python -m pytest tests/services/metadata/ -v
+
+# Data service only (Mongo mocked, no real Mongo required)
+export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
+python -m pytest tests/services/data/ -v
+
+# Navigation service only (Neo4j mocked, no real Neo4j required)
+export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
+export NEO4J_PASSWORD=jainkb_password
+python -m pytest tests/services/navigation/ -v
+
+# Query service only (Neo4j + Mongo mocked; Postgres real)
+export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
+python -m pytest tests/services/query/ -v
+
+# Parser / worker unit tests (no DB required)
+python -m pytest tests/workers/ -v
+
+# NJ integration tests require the local nikkyjain repo clone
+export NIKKYJAIN_LOCAL_PATH="/path/to/nikkyjain.github.io"
+python -m pytest tests/workers/nj/ -v
 
 # Hydration unit tests (no DB required)
-python -m pytest packages/jain_kb_common/tests/hydration/ -v
+python -m pytest tests/common/ -v
+
+# Full suite — 746 passed, 0 skipped, 0 failed (as of 2026-05-24)
+# Requires: Postgres + Neo4j running; nikkyjain repo cloned locally
+export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
+export MONGO_URL="mongodb://localhost:27017"
+export NEO4J_URL="bolt://localhost:7687"
+export NEO4J_USER="neo4j"
+export NEO4J_PASSWORD="jainkb_password"
+export NIKKYJAIN_LOCAL_PATH="/path/to/nikkyjain.github.io"
+python -m pytest tests/ -v
 ```
 
 ---
@@ -287,16 +311,24 @@ dictionary-and-metadata-service/
 │           │   └── neo4j/     # AsyncDriver factory, constraints, upserts, queries, schema_check
 │           └── hydration/     # hydrate_definitions_hi, hydrate_topic_extracts_hi, extract_references
 ├── migrations/                # Alembic (17 versions, 0001–0017 incl. trgm indexes for query engine)
-├── tests/
+├── tests/                         # All tests — single root test suite
 │   ├── db/
-│   │   ├── postgres/
-│   │   │   └── test_idempotent_upsert.py   # Postgres upsert tests
-│   │   ├── mongo/
-│   │   │   └── test_mongo_upsert.py    # MongoDB schema + upsert tests
-│   │   └── neo4j/
-│   │       └── test_neo4j_graph.py     # Neo4j constraints, upserts, queries, schema_check
-│   └── ingestion/
-│       └── test_apply.py               # apply_approved_keyword_payload integration tests
+│   │   ├── postgres/test_idempotent_upsert.py   # Postgres upsert tests
+│   │   ├── mongo/test_mongo_upsert.py            # MongoDB schema + upsert tests
+│   │   └── neo4j/test_neo4j_graph.py             # Neo4j constraints, upserts, queries
+│   ├── ingestion/
+│   │   └── test_apply.py               # apply_approved_keyword_payload integration tests
+│   ├── scripts/                        # Ingest env + golden apply smoke tests
+│   ├── common/
+│   │   └── hydration/test_hydration.py # jain_kb_common hydration unit tests (no DB)
+│   ├── services/                       # All four FastAPI services (share Postgres schema — run together)
+│   │   ├── metadata/                   # 7 test files — authors, shastras, teekas, publications, books, pravachans, fuzzy
+│   │   ├── data/                       # 8 test files — keywords, gathas, topics, kalashas, browse, search
+│   │   ├── navigation/                 # 7 test files — aliases, edges, neighbors, resolution, graph payload, landing
+│   │   └── query/                      # 14 test files — resolve_batch, graphrag, topics_match, topics_in_shastra, shastras_for_topic
+│   └── workers/
+│       ├── jainkosh/                   # Golden test + 30 unit tests; fixtures/ symlinked from workers/ingestion/jainkosh/tests/
+│       └── nj/                         # 9 nj parser unit tests
 ├── services/
 │   ├── metadata_service/      # FastAPI metadata service (port 8001) — authors, shastras, teekas, publications, books, pravachans; fuzzy search
 │   ├── data_service/          # FastAPI data service (port 8002) — keywords, gathas, topics, kalashas, browse, search
@@ -306,7 +338,7 @@ dictionary-and-metadata-service/
 │   └── ingestion/
 │       └── jainkosh/
 │           ├── apply.py               # apply_approved_keyword_payload
-│           └── tests/fixtures/        # HTML fixtures for parser + apply tests
+│           └── tests/fixtures/        # HTML fixtures (symlinked into tests/workers/jainkosh/fixtures/)
 ├── ui/                        # Next.js 16 public UI — see docs/ui/README.md
 ├── parser_configs/            # YAML/JSON scraper rules
 ├── samples/
