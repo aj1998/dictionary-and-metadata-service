@@ -72,8 +72,8 @@ async def teeka_samaysaar(client: AsyncClient, shastra_samaysaar, author_kundkun
 
 class TestShastrasFuzzy:
     async def test_fuzzy_golden_match(self, client: AsyncClient, shastra_samaysaar):
-        """Typo 'samaysar' → canonical row 'samaysaar' is first result."""
-        r = await client.get("/v1/shastras?q=samaysar&fuzzy=true&limit=5")
+        """Typo 'samaysaar' → canonical row 'samaysaar' is first result."""
+        r = await client.get("/v1/shastras?q=samaysaar&fuzzy=true&limit=5")
         assert r.status_code == 200
         data = r.json()
         assert len(data["items"]) >= 1
@@ -81,7 +81,7 @@ class TestShastrasFuzzy:
 
     async def test_fuzzy_similarity_field_present(self, client: AsyncClient, shastra_samaysaar):
         """fuzzy=true includes similarity float in each item."""
-        r = await client.get("/v1/shastras?q=samaysar&fuzzy=true")
+        r = await client.get("/v1/shastras?q=samaysaar&fuzzy=true")
         assert r.status_code == 200
         item = r.json()["items"][0]
         assert "similarity" in item
@@ -96,7 +96,7 @@ class TestShastrasFuzzy:
 
     async def test_fuzzy_limit_capped_at_50(self, client: AsyncClient, shastra_samaysaar):
         """limit > 50 is silently capped to 50 in fuzzy mode."""
-        r = await client.get("/v1/shastras?q=samaysar&fuzzy=true&limit=200")
+        r = await client.get("/v1/shastras?q=samaysaar&fuzzy=true&limit=200")
         assert r.status_code == 200
 
     async def test_non_fuzzy_ilike_unchanged(self, client: AsyncClient, shastra_samaysaar):
@@ -121,7 +121,7 @@ class TestShastrasFuzzy:
 
     async def test_fuzzy_pagination_envelope(self, client: AsyncClient, shastra_samaysaar):
         """Pagination envelope is preserved for fuzzy results."""
-        r = await client.get("/v1/shastras?q=samaysar&fuzzy=true")
+        r = await client.get("/v1/shastras?q=samaysaar&fuzzy=true")
         assert r.status_code == 200
         pagination = r.json()["pagination"]
         assert "total" in pagination

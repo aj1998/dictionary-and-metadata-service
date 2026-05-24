@@ -11,48 +11,48 @@ the parser config. No shastra identity is hard-coded in the ingestion layer.
 ## 1. Natural Key Conventions
 
 Variables used throughout:
-- `{shastra_nk}` — from `cfg.shastra.natural_key` (e.g. `"samaysar"`)
-- `{teeka_a_nk}` — primary teeka natural_key (e.g. `"samaysar:amritchandra"`)
-- `{teeka_j_nk}` — secondary teeka natural_key (e.g. `"samaysar:jaysenacharya"`)
-- `{pub_a_nk}` — primary teeka publication (e.g. `"samaysar:amritchandra:nikkyjain"`)
-- `{pub_j_nk}` — secondary teeka publication (e.g. `"samaysar:jaysenacharya:nikkyjain"`)
-- `{gatha_nk}` — `{shastra_nk}:{gatha_number}` (e.g. `"samaysar:001"`)
-- `{kalash_a_nk}` — `{teeka_a_nk}:kalash:{NNN}` (e.g. `"samaysar:amritchandra:kalash:001"`)
-- `{kalash_j_nk}` — `{teeka_j_nk}:kalash:{page_number}` (e.g. `"samaysar:jaysenacharya:kalash:012"`)
+- `{shastra_nk}` — from `cfg.shastra.natural_key` (e.g. `"samaysaar"`)
+- `{teeka_a_nk}` — primary teeka natural_key (e.g. `"samaysaar:amritchandra"`)
+- `{teeka_j_nk}` — secondary teeka natural_key (e.g. `"samaysaar:jaysenacharya"`)
+- `{pub_a_nk}` — primary teeka publication (e.g. `"samaysaar:amritchandra:nikkyjain"`)
+- `{pub_j_nk}` — secondary teeka publication (e.g. `"samaysaar:jaysenacharya:nikkyjain"`)
+- `{gatha_nk}` — `{shastra_nk}:{gatha_number}` (e.g. `"samaysaar:001"`)
+- `{kalash_a_nk}` — `{teeka_a_nk}:kalash:{NNN}` (e.g. `"samaysaar:amritchandra:kalash:001"`)
+- `{kalash_j_nk}` — `{teeka_j_nk}:kalash:{page_number}` (e.g. `"samaysaar:jaysenacharya:kalash:012"`)
 
 ### Postgres entity natural keys
 
 | Entity | Pattern | Samaysar example |
 |---|---|---|
-| Shastra | `{shastra_nk}` | `samaysar` |
+| Shastra | `{shastra_nk}` | `samaysaar` |
 | Author (text author) | `{author_nk}` | `kundkundacharya` |
 | Primary teekakar | `{teekakar_a_nk}` | `amritchandracharya` |
 | Secondary teekakar | `{teekakar_j_nk}` | `jaysenacharya` |
-| Primary teeka | `{teeka_a_nk}` | `samaysar:amritchandra` |
-| Secondary teeka | `{teeka_j_nk}` | `samaysar:jaysenacharya` |
-| Primary publication | `{pub_a_nk}` | `samaysar:amritchandra:nikkyjain` |
-| Secondary publication | `{pub_j_nk}` | `samaysar:jaysenacharya:nikkyjain` |
-| Gatha | `{gatha_nk}` | `samaysar:001`, `samaysar:009-010` |
-| Primary kalash (global counter) | `{kalash_a_nk}` | `samaysar:amritchandra:kalash:001` |
-| Secondary kalash | `{kalash_j_nk}` | `samaysar:jaysenacharya:kalash:012` |
+| Primary teeka | `{teeka_a_nk}` | `samaysaar:amritchandra` |
+| Secondary teeka | `{teeka_j_nk}` | `samaysaar:jaysenacharya` |
+| Primary publication | `{pub_a_nk}` | `samaysaar:amritchandra:nikkyjain` |
+| Secondary publication | `{pub_j_nk}` | `samaysaar:jaysenacharya:nikkyjain` |
+| Gatha | `{gatha_nk}` | `samaysaar:001`, `samaysaar:009-010` |
+| Primary kalash (global counter) | `{kalash_a_nk}` | `samaysaar:amritchandra:kalash:001` |
+| Secondary kalash | `{kalash_j_nk}` | `samaysaar:jaysenacharya:kalash:012` |
 
 ### MongoDB doc natural keys
 
 | Collection | Pattern | Samaysar example |
 |---|---|---|
-| `gatha_prakrit` | `{gatha_nk}:prakrit` | `samaysar:001:prakrit` |
-| `gatha_sanskrit` | `{gatha_nk}:sanskrit` | `samaysar:001:sanskrit` |
-| `gatha_hindi_chhand` | `{gatha_nk}:chhand:{NN}` | `samaysar:001:chhand:01` |
-| `gatha_word_meanings` | `{gatha_nk}:word_meanings:prakrit` | `samaysar:001:word_meanings:prakrit` |
-| `teeka_gatha_mapping` (primary) | `{teeka_a_nk}:{gatha_number}` | `samaysar:amritchandra:001` |
-| `teeka_gatha_mapping` (secondary) | `{teeka_j_nk}:{gatha_number}` | `samaysar:jaysenacharya:001` |
-| `gatha_teeka_sanskrit` (primary) | `{teeka_a_nk}:{gatha_number}:teeka:san` | `samaysar:amritchandra:001:teeka:san` |
-| `gatha_teeka_sanskrit` (secondary) | `{teeka_j_nk}:{gatha_number}:teeka:san` | `samaysar:jaysenacharya:001:teeka:san` |
-| `gatha_teeka_bhaavarth_hindi` (primary) | `{pub_a_nk}:{gatha_number}:bhaavarth:hi` | `samaysar:amritchandra:nikkyjain:001:bhaavarth:hi` |
-| `gatha_teeka_bhaavarth_hindi` (secondary) | `{pub_j_nk}:{gatha_number}:bhaavarth:hi` | `samaysar:jaysenacharya:nikkyjain:001:bhaavarth:hi` |
-| `kalash_sanskrit` | `{kalash_a_nk}:san` | `samaysar:amritchandra:kalash:001:san` |
-| `kalash_hindi` | `{kalash_a_nk}:hi` | `samaysar:amritchandra:kalash:001:hi` |
-| `kalash_word_meanings` (**new**) | `{kalash_a_nk}:word_meanings` | `samaysar:amritchandra:kalash:001:word_meanings` |
+| `gatha_prakrit` | `{gatha_nk}:prakrit` | `samaysaar:001:prakrit` |
+| `gatha_sanskrit` | `{gatha_nk}:sanskrit` | `samaysaar:001:sanskrit` |
+| `gatha_hindi_chhand` | `{gatha_nk}:chhand:{NN}` | `samaysaar:001:chhand:01` |
+| `gatha_word_meanings` | `{gatha_nk}:word_meanings:prakrit` | `samaysaar:001:word_meanings:prakrit` |
+| `teeka_gatha_mapping` (primary) | `{teeka_a_nk}:{gatha_number}` | `samaysaar:amritchandra:001` |
+| `teeka_gatha_mapping` (secondary) | `{teeka_j_nk}:{gatha_number}` | `samaysaar:jaysenacharya:001` |
+| `gatha_teeka_sanskrit` (primary) | `{teeka_a_nk}:{gatha_number}:teeka:san` | `samaysaar:amritchandra:001:teeka:san` |
+| `gatha_teeka_sanskrit` (secondary) | `{teeka_j_nk}:{gatha_number}:teeka:san` | `samaysaar:jaysenacharya:001:teeka:san` |
+| `gatha_teeka_bhaavarth_hindi` (primary) | `{pub_a_nk}:{gatha_number}:bhaavarth:hi` | `samaysaar:amritchandra:nikkyjain:001:bhaavarth:hi` |
+| `gatha_teeka_bhaavarth_hindi` (secondary) | `{pub_j_nk}:{gatha_number}:bhaavarth:hi` | `samaysaar:jaysenacharya:nikkyjain:001:bhaavarth:hi` |
+| `kalash_sanskrit` | `{kalash_a_nk}:san` | `samaysaar:amritchandra:kalash:001:san` |
+| `kalash_hindi` | `{kalash_a_nk}:hi` | `samaysaar:amritchandra:kalash:001:hi` |
+| `kalash_word_meanings` (**new**) | `{kalash_a_nk}:word_meanings` | `samaysaar:amritchandra:kalash:001:word_meanings` |
 
 For **secondary-only kalash pages**, the `gatha_nk` slot is replaced by the kalash natural key:
 - `gatha_prakrit` → `{kalash_j_nk}:prakrit`
@@ -453,7 +453,7 @@ for extract in gathas:
 
 ```bash
 python scripts/ingest_nj_apply.py \
-  --config parser_configs/nj/samaysar.yaml \
+  --config parser_configs/nj/samaysaar.yaml \
   [--dry-run]                     # parse + print summary; no DB writes
   [--gatha 001]                   # apply a single gatha only (for testing)
   [--neo4j-database jainkb]
@@ -605,7 +605,7 @@ async def apply_gatha_extract(extract, session, mongo_db, neo4j_driver, cfg, ...
 ### 5.4 Dry-Run Output
 
 ```
-[samaysar] 285 gathas, 18 secondary kalashes
+[samaysaar] 285 gathas, 18 secondary kalashes
 primary kalashes total: 87 (across all gatha pages)
 gathas with Sanskrit: 285
 gathas with Hindi chhand: 285
@@ -629,10 +629,10 @@ Check: `pytest workers/ingestion/nj/tests/test_idempotency.py --run-db-tests`
 
 (Example assertions use Samaysar fixtures.)
 
-- [ ] `ingest_nj_apply.py --config parser_configs/nj/samaysar.yaml --dry-run` prints ≥ 270 gathas and ≥ 80 primary kalashes.
-- [ ] `ingest_nj_apply.py --config parser_configs/nj/samaysar.yaml --gatha 001` writes correctly to Postgres + Mongo + Neo4j; verified by spot queries.
+- [ ] `ingest_nj_apply.py --config parser_configs/nj/samaysaar.yaml --dry-run` prints ≥ 270 gathas and ≥ 80 primary kalashes.
+- [ ] `ingest_nj_apply.py --config parser_configs/nj/samaysaar.yaml --gatha 001` writes correctly to Postgres + Mongo + Neo4j; verified by spot queries.
 - [ ] Primary kalash global counter is stable across runs (same `kalash_number` for the same kalash on page 001).
-- [ ] Secondary kalash from page 012 writes `Kalash` PG row with `gatha_id` pointing to gatha `samaysar:009-010`.
+- [ ] Secondary kalash from page 012 writes `Kalash` PG row with `gatha_id` pointing to gatha `samaysaar:009-010`.
 - [ ] Multi-gatha page `009-010` produces **two** `gatha_word_meanings` docs and **two** `teeka_gatha_mapping` docs (one per gatha), with `is_related` populated.
 - [ ] `gatha_word_meanings` docs have non-empty `full_anyavaarth` field.
 - [ ] `kalash_word_meanings` docs written for primary kalashes that have maroon-color word meanings.

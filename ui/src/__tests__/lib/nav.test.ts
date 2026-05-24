@@ -23,7 +23,7 @@ describe("isNavActive", () => {
   });
 
   it("non-root route matches sub-paths", () => {
-    expect(isNavActive("/shastras/samaysar", "/shastras")).toBe(true);
+    expect(isNavActive("/shastras/samaysaar", "/shastras")).toBe(true);
     expect(isNavActive("/dictionary/letters/क", "/dictionary")).toBe(true);
     expect(isNavActive("/topics/ahimsa", "/topics")).toBe(true);
   });
@@ -48,13 +48,13 @@ describe("isNavActive", () => {
     // isNavActive must receive the locale-STRIPPED path.
     expect(isNavActive("/en/dictionary", "/dictionary")).toBe(false);
     expect(isNavActive("/en/graph", "/graph")).toBe(false);
-    expect(isNavActive("/en/shastras/samaysar", "/shastras")).toBe(false);
+    expect(isNavActive("/en/shastras/samaysaar", "/shastras")).toBe(false);
     expect(isNavActive("/en", "/")).toBe(false);
 
     // Locale-stripped paths (what next-intl's usePathname delivers) work correctly:
     expect(isNavActive("/dictionary", "/dictionary")).toBe(true);
     expect(isNavActive("/graph", "/graph")).toBe(true);
-    expect(isNavActive("/shastras/samaysar", "/shastras")).toBe(true);
+    expect(isNavActive("/shastras/samaysaar", "/shastras")).toBe(true);
     expect(isNavActive("/", "/")).toBe(true);
   });
 });

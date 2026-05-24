@@ -152,9 +152,9 @@ class KalashWMEntry(BaseModel):
     position: int       # 1-based
 
 class KalashWordMeanings(BaseModel):
-    natural_key: str                # e.g. "samaysar:amritchandra:kalash:001:word_meanings"
-    kalash_natural_key: str         # e.g. "samaysar:amritchandra:kalash:001"
-    teeka_natural_key: str          # e.g. "samaysar:amritchandra"
+    natural_key: str                # e.g. "samaysaar:amritchandra:kalash:001:word_meanings"
+    kalash_natural_key: str         # e.g. "samaysaar:amritchandra:kalash:001"
+    teeka_natural_key: str          # e.g. "samaysaar:amritchandra"
     kalash_number: str              # e.g. "001"
     entries: list[KalashWMEntry]
     ingestion_run_id: Optional[str] = None
@@ -266,8 +266,8 @@ GET /v1/kalashas/{kalash_id}/word_meanings
 ```json
 {
   "kalash_id": "uuid",
-  "kalash_natural_key": "samaysar:amritchandra:kalash:001",
-  "teeka_natural_key": "samaysar:amritchandra",
+  "kalash_natural_key": "samaysaar:amritchandra:kalash:001",
+  "teeka_natural_key": "samaysaar:amritchandra",
   "kalash_number": "001",
   "entries": [
     {"source_word": "स्वानुभूत्या चकासते", "meaning": "स्वानुभूति से प्रकाशित", "position": 1}
@@ -307,8 +307,8 @@ Add `full_anyavaarth` and `is_related` to the existing response:
 
 ```json
 {
-  "teeka_natural_key": "samaysar:amritchandra",
-  "gatha_natural_key": "samaysar:001",
+  "teeka_natural_key": "samaysaar:amritchandra",
+  "gatha_natural_key": "samaysaar:001",
   "anvayartha": [...],
   "tagged_terms": [...],
   "full_anyavaarth": "...",

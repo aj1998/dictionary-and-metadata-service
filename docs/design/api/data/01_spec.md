@@ -411,8 +411,8 @@ Returns the word-by-word Sanskrit→Hindi glossary for the kalash (nikkyjain-ing
 ```json
 {
   "kalash_id": "uuid",
-  "kalash_natural_key": "samaysar:amritchandra:kalash:001",
-  "teeka_natural_key": "samaysar:amritchandra",
+  "kalash_natural_key": "samaysaar:amritchandra:kalash:001",
+  "teeka_natural_key": "samaysaar:amritchandra",
   "kalash_number": "001",
   "entries": [
     {"source_word": "स्वानुभूत्या चकासते", "meaning": "स्वानुभूति से प्रकाशित", "position": 1}

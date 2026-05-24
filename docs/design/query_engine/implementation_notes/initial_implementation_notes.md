@@ -219,7 +219,7 @@ The spec referred to flat columns `name_hi` / `name_en` / `display_name_hi` etc.
 - Authors: `GREATEST(similarity(natural_key, :q), similarity(display_name::text, :q))`
 - Teekas: `similarity(natural_key, :q)` only (no dedicated name column)
 
-Casting JSONB to `::text` produces the full JSON string. Trigram similarity still works because the Devanagari text is present as a substring (e.g., `"text": "समयसार"`). Natural-key queries (ASCII typos like `samaysar` → `samaysaar`) use the `natural_key` column directly.
+Casting JSONB to `::text` produces the full JSON string. Trigram similarity still works because the Devanagari text is present as a substring (e.g., `"text": "समयसार"`). Natural-key queries (ASCII typos like `samaysaar` → `samaysaar`) use the `natural_key` column directly.
 
 ## New Behaviour: `q` param on authors + teekas
 

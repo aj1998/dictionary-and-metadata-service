@@ -372,9 +372,9 @@ Word-by-word Sanskrit→Hindi glossary for a kalash (nikkyjain source). One docu
 
 ```json
 {
-  "natural_key": "samaysar:amritchandra:kalash:001:word_meanings",
-  "kalash_natural_key": "samaysar:amritchandra:kalash:001",
-  "teeka_natural_key": "samaysar:amritchandra",
+  "natural_key": "samaysaar:amritchandra:kalash:001:word_meanings",
+  "kalash_natural_key": "samaysaar:amritchandra:kalash:001",
+  "teeka_natural_key": "samaysaar:amritchandra",
   "kalash_number": "001",
   "entries": [
     {"source_word": "स्वानुभूत्या चकासते", "meaning": "स्वानुभूति से प्रकाशित", "position": 1},

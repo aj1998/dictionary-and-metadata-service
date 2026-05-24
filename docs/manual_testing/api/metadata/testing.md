@@ -341,7 +341,7 @@ curl -s -X POST http://localhost:8001/v1/admin/shastras \
   -u admin:secret \
   -H "Content-Type: application/json" \
   -d "{
-    \"natural_key\": \"samaysar\",
+    \"natural_key\": \"samaysaar\",
     \"title\": [{\"lang\": \"hin\", \"script\": \"Deva\", \"text\": \"समयसार\"}],
     \"author_id\": \"$AUTHOR_ID\",
     \"anuyoga_ids\": []

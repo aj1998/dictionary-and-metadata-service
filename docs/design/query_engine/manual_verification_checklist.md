@@ -419,7 +419,7 @@ alembic upgrade head  # runs both 0015 and 0016
 Requires a shastra with `natural_key="samaysaar"`.
 
 ```bash
-curl -s "http://localhost:8001/v1/shastras?q=samaysar&fuzzy=true&limit=5" \
+curl -s "http://localhost:8001/v1/shastras?q=samaysaar&fuzzy=true&limit=5" \
   | python3 -m json.tool
 ```
 

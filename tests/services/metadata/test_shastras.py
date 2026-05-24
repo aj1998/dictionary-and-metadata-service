@@ -82,14 +82,14 @@ class TestGetShastra:
 class TestCreateShastra:
     async def test_create(self, client: AsyncClient, author):
         body = {
-            "natural_key": "samaysar",
+            "natural_key": "samaysaar",
             "title": [{"lang": "hin", "script": "Deva", "text": "समयसार"}],
             "author_id": author["id"],
             "anuyoga_ids": [],
         }
         r = await client.post("/v1/admin/shastras", json=body, auth=ADMIN_AUTH)
         assert r.status_code == 201
-        assert r.json()["natural_key"] == "samaysar"
+        assert r.json()["natural_key"] == "samaysaar"
 
     async def test_conflict(self, client: AsyncClient, shastra, author):
         body = {

@@ -40,17 +40,17 @@ any shastra identity.
 version: 1.0.0
 source: nj                         # publisher identifier
 shastra:
-  natural_key: <str>               # e.g. "samaysar"
+  natural_key: <str>               # e.g. "samaysaar"
   title_hi: <str>
   author:
     natural_key: <str>             # e.g. "kundkundacharya"
     display_name_hi: <str>
     kind: acharya | poet | ...
   teekas:
-    - natural_key: <str>           # e.g. "samaysar:amritchandra"
+    - natural_key: <str>           # e.g. "samaysaar:amritchandra"
       teekakar_natural_key: <str>  # e.g. "amritchandracharya"
       teekakar_display_name_hi: <str>
-      publication_natural_key: <str>  # e.g. "samaysar:amritchandra:nikkyjain"
+      publication_natural_key: <str>  # e.g. "samaysaar:amritchandra:nikkyjain"
       publisher_id: nikkyjain
       role: primary | secondary    # primary = A-teeka with kalashes; secondary = J-teeka
 
@@ -87,29 +87,29 @@ parsing:
   notes_teeka_index: 2              # skip teeka2 (notes div, not a real teeka)
 ```
 
-### 2.2 Example: Samaysar Config (`parser_configs/nj/samaysar.yaml`)
+### 2.2 Example: Samaysar Config (`parser_configs/nj/samaysaar.yaml`)
 
 ```yaml
 version: 1.0.0
 source: nj
 shastra:
-  natural_key: samaysar
+  natural_key: samaysaar
   title_hi: समयसार
   author:
     natural_key: kundkundacharya
     display_name_hi: कुन्दकुन्दाचार्य
     kind: acharya
   teekas:
-    - natural_key: samaysar:amritchandra
+    - natural_key: samaysaar:amritchandra
       teekakar_natural_key: amritchandracharya
       teekakar_display_name_hi: अमृतचंद्राचार्य
-      publication_natural_key: samaysar:amritchandra:nikkyjain
+      publication_natural_key: samaysaar:amritchandra:nikkyjain
       publisher_id: nikkyjain
       role: primary
-    - natural_key: samaysar:jaysenacharya
+    - natural_key: samaysaar:jaysenacharya
       teekakar_natural_key: jaysenacharya
       teekakar_display_name_hi: जयसेनाचार्य
-      publication_natural_key: samaysar:jaysenacharya:nikkyjain
+      publication_natural_key: samaysaar:jaysenacharya:nikkyjain
       publisher_id: nikkyjain
       role: secondary
 input:
@@ -643,13 +643,13 @@ workers/ingestion/nj/
 ├── config.py              # load/validate parser_configs/nj/{shastra}.yaml
 └── tests/
     ├── fixtures/
-    │   ├── samaysar/
+    │   ├── samaysaar/
     │   │   ├── myItem_partial.js
     │   │   ├── 001.html
     │   │   ├── 009-010.html
     │   │   ├── 012.html          # secondary-only kalash
     │   │   └── 025-026-027.html  # multi-gatha
-    │   └── samaysar.yaml         # test config pointing to fixtures/samaysar/
+    │   └── samaysaar.yaml         # test config pointing to fixtures/samaysaar/
     └── test_parse_page.py
 ```
 
@@ -730,7 +730,7 @@ def parse_shastra(cfg: ShastraConfig) -> ShastraParseResult:
 
 (Fixtures based on Samaysar; the framework must work for any config-driven shastra.)
 
-- [x] `parse_myitem("myItem.js")` correctly extracts ≥ 200 primary-gatha entries and ≥ 200 secondary-gatha entries for samaysar.
+- [x] `parse_myitem("myItem.js")` correctly extracts ≥ 200 primary-gatha entries and ≥ 200 secondary-gatha entries for samaysaar.
 - [x] `classify_page("012.html")` → `"secondary_kalash"`.
 - [x] `classify_page("001.html")` → `"primary_gatha"`.
 - [x] `parse_primary_page(soup("001.html"), ...)` implementation exists and returns `GathaExtract` with fields:
@@ -771,7 +771,7 @@ This section records the final state after implementing the remaining parser wor
   - `classify_page(...)` and `preceding_primary_gatha(...)`
 - `workers/ingestion/nj/html_to_markdown.py`:
   - bhaavarth markdown conversion with required formatting rules
-- `parser_configs/nj/samaysar.yaml`:
+- `parser_configs/nj/samaysaar.yaml`:
   - updated parser selectors and removed old text-marker dependency
 
 ### 11.2 Implemented In This Pass
@@ -831,11 +831,11 @@ Implemented Jainkosh-style NJ golden generation for ingestion handoff:
 
 First batch (10 pages) golden was generated at:
 
-- `workers/ingestion/nj/tests/golden/samaysar_golden_o0_l10.json`
+- `workers/ingestion/nj/tests/golden/samaysaar_golden_o0_l10.json`
 
 Second batch (next 10 pages) golden was generated at:
 
-- `workers/ingestion/nj/tests/golden/samaysar_golden_o10_l10.json`
+- `workers/ingestion/nj/tests/golden/samaysaar_golden_o10_l10.json`
 
 ### 11.5 Post-Implementation Bugfixes
 

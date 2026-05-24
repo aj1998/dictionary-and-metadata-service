@@ -517,15 +517,15 @@ describe('data API', () => {
   describe('getKalash', () => {
     it('calls correct URL and returns data', async () => {
       const fixture = {
-        id: 'k-1', natural_key: 'samaysar:amritchandra:kalash:001',
+        id: 'k-1', natural_key: 'samaysaar:amritchandra:kalash:001',
         kalash_number: '001',
-        teeka: { id: 't-1', natural_key: 'samaysar:amritchandra', shastra: { natural_key: 'samaysar', title: [] } },
+        teeka: { id: 't-1', natural_key: 'samaysaar:amritchandra', shastra: { natural_key: 'samaysaar', title: [] } },
         sanskrit: null, hindi: null, bhaavarth: [],
       };
       mockSuccess(fixture);
-      const result = await getKalash('samaysar:amritchandra:kalash:001');
+      const result = await getKalash('samaysaar:amritchandra:kalash:001');
       expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(
-        `${BASE}/v1/kalashas/samaysar%3Aamritchandra%3Akalash%3A001`
+        `${BASE}/v1/kalashas/samaysaar%3Aamritchandra%3Akalash%3A001`
       );
       expect(result).toEqual(fixture);
     });
@@ -540,15 +540,15 @@ describe('data API', () => {
     it('calls correct URL and returns data', async () => {
       const fixture = {
         kalash_id: 'k-1',
-        kalash_natural_key: 'samaysar:amritchandra:kalash:001',
-        teeka_natural_key: 'samaysar:amritchandra',
+        kalash_natural_key: 'samaysaar:amritchandra:kalash:001',
+        teeka_natural_key: 'samaysaar:amritchandra',
         kalash_number: '001',
         entries: [{ source_word: 'स्वानुभूत्या', meaning: 'स्वानुभूति से', position: 1 }],
       };
       mockSuccess(fixture);
-      const result = await getKalashWordMeanings('samaysar:amritchandra:kalash:001');
+      const result = await getKalashWordMeanings('samaysaar:amritchandra:kalash:001');
       expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(
-        `${BASE}/v1/kalashas/samaysar%3Aamritchandra%3Akalash%3A001/word_meanings`
+        `${BASE}/v1/kalashas/samaysaar%3Aamritchandra%3Akalash%3A001/word_meanings`
       );
       expect(result).toEqual(fixture);
     });
