@@ -9,7 +9,10 @@ from .base import Base, TimestampMixin
 
 class Kalash(Base, TimestampMixin):
     __tablename__ = "kalashas"
-    __table_args__ = (Index("idx_kalashas_teeka", "teeka_id"),)
+    __table_args__ = (
+        Index("idx_kalashas_teeka", "teeka_id"),
+        Index("idx_kalashas_gatha", "gatha_id"),
+    )
 
     id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
@@ -21,6 +24,11 @@ class Kalash(Base, TimestampMixin):
         nullable=False,
     )
     kalash_number: Mapped[str] = mapped_column(Text, nullable=False)
+    gatha_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("gathas.id", ondelete="SET NULL"),
+        nullable=True,
+    )
     sanskrit_doc_id: Mapped[str | None] = mapped_column(Text, nullable=True)
     hindi_doc_id: Mapped[str | None] = mapped_column(Text, nullable=True)
     bhaavarth_doc_ids: Mapped[list] = mapped_column(JSONB, nullable=False, default=list)

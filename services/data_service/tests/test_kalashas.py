@@ -119,3 +119,65 @@ class TestKalashDetail:
     async def test_404(self, client: AsyncClient):
         r = await client.get("/v1/kalashas/nonexistent:teeka:kalash:999")
         assert r.status_code == 404
+
+
+class TestKalashWordMeanings:
+    async def test_404_when_no_kalash(self, client: AsyncClient):
+        r = await client.get("/v1/kalashas/nonexistent:kalash:999/word_meanings")
+        assert r.status_code == 404
+
+    async def test_404_when_kalash_exists_but_no_word_meanings(
+        self, client: AsyncClient, kalash_data
+    ):
+        r = await client.get(
+            f"/v1/kalashas/{kalash_data['kalash_nk']}/word_meanings"
+        )
+        assert r.status_code == 404
+
+    async def test_200_with_word_meanings(self, client: AsyncClient, kalash_data):
+        from unittest.mock import AsyncMock, MagicMock
+
+        from services.data_service import deps
+        from services.data_service.main import app
+
+        wm_doc = {
+            "natural_key": f"{kalash_data['kalash_nk']}:word_meanings",
+            "kalash_natural_key": kalash_data["kalash_nk"],
+            "teeka_natural_key": kalash_data["teeka_nk"],
+            "kalash_number": "001",
+            "entries": [
+                {"source_word": "स्वानुभूत्या", "meaning": "स्वानुभूति से", "position": 1}
+            ],
+        }
+
+        def _make_wm_collection():
+            col = MagicMock()
+            col.find_one = AsyncMock(return_value=wm_doc)
+            cursor = MagicMock()
+            cursor.to_list = AsyncMock(return_value=[])
+            col.find = MagicMock(return_value=cursor)
+            return col
+
+        mock_mongo = MagicMock()
+        mock_mongo.__getitem__ = MagicMock(side_effect=lambda name: _make_wm_collection())
+
+        async def _override_mongo():
+            return mock_mongo
+
+        original_override = app.dependency_overrides.get(deps.get_mongo_db)
+        app.dependency_overrides[deps.get_mongo_db] = _override_mongo
+        try:
+            r = await client.get(
+                f"/v1/kalashas/{kalash_data['kalash_nk']}/word_meanings"
+            )
+            assert r.status_code == 200
+            data = r.json()
+            assert data["kalash_natural_key"] == kalash_data["kalash_nk"]
+            assert data["kalash_number"] == "001"
+            assert len(data["entries"]) == 1
+            assert data["entries"][0]["source_word"] == "स्वानुभूत्या"
+        finally:
+            if original_override is not None:
+                app.dependency_overrides[deps.get_mongo_db] = original_override
+            else:
+                app.dependency_overrides.pop(deps.get_mongo_db, None)

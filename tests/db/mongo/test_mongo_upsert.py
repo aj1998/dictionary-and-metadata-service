@@ -42,6 +42,7 @@ from jain_kb_common.db.mongo.upserts import (
     upsert_kalash_bhaavarth_hindi,
     upsert_kalash_hindi,
     upsert_kalash_sanskrit,
+    upsert_kalash_word_meanings,
     upsert_keyword_definition,
     upsert_teeka_gatha_mapping,
     upsert_topic_extract,
@@ -449,6 +450,37 @@ async def test_upsert_kalash_hindi_idempotent(db):
     assert id1 == id2
     stored = await db.kalash_hindi.find_one({"_id": id1})
     assert stored["text"][0]["text"] == "कलश हिंदी v2"
+
+
+@skip_no_mongo
+@pytest.mark.asyncio
+async def test_upsert_kalash_word_meanings_idempotent(db):
+    nk = "pravachansaar:amritchandra:कलश:001:word_meanings"
+    id1 = await upsert_kalash_word_meanings(
+        db,
+        natural_key=nk,
+        kalash_natural_key="pravachansaar:amritchandra:कलश:001",
+        teeka_natural_key="pravachansaar:amritchandra",
+        kalash_number="001",
+        entries=[{"source_word": "स्वानुभूत्या", "meaning": "स्वानुभूति से", "position": 1}],
+    )
+    id2 = await upsert_kalash_word_meanings(
+        db,
+        natural_key=nk,
+        kalash_natural_key="pravachansaar:amritchandra:कलश:001",
+        teeka_natural_key="pravachansaar:amritchandra",
+        kalash_number="001",
+        entries=[
+            {"source_word": "स्वानुभूत्या", "meaning": "स्वानुभूति से", "position": 1},
+            {"source_word": "चकासते", "meaning": "प्रकाशित होते हैं", "position": 2},
+        ],
+    )
+    assert id1 == id2
+    count = await db.kalash_word_meanings.count_documents({"natural_key": nk})
+    assert count == 1
+    stored = await db.kalash_word_meanings.find_one({"_id": id1})
+    assert len(stored["entries"]) == 2
+    assert stored["kalash_natural_key"] == "pravachansaar:amritchandra:कलश:001"
 
 
 @skip_no_mongo

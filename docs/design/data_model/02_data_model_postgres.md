@@ -271,6 +271,7 @@ CREATE TABLE kalashas (
   natural_key       TEXT NOT NULL UNIQUE,                       -- e.g. 'pravachansaar:amritchandra:kalash:001'
   teeka_id          UUID NOT NULL REFERENCES teekas(id) ON DELETE CASCADE,
   kalash_number     TEXT NOT NULL,
+  gatha_id          UUID REFERENCES gathas(id) ON DELETE SET NULL,  -- gatha page on which this kalash appears
   sanskrit_doc_id   TEXT,                                       -- mongo id for Sanskrit verse
   hindi_doc_id      TEXT,                                       -- mongo id for Hindi verse
   bhaavarth_doc_ids JSONB NOT NULL DEFAULT '[]'::jsonb,        -- [mongo_id, ...] per publication
@@ -279,7 +280,10 @@ CREATE TABLE kalashas (
 );
 
 CREATE INDEX idx_kalashas_teeka ON kalashas(teeka_id);
+CREATE INDEX idx_kalashas_gatha ON kalashas(gatha_id);
 ```
+
+`gatha_id` is nullable (existing rows unaffected). For primary-teeka kalashes it holds the gatha page on which the kalash appears; for secondary-teeka standalone kalashes it holds the last primary-gatha preceding the kalash file in sorted file order.
 
 ### `topics`
 
@@ -444,7 +448,8 @@ migrations/
 ├── 0014_drop_topic_mentions.py drop topic_mentions table (superseded by graph edges)
 ├── 0015_keywords_natural_key_trgm_idx.py  gin trgm index on keywords.natural_key
 ├── 0016_topics_natural_key_trgm_idx.py    gin trgm index on topics.natural_key
-└── 0017_metadata_trgm_indexes.py          trgm indexes on metadata tables for fuzzy search
+├── 0017_metadata_trgm_indexes.py          trgm indexes on metadata tables for fuzzy search
+└── 0018_kalashas_gatha_id_fk.py           gatha_id FK + idx_kalashas_gatha on kalashas
 ```
 
 ## SQLAlchemy model layout

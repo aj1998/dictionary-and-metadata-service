@@ -13,6 +13,8 @@ import {
   getGatha,
   getGathaRelatedTopics,
   getGathaRelatedKeywords,
+  getKalash,
+  getKalashWordMeanings,
 } from './data';
 
 const BASE = 'http://localhost:3000/api/data';
@@ -481,6 +483,85 @@ describe('data API', () => {
     it('throws ApiError on error', async () => {
       mockError(404);
       await expect(getGathaRelatedKeywords('missing')).rejects.toThrow(ApiError);
+    });
+  });
+
+  describe('getGatha with include', () => {
+    it('appends include query param when provided', async () => {
+      const fixture = {
+        id: '1', natural_key: 'g-1', gatha_number: '1',
+        shastra: { natural_key: 'ts', title: [] },
+        adhikaar: [], heading: [], prakrit: null, sanskrit: null,
+        hindi_chhand: [], word_meanings: null,
+      };
+      mockSuccess(fixture);
+      await getGatha('g-1', { include: ['teeka_mapping'] });
+      const url = (fetch as ReturnType<typeof vi.fn>).mock.calls[0][0] as string;
+      expect(url).toBe(`${BASE}/v1/gathas/g-1?include=teeka_mapping`);
+    });
+
+    it('does not append include when not provided', async () => {
+      const fixture = {
+        id: '1', natural_key: 'g-1', gatha_number: '1',
+        shastra: { natural_key: 'ts', title: [] },
+        adhikaar: [], heading: [], prakrit: null, sanskrit: null,
+        hindi_chhand: [], word_meanings: null,
+      };
+      mockSuccess(fixture);
+      await getGatha('g-1');
+      const url = (fetch as ReturnType<typeof vi.fn>).mock.calls[0][0] as string;
+      expect(url).toBe(`${BASE}/v1/gathas/g-1`);
+    });
+  });
+
+  describe('getKalash', () => {
+    it('calls correct URL and returns data', async () => {
+      const fixture = {
+        id: 'k-1', natural_key: 'samaysar:amritchandra:kalash:001',
+        kalash_number: '001',
+        teeka: { id: 't-1', natural_key: 'samaysar:amritchandra', shastra: { natural_key: 'samaysar', title: [] } },
+        sanskrit: null, hindi: null, bhaavarth: [],
+      };
+      mockSuccess(fixture);
+      const result = await getKalash('samaysar:amritchandra:kalash:001');
+      expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(
+        `${BASE}/v1/kalashas/samaysar%3Aamritchandra%3Akalash%3A001`
+      );
+      expect(result).toEqual(fixture);
+    });
+
+    it('throws ApiError on 404', async () => {
+      mockError(404);
+      await expect(getKalash('missing')).rejects.toThrow(ApiError);
+    });
+  });
+
+  describe('getKalashWordMeanings', () => {
+    it('calls correct URL and returns data', async () => {
+      const fixture = {
+        kalash_id: 'k-1',
+        kalash_natural_key: 'samaysar:amritchandra:kalash:001',
+        teeka_natural_key: 'samaysar:amritchandra',
+        kalash_number: '001',
+        entries: [{ source_word: 'स्वानुभूत्या', meaning: 'स्वानुभूति से', position: 1 }],
+      };
+      mockSuccess(fixture);
+      const result = await getKalashWordMeanings('samaysar:amritchandra:kalash:001');
+      expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(
+        `${BASE}/v1/kalashas/samaysar%3Aamritchandra%3Akalash%3A001/word_meanings`
+      );
+      expect(result).toEqual(fixture);
+    });
+
+    it('returns null on 404', async () => {
+      mockError(404);
+      const result = await getKalashWordMeanings('missing:kalash:001');
+      expect(result).toBeNull();
+    });
+
+    it('throws ApiError on non-404 error', async () => {
+      mockError(500);
+      await expect(getKalashWordMeanings('k-1')).rejects.toThrow(ApiError);
     });
   });
 });

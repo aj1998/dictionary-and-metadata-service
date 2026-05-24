@@ -291,6 +291,7 @@ All included collections are fetched in a single `asyncio.gather` alongside core
     "prakrit": {
       "natural_key": "pravachansaar:039:word_meanings:prakrit",
       "source_language": "pra",
+      "full_anyavaarth": "उन द्रव्य-जातियों की...",
       "entries": [
         {"source_word": [{"lang": "pra", "script": "Deva", "text": "णेव"}],
          "meanings": [{"lang": "hin", "script": "Deva", "text": "नहीं"}],
@@ -304,7 +305,9 @@ All included collections are fetched in a single `asyncio.gather` alongside core
       "natural_key": "pravachansaar:amritchandra:039",
       "teeka_natural_key": "pravachansaar:amritchandra",
       "anvayartha": [{"lang": "hin", "script": "Deva", "text": "..."}],
-      "tagged_terms": []
+      "tagged_terms": [],
+      "full_anyavaarth": "उन द्रव्य-जातियों की...",
+      "is_related": []
     }
   ],
   "teeka_sanskrit": [
@@ -396,6 +399,28 @@ The `include` query param controls which Mongo collections are fetched. All are 
 ```
 
 `bhaavarth` is an array because multiple publications may provide different bhaavarths for the same kalash.
+
+#### Kalash word meanings
+
+```
+GET /v1/kalashas/{id|natural_key}/word_meanings
+```
+
+Returns the word-by-word Sanskrit→Hindi glossary for the kalash (nikkyjain-ingested only).
+
+```json
+{
+  "kalash_id": "uuid",
+  "kalash_natural_key": "samaysar:amritchandra:kalash:001",
+  "teeka_natural_key": "samaysar:amritchandra",
+  "kalash_number": "001",
+  "entries": [
+    {"source_word": "स्वानुभूत्या चकासते", "meaning": "स्वानुभूति से प्रकाशित", "position": 1}
+  ]
+}
+```
+
+**404** `{"detail": {"code": "not_found", "message": "No word meanings found for kalash {id}"}}` — returned when the kalash itself does not exist, or when it exists but has no word meanings document.
 
 ---
 

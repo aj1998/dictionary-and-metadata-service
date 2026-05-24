@@ -40,3 +40,17 @@ class KalashDetail(BaseModel):
     sanskrit: dict | None = None
     hindi: dict | None = None
     bhaavarth: list[dict] = []
+
+
+class KalashWMEntryResponse(BaseModel):
+    source_word: str
+    meaning: str
+    position: int
+
+
+class KalashWordMeaningsResponse(BaseModel):
+    kalash_id: uuid.UUID
+    kalash_natural_key: str
+    teeka_natural_key: str
+    kalash_number: str
+    entries: list[KalashWMEntryResponse]

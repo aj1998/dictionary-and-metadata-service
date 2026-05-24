@@ -156,6 +156,7 @@ class GathaWordMeanings(BaseModel):
     natural_key: str
     gatha_natural_key: str
     source_language: str
+    full_anyavaarth: Optional[str] = None
     entries: list[WordMeaningEntry]
     ingestion_run_id: Optional[str] = None
 
@@ -171,6 +172,8 @@ class TeekaGathaMapping(BaseModel):
     gatha_natural_key: str
     anvayartha: list[LangText]
     tagged_terms: list[TaggedTerm] = []
+    full_anyavaarth: Optional[str] = None
+    is_related: list[str] = []
     raw_html_fragment: Optional[str] = None
     ingestion_run_id: Optional[str] = None
 
@@ -278,4 +281,19 @@ class KalashBhaavarth(BaseModel):
     publisher_id: str
     kalash_number: str
     text: list[LangText]
+    ingestion_run_id: Optional[str] = None
+
+
+class KalashWMEntry(BaseModel):
+    source_word: str
+    meaning: str
+    position: int
+
+
+class KalashWordMeanings(BaseModel):
+    natural_key: str
+    kalash_natural_key: str
+    teeka_natural_key: str
+    kalash_number: str
+    entries: list[KalashWMEntry]
     ingestion_run_id: Optional[str] = None

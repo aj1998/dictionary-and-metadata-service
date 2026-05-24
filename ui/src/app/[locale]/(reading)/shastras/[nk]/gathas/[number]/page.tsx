@@ -4,7 +4,6 @@ import { TaggedTermPopover } from '@/components/TaggedTermPopover';
 import { Link } from '@/i18n/navigation';
 import { getGatha, getGathaRelatedTopics, getGathaRelatedKeywords } from '@/lib/api/data';
 import { getHindiText } from '@/lib/content-listing';
-import { splitTeekaByBracketTerms } from '@/lib/gatha-content';
 
 export const revalidate = 60;
 
@@ -21,7 +20,7 @@ export default async function GathaDetailPage({ params }: PageProps) {
   const number = decodeURIComponent(rawNumber);
 
   const [gatha, topics, keywords] = await Promise.all([
-    getGatha(number),
+    getGatha(number, { include: ['teeka_mapping'] }),
     getGathaRelatedTopics(number).catch((error) => {
       console.error('Failed to fetch gatha related topics', { nk, number, error });
       return [];
@@ -32,8 +31,11 @@ export default async function GathaDetailPage({ params }: PageProps) {
     }),
   ]);
 
-  const teekaText = typeof gatha.teeka_mapping === 'string' ? gatha.teeka_mapping : '';
-  const teekaParts = splitTeekaByBracketTerms(teekaText);
+  const teekaMapping = Array.isArray(gatha.teeka_mapping) ? gatha.teeka_mapping : [];
+  const primaryMapping = teekaMapping[0] ?? null;
+
+  const prakritWordMeanings = gatha.word_meanings?.prakrit?.entries ?? [];
+  const prakritFullAnyavaarth = gatha.word_meanings?.prakrit?.full_anyavaarth ?? null;
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
@@ -54,25 +56,65 @@ export default async function GathaDetailPage({ params }: PageProps) {
 
         <section className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
           <h2 className="mb-3 font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">शब्दार्थ</h2>
+          {prakritFullAnyavaarth && (
+            <p className="mb-4 font-serif-hindi leading-8 text-foreground-muted">{prakritFullAnyavaarth}</p>
+          )}
           <div className="flex flex-wrap gap-2 leading-8">
-            {(joinedLangText(gatha.prakrit?.text) || '').split(/\s+/).filter(Boolean).slice(0, 40).map((token, index) => (
-              <TaggedTermPopover key={`${token}-${index}`} termHi={token} meaningHi={token} />
-            ))}
+            {prakritWordMeanings.length > 0
+              ? prakritWordMeanings.map((entry) => (
+                  <TaggedTermPopover
+                    key={`${entry.source_word[0]?.text ?? ''}-${entry.position}`}
+                    termHi={entry.source_word.find((s) => s.lang === 'hi')?.text ?? entry.source_word[0]?.text ?? ''}
+                    meaningHi={entry.meanings.find((m) => m.lang === 'hi')?.text ?? entry.meanings[0]?.text ?? ''}
+                  />
+                ))
+              : (joinedLangText(gatha.prakrit?.text) || '').split(/\s+/).filter(Boolean).slice(0, 40).map((token, index) => (
+                  <TaggedTermPopover key={`${token}-${index}`} termHi={token} meaningHi={token} />
+                ))}
           </div>
         </section>
 
         <section className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
           <h2 className="mb-3 font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">टीका</h2>
-          <p className="whitespace-pre-wrap leading-8">
-            {teekaParts.length === 0
-              ? 'टीका उपलब्ध नहीं है।'
-              : teekaParts.map((part, index) =>
-                  part.type === 'term' ? (
-                    <TaggedTermPopover key={`${part.value}-${index}`} termHi={part.value} meaningHi={part.value} />
-                  ) : (
-                    <span key={`text-${index}`}>{part.value}</span>
+          {primaryMapping ? (
+            <div className="space-y-4">
+              {primaryMapping.full_anyavaarth && (
+                <p className="font-serif-hindi leading-8 text-foreground-muted">{primaryMapping.full_anyavaarth}</p>
+              )}
+              {primaryMapping.tagged_terms.length > 0 && (
+                <div className="flex flex-wrap gap-2 leading-8">
+                  {primaryMapping.tagged_terms.map((term, index) => (
+                    <TaggedTermPopover
+                      key={`${term.source_word}-${index}`}
+                      termHi={term.source_word}
+                      meaningHi={term.meaning}
+                    />
                   ))}
-          </p>
+                </div>
+              )}
+              {primaryMapping.anvayartha.length > 0 && (
+                <p className="whitespace-pre-wrap font-serif-hindi leading-8">
+                  {joinedLangText(primaryMapping.anvayartha)}
+                </p>
+              )}
+              {primaryMapping.is_related.length > 0 && (
+                <div className="mt-2 flex flex-wrap items-center gap-2">
+                  <span className="text-sm text-foreground-muted">संबंधित गाथाएँ:</span>
+                  {primaryMapping.is_related.map((relatedNumber) => (
+                    <Link
+                      key={relatedNumber}
+                      href={`/shastras/${nk}/gathas/${relatedNumber}`}
+                      className="rounded-full bg-accent-soft px-3 py-1 text-xs text-accent"
+                    >
+                      {relatedNumber}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : (
+            <p>टीका उपलब्ध नहीं है।</p>
+          )}
         </section>
       </div>
 

@@ -85,6 +85,7 @@ Word-by-word maps for a gatha. One document per source-language (Prakrit or Sans
   "natural_key": "pravachansaar:039:word_meanings:prakrit",
   "gatha_natural_key": "pravachansaar:039",
   "source_language": "pra",
+  "full_anyavaarth": "ध्रुव, अचल और अनुपम गति को प्राप्त हुए...",
   "entries": [
     {
       "source_word": [{"lang": "pra", "script": "Deva", "text": "णेव"}],
@@ -98,6 +99,8 @@ Word-by-word maps for a gatha. One document per source-language (Prakrit or Sans
   ...
 }
 ```
+
+`full_anyavaarth` — complete Hindi anyavartha sentence as plain text (BOM-stripped, NFC-normalized), without the leading `"अन्वयार्थ :"` prefix. Optional; present on all nikkyjain-ingested docs.
 
 **Indexes:** `{natural_key: 1}` UNIQUE.
 
@@ -116,10 +119,15 @@ Per-(teeka, gatha) Hindi anvayartha (teeka commentary).
   "tagged_terms": [
     {"source_word": "तासाम् द्रव्यजातीनाम्", "meaning": "उन द्रव्य-जातियों की"}
   ],
+  "full_anyavaarth": "उन द्रव्य-जातियों की...",
+  "is_related": [],
   "raw_html_fragment": "<div class='paragraph'>...</div>",
   ...
 }
 ```
+
+- `full_anyavaarth` — plain text anyavartha (optional; nikkyjain-ingested docs). Same as `anvayartha[0].text` but without markup.
+- `is_related` — `gatha_number` strings of other gathas sharing the same HTML page (multi-gatha pages). Empty list for all non-combined pages.
 
 **Indexes:** `{natural_key: 1}` UNIQUE; `{teeka_natural_key: 1}`; `{gatha_natural_key: 1}`.
 
@@ -255,6 +263,133 @@ Scaffold for `vyakaran_vishleshan` OCR output. Implementation deferred.
   ...
 }
 ```
+
+### 10. `gatha_teeka_sanskrit`
+
+Sanskrit teeka text per (teeka, gatha). Same shape as `gatha_sanskrit` but scoped to a teeka.
+
+```json
+{
+  "natural_key": "pravachansaar:amritchandra:गाथा:टीका:039:sanskrit",
+  "gatha_teeka_natural_key": "pravachansaar:amritchandra:गाथा:टीका:039",
+  "teeka_natural_key": "pravachansaar:amritchandra",
+  "gatha_number": "039",
+  "text": [{"lang": "san", "script": "Deva", "text": "..."}],
+  ...
+}
+```
+
+**Indexes:** `{natural_key: 1}` UNIQUE; `{gatha_teeka_natural_key: 1}`.
+
+### 11. `gatha_teeka_hindi`
+
+Hindi teeka text per (teeka, gatha).
+
+```json
+{
+  "natural_key": "pravachansaar:amritchandra:गाथा:टीका:039:hindi",
+  "gatha_teeka_natural_key": "pravachansaar:amritchandra:गाथा:टीका:039",
+  "teeka_natural_key": "pravachansaar:amritchandra",
+  "gatha_number": "039",
+  "text": [{"lang": "hin", "script": "Deva", "text": "..."}],
+  ...
+}
+```
+
+**Indexes:** `{natural_key: 1}` UNIQUE; `{gatha_teeka_natural_key: 1}`.
+
+### 12. `gatha_teeka_bhaavarth_hindi`
+
+Publication-specific bhaavarth for a (teeka, gatha) pair.
+
+```json
+{
+  "natural_key": "pravachansaar:amritchandra:jzb:गाथा:टीका:भावार्थ:039",
+  "gatha_teeka_natural_key": "pravachansaar:amritchandra:गाथा:टीका:039",
+  "publication_natural_key": "pravachansaar:amritchandra:jzb",
+  "gatha_number": "039",
+  "text": [{"lang": "hin", "script": "Deva", "text": "..."}],
+  ...
+}
+```
+
+**Indexes:** `{natural_key: 1}` UNIQUE; `{publication_natural_key: 1}`; `{gatha_teeka_natural_key: 1}`.
+
+### 13. `kalash_sanskrit`
+
+Sanskrit verse for a kalash.
+
+```json
+{
+  "natural_key": "pravachansaar:amritchandra:कलश:001:sanskrit",
+  "kalash_natural_key": "pravachansaar:amritchandra:कलश:001",
+  "teeka_natural_key": "pravachansaar:amritchandra",
+  "kalash_number": "001",
+  "text": [{"lang": "san", "script": "Deva", "text": "..."}],
+  ...
+}
+```
+
+**Indexes:** `{natural_key: 1}` UNIQUE; `{kalash_natural_key: 1}`.
+
+### 14. `kalash_hindi`
+
+Hindi translation of a kalash verse.
+
+```json
+{
+  "natural_key": "pravachansaar:amritchandra:कलश:001:hindi",
+  "kalash_natural_key": "pravachansaar:amritchandra:कलश:001",
+  "teeka_natural_key": "pravachansaar:amritchandra",
+  "kalash_number": "001",
+  "text": [{"lang": "hin", "script": "Deva", "text": "..."}],
+  ...
+}
+```
+
+**Indexes:** `{natural_key: 1}` UNIQUE; `{kalash_natural_key: 1}`.
+
+### 15. `kalash_bhaavarth_hindi`
+
+Publication-specific bhaavarth for a kalash.
+
+```json
+{
+  "natural_key": "pravachansaar:amritchandra:jzb:कलश:भावार्थ:001",
+  "kalash_natural_key": "pravachansaar:amritchandra:कलश:001",
+  "publication_natural_key": "pravachansaar:amritchandra:jzb",
+  "kalash_number": "001",
+  "text": [{"lang": "hin", "script": "Deva", "text": "..."}],
+  ...
+}
+```
+
+**Indexes:** `{natural_key: 1}` UNIQUE; `{publication_natural_key: 1}`; `{kalash_natural_key: 1}`.
+
+### 16. `kalash_word_meanings`
+
+Word-by-word Sanskrit→Hindi glossary for a kalash (nikkyjain source). One document per kalash.
+
+```json
+{
+  "natural_key": "samaysar:amritchandra:kalash:001:word_meanings",
+  "kalash_natural_key": "samaysar:amritchandra:kalash:001",
+  "teeka_natural_key": "samaysar:amritchandra",
+  "kalash_number": "001",
+  "entries": [
+    {"source_word": "स्वानुभूत्या चकासते", "meaning": "स्वानुभूति से प्रकाशित", "position": 1},
+    ...
+  ],
+  "ingestion_run_id": "uuid",
+  ...
+}
+```
+
+Unlike `gatha_word_meanings`, each entry's `source_word` is a plain string (from maroon-colored text in nikkyjain HTML), not a `LangText` array.
+
+**Indexes:** `{natural_key: 1}` UNIQUE; `{kalash_natural_key: 1}`; `{teeka_natural_key: 1}`.
+
+---
 
 ## Reference resolution
 

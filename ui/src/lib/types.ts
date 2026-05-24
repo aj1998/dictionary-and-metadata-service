@@ -204,12 +204,71 @@ export interface GathaSummary {
   heading: LangText[];
 }
 
+export interface WordMeaningEntry {
+  source_word: LangText[];
+  meanings: LangText[];
+  position: number;
+}
+
+export interface GathaWordMeanings {
+  natural_key: string;
+  gatha_natural_key: string;
+  source_language: string;
+  full_anyavaarth?: string | null;
+  entries: WordMeaningEntry[];
+}
+
+export interface TaggedTerm {
+  source_word: string;
+  meaning: string;
+}
+
+export interface TeekaGathaMapping {
+  natural_key: string;
+  teeka_natural_key: string;
+  gatha_natural_key: string;
+  anvayartha: LangText[];
+  tagged_terms: TaggedTerm[];
+  full_anyavaarth?: string | null;
+  is_related: string[];
+}
+
 export interface GathaDetail extends GathaSummary {
   prakrit: { natural_key: string; text: LangText[]; is_kalash: boolean } | null;
   sanskrit: { natural_key: string; text: LangText[] } | null;
   hindi_chhand: Array<{ natural_key: string; chhand_index: number; chhand_type: string; text: LangText[] }>;
-  word_meanings: unknown | null;
-  teeka_mapping?: unknown;
+  word_meanings: { prakrit: GathaWordMeanings | null; sanskrit: GathaWordMeanings | null } | null;
+  teeka_mapping?: TeekaGathaMapping[];
+}
+
+// Kalash (data service)
+export interface KalashWordMeaningEntry {
+  source_word: string;
+  meaning: string;
+  position: number;
+}
+
+export interface KalashWordMeanings {
+  kalash_id: string;
+  kalash_natural_key: string;
+  teeka_natural_key: string;
+  kalash_number: string;
+  entries: KalashWordMeaningEntry[];
+}
+
+export interface KalashDetail {
+  id: string;
+  natural_key: string;
+  kalash_number: string;
+  teeka: {
+    id: string;
+    natural_key: string;
+    shastra: { natural_key: string; title: LangText[] };
+    teekakar?: { natural_key: string; display_name: LangText[] } | null;
+  };
+  sanskrit?: { natural_key: string; text: LangText[] } | null;
+  hindi?: { natural_key: string; text: LangText[] } | null;
+  bhaavarth: Array<{ natural_key: string; publisher_id: string; text: LangText[] }>;
 }
 
 // Navigation service neighbor response

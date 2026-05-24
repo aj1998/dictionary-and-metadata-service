@@ -13,6 +13,8 @@ import type {
   TopicSummary,
   TopicDetail,
   GathaDetail,
+  KalashDetail,
+  KalashWordMeanings,
   ShastraDetail,
 } from '@/lib/types';
 
@@ -179,8 +181,23 @@ export async function getTopic(nk: string): Promise<TopicDetail> {
   return apiFetch<TopicDetail>(BASE_URL, `/v1/topics/${nk}`);
 }
 
-export async function getGatha(nk: string): Promise<GathaDetail> {
-  return apiFetch<GathaDetail>(BASE_URL, `/v1/gathas/${nk}`);
+export async function getGatha(nk: string, options?: { include?: string[] }): Promise<GathaDetail> {
+  const inc = options?.include;
+  const qs = inc?.length ? `?include=${inc.join(',')}` : '';
+  return apiFetch<GathaDetail>(BASE_URL, `/v1/gathas/${nk}${qs}`);
+}
+
+export async function getKalash(nk: string): Promise<KalashDetail> {
+  return apiFetch<KalashDetail>(BASE_URL, `/v1/kalashas/${nk}`);
+}
+
+export async function getKalashWordMeanings(nk: string): Promise<KalashWordMeanings | null> {
+  try {
+    return await apiFetch<KalashWordMeanings>(BASE_URL, `/v1/kalashas/${nk}/word_meanings`);
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) return null;
+    throw error;
+  }
 }
 
 export async function getGathaRelatedTopics(nk: string): Promise<TopicSummary[]> {

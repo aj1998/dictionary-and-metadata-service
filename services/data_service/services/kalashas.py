@@ -11,6 +11,7 @@ from jain_kb_common.db.mongo.collections import (
     KALASH_BHAAVARTH_HINDI,
     KALASH_HINDI,
     KALASH_SANSKRIT,
+    KALASH_WORD_MEANINGS,
 )
 from jain_kb_common.db.postgres.authors import Author
 from jain_kb_common.db.postgres.kalashas import Kalash
@@ -119,6 +120,22 @@ async def get_detail(
             out[key] = _strip_id(result)
 
     return out
+
+
+async def get_word_meanings(
+    session: AsyncSession,
+    mongo: AsyncIOMotorDatabase,
+    ident: str,
+) -> dict | None:
+    kalash = await get_by_ident(session, ident)
+    if kalash is None:
+        return None
+    wm_natural_key = f"{kalash.natural_key}:word_meanings"
+    doc = await mongo[KALASH_WORD_MEANINGS].find_one({"natural_key": wm_natural_key})
+    if doc is None:
+        return None
+    doc.pop("_id", None)
+    return {"kalash": kalash, "doc": doc}
 
 
 async def _noop():

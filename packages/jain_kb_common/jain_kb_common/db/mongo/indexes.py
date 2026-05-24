@@ -97,3 +97,14 @@ async def ensure_indexes(db: AsyncIOMotorDatabase) -> None:
     await db.kalash_bhaavarth_hindi.create_index([("natural_key", pymongo.ASCENDING)], unique=True)
     await db.kalash_bhaavarth_hindi.create_index([("publication_natural_key", pymongo.ASCENDING)])
     await db.kalash_bhaavarth_hindi.create_index([("kalash_natural_key", pymongo.ASCENDING)])
+
+    # kalash_word_meanings
+    await db.kalash_word_meanings.create_index(
+        [("natural_key", pymongo.ASCENDING)], unique=True
+    )
+    await db.kalash_word_meanings.create_index(
+        [("kalash_natural_key", pymongo.ASCENDING)]
+    )
+    await db.kalash_word_meanings.create_index(
+        [("teeka_natural_key", pymongo.ASCENDING)]
+    )

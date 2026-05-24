@@ -6,7 +6,15 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..deps import get_mongo_db, get_session
 from ..schemas.common import AuthorSummary, Pagination, ShastraRef
-from ..schemas.kalashas import KalashDetail, KalashListResponse, KalashSummary, TeekaInfo, TeekaInfoDetail
+from ..schemas.kalashas import (
+    KalashDetail,
+    KalashListResponse,
+    KalashSummary,
+    KalashWMEntryResponse,
+    KalashWordMeaningsResponse,
+    TeekaInfo,
+    TeekaInfoDetail,
+)
 from ..services import kalashas as svc
 
 router = APIRouter(prefix="/v1", tags=["kalashas"])
@@ -71,6 +79,38 @@ async def list_kalashas(
     return KalashListResponse(
         pagination=Pagination(total=total, limit=limit, offset=offset),
         items=result,
+    )
+
+
+@router.get("/kalashas/{ident}/word_meanings", response_model=KalashWordMeaningsResponse)
+async def get_kalash_word_meanings(
+    ident: str,
+    response: Response,
+    session: AsyncSession = Depends(get_session),
+    mongo: AsyncIOMotorDatabase = Depends(get_mongo_db),
+) -> KalashWordMeaningsResponse:
+    result = await svc.get_word_meanings(session, mongo, ident)
+    if result is None:
+        raise HTTPException(
+            404,
+            detail={"code": "not_found", "message": f"No word meanings found for kalash {ident}"},
+        )
+    kalash = result["kalash"]
+    doc = result["doc"]
+    response.headers["Cache-Control"] = _CACHE_CONTROL
+    return KalashWordMeaningsResponse(
+        kalash_id=kalash.id,
+        kalash_natural_key=doc.get("kalash_natural_key", kalash.natural_key),
+        teeka_natural_key=doc.get("teeka_natural_key", ""),
+        kalash_number=doc.get("kalash_number", kalash.kalash_number),
+        entries=[
+            KalashWMEntryResponse(
+                source_word=e["source_word"],
+                meaning=e["meaning"],
+                position=e["position"],
+            )
+            for e in doc.get("entries", [])
+        ],
     )
 
 
