@@ -155,26 +155,6 @@ CREATE TABLE publications (
 CREATE INDEX idx_publications_teeka ON publications(teeka_id);
 ```
 
-### `kalashas`
-
-Kalashas are special commentary gathas added by teekakar within a Teeka. A Kalash has Sanskrit verse + Hindi bhaavarth.
-
-```sql
-CREATE TABLE kalashas (
-  id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  natural_key       TEXT NOT NULL UNIQUE,                       -- e.g. 'pravachansaar:amritchandra:kalash:001'
-  teeka_id          UUID NOT NULL REFERENCES teekas(id) ON DELETE CASCADE,
-  kalash_number     TEXT NOT NULL,
-  sanskrit_doc_id   TEXT,                                       -- mongo id for Sanskrit verse
-  hindi_doc_id      TEXT,                                       -- mongo id for Hindi verse
-  bhaavarth_doc_ids JSONB NOT NULL DEFAULT '[]'::jsonb,        -- [mongo_id, ...] per publication
-  created_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
-  updated_at        TIMESTAMPTZ NOT NULL DEFAULT now()
-);
-
-CREATE INDEX idx_kalashas_teeka ON kalashas(teeka_id);
-```
-
 ### `books`
 
 ```sql
@@ -279,6 +259,26 @@ CREATE TABLE gathas (
 CREATE INDEX idx_gathas_shastra ON gathas(shastra_id);
 CREATE INDEX idx_gathas_keyword_ids ON gathas USING gin (keyword_ids jsonb_path_ops);
 CREATE INDEX idx_gathas_topic_ids ON gathas USING gin (topic_ids jsonb_path_ops);
+```
+
+### `kalashas`
+
+Kalashas are special commentary gathas added by teekakar within a Teeka. A Kalash has Sanskrit verse + Hindi bhaavarth.
+
+```sql
+CREATE TABLE kalashas (
+  id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  natural_key       TEXT NOT NULL UNIQUE,                       -- e.g. 'pravachansaar:amritchandra:kalash:001'
+  teeka_id          UUID NOT NULL REFERENCES teekas(id) ON DELETE CASCADE,
+  kalash_number     TEXT NOT NULL,
+  sanskrit_doc_id   TEXT,                                       -- mongo id for Sanskrit verse
+  hindi_doc_id      TEXT,                                       -- mongo id for Hindi verse
+  bhaavarth_doc_ids JSONB NOT NULL DEFAULT '[]'::jsonb,        -- [mongo_id, ...] per publication
+  created_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at        TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX idx_kalashas_teeka ON kalashas(teeka_id);
 ```
 
 ### `topics`
