@@ -135,6 +135,32 @@ CREATE INDEX idx_teekas_shastra ON teekas(shastra_id);
 CREATE INDEX idx_teekas_teekakar ON teekas(teekakar_id);
 ```
 
+### `teeka_chapters`
+
+Chapter divisions within a teeka, populated by the nikkyjain ingestion pipeline for the **primary teeka only**. Each chapter corresponds to one adhikaar (optgroup) from `myItem.js`.
+
+```sql
+CREATE TABLE teeka_chapters (
+  id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  natural_key       TEXT NOT NULL UNIQUE,                      -- e.g. 'samaysaar:amritchandra:chapter:01'
+  teeka_id          UUID NOT NULL REFERENCES teekas(id) ON DELETE CASCADE,
+  chapter_number    INTEGER NOT NULL,
+  name              JSONB NOT NULL DEFAULT '[]',               -- [{lang, script, text}] — adhikaar name
+  start_gatha_id    UUID NOT NULL REFERENCES gathas(id),
+  end_gatha_id      UUID REFERENCES gathas(id),               -- nullable: not set until adhikaar is complete
+  created_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at        TIMESTAMPTZ NOT NULL DEFAULT now(),
+  UNIQUE (teeka_id, chapter_number)
+);
+
+CREATE INDEX idx_teeka_chapters_teeka ON teeka_chapters(teeka_id);
+CREATE INDEX idx_teeka_chapters_start_gatha ON teeka_chapters(start_gatha_id);
+```
+
+`natural_key` format: `{teeka_natural_key}:chapter:{chapter_number:02d}` (e.g., `samaysaar:amritchandra:chapter:02`).
+
+`end_gatha_id` is nullable — it is populated with the last gatha of the adhikaar seen in the current ingestion batch and updated as subsequent batches are processed.
+
 ### `publications`
 
 A specific printed edition/publication of a Teeka. Separates publisher metadata (who printed it, what edition) from the Teeka itself.
@@ -449,7 +475,8 @@ migrations/
 ├── 0015_keywords_natural_key_trgm_idx.py  gin trgm index on keywords.natural_key
 ├── 0016_topics_natural_key_trgm_idx.py    gin trgm index on topics.natural_key
 ├── 0017_metadata_trgm_indexes.py          trgm indexes on metadata tables for fuzzy search
-└── 0018_kalashas_gatha_id_fk.py           gatha_id FK + idx_kalashas_gatha on kalashas
+├── 0018_kalashas_gatha_id_fk.py           gatha_id FK + idx_kalashas_gatha on kalashas
+└── 0019_teeka_chapters.py                 teeka_chapters table (chapter divisions per primary teeka)
 ```
 
 ## SQLAlchemy model layout
@@ -463,6 +490,7 @@ packages/jain_kb_common/db/postgres/
 ├── shastras.py
 ├── anuyogas.py
 ├── teekas.py
+├── teeka_chapters.py  # chapter divisions per primary teeka (nj ingestion)
 ├── publications.py    # publications (per-edition of a teeka)
 ├── kalashas.py        # kalashas (teekakar commentary gathas)
 ├── books.py

@@ -40,18 +40,18 @@ any shastra identity.
 version: 1.0.0
 source: nj                         # publisher identifier
 shastra:
-  natural_key: <str>               # e.g. "samaysaar"
+  natural_key: <str>               # Hindi name, e.g. "समयसार"
   title_hi: <str>
   author:
-    natural_key: <str>             # e.g. "kundkundacharya"
+    natural_key: <str>             # Hindi name, e.g. "कुन्दकुन्दाचार्य"
     display_name_hi: <str>
     kind: acharya | poet | ...
   teekas:
-    - natural_key: <str>           # e.g. "samaysaar:amritchandra"
-      teekakar_natural_key: <str>  # e.g. "amritchandracharya"
+    - natural_key: <str>           # "{shastra}:{teeka-name-hi}", e.g. "समयसार:आत्मख्याती"
+      teekakar_natural_key: <str>  # Hindi name, e.g. "अमृतचंद्राचार्य"
       teekakar_display_name_hi: <str>
-      publication_natural_key: <str>  # e.g. "samaysaar:amritchandra:nikkyjain"
-      publisher_id: nikkyjain
+      publication_natural_key: <str>  # "{teeka}:{publisher}", e.g. "समयसार:आत्मख्याती:nikkyjain"
+      publisher_id: nikkyjain      # publisher_id stays ASCII
       role: primary | secondary    # primary = A-teeka with kalashes; secondary = J-teeka
 
 input:
@@ -882,3 +882,102 @@ After initial implementation, the following parser correctness fixes were applie
   - golden/postgres gatha payloads in envelope.
 - Regex for optgroup parsing updated to support both observed JS forms:
   - `label="...'"` and `label="...">'`.
+
+### 11.6 Pass-3 Fixes and Additions (2026-05-25)
+
+#### 11.6.1 `preceding_primary_gatha_number` — last gatha from combined page
+- `classify_pages.preceding_primary_gatha(...)` now returns only the **last** individual gatha number from a combined-page gatha_number (e.g., `"009-010"` → `"010"`).
+- This means `KalashExtract.preceding_primary_gatha_number` and the postgres `kalashas.gatha_natural_key` for secondary kalashes now correctly point to the last gatha of the preceding page, not the combined string.
+
+#### 11.6.2 `gatha_word_meanings` removed from envelope
+- `gatha_word_meanings` is a separate collection handled elsewhere. It is no longer emitted in the mongo section of `build_envelope`.
+- The `AnyavarthaItem.tagged_terms` field is **kept** in the parse model and still feeds `teeka_gatha_mapping.tagged_terms`.
+
+#### 11.6.3 `teeka_gatha_mapping` — primary teeka only
+- Only the primary teeka entry is written to `mongo.teeka_gatha_mapping`.
+- The secondary teeka entry was removed — it serves a different ingestion path.
+
+#### 11.6.4 Neo4j nodes and edges
+`build_envelope` now populates `neo4j.nodes` and `neo4j.edges`:
+
+| Object | Label / Type | key |
+|---|---|---|
+| Shastra | `Shastra` | `समयसार` |
+| Per-gatha heading (deduplicated) | `Topic` | heading text itself (e.g., `"सिद्धों को नमस्कार"`) |
+| Each gatha | `Gatha` | `समयसार:1` |
+| Gatha → Topic | edge `MENTIONS_TOPIC` | from: `gatha_nk`, to: `heading_hi` |
+
+- Topic nodes are deduplicated — gathas sharing the same heading share one Topic node.
+- No Topic node or edge is emitted for gathas with `heading_hi = None`.
+- Edge type is `MENTIONS_TOPIC` (per `data_model_graph.md`; `HAS_TOPIC` is Keyword→Topic).
+- Node shape: `{label, key, props}` matching JK envelope format.
+
+#### 11.6.5 `teeka_chapters` postgres table and envelope output
+- New migration `migrations/versions/0019_teeka_chapters.py` creates the `teeka_chapters` table:
+  ```sql
+  teeka_chapters (
+      natural_key TEXT UNIQUE,
+      teeka_id UUID FK → teekas,
+      chapter_number INTEGER,
+      name JSONB,
+      start_gatha_id UUID FK → gathas,
+      end_gatha_id UUID REFERENCES gathas NULL,
+      UNIQUE(teeka_id, chapter_number)
+  )
+  ```
+- `build_envelope` computes chapters from the primary teeka's gathas, grouped by `adhikaar_number`.
+- Chapter `natural_key`: `{primary.natural_key}:chapter:{adhikaar_number}` (no zero-padding)
+- `start_gatha_natural_key` / `end_gatha_natural_key` are the first and last gathas seen in the adhikaar within the current batch.
+- Only the primary teeka gets chapter records; secondary teeka is not chaptered.
+
+#### 11.6.6 Test suite updated
+- `tests/workers/nj/test_classify_pages_unit.py`: assertion for `preceding_primary_gatha` updated to expect `"010"` for page following `009-010.html`.
+- `tests/workers/nj/test_envelope.py`: fully rewritten with coverage for:
+  - `gatha_word_meanings` absent from mongo
+  - `teeka_gatha_mapping` primary-only
+  - neo4j Shastra / Topic / Gatha nodes and `MENTIONS_TOPIC` edges
+  - `teeka_chapters` grouping, name format, and null-adhikaar skip
+  - secondary kalash `gatha_natural_key` uses last gatha number
+  - `table` field on all postgres rows (JK parity)
+  - `collection` field on all mongo docs (JK parity)
+  - detailed idempotency contracts (19 keys, all with `conflict_key`, `on_conflict`, `fields_replace`, `stores`)
+- All 51 NJ tests pass.
+
+### 11.7 Pass-4: Hindi Natural Keys and Number Normalization (2026-05-25)
+
+#### 11.7.1 Hindi natural keys everywhere
+All natural keys in `parser_configs/nj/samaysaar.yaml` — and therefore in all envelope output — now use Hindi names. The config file is still discovered by its ASCII filename (`samaysaar.yaml`), but the `natural_key` fields inside are Hindi.
+
+| Field | Before | After |
+|---|---|---|
+| `shastra.natural_key` | `samaysaar` | `समयसार` |
+| `shastra.author.natural_key` | `kundkundacharya` | `कुन्दकुन्दाचार्य` |
+| `teekas[0].teekakar_natural_key` | `amritchandracharya` | `अमृतचंद्राचार्य` |
+| `teekas[0].natural_key` | `samaysaar:amritchandra` | `समयसार:आत्मख्याती` |
+| `teekas[0].publication_natural_key` | `samaysaar:amritchandra:nikkyjain` | `समयसार:आत्मख्याती:nikkyjain` |
+| `teekas[1].teekakar_natural_key` | `jaysenacharya` | `जयसेनाचार्य` |
+| `teekas[1].natural_key` | `samaysaar:jaysenacharya` | `समयसार:तात्पर्यवृत्ति` |
+| `teekas[1].publication_natural_key` | `samaysaar:jaysenacharya:nikkyjain` | `समयसार:तात्पर्यवृत्ति:nikkyjain` |
+
+- Teeka natural keys use the **teeka name** (the commentary title), not the teekakar's name.
+- `publisher_id: nikkyjain` stays ASCII — it is a system identifier, not a displayed name.
+- All downstream keys (gatha, kalash, chapter, mongo doc, neo4j) automatically pick up the Hindi shastra/teeka key since they are composed from config values.
+
+#### 11.7.2 Number normalization — `_norm_num()`
+A `_norm_num(s: str) -> str` helper was added to `envelope.py`. It strips leading zeros from numeric strings (`"001"` → `"1"`, `"011"` → `"11"`). Applied to:
+
+- Gatha natural keys via `_gatha_nk`: `समयसार:001` → `समयसार:1`
+- `gatha_number` field values in all postgres and mongo output
+- Kalash natural keys and `kalash_number` field values (primary and secondary)
+- Teeka chapter natural keys: `chapter:01` → `chapter:1`
+- Chhand natural keys: `chhand:01` → `chhand:1`
+
+#### 11.7.3 Golden files renamed
+Golden filenames are derived from `cfg.shastra.natural_key`, so they also became Hindi:
+- `samaysaar_golden_o0_l10.json` → `समयसार_golden_o0_l10.json`
+- `samaysaar_golden_o10_l10.json` → `समयसार_golden_o10_l10.json`
+
+The old English-named goldens were deleted.
+
+#### 11.7.4 Tests updated
+All hardcoded natural key strings in `tests/workers/nj/test_envelope.py` updated to Hindi and normalized numbers. All 51 NJ tests pass.

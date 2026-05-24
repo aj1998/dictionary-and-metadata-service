@@ -36,5 +36,7 @@ def preceding_primary_gatha(
         return None
     for f in reversed(sorted_files[:idx]):
         if f in primary_index:
-            return primary_index[f].gatha_number
+            gatha_number = primary_index[f].gatha_number
+            # For combined pages like "009-010", use the last individual gatha number
+            return gatha_number.split("-")[-1]
     return None

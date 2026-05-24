@@ -1,23 +1,23 @@
 version: 1.0.0
 source: nj
 shastra:
-  natural_key: samaysaar
+  natural_key: समयसार
   title_hi: समयसार
   author:
-    natural_key: kundkundacharya
+    natural_key: कुन्दकुन्दाचार्य
     display_name_hi: कुन्दकुन्दाचार्य
     kind: acharya
   teekas:
-    - natural_key: samaysaar:amritchandra
-      teekakar_natural_key: amritchandracharya
+    - natural_key: समयसार:आत्मख्याती
+      teekakar_natural_key: अमृतचंद्राचार्य
       teekakar_display_name_hi: अमृतचंद्राचार्य
-      publication_natural_key: samaysaar:amritchandra:nikkyjain
+      publication_natural_key: समयसार:आत्मख्याती:nikkyjain
       publisher_id: nikkyjain
       role: primary
-    - natural_key: samaysaar:jaysenacharya
-      teekakar_natural_key: jaysenacharya
+    - natural_key: समयसार:तात्पर्यवृत्ति
+      teekakar_natural_key: जयसेनाचार्य
       teekakar_display_name_hi: जयसेनाचार्य
-      publication_natural_key: samaysaar:jaysenacharya:nikkyjain
+      publication_natural_key: समयसार:तात्पर्यवृत्ति:nikkyjain
       publisher_id: nikkyjain
       role: secondary
 

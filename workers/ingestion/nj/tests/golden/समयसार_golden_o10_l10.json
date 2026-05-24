@@ -1,9 +1,9 @@
 {
   "shastra_parse_result": {
-    "shastra_natural_key": "samaysaar",
+    "shastra_natural_key": "समयसार",
     "gathas": [
       {
-        "shastra_natural_key": "samaysaar",
+        "shastra_natural_key": "समयसार",
         "gatha_number": "011",
         "page_html_id": "013",
         "html_filename": "013.html",
@@ -89,7 +89,7 @@
         }
       },
       {
-        "shastra_natural_key": "samaysaar",
+        "shastra_natural_key": "समयसार",
         "gatha_number": "012",
         "page_html_id": "014",
         "html_filename": "014.html",
@@ -385,7 +385,7 @@
         }
       },
       {
-        "shastra_natural_key": "samaysaar",
+        "shastra_natural_key": "समयसार",
         "gatha_number": "013",
         "page_html_id": "015",
         "html_filename": "015.html",
@@ -598,7 +598,7 @@
         }
       },
       {
-        "shastra_natural_key": "samaysaar",
+        "shastra_natural_key": "समयसार",
         "gatha_number": "014",
         "page_html_id": "016",
         "html_filename": "016.html",
@@ -833,7 +833,7 @@
         }
       },
       {
-        "shastra_natural_key": "samaysaar",
+        "shastra_natural_key": "समयसार",
         "gatha_number": "015",
         "page_html_id": "017",
         "html_filename": "017.html",
@@ -1000,7 +1000,7 @@
         }
       },
       {
-        "shastra_natural_key": "samaysaar",
+        "shastra_natural_key": "समयसार",
         "gatha_number": "016",
         "page_html_id": "019",
         "html_filename": "019.html",
@@ -1229,7 +1229,7 @@
         }
       },
       {
-        "shastra_natural_key": "samaysaar",
+        "shastra_natural_key": "समयसार",
         "gatha_number": "017",
         "page_html_id": "020-021",
         "html_filename": "020-021.html",
@@ -1407,7 +1407,7 @@
         }
       },
       {
-        "shastra_natural_key": "samaysaar",
+        "shastra_natural_key": "समयसार",
         "gatha_number": "018",
         "page_html_id": "020-021",
         "html_filename": "020-021.html",
@@ -1585,7 +1585,7 @@
         }
       },
       {
-        "shastra_natural_key": "samaysaar",
+        "shastra_natural_key": "समयसार",
         "gatha_number": "019",
         "page_html_id": "022",
         "html_filename": "022.html",
@@ -1737,11 +1737,11 @@
     ],
     "secondary_kalashes": [
       {
-        "shastra_natural_key": "samaysaar",
+        "shastra_natural_key": "समयसार",
         "kalash_number": "012",
         "html_filename": "012.html",
         "heading_hi": null,
-        "preceding_primary_gatha_number": "009-010",
+        "preceding_primary_gatha_number": "010",
         "prakrit_text": "जो आदभावणमिणं णिच्चुवजुत्तो मुणी समाचरदि ।\nसो सव्य-दुक्ख-मोक्खं पावदि अचिरेण कालेण",
         "anyavartha": {
           "full_anyavaarth": "जो मुनि या तपोधन तत्परता के साथ इस आत्मभावना को स्वीकार करता है वह सम्पूर्ण दु:खों से थोडे ही काल में मुक्त हो जाता है ।",
@@ -1753,7 +1753,7 @@
         }
       },
       {
-        "shastra_natural_key": "samaysaar",
+        "shastra_natural_key": "समयसार",
         "kalash_number": "018",
         "html_filename": "018.html",
         "heading_hi": null,
@@ -1823,13 +1823,14 @@
     "total_html_files_processed": 10,
     "warnings": [],
     "parser_version": "1.0.0",
-    "parsed_at": "2026-05-24T16:18:07.878285Z"
+    "parsed_at": "2026-05-24T20:42:30.925648Z"
   },
   "would_write": {
     "postgres": {
       "authors": [
         {
-          "natural_key": "kundkundacharya",
+          "table": "authors",
+          "natural_key": "कुन्दकुन्दाचार्य",
           "display_name": [
             {
               "lang": "hin",
@@ -1840,7 +1841,8 @@
           "kind": "acharya"
         },
         {
-          "natural_key": "amritchandracharya",
+          "table": "authors",
+          "natural_key": "अमृतचंद्राचार्य",
           "display_name": [
             {
               "lang": "hin",
@@ -1851,7 +1853,8 @@
           "kind": "acharya"
         },
         {
-          "natural_key": "jaysenacharya",
+          "table": "authors",
+          "natural_key": "जयसेनाचार्य",
           "display_name": [
             {
               "lang": "hin",
@@ -1864,7 +1867,8 @@
       ],
       "shastras": [
         {
-          "natural_key": "samaysaar",
+          "table": "shastras",
+          "natural_key": "समयसार",
           "title": [
             {
               "lang": "hin",
@@ -1872,38 +1876,43 @@
               "text": "समयसार"
             }
           ],
-          "author_natural_key": "kundkundacharya"
+          "author_natural_key": "कुन्दकुन्दाचार्य"
         }
       ],
       "teekas": [
         {
-          "natural_key": "samaysaar:amritchandra",
-          "shastra_natural_key": "samaysaar",
-          "teekakar_natural_key": "amritchandracharya"
+          "table": "teekas",
+          "natural_key": "समयसार:आत्मख्याती",
+          "shastra_natural_key": "समयसार",
+          "teekakar_natural_key": "अमृतचंद्राचार्य"
         },
         {
-          "natural_key": "samaysaar:jaysenacharya",
-          "shastra_natural_key": "samaysaar",
-          "teekakar_natural_key": "jaysenacharya"
+          "table": "teekas",
+          "natural_key": "समयसार:तात्पर्यवृत्ति",
+          "shastra_natural_key": "समयसार",
+          "teekakar_natural_key": "जयसेनाचार्य"
         }
       ],
       "publications": [
         {
-          "natural_key": "samaysaar:amritchandra:nikkyjain",
-          "teeka_natural_key": "samaysaar:amritchandra",
+          "table": "publications",
+          "natural_key": "समयसार:आत्मख्याती:nikkyjain",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
           "publisher_id": "nikkyjain"
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:nikkyjain",
-          "teeka_natural_key": "samaysaar:jaysenacharya",
+          "table": "publications",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "teeka_natural_key": "समयसार:तात्पर्यवृत्ति",
           "publisher_id": "nikkyjain"
         }
       ],
       "gathas": [
         {
-          "natural_key": "samaysaar:011",
-          "shastra_natural_key": "samaysaar",
-          "gatha_number": "011",
+          "table": "gathas",
+          "natural_key": "समयसार:11",
+          "shastra_natural_key": "समयसार",
+          "gatha_number": "11",
           "adhikaar_number": 3,
           "adhikaar": [
             {
@@ -1921,9 +1930,10 @@
           ]
         },
         {
-          "natural_key": "samaysaar:012",
-          "shastra_natural_key": "samaysaar",
-          "gatha_number": "012",
+          "table": "gathas",
+          "natural_key": "समयसार:12",
+          "shastra_natural_key": "समयसार",
+          "gatha_number": "12",
           "adhikaar_number": 4,
           "adhikaar": [
             {
@@ -1941,9 +1951,10 @@
           ]
         },
         {
-          "natural_key": "samaysaar:013",
-          "shastra_natural_key": "samaysaar",
-          "gatha_number": "013",
+          "table": "gathas",
+          "natural_key": "समयसार:13",
+          "shastra_natural_key": "समयसार",
+          "gatha_number": "13",
           "adhikaar_number": 4,
           "adhikaar": [
             {
@@ -1961,9 +1972,10 @@
           ]
         },
         {
-          "natural_key": "samaysaar:014",
-          "shastra_natural_key": "samaysaar",
-          "gatha_number": "014",
+          "table": "gathas",
+          "natural_key": "समयसार:14",
+          "shastra_natural_key": "समयसार",
+          "gatha_number": "14",
           "adhikaar_number": 4,
           "adhikaar": [
             {
@@ -1981,9 +1993,10 @@
           ]
         },
         {
-          "natural_key": "samaysaar:015",
-          "shastra_natural_key": "samaysaar",
-          "gatha_number": "015",
+          "table": "gathas",
+          "natural_key": "समयसार:15",
+          "shastra_natural_key": "समयसार",
+          "gatha_number": "15",
           "adhikaar_number": 4,
           "adhikaar": [
             {
@@ -2001,9 +2014,10 @@
           ]
         },
         {
-          "natural_key": "samaysaar:016",
-          "shastra_natural_key": "samaysaar",
-          "gatha_number": "016",
+          "table": "gathas",
+          "natural_key": "समयसार:16",
+          "shastra_natural_key": "समयसार",
+          "gatha_number": "16",
           "adhikaar_number": 4,
           "adhikaar": [
             {
@@ -2021,9 +2035,10 @@
           ]
         },
         {
-          "natural_key": "samaysaar:017",
-          "shastra_natural_key": "samaysaar",
-          "gatha_number": "017",
+          "table": "gathas",
+          "natural_key": "समयसार:17",
+          "shastra_natural_key": "समयसार",
+          "gatha_number": "17",
           "adhikaar_number": 4,
           "adhikaar": [
             {
@@ -2041,9 +2056,10 @@
           ]
         },
         {
-          "natural_key": "samaysaar:018",
-          "shastra_natural_key": "samaysaar",
-          "gatha_number": "018",
+          "table": "gathas",
+          "natural_key": "समयसार:18",
+          "shastra_natural_key": "समयसार",
+          "gatha_number": "18",
           "adhikaar_number": 4,
           "adhikaar": [
             {
@@ -2061,9 +2077,10 @@
           ]
         },
         {
-          "natural_key": "samaysaar:019",
-          "shastra_natural_key": "samaysaar",
-          "gatha_number": "019",
+          "table": "gathas",
+          "natural_key": "समयसार:19",
+          "shastra_natural_key": "समयसार",
+          "gatha_number": "19",
           "adhikaar_number": 4,
           "adhikaar": [
             {
@@ -2083,122 +2100,173 @@
       ],
       "kalashas": [
         {
-          "natural_key": "samaysaar:amritchandra:kalash:001",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "001",
-          "gatha_natural_key": "samaysaar:012"
+          "table": "kalashas",
+          "natural_key": "समयसार:आत्मख्याती:kalash:1",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "1",
+          "gatha_natural_key": "समयसार:12"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:002",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "002",
-          "gatha_natural_key": "samaysaar:012"
+          "table": "kalashas",
+          "natural_key": "समयसार:आत्मख्याती:kalash:2",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "2",
+          "gatha_natural_key": "समयसार:12"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:003",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "003",
-          "gatha_natural_key": "samaysaar:012"
+          "table": "kalashas",
+          "natural_key": "समयसार:आत्मख्याती:kalash:3",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "3",
+          "gatha_natural_key": "समयसार:12"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:004",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "004",
-          "gatha_natural_key": "samaysaar:012"
+          "table": "kalashas",
+          "natural_key": "समयसार:आत्मख्याती:kalash:4",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "4",
+          "gatha_natural_key": "समयसार:12"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:005",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "005",
-          "gatha_natural_key": "samaysaar:013"
+          "table": "kalashas",
+          "natural_key": "समयसार:आत्मख्याती:kalash:5",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "5",
+          "gatha_natural_key": "समयसार:13"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:006",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "006",
-          "gatha_natural_key": "samaysaar:013"
+          "table": "kalashas",
+          "natural_key": "समयसार:आत्मख्याती:kalash:6",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "6",
+          "gatha_natural_key": "समयसार:13"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:007",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "007",
-          "gatha_natural_key": "samaysaar:013"
+          "table": "kalashas",
+          "natural_key": "समयसार:आत्मख्याती:kalash:7",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "7",
+          "gatha_natural_key": "समयसार:13"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:008",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "008",
-          "gatha_natural_key": "samaysaar:014"
+          "table": "kalashas",
+          "natural_key": "समयसार:आत्मख्याती:kalash:8",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "8",
+          "gatha_natural_key": "समयसार:14"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:009",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "009",
-          "gatha_natural_key": "samaysaar:015"
+          "table": "kalashas",
+          "natural_key": "समयसार:आत्मख्याती:kalash:9",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "9",
+          "gatha_natural_key": "समयसार:15"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:010",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "010",
-          "gatha_natural_key": "samaysaar:015"
+          "table": "kalashas",
+          "natural_key": "समयसार:आत्मख्याती:kalash:10",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "10",
+          "gatha_natural_key": "समयसार:15"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:011",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "011",
-          "gatha_natural_key": "samaysaar:016"
+          "table": "kalashas",
+          "natural_key": "समयसार:आत्मख्याती:kalash:11",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "11",
+          "gatha_natural_key": "समयसार:16"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:012",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "012",
-          "gatha_natural_key": "samaysaar:016"
+          "table": "kalashas",
+          "natural_key": "समयसार:आत्मख्याती:kalash:12",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "12",
+          "gatha_natural_key": "समयसार:16"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:013",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "013",
-          "gatha_natural_key": "samaysaar:016"
+          "table": "kalashas",
+          "natural_key": "समयसार:आत्मख्याती:kalash:13",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "13",
+          "gatha_natural_key": "समयसार:16"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:014",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "014",
-          "gatha_natural_key": "samaysaar:016"
+          "table": "kalashas",
+          "natural_key": "समयसार:आत्मख्याती:kalash:14",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "14",
+          "gatha_natural_key": "समयसार:16"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:015",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "015",
-          "gatha_natural_key": "samaysaar:017"
+          "table": "kalashas",
+          "natural_key": "समयसार:आत्मख्याती:kalash:15",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "15",
+          "gatha_natural_key": "समयसार:17"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:016",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "016",
-          "gatha_natural_key": "samaysaar:019"
+          "table": "kalashas",
+          "natural_key": "समयसार:आत्मख्याती:kalash:16",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "16",
+          "gatha_natural_key": "समयसार:19"
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:kalash:012",
-          "teeka_natural_key": "samaysaar:jaysenacharya",
-          "kalash_number": "012",
-          "gatha_natural_key": "samaysaar:009-010"
+          "table": "kalashas",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:kalash:12",
+          "teeka_natural_key": "समयसार:तात्पर्यवृत्ति",
+          "kalash_number": "12",
+          "gatha_natural_key": "समयसार:10"
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:kalash:018",
-          "teeka_natural_key": "samaysaar:jaysenacharya",
-          "kalash_number": "018",
-          "gatha_natural_key": "samaysaar:015"
+          "table": "kalashas",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:kalash:18",
+          "teeka_natural_key": "समयसार:तात्पर्यवृत्ति",
+          "kalash_number": "18",
+          "gatha_natural_key": "समयसार:15"
+        }
+      ],
+      "teeka_chapters": [
+        {
+          "table": "teeka_chapters",
+          "natural_key": "समयसार:आत्मख्याती:chapter:3",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "chapter_number": 3,
+          "name": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "नव-पदार्थ अधिकार"
+            }
+          ],
+          "start_gatha_natural_key": "समयसार:11",
+          "end_gatha_natural_key": "समयसार:11"
+        },
+        {
+          "table": "teeka_chapters",
+          "natural_key": "समयसार:आत्मख्याती:chapter:4",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "chapter_number": 4,
+          "name": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "जीव अधिकार"
+            }
+          ],
+          "start_gatha_natural_key": "समयसार:12",
+          "end_gatha_natural_key": "समयसार:19"
         }
       ]
     },
     "mongo": {
       "gatha_prakrit": [
         {
-          "natural_key": "samaysaar:011:prakrit",
-          "shastra_natural_key": "samaysaar",
-          "gatha_natural_key": "samaysaar:011",
-          "gatha_number": "011",
+          "collection": "gatha_prakrit",
+          "natural_key": "समयसार:11:prakrit",
+          "shastra_natural_key": "समयसार",
+          "gatha_natural_key": "समयसार:11",
+          "gatha_number": "11",
           "text": [
             {
               "lang": "pra",
@@ -2210,10 +2278,11 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysaar:012:prakrit",
-          "shastra_natural_key": "samaysaar",
-          "gatha_natural_key": "samaysaar:012",
-          "gatha_number": "012",
+          "collection": "gatha_prakrit",
+          "natural_key": "समयसार:12:prakrit",
+          "shastra_natural_key": "समयसार",
+          "gatha_natural_key": "समयसार:12",
+          "gatha_number": "12",
           "text": [
             {
               "lang": "pra",
@@ -2225,10 +2294,11 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysaar:013:prakrit",
-          "shastra_natural_key": "samaysaar",
-          "gatha_natural_key": "samaysaar:013",
-          "gatha_number": "013",
+          "collection": "gatha_prakrit",
+          "natural_key": "समयसार:13:prakrit",
+          "shastra_natural_key": "समयसार",
+          "gatha_natural_key": "समयसार:13",
+          "gatha_number": "13",
           "text": [
             {
               "lang": "pra",
@@ -2240,10 +2310,11 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysaar:014:prakrit",
-          "shastra_natural_key": "samaysaar",
-          "gatha_natural_key": "samaysaar:014",
-          "gatha_number": "014",
+          "collection": "gatha_prakrit",
+          "natural_key": "समयसार:14:prakrit",
+          "shastra_natural_key": "समयसार",
+          "gatha_natural_key": "समयसार:14",
+          "gatha_number": "14",
           "text": [
             {
               "lang": "pra",
@@ -2255,10 +2326,11 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysaar:015:prakrit",
-          "shastra_natural_key": "samaysaar",
-          "gatha_natural_key": "samaysaar:015",
-          "gatha_number": "015",
+          "collection": "gatha_prakrit",
+          "natural_key": "समयसार:15:prakrit",
+          "shastra_natural_key": "समयसार",
+          "gatha_natural_key": "समयसार:15",
+          "gatha_number": "15",
           "text": [
             {
               "lang": "pra",
@@ -2270,10 +2342,11 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysaar:016:prakrit",
-          "shastra_natural_key": "samaysaar",
-          "gatha_natural_key": "samaysaar:016",
-          "gatha_number": "016",
+          "collection": "gatha_prakrit",
+          "natural_key": "समयसार:16:prakrit",
+          "shastra_natural_key": "समयसार",
+          "gatha_natural_key": "समयसार:16",
+          "gatha_number": "16",
           "text": [
             {
               "lang": "pra",
@@ -2285,10 +2358,11 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysaar:017:prakrit",
-          "shastra_natural_key": "samaysaar",
-          "gatha_natural_key": "samaysaar:017",
-          "gatha_number": "017",
+          "collection": "gatha_prakrit",
+          "natural_key": "समयसार:17:prakrit",
+          "shastra_natural_key": "समयसार",
+          "gatha_natural_key": "समयसार:17",
+          "gatha_number": "17",
           "text": [
             {
               "lang": "pra",
@@ -2300,10 +2374,11 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysaar:018:prakrit",
-          "shastra_natural_key": "samaysaar",
-          "gatha_natural_key": "samaysaar:018",
-          "gatha_number": "018",
+          "collection": "gatha_prakrit",
+          "natural_key": "समयसार:18:prakrit",
+          "shastra_natural_key": "समयसार",
+          "gatha_natural_key": "समयसार:18",
+          "gatha_number": "18",
           "text": [
             {
               "lang": "pra",
@@ -2315,10 +2390,11 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysaar:019:prakrit",
-          "shastra_natural_key": "samaysaar",
-          "gatha_natural_key": "samaysaar:019",
-          "gatha_number": "019",
+          "collection": "gatha_prakrit",
+          "natural_key": "समयसार:19:prakrit",
+          "shastra_natural_key": "समयसार",
+          "gatha_natural_key": "समयसार:19",
+          "gatha_number": "19",
           "text": [
             {
               "lang": "pra",
@@ -2330,10 +2406,11 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:kalash:012:prakrit",
-          "shastra_natural_key": "samaysaar",
-          "gatha_natural_key": "samaysaar:jaysenacharya:kalash:012",
-          "gatha_number": "012",
+          "collection": "gatha_prakrit",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:kalash:12:prakrit",
+          "shastra_natural_key": "समयसार",
+          "gatha_natural_key": "समयसार:तात्पर्यवृत्ति:kalash:12",
+          "gatha_number": "12",
           "text": [
             {
               "lang": "pra",
@@ -2345,10 +2422,11 @@
           "raw_html_fragment": null
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:kalash:018:prakrit",
-          "shastra_natural_key": "samaysaar",
-          "gatha_natural_key": "samaysaar:jaysenacharya:kalash:018",
-          "gatha_number": "018",
+          "collection": "gatha_prakrit",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:kalash:18:prakrit",
+          "shastra_natural_key": "समयसार",
+          "gatha_natural_key": "समयसार:तात्पर्यवृत्ति:kalash:18",
+          "gatha_number": "18",
           "text": [
             {
               "lang": "pra",
@@ -2362,10 +2440,11 @@
       ],
       "gatha_sanskrit": [
         {
-          "natural_key": "samaysaar:017:sanskrit",
-          "shastra_natural_key": "samaysaar",
-          "gatha_natural_key": "samaysaar:017",
-          "gatha_number": "017",
+          "collection": "gatha_sanskrit",
+          "natural_key": "समयसार:17:sanskrit",
+          "shastra_natural_key": "समयसार",
+          "gatha_natural_key": "समयसार:17",
+          "gatha_number": "17",
           "text": [
             {
               "lang": "san",
@@ -2375,10 +2454,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:018:sanskrit",
-          "shastra_natural_key": "samaysaar",
-          "gatha_natural_key": "samaysaar:018",
-          "gatha_number": "018",
+          "collection": "gatha_sanskrit",
+          "natural_key": "समयसार:18:sanskrit",
+          "shastra_natural_key": "समयसार",
+          "gatha_natural_key": "समयसार:18",
+          "gatha_number": "18",
           "text": [
             {
               "lang": "san",
@@ -2388,10 +2468,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:019:sanskrit",
-          "shastra_natural_key": "samaysaar",
-          "gatha_natural_key": "samaysaar:019",
-          "gatha_number": "019",
+          "collection": "gatha_sanskrit",
+          "natural_key": "समयसार:19:sanskrit",
+          "shastra_natural_key": "समयसार",
+          "gatha_natural_key": "समयसार:19",
+          "gatha_number": "19",
           "text": [
             {
               "lang": "san",
@@ -2403,8 +2484,9 @@
       ],
       "gatha_hindi_chhand": [
         {
-          "natural_key": "samaysaar:011:chhand:01",
-          "gatha_natural_key": "samaysaar:011",
+          "collection": "gatha_hindi_chhand",
+          "natural_key": "समयसार:11:chhand:1",
+          "gatha_natural_key": "समयसार:11",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2423,8 +2505,9 @@
           ]
         },
         {
-          "natural_key": "samaysaar:012:chhand:01",
-          "gatha_natural_key": "samaysaar:012",
+          "collection": "gatha_hindi_chhand",
+          "natural_key": "समयसार:12:chhand:1",
+          "gatha_natural_key": "समयसार:12",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2443,8 +2526,9 @@
           ]
         },
         {
-          "natural_key": "samaysaar:013:chhand:01",
-          "gatha_natural_key": "samaysaar:013",
+          "collection": "gatha_hindi_chhand",
+          "natural_key": "समयसार:13:chhand:1",
+          "gatha_natural_key": "समयसार:13",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2463,8 +2547,9 @@
           ]
         },
         {
-          "natural_key": "samaysaar:014:chhand:01",
-          "gatha_natural_key": "samaysaar:014",
+          "collection": "gatha_hindi_chhand",
+          "natural_key": "समयसार:14:chhand:1",
+          "gatha_natural_key": "समयसार:14",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2483,8 +2568,9 @@
           ]
         },
         {
-          "natural_key": "samaysaar:015:chhand:01",
-          "gatha_natural_key": "samaysaar:015",
+          "collection": "gatha_hindi_chhand",
+          "natural_key": "समयसार:15:chhand:1",
+          "gatha_natural_key": "समयसार:15",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2503,8 +2589,9 @@
           ]
         },
         {
-          "natural_key": "samaysaar:016:chhand:01",
-          "gatha_natural_key": "samaysaar:016",
+          "collection": "gatha_hindi_chhand",
+          "natural_key": "समयसार:16:chhand:1",
+          "gatha_natural_key": "समयसार:16",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2523,8 +2610,9 @@
           ]
         },
         {
-          "natural_key": "samaysaar:017:chhand:01",
-          "gatha_natural_key": "samaysaar:017",
+          "collection": "gatha_hindi_chhand",
+          "natural_key": "समयसार:17:chhand:1",
+          "gatha_natural_key": "समयसार:17",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2543,8 +2631,9 @@
           ]
         },
         {
-          "natural_key": "samaysaar:018:chhand:01",
-          "gatha_natural_key": "samaysaar:018",
+          "collection": "gatha_hindi_chhand",
+          "natural_key": "समयसार:18:chhand:1",
+          "gatha_natural_key": "समयसार:18",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2563,8 +2652,9 @@
           ]
         },
         {
-          "natural_key": "samaysaar:019:chhand:01",
-          "gatha_natural_key": "samaysaar:019",
+          "collection": "gatha_hindi_chhand",
+          "natural_key": "समयसार:19:chhand:1",
+          "gatha_natural_key": "समयसार:19",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2583,2004 +2673,12 @@
           ]
         }
       ],
-      "gatha_word_meanings": [
-        {
-          "natural_key": "samaysaar:011:word_meanings:prakrit",
-          "gatha_natural_key": "samaysaar:011",
-          "source_language": "pra",
-          "full_anyavaarth": "'व्यवहार-नय अभूतार्थ है, शुद्ध-नय भूतार्थ है' - ऐसा दिखलाया है । भूतार्थ के आश्रित, जीव निश्चय से सम्यग्दृष्टि होता है ।",
-          "entries": [
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "ववहारो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "'व्यवहार-नय"
-                }
-              ],
-              "position": 1
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अभूदत्थो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "अभूतार्थ है,"
-                }
-              ],
-              "position": 2
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "सुद्धणओ"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "शुद्ध-नय"
-                }
-              ],
-              "position": 3
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "भूदत्थो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "भूतार्थ है' -"
-                }
-              ],
-              "position": 4
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "देसिदो दु"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "ऐसा दिखलाया है ।"
-                }
-              ],
-              "position": 5
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "भूदत्थमस्सिदो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "भूतार्थ के आश्रित,"
-                }
-              ],
-              "position": 6
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "जीवो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "जीव"
-                }
-              ],
-              "position": 7
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "खलु"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "निश्चय से"
-                }
-              ],
-              "position": 8
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "सम्मादिट्ठी"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "सम्यग्दृष्टि"
-                }
-              ],
-              "position": 9
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "हवदि"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "होता है ।"
-                }
-              ],
-              "position": 10
-            }
-          ]
-        },
-        {
-          "natural_key": "samaysaar:012:word_meanings:prakrit",
-          "gatha_natural_key": "samaysaar:012",
-          "source_language": "pra",
-          "full_anyavaarth": "शुद्धनय शुद्ध द्रव्य का कथन करने वाला है वह शुद्धात्मा को देखने वाले आत्मदर्शी द्वारा जानने-भावने योग्य है और जो जीव अपरमभाव में स्थित हैं, वे व्यवहारनय द्वारा उपदेश करने योग्य हैं ।",
-          "entries": [
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "सुद्धो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "शुद्धनय"
-                }
-              ],
-              "position": 1
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "सुद्धादेसो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "शुद्ध द्रव्य का कथन करने वाला है वह"
-                }
-              ],
-              "position": 2
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "परमभावदरिसीहिं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "शुद्धात्मा को देखने वाले आत्मदर्शी द्वारा"
-                }
-              ],
-              "position": 3
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "णायव्वो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "जानने-भावने योग्य है"
-                }
-              ],
-              "position": 4
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "पुण"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "और"
-                }
-              ],
-              "position": 5
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "जे"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "जो जीव"
-                }
-              ],
-              "position": 6
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अपरमेभावे"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "अपरमभाव में"
-                }
-              ],
-              "position": 7
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "ट्ठिदा"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "स्थित हैं, वे"
-                }
-              ],
-              "position": 8
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "ववहारदेसिदा"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "व्यवहारनय द्वारा उपदेश करने योग्य हैं ।"
-                }
-              ],
-              "position": 9
-            }
-          ]
-        },
-        {
-          "natural_key": "samaysaar:013:word_meanings:prakrit",
-          "gatha_natural_key": "samaysaar:013",
-          "source_language": "pra",
-          "full_anyavaarth": "भूतार्थ / शुद्ध-नय से जाने हुए जीव, अजीव व पुण्य, पाप, और आस्रव, संवर, निर्जरा, बंध और मोक्ष - ये नवतत्त्व ही सम्यग्दर्शन हैं ।",
-          "entries": [
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "भूदत्थेण"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "भूतार्थ / शुद्ध-नय से"
-                }
-              ],
-              "position": 1
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अभिगदा"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "जाने हुए"
-                }
-              ],
-              "position": 2
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "जीवाजीवा"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "जीव, अजीव"
-                }
-              ],
-              "position": 3
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "य"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "व"
-                }
-              ],
-              "position": 4
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "पुण्णपावं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "पुण्य, पाप,"
-                }
-              ],
-              "position": 5
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "च"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "और"
-                }
-              ],
-              "position": 6
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "आसवसंवरणिज्जरबंधो मोक्खो य"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "आस्रव, संवर, निर्जरा, बंध और मोक्ष - ये नवतत्त्व ही"
-                }
-              ],
-              "position": 7
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "सम्मत्तं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "सम्यग्दर्शन हैं ।"
-                }
-              ],
-              "position": 8
-            }
-          ]
-        },
-        {
-          "natural_key": "samaysaar:014:word_meanings:prakrit",
-          "gatha_natural_key": "samaysaar:014",
-          "source_language": "pra",
-          "full_anyavaarth": "जो आत्मा को बंध रहित, पर के स्पर्श रहित, अनन्य, नित्य, अविशेष और अन्य के संयोग रहित अवलोकन करता है, उसे शुद्ध-नय जानो ।",
-          "entries": [
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अप्पाणं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "आत्मा को"
-                }
-              ],
-              "position": 1
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अबद्धपुट्ठं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "बंध रहित, पर के स्पर्श रहित,"
-                }
-              ],
-              "position": 2
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अणण्णयं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "अनन्य,"
-                }
-              ],
-              "position": 3
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "णियदं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "नित्य,"
-                }
-              ],
-              "position": 4
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अविसेसम्"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "अविशेष और"
-                }
-              ],
-              "position": 5
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "असंजुत्तं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "अन्य के संयोग रहित"
-                }
-              ],
-              "position": 6
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "पस्सदि"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "अवलोकन करता है,"
-                }
-              ],
-              "position": 7
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "तं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "उसे"
-                }
-              ],
-              "position": 8
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "सुद्धणयं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "शुद्ध-नय"
-                }
-              ],
-              "position": 9
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "वियाणीहि"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "जानो ।"
-                }
-              ],
-              "position": 10
-            }
-          ]
-        },
-        {
-          "natural_key": "samaysaar:015:word_meanings:prakrit",
-          "gatha_natural_key": "samaysaar:015",
-          "source_language": "pra",
-          "full_anyavaarth": "जो आत्मा को अबद्धस्पृष्ट, अनन्य, अविशेष देखता है; वह द्रव्यश्रुत और भाव-श्रुत के मध्य होता हुआ सम्पूर्ण जिनशासन को देखता है ।",
-          "entries": [
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अप्पाणं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "आत्मा को"
-                }
-              ],
-              "position": 1
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अबद्धपुट्ठं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "अबद्धस्पृष्ट,"
-                }
-              ],
-              "position": 2
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अणण्णमविसेसं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "अनन्य, अविशेष"
-                }
-              ],
-              "position": 3
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "पस्सदि"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "देखता है; वह"
-                }
-              ],
-              "position": 4
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अपदेससुत्तमज्झं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "द्रव्यश्रुत और भाव-श्रुत के मध्य होता हुआ"
-                }
-              ],
-              "position": 5
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "सव्वं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "सम्पूर्ण"
-                }
-              ],
-              "position": 6
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "जिणसासणं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "जिनशासन को"
-                }
-              ],
-              "position": 7
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "पस्सदि"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "देखता है ।"
-                }
-              ],
-              "position": 8
-            }
-          ]
-        },
-        {
-          "natural_key": "samaysaar:016:word_meanings:prakrit",
-          "gatha_natural_key": "samaysaar:016",
-          "source_language": "pra",
-          "full_anyavaarth": "साधुपुरुष को दर्शन-ज्ञान-चारित्र का सदा सेवन करना चाहिए और उन तीनों को निश्चय से एक आत्मा ही जानो ।",
-          "entries": [
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "साहुणा"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "साधुपुरुष को"
-                }
-              ],
-              "position": 1
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "दंसणणाणचरित्तणि"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "दर्शन-ज्ञान-चारित्र का"
-                }
-              ],
-              "position": 2
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "णिच्चं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "सदा"
-                }
-              ],
-              "position": 3
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "सेविदव्वाणि"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "सेवन करना चाहिए"
-                }
-              ],
-              "position": 4
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "ताणि पुण"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "और उन"
-                }
-              ],
-              "position": 5
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "तिण्णि"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "तीनों को"
-                }
-              ],
-              "position": 6
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "णिच्छयदो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "निश्चय से एक"
-                }
-              ],
-              "position": 7
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अप्पाणं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "आत्मा"
-                }
-              ],
-              "position": 8
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "वि"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "ही"
-                }
-              ],
-              "position": 9
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "जाण"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "जानो ।"
-                }
-              ],
-              "position": 10
-            }
-          ]
-        },
-        {
-          "natural_key": "samaysaar:017:word_meanings:prakrit",
-          "gatha_natural_key": "samaysaar:017",
-          "source_language": "pra",
-          "full_anyavaarth": "जिसप्रकार कोई धन का अर्थी पुरुष राजा को जानकर उसकी श्रद्धा करता है और फिर उसका प्रयत्नपूर्वक / लगन से अनुचरण / सेवा करता है; उसीप्रकार मोक्ष के इच्छुक पुरुषों को जीवरूपी राजा को जानना चाहिए और फिर उसका श्रद्धान करना चाहिए, उसके बाद उसी का अनुचरण करना चाहिए ।",
-          "entries": [
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "जह"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "जिसप्रकार"
-                }
-              ],
-              "position": 1
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "को वि"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "कोई"
-                }
-              ],
-              "position": 2
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अत्थत्थीओ"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "धन का अर्थी"
-                }
-              ],
-              "position": 3
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "पुरिसो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "पुरुष"
-                }
-              ],
-              "position": 4
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "रायाणं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "राजा को"
-                }
-              ],
-              "position": 5
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "जाणिऊण"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "जानकर उसकी"
-                }
-              ],
-              "position": 6
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "सद्दहदि"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "श्रद्धा करता है और"
-                }
-              ],
-              "position": 7
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "पुणो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "फिर"
-                }
-              ],
-              "position": 8
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "तं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "उसका"
-                }
-              ],
-              "position": 9
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "पयत्तेण"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "प्रयत्नपूर्वक / लगन से"
-                }
-              ],
-              "position": 10
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अणुचरदि"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "अनुचरण / सेवा करता है;"
-                }
-              ],
-              "position": 11
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "तह य"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "उसीप्रकार"
-                }
-              ],
-              "position": 12
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "मोक्खकामेण"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "मोक्ष के इच्छुक पुरुषों को"
-                }
-              ],
-              "position": 13
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "जीवराया"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "जीवरूपी राजा को"
-                }
-              ],
-              "position": 14
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "णादव्वो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "जानना चाहिए और फिर उसका"
-                }
-              ],
-              "position": 15
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "सद्दहेदव्वो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "श्रद्धान करना चाहिए,"
-                }
-              ],
-              "position": 16
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "य पुणो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "उसके बाद"
-                }
-              ],
-              "position": 17
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "सो चेव"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "उसी का"
-                }
-              ],
-              "position": 18
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अणुचरिदव्वो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "अनुचरण करना चाहिए ।"
-                }
-              ],
-              "position": 19
-            }
-          ]
-        },
-        {
-          "natural_key": "samaysaar:018:word_meanings:prakrit",
-          "gatha_natural_key": "samaysaar:018",
-          "source_language": "pra",
-          "full_anyavaarth": "जिसप्रकार कोई धन का अर्थी पुरुष राजा को जानकर उसकी श्रद्धा करता है और फिर उसका प्रयत्नपूर्वक / लगन से अनुचरण / सेवा करता है; उसीप्रकार मोक्ष के इच्छुक पुरुषों को जीवरूपी राजा को जानना चाहिए और फिर उसका श्रद्धान करना चाहिए, उसके बाद उसी का अनुचरण करना चाहिए ।",
-          "entries": [
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "जह"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "जिसप्रकार"
-                }
-              ],
-              "position": 1
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "को वि"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "कोई"
-                }
-              ],
-              "position": 2
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अत्थत्थीओ"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "धन का अर्थी"
-                }
-              ],
-              "position": 3
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "पुरिसो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "पुरुष"
-                }
-              ],
-              "position": 4
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "रायाणं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "राजा को"
-                }
-              ],
-              "position": 5
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "जाणिऊण"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "जानकर उसकी"
-                }
-              ],
-              "position": 6
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "सद्दहदि"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "श्रद्धा करता है और"
-                }
-              ],
-              "position": 7
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "पुणो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "फिर"
-                }
-              ],
-              "position": 8
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "तं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "उसका"
-                }
-              ],
-              "position": 9
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "पयत्तेण"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "प्रयत्नपूर्वक / लगन से"
-                }
-              ],
-              "position": 10
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अणुचरदि"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "अनुचरण / सेवा करता है;"
-                }
-              ],
-              "position": 11
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "तह य"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "उसीप्रकार"
-                }
-              ],
-              "position": 12
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "मोक्खकामेण"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "मोक्ष के इच्छुक पुरुषों को"
-                }
-              ],
-              "position": 13
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "जीवराया"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "जीवरूपी राजा को"
-                }
-              ],
-              "position": 14
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "णादव्वो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "जानना चाहिए और फिर उसका"
-                }
-              ],
-              "position": 15
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "सद्दहेदव्वो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "श्रद्धान करना चाहिए,"
-                }
-              ],
-              "position": 16
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "य पुणो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "उसके बाद"
-                }
-              ],
-              "position": 17
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "सो चेव"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "उसी का"
-                }
-              ],
-              "position": 18
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अणुचरिदव्वो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "अनुचरण करना चाहिए ।"
-                }
-              ],
-              "position": 19
-            }
-          ]
-        },
-        {
-          "natural_key": "samaysaar:019:word_meanings:prakrit",
-          "gatha_natural_key": "samaysaar:019",
-          "source_language": "pra",
-          "full_anyavaarth": "ज्ञानावरणी आदि द्रव्यकर्मों, मोह-राग-द्वेषादि भावकर्मों में अहंबुद्धि एवं शरीरादि नोकर्मों में ममत्वबुद्धि; यह मानना कि 'ये सभी मैं हूँ और मुझमें ये सभी कर्म-नोकर्म हैं' - जबतक ऐसी बुद्धि बनाए रखता है तबतक अप्रतिबुद्ध रहता है, अज्ञानी रहता है ।",
-          "entries": [
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "कम्मे"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "ज्ञानावरणी आदि द्रव्यकर्मों, मोह-राग-द्वेषादि भावकर्मों में"
-                }
-              ],
-              "position": 1
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अहमिदि"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "अहंबुद्धि"
-                }
-              ],
-              "position": 2
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "य"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "एवं"
-                }
-              ],
-              "position": 3
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "णोकम्मम्हि"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "शरीरादि नोकर्मों में"
-                }
-              ],
-              "position": 4
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अहकं च कम्म णोकम्मं"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "ममत्वबुद्धि; यह मानना कि 'ये सभी मैं हूँ और मुझमें ये सभी कर्म-नोकर्म हैं' -"
-                }
-              ],
-              "position": 5
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "जा एसा खलु बुद्धी"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "जबतक ऐसी बुद्धि बनाए रखता है"
-                }
-              ],
-              "position": 6
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "ताव"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "तबतक"
-                }
-              ],
-              "position": 7
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "अप्पडिबुद्धो"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "अप्रतिबुद्ध"
-                }
-              ],
-              "position": 8
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "हवदि"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "रहता है, अज्ञानी रहता है ।"
-                }
-              ],
-              "position": 9
-            }
-          ]
-        },
-        {
-          "natural_key": "samaysaar:jaysenacharya:kalash:012:word_meanings:prakrit",
-          "gatha_natural_key": "samaysaar:jaysenacharya:kalash:012",
-          "source_language": "pra",
-          "full_anyavaarth": "जो मुनि या तपोधन तत्परता के साथ इस आत्मभावना को स्वीकार करता है वह सम्पूर्ण दु:खों से थोडे ही काल में मुक्त हो जाता है ।",
-          "entries": []
-        },
-        {
-          "natural_key": "samaysaar:jaysenacharya:kalash:018:word_meanings:prakrit",
-          "gatha_natural_key": "samaysaar:jaysenacharya:kalash:018",
-          "source_language": "pra",
-          "full_anyavaarth": "निश्चय से मेरे ज्ञान में आत्मा ही है । मेरे दर्शन में, चारित्र में और प्रत्याख्यान में भी आत्मा ही है । इसीप्रकार संवर और योग / निर्विकल्प समाधि में भी आत्मा ही है ।",
-          "entries": [
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "खु"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "निश्चय से"
-                }
-              ],
-              "position": 1
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "मज्झ"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "मेरे"
-                }
-              ],
-              "position": 2
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "णाणे"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "ज्ञान में"
-                }
-              ],
-              "position": 3
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "आदा"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "आत्मा ही है । मेरे"
-                }
-              ],
-              "position": 4
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "दंसणे"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "दर्शन में,"
-                }
-              ],
-              "position": 5
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "चरित्ते"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "चारित्र में"
-                }
-              ],
-              "position": 6
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "य"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "और"
-                }
-              ],
-              "position": 7
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "पच्चक्खाणे"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "प्रत्याख्यान में भी आत्मा ही है । इसीप्रकार"
-                }
-              ],
-              "position": 8
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "संवरे"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "संवर और"
-                }
-              ],
-              "position": 9
-            },
-            {
-              "source_word": [
-                {
-                  "lang": "pra",
-                  "script": "Deva",
-                  "text": "जोगे"
-                }
-              ],
-              "meanings": [
-                {
-                  "lang": "hin",
-                  "script": "Deva",
-                  "text": "योग / निर्विकल्प समाधि में भी आत्मा ही है ।"
-                }
-              ],
-              "position": 10
-            }
-          ]
-        }
-      ],
       "teeka_gatha_mapping": [
         {
-          "natural_key": "samaysaar:amritchandra:011",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "gatha_natural_key": "samaysaar:011",
+          "collection": "teeka_gatha_mapping",
+          "natural_key": "समयसार:आत्मख्याती:11",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "gatha_natural_key": "समयसार:11",
           "anvayartha": [
             {
               "lang": "hin",
@@ -4634,65 +2732,10 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:011",
-          "teeka_natural_key": "samaysaar:jaysenacharya",
-          "gatha_natural_key": "samaysaar:011",
-          "anvayartha": [
-            {
-              "lang": "hin",
-              "script": "Deva",
-              "text": "'व्यवहार-नय अभूतार्थ है, शुद्ध-नय भूतार्थ है' - ऐसा दिखलाया है । भूतार्थ के आश्रित, जीव निश्चय से सम्यग्दृष्टि होता है ।"
-            }
-          ],
-          "tagged_terms": [
-            {
-              "source_word": "ववहारो",
-              "meaning": "'व्यवहार-नय"
-            },
-            {
-              "source_word": "अभूदत्थो",
-              "meaning": "अभूतार्थ है,"
-            },
-            {
-              "source_word": "सुद्धणओ",
-              "meaning": "शुद्ध-नय"
-            },
-            {
-              "source_word": "भूदत्थो",
-              "meaning": "भूतार्थ है' -"
-            },
-            {
-              "source_word": "देसिदो दु",
-              "meaning": "ऐसा दिखलाया है ।"
-            },
-            {
-              "source_word": "भूदत्थमस्सिदो",
-              "meaning": "भूतार्थ के आश्रित,"
-            },
-            {
-              "source_word": "जीवो",
-              "meaning": "जीव"
-            },
-            {
-              "source_word": "खलु",
-              "meaning": "निश्चय से"
-            },
-            {
-              "source_word": "सम्मादिट्ठी",
-              "meaning": "सम्यग्दृष्टि"
-            },
-            {
-              "source_word": "हवदि",
-              "meaning": "होता है ।"
-            }
-          ],
-          "full_anyavaarth": "'व्यवहार-नय अभूतार्थ है, शुद्ध-नय भूतार्थ है' - ऐसा दिखलाया है । भूतार्थ के आश्रित, जीव निश्चय से सम्यग्दृष्टि होता है ।",
-          "is_related": []
-        },
-        {
-          "natural_key": "samaysaar:amritchandra:012",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "gatha_natural_key": "samaysaar:012",
+          "collection": "teeka_gatha_mapping",
+          "natural_key": "समयसार:आत्मख्याती:12",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "gatha_natural_key": "समयसार:12",
           "anvayartha": [
             {
               "lang": "hin",
@@ -4742,61 +2785,10 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:012",
-          "teeka_natural_key": "samaysaar:jaysenacharya",
-          "gatha_natural_key": "samaysaar:012",
-          "anvayartha": [
-            {
-              "lang": "hin",
-              "script": "Deva",
-              "text": "शुद्धनय शुद्ध द्रव्य का कथन करने वाला है वह शुद्धात्मा को देखने वाले आत्मदर्शी द्वारा जानने-भावने योग्य है और जो जीव अपरमभाव में स्थित हैं, वे व्यवहारनय द्वारा उपदेश करने योग्य हैं ।"
-            }
-          ],
-          "tagged_terms": [
-            {
-              "source_word": "सुद्धो",
-              "meaning": "शुद्धनय"
-            },
-            {
-              "source_word": "सुद्धादेसो",
-              "meaning": "शुद्ध द्रव्य का कथन करने वाला है वह"
-            },
-            {
-              "source_word": "परमभावदरिसीहिं",
-              "meaning": "शुद्धात्मा को देखने वाले आत्मदर्शी द्वारा"
-            },
-            {
-              "source_word": "णायव्वो",
-              "meaning": "जानने-भावने योग्य है"
-            },
-            {
-              "source_word": "पुण",
-              "meaning": "और"
-            },
-            {
-              "source_word": "जे",
-              "meaning": "जो जीव"
-            },
-            {
-              "source_word": "अपरमेभावे",
-              "meaning": "अपरमभाव में"
-            },
-            {
-              "source_word": "ट्ठिदा",
-              "meaning": "स्थित हैं, वे"
-            },
-            {
-              "source_word": "ववहारदेसिदा",
-              "meaning": "व्यवहारनय द्वारा उपदेश करने योग्य हैं ।"
-            }
-          ],
-          "full_anyavaarth": "शुद्धनय शुद्ध द्रव्य का कथन करने वाला है वह शुद्धात्मा को देखने वाले आत्मदर्शी द्वारा जानने-भावने योग्य है और जो जीव अपरमभाव में स्थित हैं, वे व्यवहारनय द्वारा उपदेश करने योग्य हैं ।",
-          "is_related": []
-        },
-        {
-          "natural_key": "samaysaar:amritchandra:013",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "gatha_natural_key": "samaysaar:013",
+          "collection": "teeka_gatha_mapping",
+          "natural_key": "समयसार:आत्मख्याती:13",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "gatha_natural_key": "समयसार:13",
           "anvayartha": [
             {
               "lang": "hin",
@@ -4842,57 +2834,10 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:013",
-          "teeka_natural_key": "samaysaar:jaysenacharya",
-          "gatha_natural_key": "samaysaar:013",
-          "anvayartha": [
-            {
-              "lang": "hin",
-              "script": "Deva",
-              "text": "भूतार्थ / शुद्ध-नय से जाने हुए जीव, अजीव व पुण्य, पाप, और आस्रव, संवर, निर्जरा, बंध और मोक्ष - ये नवतत्त्व ही सम्यग्दर्शन हैं ।"
-            }
-          ],
-          "tagged_terms": [
-            {
-              "source_word": "भूदत्थेण",
-              "meaning": "भूतार्थ / शुद्ध-नय से"
-            },
-            {
-              "source_word": "अभिगदा",
-              "meaning": "जाने हुए"
-            },
-            {
-              "source_word": "जीवाजीवा",
-              "meaning": "जीव, अजीव"
-            },
-            {
-              "source_word": "य",
-              "meaning": "व"
-            },
-            {
-              "source_word": "पुण्णपावं",
-              "meaning": "पुण्य, पाप,"
-            },
-            {
-              "source_word": "च",
-              "meaning": "और"
-            },
-            {
-              "source_word": "आसवसंवरणिज्जरबंधो मोक्खो य",
-              "meaning": "आस्रव, संवर, निर्जरा, बंध और मोक्ष - ये नवतत्त्व ही"
-            },
-            {
-              "source_word": "सम्मत्तं",
-              "meaning": "सम्यग्दर्शन हैं ।"
-            }
-          ],
-          "full_anyavaarth": "भूतार्थ / शुद्ध-नय से जाने हुए जीव, अजीव व पुण्य, पाप, और आस्रव, संवर, निर्जरा, बंध और मोक्ष - ये नवतत्त्व ही सम्यग्दर्शन हैं ।",
-          "is_related": []
-        },
-        {
-          "natural_key": "samaysaar:amritchandra:014",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "gatha_natural_key": "samaysaar:014",
+          "collection": "teeka_gatha_mapping",
+          "natural_key": "समयसार:आत्मख्याती:14",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "gatha_natural_key": "समयसार:14",
           "anvayartha": [
             {
               "lang": "hin",
@@ -4946,65 +2891,10 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:014",
-          "teeka_natural_key": "samaysaar:jaysenacharya",
-          "gatha_natural_key": "samaysaar:014",
-          "anvayartha": [
-            {
-              "lang": "hin",
-              "script": "Deva",
-              "text": "जो आत्मा को बंध रहित, पर के स्पर्श रहित, अनन्य, नित्य, अविशेष और अन्य के संयोग रहित अवलोकन करता है, उसे शुद्ध-नय जानो ।"
-            }
-          ],
-          "tagged_terms": [
-            {
-              "source_word": "अप्पाणं",
-              "meaning": "आत्मा को"
-            },
-            {
-              "source_word": "अबद्धपुट्ठं",
-              "meaning": "बंध रहित, पर के स्पर्श रहित,"
-            },
-            {
-              "source_word": "अणण्णयं",
-              "meaning": "अनन्य,"
-            },
-            {
-              "source_word": "णियदं",
-              "meaning": "नित्य,"
-            },
-            {
-              "source_word": "अविसेसम्",
-              "meaning": "अविशेष और"
-            },
-            {
-              "source_word": "असंजुत्तं",
-              "meaning": "अन्य के संयोग रहित"
-            },
-            {
-              "source_word": "पस्सदि",
-              "meaning": "अवलोकन करता है,"
-            },
-            {
-              "source_word": "तं",
-              "meaning": "उसे"
-            },
-            {
-              "source_word": "सुद्धणयं",
-              "meaning": "शुद्ध-नय"
-            },
-            {
-              "source_word": "वियाणीहि",
-              "meaning": "जानो ।"
-            }
-          ],
-          "full_anyavaarth": "जो आत्मा को बंध रहित, पर के स्पर्श रहित, अनन्य, नित्य, अविशेष और अन्य के संयोग रहित अवलोकन करता है, उसे शुद्ध-नय जानो ।",
-          "is_related": []
-        },
-        {
-          "natural_key": "samaysaar:amritchandra:015",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "gatha_natural_key": "samaysaar:015",
+          "collection": "teeka_gatha_mapping",
+          "natural_key": "समयसार:आत्मख्याती:15",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "gatha_natural_key": "समयसार:15",
           "anvayartha": [
             {
               "lang": "hin",
@@ -5050,57 +2940,10 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:015",
-          "teeka_natural_key": "samaysaar:jaysenacharya",
-          "gatha_natural_key": "samaysaar:015",
-          "anvayartha": [
-            {
-              "lang": "hin",
-              "script": "Deva",
-              "text": "जो आत्मा को अबद्धस्पृष्ट, अनन्य, अविशेष देखता है; वह द्रव्यश्रुत और भाव-श्रुत के मध्य होता हुआ सम्पूर्ण जिनशासन को देखता है ।"
-            }
-          ],
-          "tagged_terms": [
-            {
-              "source_word": "अप्पाणं",
-              "meaning": "आत्मा को"
-            },
-            {
-              "source_word": "अबद्धपुट्ठं",
-              "meaning": "अबद्धस्पृष्ट,"
-            },
-            {
-              "source_word": "अणण्णमविसेसं",
-              "meaning": "अनन्य, अविशेष"
-            },
-            {
-              "source_word": "पस्सदि",
-              "meaning": "देखता है; वह"
-            },
-            {
-              "source_word": "अपदेससुत्तमज्झं",
-              "meaning": "द्रव्यश्रुत और भाव-श्रुत के मध्य होता हुआ"
-            },
-            {
-              "source_word": "सव्वं",
-              "meaning": "सम्पूर्ण"
-            },
-            {
-              "source_word": "जिणसासणं",
-              "meaning": "जिनशासन को"
-            },
-            {
-              "source_word": "पस्सदि",
-              "meaning": "देखता है ।"
-            }
-          ],
-          "full_anyavaarth": "जो आत्मा को अबद्धस्पृष्ट, अनन्य, अविशेष देखता है; वह द्रव्यश्रुत और भाव-श्रुत के मध्य होता हुआ सम्पूर्ण जिनशासन को देखता है ।",
-          "is_related": []
-        },
-        {
-          "natural_key": "samaysaar:amritchandra:016",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "gatha_natural_key": "samaysaar:016",
+          "collection": "teeka_gatha_mapping",
+          "natural_key": "समयसार:आत्मख्याती:16",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "gatha_natural_key": "समयसार:16",
           "anvayartha": [
             {
               "lang": "hin",
@@ -5154,65 +2997,10 @@
           "is_related": []
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:016",
-          "teeka_natural_key": "samaysaar:jaysenacharya",
-          "gatha_natural_key": "samaysaar:016",
-          "anvayartha": [
-            {
-              "lang": "hin",
-              "script": "Deva",
-              "text": "साधुपुरुष को दर्शन-ज्ञान-चारित्र का सदा सेवन करना चाहिए और उन तीनों को निश्चय से एक आत्मा ही जानो ।"
-            }
-          ],
-          "tagged_terms": [
-            {
-              "source_word": "साहुणा",
-              "meaning": "साधुपुरुष को"
-            },
-            {
-              "source_word": "दंसणणाणचरित्तणि",
-              "meaning": "दर्शन-ज्ञान-चारित्र का"
-            },
-            {
-              "source_word": "णिच्चं",
-              "meaning": "सदा"
-            },
-            {
-              "source_word": "सेविदव्वाणि",
-              "meaning": "सेवन करना चाहिए"
-            },
-            {
-              "source_word": "ताणि पुण",
-              "meaning": "और उन"
-            },
-            {
-              "source_word": "तिण्णि",
-              "meaning": "तीनों को"
-            },
-            {
-              "source_word": "णिच्छयदो",
-              "meaning": "निश्चय से एक"
-            },
-            {
-              "source_word": "अप्पाणं",
-              "meaning": "आत्मा"
-            },
-            {
-              "source_word": "वि",
-              "meaning": "ही"
-            },
-            {
-              "source_word": "जाण",
-              "meaning": "जानो ।"
-            }
-          ],
-          "full_anyavaarth": "साधुपुरुष को दर्शन-ज्ञान-चारित्र का सदा सेवन करना चाहिए और उन तीनों को निश्चय से एक आत्मा ही जानो ।",
-          "is_related": []
-        },
-        {
-          "natural_key": "samaysaar:amritchandra:017",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "gatha_natural_key": "samaysaar:017",
+          "collection": "teeka_gatha_mapping",
+          "natural_key": "समयसार:आत्मख्याती:17",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "gatha_natural_key": "समयसार:17",
           "anvayartha": [
             {
               "lang": "hin",
@@ -5304,103 +3092,10 @@
           ]
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:017",
-          "teeka_natural_key": "samaysaar:jaysenacharya",
-          "gatha_natural_key": "samaysaar:017",
-          "anvayartha": [
-            {
-              "lang": "hin",
-              "script": "Deva",
-              "text": "जिसप्रकार कोई धन का अर्थी पुरुष राजा को जानकर उसकी श्रद्धा करता है और फिर उसका प्रयत्नपूर्वक / लगन से अनुचरण / सेवा करता है; उसीप्रकार मोक्ष के इच्छुक पुरुषों को जीवरूपी राजा को जानना चाहिए और फिर उसका श्रद्धान करना चाहिए, उसके बाद उसी का अनुचरण करना चाहिए ।"
-            }
-          ],
-          "tagged_terms": [
-            {
-              "source_word": "जह",
-              "meaning": "जिसप्रकार"
-            },
-            {
-              "source_word": "को वि",
-              "meaning": "कोई"
-            },
-            {
-              "source_word": "अत्थत्थीओ",
-              "meaning": "धन का अर्थी"
-            },
-            {
-              "source_word": "पुरिसो",
-              "meaning": "पुरुष"
-            },
-            {
-              "source_word": "रायाणं",
-              "meaning": "राजा को"
-            },
-            {
-              "source_word": "जाणिऊण",
-              "meaning": "जानकर उसकी"
-            },
-            {
-              "source_word": "सद्दहदि",
-              "meaning": "श्रद्धा करता है और"
-            },
-            {
-              "source_word": "पुणो",
-              "meaning": "फिर"
-            },
-            {
-              "source_word": "तं",
-              "meaning": "उसका"
-            },
-            {
-              "source_word": "पयत्तेण",
-              "meaning": "प्रयत्नपूर्वक / लगन से"
-            },
-            {
-              "source_word": "अणुचरदि",
-              "meaning": "अनुचरण / सेवा करता है;"
-            },
-            {
-              "source_word": "तह य",
-              "meaning": "उसीप्रकार"
-            },
-            {
-              "source_word": "मोक्खकामेण",
-              "meaning": "मोक्ष के इच्छुक पुरुषों को"
-            },
-            {
-              "source_word": "जीवराया",
-              "meaning": "जीवरूपी राजा को"
-            },
-            {
-              "source_word": "णादव्वो",
-              "meaning": "जानना चाहिए और फिर उसका"
-            },
-            {
-              "source_word": "सद्दहेदव्वो",
-              "meaning": "श्रद्धान करना चाहिए,"
-            },
-            {
-              "source_word": "य पुणो",
-              "meaning": "उसके बाद"
-            },
-            {
-              "source_word": "सो चेव",
-              "meaning": "उसी का"
-            },
-            {
-              "source_word": "अणुचरिदव्वो",
-              "meaning": "अनुचरण करना चाहिए ।"
-            }
-          ],
-          "full_anyavaarth": "जिसप्रकार कोई धन का अर्थी पुरुष राजा को जानकर उसकी श्रद्धा करता है और फिर उसका प्रयत्नपूर्वक / लगन से अनुचरण / सेवा करता है; उसीप्रकार मोक्ष के इच्छुक पुरुषों को जीवरूपी राजा को जानना चाहिए और फिर उसका श्रद्धान करना चाहिए, उसके बाद उसी का अनुचरण करना चाहिए ।",
-          "is_related": [
-            "018"
-          ]
-        },
-        {
-          "natural_key": "samaysaar:amritchandra:018",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "gatha_natural_key": "samaysaar:018",
+          "collection": "teeka_gatha_mapping",
+          "natural_key": "समयसार:आत्मख्याती:18",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "gatha_natural_key": "समयसार:18",
           "anvayartha": [
             {
               "lang": "hin",
@@ -5492,155 +3187,10 @@
           ]
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:018",
-          "teeka_natural_key": "samaysaar:jaysenacharya",
-          "gatha_natural_key": "samaysaar:018",
-          "anvayartha": [
-            {
-              "lang": "hin",
-              "script": "Deva",
-              "text": "जिसप्रकार कोई धन का अर्थी पुरुष राजा को जानकर उसकी श्रद्धा करता है और फिर उसका प्रयत्नपूर्वक / लगन से अनुचरण / सेवा करता है; उसीप्रकार मोक्ष के इच्छुक पुरुषों को जीवरूपी राजा को जानना चाहिए और फिर उसका श्रद्धान करना चाहिए, उसके बाद उसी का अनुचरण करना चाहिए ।"
-            }
-          ],
-          "tagged_terms": [
-            {
-              "source_word": "जह",
-              "meaning": "जिसप्रकार"
-            },
-            {
-              "source_word": "को वि",
-              "meaning": "कोई"
-            },
-            {
-              "source_word": "अत्थत्थीओ",
-              "meaning": "धन का अर्थी"
-            },
-            {
-              "source_word": "पुरिसो",
-              "meaning": "पुरुष"
-            },
-            {
-              "source_word": "रायाणं",
-              "meaning": "राजा को"
-            },
-            {
-              "source_word": "जाणिऊण",
-              "meaning": "जानकर उसकी"
-            },
-            {
-              "source_word": "सद्दहदि",
-              "meaning": "श्रद्धा करता है और"
-            },
-            {
-              "source_word": "पुणो",
-              "meaning": "फिर"
-            },
-            {
-              "source_word": "तं",
-              "meaning": "उसका"
-            },
-            {
-              "source_word": "पयत्तेण",
-              "meaning": "प्रयत्नपूर्वक / लगन से"
-            },
-            {
-              "source_word": "अणुचरदि",
-              "meaning": "अनुचरण / सेवा करता है;"
-            },
-            {
-              "source_word": "तह य",
-              "meaning": "उसीप्रकार"
-            },
-            {
-              "source_word": "मोक्खकामेण",
-              "meaning": "मोक्ष के इच्छुक पुरुषों को"
-            },
-            {
-              "source_word": "जीवराया",
-              "meaning": "जीवरूपी राजा को"
-            },
-            {
-              "source_word": "णादव्वो",
-              "meaning": "जानना चाहिए और फिर उसका"
-            },
-            {
-              "source_word": "सद्दहेदव्वो",
-              "meaning": "श्रद्धान करना चाहिए,"
-            },
-            {
-              "source_word": "य पुणो",
-              "meaning": "उसके बाद"
-            },
-            {
-              "source_word": "सो चेव",
-              "meaning": "उसी का"
-            },
-            {
-              "source_word": "अणुचरिदव्वो",
-              "meaning": "अनुचरण करना चाहिए ।"
-            }
-          ],
-          "full_anyavaarth": "जिसप्रकार कोई धन का अर्थी पुरुष राजा को जानकर उसकी श्रद्धा करता है और फिर उसका प्रयत्नपूर्वक / लगन से अनुचरण / सेवा करता है; उसीप्रकार मोक्ष के इच्छुक पुरुषों को जीवरूपी राजा को जानना चाहिए और फिर उसका श्रद्धान करना चाहिए, उसके बाद उसी का अनुचरण करना चाहिए ।",
-          "is_related": [
-            "017"
-          ]
-        },
-        {
-          "natural_key": "samaysaar:amritchandra:019",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "gatha_natural_key": "samaysaar:019",
-          "anvayartha": [
-            {
-              "lang": "hin",
-              "script": "Deva",
-              "text": "ज्ञानावरणी आदि द्रव्यकर्मों, मोह-राग-द्वेषादि भावकर्मों में अहंबुद्धि एवं शरीरादि नोकर्मों में ममत्वबुद्धि; यह मानना कि 'ये सभी मैं हूँ और मुझमें ये सभी कर्म-नोकर्म हैं' - जबतक ऐसी बुद्धि बनाए रखता है तबतक अप्रतिबुद्ध रहता है, अज्ञानी रहता है ।"
-            }
-          ],
-          "tagged_terms": [
-            {
-              "source_word": "कम्मे",
-              "meaning": "ज्ञानावरणी आदि द्रव्यकर्मों, मोह-राग-द्वेषादि भावकर्मों में"
-            },
-            {
-              "source_word": "अहमिदि",
-              "meaning": "अहंबुद्धि"
-            },
-            {
-              "source_word": "य",
-              "meaning": "एवं"
-            },
-            {
-              "source_word": "णोकम्मम्हि",
-              "meaning": "शरीरादि नोकर्मों में"
-            },
-            {
-              "source_word": "अहकं च कम्म णोकम्मं",
-              "meaning": "ममत्वबुद्धि; यह मानना कि 'ये सभी मैं हूँ और मुझमें ये सभी कर्म-नोकर्म हैं' -"
-            },
-            {
-              "source_word": "जा एसा खलु बुद्धी",
-              "meaning": "जबतक ऐसी बुद्धि बनाए रखता है"
-            },
-            {
-              "source_word": "ताव",
-              "meaning": "तबतक"
-            },
-            {
-              "source_word": "अप्पडिबुद्धो",
-              "meaning": "अप्रतिबुद्ध"
-            },
-            {
-              "source_word": "हवदि",
-              "meaning": "रहता है, अज्ञानी रहता है ।"
-            }
-          ],
-          "full_anyavaarth": "ज्ञानावरणी आदि द्रव्यकर्मों, मोह-राग-द्वेषादि भावकर्मों में अहंबुद्धि एवं शरीरादि नोकर्मों में ममत्वबुद्धि; यह मानना कि 'ये सभी मैं हूँ और मुझमें ये सभी कर्म-नोकर्म हैं' - जबतक ऐसी बुद्धि बनाए रखता है तबतक अप्रतिबुद्ध रहता है, अज्ञानी रहता है ।",
-          "is_related": []
-        },
-        {
-          "natural_key": "samaysaar:jaysenacharya:019",
-          "teeka_natural_key": "samaysaar:jaysenacharya",
-          "gatha_natural_key": "samaysaar:019",
+          "collection": "teeka_gatha_mapping",
+          "natural_key": "समयसार:आत्मख्याती:19",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "gatha_natural_key": "समयसार:19",
           "anvayartha": [
             {
               "lang": "hin",
@@ -5692,10 +3242,11 @@
       ],
       "gatha_teeka_sanskrit": [
         {
-          "natural_key": "samaysaar:amritchandra:011:teeka:san",
-          "gatha_teeka_natural_key": "samaysaar:amritchandra:011",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "gatha_number": "011",
+          "collection": "gatha_teeka_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:11:teeka:san",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:11",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "gatha_number": "11",
           "text": [
             {
               "lang": "san",
@@ -5705,10 +3256,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:012:teeka:san",
-          "gatha_teeka_natural_key": "samaysaar:amritchandra:012",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "gatha_number": "012",
+          "collection": "gatha_teeka_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:12:teeka:san",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:12",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "gatha_number": "12",
           "text": [
             {
               "lang": "san",
@@ -5718,10 +3270,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:013:teeka:san",
-          "gatha_teeka_natural_key": "samaysaar:amritchandra:013",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "gatha_number": "013",
+          "collection": "gatha_teeka_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:13:teeka:san",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:13",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "gatha_number": "13",
           "text": [
             {
               "lang": "san",
@@ -5731,10 +3284,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:014:teeka:san",
-          "gatha_teeka_natural_key": "samaysaar:amritchandra:014",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "gatha_number": "014",
+          "collection": "gatha_teeka_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:14:teeka:san",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:14",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "gatha_number": "14",
           "text": [
             {
               "lang": "san",
@@ -5744,10 +3298,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:015:teeka:san",
-          "gatha_teeka_natural_key": "samaysaar:amritchandra:015",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "gatha_number": "015",
+          "collection": "gatha_teeka_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:15:teeka:san",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:15",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "gatha_number": "15",
           "text": [
             {
               "lang": "san",
@@ -5757,10 +3312,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:016:teeka:san",
-          "gatha_teeka_natural_key": "samaysaar:amritchandra:016",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "gatha_number": "016",
+          "collection": "gatha_teeka_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:16:teeka:san",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:16",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "gatha_number": "16",
           "text": [
             {
               "lang": "san",
@@ -5770,10 +3326,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:017:teeka:san",
-          "gatha_teeka_natural_key": "samaysaar:amritchandra:017",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "gatha_number": "017",
+          "collection": "gatha_teeka_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:17:teeka:san",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:17",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "gatha_number": "17",
           "text": [
             {
               "lang": "san",
@@ -5783,10 +3340,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:018:teeka:san",
-          "gatha_teeka_natural_key": "samaysaar:amritchandra:018",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "gatha_number": "018",
+          "collection": "gatha_teeka_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:18:teeka:san",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:18",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "gatha_number": "18",
           "text": [
             {
               "lang": "san",
@@ -5796,10 +3354,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:019:teeka:san",
-          "gatha_teeka_natural_key": "samaysaar:amritchandra:019",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "gatha_number": "019",
+          "collection": "gatha_teeka_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:19:teeka:san",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:19",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "gatha_number": "19",
           "text": [
             {
               "lang": "san",
@@ -5811,12 +3370,13 @@
       ],
       "gatha_teeka_bhaavarth_hindi": [
         {
-          "natural_key": "samaysaar:amritchandra:nikkyjain:011:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:amritchandra:nikkyjain:011:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:amritchandra:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:amritchandra:011",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:आत्मख्याती:nikkyjain:11:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याती:nikkyjain:11:bhaavarth:hi",
+          "publication_natural_key": "समयसार:आत्मख्याती:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:11",
           "publisher_id": "nikkyjain",
-          "gatha_number": "011",
+          "gatha_number": "11",
           "text": [
             {
               "lang": "hin",
@@ -5826,12 +3386,13 @@
           ]
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:nikkyjain:011:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:011:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:011",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:11:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:11:bhaavarth:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:11",
           "publisher_id": "nikkyjain",
-          "gatha_number": "011",
+          "gatha_number": "11",
           "text": [
             {
               "lang": "hin",
@@ -5841,12 +3402,13 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:nikkyjain:012:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:amritchandra:nikkyjain:012:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:amritchandra:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:amritchandra:012",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:आत्मख्याती:nikkyjain:12:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याती:nikkyjain:12:bhaavarth:hi",
+          "publication_natural_key": "समयसार:आत्मख्याती:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:12",
           "publisher_id": "nikkyjain",
-          "gatha_number": "012",
+          "gatha_number": "12",
           "text": [
             {
               "lang": "hin",
@@ -5856,12 +3418,13 @@
           ]
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:nikkyjain:012:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:012:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:012",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:12:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:12:bhaavarth:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:12",
           "publisher_id": "nikkyjain",
-          "gatha_number": "012",
+          "gatha_number": "12",
           "text": [
             {
               "lang": "hin",
@@ -5871,12 +3434,13 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:nikkyjain:013:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:amritchandra:nikkyjain:013:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:amritchandra:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:amritchandra:013",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:आत्मख्याती:nikkyjain:13:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याती:nikkyjain:13:bhaavarth:hi",
+          "publication_natural_key": "समयसार:आत्मख्याती:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:13",
           "publisher_id": "nikkyjain",
-          "gatha_number": "013",
+          "gatha_number": "13",
           "text": [
             {
               "lang": "hin",
@@ -5886,12 +3450,13 @@
           ]
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:nikkyjain:013:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:013:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:013",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:13:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:13:bhaavarth:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:13",
           "publisher_id": "nikkyjain",
-          "gatha_number": "013",
+          "gatha_number": "13",
           "text": [
             {
               "lang": "hin",
@@ -5901,12 +3466,13 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:nikkyjain:014:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:amritchandra:nikkyjain:014:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:amritchandra:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:amritchandra:014",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:आत्मख्याती:nikkyjain:14:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याती:nikkyjain:14:bhaavarth:hi",
+          "publication_natural_key": "समयसार:आत्मख्याती:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:14",
           "publisher_id": "nikkyjain",
-          "gatha_number": "014",
+          "gatha_number": "14",
           "text": [
             {
               "lang": "hin",
@@ -5916,12 +3482,13 @@
           ]
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:nikkyjain:014:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:014:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:014",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:14:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:14:bhaavarth:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:14",
           "publisher_id": "nikkyjain",
-          "gatha_number": "014",
+          "gatha_number": "14",
           "text": [
             {
               "lang": "hin",
@@ -5931,12 +3498,13 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:nikkyjain:015:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:amritchandra:nikkyjain:015:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:amritchandra:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:amritchandra:015",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:आत्मख्याती:nikkyjain:15:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याती:nikkyjain:15:bhaavarth:hi",
+          "publication_natural_key": "समयसार:आत्मख्याती:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:15",
           "publisher_id": "nikkyjain",
-          "gatha_number": "015",
+          "gatha_number": "15",
           "text": [
             {
               "lang": "hin",
@@ -5946,12 +3514,13 @@
           ]
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:nikkyjain:015:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:015:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:015",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:15:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:15:bhaavarth:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:15",
           "publisher_id": "nikkyjain",
-          "gatha_number": "015",
+          "gatha_number": "15",
           "text": [
             {
               "lang": "hin",
@@ -5961,12 +3530,13 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:nikkyjain:016:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:amritchandra:nikkyjain:016:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:amritchandra:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:amritchandra:016",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:आत्मख्याती:nikkyjain:16:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याती:nikkyjain:16:bhaavarth:hi",
+          "publication_natural_key": "समयसार:आत्मख्याती:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:16",
           "publisher_id": "nikkyjain",
-          "gatha_number": "016",
+          "gatha_number": "16",
           "text": [
             {
               "lang": "hin",
@@ -5976,12 +3546,13 @@
           ]
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:nikkyjain:016:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:016:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:016",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:16:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:16:bhaavarth:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:16",
           "publisher_id": "nikkyjain",
-          "gatha_number": "016",
+          "gatha_number": "16",
           "text": [
             {
               "lang": "hin",
@@ -5991,12 +3562,13 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:nikkyjain:017:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:amritchandra:nikkyjain:017:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:amritchandra:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:amritchandra:017",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:आत्मख्याती:nikkyjain:17:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याती:nikkyjain:17:bhaavarth:hi",
+          "publication_natural_key": "समयसार:आत्मख्याती:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:17",
           "publisher_id": "nikkyjain",
-          "gatha_number": "017",
+          "gatha_number": "17",
           "text": [
             {
               "lang": "hin",
@@ -6006,12 +3578,13 @@
           ]
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:nikkyjain:017:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:017:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:017",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:17:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:17:bhaavarth:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:17",
           "publisher_id": "nikkyjain",
-          "gatha_number": "017",
+          "gatha_number": "17",
           "text": [
             {
               "lang": "hin",
@@ -6021,12 +3594,13 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:nikkyjain:018:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:amritchandra:nikkyjain:018:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:amritchandra:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:amritchandra:018",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:आत्मख्याती:nikkyjain:18:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याती:nikkyjain:18:bhaavarth:hi",
+          "publication_natural_key": "समयसार:आत्मख्याती:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:18",
           "publisher_id": "nikkyjain",
-          "gatha_number": "018",
+          "gatha_number": "18",
           "text": [
             {
               "lang": "hin",
@@ -6036,12 +3610,13 @@
           ]
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:nikkyjain:018:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:018:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:018",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:18:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:18:bhaavarth:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:18",
           "publisher_id": "nikkyjain",
-          "gatha_number": "018",
+          "gatha_number": "18",
           "text": [
             {
               "lang": "hin",
@@ -6051,12 +3626,13 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:nikkyjain:019:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:amritchandra:nikkyjain:019:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:amritchandra:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:amritchandra:019",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:आत्मख्याती:nikkyjain:19:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याती:nikkyjain:19:bhaavarth:hi",
+          "publication_natural_key": "समयसार:आत्मख्याती:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:19",
           "publisher_id": "nikkyjain",
-          "gatha_number": "019",
+          "gatha_number": "19",
           "text": [
             {
               "lang": "hin",
@@ -6066,12 +3642,13 @@
           ]
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:nikkyjain:019:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:019:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:019",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:19:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:19:bhaavarth:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:19",
           "publisher_id": "nikkyjain",
-          "gatha_number": "019",
+          "gatha_number": "19",
           "text": [
             {
               "lang": "hin",
@@ -6081,12 +3658,13 @@
           ]
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:nikkyjain:kalash:012:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:kalash:012:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:kalash:012",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:kalash:12:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:kalash:12:bhaavarth:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:kalash:12",
           "publisher_id": "nikkyjain",
-          "gatha_number": "012",
+          "gatha_number": "12",
           "text": [
             {
               "lang": "hin",
@@ -6096,12 +3674,13 @@
           ]
         },
         {
-          "natural_key": "samaysaar:jaysenacharya:nikkyjain:kalash:018:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "samaysaar:jaysenacharya:nikkyjain:kalash:018:bhaavarth:hi",
-          "publication_natural_key": "samaysaar:jaysenacharya:nikkyjain",
-          "gatha_teeka_natural_key": "samaysaar:jaysenacharya:kalash:018",
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:kalash:18:bhaavarth:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:kalash:18:bhaavarth:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:kalash:18",
           "publisher_id": "nikkyjain",
-          "gatha_number": "018",
+          "gatha_number": "18",
           "text": [
             {
               "lang": "hin",
@@ -6113,10 +3692,11 @@
       ],
       "kalash_sanskrit": [
         {
-          "natural_key": "samaysaar:amritchandra:kalash:001:san",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:001",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "001",
+          "collection": "kalash_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:kalash:1:san",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:1",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "1",
           "text": [
             {
               "lang": "san",
@@ -6127,10 +3707,11 @@
           "chhand_type": "मालिनी"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:002:san",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:002",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "002",
+          "collection": "kalash_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:kalash:2:san",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:2",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "2",
           "text": [
             {
               "lang": "san",
@@ -6141,10 +3722,11 @@
           "chhand_type": "मालिनी"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:003:san",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:003",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "003",
+          "collection": "kalash_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:kalash:3:san",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:3",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "3",
           "text": [
             {
               "lang": "san",
@@ -6155,10 +3737,11 @@
           "chhand_type": "शार्दूलविक्रीडित"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:004:san",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:004",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "004",
+          "collection": "kalash_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:kalash:4:san",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:4",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "4",
           "text": [
             {
               "lang": "san",
@@ -6169,10 +3752,11 @@
           "chhand_type": "अनुष्टुभ्"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:005:san",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:005",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "005",
+          "collection": "kalash_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:kalash:5:san",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:5",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "5",
           "text": [
             {
               "lang": "san",
@@ -6183,10 +3767,11 @@
           "chhand_type": "मालिनी"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:006:san",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:006",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "006",
+          "collection": "kalash_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:kalash:6:san",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:6",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "6",
           "text": [
             {
               "lang": "san",
@@ -6197,10 +3782,11 @@
           "chhand_type": "मालिनी"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:007:san",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:007",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "007",
+          "collection": "kalash_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:kalash:7:san",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:7",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "7",
           "text": [
             {
               "lang": "san",
@@ -6211,10 +3797,11 @@
           "chhand_type": "उपजाति"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:008:san",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:008",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "008",
+          "collection": "kalash_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:kalash:8:san",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:8",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "8",
           "text": [
             {
               "lang": "san",
@@ -6225,10 +3812,11 @@
           "chhand_type": "मालिनी"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:009:san",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:009",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "009",
+          "collection": "kalash_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:kalash:9:san",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:9",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "9",
           "text": [
             {
               "lang": "san",
@@ -6239,10 +3827,11 @@
           "chhand_type": "-पृथ्वी"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:010:san",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:010",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "010",
+          "collection": "kalash_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:kalash:10:san",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:10",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "10",
           "text": [
             {
               "lang": "san",
@@ -6253,10 +3842,11 @@
           "chhand_type": "-अनुष्टुभ्"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:011:san",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:011",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "011",
+          "collection": "kalash_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:kalash:11:san",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:11",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "11",
           "text": [
             {
               "lang": "san",
@@ -6267,10 +3857,11 @@
           "chhand_type": "-अनुष्टुभ्"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:012:san",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:012",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "012",
+          "collection": "kalash_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:kalash:12:san",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:12",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "12",
           "text": [
             {
               "lang": "san",
@@ -6281,10 +3872,11 @@
           "chhand_type": "-अनुष्टुभ्"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:013:san",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:013",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "013",
+          "collection": "kalash_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:kalash:13:san",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:13",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "13",
           "text": [
             {
               "lang": "san",
@@ -6295,10 +3887,11 @@
           "chhand_type": "-अनुष्टुभ्"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:014:san",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:014",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "014",
+          "collection": "kalash_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:kalash:14:san",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:14",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "14",
           "text": [
             {
               "lang": "san",
@@ -6309,10 +3902,11 @@
           "chhand_type": "-अनुष्टुभ्"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:015:san",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:015",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "015",
+          "collection": "kalash_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:kalash:15:san",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:15",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "15",
           "text": [
             {
               "lang": "san",
@@ -6323,10 +3917,11 @@
           "chhand_type": "-मालिनी"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:015:san",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:015",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "015",
+          "collection": "kalash_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:kalash:15:san",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:15",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "15",
           "text": [
             {
               "lang": "san",
@@ -6337,10 +3932,11 @@
           "chhand_type": "-मालिनी"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:016:san",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:016",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "016",
+          "collection": "kalash_sanskrit",
+          "natural_key": "समयसार:आत्मख्याती:kalash:16:san",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:16",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "16",
           "text": [
             {
               "lang": "san",
@@ -6353,10 +3949,11 @@
       ],
       "kalash_hindi": [
         {
-          "natural_key": "samaysaar:amritchandra:kalash:001:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:001",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "001",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:1:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:1",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "1",
           "text": [
             {
               "lang": "hin",
@@ -6367,10 +3964,11 @@
           "chhand_type": "unknown"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:002:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:002",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "002",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:2:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:2",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "2",
           "text": [
             {
               "lang": "hin",
@@ -6381,10 +3979,11 @@
           "chhand_type": "unknown"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:003:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:003",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "003",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:3:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:3",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "3",
           "text": [
             {
               "lang": "hin",
@@ -6395,10 +3994,11 @@
           "chhand_type": "unknown"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:004:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:004",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "004",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:4:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:4",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "4",
           "text": [
             {
               "lang": "hin",
@@ -6409,10 +4009,11 @@
           "chhand_type": "unknown"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:005:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:005",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "005",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:5:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:5",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "5",
           "text": [
             {
               "lang": "hin",
@@ -6423,10 +4024,11 @@
           "chhand_type": "unknown"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:006:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:006",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "006",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:6:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:6",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "6",
           "text": [
             {
               "lang": "hin",
@@ -6437,10 +4039,11 @@
           "chhand_type": "unknown"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:005:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:005",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "005",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:5:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:5",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "5",
           "text": [
             {
               "lang": "hin",
@@ -6451,10 +4054,11 @@
           "chhand_type": "unknown"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:006:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:006",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "006",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:6:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:6",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "6",
           "text": [
             {
               "lang": "hin",
@@ -6465,10 +4069,11 @@
           "chhand_type": "रोला"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:007:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:007",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "007",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:7:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:7",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "7",
           "text": [
             {
               "lang": "hin",
@@ -6479,10 +4084,11 @@
           "chhand_type": "रोला"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:008:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:008",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "008",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:8:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:8",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "8",
           "text": [
             {
               "lang": "hin",
@@ -6493,10 +4099,11 @@
           "chhand_type": "रोला"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:009:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:009",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "009",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:9:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:9",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "9",
           "text": [
             {
               "lang": "hin",
@@ -6507,10 +4114,11 @@
           "chhand_type": "रोला"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:010:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:010",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "010",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:10:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:10",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "10",
           "text": [
             {
               "lang": "hin",
@@ -6521,10 +4129,11 @@
           "chhand_type": "unknown"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:009:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:009",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "009",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:9:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:9",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "9",
           "text": [
             {
               "lang": "hin",
@@ -6535,10 +4144,11 @@
           "chhand_type": "-रोला"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:010:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:010",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "010",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:10:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:10",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "10",
           "text": [
             {
               "lang": "hin",
@@ -6549,10 +4159,11 @@
           "chhand_type": "-हरिगीत"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:011:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:011",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "011",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:11:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:11",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "11",
           "text": [
             {
               "lang": "hin",
@@ -6563,10 +4174,11 @@
           "chhand_type": "-हरिगीत"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:012:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:012",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "012",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:12:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:12",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "12",
           "text": [
             {
               "lang": "hin",
@@ -6577,10 +4189,11 @@
           "chhand_type": "-हरिगीत"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:013:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:013",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "013",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:13:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:13",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "13",
           "text": [
             {
               "lang": "hin",
@@ -6591,10 +4204,11 @@
           "chhand_type": "-हरिगीत"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:014:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:014",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "014",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:14:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:14",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "14",
           "text": [
             {
               "lang": "hin",
@@ -6605,10 +4219,11 @@
           "chhand_type": "-हरिगीत"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:015:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:015",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "015",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:15:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:15",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "15",
           "text": [
             {
               "lang": "hin",
@@ -6619,10 +4234,11 @@
           "chhand_type": "-हरिगीत"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:015:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:015",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "015",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:15:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:15",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "15",
           "text": [
             {
               "lang": "hin",
@@ -6633,10 +4249,11 @@
           "chhand_type": "-हरिगीत"
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:016:hi",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:016",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "016",
+          "collection": "kalash_hindi",
+          "natural_key": "समयसार:आत्मख्याती:kalash:16:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:16",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "16",
           "text": [
             {
               "lang": "hin",
@@ -6649,10 +4266,11 @@
       ],
       "kalash_word_meanings": [
         {
-          "natural_key": "samaysaar:amritchandra:kalash:003:word_meanings",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:003",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "003",
+          "collection": "kalash_word_meanings",
+          "natural_key": "समयसार:आत्मख्याती:kalash:3:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:3",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "3",
           "entries": [
             {
               "source_word": "उभय-नय विरोध-ध्वंसिनि",
@@ -6702,10 +4320,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:004:word_meanings",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:004",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "004",
+          "collection": "kalash_word_meanings",
+          "natural_key": "समयसार:आत्मख्याती:kalash:4:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:4",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "4",
           "entries": [
             {
               "source_word": "व्यवहरण-नयः यद्यपि",
@@ -6745,10 +4364,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:005:word_meanings",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:005",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "005",
+          "collection": "kalash_word_meanings",
+          "natural_key": "समयसार:आत्मख्याती:kalash:5:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:5",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "5",
           "entries": [
             {
               "source_word": "अस्य आत्मनः",
@@ -6808,10 +4428,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:006:word_meanings",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:006",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "006",
+          "collection": "kalash_word_meanings",
+          "natural_key": "समयसार:आत्मख्याती:kalash:6:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:6",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "6",
           "entries": [
             {
               "source_word": "अतः",
@@ -6861,10 +4482,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:005:word_meanings",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:005",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "005",
+          "collection": "kalash_word_meanings",
+          "natural_key": "समयसार:आत्मख्याती:kalash:5:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:5",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "5",
           "entries": [
             {
               "source_word": "इति",
@@ -6919,10 +4541,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:006:word_meanings",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:006",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "006",
+          "collection": "kalash_word_meanings",
+          "natural_key": "समयसार:आत्मख्याती:kalash:6:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:6",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "6",
           "entries": [
             {
               "source_word": "अस्मिन् सर्वंक षेधाम्नि अनुभवम् उपयाते",
@@ -6962,10 +4585,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:007:word_meanings",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:007",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "007",
+          "collection": "kalash_word_meanings",
+          "natural_key": "समयसार:आत्मख्याती:kalash:7:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:7",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "7",
           "entries": [
             {
               "source_word": "शुद्धनयः आत्मस्वभावं प्रकाशयन् अभ्युदेति",
@@ -7000,10 +4624,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:008:word_meanings",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:008",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "008",
+          "collection": "kalash_word_meanings",
+          "natural_key": "समयसार:आत्मख्याती:kalash:8:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:8",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "8",
           "entries": [
             {
               "source_word": "यत्र",
@@ -7043,10 +4668,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:009:word_meanings",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:009",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "009",
+          "collection": "kalash_word_meanings",
+          "natural_key": "समयसार:आत्मख्याती:kalash:9:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:9",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "9",
           "entries": [
             {
               "source_word": "कः अपि सुधीः",
@@ -7136,10 +4762,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:010:word_meanings",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:010",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "010",
+          "collection": "kalash_word_meanings",
+          "natural_key": "समयसार:आत्मख्याती:kalash:10:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:10",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "10",
           "entries": [
             {
               "source_word": "इति या शुद्धनयात्मिका आत्म-अनुभूतिः",
@@ -7169,10 +4796,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:009:word_meanings",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:009",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "009",
+          "collection": "kalash_word_meanings",
+          "natural_key": "समयसार:आत्मख्याती:kalash:9:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:9",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "9",
           "entries": [
             {
               "source_word": "परमम् महः नः अस्तु",
@@ -7222,10 +4850,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:010:word_meanings",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:010",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "010",
+          "collection": "kalash_word_meanings",
+          "natural_key": "समयसार:आत्मख्याती:kalash:10:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:10",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "10",
           "entries": [
             {
               "source_word": "एषः ज्ञानघनः आत्मा",
@@ -7260,10 +4889,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:011:word_meanings",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:011",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "011",
+          "collection": "kalash_word_meanings",
+          "natural_key": "समयसार:आत्मख्याती:kalash:11:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:11",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "11",
           "entries": [
             {
               "source_word": "प्रमाणतः",
@@ -7293,10 +4923,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:012:word_meanings",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:012",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "012",
+          "collection": "kalash_word_meanings",
+          "natural_key": "समयसार:आत्मख्याती:kalash:12:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:12",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "12",
           "entries": [
             {
               "source_word": "एकः अपि",
@@ -7326,10 +4957,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:013:word_meanings",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:013",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "013",
+          "collection": "kalash_word_meanings",
+          "natural_key": "समयसार:आत्मख्याती:kalash:13:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:13",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "13",
           "entries": [
             {
               "source_word": "परमार्थेन तु",
@@ -7359,10 +4991,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:014:word_meanings",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:014",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "014",
+          "collection": "kalash_word_meanings",
+          "natural_key": "समयसार:आत्मख्याती:kalash:14:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:14",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "14",
           "entries": [
             {
               "source_word": "आत्मनः",
@@ -7397,10 +5030,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:015:word_meanings",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:015",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "015",
+          "collection": "kalash_word_meanings",
+          "natural_key": "समयसार:आत्मख्याती:kalash:15:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:15",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "15",
           "entries": [
             {
               "source_word": "अनन्तचैतन्यचिह्नं",
@@ -7440,10 +5074,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:015:word_meanings",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:015",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "015",
+          "collection": "kalash_word_meanings",
+          "natural_key": "समयसार:आत्मख्याती:kalash:15:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:15",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "15",
           "entries": [
             {
               "source_word": "अनन्तचैतन्यचिह्नं",
@@ -7483,10 +5118,11 @@
           ]
         },
         {
-          "natural_key": "samaysaar:amritchandra:kalash:016:word_meanings",
-          "kalash_natural_key": "samaysaar:amritchandra:kalash:016",
-          "teeka_natural_key": "samaysaar:amritchandra",
-          "kalash_number": "016",
+          "collection": "kalash_word_meanings",
+          "natural_key": "समयसार:आत्मख्याती:kalash:16:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:16",
+          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "kalash_number": "16",
           "entries": [
             {
               "source_word": "ये",
@@ -7558,13 +5194,602 @@
       ]
     },
     "neo4j": {
-      "nodes": [],
-      "edges": []
+      "nodes": [
+        {
+          "label": "Shastra",
+          "key": "समयसार",
+          "props": {
+            "title_hi": "समयसार",
+            "author_natural_key": "कुन्दकुन्दाचार्य"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "निश्चयनय भूतार्थ है और व्यवहार नय अभूतार्थ है",
+          "props": {
+            "display_text_hi": "निश्चयनय भूतार्थ है और व्यवहार नय अभूतार्थ है",
+            "shastra_natural_key": "समयसार",
+            "source": "nj"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "व्यवहार नय भी प्रयोजनवान है",
+          "props": {
+            "display_text_hi": "व्यवहार नय भी प्रयोजनवान है",
+            "shastra_natural_key": "समयसार",
+            "source": "nj"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "शुद्धनय से जानना सम्यक्त्व है",
+          "props": {
+            "display_text_hi": "शुद्धनय से जानना सम्यक्त्व है",
+            "shastra_natural_key": "समयसार",
+            "source": "nj"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "शुद्धनय का लक्षण",
+          "props": {
+            "display_text_hi": "शुद्धनय का लक्षण",
+            "shastra_natural_key": "समयसार",
+            "source": "nj"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "जो आत्मा को देखता है वही जिनशासन को जानता है",
+          "props": {
+            "display_text_hi": "जो आत्मा को देखता है वही जिनशासन को जानता है",
+            "shastra_natural_key": "समयसार",
+            "source": "nj"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "रत्नत्रय ही आत्मा है",
+          "props": {
+            "display_text_hi": "रत्नत्रय ही आत्मा है",
+            "shastra_natural_key": "समयसार",
+            "source": "nj"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "रत्नत्रय के सेवन का क्रम",
+          "props": {
+            "display_text_hi": "रत्नत्रय के सेवन का क्रम",
+            "shastra_natural_key": "समयसार",
+            "source": "nj"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "आत्मा कब तक अज्ञानी रहता है?",
+          "props": {
+            "display_text_hi": "आत्मा कब तक अज्ञानी रहता है?",
+            "shastra_natural_key": "समयसार",
+            "source": "nj"
+          }
+        },
+        {
+          "label": "Gatha",
+          "key": "समयसार:11",
+          "props": {
+            "shastra_natural_key": "समयसार",
+            "gatha_number": "11",
+            "heading_hi": "निश्चयनय भूतार्थ है और व्यवहार नय अभूतार्थ है"
+          }
+        },
+        {
+          "label": "Gatha",
+          "key": "समयसार:12",
+          "props": {
+            "shastra_natural_key": "समयसार",
+            "gatha_number": "12",
+            "heading_hi": "व्यवहार नय भी प्रयोजनवान है"
+          }
+        },
+        {
+          "label": "Gatha",
+          "key": "समयसार:13",
+          "props": {
+            "shastra_natural_key": "समयसार",
+            "gatha_number": "13",
+            "heading_hi": "शुद्धनय से जानना सम्यक्त्व है"
+          }
+        },
+        {
+          "label": "Gatha",
+          "key": "समयसार:14",
+          "props": {
+            "shastra_natural_key": "समयसार",
+            "gatha_number": "14",
+            "heading_hi": "शुद्धनय का लक्षण"
+          }
+        },
+        {
+          "label": "Gatha",
+          "key": "समयसार:15",
+          "props": {
+            "shastra_natural_key": "समयसार",
+            "gatha_number": "15",
+            "heading_hi": "जो आत्मा को देखता है वही जिनशासन को जानता है"
+          }
+        },
+        {
+          "label": "Gatha",
+          "key": "समयसार:16",
+          "props": {
+            "shastra_natural_key": "समयसार",
+            "gatha_number": "16",
+            "heading_hi": "रत्नत्रय ही आत्मा है"
+          }
+        },
+        {
+          "label": "Gatha",
+          "key": "समयसार:17",
+          "props": {
+            "shastra_natural_key": "समयसार",
+            "gatha_number": "17",
+            "heading_hi": "रत्नत्रय के सेवन का क्रम"
+          }
+        },
+        {
+          "label": "Gatha",
+          "key": "समयसार:18",
+          "props": {
+            "shastra_natural_key": "समयसार",
+            "gatha_number": "18",
+            "heading_hi": "रत्नत्रय के सेवन का क्रम"
+          }
+        },
+        {
+          "label": "Gatha",
+          "key": "समयसार:19",
+          "props": {
+            "shastra_natural_key": "समयसार",
+            "gatha_number": "19",
+            "heading_hi": "आत्मा कब तक अज्ञानी रहता है?"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "समयसार:11"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "निश्चयनय भूतार्थ है और व्यवहार नय अभूतार्थ है"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "nj"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "समयसार:12"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "व्यवहार नय भी प्रयोजनवान है"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "nj"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "समयसार:13"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "शुद्धनय से जानना सम्यक्त्व है"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "nj"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "समयसार:14"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "शुद्धनय का लक्षण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "nj"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "समयसार:15"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "जो आत्मा को देखता है वही जिनशासन को जानता है"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "nj"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "समयसार:16"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "रत्नत्रय ही आत्मा है"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "nj"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "समयसार:17"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "रत्नत्रय के सेवन का क्रम"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "nj"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "समयसार:18"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "रत्नत्रय के सेवन का क्रम"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "nj"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "समयसार:19"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा कब तक अज्ञानी रहता है?"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "nj"
+          }
+        }
+      ]
     },
     "idempotency_contracts": {
-      "gathas": "natural_key",
-      "kalashas": "natural_key",
-      "mongo": "natural_key"
+      "mongo:gatha_hindi_chhand": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "chhand_index",
+          "chhand_type",
+          "translator",
+          "text"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:gatha_hindi_chhand"
+        ]
+      },
+      "mongo:gatha_prakrit": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "text",
+          "is_kalash",
+          "raw_html_fragment"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:gatha_prakrit"
+        ]
+      },
+      "mongo:gatha_sanskrit": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "text"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:gatha_sanskrit"
+        ]
+      },
+      "mongo:gatha_teeka_bhaavarth_hindi": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "text"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:gatha_teeka_bhaavarth_hindi"
+        ]
+      },
+      "mongo:gatha_teeka_sanskrit": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "text"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:gatha_teeka_sanskrit"
+        ]
+      },
+      "mongo:kalash_hindi": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "text",
+          "chhand_type"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:kalash_hindi"
+        ]
+      },
+      "mongo:kalash_sanskrit": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "text",
+          "chhand_type"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:kalash_sanskrit"
+        ]
+      },
+      "mongo:kalash_word_meanings": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "entries"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:kalash_word_meanings"
+        ]
+      },
+      "mongo:teeka_gatha_mapping": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "anvayartha",
+          "tagged_terms",
+          "full_anyavaarth",
+          "is_related"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:teeka_gatha_mapping"
+        ]
+      },
+      "neo4j:Gatha": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "gatha_number",
+          "shastra_natural_key",
+          "heading_hi"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Gatha"
+        ]
+      },
+      "neo4j:Shastra": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "title"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Shastra"
+        ]
+      },
+      "neo4j:Topic": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "name",
+          "shastra_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Topic"
+        ]
+      },
+      "postgres:authors": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "display_name",
+          "kind"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:authors"
+        ]
+      },
+      "postgres:gathas": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "shastra_natural_key",
+          "gatha_number",
+          "adhikaar_number",
+          "adhikaar",
+          "heading"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:gathas",
+          "neo4j:Gatha"
+        ]
+      },
+      "postgres:kalashas": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "teeka_natural_key",
+          "kalash_number",
+          "gatha_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:kalashas"
+        ]
+      },
+      "postgres:publications": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "teeka_natural_key",
+          "publisher_id"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:publications"
+        ]
+      },
+      "postgres:shastras": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "title",
+          "author_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:shastras",
+          "neo4j:Shastra"
+        ]
+      },
+      "postgres:teeka_chapters": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "chapter_number",
+          "name",
+          "start_gatha_natural_key",
+          "end_gatha_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:teeka_chapters"
+        ]
+      },
+      "postgres:teekas": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "shastra_natural_key",
+          "teekakar_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:teekas"
+        ]
+      }
     }
   }
 }

@@ -28,6 +28,6 @@ def test_preceding_primary_gatha():
     }
     files = ["0000.html", "001.html", "011.html", "009-010.html", "012.html"]
     assert preceding_primary_gatha("011.html", files, primary) == "001"
-    assert preceding_primary_gatha("012.html", files, primary) == "009-010"
+    assert preceding_primary_gatha("012.html", files, primary) == "010"
     assert preceding_primary_gatha("0000.html", files, primary) is None
     assert preceding_primary_gatha("absent.html", files, primary) is None
