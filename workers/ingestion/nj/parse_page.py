@@ -1,0 +1,285 @@
+"""Page-level parser for NJ shastra HTML files."""
+
+from __future__ import annotations
+
+import re
+import unicodedata
+from pathlib import Path
+
+from bs4 import BeautifulSoup, NavigableString, Tag
+
+from .config import NJConfig
+from .models import (
+    AnyavarthaItem,
+    GathaExtract,
+    GathaHindiChhand,
+    GathaWordMeaningEntry,
+    KalashExtract,
+)
+from .parse_myitem import GathaIndexEntry
+from .parse_primary_teeka import parse_primary_teeka
+from .parse_secondary_teeka import parse_secondary_teeka
+
+_TRAILING_VERSE_RE = re.compile(r"\s*॥\s*[\d]+\s*॥\s*$")
+_DEV_DIGITS = str.maketrans("0123456789", "०१२३४५६७८९")
+
+
+def _clean(text: str | None) -> str:
+    if not text:
+        return ""
+    return unicodedata.normalize("NFC", text.replace("\ufeff", "")).strip()
+
+
+def _clean_preserve_newlines(text: str | None) -> str:
+    if not text:
+        return ""
+    normalized = unicodedata.normalize("NFC", text.replace("\ufeff", ""))
+    # Preserve explicit line boundaries while trimming each line and dropping blank lines.
+    lines = [ln.strip() for ln in normalized.splitlines()]
+    return "\n".join([ln for ln in lines if ln]).strip()
+
+
+def _strip_trailing_verse_no(text: str | None) -> str | None:
+    if not text:
+        return None
+    return _clean(_TRAILING_VERSE_RE.sub("", text))
+
+
+def _text_after_font_parent(font_parent: Tag) -> str:
+    parts: list[str] = []
+    for sib in font_parent.next_siblings:
+        if isinstance(sib, Tag) and sib.name == "b":
+            break
+        if isinstance(sib, NavigableString):
+            parts.append(str(sib))
+        elif isinstance(sib, Tag):
+            parts.append(sib.get_text(" ", strip=False))
+    return "".join(parts)
+
+
+def _parse_anyavartha(div: Tag, cfg: NJConfig) -> AnyavarthaItem:
+    tagged_terms: list[GathaWordMeaningEntry] = []
+    position = 1
+    target_color = cfg.selectors.gatha_word_meaning_color.lower()
+
+    for font in div.find_all("font"):
+        color = (font.get("color") or "").strip().lower()
+        if color != target_color:
+            continue
+        key_text = _clean(font.get_text()).strip("[]").strip()
+        meaning = _clean(_text_after_font_parent(font.parent if font.parent else font))
+        tagged_terms.append(
+            GathaWordMeaningEntry(source_word=key_text, meaning=meaning, position=position)
+        )
+        position += 1
+
+    full_div = BeautifulSoup(str(div), "lxml").find("div")
+    if full_div:
+        for font in full_div.find_all("font"):
+            color = (font.get("color") or "").strip().lower()
+            if color == target_color:
+                font.decompose()
+        full_text = _clean(full_div.get_text(" ", strip=False))
+    else:
+        full_text = _clean(div.get_text(" ", strip=False))
+    full_anyavaarth = re.sub(r"^अन्वयार्थ\s*:\s*", "", full_text).strip()
+    full_anyavaarth = re.sub(r"\s+", " ", full_anyavaarth).strip()
+
+    return AnyavarthaItem(full_anyavaarth=full_anyavaarth, tagged_terms=tagged_terms)
+
+
+def _parse_page_html_id(soup: BeautifulSoup, cfg: NJConfig) -> str:
+    title_div = soup.select_one(cfg.selectors.gatha_title_div)
+    if not title_div:
+        return ""
+    gid = title_div.get("id") or ""
+    return gid.replace("gatha-", "")
+
+
+def _split_combined_text_by_markers(text: str | None, gatha_numbers: list[str]) -> list[str] | None:
+    """Split combined text into per-gatha chunks using explicit verse-number markers."""
+    if not text or len(gatha_numbers) < 2:
+        return None
+
+    chunks: list[str] = []
+    cursor = 0
+    for n in gatha_numbers[:-1]:
+        try:
+            num = int(n)
+        except ValueError:
+            return None
+        n_ascii = str(num)
+        n_deva = n_ascii.translate(_DEV_DIGITS)
+        marker_re = re.compile(
+            rf"(॥\s*(?:{re.escape(n_ascii)}|{re.escape(n_deva)})\s*॥|\|\|\s*(?:{re.escape(n_ascii)}|{re.escape(n_deva)})\s*\|\|)"
+        )
+        m = marker_re.search(text, cursor)
+        if not m:
+            return None
+        end = m.end()
+        chunk = _clean(text[cursor:end])
+        if not chunk:
+            return None
+        chunks.append(chunk)
+        cursor = end
+
+    last = _clean(text[cursor:])
+    if not last:
+        return None
+    chunks.append(last)
+
+    return chunks if len(chunks) == len(gatha_numbers) else None
+
+
+def _parse_body_fields(
+    soup: BeautifulSoup,
+    cfg: NJConfig,
+) -> tuple[str | None, str | None, list[GathaHindiChhand], AnyavarthaItem | None]:
+    gatha_div = soup.select_one(cfg.selectors.gatha_prakrit)
+    prakrit_text = (
+        _strip_trailing_verse_no(_clean_preserve_newlines(gatha_div.get_text("\n", strip=False)))
+        if gatha_div
+        else None
+    )
+
+    gatha_s_div = soup.select_one(cfg.selectors.gatha_sanskrit)
+    sanskrit_text = (
+        _strip_trailing_verse_no(_clean_preserve_newlines(gatha_s_div.get_text("\n", strip=False)))
+        if gatha_s_div
+        else None
+    )
+
+    body_gadyas = [
+        d
+        for d in soup.select(cfg.selectors.gatha_hindi_chhand_body)
+        if not d.find_parent("table") and not d.find_parent("div", id=re.compile(r"^teeka"))
+    ]
+    hindi_chhands = [
+        GathaHindiChhand(
+            chhand_index=i + 1,
+            chhand_type="harigeet",
+            text_hi=_clean_preserve_newlines(d.get_text("\n", strip=False)),
+        )
+        for i, d in enumerate(body_gadyas)
+    ]
+
+    para_div = next(
+        (
+            d
+            for d in soup.select(cfg.selectors.anyavartha_para)
+            if cfg.selectors.anyavartha_marker in d.get_text()
+            and not d.find_parent("div", id=re.compile(r"^teeka"))
+        ),
+        None,
+    )
+    anyavartha = _parse_anyavartha(para_div, cfg) if para_div else None
+
+    return prakrit_text, sanskrit_text, hindi_chhands, anyavartha
+
+
+def _is_primary_page(teeka0_div: Tag | None, cfg: NJConfig) -> bool:
+    if teeka0_div is None:
+        return False
+    label = teeka0_div.select_one("font[color='darkgreen'], font[color='DarkGreen']")
+    if not label:
+        return False
+    return cfg.selectors.primary_teeka_label in _clean(label.get_text())
+
+
+def parse_primary_page(
+    soup: BeautifulSoup,
+    idx_entry: GathaIndexEntry,
+    cfg: NJConfig,
+    global_kalash_start: int,
+) -> tuple[list[GathaExtract], int]:
+    """Parse a primary-gatha page; returns (expanded_gathas, kalash_delta)."""
+    prakrit_text, sanskrit_text, hindi_chhands, anyavartha = _parse_body_fields(soup, cfg)
+
+    teeka0_div = soup.select_one(cfg.selectors.teeka0_div)
+    teeka1_div = soup.select_one(cfg.selectors.teeka1_div)
+
+    primary_teeka = None
+    kalash_delta = 0
+    if _is_primary_page(teeka0_div, cfg):
+        primary_teeka, kalash_delta = parse_primary_teeka(teeka0_div, cfg, global_kalash_start)
+
+    secondary_teeka = parse_secondary_teeka(teeka1_div, cfg) if isinstance(teeka1_div, Tag) else None
+
+    base = GathaExtract(
+        shastra_natural_key=cfg.shastra.natural_key,
+        gatha_number=idx_entry.gatha_number,
+        page_html_id=_parse_page_html_id(soup, cfg),
+        html_filename=idx_entry.html_filename,
+        adhikaar_hi=idx_entry.adhikaar_hi,
+        adhikaar_number=idx_entry.adhikaar_number,
+        heading_hi=idx_entry.heading_hi,
+        prakrit_text=prakrit_text,
+        sanskrit_text=sanskrit_text,
+        hindi_chhands=hindi_chhands,
+        anyavartha=anyavartha,
+        primary_teeka=primary_teeka,
+        secondary_teeka=secondary_teeka,
+    )
+
+    if "-" in idx_entry.gatha_number:
+        parts = idx_entry.gatha_number.split("-")
+        prakrit_parts = _split_combined_text_by_markers(base.prakrit_text, parts)
+        sanskrit_parts = _split_combined_text_by_markers(base.sanskrit_text, parts)
+        hindi_chhand_parts: list[list[GathaHindiChhand]] = []
+        for i in range(len(parts)):
+            split_chhands: list[GathaHindiChhand] = []
+            for ch in base.hindi_chhands:
+                split_text = _split_combined_text_by_markers(ch.text_hi, parts)
+                split_chhands.append(
+                    ch.model_copy(update={"text_hi": split_text[i] if split_text else ch.text_hi})
+                )
+            hindi_chhand_parts.append(split_chhands)
+        return (
+            [
+                base.model_copy(
+                    update={
+                        "gatha_number": num,
+                        "prakrit_text": prakrit_parts[i] if prakrit_parts else base.prakrit_text,
+                        "sanskrit_text": sanskrit_parts[i] if sanskrit_parts else base.sanskrit_text,
+                        "hindi_chhands": hindi_chhand_parts[i],
+                        "is_combined_page": True,
+                        "related_gatha_numbers": [p for p in parts if p != num],
+                    }
+                )
+                for i, num in enumerate(parts)
+            ],
+            kalash_delta,
+        )
+
+    return [base], kalash_delta
+
+
+def parse_secondary_kalash_page(
+    soup: BeautifulSoup,
+    filename: str,
+    preceding_gatha: str | None,
+    cfg: NJConfig,
+) -> KalashExtract:
+    """Parse a page that is only in the secondary teeka index (standalone kalash)."""
+    prakrit_text, _sanskrit_text, _hindi_chhands, anyavartha = _parse_body_fields(soup, cfg)
+
+    teeka0_div = soup.select_one(cfg.selectors.teeka0_div)
+    secondary_teeka = parse_secondary_teeka(teeka0_div, cfg) if isinstance(teeka0_div, Tag) else None
+
+    kalash_number = Path(filename).stem.split("-")[0]
+
+    heading = None
+    title_link = soup.select_one(cfg.selectors.gatha_heading_link)
+    if isinstance(title_link, Tag):
+        heading = _clean(title_link.get_text()) or None
+
+    return KalashExtract(
+        shastra_natural_key=cfg.shastra.natural_key,
+        kalash_number=kalash_number,
+        html_filename=filename,
+        heading_hi=heading,
+        preceding_primary_gatha_number=preceding_gatha,
+        prakrit_text=prakrit_text,
+        anyavartha=anyavartha,
+        secondary_teeka=secondary_teeka,
+    )

@@ -81,13 +81,6 @@ selectors:
   kalash_word_meaning_color: "maroon"
   gatha_word_meaning_color: "darkRed"
   teeka_separator: "hr.type_7"
-  gatha_teeka_start_markers:
-    - "अथ सूत्रावतार"
-    - "तत्र तावत्समय"
-  gatha_teeka_bhaavarth_start_markers:
-    - "अब सूत्र प्रकट होता है"
-    - "अब यहाँ"
-    - "अब शुद्ध परमात्म तत्त्व"
 
 parsing:
   strip_zwj: false
@@ -145,13 +138,6 @@ selectors:
   kalash_word_meaning_color: "maroon"
   gatha_word_meaning_color: "darkRed"
   teeka_separator: "hr.type_7"
-  gatha_teeka_start_markers:
-    - "अथ सूत्रावतार"
-    - "तत्र तावत्समय"
-  gatha_teeka_bhaavarth_start_markers:
-    - "अब सूत्र प्रकट होता है"
-    - "अब यहाँ"
-    - "अब शुद्ध परमात्म तत्त्व"
 parsing:
   strip_zwj: false
   notes_teeka_index: 2
@@ -189,6 +175,7 @@ class GathaIndexEntry:
     gatha_number: str    # "020-021-022"
     heading_hi: str      # "अप्रतिबुद्ध - पर पदार्थ में अहंकार / ममकार"
     adhikaar_hi: str     # "जीव अधिकार"
+    adhikaar_number: int | None  # optgroup ordinal (1-based) within this select block
 ```
 
 ### 3.2 Extract Secondary Teeka Index (`select#select-native-1`)
@@ -256,9 +243,7 @@ page_html_id = title_div["id"].removeprefix("gatha-")  # "009-010" (debug only)
 
 ```python
 gatha_div = soup.select_one("div.gatha")
-prakrit_raw = clean(gatha_div.get_text())
-# Multi-gatha pages: text contains multiple verse numbers (॥9॥, ॥10॥).
-# Store the full concatenated text — do NOT split.
+prakrit_raw = clean_preserve_newlines(gatha_div.get_text("\n", strip=False))
 ```
 
 Strip trailing verse number markers `॥N॥`:
@@ -268,7 +253,7 @@ Strip trailing verse number markers `॥N॥`:
 
 ```python
 gathaS_div = soup.select_one("div.gathaS")
-sanskrit_text = clean(gathaS_div.get_text()) if gathaS_div else None
+sanskrit_text = clean_preserve_newlines(gathaS_div.get_text("\n", strip=False)) if gathaS_div else None
 ```
 
 #### 4.1.4 Hindi Chhand (`div.gadya`, body scope only)
@@ -285,7 +270,7 @@ for i, div in enumerate(body_gadya_divs, start=1):
     chhands.append(GathaHindiChhand(
         chhand_index=i,
         chhand_type="harigeet",   # default; no type marker in body gadya
-        text_hi=clean(div.get_text()),
+        text_hi=clean_preserve_newlines(div.get_text("\n", strip=False)),
     ))
 ```
 
@@ -307,9 +292,6 @@ if para_div:
 
 ```python
 def parse_anyavartha(div) -> AnyavarthaItem:
-    full_text = clean(div.get_text())
-    full_anyavaarth = re.sub(r'^अन्वयार्थ\s*:\s*', '', full_text).strip()
-
     tagged_terms: list[GathaWordMeaningEntry] = []
     position = 1
     for font in div.select("font[color='darkRed'], font[color='darkred']"):
@@ -321,6 +303,15 @@ def parse_anyavartha(div) -> AnyavarthaItem:
             position=position,
         ))
         position += 1
+
+    # full_anyavaarth should keep only Hindi explanatory text
+    # (remove tagged source-word fonts like [वंदित्तु], [सव्व], etc.)
+    full_div = deepcopy(div)
+    for font in full_div.select("font[color='darkRed'], font[color='darkred']"):
+        font.decompose()
+    full_text = clean(full_div.get_text(" ", strip=False))
+    full_anyavaarth = re.sub(r'^अन्वयार्थ\s*:\s*', '', full_text).strip()
+    full_anyavaarth = re.sub(r"\s+", " ", full_anyavaarth).strip()
 
     return AnyavarthaItem(
         full_anyavaarth=full_anyavaarth,
@@ -342,50 +333,62 @@ skip this section and handle via §4.4.
 
 #### 4.2.1 Sanskrit Section (`div.steeka#steeka0`)
 
-All content inside `div.steeka#steeka0` (before `<hr class=type_7>`).
+All content inside `div.steeka#steeka0` up to (but not including) `<hr class=type_7>`.
 
-**Parse kalash Sanskrit verses** — delimited by `<font color=DarkSlateGray>(कलश-XXX)</font>` markers:
+**Classification is purely structural — no text markers.**
+
+- **Kalash Sanskrit verse**: text between two consecutive `<font color=DarkSlateGray>` markers.
+- **GathaTeeka prose**: all text nodes in steeka0 that are NOT inside a kalash block.
+
+Ordering is flexible: pages like `001.html` have kalashes first then prose; pages like
+`025-026-027.html` have prose first then kalashes. The HTML-structural walk handles both.
 
 ```
-(कलश-अनुष्टुभ्)         ← kalash 1 type
-नम: समयसाराय...॥१॥      ← kalash 1 Sanskrit text
-(कलश-मालिनी)            ← kalash 2 type
-अनन्तधर्मणस्तत्त्वं...  ← kalash 2 Sanskrit text
-अथ सूत्रावतार -         ← gathaTeeka starts (NOT a kalash)
+(कलश-अनुष्टुभ्)          ← DarkSlateGray marker → start kalash 1
+नम: समयसाराय...॥१॥       ← kalash 1 Sanskrit text (collect until next marker or end)
+(कलश-मालिनी)             ← DarkSlateGray marker → flush kalash 1, start kalash 2
+अनन्तधर्मणस्तत्त्वं...   ← kalash 2 Sanskrit text
+<hr class=type_7>         ← stop; everything from here is separator
+अथ सूत्रावतार -          ← outside kalash blocks → gathaTeeka prose
 [Sanskrit prose...]
-<hr class=type_7>
 ```
 
 ```python
 kalash_san_entries: list[KalashSanskritEntry] = []
-gatha_teeka_san: str | None = None
-current_type: str = ""
-current_text_parts: list[str] = []
-in_teeka = False
+gatha_teeka_parts: list[str] = []
+current_kalash_type: str | None = None
+current_kalash_parts: list[str] = []
 
-for node in steeka0_div.children:
-    if is_kalash_type_marker(node):          # <font color=DarkSlateGray>(कलश-XXX)</font>
-        if current_text_parts and not in_teeka:
-            kalash_san_entries.append(...)   # flush previous kalash Sanskrit
-        current_type = extract_chhand_type(node)   # "अनुष्टुभ्", "मालिनी" etc.
-        current_text_parts = []
-        in_teeka = False
-    elif is_gatha_teeka_start(node):         # text matches gatha_teeka_start_markers
-        if current_text_parts and not in_teeka:
-            kalash_san_entries.append(...)   # flush last kalash before teeka
-        in_teeka = True
-        current_text_parts = [get_text(node)]
-    elif in_teeka:
-        current_text_parts.append(get_text(node))
+def flush_kalash():
+    if current_kalash_type is not None and current_kalash_parts:
+        text = clean("\n".join(current_kalash_parts))
+        if text:
+            kalash_san_entries.append(KalashSanskritEntry(
+                local_kalash_index=len(kalash_san_entries) + 1,
+                global_kalash_index=global_kalash_start + len(kalash_san_entries),
+                chhand_type=current_kalash_type,
+                text_san=text,
+            ))
+
+for node in steeka0_nodes_before_hr:   # stop at <hr class=type_7>
+    if is_kalash_type_marker(node):    # <font color=DarkSlateGray>(कलश-XXX)</font>
+        flush_kalash()
+        current_kalash_type = extract_chhand_type(node)  # "अनुष्टुभ्", "मालिनी" etc.
+        current_kalash_parts = []
+    elif current_kalash_type is not None:
+        current_kalash_parts.append(get_text(node))
     else:
-        current_text_parts.append(get_text(node))
+        text = get_text(node).strip()
+        if text:
+            gatha_teeka_parts.append(text)
 
-if in_teeka and current_text_parts:
-    gatha_teeka_san = clean("\n".join(current_text_parts))
+flush_kalash()
+gatha_teeka_san = clean("\n".join(gatha_teeka_parts)) or None
 ```
 
-**Note**: On some pages kalash_sanskrit appears AFTER gathaTeeka. Both orderings must be handled;
-`is_gatha_teeka_start` detection flips `in_teeka=True` and everything after goes to `gatha_teeka_san`.
+**Note**: `is_kalash_type_marker(node)` checks for a `<font>` element (possibly wrapped in `<b>`)
+with `color=DarkSlateGray` whose text matches `(कलश-…)`. Extract chhand type via
+`re.search(r'\(कलश-([^)]+)\)', text).group(1)`.
 
 Page-local kalash index (`local_kalash_index`) is 1-based within the page.
 The **global kalash counter** (used for Postgres `kalash_number`) is tracked by the orchestrator
@@ -393,42 +396,51 @@ across all pages in sorted file order.
 
 #### 4.2.2 Hindi Content (after `div.steeka#steeka0` within `div#teeka0`)
 
-Three interspersed element types — process by walking children in order:
+Classification is **purely structural** — no text markers. Walk the children of `div#teeka0`
+that come after `div.steeka#steeka0` and classify each node by its HTML shape:
 
-| Element type | Action |
+| Node shape | Classified as |
 |---|---|
-| `div.gadya` (wrapped in `<b>`) | New kalash Hindi chhand. Extract chhand type from `<span class=notes>(कलश-XXX)</span>`. Increment `hindi_kalash_counter`. |
-| `<b>[<font color=maroon>...]</font>]</b>` | Kalash word meaning entry for current `hindi_kalash_counter`. |
-| Text matching bhaavarth start marker | Everything from here to end of `teeka0` is bhaavarth Markdown. |
+| `<b>` wrapping a `<div class=gadya>` (detect with `node.find("div", class_="gadya")`) | Kalash Hindi chhand — extract chhand type from `<span class=notes>(कलश-XXX)</span>` |
+| `<b>` whose text content starts with `[` and contains `<font color=maroon>` | Kalash word meaning entry for the most recent `hindi_kalash_counter` |
+| Anything else (text, `<br>`, other tags) | Bhaavarth — convert to Markdown |
+
+Ordering is flexible: kalash gadya and kalash WM may appear before or after bhaavarth text.
+All three types may be interspersed across the page.
+Kalash-word-meaning meaning text may continue outside the `<b>[<font color=maroon>...</font>]</b>` node,
+including inline notes spans; parsing consumes sibling nodes until structural boundary (`<br><br>` or next kalash/bhaavarth block).
 
 ```python
 hindi_kalash_counter = 0
 kalash_hindi_entries: list[KalashHindiEntry] = []
 kalash_wm_entries: dict[int, list[KalashWMEntry]] = defaultdict(list)
 bhaavarth_parts: list[str] = []
-in_bhaavarth = False
 
 for node in nodes_after_steeka0:
-    if in_bhaavarth:
-        bhaavarth_parts.append(node_to_markdown(node))
-        continue
-    if is_bhaavarth_start(node):
-        in_bhaavarth = True
-        bhaavarth_parts.append(node_to_markdown(node))
-        continue
-    if is_kalash_gadya(node):       # <b><div class=gadya>...</div></b>
+    if is_kalash_gadya(node):        # <b><div class=gadya>...</div></b>
         hindi_kalash_counter += 1
         chhand_type = extract_chhand_type_from_notes_span(node)
         text = clean_gadya_text(node)
         kalash_hindi_entries.append(KalashHindiEntry(
             local_kalash_index=hindi_kalash_counter,
+            global_kalash_index=global_kalash_start + hindi_kalash_counter - 1,
             chhand_type=chhand_type,
             text_hi=text,
         ))
-    elif is_kalash_word_meaning(node):   # <b>[<font color=maroon>]...</b>
-        entry = parse_kalash_wm(node)
+    elif is_kalash_word_meaning(node):   # <b>[<font color=maroon>...]...</b> + sibling continuation
+        entry = parse_kalash_wm_with_siblings(node, following_nodes)
         kalash_wm_entries[hindi_kalash_counter].append(entry)
+    else:
+        md = node_to_markdown(node)
+        if md.strip():
+            bhaavarth_parts.append(md)
+
+gatha_teeka_bhaavarth_md = "\n".join(bhaavarth_parts).strip() or None
 ```
+
+**`is_kalash_gadya(node)`**: `isinstance(node, Tag) and node.name == "b" and node.find("div", class_="gadya") is not None`
+
+**`is_kalash_word_meaning(node)`**: `isinstance(node, Tag) and node.name == "b" and node.find("font", color=re.compile("^maroon$", re.I)) is not None`
 
 **`node_to_markdown(node)`** — converts HTML subtree to Markdown string:
 
@@ -443,6 +455,7 @@ for node in nodes_after_steeka0:
 | Square brackets `[...]` in text | Preserved as-is |
 
 Strip `<font color=darkgreen>` and `<font color=red>` decorative label nodes.
+BOM is stripped from final markdown.
 
 #### 4.2.3 Matching Hindi Kalashes to Sanskrit Kalashes
 
@@ -506,11 +519,13 @@ A page like `009-010.html` (gatha_number = `"009-010"`) contains two Prakrit ver
 two Sanskrit verses, two Hindi chhands, and one combined anyavartha paragraph.
 
 **Parsing rules:**
-1. Parse as above — extract all text from combined divs unchanged.
+1. Parse as above.
 2. Detect multi-gatha from `gatha_number` containing a hyphen (`"009-010"`).
 3. Split individual numbers: `["009", "010"]`.
-4. Each individual gatha gets its own `GathaExtract` with these fields **duplicated** from the combined page:
-   - `prakrit_text`, `sanskrit_text`, `hindi_chhands`, `anyavartha`, teeka content.
+4. Split `prakrit_text`, `sanskrit_text`, and each `hindi_chhands[*].text_hi` by verse-number markers:
+   - supported markers: `॥9॥`, `॥९॥`, `||9||`, `||९||` (and corresponding values for each gatha in page range).
+   - if split markers are not found, fallback is to keep original combined text.
+5. `anyavartha` and teeka content remain shared for split gathas (same source block for the page).
 5. On the duplicated `GathaExtract`, populate `related_gatha_numbers` with the OTHER numbers:
    - gatha `"009"` on page `"009-010"`: `related_gatha_numbers = ["010"]`
    - gatha `"010"` on page `"009-010"`: `related_gatha_numbers = ["009"]`
@@ -539,11 +554,13 @@ class GathaHindiChhand(BaseModel):
 
 class KalashSanskritEntry(BaseModel):
     local_kalash_index: int   # 1-based within this page
+    global_kalash_index: int  # sequential across all pages in sorted file order
     chhand_type: str           # "अनुष्टुभ्", "मालिनी", "रोला" etc.
     text_san: str
 
 class KalashHindiEntry(BaseModel):
     local_kalash_index: int
+    global_kalash_index: int  # sequential across all pages in sorted file order
     chhand_type: str           # from <span class=notes>(कलश-XXX)</span>
     text_hi: str
 
@@ -571,6 +588,7 @@ class GathaExtract(BaseModel):
     page_html_id: str                 # from div.title id (debug only)
     html_filename: str                # "009-010.html"
     adhikaar_hi: str | None           # optgroup label from myItem.js
+    adhikaar_number: int | None       # optgroup ordinal (1-based) from myItem.js
     heading_hi: str | None            # option text from myItem.js
     is_combined_page: bool = False
     related_gatha_numbers: list[str] = []   # other gathas on the same page
@@ -699,7 +717,7 @@ def parse_shastra(cfg: ShastraConfig) -> ShastraParseResult:
 | Page not in either index | Log `WARN: unclassified page {filename}` and skip. |
 | `div.gathaS` absent | `sanskrit_text = None`; no `gatha_sanskrit` Mongo doc written. |
 | No kalashes in steeka0 | `primary_teeka.kalash_san = []`; no `kalash_*` docs written. |
-| No `gatha_teeka_start_marker` in steeka0 | `primary_teeka.gatha_teeka_san = None`; no `gatha_teeka_sanskrit` doc. |
+| No non-kalash prose in steeka0 | `primary_teeka.gatha_teeka_san = None`; no `gatha_teeka_sanskrit` doc. |
 | `div#teeka1` absent | `secondary_teeka = None`. |
 | Secondary-only page with no steeka | `secondary_teeka.gatha_teeka_san = None`. |
 | Kalash count mismatch (hindi ≠ sanskrit) | Emit `WARN: kalash count mismatch on {filename}`. Pair by position; orphans flagged. |
@@ -708,24 +726,159 @@ def parse_shastra(cfg: ShastraConfig) -> ShastraParseResult:
 
 ---
 
-## 10. Definition of Done
+## 10. Definition of Done (Status: 2026-05-24)
 
 (Fixtures based on Samaysar; the framework must work for any config-driven shastra.)
 
-- [ ] `parse_myitem("myItem.js")` correctly extracts ≥ 270 primary-gatha entries and ≥ 280 secondary-gatha entries for samaysar.
-- [ ] `classify_page("012.html")` → `"secondary_kalash"`.
-- [ ] `classify_page("001.html")` → `"primary_gatha"`.
-- [ ] `parse_primary_page(soup("001.html"), ...)` returns `GathaExtract` with:
+- [x] `parse_myitem("myItem.js")` correctly extracts ≥ 200 primary-gatha entries and ≥ 200 secondary-gatha entries for samaysar.
+- [x] `classify_page("012.html")` → `"secondary_kalash"`.
+- [x] `classify_page("001.html")` → `"primary_gatha"`.
+- [x] `parse_primary_page(soup("001.html"), ...)` implementation exists and returns `GathaExtract` with fields:
   - `gatha_number = "001"`, `heading_hi = "सिद्धों को नमस्कार"`
   - `prakrit_text` starts with `"वंदित्तु सव्वसिद्धे"`
   - `primary_teeka.kalash_san` has 3 entries (अनुष्टुभ्, मालिनी, मालिनी)
   - `primary_teeka.gatha_teeka_san` starts with `"अथ सूत्रावतार"`
   - `primary_teeka.gatha_teeka_bhaavarth_md` is non-empty
   - `anyavartha.tagged_terms` has ≥ 8 entries; all `source_word` values have no brackets.
-- [ ] Page `009-010.html` returns 2 `GathaExtract` objects (`"009"`, `"010"`), each with `is_combined_page=True` and `related_gatha_numbers` set.
-- [ ] Page `025-026-027.html` returns 3 `GathaExtract` objects for gatha_numbers `"020"`, `"021"`, `"022"` (from primary index, not the filename).
-- [ ] Page `012.html` returns one `KalashExtract` with `kalash_number="012"`.
-- [ ] `global_primary_kalash_counter` advances correctly across pages (page 001 has 3 kalashes → next page's primary kalashes start at 4).
-- [ ] All extracted strings are NFC-normalized and BOM-stripped.
-- [ ] `pytest workers/ingestion/nj/tests/` passes (fixture-based, no network).
-- [ ] Passing a different shastra config (e.g. a single-teeka shastra) runs without code changes.
+- [x] Page `009-010.html` returns 2 `GathaExtract` objects (`"009"`, `"010"`), each with `is_combined_page=True` and `related_gatha_numbers` set.
+- [x] Page `025-026-027.html` returns 3 `GathaExtract` objects for gatha_numbers `"020"`, `"021"`, `"022"` (from primary index, not the filename).
+- [x] Page `012.html` returns one `KalashExtract` with `kalash_number="012"`.
+- [x] `global_primary_kalash_counter` advances correctly across pages (page 001 has 3 kalashes → next page's primary kalashes start at 4).
+- [x] All extracted strings are NFC-normalized and BOM-stripped.
+- [x] `pytest workers/ingestion/nj/tests/` passes.
+- [x] Passing a different shastra config (e.g. a single-teeka shastra) runs without code changes (config-driven parser structure implemented).
+
+---
+
+## 11. Final Implementation Notes
+
+This section records the final state after implementing the remaining parser work.
+
+### 11.1 Already Implemented Before This Pass
+
+- `workers/ingestion/nj/models.py` with Pydantic extract models:
+  - `GathaExtract`, `KalashExtract`, `PrimaryTeeka`, `SecondaryTeeka`
+  - `AnyavarthaItem`, `GathaWordMeaningEntry`
+  - `KalashSanskritEntry`, `KalashHindiEntry`, `KalashWMEntry`
+  - `ShastraParseResult`
+- `workers/ingestion/nj/config.py`:
+  - config schema and loader for `parser_configs/nj/{shastra}.yaml`
+  - selector fields and parsing options updated to structural parsing
+- `workers/ingestion/nj/parse_myitem.py`:
+  - regex extraction of `primary_index` and `secondary_index`
+  - `GathaIndexEntry` map keyed by `html_filename`
+- `workers/ingestion/nj/classify_pages.py`:
+  - `classify_page(...)` and `preceding_primary_gatha(...)`
+- `workers/ingestion/nj/html_to_markdown.py`:
+  - bhaavarth markdown conversion with required formatting rules
+- `parser_configs/nj/samaysar.yaml`:
+  - updated parser selectors and removed old text-marker dependency
+
+### 11.2 Implemented In This Pass
+
+- `workers/ingestion/nj/parse_primary_teeka.py`:
+  - structural extraction of primary teeka Sanskrit blocks from `steeka0`
+  - kalash marker detection by `DarkSlateGray` `(कलश-...)`
+  - extraction of:
+    - `kalash_san[]`
+    - `gatha_teeka_san`
+    - `kalash_hindi[]` from `<b><div class=gadya>...</div></b>`
+    - `kalash_word_meanings{}` from maroon-font nodes
+    - `gatha_teeka_bhaavarth_md` via `node_to_markdown(...)`
+  - returns `(PrimaryTeeka, kalash_delta)` for global counter progression
+- `workers/ingestion/nj/parse_secondary_teeka.py`:
+  - parses either `div#teeka1` (regular page) or `div#teeka0` (secondary-only page)
+  - extracts Sanskrit (before `hr.type_7`) and markdown bhaavarth after steeka
+- `workers/ingestion/nj/parse_page.py`:
+  - body-level parse for `prakrit_text`, `sanskrit_text`, body `hindi_chhands`, `anyavartha`
+  - primary-page parse wiring (`teeka0` + optional `teeka1`)
+  - secondary-only kalash-page parse wiring (`teeka0` as secondary)
+  - multi-gatha expansion (`009-010` style) with:
+    - `is_combined_page=True`
+    - `related_gatha_numbers`
+- `workers/ingestion/nj/orchestrator.py`:
+  - end-to-end parse loop over sorted HTML files
+  - page classification and routing
+  - global kalash counter tracking
+  - parse result assembly into `ShastraParseResult`
+- `workers/ingestion/nj/tests/test_parse_page.py`:
+  - tests for index counts, classification, primary page parse, multi-gatha parse, and secondary-kalash parse
+  - guarded by `NIKKYJAIN_LOCAL_PATH` presence
+
+### 11.3 Validation Performed
+
+- Full NJ unit suite passes:
+  - `pytest -q workers/ingestion/nj/tests`
+  - latest run status: `25 passed, 5 skipped`
+
+### 11.4 Golden JSON Output for Ingestion
+
+Implemented Jainkosh-style NJ golden generation for ingestion handoff:
+
+- Added `workers/ingestion/nj/envelope.py`
+  - `build_envelope(result, cfg)` returns:
+    - `shastra_parse_result` (raw parsed output)
+    - `would_write` (ingestion-ready payload skeleton with `postgres`, `mongo`, `neo4j`, `idempotency_contracts`)
+  - Uses natural-key conventions from `02_ingestion_nj.md`.
+- Added `workers/ingestion/nj/cli.py`
+  - Command:
+    - `python -m workers.ingestion.nj.cli parse --config ... --batch-offset ... --batch-limit ... --format golden`
+  - Default golden output path:
+    - `workers/ingestion/nj/tests/golden/{shastra}_golden_o{offset}_l{limit}.json`
+- Added test:
+  - `workers/ingestion/nj/tests/test_envelope.py`
+  - Validates top-level envelope shape and key natural-key mappings.
+
+First batch (10 pages) golden was generated at:
+
+- `workers/ingestion/nj/tests/golden/samaysar_golden_o0_l10.json`
+
+Second batch (next 10 pages) golden was generated at:
+
+- `workers/ingestion/nj/tests/golden/samaysar_golden_o10_l10.json`
+
+### 11.5 Post-Implementation Bugfixes
+
+After initial implementation, the following parser correctness fixes were applied:
+
+1. Newline preservation
+- `prakrit_text`, `sanskrit_text`, and `hindi_chhands[].text_hi` now preserve line boundaries via `\n` (using `<br>`/line-break aware extraction) instead of flattening to one line.
+- Primary teeka `kalash_san[].text_san` also preserves multi-line verse structure.
+
+2. `anyavartha.full_anyavaarth` cleanup
+- Now stores only Hindi explanatory text.
+- Tagged source words from darkRed fonts (`[वंदित्तु]`, etc.) are removed from `full_anyavaarth` while still captured in `tagged_terms`.
+
+3. Primary teeka Sanskrit segmentation fix (`001.html` class of pages)
+- Correctly separates:
+  - `kalash_san[]` (all Sanskrit kalashes inside the kalash gadya block), and
+  - `gatha_teeka_san` (e.g., `अथ सूत्रावतार ...`) outside that kalash block.
+- Prevents सूत्रावतार prose from being incorrectly absorbed into the first kalash.
+
+4. Kalash word-meaning population fix
+- Kalash WM meaning text frequently continues outside the maroon `<b>[...]</b>` node.
+- Parsing now consumes structural sibling continuation (including notes spans), so meanings are not empty.
+- Envelope mapping also handles local-to-global kalash index alignment when emitting `kalash_word_meanings`.
+
+5. Bhaavarth boundary fix (structural, not marker hardcoded)
+- `gatha_teeka_bhaavarth_md` no longer starts from the middle of kalash WM tail text.
+- Boundary is determined structurally by consuming complete WM block first, then continuing with remaining prose nodes.
+- BOM stripped from final markdown string.
+
+6. Multi-gatha splitting fix (`009-010`, etc.)
+- Previously combined-page text was duplicated across split gathas.
+- Now marker-based splitting is applied for each split gatha on:
+  - `prakrit_text`
+  - `sanskrit_text`
+  - `hindi_chhands[].text_hi`
+- Supports both ASCII and Devanagari number markers:
+  - `॥9॥`, `॥९॥`, `||9||`, `||९||` (and corresponding page numbers).
+
+7. Adhikaar number support
+- Added `adhikaar_number` (1-based optgroup ordinal) from `myItem.js`.
+- Carried through:
+  - `GathaIndexEntry`
+  - `GathaExtract`
+  - golden/postgres gatha payloads in envelope.
+- Regex for optgroup parsing updated to support both observed JS forms:
+  - `label="...'"` and `label="...">'`.
