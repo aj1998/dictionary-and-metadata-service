@@ -612,26 +612,6 @@ python -m pytest packages/jain_kb_common/tests/hydration/ -v
 See [`docs/manual_testing/api/query/`](docs/manual_testing/api/query/) for curl examples and diagnostic SQL/Cypher for each endpoint.
 
 ---
-
-### ✅ Updated: Metadata Service — fuzzy search (`docs/design/query_engine/03_metadata_fuzzy_match.md`)
-
-Phase 3 of the query engine added fuzzy (`?fuzzy=true`) search to three existing metadata endpoints:
-
-| Endpoint | Fuzzy behaviour |
-|---|---|
-| `GET /v1/shastras?q=&fuzzy=true` | pg_trgm on `natural_key` + `title::text` |
-| `GET /v1/authors?q=&fuzzy=true` | pg_trgm on `natural_key` + `display_name::text` |
-| `GET /v1/teekas?q=&fuzzy=true` | pg_trgm on `natural_key` |
-
-`?q=` (non-fuzzy ILIKE) was also added to `/v1/authors` and `/v1/teekas` (previously missing). Response shapes gain an optional `similarity: float | None` field. Hard cap: limit silently capped to 50 when `fuzzy=true`.
-
----
-
-### 🔜 Not yet started
-
-- Ingestion workers (`08`, `09`), enrichment loop (`11`), admin UI (`13`), deployment (`15`).
-
----
 ## Key conventions
 
 - **`natural_key` everywhere** — re-scraping is an idempotent upsert, never a duplicate insert.
