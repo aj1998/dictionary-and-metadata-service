@@ -8,7 +8,7 @@ Single phase.
 
 Depends on:
 - The extraction-pipeline `spans` table from [`08_translation_pipeline_extraction_spec.md`](./08_translation_pipeline_extraction_spec.md). This spec assumes that table exists and exposes per-text spans `{start, end, kind, natural_key, confidence, reviewed}`.
-- The existing `<TaggedTermPopover>` component listed in [`docs/design/14_public_ui.md`](../14_public_ui.md). This spec **extends** that component — does not replace it.
+- The existing `<TaggedTermPopover>` component listed in [`docs/design/14_public_ui.md`](../archived/14_public_ui.md). This spec **extends** that component — does not replace it.
 - The `<KeywordSidePanel>` lives inside the reader's `<RightRail>` from [`03_shastra_reader_ui_spec.md`](./03_shastra_reader_ui_spec.md).
 - The counters API from [`10_topic_keyword_counters_spec.md`](./10_topic_keyword_counters_spec.md).
 

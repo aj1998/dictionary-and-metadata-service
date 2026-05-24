@@ -243,7 +243,7 @@ Two columns:
 - When absent:
   - Guest / regular user → renders empty (panel may be collapsed by default per `layout.drushtaant.visible_default`).
   - Admin / reviewer → renders a "Generate" button that POSTs to `/admin/drushtaant/jobs` for this gatha and toasts the job id.
-- Provenance footer: "AI-generated, admin-approved on YYYY-MM-DD" (see [`14_public_ui.md`](../14_public_ui.md) provenance footer pattern).
+- Provenance footer: "AI-generated, admin-approved on YYYY-MM-DD" (see [`14_public_ui.md`](../archived/14_public_ui.md) provenance footer pattern).
 
 ### API endpoint (already in spec 03)
 

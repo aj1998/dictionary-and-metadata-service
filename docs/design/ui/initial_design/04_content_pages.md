@@ -189,7 +189,7 @@ Uses **Shell C (split-reading)**.
   `--accent-soft` background. Overlap pill in `--accent`, score in
   muted caption.
 - Calls `POST /v1/graphrag/topics` with `caller="public-ui"` (see
-  `../07_api_query_service.md`).
+  `../query_service_contract.md`).
 
 ## 11. `/about`
 

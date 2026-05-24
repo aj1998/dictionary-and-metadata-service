@@ -54,7 +54,7 @@ implement one phase top-to-bottom, run the listed tests, and stop.
 ## Out of scope for this spec
 
 - nikkyjain ingestion (`09_ingestion_nikkyjain.md`).
-- Admin UI review pages (`13_admin_ui.md`) — Phase 3 only exposes the
+- Admin UI review pages (`admin_ui.md`) — Phase 3 only exposes the
   approve function as a Python callable + CLI, not an HTTP endpoint.
 - Public APIs.
 - Vyakaran OCR (`10`).

@@ -185,7 +185,7 @@ Env config:
 - `FINETUNE_S3_ACCESS_KEY` / `FINETUNE_S3_SECRET_KEY`
 - `FINETUNE_S3_KMS_KEY_ID` (optional SSE)
 
-Lifecycle: never delete. Old versions are training history. Glacier transition after 365 days is fine to suggest in `15_deployment.md` but is not required here.
+Lifecycle: never delete. Old versions are training history. Glacier transition after 365 days is fine to suggest in `deployment.md` but is not required here.
 
 ### Pydantic contracts
 

@@ -62,7 +62,7 @@ Each tool has the same shell: model picker, scratch pad, citations panel, export
 | `/` Home | Hero + four feature cards + recent ingestion + featured shastra of the week. |
 | `/login`, `/signup` | Email/OTP or Google OAuth (see [08_user_accounts.md](./08_user_accounts.md)). |
 | `/account` | Profile, language preference, saved views, saved highlights, export history. |
-| `/admin/...` | Existing admin UI (`13_admin_ui.md`) — gated routes for ingestion review, finetune jobs, model registry. |
+| `/admin/...` | Existing admin UI (`admin_ui.md`) — gated routes for ingestion review, finetune jobs, model registry. |
 
 ## Layout primitives shared across pages
 

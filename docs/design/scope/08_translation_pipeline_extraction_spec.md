@@ -221,7 +221,7 @@ services/data_service/
     └── test_extraction_review_endpoints.py
 
 ui/app/admin/extraction-review/
-├── page.tsx                    # uses existing review-queue components from 13_admin_ui.md
+├── page.tsx                    # uses existing review-queue components from admin_ui.md
 └── components/
     ├── SpanCard.tsx            # renders chunk text with span highlighted
     └── VitragSuggestion.tsx    # Stage B only — accept/edit en_candidate
@@ -283,7 +283,7 @@ async def approve_span(span_id: UUID, *, reviewer: str,
 
 ### Review UI
 
-Extends `13_admin_ui.md` review-queue grid:
+Extends `admin_ui.md` review-queue grid:
 
 - Default sort: `confidence ASC, created_at DESC` (low-confidence on top per scope-04).
 - Each row renders the source chunk with the span underlined; clicking opens a side-panel showing other spans on the same chunk for context.

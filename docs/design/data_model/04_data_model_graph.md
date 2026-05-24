@@ -216,7 +216,7 @@ packages/jain_kb_common/db/neo4j/
 
 ## Backups & re-derivation
 
-Because the graph mirrors Postgres+Mongo, **graph backup is optional** — full rebuild from Postgres+Mongo is the recovery procedure. Still, take a nightly Neo4j backup (`neo4j-admin database dump`) for fast recovery (see `15_deployment.md`).
+Because the graph mirrors Postgres+Mongo, **graph backup is optional** — full rebuild from Postgres+Mongo is the recovery procedure. Still, take a nightly Neo4j backup (`neo4j-admin database dump`) for fast recovery (see `deployment.md`).
 
 ## Definition of Done
 

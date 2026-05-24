@@ -193,7 +193,7 @@ A loader `tests/seed_graph_loader.py` materializes this into Postgres + Mongo + 
 - `test_parse_gatha.py`: gatha 039 matches golden.
 - `test_heading_topic.py`: heading topic node created with correct `natural_key`.
 
-### `10 ingestion_vyakaran_ocr`
+### `ingestion_vyakaran_ocr`
 - `test_engine_protocol.py`: `TesseractEngine.ocr_page(...)` returns `status="not_implemented"` (intentional).
 
 ### `11 chat_enrichment_loop`
@@ -208,7 +208,7 @@ A loader `tests/seed_graph_loader.py` materializes this into Postgres + Mongo + 
 - `test_traverse.py`: in-memory Neo4j fixture, depth-1 + depth-2 + edge-type restriction.
 - `test_ranking.py`: overlap dominates, weight tiebreaks, deterministic order.
 
-### `13 admin_ui` / `14 public_ui`
+### `admin_ui` / `14 public_ui`
 - Playwright e2e covering: ingest → review-queue → approve → public detail page reflects change.
 - Lighthouse SEO ≥ 95 on `/dictionary/[nk]` and `/topics/[nk]`.
 
@@ -248,7 +248,7 @@ async def test_full_path():
 - [ ] Coverage ≥ 80% on `packages/jain_kb_common/` and each `services/*/`.
 - [ ] README at repo root has a "Running tests" section pointing here.
 
-## SAAR additions (additive, see [`scope/02_foundation_status.md`](../scope/02_foundation_status.md))
+## SAAR additions (additive, see [`scope/02_foundation_status.md`](../../scope/02_foundation_status.md))
 
 Each SAAR scope spec carries its own TDD test list. This file is extended only for the *cross-cutting* fixtures and goldens new features need.
 
@@ -256,19 +256,19 @@ Each SAAR scope spec carries its own TDD test list. This file is extended only f
 
 | Fixture | Path | Used by |
 |---|---|---|
-| Users + prefs + saved views/highlights | `tests/fixtures/users/` | [`scope/01_user_accounts_spec.md`](./scope/01_user_accounts_spec.md) |
-| Shastra layout YAMLs (samaysaar, pravachansaar, tatvarth-sutra, padma-puraan, gommatsaar) | `tests/fixtures/shastra_layouts/` | [`scope/02_shastra_layout_configs_spec.md`](./scope/02_shastra_layout_configs_spec.md) |
-| Extraction spans JSONL | `tests/fixtures/extraction_spans/` | [`scope/08`](./scope/08_translation_pipeline_extraction_spec.md), [`scope/09`](./scope/09_translation_pipeline_ai_flow_spec.md) |
-| Expected counter values | `tests/fixtures/counters/` | [`scope/10`](./scope/10_topic_keyword_counters_spec.md) |
-| Vitrag Hin↔En entries | `tests/fixtures/vitrag_dict/` | [`scope/14`](./scope/14_vitrag_dictionary_ingest_spec.md) |
-| Kn/Gu/Sa/Pr keyword translations | `tests/fixtures/translations/` | [`scope/15`](./scope/15_multilingual_keyword_storage_spec.md) |
-| Figures (5 tables + 5 flowcharts with bboxes) | `tests/fixtures/figures/` | [`scope/20`](./scope/20_flowchart_table_graph_scanner_spec.md) |
-| Jinswara Q/A pairs | `tests/fixtures/jinswara/` | [`scope/19`](./scope/19_jinswara_qna_ingest_spec.md) |
-| YouTube transcript JSON + sample WAV ≤30s | `tests/fixtures/youtube_chunks/` | [`scope/18`](./scope/18_av_rag_pipeline_spec.md) |
-| Extraction eval goldens (≥100 spans across 3 shastras) | `tests/fixtures/eval/extraction/` | [`scope/24`](./scope/24_finetune_eval_harness_spec.md) |
+| Users + prefs + saved views/highlights | `tests/fixtures/users/` | [`scope/01_user_accounts_spec.md`](../scope/01_user_accounts_spec.md) |
+| Shastra layout YAMLs (samaysaar, pravachansaar, tatvarth-sutra, padma-puraan, gommatsaar) | `tests/fixtures/shastra_layouts/` | [`scope/02_shastra_layout_configs_spec.md`](../scope/02_shastra_layout_configs_spec.md) |
+| Extraction spans JSONL | `tests/fixtures/extraction_spans/` | [`scope/08`](../scope/08_translation_pipeline_extraction_spec.md), [`scope/09`](../scope/09_translation_pipeline_ai_flow_spec.md) |
+| Expected counter values | `tests/fixtures/counters/` | [`scope/10`](../scope/10_topic_keyword_counters_spec.md) |
+| Vitrag Hin↔En entries | `tests/fixtures/vitrag_dict/` | [`scope/14`](../scope/14_vitrag_dictionary_ingest_spec.md) |
+| Kn/Gu/Sa/Pr keyword translations | `tests/fixtures/translations/` | [`scope/15`](../scope/15_multilingual_keyword_storage_spec.md) |
+| Figures (5 tables + 5 flowcharts with bboxes) | `tests/fixtures/figures/` | [`scope/20`](../scope/20_flowchart_table_graph_scanner_spec.md) |
+| Jinswara Q/A pairs | `tests/fixtures/jinswara/` | [`scope/19`](../scope/19_jinswara_qna_ingest_spec.md) |
+| YouTube transcript JSON + sample WAV ≤30s | `tests/fixtures/youtube_chunks/` | [`scope/18`](../scope/18_av_rag_pipeline_spec.md) |
+| Extraction eval goldens (≥100 spans across 3 shastras) | `tests/fixtures/eval/extraction/` | [`scope/24`](../scope/24_finetune_eval_harness_spec.md) |
 | Relation eval goldens (approved edge set) | `tests/fixtures/eval/relations/` | same |
 | Q/A eval set (25 expert-graded items) | `tests/fixtures/eval/qa/` | same |
-| Bhoovalay chakra + canonical path + expected syllables | `tests/fixtures/bhoovalay/` | [`scope/27`](./scope/27_siri_bhoovalay_workspace_spec.md) |
+| Bhoovalay chakra + canonical path + expected syllables | `tests/fixtures/bhoovalay/` | [`scope/27`](../scope/27_siri_bhoovalay_workspace_spec.md) |
 
 ### New cross-cutting goldens
 

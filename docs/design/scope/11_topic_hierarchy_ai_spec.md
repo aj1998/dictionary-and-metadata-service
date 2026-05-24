@@ -164,7 +164,7 @@ services/data_service/routers/admin/
 └── hierarchy_review.py            # list/approve/reject endpoints
 
 ui/app/admin/hierarchy-review/
-├── page.tsx                       # extends review-queue grid from 13_admin_ui.md
+├── page.tsx                       # extends review-queue grid from admin_ui.md
 └── components/
     ├── ProposedEdgeCard.tsx       # renders child + parent + relation + cosine
     ├── ClashBanner.tsx            # shown when clash_with_existing=true

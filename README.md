@@ -40,7 +40,7 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Complements
 
 ## Architecture
 
-> See [`docs/design/00_overview.md`](docs/design/00_overview.md) for the full design reading order.
+> See [`docs/design/00_overview.md`](docs/design/inital_design/00_overview.md) for the full design reading order.
 
 ### Services
 

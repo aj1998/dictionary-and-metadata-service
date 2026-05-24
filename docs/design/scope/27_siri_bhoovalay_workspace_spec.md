@@ -241,7 +241,7 @@ ui/lib/bhoovalay/decode.ts              client-side mapping (mirrors path_engine
 ui/lib/bhoovalay/generators.ts          client-side path generators (mirror server)
 ```
 
-Reuse layout primitives from [`14_public_ui.md`](../14_public_ui.md): Devanagari fonts, citation badge, language toggle. Do not modify those primitives.
+Reuse layout primitives from [`14_public_ui.md`](../archived/14_public_ui.md): Devanagari fonts, citation badge, language toggle. Do not modify those primitives.
 
 ### Page layout
 

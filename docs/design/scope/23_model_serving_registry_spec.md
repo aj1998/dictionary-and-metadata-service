@@ -1,7 +1,7 @@
 # 23 — Model Serving Registry Spec
 
 Scope context: [`scope/06_advanced_rag_and_finetuning.md`](../../scope/06_advanced_rag_and_finetuning.md) ("serving" + "AI page model picker").
-Depends on: [`design/scope/22_finetune_training_infra_spec.md`](./22_finetune_training_infra_spec.md) (checkpoint URIs), [`design/15_deployment.md`](../15_deployment.md) (where the new service lives).
+Depends on: [`design/scope/22_finetune_training_infra_spec.md`](./22_finetune_training_infra_spec.md) (checkpoint URIs), [`design/deployment.md`](../deployment.md) (where the new service lives).
 
 Build a registry of models (base + finetuned + external API), a single FastAPI gateway that exposes an OpenAI-compatible `/v1/chat/completions` endpoint and routes per-`model_id` to the actual backend (vLLM HTTP, Ollama HTTP, or upstream provider), and a cost-cap enforcer. Existing services call the gateway through `jain_kb_common.llm.router` — they do not pick backends themselves.
 
@@ -181,7 +181,7 @@ SERVE_CAP_DEV_DEFAULT_USD=20            # fallback for unspecified models in dev
 
 Naming: `SERVE_CAP_<ENV>_<MODEL_ID_UPPER_UNDERSCORED>_USD`. The cap is monthly; a request is blocked when `meter.usd_for_this_month + projected > cap`. Estimate uses `unit_cost_*` from the registry row.
 
-### Compose addition (`docker-compose.yml` excerpt — for `15_deployment.md`)
+### Compose addition (`docker-compose.yml` excerpt — for `deployment.md`)
 
 ```yaml
   model-serving-service:
@@ -278,7 +278,7 @@ psql -c "SELECT * FROM model_usage_meter ORDER BY id DESC LIMIT 5;"
 - [ ] Auto-register-on-finetune-success integration test green.
 - [ ] `LLMRouter` in `jain_kb_common` updated and consumed by at least `query-service` as a smoke check.
 - [ ] Admin UI list/detail/status pages work end-to-end with a real vLLM container.
-- [ ] `15_deployment.md` patched with the new service + GPU compose file.
+- [ ] `deployment.md` patched with the new service + GPU compose file.
 
 ## Implementation notes
 

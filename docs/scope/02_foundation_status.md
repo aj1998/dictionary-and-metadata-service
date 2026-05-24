@@ -18,7 +18,7 @@ What exists today, what the SAAR vision adds, and which docs in `design/scope/` 
 | Ingestion: nikkyjain shastras (partial) | `design/09_ingestion_nikkyjain.md` | gatha + word-meaning + anvayartha |
 | Chat enrichment puller (cron) | `design/archived/11_chat_enrichment_loop.md` | topic_candidates table |
 | Public UI v1 (existing routes) | `design/14_public_ui.md`, `ui/` directory | Hindi-first, EN switch |
-| Admin UI v1 | `design/13_admin_ui.md` | review queues, ingestion triggers |
+| Admin UI v1 | `design/admin_ui.md` | review queues, ingestion triggers |
 
 ## 🔜 Gaps SAAR fills
 
@@ -79,8 +79,8 @@ What exists today, what the SAAR vision adds, and which docs in `design/scope/` 
 - `02_data_model_postgres.md` — add tables: `users`, `user_preferences`, `saved_views`, `saved_highlights`, `shastra_layouts`, `keyword_translations`, `topic_translations`, `topic_keyword_counters`, `flowcharts_tables`, `model_registry`, `finetune_jobs`, `finetune_datasets`, `youtube_pravachan_chunks`, `jinswara_qna`. Add enum `ingestion_source` values: `jinswara`, `youtube`, `vitrag_dict`, `vyakaran_v2`.
 - `03_data_model_mongo.md` — add collections: `shastra_layouts`, `keyword_translations_extracts`, `drushtaant_images`, `audio_chapters`, `flowcharts_tables_blobs`, `youtube_transcripts`, `jinswara_qna_extracts`, `user_scratchpads`.
 - `04_data_model_graph.md` — add node labels: `Translation`, `Flowchart`, `JinswaraQnA`, `PravachanChunk`, `ResearchCategory`. Add edges: `TRANSLATES_TO`, `HAS_FLOWCHART`, `ANSWERS`, `IN_PRAVACHAN`, `CATEGORISED_AS`, `DRUSHTAANT_OF`.
-- `13_admin_ui.md` — append admin pages: model registry, finetune job runner, translation approvals, layout config editor, image/audio review.
-- `15_deployment.md` — append: vLLM/Ollama serving, GPU node sizing, image-gen and ElevenLabs API key handling, S3-compatible store for blobs.
+- `admin_ui.md` — append admin pages: model registry, finetune job runner, translation approvals, layout config editor, image/audio review.
+- `deployment.md` — append: vLLM/Ollama serving, GPU node sizing, image-gen and ElevenLabs API key handling, S3-compatible store for blobs.
 - `16_testing_and_fixtures.md` — append: counter computation tests, translation pipeline golden tests, model eval harness fixtures, layout config validator tests.
 
 `14_public_ui.md` is left untouched (existing implementation). New page IA is captured in `01_pages_and_features.md` and per-page specs.

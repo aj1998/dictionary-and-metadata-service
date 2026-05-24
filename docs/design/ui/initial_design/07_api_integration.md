@@ -2,7 +2,7 @@
 
 Backend endpoints already specified in `../api/data/01_spec.md`,
 `../api/navigation/01_spec.md`, `../api/metadata/01_spec.md`, and
-`../07_api_query_service.md`. This file maps each UI surface to the calls
+`../query_service_contract.md`. This file maps each UI surface to the calls
 that drive it. The UI never talks to the databases directly — only via
 the four FastAPI services.
 

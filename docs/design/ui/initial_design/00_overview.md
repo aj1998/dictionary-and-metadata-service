@@ -2,7 +2,7 @@
 
 This folder contains the detailed UI specification for the public-facing
 **Jain Knowledge Base** website. It is the implementation-level companion
-to [`../14_public_ui.md`](../../14_public_ui.md), which lists routes and data
+to [`../14_public_ui.md`](../../archived/14_public_ui.md), which lists routes and data
 contracts. This folder fixes **design, theme, layout, components, and
 interaction patterns** — pixel-level enough that two engineers building
 independently produce visually identical results.
@@ -42,7 +42,7 @@ must be replaced as described in `01_design_system.md`.
 
 ## Non-goals
 
-- **Admin UI** (`/admin/*`) is covered separately in `../13_admin_ui.md`.
+- **Admin UI** (`/admin/*`) is covered separately in `../admin_ui.md`.
 - **Native mobile apps** are out of scope; the site is responsive web only.
 - **Authentication** — the public site is fully anonymous and read-only.
 
