@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { extractBracketTerms, splitTeekaByBracketTerms } from './gatha-content';
+import { extractBracketTerms, splitTeekaByBracketTerms } from '@/lib/gatha-content';
 
 describe('gatha content helpers', () => {
   it('extracts unique bracketed terms', () => {

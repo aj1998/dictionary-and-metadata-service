@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildPageHref, getHindiText, paginatedMeta } from './content-listing';
+import { buildPageHref, getHindiText, paginatedMeta } from '@/lib/content-listing';
 
 describe('content listing helpers', () => {
   it('returns Hindi text when present', () => {

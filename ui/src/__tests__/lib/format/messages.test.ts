@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import hi from "../../../messages/hi.json";
-import en from "../../../messages/en.json";
+import hi from "../../../../messages/hi.json";
+import en from "../../../../messages/en.json";
 
 type JsonValue = string | number | boolean | null | JsonObject | JsonValue[];
 type JsonObject = { [key: string]: JsonValue };

@@ -1,5 +1,5 @@
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { ApiError } from './_fetch';
+import { ApiError } from '@/lib/api/_fetch';
 import {
   getActivityRecent,
   getStatsCounts,
@@ -15,7 +15,7 @@ import {
   getGathaRelatedKeywords,
   getKalash,
   getKalashWordMeanings,
-} from './data';
+} from '@/lib/api/data';
 
 const BASE = 'http://localhost:3000/api/data';
 

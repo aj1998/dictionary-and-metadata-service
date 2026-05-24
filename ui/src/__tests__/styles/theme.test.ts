@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { readFileSync } from "fs";
 import { resolve } from "path";
 
-const css = readFileSync(resolve(__dirname, "theme.css"), "utf-8");
+const css = readFileSync(resolve(__dirname, "../../styles/theme.css"), "utf-8");
 
 const REQUIRED_TOKENS = [
   "--background",
@@ -59,7 +59,7 @@ describe("theme.css token completeness", () => {
   it("uses the correct category colors", () => {
     expect(css).toContain("#F4A261"); // --cat-gatha
     expect(css).toContain("#6bc7be"); // --cat-topic
-    expect(css).toContain("#4A90B5"); // --cat-keyword
+    expect(css).toContain("#3382ab"); // --cat-keyword
   });
 
   it("declares category foreground tokens with correct hex values", () => {

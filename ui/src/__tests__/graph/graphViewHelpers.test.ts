@@ -7,7 +7,7 @@ import {
   HIER_NODE_SPACING,
   HIER_PADDING_TOP,
   HIER_MAX_PER_ROW,
-} from './graphViewHelpers';
+} from '@/app/[locale]/graph/graphViewHelpers';
 import type { GraphNode, GraphEdge, EntityKind } from '@/lib/types';
 
 // ─── Fixtures ─────────────────────────────────────────────────────────────────

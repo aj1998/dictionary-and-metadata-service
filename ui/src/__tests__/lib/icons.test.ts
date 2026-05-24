@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import * as icons from "./icons";
+import * as icons from "@/lib/icons";
 
 // Every icon in the reserved set from 01_design_system.md §6
 const RESERVED_ICONS = [

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { validateFeedback, isValid, EMAIL_REGEX, MESSAGE_MIN, MESSAGE_MAX } from './feedback-validation';
+import { validateFeedback, isValid, EMAIL_REGEX, MESSAGE_MIN, MESSAGE_MAX } from '@/lib/feedback-validation';
 
 describe('validateFeedback', () => {
   const base = { name: '', email: '', type: 'bug', message: 'x'.repeat(200) };

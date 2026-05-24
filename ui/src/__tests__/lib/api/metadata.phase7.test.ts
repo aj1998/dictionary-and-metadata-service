@@ -1,5 +1,5 @@
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { getShastraGathas } from './metadata';
+import { getShastraGathas } from '@/lib/api/metadata';
 
 const BASE = 'http://localhost:3000/api/metadata';
 

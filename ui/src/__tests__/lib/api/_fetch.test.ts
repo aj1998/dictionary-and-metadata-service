@@ -1,5 +1,5 @@
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { apiFetch, ApiError } from './_fetch';
+import { apiFetch, ApiError } from '@/lib/api/_fetch';
 
 describe('apiFetch', () => {
   beforeEach(() => {

@@ -1,6 +1,6 @@
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { ApiError } from './_fetch';
-import { searchTopics, topicsMatch, graphragTopics } from './query';
+import { ApiError } from '@/lib/api/_fetch';
+import { searchTopics, topicsMatch, graphragTopics } from '@/lib/api/query';
 
 const BASE = 'http://localhost:3000/api/query';
 

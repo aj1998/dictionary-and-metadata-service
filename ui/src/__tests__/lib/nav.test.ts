@@ -5,8 +5,8 @@ import {
   MORE_NAV_ITEMS,
   isNavActive,
   truncateLabel,
-} from "./nav";
-import hi from "../../messages/hi.json";
+} from "@/lib/nav";
+import hi from "../../../messages/hi.json";
 
 // ── isNavActive ──────────────────────────────────────────────────────────────
 

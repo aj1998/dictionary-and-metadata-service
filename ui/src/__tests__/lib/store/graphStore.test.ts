@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { useGraphStore } from './graphStore';
+import { useGraphStore } from '@/lib/store/graphStore';
 import type { GraphPayload } from '@/lib/types';
 
 vi.mock('@/lib/api/navigation', () => ({

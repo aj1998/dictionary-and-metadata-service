@@ -1,6 +1,6 @@
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { ApiError } from './_fetch';
-import { getNavLanding, getNavLandingRandom, expandNode, getPreview, getTopicNeighbors } from './navigation';
+import { ApiError } from '@/lib/api/_fetch';
+import { getNavLanding, getNavLandingRandom, expandNode, getPreview, getTopicNeighbors } from '@/lib/api/navigation';
 
 const BASE = 'http://localhost:3000/api/navigation';
 

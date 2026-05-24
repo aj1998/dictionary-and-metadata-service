@@ -3,7 +3,7 @@ import {
   toDevanagariNumerals,
   normalizeNFC,
   minGraphemeLength,
-} from "./devanagari";
+} from "@/lib/format/devanagari";
 
 describe("toDevanagariNumerals", () => {
   it("converts each ASCII digit to its Devanagari counterpart", () => {

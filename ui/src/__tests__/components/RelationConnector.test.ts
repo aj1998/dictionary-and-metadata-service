@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { EDGE_LABELS, EDGE_TOOLTIPS } from "./RelationConnector";
+import { EDGE_LABELS, EDGE_TOOLTIPS } from "@/components/RelationConnector";
 import type { EdgeKind } from "@/lib/types";
 
 describe("RelationConnector edge metadata", () => {

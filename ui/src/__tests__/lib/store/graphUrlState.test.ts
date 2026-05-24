@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parseGraphQuery, buildGraphQuery } from './graphUrlState';
+import { parseGraphQuery, buildGraphQuery } from '@/lib/store/graphUrlState';
 
 describe('graphUrlState', () => {
   it('parses node/depth/cat from query params', () => {

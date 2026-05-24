@@ -14,7 +14,7 @@ vi.mock("next-intl/navigation", () => ({
 }));
 
 // Import AFTER the mock is registered.
-import * as navigation from "./navigation";
+import * as navigation from "@/i18n/navigation";
 
 // Regression: TopBar previously imported Link, usePathname, useRouter from
 // "next/navigation". Those are NOT locale-aware:

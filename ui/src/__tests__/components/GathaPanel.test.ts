@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { GATHA_PANEL_ACCENTS } from './GathaPanel';
+import { GATHA_PANEL_ACCENTS } from '@/components/GathaPanel';
 
 describe('GATHA_PANEL_ACCENTS', () => {
   it('maps all supported gatha panel languages', () => {

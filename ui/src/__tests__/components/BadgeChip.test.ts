@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { BADGE_DEFAULT_LABELS, BADGE_CAT_CLASSES } from "./BadgeChip";
+import { BADGE_DEFAULT_LABELS, BADGE_CAT_CLASSES } from "@/components/BadgeChip";
 import type { EntityKind } from "@/lib/types";
 
 const KINDS: EntityKind[] = ["shastra", "gatha", "topic", "keyword"];

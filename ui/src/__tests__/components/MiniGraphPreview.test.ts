@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildPreviewLayout } from './MiniGraphPreview';
+import { buildPreviewLayout } from '@/components/MiniGraphPreview';
 
 describe('buildPreviewLayout', () => {
   it('projects nodes and edges into a bounded preview coordinate space', () => {

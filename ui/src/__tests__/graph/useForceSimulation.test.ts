@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { buildBezierPath, LINK_DISTANCE, CHARGE_STRENGTH, GRAVITY_STRENGTH, REDUCED_MOTION_ALPHA_THRESHOLD } from "./useForceSimulation";
+import { buildBezierPath, LINK_DISTANCE, CHARGE_STRENGTH, GRAVITY_STRENGTH, REDUCED_MOTION_ALPHA_THRESHOLD } from "@/app/[locale]/graph/useForceSimulation";
 
 // ─── Bug 2: force constants keep disconnected nodes close to the viewport ─────
 //

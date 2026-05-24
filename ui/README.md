@@ -511,6 +511,25 @@ Run: `pnpm test` (single pass) or `pnpm test:watch` (interactive) from `ui/`.
 
 All tests are pure logic tests — no JSX rendering, no component mounting. This is intentional. Each component exports testable data constants alongside its component code.
 
+### Test location
+
+All 27 test files live in a single consolidated suite under `src/__tests__/`, mirroring the source tree:
+
+```
+src/__tests__/
+├── components/        # BadgeChip, CategoryFilterList, GathaPanel, MiniGraphPreview, NodeCard, RelationConnector
+├── graph/             # graphViewHelpers, useForceSimulation
+├── i18n/              # navigation, routing
+├── lib/
+│   ├── api/           # _fetch, data, metadata, metadata.phase7, navigation, query
+│   ├── format/        # devanagari, messages
+│   └── store/         # graphStore, graphUrlState
+│   # content-listing, feedback-validation, gatha-content, icons, locale-pages, nav
+└── styles/            # theme
+```
+
+The vitest config (`vitest.config.ts`) targets `src/__tests__/**/*.test.ts` and resolves the `@/` alias to `src/`.
+
 ### Test files and what they cover
 
 | File | Tests |
@@ -527,14 +546,14 @@ All tests are pure logic tests — no JSX rendering, no component mounting. This
 | `lib/api/_fetch.test.ts` | `ApiError` instanceof/status checks; DetailsPanel 404 guard pattern |
 | `lib/api/metadata.test.ts` | Success/error paths, URL construction |
 | `lib/api/metadata.phase7.test.ts` | `getShastraGathas` endpoint and querystring |
-| `lib/api/data.test.ts` | Per-kind endpoint mapping; keyword `definitionSections` normalisation; topic `topicExtracts` normalisation (224 tests) |
+| `lib/api/data.test.ts` | Per-kind endpoint mapping; keyword `definitionSections` normalisation; topic `topicExtracts` normalisation |
 | `lib/api/navigation.test.ts` | Endpoint mapping, Devanagari encoding |
 | `lib/api/query.test.ts` | POST endpoint, caller default |
 | `components/NodeCard.test.ts` | `NODE_KIND_META` — 4 kinds, catVar prefix, icon, labels |
 | `components/RelationConnector.test.ts` | `EDGE_LABELS`/`EDGE_TOOLTIPS` — 11 EdgeKinds, non-empty, key parity |
 | `components/CategoryFilterList.test.ts` | `CATEGORY_DATA` — 4 items, required fields, no duplicates |
 | `graph/useForceSimulation.test.ts` | `buildBezierPath` shape, `GRAVITY_STRENGTH`, `CHARGE_STRENGTH`, `LINK_DISTANCE`, `REDUCED_MOTION_ALPHA_THRESHOLD` |
-| `graph/graphViewHelpers.test.ts` | Node limit, slicing, category filter, active/selected/pinned flags, dangling-edge exclusion (14 tests) |
+| `graph/graphViewHelpers.test.ts` | Node limit, slicing, category filter, active/selected/pinned flags, dangling-edge exclusion |
 | `lib/store/graphStore.test.ts` | Seed merge, pin toggling, `expandFromNode` de-dupe, 300-node guard cancel |
 | `lib/store/graphUrlState.test.ts` | URL parse/serialise, depth clamp, invalid cat filtering |
 | `components/GathaPanel.test.ts` | Language-to-accent class mapping |

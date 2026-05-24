@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { existsSync } from "fs";
 import { resolve } from "path";
-import { ALL_NAV_ITEMS } from "./nav";
+import { ALL_NAV_ITEMS } from "@/lib/nav";
 
 // Regression: before the [locale] folder was introduced, every URL under
 // a non-default locale (e.g. /en, /en/dictionary) returned 404. Next.js App
@@ -12,7 +12,7 @@ import { ALL_NAV_ITEMS } from "./nav";
 // file must exist on disk inside src/app/[locale]/. Adding a nav item without
 // a matching page will fail here before it can ever reach production.
 
-const LOCALE_DIR = resolve(__dirname, "../app/[locale]");
+const LOCALE_DIR = resolve(__dirname, "../../app/[locale]");
 
 // Maps every nav route to its page file relative to LOCALE_DIR.
 const ROUTE_TO_PAGE: Record<string, string> = {

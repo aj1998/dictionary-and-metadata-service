@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { routing } from "./routing";
+import { routing } from "@/i18n/routing";
 
 // Regression suite for the locale-routing bugs discovered after Phase 3.
 // Bug 1: proxy.ts was mistakenly renamed to middleware.ts (reverted — Next.js 16

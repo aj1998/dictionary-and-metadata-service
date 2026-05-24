@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { CATEGORY_DATA } from "./CategoryFilterList";
+import { CATEGORY_DATA } from "@/components/CategoryFilterList";
 import type { EntityKind } from "@/lib/types";
 
 describe("CATEGORY_DATA", () => {

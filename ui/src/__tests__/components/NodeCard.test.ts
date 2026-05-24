@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { NODE_KIND_META, EXPAND_ARIA_LABEL, DETAILS_ARIA_LABEL } from "./NodeCard";
+import { NODE_KIND_META, EXPAND_ARIA_LABEL, DETAILS_ARIA_LABEL } from "@/components/NodeCard";
 import type { EntityKind } from "@/lib/types";
 
 describe("NODE_KIND_META", () => {
