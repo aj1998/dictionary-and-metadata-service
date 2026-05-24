@@ -7,15 +7,15 @@ Scrapes `jainkosh.org/wiki/Jain_dictionary` → per-letter category pages → pe
 The HTML→JSON parsing rules and the parser implementation spec are
 maintained in dedicated documents:
 
-- **Parsing rules** (DOM patterns, heading variants, definitions, references, `देखें` extraction, tables, nav): [`jainkosh/parsing_rules.md`](../jainkosh/parsing_rules.md)
-- **Parser implementation spec** (file layout, Pydantic models, YAML config, algorithms, tests, CLI): [`jainkosh/parser_spec.md`](../jainkosh/parser_spec.md)
-- **Schema additions** (Postgres `topics` columns, Mongo collection shapes, Neo4j properties): [`jainkosh/schema_updates.md`](../jainkosh/schema_updates.md)
+- **Parsing rules** (DOM patterns, heading variants, definitions, references, `देखें` extraction, tables, nav): [`jainkosh/parsing_rules.md`](../../../jainkosh/parsing_rules.md)
+- **Parser implementation spec** (file layout, Pydantic models, YAML config, algorithms, tests, CLI): [`jainkosh/parser_spec.md`](../../../jainkosh/parser_spec.md)
+- **Schema additions** (Postgres `topics` columns, Mongo collection shapes, Neo4j properties): [`jainkosh/schema_updates.md`](../../../jainkosh/schema_updates.md)
 
 The remainder of *this* document covers only the orchestration pieces
 that wrap the parser: source discovery, fetching, rate-limiting,
 snapshot writing, alias mining, the review queue, and apply-on-approve
 upserts. **Anything that contradicts the rules in
-[`jainkosh/parsing_rules.md`](../jainkosh/parsing_rules.md) — that
+[`jainkosh/parsing_rules.md`](../../../jainkosh/parsing_rules.md) — that
 file wins.**
 
 ## Source discovery
@@ -28,7 +28,7 @@ file wins.**
 
 The parser-rules portion (heading variants, block classes, references,
 `देखें` patterns, etc.) is defined in
-[`jainkosh/parser_spec.md`](../jainkosh/parser_spec.md) §3. The
+[`jainkosh/parser_spec.md`](../../../jainkosh/parser_spec.md) §3. The
 orchestrator-only portion (fetch, rate limit, storage, alias mining
 toggles, review) lives in the same YAML file:
 
@@ -116,7 +116,7 @@ On admin approve (one or many at once):
 
 The complete `KeywordParseResult`, `WouldWriteEnvelope`,
 `Block`/`Subsection`/`PageSection`/`Definition`/`IndexRelation` models
-live in [`jainkosh/parser_spec.md`](../jainkosh/parser_spec.md) §4.
+live in [`jainkosh/parser_spec.md`](../../../jainkosh/parser_spec.md) §4.
 The orchestrator consumes a `WouldWriteEnvelope` and is responsible
 for (a) writing the snapshot HTML to disk, (b) appending mined
 aliases, and (c) inserting the envelope into `ingestion_review_queue`
@@ -124,7 +124,7 @@ as the proposed payload.
 
 ## Parser
 
-The parser is implemented per [`jainkosh/parser_spec.md`](../jainkosh/parser_spec.md). Orchestrator code calls:
+The parser is implemented per [`jainkosh/parser_spec.md`](../../../jainkosh/parser_spec.md). Orchestrator code calls:
 
 ```python
 from workers.ingestion.jainkosh.parse_keyword import parse_keyword_html
@@ -138,7 +138,7 @@ envelope = build_envelope(result)
 Slug rules and natural-key formats (e.g.
 `आत्मा-के-बहिरात्मादि-3-भेद`, `आत्मा:आत्मा-के-बहिरात्मादि-3-भेद`)
 are documented in
-[`jainkosh/parsing_rules.md`](../jainkosh/parsing_rules.md) §5.4.
+[`jainkosh/parsing_rules.md`](../../../jainkosh/parsing_rules.md) §5.4.
 
 ## Alias mining
 
@@ -147,7 +147,7 @@ Two sources, both contribute to `keyword_aliases`:
 1. **`देखें` links**: any prose block with a `देखें` (or `विशेष देखें`)
    trigger produces a potential alias. The parser now also emits
    label-before-`देखें` prose as **synthetic Topic seeds** (see
-   [`jainkosh/parsing_rules.md`](../jainkosh/parsing_rules.md) §5.6) —
+   [`jainkosh/parsing_rules.md`](../../../jainkosh/parsing_rules.md) §5.6) —
    these are NOT aliases of the current keyword; they are separate Topic
    entities. Only the target keyword of the `see_also` block contributes
    to `keyword_aliases`.
@@ -177,7 +177,7 @@ python -m workers.ingestion.jainkosh.orchestrator \
 ## Definition of Done
 
 The Definition of Done for the parser-only stage lives in
-[`jainkosh/parser_spec.md`](../jainkosh/parser_spec.md) §10. The
+[`jainkosh/parser_spec.md`](../../../jainkosh/parser_spec.md) §10. The
 orchestrator-stage Definition of Done is below; it depends on
 parser-stage being green.
 

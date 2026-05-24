@@ -4,7 +4,7 @@ Scope context: [`scope/06_advanced_rag_and_finetuning.md`](../../scope/06_advanc
 
 YouTube pravachans by verified authors (whitelist managed in `parser_configs/jinswara_authors.yaml`, see spec 19) get pulled, transcribed, segmented into chunks aligned to silence boundaries, enriched with topics/keywords by the existing extraction pipeline (spec 08), pushed into `cataloguesearch` alongside text chunks, and mirrored as `PravachanChunk` graph nodes so the GraphRAG re-rank (spec 17) and the AI page can cite them with timestamp deep-links.
 
-`pravachans` already exists in Postgres (see `02_data_model_postgres.md`). This spec only **adds** `pravachan_chunks` and the worker/graph wiring.
+`pravachans` already exists in Postgres (see `data_model_postgres.md`). This spec only **adds** `pravachan_chunks` and the worker/graph wiring.
 
 ## Expected upstream contracts (black box)
 

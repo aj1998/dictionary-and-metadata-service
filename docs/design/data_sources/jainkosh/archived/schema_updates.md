@@ -1,10 +1,10 @@
 # JainKosh Parser — Schema Updates
 
-> Concrete edits to the existing schema docs (`02_data_model_postgres.md`,
+> Concrete edits to the existing schema docs (`data_model_postgres.md`,
 > `03_data_model_mongo.md`, `04_data_model_graph.md`) needed to support
 > the new JainKosh parser as defined in
-> [`parsing_rules.md`](./parsing_rules.md) and
-> [`parser_spec.md`](./parser_spec.md).
+> [`parsing_rules.md`](../parsing_rules.md) and
+> [`parser_spec.md`](../parser_spec.md).
 >
 > **Two schemas already exist as code (Postgres model 02 and Graph
 > model 04 are implemented; see commit log: `486e7ce` and `5393915`).
@@ -45,7 +45,7 @@ The old design assumed:
 
 ---
 
-## 2. Postgres changes (doc `02_data_model_postgres.md`)
+## 2. Postgres changes (doc `data_model_postgres.md`)
 
 ### 2.1 `topics` table — add 4 columns
 
@@ -85,7 +85,7 @@ Migration plan:
 - This is a **format change for new rows only**. Existing rows (none
   yet — Mongo isn't live; Neo4j is empty for jainkosh) are not in
   production data, so no rewrite is needed.
-- Update `02_data_model_postgres.md` example block accordingly.
+- Update `data_model_postgres.md` example block accordingly.
 - Add a migration assertion: `topics.natural_key` MUST NOT start with
   `'jainkosh:'`. Implemented as a `CHECK` constraint to catch parser
   regressions early:
@@ -112,13 +112,13 @@ migrations/0010_topics_hierarchy.py
   - (no data migration; tables empty)
 ```
 
-Numbering: existing migration sequence (per `02_data_model_postgres.md`
+Numbering: existing migration sequence (per `data_model_postgres.md`
 §"Migration plan") ends at `0009_query_logs.py`. New migration is
 `0010_topics_hierarchy.py`.
 
 ### 2.5 Idempotent upsert function update
 
-The example `upsert_keyword(...)` in `02_data_model_postgres.md` stays.
+The example `upsert_keyword(...)` in `data_model_postgres.md` stays.
 Add `upsert_topic(...)`:
 
 ```python
@@ -449,7 +449,7 @@ own `1`, `2`, etc.).
 
 ## 5. Cross-doc edits (what to actually change)
 
-### 5.1 `docs/design/02_data_model_postgres.md`
+### 5.1 `docs/design/data_model_postgres.md`
 
 - In `### topics` table block: insert the four new columns and the
   CHECK constraint (per §2.1, §2.2).
@@ -531,7 +531,7 @@ Because no jainkosh data is in production yet, this is a
 
 ## 7. Definition of Done (schema updates)
 
-- [ ] `02_data_model_postgres.md` updated with the four new `topics`
+- [ ] `data_model_postgres.md` updated with the four new `topics`
       columns, the CHECK constraint, the two new indexes, and the
       migration entry.
 - [ ] `0010_topics_hierarchy.py` migration added under `migrations/`.

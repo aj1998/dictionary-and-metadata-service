@@ -6,7 +6,7 @@ What exists today, what the SAAR vision adds, and which docs in `design/scope/` 
 
 | Capability | Where | Notes |
 |---|---|---|
-| Postgres schema (authors, shastras, teekas, books, pravachans, keywords, aliases, gathas, topics, ingestion runs, review queue, topic candidates, query logs) | `design/02_data_model_postgres.md` + Alembic migrations | source of truth for IDs |
+| Postgres schema (authors, shastras, teekas, books, pravachans, keywords, aliases, gathas, topics, ingestion runs, review queue, topic candidates, query logs) | `design/data_model_postgres.md` + Alembic migrations | source of truth for IDs |
 | Mongo collections (gatha texts, teeka mappings, keyword definitions, topic extracts, kalashas, raw HTML) | `design/03_data_model_mongo.md` | |
 | Neo4j graph (Keyword, Topic, Alias, Gatha, Shastra nodes; IS_A, PART_OF, RELATED_TO, ALIAS_OF, HAS_TOPIC, MENTIONS_KEYWORD, MENTIONS_TOPIC, IN_SHASTRA edges) | `design/04_data_model_graph.md` | mirror of PG |
 | `metadata-service` (port 8001) | `services/metadata_service/` | CRUD on shastras/authors/teekas/books/pravachans |
@@ -76,7 +76,7 @@ What exists today, what the SAAR vision adds, and which docs in `design/scope/` 
 ## Touch-list for existing docs (additive patches)
 
 - `00_overview.md` — append SAAR services, expand "Sources we ingest" with Jinswara + YouTube + Vitrag.
-- `02_data_model_postgres.md` — add tables: `users`, `user_preferences`, `saved_views`, `saved_highlights`, `shastra_layouts`, `keyword_translations`, `topic_translations`, `topic_keyword_counters`, `flowcharts_tables`, `model_registry`, `finetune_jobs`, `finetune_datasets`, `youtube_pravachan_chunks`, `jinswara_qna`. Add enum `ingestion_source` values: `jinswara`, `youtube`, `vitrag_dict`, `vyakaran_v2`.
+- `data_model_postgres.md` — add tables: `users`, `user_preferences`, `saved_views`, `saved_highlights`, `shastra_layouts`, `keyword_translations`, `topic_translations`, `topic_keyword_counters`, `flowcharts_tables`, `model_registry`, `finetune_jobs`, `finetune_datasets`, `youtube_pravachan_chunks`, `jinswara_qna`. Add enum `ingestion_source` values: `jinswara`, `youtube`, `vitrag_dict`, `vyakaran_v2`.
 - `03_data_model_mongo.md` — add collections: `shastra_layouts`, `keyword_translations_extracts`, `drushtaant_images`, `audio_chapters`, `flowcharts_tables_blobs`, `youtube_transcripts`, `jinswara_qna_extracts`, `user_scratchpads`.
 - `04_data_model_graph.md` — add node labels: `Translation`, `Flowchart`, `JinswaraQnA`, `PravachanChunk`, `ResearchCategory`. Add edges: `TRANSLATES_TO`, `HAS_FLOWCHART`, `ANSWERS`, `IN_PRAVACHAN`, `CATEGORISED_AS`, `DRUSHTAANT_OF`.
 - `admin_ui.md` — append admin pages: model registry, finetune job runner, translation approvals, layout config editor, image/audio review.

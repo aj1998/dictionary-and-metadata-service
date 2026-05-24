@@ -7,7 +7,7 @@
 
 This document does **not** describe the parser code (see
 [`parser_spec.md`](./parser_spec.md)) or the DB schema (see
-[`schema_updates.md`](./schema_updates.md)). It describes only **what the
+[`schema_updates.md`](./archived/schema_updates.md)). It describes only **what the
 HTML means**, in enough detail that a different implementer could rebuild
 the parser without re-reading the source HTML.
 
@@ -821,7 +821,7 @@ if buffer and last_block is not None:
 - **Parser implementation (modules, Pydantic types, CLI, tests)** —
   see [`parser_spec.md`](./parser_spec.md).
 - **Database schema additions** to support hierarchical topics and
-  multiple definitions — see [`schema_updates.md`](./schema_updates.md).
+  multiple definitions — see [`schema_updates.md`](./archived/schema_updates.md).
 
 ## 10. Versioning
 

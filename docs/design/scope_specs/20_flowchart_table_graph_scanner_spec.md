@@ -1,7 +1,7 @@
 # 20 — Flowchart / Table / Graph Scanner Spec
 
 Scope context: [`scope/06_advanced_rag_and_finetuning.md`](../../scope/06_advanced_rag_and_finetuning.md) ("Flowchart / table / diagram retrieval").
-Depends on: [`design/03_data_model_mongo.md`](../data_model/03_data_model_mongo.md) (`figures_blobs` collection already defined), [`design/02_data_model_postgres.md`](../data_model/02_data_model_postgres.md), and the existing OCR ingestion pipeline that already produces per-page rendered images under `cataloguesearch_shastra_id`.
+Depends on: [`design/03_data_model_mongo.md`](../data_model/03_data_model_mongo.md) (`figures_blobs` collection already defined), [`design/data_model_postgres.md`](../data_model/data_model_postgres.md), and the existing OCR ingestion pipeline that already produces per-page rendered images under `cataloguesearch_shastra_id`.
 
 OCRed shastra pages frequently contain pre-existing flowcharts, tables, graphs (line/bar), and decorative images. A scanner worker detects these visual structures, persists their crop in Mongo + an index row in Postgres, and exposes them to the AI page (and reader) for interactive re-rendering. Flowcharts re-render as `react-flow` / `mermaid` graphs, tables as sortable HTML tables, and graphs as Plotly/Recharts charts when structured data can be recovered.
 

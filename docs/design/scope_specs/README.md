@@ -5,7 +5,7 @@ Code-level, phase-wise implementation specs for the SAAR vision. Each spec is si
 ## Reading order
 
 1. Read scope docs first: [`scope/00_overview.md`](../../scope/00_overview.md) → [`02_foundation_status.md`](../../scope/02_foundation_status.md).
-2. Read foundational design docs: [`02_data_model_postgres.md`](../data_model/02_data_model_postgres.md), [`03_data_model_mongo.md`](../data_model/03_data_model_mongo.md), [`04_data_model_graph.md`](../data_model/04_data_model_graph.md).
+2. Read foundational design docs: [`data_model_postgres.md`](../data_model/data_model_postgres.md), [`03_data_model_mongo.md`](../data_model/03_data_model_mongo.md), [`04_data_model_graph.md`](../data_model/04_data_model_graph.md).
 3. Pick a spec and ship it; the "definition of done" at the bottom is the merge bar.
 
 ## Spec index
@@ -14,7 +14,7 @@ Code-level, phase-wise implementation specs for the SAAR vision. Each spec is si
 
 | # | Spec | Phase split | Depends on |
 |---|---|---|---|
-| 01 | [User accounts & preferences](./01_user_accounts_spec.md) | A: auth-service + JWT, B: prefs/saved-views/highlights | 02_data_model_postgres |
+| 01 | [User accounts & preferences](./01_user_accounts_spec.md) | A: auth-service + JWT, B: prefs/saved-views/highlights | data_model_postgres |
 
 ### Reading layer
 
@@ -72,7 +72,7 @@ Code-level, phase-wise implementation specs for the SAAR vision. Each spec is si
 ## Dependency graph (high-level)
 
 ```
-02_data_model_postgres ─┐
+data_model_postgres ─┐
 03_data_model_mongo     ├─► 01_user_accounts ─► UI (03_shastra_reader_ui)
 04_data_model_graph     ┘
                           │

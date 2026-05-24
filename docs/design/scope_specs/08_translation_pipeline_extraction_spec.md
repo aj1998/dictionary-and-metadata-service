@@ -4,7 +4,7 @@ Scope context: [`scope/04_translation_enrichment_pipeline.md`](../../scope/04_tr
 
 Implements **Stage A** (topic spans) and **Stage B** (keyword spans) of the 3-stage enrichment pipeline. Stage C (hierarchy) is specced separately in [`11_topic_hierarchy_ai_spec.md`](./11_topic_hierarchy_ai_spec.md). LLM prompts + JSON schemas live in [`09_translation_pipeline_ai_flow_spec.md`](./09_translation_pipeline_ai_flow_spec.md) (this spec calls into them via a Python contract).
 
-The extraction worker reads bhaavarth / hindi_chhand / teeka chunks from Mongo (see `docs/design/03_data_model_mongo.md`), fans out per-chunk LLM calls, writes character-span rows into the new `extraction_spans` table, and lands every span as a row in the existing `ingestion_review_queue` flavor for admin approval. Approved spans back-fill `gathas.keyword_ids` / `gathas.topic_ids` (see `docs/design/02_data_model_postgres.md#gathas`) and trigger graph sync.
+The extraction worker reads bhaavarth / hindi_chhand / teeka chunks from Mongo (see `docs/design/03_data_model_mongo.md`), fans out per-chunk LLM calls, writes character-span rows into the new `extraction_spans` table, and lands every span as a row in the existing `ingestion_review_queue` flavor for admin approval. Approved spans back-fill `gathas.keyword_ids` / `gathas.topic_ids` (see `docs/design/data_model_postgres.md#gathas`) and trigger graph sync.
 
 ## Phase A — Schema + Pydantic models
 

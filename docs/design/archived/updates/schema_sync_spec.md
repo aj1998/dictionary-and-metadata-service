@@ -741,7 +741,7 @@ code changes are complete.
 
 | Doc | What to update |
 |-----|---------------|
-| `docs/design/02_data_model_postgres.md` | Add `publications` and `kalashas` tables + DDL. Add migration entries `0011`, `0012`. Apply `topics` updates from `schema_updates.md §5.1`. Add `upsert_publication` and `upsert_kalash` examples. |
+| `docs/design/data_model_postgres.md` | Add `publications` and `kalashas` tables + DDL. Add migration entries `0011`, `0012`. Apply `topics` updates from `schema_updates.md §5.1`. Add `upsert_publication` and `upsert_kalash` examples. |
 | `docs/design/03_data_model_mongo.md` | Correct `keyword_definitions.references` object shape (§5.1). Correct `subsection_tree` to remove `blocks` (§5.2). Add all 6 new collections (§5.3–5.8). Add updated `ensure_indexes()` list. |
 | `docs/design/04_data_model_graph.md` | Add 7 new node labels to the "Node labels" table (§6.1). Add `IN_TEEKA`, `IN_PUBLICATION`, `CONTAINS_DEFINITION` to "Edge types" table. Expand `IN_SHASTRA` from-list, `MENTIONS_TOPIC` from-list. Add new Cypher constraints block (§6.5). Add `sync_teeka`, `sync_publication`, `sync_kalash`, `ensure_lazy_node` to the "Sync algorithm" section. Update "Driver layout" to list the new functions. |
 | `docs/design/jainkosh/schema_updates.md` | Add a "Status" note: Postgres topics hierarchy is subsumed into migration `0010`. Point forward to this spec for new entities. |

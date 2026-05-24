@@ -4,7 +4,7 @@ Scope context: [`scope/03_shastra_reader.md`](../../scope/03_shastra_reader.md),
 
 Per-shastra layout YAML declares the native structural hierarchy (adhikaar → gatha, parva → sarga → shloka, etc.) and the panel order/visibility for the Shastra Reader. New shastras only require a new YAML — no code change. A small Postgres registry (`shastra_layouts`) names the *active* version so the API can serve it deterministically.
 
-Storage: small YAML files under `parser_configs/shastra_layouts/<family>/<natural_key>.yaml`, version-controlled like [`parser_configs/jainkosh.yaml`](../../../parser_configs/jainkosh.yaml). The registry table parallels `parser_configs` from [`02_data_model_postgres.md`](../data_model/02_data_model_postgres.md).
+Storage: small YAML files under `parser_configs/shastra_layouts/<family>/<natural_key>.yaml`, version-controlled like [`parser_configs/jainkosh.yaml`](../../../parser_configs/jainkosh.yaml). The registry table parallels `parser_configs` from [`data_model_postgres.md`](../data_model/data_model_postgres.md).
 
 ## Phase A — schema, Pydantic model, loader
 

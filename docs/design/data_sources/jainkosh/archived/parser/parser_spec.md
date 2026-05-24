@@ -8,8 +8,8 @@
 > (Postgres / Mongo / Neo4j) would receive on approval.
 >
 > Rules: see [`parsing_rules.md`](./parsing_rules.md). Schema changes:
-> see [`schema_updates.md`](./schema_updates.md). Pipeline / fetch /
-> alias mining: see [`../08_ingestion_jainkosh.md`](../08_ingestion_jainkosh.md).
+> see [`schema_updates.md`](./archived/schema_updates.md). Pipeline / fetch /
+> alias mining: see [`../08_ingestion_jainkosh.md`](../../08_ingestion_jainkosh.md).
 >
 > **Fixes applied in v1.1.0**: see
 > [`parser_fix_spec_001/README.md`](./parser_fix_spec_001/README.md)

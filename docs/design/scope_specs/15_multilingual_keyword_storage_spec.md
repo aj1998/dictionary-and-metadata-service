@@ -1,6 +1,6 @@
 # 15 — Multilingual Keyword & Topic Label Storage Spec
 
-Scope context: [`scope/05_multilingual_strategy.md`](../../scope/05_multilingual_strategy.md) and [`docs/design/02_data_model_postgres.md`](../data_model/02_data_model_postgres.md) (`keywords`, `topics`, and any other `label` / `display_text` columns currently typed `TEXT`).
+Scope context: [`scope/05_multilingual_strategy.md`](../../scope/05_multilingual_strategy.md) and [`docs/design/data_model_postgres.md`](../data_model/data_model_postgres.md) (`keywords`, `topics`, and any other `label` / `display_text` columns currently typed `TEXT`).
 
 Today, `keywords.label`, `topics.label`, `topics.display_text`, and a handful of other label columns store a single Hindi string. With Kannada + Gujarati + Sanskrit + Prakrit overlays landing (see spec 16) the schema must hold multiple `(lang, script, text, transliteration?)` records per row. This spec migrates those columns from `TEXT` to multilingual JSONB, backfills existing rows non-destructively, enforces NFC on insert, and ships a `get_label()` helper with a deterministic fallback chain.
 
@@ -59,7 +59,7 @@ The JSONB is a list (order = preferred display order set by the editor), not a m
 
 ## Migration `0034_multilingual_labels.py`
 
-Affected columns (audited from `02_data_model_postgres.md`):
+Affected columns (audited from `data_model_postgres.md`):
 
 | Table | Column | New column |
 |---|---|---|

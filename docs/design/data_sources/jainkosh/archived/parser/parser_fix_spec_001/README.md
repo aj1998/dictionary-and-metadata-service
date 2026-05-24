@@ -105,7 +105,7 @@ Each phase doc lists the test files to create (or extend) and what they assert. 
 
 Phase 3 introduces synthetic topics (label-before-`देखें`). The orchestrator that consumes the envelope (out of scope for parser-only) must upsert these idempotently:
 
-- **Postgres**: `INSERT ... ON CONFLICT (natural_key) DO UPDATE SET ...` — see `02_data_model_postgres.md` `upsert_topic` example.
+- **Postgres**: `INSERT ... ON CONFLICT (natural_key) DO UPDATE SET ...` — see `data_model_postgres.md` `upsert_topic` example.
 - **Mongo `topic_extracts`**: `update_one({"natural_key": nk}, {"$set": doc}, upsert=True)`.
 - **Neo4j**: `MERGE (t:Topic {natural_key: $nk}) SET t.<...>` then `MERGE` edges.
 

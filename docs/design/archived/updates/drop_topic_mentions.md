@@ -84,7 +84,7 @@ No changes needed — no test references `TopicMention`.
 
 ### 5. Design docs
 
-- Remove the `topic_mentions` section from `docs/design/02_data_model_postgres.md`.
+- Remove the `topic_mentions` section from `docs/design/data_model_postgres.md`.
 - The data service topic detail response does **not** include a `mentions` field. Callers that need topic→gatha/teeka mention links query the navigation service.
 
 ## Impact on API Responses

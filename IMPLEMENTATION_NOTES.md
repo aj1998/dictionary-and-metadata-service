@@ -1,6 +1,6 @@
 # Implementation status
 
-### ✅ Completed: Postgres data model (`docs/design/02_data_model_postgres.md`)
+### ✅ Completed: Postgres data model (`docs/design/data_model_postgres.md`)
 
 **Package**: `packages/jain_kb_common` — shared Python library installed as `jain-kb-common`.
 
@@ -55,7 +55,7 @@ DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test" \
 .venv/bin/python -m pytest tests/ -v
 ```
 
-See [`dev_docs/testing.md`](docs/manual_testing/postgres/testing.md) for the full manual testing guide.
+See [`dev_docs/testing.md`](docs/manual_testing/db/postgres/testing.md) for the full manual testing guide.
 
 ---
 
@@ -113,7 +113,7 @@ MONGO_URL="mongodb://localhost:27017" \
 
 Without `MONGO_URL`, 8 round-trip tests skip gracefully; 6 offline tests always run.
 
-See [`docs/manual_testing/mongo/testing.md`](docs/manual_testing/mongo/testing.md) for the full manual testing guide.
+See [`docs/manual_testing/mongo/testing.md`](docs/manual_testing/db/mongo/testing.md) for the full manual testing guide.
 
 ---
 
@@ -169,7 +169,7 @@ export NEO4J_PASSWORD="jainkb_password"
 python -m pytest tests/ -v
 ```
 
-See [`docs/manual_testing/neo4j/testing.md`](docs/manual_testing/neo4j/testing.md) for the full manual testing guide.
+See [`docs/manual_testing/neo4j/testing.md`](docs/manual_testing/db/neo4j/testing.md) for the full manual testing guide.
 
 ---
 
@@ -211,7 +211,7 @@ pip install selectolax PyYAML jsonschema pydantic
 python -m pytest workers/ingestion/jainkosh/tests/ -v
 ```
 
-See [`docs/manual_testing/jainkosh_parser.md`](docs/manual_testing/jainkosh_parser.md) for the full manual testing guide.
+See [`docs/manual_testing/jainkosh_parser.md`](docs/manual_testing/parser/jainkosh_parser.md) for the full manual testing guide.
 
 ---
 
@@ -252,7 +252,7 @@ export NEO4J_PASSWORD="jainkb_password"
 python -m pytest tests/ingestion/ -v
 ```
 
-See [`docs/manual_testing/jainkosh_ingestion.md`](docs/manual_testing/jainkosh_ingestion.md) for the manual testing guide.
+See [`docs/manual_testing/jainkosh_ingestion.md`](docs/manual_testing/ingestion/jainkosh_ingestion.md) for the manual testing guide.
 
 ---
 
