@@ -1823,7 +1823,7 @@
     "total_html_files_processed": 10,
     "warnings": [],
     "parser_version": "1.0.0",
-    "parsed_at": "2026-05-24T20:42:30.925648Z"
+    "parsed_at": "2026-05-25T05:57:24.024173Z"
   },
   "would_write": {
     "postgres": {
@@ -1882,7 +1882,7 @@
       "teekas": [
         {
           "table": "teekas",
-          "natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति",
           "shastra_natural_key": "समयसार",
           "teekakar_natural_key": "अमृतचंद्राचार्य"
         },
@@ -1896,21 +1896,21 @@
       "publications": [
         {
           "table": "publications",
-          "natural_key": "समयसार:आत्मख्याती:nikkyjain",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
-          "publisher_id": "nikkyjain"
+          "natural_key": "समयसार:आत्मख्याति:0",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
+          "publisher_id": "0"
         },
         {
           "table": "publications",
-          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:0",
           "teeka_natural_key": "समयसार:तात्पर्यवृत्ति",
-          "publisher_id": "nikkyjain"
+          "publisher_id": "0"
         }
       ],
       "gathas": [
         {
           "table": "gathas",
-          "natural_key": "समयसार:11",
+          "natural_key": "समयसार:गाथा:11",
           "shastra_natural_key": "समयसार",
           "gatha_number": "11",
           "adhikaar_number": 3,
@@ -1931,7 +1931,7 @@
         },
         {
           "table": "gathas",
-          "natural_key": "समयसार:12",
+          "natural_key": "समयसार:गाथा:12",
           "shastra_natural_key": "समयसार",
           "gatha_number": "12",
           "adhikaar_number": 4,
@@ -1952,7 +1952,7 @@
         },
         {
           "table": "gathas",
-          "natural_key": "समयसार:13",
+          "natural_key": "समयसार:गाथा:13",
           "shastra_natural_key": "समयसार",
           "gatha_number": "13",
           "adhikaar_number": 4,
@@ -1973,7 +1973,7 @@
         },
         {
           "table": "gathas",
-          "natural_key": "समयसार:14",
+          "natural_key": "समयसार:गाथा:14",
           "shastra_natural_key": "समयसार",
           "gatha_number": "14",
           "adhikaar_number": 4,
@@ -1994,7 +1994,7 @@
         },
         {
           "table": "gathas",
-          "natural_key": "समयसार:15",
+          "natural_key": "समयसार:गाथा:15",
           "shastra_natural_key": "समयसार",
           "gatha_number": "15",
           "adhikaar_number": 4,
@@ -2015,7 +2015,7 @@
         },
         {
           "table": "gathas",
-          "natural_key": "समयसार:16",
+          "natural_key": "समयसार:गाथा:16",
           "shastra_natural_key": "समयसार",
           "gatha_number": "16",
           "adhikaar_number": 4,
@@ -2036,7 +2036,7 @@
         },
         {
           "table": "gathas",
-          "natural_key": "समयसार:17",
+          "natural_key": "समयसार:गाथा:17",
           "shastra_natural_key": "समयसार",
           "gatha_number": "17",
           "adhikaar_number": 4,
@@ -2057,7 +2057,7 @@
         },
         {
           "table": "gathas",
-          "natural_key": "समयसार:18",
+          "natural_key": "समयसार:गाथा:18",
           "shastra_natural_key": "समयसार",
           "gatha_number": "18",
           "adhikaar_number": 4,
@@ -2078,7 +2078,7 @@
         },
         {
           "table": "gathas",
-          "natural_key": "समयसार:19",
+          "natural_key": "समयसार:गाथा:19",
           "shastra_natural_key": "समयसार",
           "gatha_number": "19",
           "adhikaar_number": 4,
@@ -2101,136 +2101,136 @@
       "kalashas": [
         {
           "table": "kalashas",
-          "natural_key": "समयसार:आत्मख्याती:kalash:1",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:1",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "1",
-          "gatha_natural_key": "समयसार:12"
+          "gatha_natural_key": "समयसार:गाथा:12"
         },
         {
           "table": "kalashas",
-          "natural_key": "समयसार:आत्मख्याती:kalash:2",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:2",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "2",
-          "gatha_natural_key": "समयसार:12"
+          "gatha_natural_key": "समयसार:गाथा:12"
         },
         {
           "table": "kalashas",
-          "natural_key": "समयसार:आत्मख्याती:kalash:3",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:3",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "3",
-          "gatha_natural_key": "समयसार:12"
+          "gatha_natural_key": "समयसार:गाथा:12"
         },
         {
           "table": "kalashas",
-          "natural_key": "समयसार:आत्मख्याती:kalash:4",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:4",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "4",
-          "gatha_natural_key": "समयसार:12"
+          "gatha_natural_key": "समयसार:गाथा:12"
         },
         {
           "table": "kalashas",
-          "natural_key": "समयसार:आत्मख्याती:kalash:5",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:5",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "5",
-          "gatha_natural_key": "समयसार:13"
+          "gatha_natural_key": "समयसार:गाथा:13"
         },
         {
           "table": "kalashas",
-          "natural_key": "समयसार:आत्मख्याती:kalash:6",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:6",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "6",
-          "gatha_natural_key": "समयसार:13"
+          "gatha_natural_key": "समयसार:गाथा:13"
         },
         {
           "table": "kalashas",
-          "natural_key": "समयसार:आत्मख्याती:kalash:7",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:7",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "7",
-          "gatha_natural_key": "समयसार:13"
+          "gatha_natural_key": "समयसार:गाथा:13"
         },
         {
           "table": "kalashas",
-          "natural_key": "समयसार:आत्मख्याती:kalash:8",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:8",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "8",
-          "gatha_natural_key": "समयसार:14"
+          "gatha_natural_key": "समयसार:गाथा:14"
         },
         {
           "table": "kalashas",
-          "natural_key": "समयसार:आत्मख्याती:kalash:9",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:9",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "9",
-          "gatha_natural_key": "समयसार:15"
+          "gatha_natural_key": "समयसार:गाथा:15"
         },
         {
           "table": "kalashas",
-          "natural_key": "समयसार:आत्मख्याती:kalash:10",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:10",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "10",
-          "gatha_natural_key": "समयसार:15"
+          "gatha_natural_key": "समयसार:गाथा:15"
         },
         {
           "table": "kalashas",
-          "natural_key": "समयसार:आत्मख्याती:kalash:11",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:11",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "11",
-          "gatha_natural_key": "समयसार:16"
+          "gatha_natural_key": "समयसार:गाथा:16"
         },
         {
           "table": "kalashas",
-          "natural_key": "समयसार:आत्मख्याती:kalash:12",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:12",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "12",
-          "gatha_natural_key": "समयसार:16"
+          "gatha_natural_key": "समयसार:गाथा:16"
         },
         {
           "table": "kalashas",
-          "natural_key": "समयसार:आत्मख्याती:kalash:13",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:13",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "13",
-          "gatha_natural_key": "समयसार:16"
+          "gatha_natural_key": "समयसार:गाथा:16"
         },
         {
           "table": "kalashas",
-          "natural_key": "समयसार:आत्मख्याती:kalash:14",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:14",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "14",
-          "gatha_natural_key": "समयसार:16"
+          "gatha_natural_key": "समयसार:गाथा:16"
         },
         {
           "table": "kalashas",
-          "natural_key": "समयसार:आत्मख्याती:kalash:15",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:15",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "15",
-          "gatha_natural_key": "समयसार:17"
+          "gatha_natural_key": "समयसार:गाथा:17"
         },
         {
           "table": "kalashas",
-          "natural_key": "समयसार:आत्मख्याती:kalash:16",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:16",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "16",
-          "gatha_natural_key": "समयसार:19"
+          "gatha_natural_key": "समयसार:गाथा:19"
         },
         {
           "table": "kalashas",
-          "natural_key": "समयसार:तात्पर्यवृत्ति:kalash:12",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:कलश:12",
           "teeka_natural_key": "समयसार:तात्पर्यवृत्ति",
           "kalash_number": "12",
-          "gatha_natural_key": "समयसार:10"
+          "gatha_natural_key": "समयसार:गाथा:10"
         },
         {
           "table": "kalashas",
-          "natural_key": "समयसार:तात्पर्यवृत्ति:kalash:18",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:कलश:18",
           "teeka_natural_key": "समयसार:तात्पर्यवृत्ति",
           "kalash_number": "18",
-          "gatha_natural_key": "समयसार:15"
+          "gatha_natural_key": "समयसार:गाथा:15"
         }
       ],
       "teeka_chapters": [
         {
           "table": "teeka_chapters",
-          "natural_key": "समयसार:आत्मख्याती:chapter:3",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:अध्याय:3",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "chapter_number": 3,
           "name": [
             {
@@ -2239,13 +2239,13 @@
               "text": "नव-पदार्थ अधिकार"
             }
           ],
-          "start_gatha_natural_key": "समयसार:11",
-          "end_gatha_natural_key": "समयसार:11"
+          "start_gatha_natural_key": "समयसार:गाथा:11",
+          "end_gatha_natural_key": "समयसार:गाथा:11"
         },
         {
           "table": "teeka_chapters",
-          "natural_key": "समयसार:आत्मख्याती:chapter:4",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:अध्याय:4",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "chapter_number": 4,
           "name": [
             {
@@ -2254,8 +2254,8 @@
               "text": "जीव अधिकार"
             }
           ],
-          "start_gatha_natural_key": "समयसार:12",
-          "end_gatha_natural_key": "समयसार:19"
+          "start_gatha_natural_key": "समयसार:गाथा:12",
+          "end_gatha_natural_key": "समयसार:गाथा:19"
         }
       ]
     },
@@ -2263,9 +2263,9 @@
       "gatha_prakrit": [
         {
           "collection": "gatha_prakrit",
-          "natural_key": "समयसार:11:prakrit",
+          "natural_key": "समयसार:गाथा:11:prakrit",
           "shastra_natural_key": "समयसार",
-          "gatha_natural_key": "समयसार:11",
+          "gatha_natural_key": "समयसार:गाथा:11",
           "gatha_number": "11",
           "text": [
             {
@@ -2279,9 +2279,9 @@
         },
         {
           "collection": "gatha_prakrit",
-          "natural_key": "समयसार:12:prakrit",
+          "natural_key": "समयसार:गाथा:12:prakrit",
           "shastra_natural_key": "समयसार",
-          "gatha_natural_key": "समयसार:12",
+          "gatha_natural_key": "समयसार:गाथा:12",
           "gatha_number": "12",
           "text": [
             {
@@ -2295,9 +2295,9 @@
         },
         {
           "collection": "gatha_prakrit",
-          "natural_key": "समयसार:13:prakrit",
+          "natural_key": "समयसार:गाथा:13:prakrit",
           "shastra_natural_key": "समयसार",
-          "gatha_natural_key": "समयसार:13",
+          "gatha_natural_key": "समयसार:गाथा:13",
           "gatha_number": "13",
           "text": [
             {
@@ -2311,9 +2311,9 @@
         },
         {
           "collection": "gatha_prakrit",
-          "natural_key": "समयसार:14:prakrit",
+          "natural_key": "समयसार:गाथा:14:prakrit",
           "shastra_natural_key": "समयसार",
-          "gatha_natural_key": "समयसार:14",
+          "gatha_natural_key": "समयसार:गाथा:14",
           "gatha_number": "14",
           "text": [
             {
@@ -2327,9 +2327,9 @@
         },
         {
           "collection": "gatha_prakrit",
-          "natural_key": "समयसार:15:prakrit",
+          "natural_key": "समयसार:गाथा:15:prakrit",
           "shastra_natural_key": "समयसार",
-          "gatha_natural_key": "समयसार:15",
+          "gatha_natural_key": "समयसार:गाथा:15",
           "gatha_number": "15",
           "text": [
             {
@@ -2343,9 +2343,9 @@
         },
         {
           "collection": "gatha_prakrit",
-          "natural_key": "समयसार:16:prakrit",
+          "natural_key": "समयसार:गाथा:16:prakrit",
           "shastra_natural_key": "समयसार",
-          "gatha_natural_key": "समयसार:16",
+          "gatha_natural_key": "समयसार:गाथा:16",
           "gatha_number": "16",
           "text": [
             {
@@ -2359,9 +2359,9 @@
         },
         {
           "collection": "gatha_prakrit",
-          "natural_key": "समयसार:17:prakrit",
+          "natural_key": "समयसार:गाथा:17:prakrit",
           "shastra_natural_key": "समयसार",
-          "gatha_natural_key": "समयसार:17",
+          "gatha_natural_key": "समयसार:गाथा:17",
           "gatha_number": "17",
           "text": [
             {
@@ -2375,9 +2375,9 @@
         },
         {
           "collection": "gatha_prakrit",
-          "natural_key": "समयसार:18:prakrit",
+          "natural_key": "समयसार:गाथा:18:prakrit",
           "shastra_natural_key": "समयसार",
-          "gatha_natural_key": "समयसार:18",
+          "gatha_natural_key": "समयसार:गाथा:18",
           "gatha_number": "18",
           "text": [
             {
@@ -2391,9 +2391,9 @@
         },
         {
           "collection": "gatha_prakrit",
-          "natural_key": "समयसार:19:prakrit",
+          "natural_key": "समयसार:गाथा:19:prakrit",
           "shastra_natural_key": "समयसार",
-          "gatha_natural_key": "समयसार:19",
+          "gatha_natural_key": "समयसार:गाथा:19",
           "gatha_number": "19",
           "text": [
             {
@@ -2407,9 +2407,9 @@
         },
         {
           "collection": "gatha_prakrit",
-          "natural_key": "समयसार:तात्पर्यवृत्ति:kalash:12:prakrit",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:कलश:12:prakrit",
           "shastra_natural_key": "समयसार",
-          "gatha_natural_key": "समयसार:तात्पर्यवृत्ति:kalash:12",
+          "gatha_natural_key": "समयसार:तात्पर्यवृत्ति:कलश:12",
           "gatha_number": "12",
           "text": [
             {
@@ -2423,9 +2423,9 @@
         },
         {
           "collection": "gatha_prakrit",
-          "natural_key": "समयसार:तात्पर्यवृत्ति:kalash:18:prakrit",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:कलश:18:prakrit",
           "shastra_natural_key": "समयसार",
-          "gatha_natural_key": "समयसार:तात्पर्यवृत्ति:kalash:18",
+          "gatha_natural_key": "समयसार:तात्पर्यवृत्ति:कलश:18",
           "gatha_number": "18",
           "text": [
             {
@@ -2441,9 +2441,9 @@
       "gatha_sanskrit": [
         {
           "collection": "gatha_sanskrit",
-          "natural_key": "समयसार:17:sanskrit",
+          "natural_key": "समयसार:गाथा:17:sanskrit",
           "shastra_natural_key": "समयसार",
-          "gatha_natural_key": "समयसार:17",
+          "gatha_natural_key": "समयसार:गाथा:17",
           "gatha_number": "17",
           "text": [
             {
@@ -2455,9 +2455,9 @@
         },
         {
           "collection": "gatha_sanskrit",
-          "natural_key": "समयसार:18:sanskrit",
+          "natural_key": "समयसार:गाथा:18:sanskrit",
           "shastra_natural_key": "समयसार",
-          "gatha_natural_key": "समयसार:18",
+          "gatha_natural_key": "समयसार:गाथा:18",
           "gatha_number": "18",
           "text": [
             {
@@ -2469,9 +2469,9 @@
         },
         {
           "collection": "gatha_sanskrit",
-          "natural_key": "समयसार:19:sanskrit",
+          "natural_key": "समयसार:गाथा:19:sanskrit",
           "shastra_natural_key": "समयसार",
-          "gatha_natural_key": "समयसार:19",
+          "gatha_natural_key": "समयसार:गाथा:19",
           "gatha_number": "19",
           "text": [
             {
@@ -2485,8 +2485,8 @@
       "gatha_hindi_chhand": [
         {
           "collection": "gatha_hindi_chhand",
-          "natural_key": "समयसार:11:chhand:1",
-          "gatha_natural_key": "समयसार:11",
+          "natural_key": "समयसार:गाथा:11:chhand:1",
+          "gatha_natural_key": "समयसार:गाथा:11",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2506,8 +2506,8 @@
         },
         {
           "collection": "gatha_hindi_chhand",
-          "natural_key": "समयसार:12:chhand:1",
-          "gatha_natural_key": "समयसार:12",
+          "natural_key": "समयसार:गाथा:12:chhand:1",
+          "gatha_natural_key": "समयसार:गाथा:12",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2527,8 +2527,8 @@
         },
         {
           "collection": "gatha_hindi_chhand",
-          "natural_key": "समयसार:13:chhand:1",
-          "gatha_natural_key": "समयसार:13",
+          "natural_key": "समयसार:गाथा:13:chhand:1",
+          "gatha_natural_key": "समयसार:गाथा:13",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2548,8 +2548,8 @@
         },
         {
           "collection": "gatha_hindi_chhand",
-          "natural_key": "समयसार:14:chhand:1",
-          "gatha_natural_key": "समयसार:14",
+          "natural_key": "समयसार:गाथा:14:chhand:1",
+          "gatha_natural_key": "समयसार:गाथा:14",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2569,8 +2569,8 @@
         },
         {
           "collection": "gatha_hindi_chhand",
-          "natural_key": "समयसार:15:chhand:1",
-          "gatha_natural_key": "समयसार:15",
+          "natural_key": "समयसार:गाथा:15:chhand:1",
+          "gatha_natural_key": "समयसार:गाथा:15",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2590,8 +2590,8 @@
         },
         {
           "collection": "gatha_hindi_chhand",
-          "natural_key": "समयसार:16:chhand:1",
-          "gatha_natural_key": "समयसार:16",
+          "natural_key": "समयसार:गाथा:16:chhand:1",
+          "gatha_natural_key": "समयसार:गाथा:16",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2611,8 +2611,8 @@
         },
         {
           "collection": "gatha_hindi_chhand",
-          "natural_key": "समयसार:17:chhand:1",
-          "gatha_natural_key": "समयसार:17",
+          "natural_key": "समयसार:गाथा:17:chhand:1",
+          "gatha_natural_key": "समयसार:गाथा:17",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2632,8 +2632,8 @@
         },
         {
           "collection": "gatha_hindi_chhand",
-          "natural_key": "समयसार:18:chhand:1",
-          "gatha_natural_key": "समयसार:18",
+          "natural_key": "समयसार:गाथा:18:chhand:1",
+          "gatha_natural_key": "समयसार:गाथा:18",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2653,8 +2653,8 @@
         },
         {
           "collection": "gatha_hindi_chhand",
-          "natural_key": "समयसार:19:chhand:1",
-          "gatha_natural_key": "समयसार:19",
+          "natural_key": "समयसार:गाथा:19:chhand:1",
+          "gatha_natural_key": "समयसार:गाथा:19",
           "chhand_index": 1,
           "chhand_type": "harigeet",
           "translator": [
@@ -2676,9 +2676,9 @@
       "teeka_gatha_mapping": [
         {
           "collection": "teeka_gatha_mapping",
-          "natural_key": "समयसार:आत्मख्याती:11",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
-          "gatha_natural_key": "समयसार:11",
+          "natural_key": "समयसार:आत्मख्याति:11",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
+          "gatha_natural_key": "समयसार:गाथा:11",
           "anvayartha": [
             {
               "lang": "hin",
@@ -2733,9 +2733,9 @@
         },
         {
           "collection": "teeka_gatha_mapping",
-          "natural_key": "समयसार:आत्मख्याती:12",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
-          "gatha_natural_key": "समयसार:12",
+          "natural_key": "समयसार:आत्मख्याति:12",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
+          "gatha_natural_key": "समयसार:गाथा:12",
           "anvayartha": [
             {
               "lang": "hin",
@@ -2786,9 +2786,9 @@
         },
         {
           "collection": "teeka_gatha_mapping",
-          "natural_key": "समयसार:आत्मख्याती:13",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
-          "gatha_natural_key": "समयसार:13",
+          "natural_key": "समयसार:आत्मख्याति:13",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
+          "gatha_natural_key": "समयसार:गाथा:13",
           "anvayartha": [
             {
               "lang": "hin",
@@ -2835,9 +2835,9 @@
         },
         {
           "collection": "teeka_gatha_mapping",
-          "natural_key": "समयसार:आत्मख्याती:14",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
-          "gatha_natural_key": "समयसार:14",
+          "natural_key": "समयसार:आत्मख्याति:14",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
+          "gatha_natural_key": "समयसार:गाथा:14",
           "anvayartha": [
             {
               "lang": "hin",
@@ -2892,9 +2892,9 @@
         },
         {
           "collection": "teeka_gatha_mapping",
-          "natural_key": "समयसार:आत्मख्याती:15",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
-          "gatha_natural_key": "समयसार:15",
+          "natural_key": "समयसार:आत्मख्याति:15",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
+          "gatha_natural_key": "समयसार:गाथा:15",
           "anvayartha": [
             {
               "lang": "hin",
@@ -2941,9 +2941,9 @@
         },
         {
           "collection": "teeka_gatha_mapping",
-          "natural_key": "समयसार:आत्मख्याती:16",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
-          "gatha_natural_key": "समयसार:16",
+          "natural_key": "समयसार:आत्मख्याति:16",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
+          "gatha_natural_key": "समयसार:गाथा:16",
           "anvayartha": [
             {
               "lang": "hin",
@@ -2998,9 +2998,9 @@
         },
         {
           "collection": "teeka_gatha_mapping",
-          "natural_key": "समयसार:आत्मख्याती:17",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
-          "gatha_natural_key": "समयसार:17",
+          "natural_key": "समयसार:आत्मख्याति:17",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
+          "gatha_natural_key": "समयसार:गाथा:17",
           "anvayartha": [
             {
               "lang": "hin",
@@ -3093,9 +3093,9 @@
         },
         {
           "collection": "teeka_gatha_mapping",
-          "natural_key": "समयसार:आत्मख्याती:18",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
-          "gatha_natural_key": "समयसार:18",
+          "natural_key": "समयसार:आत्मख्याति:18",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
+          "gatha_natural_key": "समयसार:गाथा:18",
           "anvayartha": [
             {
               "lang": "hin",
@@ -3188,9 +3188,9 @@
         },
         {
           "collection": "teeka_gatha_mapping",
-          "natural_key": "समयसार:आत्मख्याती:19",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
-          "gatha_natural_key": "समयसार:19",
+          "natural_key": "समयसार:आत्मख्याति:19",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
+          "gatha_natural_key": "समयसार:गाथा:19",
           "anvayartha": [
             {
               "lang": "hin",
@@ -3243,9 +3243,9 @@
       "gatha_teeka_sanskrit": [
         {
           "collection": "gatha_teeka_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:11:teeka:san",
-          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:11",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:11:टीका:san",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याति:11",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "gatha_number": "11",
           "text": [
             {
@@ -3257,9 +3257,9 @@
         },
         {
           "collection": "gatha_teeka_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:12:teeka:san",
-          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:12",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:12:टीका:san",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याति:12",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "gatha_number": "12",
           "text": [
             {
@@ -3271,9 +3271,9 @@
         },
         {
           "collection": "gatha_teeka_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:13:teeka:san",
-          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:13",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:13:टीका:san",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याति:13",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "gatha_number": "13",
           "text": [
             {
@@ -3285,9 +3285,9 @@
         },
         {
           "collection": "gatha_teeka_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:14:teeka:san",
-          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:14",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:14:टीका:san",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याति:14",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "gatha_number": "14",
           "text": [
             {
@@ -3299,9 +3299,9 @@
         },
         {
           "collection": "gatha_teeka_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:15:teeka:san",
-          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:15",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:15:टीका:san",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याति:15",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "gatha_number": "15",
           "text": [
             {
@@ -3313,9 +3313,9 @@
         },
         {
           "collection": "gatha_teeka_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:16:teeka:san",
-          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:16",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:16:टीका:san",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याति:16",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "gatha_number": "16",
           "text": [
             {
@@ -3327,9 +3327,9 @@
         },
         {
           "collection": "gatha_teeka_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:17:teeka:san",
-          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:17",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:17:टीका:san",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याति:17",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "gatha_number": "17",
           "text": [
             {
@@ -3341,9 +3341,9 @@
         },
         {
           "collection": "gatha_teeka_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:18:teeka:san",
-          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:18",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:18:टीका:san",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याति:18",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "gatha_number": "18",
           "text": [
             {
@@ -3355,9 +3355,9 @@
         },
         {
           "collection": "gatha_teeka_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:19:teeka:san",
-          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:19",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:19:टीका:san",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याति:19",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "gatha_number": "19",
           "text": [
             {
@@ -3371,11 +3371,11 @@
       "gatha_teeka_bhaavarth_hindi": [
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:आत्मख्याती:nikkyjain:11:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याती:nikkyjain:11:bhaavarth:hi",
-          "publication_natural_key": "समयसार:आत्मख्याती:nikkyjain",
-          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:11",
-          "publisher_id": "nikkyjain",
+          "natural_key": "समयसार:आत्मख्याति:0:11:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याति:0:11:भावार्थ:hi",
+          "publication_natural_key": "समयसार:आत्मख्याति:0",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याति:11",
+          "publisher_id": "0",
           "gatha_number": "11",
           "text": [
             {
@@ -3387,11 +3387,11 @@
         },
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:11:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:11:bhaavarth:hi",
-          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:0:11:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:0:11:भावार्थ:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
           "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:11",
-          "publisher_id": "nikkyjain",
+          "publisher_id": "0",
           "gatha_number": "11",
           "text": [
             {
@@ -3403,11 +3403,11 @@
         },
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:आत्मख्याती:nikkyjain:12:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याती:nikkyjain:12:bhaavarth:hi",
-          "publication_natural_key": "समयसार:आत्मख्याती:nikkyjain",
-          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:12",
-          "publisher_id": "nikkyjain",
+          "natural_key": "समयसार:आत्मख्याति:0:12:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याति:0:12:भावार्थ:hi",
+          "publication_natural_key": "समयसार:आत्मख्याति:0",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याति:12",
+          "publisher_id": "0",
           "gatha_number": "12",
           "text": [
             {
@@ -3419,11 +3419,11 @@
         },
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:12:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:12:bhaavarth:hi",
-          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:0:12:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:0:12:भावार्थ:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
           "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:12",
-          "publisher_id": "nikkyjain",
+          "publisher_id": "0",
           "gatha_number": "12",
           "text": [
             {
@@ -3435,11 +3435,11 @@
         },
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:आत्मख्याती:nikkyjain:13:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याती:nikkyjain:13:bhaavarth:hi",
-          "publication_natural_key": "समयसार:आत्मख्याती:nikkyjain",
-          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:13",
-          "publisher_id": "nikkyjain",
+          "natural_key": "समयसार:आत्मख्याति:0:13:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याति:0:13:भावार्थ:hi",
+          "publication_natural_key": "समयसार:आत्मख्याति:0",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याति:13",
+          "publisher_id": "0",
           "gatha_number": "13",
           "text": [
             {
@@ -3451,11 +3451,11 @@
         },
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:13:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:13:bhaavarth:hi",
-          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:0:13:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:0:13:भावार्थ:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
           "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:13",
-          "publisher_id": "nikkyjain",
+          "publisher_id": "0",
           "gatha_number": "13",
           "text": [
             {
@@ -3467,11 +3467,11 @@
         },
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:आत्मख्याती:nikkyjain:14:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याती:nikkyjain:14:bhaavarth:hi",
-          "publication_natural_key": "समयसार:आत्मख्याती:nikkyjain",
-          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:14",
-          "publisher_id": "nikkyjain",
+          "natural_key": "समयसार:आत्मख्याति:0:14:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याति:0:14:भावार्थ:hi",
+          "publication_natural_key": "समयसार:आत्मख्याति:0",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याति:14",
+          "publisher_id": "0",
           "gatha_number": "14",
           "text": [
             {
@@ -3483,11 +3483,11 @@
         },
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:14:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:14:bhaavarth:hi",
-          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:0:14:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:0:14:भावार्थ:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
           "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:14",
-          "publisher_id": "nikkyjain",
+          "publisher_id": "0",
           "gatha_number": "14",
           "text": [
             {
@@ -3499,11 +3499,11 @@
         },
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:आत्मख्याती:nikkyjain:15:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याती:nikkyjain:15:bhaavarth:hi",
-          "publication_natural_key": "समयसार:आत्मख्याती:nikkyjain",
-          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:15",
-          "publisher_id": "nikkyjain",
+          "natural_key": "समयसार:आत्मख्याति:0:15:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याति:0:15:भावार्थ:hi",
+          "publication_natural_key": "समयसार:आत्मख्याति:0",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याति:15",
+          "publisher_id": "0",
           "gatha_number": "15",
           "text": [
             {
@@ -3515,11 +3515,11 @@
         },
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:15:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:15:bhaavarth:hi",
-          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:0:15:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:0:15:भावार्थ:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
           "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:15",
-          "publisher_id": "nikkyjain",
+          "publisher_id": "0",
           "gatha_number": "15",
           "text": [
             {
@@ -3531,11 +3531,11 @@
         },
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:आत्मख्याती:nikkyjain:16:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याती:nikkyjain:16:bhaavarth:hi",
-          "publication_natural_key": "समयसार:आत्मख्याती:nikkyjain",
-          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:16",
-          "publisher_id": "nikkyjain",
+          "natural_key": "समयसार:आत्मख्याति:0:16:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याति:0:16:भावार्थ:hi",
+          "publication_natural_key": "समयसार:आत्मख्याति:0",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याति:16",
+          "publisher_id": "0",
           "gatha_number": "16",
           "text": [
             {
@@ -3547,11 +3547,11 @@
         },
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:16:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:16:bhaavarth:hi",
-          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:0:16:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:0:16:भावार्थ:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
           "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:16",
-          "publisher_id": "nikkyjain",
+          "publisher_id": "0",
           "gatha_number": "16",
           "text": [
             {
@@ -3563,11 +3563,11 @@
         },
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:आत्मख्याती:nikkyjain:17:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याती:nikkyjain:17:bhaavarth:hi",
-          "publication_natural_key": "समयसार:आत्मख्याती:nikkyjain",
-          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:17",
-          "publisher_id": "nikkyjain",
+          "natural_key": "समयसार:आत्मख्याति:0:17:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याति:0:17:भावार्थ:hi",
+          "publication_natural_key": "समयसार:आत्मख्याति:0",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याति:17",
+          "publisher_id": "0",
           "gatha_number": "17",
           "text": [
             {
@@ -3579,11 +3579,11 @@
         },
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:17:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:17:bhaavarth:hi",
-          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:0:17:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:0:17:भावार्थ:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
           "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:17",
-          "publisher_id": "nikkyjain",
+          "publisher_id": "0",
           "gatha_number": "17",
           "text": [
             {
@@ -3595,11 +3595,11 @@
         },
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:आत्मख्याती:nikkyjain:18:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याती:nikkyjain:18:bhaavarth:hi",
-          "publication_natural_key": "समयसार:आत्मख्याती:nikkyjain",
-          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:18",
-          "publisher_id": "nikkyjain",
+          "natural_key": "समयसार:आत्मख्याति:0:18:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याति:0:18:भावार्थ:hi",
+          "publication_natural_key": "समयसार:आत्मख्याति:0",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याति:18",
+          "publisher_id": "0",
           "gatha_number": "18",
           "text": [
             {
@@ -3611,11 +3611,11 @@
         },
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:18:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:18:bhaavarth:hi",
-          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:0:18:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:0:18:भावार्थ:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
           "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:18",
-          "publisher_id": "nikkyjain",
+          "publisher_id": "0",
           "gatha_number": "18",
           "text": [
             {
@@ -3627,11 +3627,11 @@
         },
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:आत्मख्याती:nikkyjain:19:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याती:nikkyjain:19:bhaavarth:hi",
-          "publication_natural_key": "समयसार:आत्मख्याती:nikkyjain",
-          "gatha_teeka_natural_key": "समयसार:आत्मख्याती:19",
-          "publisher_id": "nikkyjain",
+          "natural_key": "समयसार:आत्मख्याति:0:19:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:आत्मख्याति:0:19:भावार्थ:hi",
+          "publication_natural_key": "समयसार:आत्मख्याति:0",
+          "gatha_teeka_natural_key": "समयसार:आत्मख्याति:19",
+          "publisher_id": "0",
           "gatha_number": "19",
           "text": [
             {
@@ -3643,11 +3643,11 @@
         },
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:19:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:19:bhaavarth:hi",
-          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:0:19:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:0:19:भावार्थ:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
           "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:19",
-          "publisher_id": "nikkyjain",
+          "publisher_id": "0",
           "gatha_number": "19",
           "text": [
             {
@@ -3659,11 +3659,11 @@
         },
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:kalash:12:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:kalash:12:bhaavarth:hi",
-          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
-          "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:kalash:12",
-          "publisher_id": "nikkyjain",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:0:कलश:12:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:0:कलश:12:भावार्थ:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
+          "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:कलश:12",
+          "publisher_id": "0",
           "gatha_number": "12",
           "text": [
             {
@@ -3675,11 +3675,11 @@
         },
         {
           "collection": "gatha_teeka_bhaavarth_hindi",
-          "natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:kalash:18:bhaavarth:hi",
-          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain:kalash:18:bhaavarth:hi",
-          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:nikkyjain",
-          "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:kalash:18",
-          "publisher_id": "nikkyjain",
+          "natural_key": "समयसार:तात्पर्यवृत्ति:0:कलश:18:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "समयसार:तात्पर्यवृत्ति:0:कलश:18:भावार्थ:hi",
+          "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
+          "gatha_teeka_natural_key": "समयसार:तात्पर्यवृत्ति:कलश:18",
+          "publisher_id": "0",
           "gatha_number": "18",
           "text": [
             {
@@ -3693,9 +3693,9 @@
       "kalash_sanskrit": [
         {
           "collection": "kalash_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:kalash:1:san",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:1",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:1:san",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:1",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "1",
           "text": [
             {
@@ -3708,9 +3708,9 @@
         },
         {
           "collection": "kalash_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:kalash:2:san",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:2",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:2:san",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:2",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "2",
           "text": [
             {
@@ -3723,9 +3723,9 @@
         },
         {
           "collection": "kalash_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:kalash:3:san",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:3",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:3:san",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:3",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "3",
           "text": [
             {
@@ -3738,9 +3738,9 @@
         },
         {
           "collection": "kalash_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:kalash:4:san",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:4",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:4:san",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:4",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "4",
           "text": [
             {
@@ -3753,9 +3753,9 @@
         },
         {
           "collection": "kalash_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:kalash:5:san",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:5",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:5:san",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:5",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "5",
           "text": [
             {
@@ -3768,9 +3768,9 @@
         },
         {
           "collection": "kalash_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:kalash:6:san",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:6",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:6:san",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:6",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "6",
           "text": [
             {
@@ -3783,9 +3783,9 @@
         },
         {
           "collection": "kalash_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:kalash:7:san",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:7",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:7:san",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:7",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "7",
           "text": [
             {
@@ -3798,9 +3798,9 @@
         },
         {
           "collection": "kalash_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:kalash:8:san",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:8",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:8:san",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:8",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "8",
           "text": [
             {
@@ -3813,9 +3813,9 @@
         },
         {
           "collection": "kalash_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:kalash:9:san",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:9",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:9:san",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:9",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "9",
           "text": [
             {
@@ -3828,9 +3828,9 @@
         },
         {
           "collection": "kalash_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:kalash:10:san",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:10",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:10:san",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:10",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "10",
           "text": [
             {
@@ -3843,9 +3843,9 @@
         },
         {
           "collection": "kalash_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:kalash:11:san",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:11",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:11:san",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:11",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "11",
           "text": [
             {
@@ -3858,9 +3858,9 @@
         },
         {
           "collection": "kalash_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:kalash:12:san",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:12",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:12:san",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:12",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "12",
           "text": [
             {
@@ -3873,9 +3873,9 @@
         },
         {
           "collection": "kalash_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:kalash:13:san",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:13",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:13:san",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:13",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "13",
           "text": [
             {
@@ -3888,9 +3888,9 @@
         },
         {
           "collection": "kalash_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:kalash:14:san",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:14",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:14:san",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:14",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "14",
           "text": [
             {
@@ -3903,9 +3903,9 @@
         },
         {
           "collection": "kalash_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:kalash:15:san",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:15",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:15:san",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:15",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "15",
           "text": [
             {
@@ -3918,9 +3918,9 @@
         },
         {
           "collection": "kalash_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:kalash:15:san",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:15",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:15:san",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:15",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "15",
           "text": [
             {
@@ -3933,9 +3933,9 @@
         },
         {
           "collection": "kalash_sanskrit",
-          "natural_key": "समयसार:आत्मख्याती:kalash:16:san",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:16",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:16:san",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:16",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "16",
           "text": [
             {
@@ -3950,9 +3950,9 @@
       "kalash_hindi": [
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:1:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:1",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:1:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:1",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "1",
           "text": [
             {
@@ -3965,9 +3965,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:2:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:2",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:2:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:2",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "2",
           "text": [
             {
@@ -3980,9 +3980,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:3:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:3",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:3:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:3",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "3",
           "text": [
             {
@@ -3995,9 +3995,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:4:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:4",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:4:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:4",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "4",
           "text": [
             {
@@ -4010,9 +4010,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:5:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:5",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:5:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:5",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "5",
           "text": [
             {
@@ -4025,9 +4025,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:6:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:6",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:6:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:6",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "6",
           "text": [
             {
@@ -4040,9 +4040,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:5:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:5",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:5:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:5",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "5",
           "text": [
             {
@@ -4055,9 +4055,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:6:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:6",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:6:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:6",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "6",
           "text": [
             {
@@ -4070,9 +4070,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:7:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:7",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:7:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:7",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "7",
           "text": [
             {
@@ -4085,9 +4085,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:8:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:8",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:8:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:8",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "8",
           "text": [
             {
@@ -4100,9 +4100,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:9:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:9",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:9:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:9",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "9",
           "text": [
             {
@@ -4115,9 +4115,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:10:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:10",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:10:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:10",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "10",
           "text": [
             {
@@ -4130,9 +4130,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:9:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:9",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:9:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:9",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "9",
           "text": [
             {
@@ -4145,9 +4145,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:10:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:10",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:10:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:10",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "10",
           "text": [
             {
@@ -4160,9 +4160,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:11:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:11",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:11:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:11",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "11",
           "text": [
             {
@@ -4175,9 +4175,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:12:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:12",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:12:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:12",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "12",
           "text": [
             {
@@ -4190,9 +4190,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:13:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:13",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:13:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:13",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "13",
           "text": [
             {
@@ -4205,9 +4205,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:14:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:14",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:14:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:14",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "14",
           "text": [
             {
@@ -4220,9 +4220,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:15:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:15",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:15:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:15",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "15",
           "text": [
             {
@@ -4235,9 +4235,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:15:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:15",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:15:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:15",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "15",
           "text": [
             {
@@ -4250,9 +4250,9 @@
         },
         {
           "collection": "kalash_hindi",
-          "natural_key": "समयसार:आत्मख्याती:kalash:16:hi",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:16",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:16:hi",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:16",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "16",
           "text": [
             {
@@ -4267,9 +4267,9 @@
       "kalash_word_meanings": [
         {
           "collection": "kalash_word_meanings",
-          "natural_key": "समयसार:आत्मख्याती:kalash:3:word_meanings",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:3",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:3:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:3",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "3",
           "entries": [
             {
@@ -4321,9 +4321,9 @@
         },
         {
           "collection": "kalash_word_meanings",
-          "natural_key": "समयसार:आत्मख्याती:kalash:4:word_meanings",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:4",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:4:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:4",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "4",
           "entries": [
             {
@@ -4365,9 +4365,9 @@
         },
         {
           "collection": "kalash_word_meanings",
-          "natural_key": "समयसार:आत्मख्याती:kalash:5:word_meanings",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:5",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:5:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:5",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "5",
           "entries": [
             {
@@ -4429,9 +4429,9 @@
         },
         {
           "collection": "kalash_word_meanings",
-          "natural_key": "समयसार:आत्मख्याती:kalash:6:word_meanings",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:6",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:6:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:6",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "6",
           "entries": [
             {
@@ -4483,9 +4483,9 @@
         },
         {
           "collection": "kalash_word_meanings",
-          "natural_key": "समयसार:आत्मख्याती:kalash:5:word_meanings",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:5",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:5:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:5",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "5",
           "entries": [
             {
@@ -4542,9 +4542,9 @@
         },
         {
           "collection": "kalash_word_meanings",
-          "natural_key": "समयसार:आत्मख्याती:kalash:6:word_meanings",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:6",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:6:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:6",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "6",
           "entries": [
             {
@@ -4586,9 +4586,9 @@
         },
         {
           "collection": "kalash_word_meanings",
-          "natural_key": "समयसार:आत्मख्याती:kalash:7:word_meanings",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:7",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:7:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:7",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "7",
           "entries": [
             {
@@ -4625,9 +4625,9 @@
         },
         {
           "collection": "kalash_word_meanings",
-          "natural_key": "समयसार:आत्मख्याती:kalash:8:word_meanings",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:8",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:8:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:8",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "8",
           "entries": [
             {
@@ -4669,9 +4669,9 @@
         },
         {
           "collection": "kalash_word_meanings",
-          "natural_key": "समयसार:आत्मख्याती:kalash:9:word_meanings",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:9",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:9:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:9",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "9",
           "entries": [
             {
@@ -4763,9 +4763,9 @@
         },
         {
           "collection": "kalash_word_meanings",
-          "natural_key": "समयसार:आत्मख्याती:kalash:10:word_meanings",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:10",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:10:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:10",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "10",
           "entries": [
             {
@@ -4797,9 +4797,9 @@
         },
         {
           "collection": "kalash_word_meanings",
-          "natural_key": "समयसार:आत्मख्याती:kalash:9:word_meanings",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:9",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:9:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:9",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "9",
           "entries": [
             {
@@ -4851,9 +4851,9 @@
         },
         {
           "collection": "kalash_word_meanings",
-          "natural_key": "समयसार:आत्मख्याती:kalash:10:word_meanings",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:10",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:10:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:10",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "10",
           "entries": [
             {
@@ -4890,9 +4890,9 @@
         },
         {
           "collection": "kalash_word_meanings",
-          "natural_key": "समयसार:आत्मख्याती:kalash:11:word_meanings",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:11",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:11:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:11",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "11",
           "entries": [
             {
@@ -4924,9 +4924,9 @@
         },
         {
           "collection": "kalash_word_meanings",
-          "natural_key": "समयसार:आत्मख्याती:kalash:12:word_meanings",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:12",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:12:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:12",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "12",
           "entries": [
             {
@@ -4958,9 +4958,9 @@
         },
         {
           "collection": "kalash_word_meanings",
-          "natural_key": "समयसार:आत्मख्याती:kalash:13:word_meanings",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:13",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:13:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:13",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "13",
           "entries": [
             {
@@ -4992,9 +4992,9 @@
         },
         {
           "collection": "kalash_word_meanings",
-          "natural_key": "समयसार:आत्मख्याती:kalash:14:word_meanings",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:14",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:14:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:14",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "14",
           "entries": [
             {
@@ -5031,9 +5031,9 @@
         },
         {
           "collection": "kalash_word_meanings",
-          "natural_key": "समयसार:आत्मख्याती:kalash:15:word_meanings",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:15",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:15:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:15",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "15",
           "entries": [
             {
@@ -5075,9 +5075,9 @@
         },
         {
           "collection": "kalash_word_meanings",
-          "natural_key": "समयसार:आत्मख्याती:kalash:15:word_meanings",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:15",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:15:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:15",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "15",
           "entries": [
             {
@@ -5119,9 +5119,9 @@
         },
         {
           "collection": "kalash_word_meanings",
-          "natural_key": "समयसार:आत्मख्याती:kalash:16:word_meanings",
-          "kalash_natural_key": "समयसार:आत्मख्याती:kalash:16",
-          "teeka_natural_key": "समयसार:आत्मख्याती",
+          "natural_key": "समयसार:आत्मख्याति:कलश:16:word_meanings",
+          "kalash_natural_key": "समयसार:आत्मख्याति:कलश:16",
+          "teeka_natural_key": "समयसार:आत्मख्याति",
           "kalash_number": "16",
           "entries": [
             {
@@ -5204,6 +5204,42 @@
           }
         },
         {
+          "label": "Teeka",
+          "key": "समयसार:आत्मख्याति",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "teekakar_natural_key": "अमृतचंद्राचार्य",
+            "shastra_natural_key": "समयसार"
+          }
+        },
+        {
+          "label": "Publication",
+          "key": "समयसार:आत्मख्याति:0",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "publisher_id": "0"
+          }
+        },
+        {
+          "label": "Teeka",
+          "key": "समयसार:तात्पर्यवृत्ति",
+          "props": {
+            "teeka_natural_key": "समयसार:तात्पर्यवृत्ति",
+            "teekakar_natural_key": "जयसेनाचार्य",
+            "shastra_natural_key": "समयसार"
+          }
+        },
+        {
+          "label": "Publication",
+          "key": "समयसार:तात्पर्यवृत्ति:0",
+          "props": {
+            "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
+            "teeka_natural_key": "समयसार:तात्पर्यवृत्ति",
+            "publisher_id": "0"
+          }
+        },
+        {
           "label": "Topic",
           "key": "निश्चयनय भूतार्थ है और व्यवहार नय अभूतार्थ है",
           "props": {
@@ -5277,7 +5313,7 @@
         },
         {
           "label": "Gatha",
-          "key": "समयसार:11",
+          "key": "समयसार:गाथा:11",
           "props": {
             "shastra_natural_key": "समयसार",
             "gatha_number": "11",
@@ -5285,8 +5321,40 @@
           }
         },
         {
+          "label": "GathaTeeka",
+          "key": "समयसार:आत्मख्याति:गाथा:टीका:11",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "gatha_natural_key": "समयसार:गाथा:11"
+          }
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:11",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "gatha_natural_key": "समयसार:गाथा:11"
+          }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "समयसार:तात्पर्यवृत्ति:गाथा:टीका:11",
+          "props": {
+            "teeka_natural_key": "समयसार:तात्पर्यवृत्ति",
+            "gatha_natural_key": "समयसार:गाथा:11"
+          }
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:11",
+          "props": {
+            "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
+            "gatha_natural_key": "समयसार:गाथा:11"
+          }
+        },
+        {
           "label": "Gatha",
-          "key": "समयसार:12",
+          "key": "समयसार:गाथा:12",
           "props": {
             "shastra_natural_key": "समयसार",
             "gatha_number": "12",
@@ -5294,8 +5362,104 @@
           }
         },
         {
+          "label": "GathaTeeka",
+          "key": "समयसार:आत्मख्याति:गाथा:टीका:12",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "gatha_natural_key": "समयसार:गाथा:12"
+          }
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:12",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "gatha_natural_key": "समयसार:गाथा:12"
+          }
+        },
+        {
+          "label": "Kalash",
+          "key": "समयसार:आत्मख्याति:कलश:1",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "kalash_number": "1"
+          }
+        },
+        {
+          "label": "KalashBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:1",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "kalash_number": "1"
+          }
+        },
+        {
+          "label": "Kalash",
+          "key": "समयसार:आत्मख्याति:कलश:2",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "kalash_number": "2"
+          }
+        },
+        {
+          "label": "KalashBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:2",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "kalash_number": "2"
+          }
+        },
+        {
+          "label": "Kalash",
+          "key": "समयसार:आत्मख्याति:कलश:3",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "kalash_number": "3"
+          }
+        },
+        {
+          "label": "KalashBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:3",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "kalash_number": "3"
+          }
+        },
+        {
+          "label": "Kalash",
+          "key": "समयसार:आत्मख्याति:कलश:4",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "kalash_number": "4"
+          }
+        },
+        {
+          "label": "KalashBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:4",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "kalash_number": "4"
+          }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "समयसार:तात्पर्यवृत्ति:गाथा:टीका:12",
+          "props": {
+            "teeka_natural_key": "समयसार:तात्पर्यवृत्ति",
+            "gatha_natural_key": "समयसार:गाथा:12"
+          }
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:12",
+          "props": {
+            "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
+            "gatha_natural_key": "समयसार:गाथा:12"
+          }
+        },
+        {
           "label": "Gatha",
-          "key": "समयसार:13",
+          "key": "समयसार:गाथा:13",
           "props": {
             "shastra_natural_key": "समयसार",
             "gatha_number": "13",
@@ -5303,8 +5467,88 @@
           }
         },
         {
+          "label": "GathaTeeka",
+          "key": "समयसार:आत्मख्याति:गाथा:टीका:13",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "gatha_natural_key": "समयसार:गाथा:13"
+          }
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:13",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "gatha_natural_key": "समयसार:गाथा:13"
+          }
+        },
+        {
+          "label": "Kalash",
+          "key": "समयसार:आत्मख्याति:कलश:5",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "kalash_number": "5"
+          }
+        },
+        {
+          "label": "KalashBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:5",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "kalash_number": "5"
+          }
+        },
+        {
+          "label": "Kalash",
+          "key": "समयसार:आत्मख्याति:कलश:6",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "kalash_number": "6"
+          }
+        },
+        {
+          "label": "KalashBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:6",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "kalash_number": "6"
+          }
+        },
+        {
+          "label": "Kalash",
+          "key": "समयसार:आत्मख्याति:कलश:7",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "kalash_number": "7"
+          }
+        },
+        {
+          "label": "KalashBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:7",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "kalash_number": "7"
+          }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "समयसार:तात्पर्यवृत्ति:गाथा:टीका:13",
+          "props": {
+            "teeka_natural_key": "समयसार:तात्पर्यवृत्ति",
+            "gatha_natural_key": "समयसार:गाथा:13"
+          }
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:13",
+          "props": {
+            "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
+            "gatha_natural_key": "समयसार:गाथा:13"
+          }
+        },
+        {
           "label": "Gatha",
-          "key": "समयसार:14",
+          "key": "समयसार:गाथा:14",
           "props": {
             "shastra_natural_key": "समयसार",
             "gatha_number": "14",
@@ -5312,8 +5556,56 @@
           }
         },
         {
+          "label": "GathaTeeka",
+          "key": "समयसार:आत्मख्याति:गाथा:टीका:14",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "gatha_natural_key": "समयसार:गाथा:14"
+          }
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:14",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "gatha_natural_key": "समयसार:गाथा:14"
+          }
+        },
+        {
+          "label": "Kalash",
+          "key": "समयसार:आत्मख्याति:कलश:8",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "kalash_number": "8"
+          }
+        },
+        {
+          "label": "KalashBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:8",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "kalash_number": "8"
+          }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "समयसार:तात्पर्यवृत्ति:गाथा:टीका:14",
+          "props": {
+            "teeka_natural_key": "समयसार:तात्पर्यवृत्ति",
+            "gatha_natural_key": "समयसार:गाथा:14"
+          }
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:14",
+          "props": {
+            "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
+            "gatha_natural_key": "समयसार:गाथा:14"
+          }
+        },
+        {
           "label": "Gatha",
-          "key": "समयसार:15",
+          "key": "समयसार:गाथा:15",
           "props": {
             "shastra_natural_key": "समयसार",
             "gatha_number": "15",
@@ -5321,8 +5613,72 @@
           }
         },
         {
+          "label": "GathaTeeka",
+          "key": "समयसार:आत्मख्याति:गाथा:टीका:15",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "gatha_natural_key": "समयसार:गाथा:15"
+          }
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:15",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "gatha_natural_key": "समयसार:गाथा:15"
+          }
+        },
+        {
+          "label": "Kalash",
+          "key": "समयसार:आत्मख्याति:कलश:9",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "kalash_number": "9"
+          }
+        },
+        {
+          "label": "KalashBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:9",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "kalash_number": "9"
+          }
+        },
+        {
+          "label": "Kalash",
+          "key": "समयसार:आत्मख्याति:कलश:10",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "kalash_number": "10"
+          }
+        },
+        {
+          "label": "KalashBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:10",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "kalash_number": "10"
+          }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "समयसार:तात्पर्यवृत्ति:गाथा:टीका:15",
+          "props": {
+            "teeka_natural_key": "समयसार:तात्पर्यवृत्ति",
+            "gatha_natural_key": "समयसार:गाथा:15"
+          }
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:15",
+          "props": {
+            "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
+            "gatha_natural_key": "समयसार:गाथा:15"
+          }
+        },
+        {
           "label": "Gatha",
-          "key": "समयसार:16",
+          "key": "समयसार:गाथा:16",
           "props": {
             "shastra_natural_key": "समयसार",
             "gatha_number": "16",
@@ -5330,8 +5686,104 @@
           }
         },
         {
+          "label": "GathaTeeka",
+          "key": "समयसार:आत्मख्याति:गाथा:टीका:16",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "gatha_natural_key": "समयसार:गाथा:16"
+          }
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:16",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "gatha_natural_key": "समयसार:गाथा:16"
+          }
+        },
+        {
+          "label": "Kalash",
+          "key": "समयसार:आत्मख्याति:कलश:11",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "kalash_number": "11"
+          }
+        },
+        {
+          "label": "KalashBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:11",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "kalash_number": "11"
+          }
+        },
+        {
+          "label": "Kalash",
+          "key": "समयसार:आत्मख्याति:कलश:12",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "kalash_number": "12"
+          }
+        },
+        {
+          "label": "KalashBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:12",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "kalash_number": "12"
+          }
+        },
+        {
+          "label": "Kalash",
+          "key": "समयसार:आत्मख्याति:कलश:13",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "kalash_number": "13"
+          }
+        },
+        {
+          "label": "KalashBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:13",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "kalash_number": "13"
+          }
+        },
+        {
+          "label": "Kalash",
+          "key": "समयसार:आत्मख्याति:कलश:14",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "kalash_number": "14"
+          }
+        },
+        {
+          "label": "KalashBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:14",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "kalash_number": "14"
+          }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "समयसार:तात्पर्यवृत्ति:गाथा:टीका:16",
+          "props": {
+            "teeka_natural_key": "समयसार:तात्पर्यवृत्ति",
+            "gatha_natural_key": "समयसार:गाथा:16"
+          }
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:16",
+          "props": {
+            "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
+            "gatha_natural_key": "समयसार:गाथा:16"
+          }
+        },
+        {
           "label": "Gatha",
-          "key": "समयसार:17",
+          "key": "समयसार:गाथा:17",
           "props": {
             "shastra_natural_key": "समयसार",
             "gatha_number": "17",
@@ -5339,8 +5791,56 @@
           }
         },
         {
+          "label": "GathaTeeka",
+          "key": "समयसार:आत्मख्याति:गाथा:टीका:17",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "gatha_natural_key": "समयसार:गाथा:17"
+          }
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:17",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "gatha_natural_key": "समयसार:गाथा:17"
+          }
+        },
+        {
+          "label": "Kalash",
+          "key": "समयसार:आत्मख्याति:कलश:15",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "kalash_number": "15"
+          }
+        },
+        {
+          "label": "KalashBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:15",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "kalash_number": "15"
+          }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "समयसार:तात्पर्यवृत्ति:गाथा:टीका:17",
+          "props": {
+            "teeka_natural_key": "समयसार:तात्पर्यवृत्ति",
+            "gatha_natural_key": "समयसार:गाथा:17"
+          }
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:17",
+          "props": {
+            "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
+            "gatha_natural_key": "समयसार:गाथा:17"
+          }
+        },
+        {
           "label": "Gatha",
-          "key": "समयसार:18",
+          "key": "समयसार:गाथा:18",
           "props": {
             "shastra_natural_key": "समयसार",
             "gatha_number": "18",
@@ -5348,21 +5848,221 @@
           }
         },
         {
+          "label": "GathaTeeka",
+          "key": "समयसार:आत्मख्याति:गाथा:टीका:18",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "gatha_natural_key": "समयसार:गाथा:18"
+          }
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:18",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "gatha_natural_key": "समयसार:गाथा:18"
+          }
+        },
+        {
+          "label": "Kalash",
+          "key": "समयसार:आत्मख्याति:कलश:15",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "kalash_number": "15"
+          }
+        },
+        {
+          "label": "KalashBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:15",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "kalash_number": "15"
+          }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "समयसार:तात्पर्यवृत्ति:गाथा:टीका:18",
+          "props": {
+            "teeka_natural_key": "समयसार:तात्पर्यवृत्ति",
+            "gatha_natural_key": "समयसार:गाथा:18"
+          }
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:18",
+          "props": {
+            "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
+            "gatha_natural_key": "समयसार:गाथा:18"
+          }
+        },
+        {
           "label": "Gatha",
-          "key": "समयसार:19",
+          "key": "समयसार:गाथा:19",
           "props": {
             "shastra_natural_key": "समयसार",
             "gatha_number": "19",
             "heading_hi": "आत्मा कब तक अज्ञानी रहता है?"
           }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "समयसार:आत्मख्याति:गाथा:टीका:19",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "gatha_natural_key": "समयसार:गाथा:19"
+          }
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:19",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "gatha_natural_key": "समयसार:गाथा:19"
+          }
+        },
+        {
+          "label": "Kalash",
+          "key": "समयसार:आत्मख्याति:कलश:16",
+          "props": {
+            "teeka_natural_key": "समयसार:आत्मख्याति",
+            "kalash_number": "16"
+          }
+        },
+        {
+          "label": "KalashBhaavarth",
+          "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:16",
+          "props": {
+            "publication_natural_key": "समयसार:आत्मख्याति:0",
+            "kalash_number": "16"
+          }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "समयसार:तात्पर्यवृत्ति:गाथा:टीका:19",
+          "props": {
+            "teeka_natural_key": "समयसार:तात्पर्यवृत्ति",
+            "gatha_natural_key": "समयसार:गाथा:19"
+          }
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:19",
+          "props": {
+            "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
+            "gatha_natural_key": "समयसार:गाथा:19"
+          }
+        },
+        {
+          "label": "Kalash",
+          "key": "समयसार:तात्पर्यवृत्ति:कलश:12",
+          "props": {
+            "teeka_natural_key": "समयसार:तात्पर्यवृत्ति",
+            "kalash_number": "12"
+          }
+        },
+        {
+          "label": "KalashBhaavarth",
+          "key": "समयसार:तात्पर्यवृत्ति:0:कलश:भावार्थ:12",
+          "props": {
+            "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
+            "kalash_number": "12"
+          }
+        },
+        {
+          "label": "Kalash",
+          "key": "समयसार:तात्पर्यवृत्ति:कलश:18",
+          "props": {
+            "teeka_natural_key": "समयसार:तात्पर्यवृत्ति",
+            "kalash_number": "18"
+          }
+        },
+        {
+          "label": "KalashBhaavarth",
+          "key": "समयसार:तात्पर्यवृत्ति:0:कलश:भावार्थ:18",
+          "props": {
+            "publication_natural_key": "समयसार:तात्पर्यवृत्ति:0",
+            "kalash_number": "18"
+          }
         }
       ],
       "edges": [
         {
+          "type": "HAS_TEEKA",
+          "from": {
+            "label": "Shastra",
+            "key": "समयसार"
+          },
+          "to": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_PUBLICATION",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_PUBLICATION",
+          "from": {
+            "label": "Shastra",
+            "key": "समयसार"
+          },
+          "to": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_TEEKA",
+          "from": {
+            "label": "Shastra",
+            "key": "समयसार"
+          },
+          "to": {
+            "label": "Teeka",
+            "key": "समयसार:तात्पर्यवृत्ति"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_PUBLICATION",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:तात्पर्यवृत्ति"
+          },
+          "to": {
+            "label": "Publication",
+            "key": "समयसार:तात्पर्यवृत्ति:0"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_PUBLICATION",
+          "from": {
+            "label": "Shastra",
+            "key": "समयसार"
+          },
+          "to": {
+            "label": "Publication",
+            "key": "समयसार:तात्पर्यवृत्ति:0"
+          },
+          "props": {}
+        },
+        {
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "समयसार:11"
+            "key": "समयसार:गाथा:11"
           },
           "to": {
             "label": "Topic",
@@ -5374,10 +6074,58 @@
           }
         },
         {
+          "type": "HAS_GATHA_TEEKA",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "GathaTeeka",
+            "key": "समयसार:आत्मख्याति:गाथा:टीका:11"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:11"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_GATHA_TEEKA",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:तात्पर्यवृत्ति"
+          },
+          "to": {
+            "label": "GathaTeeka",
+            "key": "समयसार:तात्पर्यवृत्ति:गाथा:टीका:11"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:तात्पर्यवृत्ति:0"
+          },
+          "to": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:11"
+          },
+          "props": {}
+        },
+        {
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "समयसार:12"
+            "key": "समयसार:गाथा:12"
           },
           "to": {
             "label": "Topic",
@@ -5389,10 +6137,154 @@
           }
         },
         {
+          "type": "HAS_GATHA_TEEKA",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "GathaTeeka",
+            "key": "समयसार:आत्मख्याति:गाथा:टीका:12"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:12"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_KALASH",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "Kalash",
+            "key": "समयसार:आत्मख्याति:कलश:1"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "KalashBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:1"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_KALASH",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "Kalash",
+            "key": "समयसार:आत्मख्याति:कलश:2"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "KalashBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:2"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_KALASH",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "Kalash",
+            "key": "समयसार:आत्मख्याति:कलश:3"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "KalashBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:3"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_KALASH",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "Kalash",
+            "key": "समयसार:आत्मख्याति:कलश:4"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "KalashBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:4"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_GATHA_TEEKA",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:तात्पर्यवृत्ति"
+          },
+          "to": {
+            "label": "GathaTeeka",
+            "key": "समयसार:तात्पर्यवृत्ति:गाथा:टीका:12"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:तात्पर्यवृत्ति:0"
+          },
+          "to": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:12"
+          },
+          "props": {}
+        },
+        {
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "समयसार:13"
+            "key": "समयसार:गाथा:13"
           },
           "to": {
             "label": "Topic",
@@ -5404,10 +6296,130 @@
           }
         },
         {
+          "type": "HAS_GATHA_TEEKA",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "GathaTeeka",
+            "key": "समयसार:आत्मख्याति:गाथा:टीका:13"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:13"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_KALASH",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "Kalash",
+            "key": "समयसार:आत्मख्याति:कलश:5"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "KalashBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:5"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_KALASH",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "Kalash",
+            "key": "समयसार:आत्मख्याति:कलश:6"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "KalashBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:6"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_KALASH",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "Kalash",
+            "key": "समयसार:आत्मख्याति:कलश:7"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "KalashBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:7"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_GATHA_TEEKA",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:तात्पर्यवृत्ति"
+          },
+          "to": {
+            "label": "GathaTeeka",
+            "key": "समयसार:तात्पर्यवृत्ति:गाथा:टीका:13"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:तात्पर्यवृत्ति:0"
+          },
+          "to": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:13"
+          },
+          "props": {}
+        },
+        {
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "समयसार:14"
+            "key": "समयसार:गाथा:14"
           },
           "to": {
             "label": "Topic",
@@ -5419,10 +6431,82 @@
           }
         },
         {
+          "type": "HAS_GATHA_TEEKA",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "GathaTeeka",
+            "key": "समयसार:आत्मख्याति:गाथा:टीका:14"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:14"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_KALASH",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "Kalash",
+            "key": "समयसार:आत्मख्याति:कलश:8"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "KalashBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:8"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_GATHA_TEEKA",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:तात्पर्यवृत्ति"
+          },
+          "to": {
+            "label": "GathaTeeka",
+            "key": "समयसार:तात्पर्यवृत्ति:गाथा:टीका:14"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:तात्पर्यवृत्ति:0"
+          },
+          "to": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:14"
+          },
+          "props": {}
+        },
+        {
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "समयसार:15"
+            "key": "समयसार:गाथा:15"
           },
           "to": {
             "label": "Topic",
@@ -5434,10 +6518,106 @@
           }
         },
         {
+          "type": "HAS_GATHA_TEEKA",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "GathaTeeka",
+            "key": "समयसार:आत्मख्याति:गाथा:टीका:15"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:15"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_KALASH",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "Kalash",
+            "key": "समयसार:आत्मख्याति:कलश:9"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "KalashBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:9"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_KALASH",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "Kalash",
+            "key": "समयसार:आत्मख्याति:कलश:10"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "KalashBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:10"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_GATHA_TEEKA",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:तात्पर्यवृत्ति"
+          },
+          "to": {
+            "label": "GathaTeeka",
+            "key": "समयसार:तात्पर्यवृत्ति:गाथा:टीका:15"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:तात्पर्यवृत्ति:0"
+          },
+          "to": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:15"
+          },
+          "props": {}
+        },
+        {
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "समयसार:16"
+            "key": "समयसार:गाथा:16"
           },
           "to": {
             "label": "Topic",
@@ -5449,10 +6629,154 @@
           }
         },
         {
+          "type": "HAS_GATHA_TEEKA",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "GathaTeeka",
+            "key": "समयसार:आत्मख्याति:गाथा:टीका:16"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:16"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_KALASH",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "Kalash",
+            "key": "समयसार:आत्मख्याति:कलश:11"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "KalashBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:11"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_KALASH",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "Kalash",
+            "key": "समयसार:आत्मख्याति:कलश:12"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "KalashBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:12"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_KALASH",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "Kalash",
+            "key": "समयसार:आत्मख्याति:कलश:13"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "KalashBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:13"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_KALASH",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "Kalash",
+            "key": "समयसार:आत्मख्याति:कलश:14"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "KalashBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:14"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_GATHA_TEEKA",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:तात्पर्यवृत्ति"
+          },
+          "to": {
+            "label": "GathaTeeka",
+            "key": "समयसार:तात्पर्यवृत्ति:गाथा:टीका:16"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:तात्पर्यवृत्ति:0"
+          },
+          "to": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:16"
+          },
+          "props": {}
+        },
+        {
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "समयसार:17"
+            "key": "समयसार:गाथा:17"
           },
           "to": {
             "label": "Topic",
@@ -5464,10 +6788,82 @@
           }
         },
         {
+          "type": "HAS_GATHA_TEEKA",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "GathaTeeka",
+            "key": "समयसार:आत्मख्याति:गाथा:टीका:17"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:17"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_KALASH",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "Kalash",
+            "key": "समयसार:आत्मख्याति:कलश:15"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "KalashBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:15"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_GATHA_TEEKA",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:तात्पर्यवृत्ति"
+          },
+          "to": {
+            "label": "GathaTeeka",
+            "key": "समयसार:तात्पर्यवृत्ति:गाथा:टीका:17"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:तात्पर्यवृत्ति:0"
+          },
+          "to": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:17"
+          },
+          "props": {}
+        },
+        {
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "समयसार:18"
+            "key": "समयसार:गाथा:18"
           },
           "to": {
             "label": "Topic",
@@ -5479,10 +6875,82 @@
           }
         },
         {
+          "type": "HAS_GATHA_TEEKA",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "GathaTeeka",
+            "key": "समयसार:आत्मख्याति:गाथा:टीका:18"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:18"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_KALASH",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "Kalash",
+            "key": "समयसार:आत्मख्याति:कलश:15"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "KalashBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:15"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_GATHA_TEEKA",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:तात्पर्यवृत्ति"
+          },
+          "to": {
+            "label": "GathaTeeka",
+            "key": "समयसार:तात्पर्यवृत्ति:गाथा:टीका:18"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:तात्पर्यवृत्ति:0"
+          },
+          "to": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:18"
+          },
+          "props": {}
+        },
+        {
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "समयसार:19"
+            "key": "समयसार:गाथा:19"
           },
           "to": {
             "label": "Topic",
@@ -5492,6 +6960,126 @@
             "weight": 1.0,
             "source": "nj"
           }
+        },
+        {
+          "type": "HAS_GATHA_TEEKA",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "GathaTeeka",
+            "key": "समयसार:आत्मख्याति:गाथा:टीका:19"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:19"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_KALASH",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:आत्मख्याति"
+          },
+          "to": {
+            "label": "Kalash",
+            "key": "समयसार:आत्मख्याति:कलश:16"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:आत्मख्याति:0"
+          },
+          "to": {
+            "label": "KalashBhaavarth",
+            "key": "समयसार:आत्मख्याति:0:कलश:भावार्थ:16"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_GATHA_TEEKA",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:तात्पर्यवृत्ति"
+          },
+          "to": {
+            "label": "GathaTeeka",
+            "key": "समयसार:तात्पर्यवृत्ति:गाथा:टीका:19"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:तात्पर्यवृत्ति:0"
+          },
+          "to": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:19"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_KALASH",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:तात्पर्यवृत्ति"
+          },
+          "to": {
+            "label": "Kalash",
+            "key": "समयसार:तात्पर्यवृत्ति:कलश:12"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:तात्पर्यवृत्ति:0"
+          },
+          "to": {
+            "label": "KalashBhaavarth",
+            "key": "समयसार:तात्पर्यवृत्ति:0:कलश:भावार्थ:12"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_KALASH",
+          "from": {
+            "label": "Teeka",
+            "key": "समयसार:तात्पर्यवृत्ति"
+          },
+          "to": {
+            "label": "Kalash",
+            "key": "समयसार:तात्पर्यवृत्ति:कलश:18"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_BHAAVARTH",
+          "from": {
+            "label": "Publication",
+            "key": "समयसार:तात्पर्यवृत्ति:0"
+          },
+          "to": {
+            "label": "KalashBhaavarth",
+            "key": "समयसार:तात्पर्यवृत्ति:0:कलश:भावार्थ:18"
+          },
+          "props": {}
         }
       ]
     },
@@ -5648,6 +7236,81 @@
           "neo4j:Gatha"
         ]
       },
+      "neo4j:GathaTeeka": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "teeka_natural_key",
+          "gatha_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:GathaTeeka"
+        ]
+      },
+      "neo4j:GathaTeekaBhaavarth": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "publication_natural_key",
+          "gatha_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:GathaTeekaBhaavarth"
+        ]
+      },
+      "neo4j:Kalash": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "teeka_natural_key",
+          "kalash_number"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Kalash"
+        ]
+      },
+      "neo4j:KalashBhaavarth": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "publication_natural_key",
+          "kalash_number"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:KalashBhaavarth"
+        ]
+      },
+      "neo4j:Publication": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "teeka_natural_key",
+          "publisher_id"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Publication"
+        ]
+      },
       "neo4j:Shastra": {
         "conflict_key": [
           "key"
@@ -5660,6 +7323,21 @@
         "fields_skip_if_set": [],
         "stores": [
           "neo4j:Shastra"
+        ]
+      },
+      "neo4j:Teeka": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "teekakar_natural_key",
+          "shastra_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Teeka"
         ]
       },
       "neo4j:Topic": {

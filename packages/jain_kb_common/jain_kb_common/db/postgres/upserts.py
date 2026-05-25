@@ -14,6 +14,7 @@ from .keywords import Keyword
 from .pravachans import Pravachan
 from .publications import Publication
 from .shastras import Shastra
+from .teeka_chapters import TeekaChapter
 from .teekas import Teeka
 from .topics import Topic
 
@@ -360,6 +361,7 @@ async def upsert_kalash(
     natural_key: str,
     teeka_id: uuid.UUID,
     kalash_number: str,
+    gatha_id: uuid.UUID | None = None,
     sanskrit_doc_id: str | None = None,
     hindi_doc_id: str | None = None,
     bhaavarth_doc_ids: list[str] | None = None,
@@ -370,6 +372,7 @@ async def upsert_kalash(
             natural_key=natural_key,
             teeka_id=teeka_id,
             kalash_number=kalash_number,
+            gatha_id=gatha_id,
             sanskrit_doc_id=sanskrit_doc_id,
             hindi_doc_id=hindi_doc_id,
             bhaavarth_doc_ids=bhaavarth_doc_ids or [],
@@ -379,6 +382,7 @@ async def upsert_kalash(
             set_={
                 "teeka_id": teeka_id,
                 "kalash_number": kalash_number,
+                "gatha_id": gatha_id,
                 "sanskrit_doc_id": sanskrit_doc_id,
                 "hindi_doc_id": hindi_doc_id,
                 "bhaavarth_doc_ids": bhaavarth_doc_ids or [],
@@ -386,6 +390,43 @@ async def upsert_kalash(
             },
         )
         .returning(Kalash.id)
+    )
+    res = await session.execute(stmt)
+    return res.scalar_one()
+
+
+async def upsert_teeka_chapter(
+    session: AsyncSession,
+    *,
+    natural_key: str,
+    teeka_id: uuid.UUID,
+    chapter_number: int,
+    name: Any,
+    start_gatha_id: uuid.UUID,
+    end_gatha_id: uuid.UUID | None = None,
+) -> uuid.UUID:
+    stmt = (
+        pg_insert(TeekaChapter)
+        .values(
+            natural_key=natural_key,
+            teeka_id=teeka_id,
+            chapter_number=chapter_number,
+            name=name,
+            start_gatha_id=start_gatha_id,
+            end_gatha_id=end_gatha_id,
+        )
+        .on_conflict_do_update(
+            index_elements=[TeekaChapter.natural_key],
+            set_={
+                "teeka_id": teeka_id,
+                "chapter_number": chapter_number,
+                "name": name,
+                "start_gatha_id": start_gatha_id,
+                "end_gatha_id": end_gatha_id,
+                "updated_at": func.now(),
+            },
+        )
+        .returning(TeekaChapter.id)
     )
     res = await session.execute(stmt)
     return res.scalar_one()

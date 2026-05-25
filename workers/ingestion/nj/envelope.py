@@ -93,6 +93,46 @@ _NJ_CONTRACTS: dict[str, dict] = {
         "fields_skip_if_set": [],
         "stores": ["neo4j:Gatha"],
     },
+    "neo4j:GathaTeeka": {
+        "conflict_key": ["key"],
+        "on_conflict": "merge",
+        "fields_replace": ["teeka_natural_key", "gatha_natural_key"],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": ["neo4j:GathaTeeka"],
+    },
+    "neo4j:GathaTeekaBhaavarth": {
+        "conflict_key": ["key"],
+        "on_conflict": "merge",
+        "fields_replace": ["publication_natural_key", "gatha_natural_key"],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": ["neo4j:GathaTeekaBhaavarth"],
+    },
+    "neo4j:Kalash": {
+        "conflict_key": ["key"],
+        "on_conflict": "merge",
+        "fields_replace": ["teeka_natural_key", "kalash_number"],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": ["neo4j:Kalash"],
+    },
+    "neo4j:KalashBhaavarth": {
+        "conflict_key": ["key"],
+        "on_conflict": "merge",
+        "fields_replace": ["publication_natural_key", "kalash_number"],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": ["neo4j:KalashBhaavarth"],
+    },
+    "neo4j:Publication": {
+        "conflict_key": ["key"],
+        "on_conflict": "merge",
+        "fields_replace": ["teeka_natural_key", "publisher_id"],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": ["neo4j:Publication"],
+    },
     "neo4j:Shastra": {
         "conflict_key": ["key"],
         "on_conflict": "merge",
@@ -100,6 +140,14 @@ _NJ_CONTRACTS: dict[str, dict] = {
         "fields_append": [],
         "fields_skip_if_set": [],
         "stores": ["neo4j:Shastra"],
+    },
+    "neo4j:Teeka": {
+        "conflict_key": ["key"],
+        "on_conflict": "merge",
+        "fields_replace": ["teekakar_natural_key", "shastra_natural_key"],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": ["neo4j:Teeka"],
     },
     "neo4j:Topic": {
         "conflict_key": ["key"],
@@ -193,7 +241,7 @@ def _primary_secondary(cfg: NJConfig) -> tuple[TeekaConfig, TeekaConfig | None]:
 
 
 def _gatha_nk(shastra_nk: str, gatha_number: str) -> str:
-    return f"{shastra_nk}:{_norm_num(gatha_number)}"
+    return f"{shastra_nk}:{_GATHA}:{_norm_num(gatha_number)}"
 
 
 def _related(g: GathaExtract) -> list[str]:
@@ -223,6 +271,13 @@ def _neo4j_edge(
 # ---------------------------------------------------------------------------
 # Mongo fragment builders
 # ---------------------------------------------------------------------------
+
+_GATHA = "गाथा"
+_KALASH = "कलश"
+_TEEKA = "टीका"
+_BHAAVARTH = "भावार्थ"
+_ADHYAAY = "अध्याय"
+
 
 def _build_mongo_for_gatha(
     g: GathaExtract,
@@ -296,7 +351,7 @@ def _build_mongo_for_gatha(
     if g.primary_teeka and g.primary_teeka.gatha_teeka_san:
         out["gatha_teeka_sanskrit"].append({
             "collection": "gatha_teeka_sanskrit",
-            "natural_key": f"{primary.natural_key}:{norm_gatha_num}:teeka:san",
+            "natural_key": f"{primary.natural_key}:{norm_gatha_num}:{_TEEKA}:san",
             "gatha_teeka_natural_key": f"{primary.natural_key}:{norm_gatha_num}",
             "teeka_natural_key": primary.natural_key,
             "gatha_number": norm_gatha_num,
@@ -305,7 +360,7 @@ def _build_mongo_for_gatha(
     if secondary and g.secondary_teeka and g.secondary_teeka.gatha_teeka_san:
         out["gatha_teeka_sanskrit"].append({
             "collection": "gatha_teeka_sanskrit",
-            "natural_key": f"{secondary.natural_key}:{norm_gatha_num}:teeka:san",
+            "natural_key": f"{secondary.natural_key}:{norm_gatha_num}:{_TEEKA}:san",
             "gatha_teeka_natural_key": f"{secondary.natural_key}:{norm_gatha_num}",
             "teeka_natural_key": secondary.natural_key,
             "gatha_number": norm_gatha_num,
@@ -315,8 +370,8 @@ def _build_mongo_for_gatha(
     if g.primary_teeka and g.primary_teeka.gatha_teeka_bhaavarth_md:
         out["gatha_teeka_bhaavarth_hindi"].append({
             "collection": "gatha_teeka_bhaavarth_hindi",
-            "natural_key": f"{primary.publication_natural_key}:{norm_gatha_num}:bhaavarth:hi",
-            "gatha_teeka_bhaavarth_natural_key": f"{primary.publication_natural_key}:{norm_gatha_num}:bhaavarth:hi",
+            "natural_key": f"{primary.publication_natural_key}:{norm_gatha_num}:{_BHAAVARTH}:hi",
+            "gatha_teeka_bhaavarth_natural_key": f"{primary.publication_natural_key}:{norm_gatha_num}:{_BHAAVARTH}:hi",
             "publication_natural_key": primary.publication_natural_key,
             "gatha_teeka_natural_key": f"{primary.natural_key}:{norm_gatha_num}",
             "publisher_id": primary.publisher_id,
@@ -326,8 +381,8 @@ def _build_mongo_for_gatha(
     if secondary and g.secondary_teeka and g.secondary_teeka.gatha_teeka_bhaavarth_md:
         out["gatha_teeka_bhaavarth_hindi"].append({
             "collection": "gatha_teeka_bhaavarth_hindi",
-            "natural_key": f"{secondary.publication_natural_key}:{norm_gatha_num}:bhaavarth:hi",
-            "gatha_teeka_bhaavarth_natural_key": f"{secondary.publication_natural_key}:{norm_gatha_num}:bhaavarth:hi",
+            "natural_key": f"{secondary.publication_natural_key}:{norm_gatha_num}:{_BHAAVARTH}:hi",
+            "gatha_teeka_bhaavarth_natural_key": f"{secondary.publication_natural_key}:{norm_gatha_num}:{_BHAAVARTH}:hi",
             "publication_natural_key": secondary.publication_natural_key,
             "gatha_teeka_natural_key": f"{secondary.natural_key}:{norm_gatha_num}",
             "publisher_id": secondary.publisher_id,
@@ -340,7 +395,7 @@ def _build_mongo_for_gatha(
         hi_map = {x.global_kalash_index: x for x in g.primary_teeka.kalash_hindi}
         wm_map = g.primary_teeka.kalash_word_meanings
         for kidx in sorted(set(san_map) | set(hi_map)):
-            kalash_nk = f"{primary.natural_key}:kalash:{kidx}"
+            kalash_nk = f"{primary.natural_key}:{_KALASH}:{kidx}"
             ksan = san_map.get(kidx)
             khi = hi_map.get(kidx)
             if ksan:
@@ -391,7 +446,7 @@ def _build_mongo_for_secondary_kalash(
     if secondary is None:
         return {}
     norm_kalash_num = _norm_num(k.kalash_number)
-    kalash_j_nk = f"{secondary.natural_key}:kalash:{norm_kalash_num}"
+    kalash_j_nk = f"{secondary.natural_key}:{_KALASH}:{norm_kalash_num}"
     out: dict[str, list[dict[str, Any]]] = {
         "gatha_prakrit": [],
         "gatha_teeka_sanskrit": [],
@@ -411,8 +466,8 @@ def _build_mongo_for_secondary_kalash(
     if k.secondary_teeka and k.secondary_teeka.gatha_teeka_san:
         out["gatha_teeka_sanskrit"].append({
             "collection": "gatha_teeka_sanskrit",
-            "natural_key": f"{secondary.natural_key}:kalash:{norm_kalash_num}:teeka:san",
-            "gatha_teeka_natural_key": f"{secondary.natural_key}:kalash:{norm_kalash_num}",
+            "natural_key": f"{secondary.natural_key}:{_KALASH}:{norm_kalash_num}:{_TEEKA}:san",
+            "gatha_teeka_natural_key": f"{secondary.natural_key}:{_KALASH}:{norm_kalash_num}",
             "teeka_natural_key": secondary.natural_key,
             "gatha_number": norm_kalash_num,
             "text": _lang_text("san", k.secondary_teeka.gatha_teeka_san),
@@ -420,10 +475,10 @@ def _build_mongo_for_secondary_kalash(
     if k.secondary_teeka and k.secondary_teeka.gatha_teeka_bhaavarth_md:
         out["gatha_teeka_bhaavarth_hindi"].append({
             "collection": "gatha_teeka_bhaavarth_hindi",
-            "natural_key": f"{secondary.publication_natural_key}:kalash:{norm_kalash_num}:bhaavarth:hi",
-            "gatha_teeka_bhaavarth_natural_key": f"{secondary.publication_natural_key}:kalash:{norm_kalash_num}:bhaavarth:hi",
+            "natural_key": f"{secondary.publication_natural_key}:{_KALASH}:{norm_kalash_num}:{_BHAAVARTH}:hi",
+            "gatha_teeka_bhaavarth_natural_key": f"{secondary.publication_natural_key}:{_KALASH}:{norm_kalash_num}:{_BHAAVARTH}:hi",
             "publication_natural_key": secondary.publication_natural_key,
-            "gatha_teeka_natural_key": f"{secondary.natural_key}:kalash:{norm_kalash_num}",
+            "gatha_teeka_natural_key": f"{secondary.natural_key}:{_KALASH}:{norm_kalash_num}",
             "publisher_id": secondary.publisher_id,
             "gatha_number": norm_kalash_num,
             "text": _lang_text("hin", k.secondary_teeka.gatha_teeka_bhaavarth_md),
@@ -439,27 +494,47 @@ def _build_neo4j(
     result: ShastraParseResult,
     cfg: NJConfig,
 ) -> dict[str, list[dict[str, Any]]]:
-    """Build neo4j nodes and edges: Shastra, Topic (stub), Gatha, and Gatha→Topic edges.
+    """Build neo4j nodes and edges.
+
+    Node types: Shastra, Teeka, Publication, Topic, Gatha, GathaTeeka,
+                GathaTeekaBhaavarth, Kalash, KalashBhaavarth.
+    Edge types: HAS_TEEKA, HAS_PUBLICATION, MENTIONS_TOPIC, HAS_GATHA_TEEKA,
+                HAS_KALASH, HAS_BHAAVARTH.
 
     Node shape: {label, key, props} — matches JK envelope format.
-    Edge shape: {type, from: {label, key}, to: {label, key}, props} — matches JK.
-
-    Edge type MENTIONS_TOPIC (Gatha → Topic) per data_model_graph.md.
+    Edge shape: {type, from: {label, key}, to: {label, key}, props}.
     """
     shastra_nk = result.shastra_natural_key
+    primary, secondary = _primary_secondary(cfg)
     nodes: list[dict[str, Any]] = []
     edges: list[dict[str, Any]] = []
 
+    # Shastra node
     nodes.append(_neo4j_node("Shastra", shastra_nk, {
         "title_hi": cfg.shastra.title_hi,
         "author_natural_key": cfg.shastra.author.natural_key,
     }))
 
+    # Teeka + Publication nodes, and Shastra→Teeka / Teeka→Publication / Shastra→Publication edges
+    for t in cfg.shastra.teekas:
+        nodes.append(_neo4j_node("Teeka", t.natural_key, {
+            "teeka_natural_key": t.natural_key,
+            "teekakar_natural_key": t.teekakar_natural_key,
+            "shastra_natural_key": shastra_nk,
+        }))
+        nodes.append(_neo4j_node("Publication", t.publication_natural_key, {
+            "publication_natural_key": t.publication_natural_key,
+            "teeka_natural_key": t.natural_key,
+            "publisher_id": t.publisher_id,
+        }))
+        edges.append(_neo4j_edge("HAS_TEEKA", "Shastra", shastra_nk, "Teeka", t.natural_key))
+        edges.append(_neo4j_edge("HAS_PUBLICATION", "Teeka", t.natural_key, "Publication", t.publication_natural_key))
+        edges.append(_neo4j_edge("HAS_PUBLICATION", "Shastra", shastra_nk, "Publication", t.publication_natural_key))
+
+    # Topic nodes (deduplicated by heading text)
     seen_topics: set[str] = set()
     for g in result.gathas:
-        if not g.heading_hi:
-            continue
-        if g.heading_hi not in seen_topics:
+        if g.heading_hi and g.heading_hi not in seen_topics:
             seen_topics.add(g.heading_hi)
             nodes.append(_neo4j_node("Topic", g.heading_hi, {
                 "display_text_hi": g.heading_hi,
@@ -467,11 +542,14 @@ def _build_neo4j(
                 "source": "nj",
             }))
 
+    # Per-gatha nodes and edges
     for g in result.gathas:
         gatha_nk = _gatha_nk(shastra_nk, g.gatha_number)
+        norm_gatha_num = _norm_num(g.gatha_number)
+
         nodes.append(_neo4j_node("Gatha", gatha_nk, {
             "shastra_natural_key": shastra_nk,
-            "gatha_number": _norm_num(g.gatha_number),
+            "gatha_number": norm_gatha_num,
             "heading_hi": g.heading_hi,
         }))
         if g.heading_hi:
@@ -481,6 +559,78 @@ def _build_neo4j(
                 "Topic", g.heading_hi,
                 {"weight": 1.0, "source": "nj"},
             ))
+
+        if g.primary_teeka is not None:
+            # GathaTeeka node (primary): {teeka_nk}:गाथा:टीका:{gatha_num}
+            gt_nk = f"{primary.natural_key}:{_GATHA}:{_TEEKA}:{norm_gatha_num}"
+            nodes.append(_neo4j_node("GathaTeeka", gt_nk, {
+                "teeka_natural_key": primary.natural_key,
+                "gatha_natural_key": gatha_nk,
+            }))
+            edges.append(_neo4j_edge("HAS_GATHA_TEEKA", "Teeka", primary.natural_key, "GathaTeeka", gt_nk))
+
+            if g.primary_teeka.gatha_teeka_bhaavarth_md:
+                # GathaTeekaBhaavarth node: {pub_nk}:गाथा:टीका:भावार्थ:{gatha_num}
+                gtb_nk = f"{primary.publication_natural_key}:{_GATHA}:{_TEEKA}:{_BHAAVARTH}:{norm_gatha_num}"
+                nodes.append(_neo4j_node("GathaTeekaBhaavarth", gtb_nk, {
+                    "publication_natural_key": primary.publication_natural_key,
+                    "gatha_natural_key": gatha_nk,
+                }))
+                edges.append(_neo4j_edge("HAS_BHAAVARTH", "Publication", primary.publication_natural_key, "GathaTeekaBhaavarth", gtb_nk))
+
+            # Kalash + KalashBhaavarth nodes for each primary kalash on this page
+            for ksan in g.primary_teeka.kalash_san:
+                kidx = ksan.global_kalash_index
+                kalash_nk = f"{primary.natural_key}:{_KALASH}:{kidx}"
+                nodes.append(_neo4j_node("Kalash", kalash_nk, {
+                    "teeka_natural_key": primary.natural_key,
+                    "kalash_number": str(kidx),
+                }))
+                edges.append(_neo4j_edge("HAS_KALASH", "Teeka", primary.natural_key, "Kalash", kalash_nk))
+
+                # KalashBhaavarth node: {pub_nk}:कलश:भावार्थ:{kalash_num}
+                kb_nk = f"{primary.publication_natural_key}:{_KALASH}:{_BHAAVARTH}:{kidx}"
+                nodes.append(_neo4j_node("KalashBhaavarth", kb_nk, {
+                    "publication_natural_key": primary.publication_natural_key,
+                    "kalash_number": str(kidx),
+                }))
+                edges.append(_neo4j_edge("HAS_BHAAVARTH", "Publication", primary.publication_natural_key, "KalashBhaavarth", kb_nk))
+
+        if secondary and g.secondary_teeka is not None:
+            # GathaTeeka node (secondary)
+            gt_j_nk = f"{secondary.natural_key}:{_GATHA}:{_TEEKA}:{norm_gatha_num}"
+            nodes.append(_neo4j_node("GathaTeeka", gt_j_nk, {
+                "teeka_natural_key": secondary.natural_key,
+                "gatha_natural_key": gatha_nk,
+            }))
+            edges.append(_neo4j_edge("HAS_GATHA_TEEKA", "Teeka", secondary.natural_key, "GathaTeeka", gt_j_nk))
+
+            if g.secondary_teeka.gatha_teeka_bhaavarth_md:
+                gtb_j_nk = f"{secondary.publication_natural_key}:{_GATHA}:{_TEEKA}:{_BHAAVARTH}:{norm_gatha_num}"
+                nodes.append(_neo4j_node("GathaTeekaBhaavarth", gtb_j_nk, {
+                    "publication_natural_key": secondary.publication_natural_key,
+                    "gatha_natural_key": gatha_nk,
+                }))
+                edges.append(_neo4j_edge("HAS_BHAAVARTH", "Publication", secondary.publication_natural_key, "GathaTeekaBhaavarth", gtb_j_nk))
+
+    # Secondary kalash nodes
+    for k in result.secondary_kalashes:
+        if secondary:
+            norm_kalash_num = _norm_num(k.kalash_number)
+            kalash_j_nk = f"{secondary.natural_key}:{_KALASH}:{norm_kalash_num}"
+            nodes.append(_neo4j_node("Kalash", kalash_j_nk, {
+                "teeka_natural_key": secondary.natural_key,
+                "kalash_number": norm_kalash_num,
+            }))
+            edges.append(_neo4j_edge("HAS_KALASH", "Teeka", secondary.natural_key, "Kalash", kalash_j_nk))
+
+            if k.secondary_teeka and k.secondary_teeka.gatha_teeka_bhaavarth_md:
+                kb_j_nk = f"{secondary.publication_natural_key}:{_KALASH}:{_BHAAVARTH}:{norm_kalash_num}"
+                nodes.append(_neo4j_node("KalashBhaavarth", kb_j_nk, {
+                    "publication_natural_key": secondary.publication_natural_key,
+                    "kalash_number": norm_kalash_num,
+                }))
+                edges.append(_neo4j_edge("HAS_BHAAVARTH", "Publication", secondary.publication_natural_key, "KalashBhaavarth", kb_j_nk))
 
     return {"nodes": nodes, "edges": edges}
 
@@ -507,7 +657,7 @@ def _build_teeka_chapters(
         last = group_list[-1]
         chapters.append({
             "table": "teeka_chapters",
-            "natural_key": f"{primary.natural_key}:chapter:{adhikaar_num}",
+            "natural_key": f"{primary.natural_key}:{_ADHYAAY}:{adhikaar_num}",
             "teeka_natural_key": primary.natural_key,
             "chapter_number": adhikaar_num,
             "name": _lang_text("hin", first.adhikaar_hi) if first.adhikaar_hi else [],
@@ -627,7 +777,7 @@ def build_envelope(result: ShastraParseResult, cfg: NJConfig) -> dict[str, Any]:
         if secondary:
             ww["postgres"]["kalashas"].append({
                 "table": "kalashas",
-                "natural_key": f"{secondary.natural_key}:kalash:{_norm_num(k.kalash_number)}",
+                "natural_key": f"{secondary.natural_key}:{_KALASH}:{_norm_num(k.kalash_number)}",
                 "teeka_natural_key": secondary.natural_key,
                 "kalash_number": _norm_num(k.kalash_number),
                 "gatha_natural_key": (

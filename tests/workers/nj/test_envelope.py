@@ -14,6 +14,7 @@ from workers.ingestion.nj.models import (
     SecondaryTeeka,
     ShastraParseResult,
 )
+from workers.ingestion.nj.envelope import _GATHA, _KALASH, _TEEKA, _BHAAVARTH, _ADHYAAY
 
 
 def _make_result(gathas=None, secondary_kalashes=None):
@@ -72,8 +73,8 @@ def test_build_envelope_has_expected_topology():
     assert "shastra_parse_result" in env
     assert "would_write" in env
     ww = env["would_write"]
-    assert ww["mongo"]["gatha_prakrit"][0]["natural_key"] == "समयसार:9:prakrit"
-    assert ww["mongo"]["teeka_gatha_mapping"][0]["natural_key"] == "समयसार:आत्मख्याती:9"
+    assert ww["mongo"]["gatha_prakrit"][0]["natural_key"] == "समयसार:गाथा:9:prakrit"
+    assert ww["mongo"]["teeka_gatha_mapping"][0]["natural_key"] == "समयसार:आत्मख्याति:9"
     assert ww["mongo"]["teeka_gatha_mapping"][0]["is_related"] == ["010"]
     assert ww["postgres"]["gathas"][0]["adhikaar_number"] == 2
 
@@ -212,7 +213,7 @@ def test_teeka_gatha_mapping_primary_only():
     result = _make_result(gathas=[g])
     tgm = build_envelope(result, cfg)["would_write"]["mongo"]["teeka_gatha_mapping"]
     assert len(tgm) == 1
-    assert tgm[0]["teeka_natural_key"] == "समयसार:आत्मख्याती"
+    assert tgm[0]["teeka_natural_key"] == "समयसार:आत्मख्याति"
 
 
 def test_teeka_gatha_mapping_has_tagged_terms():
@@ -244,7 +245,9 @@ def test_secondary_kalash_gatha_nk_uses_last_gatha_number():
     result = _make_result(secondary_kalashes=[k])
     ww = build_envelope(result, cfg)["would_write"]
     kalash_row = next(r for r in ww["postgres"]["kalashas"] if r["kalash_number"] == "11")
-    assert kalash_row["gatha_natural_key"] == "समयसार:10"
+    assert kalash_row["gatha_natural_key"] == "समयसार:गाथा:10"
+    # Natural key should use Hindi label
+    assert kalash_row["natural_key"] == "समयसार:तात्पर्यवृत्ति:कलश:11"
 
 
 # ---------------------------------------------------------------------------
@@ -295,7 +298,7 @@ def test_neo4j_gatha_node_shape():
     gatha_nodes = [n for n in nodes if n["label"] == "Gatha"]
     assert len(gatha_nodes) == 1
     n = gatha_nodes[0]
-    assert n["key"] == "समयसार:1"
+    assert n["key"] == "समयसार:गाथा:1"
     assert n["props"]["gatha_number"] == "1"
     assert n["props"]["shastra_natural_key"] == "समयसार"
     assert n["props"]["heading_hi"] == "सिद्धों को नमस्कार"
@@ -314,17 +317,17 @@ def test_neo4j_gatha_topic_edge_shape():
     topic_edges = [e for e in edges if e["type"] == "MENTIONS_TOPIC"]
     assert len(topic_edges) == 1
     e = topic_edges[0]
-    assert e["from"] == {"label": "Gatha", "key": "समयसार:1"}
+    assert e["from"] == {"label": "Gatha", "key": "समयसार:गाथा:1"}
     assert e["to"] == {"label": "Topic", "key": "सिद्धों को नमस्कार"}
     assert e["props"]["source"] == "nj"
     assert "weight" in e["props"]
 
 
-def test_neo4j_no_edge_for_gatha_without_heading():
+def test_neo4j_no_mentions_topic_edge_for_gatha_without_heading():
     cfg = _cfg()
     g = _make_gatha(heading_hi=None)
     edges = build_envelope(_make_result(gathas=[g]), cfg)["would_write"]["neo4j"]["edges"]
-    assert edges == []
+    assert not any(e["type"] == "MENTIONS_TOPIC" for e in edges)
 
 
 # ---------------------------------------------------------------------------
@@ -342,7 +345,9 @@ def test_idempotency_contracts_are_detailed():
         "mongo:gatha_prakrit", "mongo:gatha_sanskrit", "mongo:gatha_hindi_chhand",
         "mongo:teeka_gatha_mapping", "mongo:gatha_teeka_sanskrit", "mongo:gatha_teeka_bhaavarth_hindi",
         "mongo:kalash_sanskrit", "mongo:kalash_hindi", "mongo:kalash_word_meanings",
-        "neo4j:Shastra", "neo4j:Topic", "neo4j:Gatha",
+        "neo4j:Shastra", "neo4j:Teeka", "neo4j:Publication",
+        "neo4j:Topic", "neo4j:Gatha", "neo4j:GathaTeeka", "neo4j:GathaTeekaBhaavarth",
+        "neo4j:Kalash", "neo4j:KalashBhaavarth",
     }
     assert required_keys.issubset(set(contracts.keys()))
 
@@ -374,13 +379,13 @@ def test_teeka_chapters_grouped_by_adhikaar():
     chapters = build_envelope(result, cfg)["would_write"]["postgres"]["teeka_chapters"]
     assert len(chapters) == 2
     ch1 = next(c for c in chapters if c["chapter_number"] == 1)
-    assert ch1["natural_key"] == "समयसार:आत्मख्याती:chapter:1"
-    assert ch1["teeka_natural_key"] == "समयसार:आत्मख्याती"
-    assert ch1["start_gatha_natural_key"] == "समयसार:1"
-    assert ch1["end_gatha_natural_key"] == "समयसार:1"
+    assert ch1["natural_key"] == "समयसार:आत्मख्याति:अध्याय:1"
+    assert ch1["teeka_natural_key"] == "समयसार:आत्मख्याति"
+    assert ch1["start_gatha_natural_key"] == "समयसार:गाथा:1"
+    assert ch1["end_gatha_natural_key"] == "समयसार:गाथा:1"
     ch2 = next(c for c in chapters if c["chapter_number"] == 2)
-    assert ch2["start_gatha_natural_key"] == "समयसार:2"
-    assert ch2["end_gatha_natural_key"] == "समयसार:3"
+    assert ch2["start_gatha_natural_key"] == "समयसार:गाथा:2"
+    assert ch2["end_gatha_natural_key"] == "समयसार:गाथा:3"
 
 
 def test_teeka_chapters_skips_none_adhikaar():
@@ -427,3 +432,93 @@ def test_build_envelope_maps_local_kalash_wm_to_global_index():
     assert len(wms) == 1
     assert wms[0]["kalash_number"] == "4"
     assert wms[0]["entries"][0]["meaning"] == "निज अनुभव से प्रकाशित"
+    # Natural key must use Hindi कलश label
+    assert wms[0]["kalash_natural_key"] == "समयसार:आत्मख्याति:कलश:4"
+    assert wms[0]["natural_key"] == "समयसार:आत्मख्याति:कलश:4:word_meanings"
+
+
+# ---------------------------------------------------------------------------
+# Hindi labels in natural keys (matching JK style)
+# ---------------------------------------------------------------------------
+
+def test_kalash_natural_key_uses_hindi_label():
+    """Primary kalash NKs must use कलश (not kalash)."""
+    cfg = _cfg()
+    g = _make_gatha(
+        gatha_number="001",
+        primary_teeka=PrimaryTeeka(
+            kalash_san=[KalashSanskritEntry(local_kalash_index=1, global_kalash_index=1, chhand_type="अनुष्टुभ्", text_san="नम:")],
+            kalash_hindi=[KalashHindiEntry(local_kalash_index=1, global_kalash_index=1, chhand_type="दोहा", text_hi="hi")],
+        ),
+    )
+    result = _make_result(gathas=[g])
+    ww = build_envelope(result, cfg)["would_write"]
+    pg_kalash = ww["postgres"]["kalashas"][0]
+    assert ":कलश:" in pg_kalash["natural_key"], f"Expected Hindi कलश, got: {pg_kalash['natural_key']}"
+    mongo_san = ww["mongo"]["kalash_sanskrit"][0]
+    assert ":कलश:" in mongo_san["natural_key"]
+    assert ":कलश:" in mongo_san["kalash_natural_key"]
+
+
+def test_gatha_teeka_sanskrit_nk_uses_hindi_label():
+    """gatha_teeka_sanskrit NKs must use टीका (not teeka)."""
+    cfg = _cfg()
+    g = _make_gatha(
+        gatha_number="001",
+        primary_teeka=PrimaryTeeka(gatha_teeka_san="अथ सूत्रावतार"),
+    )
+    result = _make_result(gathas=[g])
+    ww = build_envelope(result, cfg)["would_write"]
+    san_doc = ww["mongo"]["gatha_teeka_sanskrit"][0]
+    assert ":टीका:" in san_doc["natural_key"], f"Expected Hindi टीका, got: {san_doc['natural_key']}"
+
+
+def test_gatha_teeka_bhaavarth_nk_uses_hindi_label():
+    """gatha_teeka_bhaavarth_hindi NKs must use भावार्थ (not bhaavarth)."""
+    cfg = _cfg()
+    g = _make_gatha(
+        gatha_number="001",
+        primary_teeka=PrimaryTeeka(gatha_teeka_bhaavarth_md="भावार्थ text"),
+    )
+    result = _make_result(gathas=[g])
+    ww = build_envelope(result, cfg)["would_write"]
+    bh_doc = ww["mongo"]["gatha_teeka_bhaavarth_hindi"][0]
+    assert ":भावार्थ:" in bh_doc["natural_key"], f"Expected Hindi भावार्थ, got: {bh_doc['natural_key']}"
+
+
+def test_secondary_kalash_nks_use_hindi_labels():
+    """Secondary kalash NKs must use Hindi labels: कलश, टीका, भावार्थ."""
+    cfg = _cfg()
+    k = KalashExtract(
+        shastra_natural_key="समयसार",
+        kalash_number="011",
+        html_filename="011.html",
+        heading_hi=None,
+        preceding_primary_gatha_number="010",
+        prakrit_text="णाणम्हि",
+        secondary_teeka=SecondaryTeeka(
+            gatha_teeka_san="Sanskrit text",
+            gatha_teeka_bhaavarth_md="Hindi bhaavarth",
+        ),
+    )
+    result = _make_result(secondary_kalashes=[k])
+    ww = build_envelope(result, cfg)["would_write"]
+    # Postgres kalash NK
+    pg_kalash = next(r for r in ww["postgres"]["kalashas"])
+    assert ":कलश:" in pg_kalash["natural_key"]
+    # Mongo teeka_san NK
+    san_doc = ww["mongo"]["gatha_teeka_sanskrit"][0]
+    assert ":कलश:" in san_doc["natural_key"]
+    assert ":टीका:" in san_doc["natural_key"]
+    # Mongo bhaavarth NK
+    bh_doc = ww["mongo"]["gatha_teeka_bhaavarth_hindi"][0]
+    assert ":कलश:" in bh_doc["natural_key"]
+    assert ":भावार्थ:" in bh_doc["natural_key"]
+
+
+def test_teeka_chapter_nk_uses_hindi_adhyaay():
+    """Teeka chapter NKs must use अध्याय (not chapter)."""
+    cfg = _cfg()
+    g = _make_gatha(gatha_number="001", adhikaar_number=1, adhikaar_hi="मंगलाचरण")
+    chapters = build_envelope(_make_result(gathas=[g]), cfg)["would_write"]["postgres"]["teeka_chapters"]
+    assert ":अध्याय:" in chapters[0]["natural_key"], f"Expected Hindi अध्याय, got: {chapters[0]['natural_key']}"

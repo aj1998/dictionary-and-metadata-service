@@ -953,8 +953,8 @@ All natural keys in `parser_configs/nj/samaysaar.yaml` — and therefore in all 
 | `shastra.natural_key` | `samaysaar` | `समयसार` |
 | `shastra.author.natural_key` | `kundkundacharya` | `कुन्दकुन्दाचार्य` |
 | `teekas[0].teekakar_natural_key` | `amritchandracharya` | `अमृतचंद्राचार्य` |
-| `teekas[0].natural_key` | `samaysaar:amritchandra` | `समयसार:आत्मख्याती` |
-| `teekas[0].publication_natural_key` | `samaysaar:amritchandra:nikkyjain` | `समयसार:आत्मख्याती:nikkyjain` |
+| `teekas[0].natural_key` | `samaysaar:amritchandra` | `समयसार:आत्मख्याति` |
+| `teekas[0].publication_natural_key` | `samaysaar:amritchandra:nikkyjain` | `समयसार:आत्मख्याति:nikkyjain` |
 | `teekas[1].teekakar_natural_key` | `jaysenacharya` | `जयसेनाचार्य` |
 | `teekas[1].natural_key` | `samaysaar:jaysenacharya` | `समयसार:तात्पर्यवृत्ति` |
 | `teekas[1].publication_natural_key` | `samaysaar:jaysenacharya:nikkyjain` | `समयसार:तात्पर्यवृत्ति:nikkyjain` |
@@ -966,7 +966,7 @@ All natural keys in `parser_configs/nj/samaysaar.yaml` — and therefore in all 
 #### 11.7.2 Number normalization — `_norm_num()`
 A `_norm_num(s: str) -> str` helper was added to `envelope.py`. It strips leading zeros from numeric strings (`"001"` → `"1"`, `"011"` → `"11"`). Applied to:
 
-- Gatha natural keys via `_gatha_nk`: `समयसार:001` → `समयसार:1`
+- Gatha natural keys via `_gatha_nk`: `समयसार:001` → `समयसार:गाथा:1`
 - `gatha_number` field values in all postgres and mongo output
 - Kalash natural keys and `kalash_number` field values (primary and secondary)
 - Teeka chapter natural keys: `chapter:01` → `chapter:1`
@@ -981,3 +981,34 @@ The old English-named goldens were deleted.
 
 #### 11.7.4 Tests updated
 All hardcoded natural key strings in `tests/workers/nj/test_envelope.py` updated to Hindi and normalized numbers. All 51 NJ tests pass.
+
+### 11.8 Pass-5: Gatha NK Label, Publisher ID, and Full Neo4j Graph (2026-05-25)
+
+#### 11.8.1 Gatha natural key now includes `गाथा` label
+`_gatha_nk(shastra_nk, gatha_number)` returns `{shastra_nk}:गाथा:{norm_num}` (was `{shastra_nk}:{norm_num}`).
+
+Affects all gatha natural keys in postgres, mongo, and neo4j. Teeka-scoped keys (`{teeka_nk}:{gatha_num}:टीका:...`) do not include the label.
+
+#### 11.8.2 Publisher ID changed to numeric `0`
+- `publishers.json`: nikkyjain entry updated to `"publisher_id": "0"`.
+- `samaysaar.yaml`: both teekas updated — `publisher_id: "0"`, `publication_natural_key` now ends in `:0` instead of `:nikkyjain`.
+
+| Field | Before | After |
+|---|---|---|
+| `teekas[0].publication_natural_key` | `समयसार:आत्मख्याति:nikkyjain` | `समयसार:आत्मख्याति:0` |
+| `teekas[0].publisher_id` | `nikkyjain` | `0` |
+| `teekas[1].publication_natural_key` | `समयसार:तात्पर्यवृत्ति:nikkyjain` | `समयसार:तात्पर्यवृत्ति:0` |
+| `teekas[1].publisher_id` | `nikkyjain` | `0` |
+
+#### 11.8.3 Full Neo4j graph
+`_build_neo4j` expanded with new node types and edges. See `02_ingestion_nj.md §4` for the complete node/edge reference.
+
+New node labels: `Teeka`, `Publication`, `GathaTeeka`, `GathaTeekaBhaavarth`, `Kalash`, `KalashBhaavarth`.
+
+New idempotency contracts added for all new node labels (6 new contracts, total 25).
+
+#### 11.8.4 Tests updated
+- `आत्मख्याती` (long ī) → `आत्मख्याति` (short i) throughout (aligns with samaysaar.yaml canonical value).
+- All gatha NK assertions updated to include `गाथा` label.
+- `test_neo4j_no_edge_for_gatha_without_heading` → renamed to assert no MENTIONS_TOPIC edges (structural edges like HAS_TEEKA are always present).
+- All 72 NJ tests pass.
