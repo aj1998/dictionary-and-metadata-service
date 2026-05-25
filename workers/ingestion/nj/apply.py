@@ -36,7 +36,10 @@ from jain_kb_common.db.postgres.upserts import (
 )
 from jain_kb_common.db.neo4j.upserts import (
     sync_gatha,
+    sync_gatha_teeka,
+    sync_gatha_teeka_bhaavarth,
     sync_kalash,
+    sync_kalash_bhaavarth,
     sync_publication,
     sync_shastra,
     sync_teeka,
@@ -250,16 +253,14 @@ async def apply_nj_shastra_payload(
             hindi_doc_id=str(stable_id(hi_doc["natural_key"])) if hi_doc else None,
         )
 
-        # Neo4j kalash (primary only — secondary kalashes are stub-only for now)
-        if san_doc or hi_doc:
-            await sync_kalash(
-                neo4j_driver,
-                natural_key=kalash_nk,
-                pg_id=str(kid),
-                teeka_natural_key=teeka_nk,
-                kalash_number=row.get("kalash_number", ""),
-                database=neo4j_database,
-            )
+        await sync_kalash(
+            neo4j_driver,
+            natural_key=kalash_nk,
+            pg_id=str(kid),
+            teeka_natural_key=teeka_nk,
+            kalash_number=row.get("kalash_number", ""),
+            database=neo4j_database,
+        )
 
     # --- Teeka chapters: Postgres only ---
     for row in pg.get("teeka_chapters", []):
@@ -342,15 +343,43 @@ async def apply_nj_shastra_payload(
             database=neo4j_database,
         )
 
-    # Topic stub nodes and MENTIONS_TOPIC edges from envelope
+    # Nodes and edges from envelope not covered by dedicated sync functions above
+    from jain_kb_common.db.neo4j.stubs import sync_reference_edge
     for node in neo.get("nodes", []):
-        if node.get("label") == "Topic":
+        label = node.get("label")
+        props = node.get("props", {})
+        nk = node.get("key")
+        if label == "Topic":
             await sync_stub_node(
                 neo4j_driver,
                 label="Topic",
-                natural_key=node["key"],
-                props=node.get("props", {}),
+                natural_key=nk,
+                props=props,
                 stub_source="nj_ingestion",
+                database=neo4j_database,
+            )
+        elif label == "GathaTeeka":
+            await sync_gatha_teeka(
+                neo4j_driver,
+                natural_key=nk,
+                teeka_natural_key=props.get("teeka_natural_key", ""),
+                gatha_natural_key=props.get("gatha_natural_key", ""),
+                database=neo4j_database,
+            )
+        elif label == "GathaTeekaBhaavarth":
+            await sync_gatha_teeka_bhaavarth(
+                neo4j_driver,
+                natural_key=nk,
+                publication_natural_key=props.get("publication_natural_key", ""),
+                gatha_natural_key=props.get("gatha_natural_key", ""),
+                database=neo4j_database,
+            )
+        elif label == "KalashBhaavarth":
+            await sync_kalash_bhaavarth(
+                neo4j_driver,
+                natural_key=nk,
+                publication_natural_key=props.get("publication_natural_key", ""),
+                kalash_number=props.get("kalash_number", ""),
                 database=neo4j_database,
             )
 
@@ -363,7 +392,6 @@ async def apply_nj_shastra_payload(
         if not frm_key or not to_key:
             continue
         if etype == "MENTIONS_TOPIC":
-            from jain_kb_common.db.neo4j.stubs import sync_reference_edge
             await sync_reference_edge(
                 neo4j_driver,
                 edge_type="MENTIONS_TOPIC",

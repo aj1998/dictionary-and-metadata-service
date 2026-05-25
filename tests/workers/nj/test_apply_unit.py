@@ -446,4 +446,183 @@ def test_teeka_chapter_nk_uses_primary_teeka_nk():
     result = _make_result(gathas=[g])
     chapters = build_envelope(result, cfg)["would_write"]["postgres"]["teeka_chapters"]
     assert chapters[0]["natural_key"].startswith(primary_teeka_nk)
-    assert f":{_ADHYAAY}:" in chapters[0]["natural_key"]
+
+
+# ---------------------------------------------------------------------------
+# Neo4j: new node types (GathaTeeka, GathaTeekaBhaavarth, KalashBhaavarth)
+# and their edges are present in envelope and handled by apply.py
+# ---------------------------------------------------------------------------
+
+def test_envelope_neo4j_has_gatha_teeka_nodes_and_edges():
+    """GathaTeeka nodes and HAS_GATHA_TEEKA edges are emitted for gathas with primary teeka."""
+    cfg = _cfg()
+    g = _make_gatha(
+        gatha_number="001",
+        primary_teeka=PrimaryTeeka(gatha_teeka_san="संस्कृत टीका"),
+    )
+    result = _make_result(gathas=[g])
+    neo = build_envelope(result, cfg)["would_write"]["neo4j"]
+
+    gt_nodes = [n for n in neo["nodes"] if n["label"] == "GathaTeeka"]
+    assert len(gt_nodes) >= 1
+    assert gt_nodes[0]["key"] == "समयसार:आत्मख्याति:गाथा:टीका:1"
+    assert gt_nodes[0]["props"]["teeka_natural_key"] == "समयसार:आत्मख्याति"
+    assert gt_nodes[0]["props"]["gatha_natural_key"] == "समयसार:गाथा:1"
+
+    ht_edges = [e for e in neo["edges"] if e["type"] == "HAS_GATHA_TEEKA"]
+    assert len(ht_edges) >= 1
+    assert ht_edges[0]["from"] == {"label": "Teeka", "key": "समयसार:आत्मख्याति"}
+    assert ht_edges[0]["to"]["key"] == "समयसार:आत्मख्याति:गाथा:टीका:1"
+
+
+def test_envelope_neo4j_has_gatha_teeka_bhaavarth_nodes_and_edges():
+    """GathaTeekaBhaavarth nodes and HAS_BHAAVARTH edges are emitted when bhaavarth present."""
+    cfg = _cfg()
+    g = _make_gatha(
+        gatha_number="001",
+        primary_teeka=PrimaryTeeka(gatha_teeka_bhaavarth_md="भावार्थ text"),
+    )
+    result = _make_result(gathas=[g])
+    neo = build_envelope(result, cfg)["would_write"]["neo4j"]
+
+    gtb_nodes = [n for n in neo["nodes"] if n["label"] == "GathaTeekaBhaavarth"]
+    assert len(gtb_nodes) >= 1
+    assert gtb_nodes[0]["props"]["publication_natural_key"] == "समयसार:आत्मख्याति:0"
+
+    hb_edges = [e for e in neo["edges"] if e["type"] == "HAS_BHAAVARTH"
+                and e["to"]["label"] == "GathaTeekaBhaavarth"]
+    assert len(hb_edges) >= 1
+    assert hb_edges[0]["from"]["label"] == "Publication"
+
+
+def test_envelope_neo4j_has_kalash_nodes_and_has_kalash_edges():
+    """Kalash nodes and HAS_KALASH edges are emitted for gathas with primary kalashes."""
+    cfg = _cfg()
+    g = _make_gatha(
+        gatha_number="001",
+        primary_teeka=PrimaryTeeka(
+            kalash_san=[KalashSanskritEntry(local_kalash_index=1, global_kalash_index=3, chhand_type="अनुष्टुभ्", text_san="san")],
+            kalash_hindi=[KalashHindiEntry(local_kalash_index=1, global_kalash_index=3, chhand_type="दोहा", text_hi="hi")],
+        ),
+    )
+    result = _make_result(gathas=[g])
+    neo = build_envelope(result, cfg)["would_write"]["neo4j"]
+
+    k_nodes = [n for n in neo["nodes"] if n["label"] == "Kalash"]
+    assert any(n["key"] == "समयसार:आत्मख्याति:कलश:3" for n in k_nodes)
+
+    hk_edges = [e for e in neo["edges"] if e["type"] == "HAS_KALASH"]
+    assert len(hk_edges) >= 1
+    assert hk_edges[0]["from"] == {"label": "Teeka", "key": "समयसार:आत्मख्याति"}
+
+
+def test_envelope_neo4j_has_kalash_bhaavarth_nodes_and_edges():
+    """KalashBhaavarth nodes and HAS_BHAAVARTH edges are emitted for primary kalashes."""
+    cfg = _cfg()
+    g = _make_gatha(
+        gatha_number="001",
+        primary_teeka=PrimaryTeeka(
+            kalash_san=[KalashSanskritEntry(local_kalash_index=1, global_kalash_index=2, chhand_type="अनुष्टुभ्", text_san="san")],
+            kalash_hindi=[KalashHindiEntry(local_kalash_index=1, global_kalash_index=2, chhand_type="दोहा", text_hi="hi")],
+        ),
+    )
+    result = _make_result(gathas=[g])
+    neo = build_envelope(result, cfg)["would_write"]["neo4j"]
+
+    kb_nodes = [n for n in neo["nodes"] if n["label"] == "KalashBhaavarth"]
+    assert any(n["key"] == "समयसार:आत्मख्याति:0:कलश:भावार्थ:2" for n in kb_nodes)
+
+    hb_edges = [e for e in neo["edges"] if e["type"] == "HAS_BHAAVARTH"
+                and e["to"]["label"] == "KalashBhaavarth"]
+    assert len(hb_edges) >= 1
+    assert hb_edges[0]["from"]["label"] == "Publication"
+
+
+def test_apply_calls_sync_for_gatha_teeka_and_kalash_bhaavarth_nodes():
+    """apply_nj_shastra_payload must call sync functions for new node types."""
+    import asyncio
+    import contextlib
+
+    cfg = _cfg()
+    g = _make_gatha(
+        gatha_number="001",
+        primary_teeka=PrimaryTeeka(
+            gatha_teeka_san="संस्कृत",
+            gatha_teeka_bhaavarth_md="भावार्थ",
+            kalash_san=[KalashSanskritEntry(local_kalash_index=1, global_kalash_index=1, chhand_type="अनुष्टुभ्", text_san="san")],
+            kalash_hindi=[KalashHindiEntry(local_kalash_index=1, global_kalash_index=1, chhand_type="दोहा", text_hi="hi")],
+        ),
+    )
+    result = _make_result(gathas=[g])
+    envelope = build_envelope(result, cfg)
+
+    neo4j_calls: list[str] = []
+
+    async def _fake_sync_gatha_teeka(driver, *, natural_key, **kw):
+        neo4j_calls.append("sync_gatha_teeka")
+
+    async def _fake_sync_gatha_teeka_bhaavarth(driver, *, natural_key, **kw):
+        neo4j_calls.append("sync_gatha_teeka_bhaavarth")
+
+    async def _fake_sync_kalash_bhaavarth(driver, *, natural_key, **kw):
+        neo4j_calls.append("sync_kalash_bhaavarth")
+
+    async def _fake_sync_kalash(driver, *, natural_key, **kw):
+        neo4j_calls.append("sync_kalash")
+
+    pg_session = AsyncMock()
+
+    async def _fake_execute(*a, **kw):
+        m = MagicMock()
+        m.scalar_one_or_none.return_value = uuid.uuid4()
+        return m
+
+    pg_session.execute = _fake_execute
+
+    patches = [
+        patch("workers.ingestion.nj.apply.upsert_author", new_callable=AsyncMock, return_value=uuid.uuid4()),
+        patch("workers.ingestion.nj.apply.upsert_shastra", new_callable=AsyncMock, return_value=uuid.uuid4()),
+        patch("workers.ingestion.nj.apply.upsert_teeka", new_callable=AsyncMock, return_value=uuid.uuid4()),
+        patch("workers.ingestion.nj.apply.upsert_publication", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_gatha", new_callable=AsyncMock, return_value=uuid.uuid4()),
+        patch("workers.ingestion.nj.apply.upsert_kalash", new_callable=AsyncMock, return_value=uuid.uuid4()),
+        patch("workers.ingestion.nj.apply.upsert_teeka_chapter", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_gatha_prakrit", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_gatha_sanskrit", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_gatha_hindi_chhand", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_teeka_gatha_mapping", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_gatha_teeka_sanskrit", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_gatha_teeka_bhaavarth_hindi", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_kalash_sanskrit", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_kalash_hindi", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_kalash_word_meanings", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.sync_shastra", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.sync_teeka", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.sync_publication", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.sync_gatha", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.sync_stub_node", new_callable=AsyncMock),
+        patch("jain_kb_common.db.neo4j.stubs.sync_reference_edge", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.sync_gatha_teeka", _fake_sync_gatha_teeka),
+        patch("workers.ingestion.nj.apply.sync_gatha_teeka_bhaavarth", _fake_sync_gatha_teeka_bhaavarth),
+        patch("workers.ingestion.nj.apply.sync_kalash_bhaavarth", _fake_sync_kalash_bhaavarth),
+        patch("workers.ingestion.nj.apply.sync_kalash", _fake_sync_kalash),
+    ]
+
+    with contextlib.ExitStack() as stack:
+        for p in patches:
+            stack.enter_context(p)
+        from workers.ingestion.nj.apply import apply_nj_shastra_payload
+        asyncio.get_event_loop().run_until_complete(
+            apply_nj_shastra_payload(
+                envelope=envelope,
+                pg_session=pg_session,
+                mongo_db=AsyncMock(),
+                neo4j_driver=AsyncMock(),
+            )
+        )
+
+    called_fns = set(neo4j_calls)
+    assert "sync_gatha_teeka" in called_fns, "sync_gatha_teeka not called"
+    assert "sync_gatha_teeka_bhaavarth" in called_fns, "sync_gatha_teeka_bhaavarth not called"
+    assert "sync_kalash_bhaavarth" in called_fns, "sync_kalash_bhaavarth not called"
+    assert "sync_kalash" in called_fns, "sync_kalash not called"

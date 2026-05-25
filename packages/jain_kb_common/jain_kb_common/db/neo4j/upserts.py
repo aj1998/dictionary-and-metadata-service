@@ -224,10 +224,95 @@ async def sync_kalash(
             WITH k
             MATCH (t:Teeka {natural_key: $tnk})
             MERGE (k)-[:IN_TEEKA]->(t)
+            MERGE (t)-[:HAS_KALASH]->(k)
             """,
             nk=natural_key,
             pg_id=pg_id,
             tnk=teeka_natural_key,
+            num=kalash_number,
+        )
+
+
+async def sync_gatha_teeka(
+    driver: AsyncDriver,
+    *,
+    natural_key: str,
+    teeka_natural_key: str,
+    gatha_natural_key: str,
+    database: str = "jainkb",
+) -> None:
+    async with driver.session(database=database) as session:
+        await session.run(
+            """
+            MERGE (gt:GathaTeeka {natural_key: $nk})
+            SET gt.teeka_natural_key = $tnk,
+                gt.gatha_natural_key = $gnk,
+                gt.is_stub = false,
+                gt.stub_source = null,
+                gt.updated_at = datetime(),
+                gt.created_at = coalesce(gt.created_at, datetime())
+            WITH gt
+            MATCH (t:Teeka {natural_key: $tnk})
+            MERGE (t)-[:HAS_GATHA_TEEKA]->(gt)
+            """,
+            nk=natural_key,
+            tnk=teeka_natural_key,
+            gnk=gatha_natural_key,
+        )
+
+
+async def sync_gatha_teeka_bhaavarth(
+    driver: AsyncDriver,
+    *,
+    natural_key: str,
+    publication_natural_key: str,
+    gatha_natural_key: str,
+    database: str = "jainkb",
+) -> None:
+    async with driver.session(database=database) as session:
+        await session.run(
+            """
+            MERGE (gtb:GathaTeekaBhaavarth {natural_key: $nk})
+            SET gtb.publication_natural_key = $pnk,
+                gtb.gatha_natural_key = $gnk,
+                gtb.is_stub = false,
+                gtb.stub_source = null,
+                gtb.updated_at = datetime(),
+                gtb.created_at = coalesce(gtb.created_at, datetime())
+            WITH gtb
+            MATCH (p:Publication {natural_key: $pnk})
+            MERGE (p)-[:HAS_BHAAVARTH]->(gtb)
+            """,
+            nk=natural_key,
+            pnk=publication_natural_key,
+            gnk=gatha_natural_key,
+        )
+
+
+async def sync_kalash_bhaavarth(
+    driver: AsyncDriver,
+    *,
+    natural_key: str,
+    publication_natural_key: str,
+    kalash_number: str,
+    database: str = "jainkb",
+) -> None:
+    async with driver.session(database=database) as session:
+        await session.run(
+            """
+            MERGE (kb:KalashBhaavarth {natural_key: $nk})
+            SET kb.publication_natural_key = $pnk,
+                kb.kalash_number = $num,
+                kb.is_stub = false,
+                kb.stub_source = null,
+                kb.updated_at = datetime(),
+                kb.created_at = coalesce(kb.created_at, datetime())
+            WITH kb
+            MATCH (p:Publication {natural_key: $pnk})
+            MERGE (p)-[:HAS_BHAAVARTH]->(kb)
+            """,
+            nk=natural_key,
+            pnk=publication_natural_key,
             num=kalash_number,
         )
 
