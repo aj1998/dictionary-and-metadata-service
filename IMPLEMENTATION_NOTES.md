@@ -612,6 +612,86 @@ python -m pytest packages/jain_kb_common/tests/hydration/ -v
 See [`docs/manual_testing/api/query/`](docs/manual_testing/api/query/) for curl examples and diagnostic SQL/Cypher for each endpoint.
 
 ---
+
+### ✅ Completed: NikkYJain Ingestion Pipeline (`docs/design/data_sources/nikkyjain/`)
+
+**Modules**: `workers/ingestion/nj/` — shastra-agnostic HTML parser + envelope builder + apply layer. Samaysar is the reference shastra; all other shastras use the same code with a new YAML config.
+
+#### What it does
+
+Reads per-file HTML from a local clone of `nikkyjain.github.io` and produces structured data across Postgres, MongoDB, and Neo4j. The pipeline is split into:
+
+1. **Parser** (`orchestrator.py`, `parse_*.py`) — parses HTML → `ShastraParseResult` (Pydantic models)
+2. **Envelope** (`envelope.py`) — `build_envelope()` produces a golden ingestion preview JSON with `postgres`, `mongo`, `neo4j`, and `idempotency_contracts` sections
+3. **Apply** (`apply.py`) — `apply_nj_shastra_payload()` executes all DB writes idempotently
+4. **CLI** (`cli.py`) — `python -m workers.ingestion.nj.cli parse` for golden generation
+
+#### Parser modules
+
+| File | Purpose |
+|---|---|
+| `orchestrator.py` | Top-level parse loop; sorts + classifies HTML files; tracks global kalash counter |
+| `parse_myitem.py` | Regex-parses `myItem.js` → `GathaIndexEntry` maps (primary + secondary indexes) |
+| `classify_pages.py` | `classify_page()` → `primary_gatha | secondary_kalash | skip`; `preceding_primary_gatha()` |
+| `parse_page.py` | Per-file HTML parse: body fields + teeka routing + multi-gatha expansion |
+| `parse_primary_teeka.py` | Structural extraction of primary teeka with kalashes (DarkSlateGray markers) |
+| `parse_secondary_teeka.py` | Secondary teeka from `div#teeka1` or secondary-only pages |
+| `html_to_markdown.py` | `node_to_markdown()` — HTML subtree → Markdown (bhaavarth conversion) |
+| `models.py` | Pydantic extract models: `GathaExtract`, `KalashExtract`, `PrimaryTeeka`, `SecondaryTeeka`, etc. |
+| `config.py` | YAML config loader for `parser_configs/nj/{shastra}.yaml` |
+| `envelope.py` | `build_envelope()` — golden payload builder with natural key logic and neo4j graph |
+| `apply.py` | `apply_nj_shastra_payload()` — idempotent tri-store writes |
+
+#### Natural key conventions
+
+All label segments in natural keys use Hindi words:
+
+| Label | Hindi segment |
+|---|---|
+| Gatha | `:गाथा:` |
+| Kalash | `:कलश:` |
+| Teeka content | `:टीका:` |
+| Bhaavarth | `:भावार्थ:` |
+| Chapter | `:अध्याय:` |
+
+Entity natural keys use Hindi names from config (`समयसार`, `कुन्दकुन्दाचार्य`, `अमृतचंद्राचार्य`). Teeka NKs use the **teeka title**, not the teekakar's name (`समयसार:आत्मख्याति`, not `समयसार:amritchandra`). Publisher ID for nikkyjain is numeric `"0"`. Leading zeros stripped from all numbers (`"001"` → `"1"`).
+
+#### Postgres tables populated
+
+`authors`, `shastras`, `teekas`, `publications`, `gathas`, `kalashas`, `teeka_chapters` (migration `0019_teeka_chapters.py`).
+
+#### MongoDB collections populated
+
+`gatha_prakrit`, `gatha_sanskrit`, `gatha_hindi_chhand`, `gatha_word_meanings`, `teeka_gatha_mapping` (primary only), `gatha_teeka_sanskrit`, `gatha_teeka_bhaavarth_hindi`, `kalash_sanskrit`, `kalash_hindi`, `kalash_word_meanings`.
+
+#### Neo4j node labels
+
+`Shastra`, `Teeka`, `Publication`, `Topic`, `Gatha`, `GathaTeeka`, `GathaTeekaBhaavarth`, `Kalash`, `KalashBhaavarth`.
+
+#### Tests
+
+```bash
+# Unit tests (no DB required)
+python -m pytest tests/workers/nj/ -v
+# Expected: 72 passed
+
+# Integration tests (require local nikkyjain clone)
+export NIKKYJAIN_LOCAL_PATH="/path/to/nikkyjain.github.io"
+python -m pytest tests/workers/nj/test_parse_page.py -v
+```
+
+Test files: `test_parse_myitem_unit.py`, `test_classify_pages_unit.py`, `test_parse_page_unit.py`, `test_parse_primary_teeka_unit.py`, `test_parse_secondary_teeka_unit.py`, `test_html_to_markdown_unit.py`, `test_orchestrator_unit.py`, `test_envelope.py`, `test_apply_unit.py`, `test_parse_page.py` (guarded integration).
+
+See `docs/wiki/nj_parser.md` and `docs/wiki/nj_ingestion.md` for full agent-ready context.
+
+#### Known open items
+
+- `ingest_nj_apply.py` end-to-end apply script: specified in `02_ingestion_nj.md §5`, partially wired. Verify before production run.
+- Cross-source Gatha NK: JK parser must adopt `गाथा` label to align with NJ's `समयसार:गाथा:8` for cross-source Neo4j MERGE.
+- DB integration tests: unit-only; live DB tests deferred under `--run-db-tests` flag.
+
+---
+
 ## Key conventions
 
 - **`natural_key` everywhere** — re-scraping is an idempotent upsert, never a duplicate insert.

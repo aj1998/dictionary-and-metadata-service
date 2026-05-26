@@ -81,7 +81,7 @@ Postgres is the **source of truth for IDs**. Every entity in Mongo or Neo4j has 
 | Source | Format | Frequency | Output |
 |---|---|---|---|
 | `jainkosh.org/wiki/Category:<letter>` | Live HTML (MediaWiki) | Manual trigger, batched per-letter | Keywords, definitions, initial topics |
-| `nikkyjain.github.io` | Static HTML per shastra | Manual trigger, per shastra | Shastra metadata, gathas (Prakrit/Sanskrit/Hindi), word-meaning maps |
+| `nikkyjain.github.io` | Static HTML per shastra | Manual trigger, per shastra | Shastra metadata, gathas (Prakrit/Sanskrit/Hindi), word-meaning maps — **implemented** in `workers/ingestion/nj/` (see `docs/wiki/nj_parser.md`, `docs/wiki/nj_ingestion.md`) |
 | `samples/vyakaran_vishleshan/<shastra>/*.png` | PNG scans | Future, manual | Word-by-word breakdowns per gatha |
 | `cataloguesearch-chat` candidate topics DB | Read-only pull (cron) | Daily | `topic_candidates` rows for admin review |
 
@@ -138,7 +138,8 @@ See [`IMPLEMENTATION_NOTES.md`](IMPLEMENTATION_NOTES.md) for full details on eac
 | Data Service API (port 8002, 60 tests) | ✅ |
 | Navigation Service API (port 8003, 44 passing tests) | ✅ |
 | Query Service API (port 8004, GraphRAG — 6 phases, 91 tests) | ✅ |
-| Ingestion workers (nikkyjain, vyakaran OCR) | 🔜 |
+| NikkYJain ingestion pipeline (`workers/ingestion/nj/`, 72 tests) | ✅ |
+| Ingestion workers (vyakaran OCR) | 🔜 |
 | Public UI — Next.js 16 (8 phases: shells, graph, content pages, a11y) | ✅ |
 | Deployment (Docker Compose) | 🔜 |
 
@@ -336,9 +337,22 @@ dictionary-and-metadata-service/
 │   └── query_service/         # FastAPI query service (port 8004) — GraphRAG: keyword resolve, topics match, graphrag, subworkflow endpoints
 ├── workers/
 │   └── ingestion/
-│       └── jainkosh/
-│           ├── apply.py               # apply_approved_keyword_payload
-│           └── tests/fixtures/        # HTML fixtures (symlinked into tests/workers/jainkosh/fixtures/)
+│       ├── jainkosh/
+│       │   ├── apply.py               # apply_approved_keyword_payload
+│       │   └── tests/fixtures/        # HTML fixtures (symlinked into tests/workers/jainkosh/fixtures/)
+│       └── nj/                        # NikkYJain shastra ingestion pipeline
+│           ├── orchestrator.py        # parse loop + global kalash counter
+│           ├── parse_myitem.py        # regex-parse myItem.js → GathaIndexEntry maps
+│           ├── classify_pages.py      # primary_gatha | secondary_kalash | skip
+│           ├── parse_page.py          # per-file HTML parse + multi-gatha expansion
+│           ├── parse_primary_teeka.py # structural kalash + bhaavarth extraction
+│           ├── parse_secondary_teeka.py
+│           ├── html_to_markdown.py    # HTML → Markdown (bhaavarth)
+│           ├── models.py              # Pydantic extract models
+│           ├── config.py              # YAML config loader
+│           ├── envelope.py            # build_envelope() — golden payload
+│           ├── apply.py               # apply_nj_shastra_payload()
+│           └── cli.py                 # python -m workers.ingestion.nj.cli parse
 ├── ui/                        # Next.js 16 public UI — see docs/ui/README.md
 ├── parser_configs/            # YAML/JSON scraper rules
 ├── samples/

@@ -13,7 +13,7 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Companion t
 |  | [Data service API](./api/data/01_spec.md) | Keywords / gathas / topics / kalashas / browse / public search |
 |  | [Navigation service API](./api/navigation/01_spec.md) | Neo4j graph navigation, alias writes, topic graph traversal |
 |  | parser: [jainkosh](./data_sources/jainkosh/parser.md) | Orchestrator pipeline, fetch, alias mining |
-|  | parser: [nikkyjain](./data_sources/nikkyjain/01_parser_nj.md) | Local-clone parser for shastras, gathas, anvayartha |
+|  | parser: [nikkyjain](./data_sources/nikkyjain/archived/01_parser_nj.md) | Local-clone parser for shastras, gathas, anvayartha |
 |  | [Query engine](./query_engine/00_overview.md) | Tokenize → normalize → resolve → traverse → rank  |
 |  | [UI](/ui/README.md) | Common web app for exploring above services |
 |  | [Deployment](./deployment.md) | docker-compose, nginx, env vars, backups, sizing |
