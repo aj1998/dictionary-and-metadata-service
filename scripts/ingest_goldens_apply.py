@@ -120,38 +120,12 @@ async def _run_apply(selected: tuple[GoldenSpec, ...], *, neo4j_database: str, i
         mongo_client.close()
 
 
-async def _clear_existing_data(*, database_url: str, mongo_url: str, mongo_db_name: str, neo4j_url: str, neo4j_user: str, neo4j_password: str, neo4j_database: str) -> None:
-    engine = create_async_engine(database_url, echo=False)
-    mongo_client = AsyncIOMotorClient(mongo_url)
-    mongo_db = mongo_client[mongo_db_name]
-    neo4j_driver = get_driver(url=neo4j_url, user=neo4j_user, password=neo4j_password)
-
-    try:
-        async with engine.begin() as conn:
-            await _ensure_postgres_extensions(conn)
-            await conn.run_sync(Base.metadata.create_all)
-        async with engine.begin() as conn:
-            for table in reversed(Base.metadata.sorted_tables):
-                await conn.execute(text(f'TRUNCATE TABLE "{table.name}" CASCADE'))
-
-        for coll in ("keyword_definitions", "topic_extracts", "raw_html_snapshots"):
-            await mongo_db[coll].drop()
-
-        async with neo4j_driver.session(database=neo4j_database) as session:
-            await session.run("MATCH (n) DETACH DELETE n")
-    finally:
-        await close_driver()
-        await engine.dispose()
-        mongo_client.close()
-
-
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Apply JainKosh golden envelopes to databases")
     parser.add_argument("--keyword", choices=[spec.keyword for spec in GOLDENS], default=None)
     parser.add_argument("--neo4j-database", default="neo4j")
     parser.add_argument("--ingestion-run-id", default=None, help="Optional UUID to stamp on Mongo documents")
     parser.add_argument("--dry-run", action="store_true", help="Load and summarize goldens without touching databases")
-    parser.add_argument("--clear-first", action="store_true", help="Clear Postgres, Mongo, and Neo4j before applying")
     args = parser.parse_args(argv)
 
     selected = _selected_goldens(args.keyword)
@@ -173,31 +147,6 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     try:
-        if args.clear_first:
-            try:
-                database_url = os.environ["DATABASE_URL"]
-                mongo_url = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
-                mongo_db_name = os.environ.get("MONGO_DB_NAME") or os.environ.get("MONGO_DB", "jain_kb")
-                neo4j_url = os.environ["NEO4J_URL"]
-                neo4j_user = os.environ.get("NEO4J_USER", "neo4j")
-                neo4j_password = os.environ["NEO4J_PASSWORD"]
-            except KeyError as exc:
-                print(f"Missing environment variable: {exc.args[0]}", file=sys.stderr)
-                return 2
-
-            asyncio.run(
-                _clear_existing_data(
-                    database_url=database_url,
-                    mongo_url=mongo_url,
-                    mongo_db_name=mongo_db_name,
-                    neo4j_url=neo4j_url,
-                    neo4j_user=neo4j_user,
-                    neo4j_password=neo4j_password,
-                    neo4j_database=args.neo4j_database,
-                )
-            )
-            print("cleared existing data")
-
         ingestion_run_id = uuid.UUID(args.ingestion_run_id) if args.ingestion_run_id else None
     except ValueError as exc:
         print(f"Invalid --ingestion-run-id: {exc}", file=sys.stderr)

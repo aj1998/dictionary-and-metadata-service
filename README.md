@@ -285,6 +285,82 @@ python -m pytest tests/ -v
 
 ---
 
+## Scripts
+
+All scripts live under `scripts/` and expect the standard env vars (`DATABASE_URL`, `NEO4J_URL`, `NEO4J_PASSWORD`, `MONGO_URL`, `MONGO_DB_NAME`) to be exported before running.
+
+### `clear_dbs.py` — wipe all ingestion databases
+
+Truncates every Postgres table (cascading), drops all Mongo collections written by any ingestor, and deletes all Neo4j nodes. Use this before a fresh re-ingest.
+
+```bash
+export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_dev"
+export MONGO_URL="mongodb://localhost:27017"
+export MONGO_DB_NAME="jain_kb"
+export NEO4J_URL="bolt://localhost:7687"
+export NEO4J_USER="neo4j"
+export NEO4J_PASSWORD="jainkb_password"
+
+python scripts/clear_dbs.py
+# optional: target a non-default Neo4j database
+python scripts/clear_dbs.py --neo4j-database neo4j
+```
+
+Mongo collections cleared: `keyword_definitions`, `topic_extracts`, `raw_html_snapshots` (JainKosh) + `gatha_hindi_chhand`, `gatha_prakrit`, `gatha_sanskrit`, `gatha_teeka_bhaavarth_hindi`, `gatha_teeka_sanskrit`, `kalash_hindi`, `kalash_sanskrit`, `kalash_word_meanings`, `teeka_gatha_mapping` (NJ).
+
+### `ingest_goldens_apply.py` — apply JainKosh golden envelopes
+
+Parses and applies the bundled golden keyword fixtures (आत्मा, द्रव्य, पर्याय, वस्तु) to Postgres + Mongo + Neo4j. Useful for smoke-testing the full ingestion stack against real data.
+
+```bash
+# apply all four goldens
+python scripts/ingest_goldens_apply.py
+
+# apply a single keyword
+python scripts/ingest_goldens_apply.py --keyword आत्मा
+
+# dry-run: summarise what would be written, no DB writes
+python scripts/ingest_goldens_apply.py --dry-run
+
+# stamp all Mongo docs with a specific ingestion run UUID
+python scripts/ingest_goldens_apply.py --ingestion-run-id <uuid>
+```
+
+To start fresh: run `clear_dbs.py` first, then this script.
+
+### `ingest_nj_apply.py` — apply a NikkYJain shastra
+
+Parses a NJ shastra config and applies the resulting envelope (gathas, kalashas, teeka content) to Postgres + Mongo + Neo4j.
+
+```bash
+# apply a full shastra (NJ_CONFIG env var or --config flag)
+export NJ_CONFIG="samaysar"
+python scripts/ingest_nj_apply.py
+
+python scripts/ingest_nj_apply.py --config parser_configs/nj/samaysar.yaml
+
+# apply only a single gatha
+python scripts/ingest_nj_apply.py --config parser_configs/nj/samaysar.yaml --gatha 001
+
+# dry-run: print gatha/kalash counts, no DB writes
+python scripts/ingest_nj_apply.py --config parser_configs/nj/samaysar.yaml --dry-run
+
+# stamp Mongo docs with a specific ingestion run UUID
+python scripts/ingest_nj_apply.py --config parser_configs/nj/samaysar.yaml --ingestion-run-id <uuid>
+```
+
+To start fresh: run `clear_dbs.py` first, then this script.
+
+### `golden_stats.py` — regenerate JainKosh parser summary table
+
+Regenerates the node/edge summary table shown in the JainKosh Parser section above.
+
+```bash
+python scripts/golden_stats.py
+```
+
+---
+
 ## Repository layout
 
 ```
