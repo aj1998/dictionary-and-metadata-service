@@ -84,11 +84,18 @@ export interface LangText {
   text: string;
 }
 
+export interface AuthorSummary {
+  id: string;
+  natural_key: string;
+  display_name: LangText[];
+  kind: string;
+}
+
 export interface ShastraSummary {
   id: string;
   natural_key: string;
   title: LangText[];
-  author?: string;
+  author?: AuthorSummary | string | null;
   anuyogas?: string[];
   gatha_count?: number;
 }
@@ -101,7 +108,7 @@ export interface ShastraDetail extends ShastraSummary {
 export interface TeekaSummary {
   id: string;
   natural_key: string;
-  teekakar: string;
+  teekakar: AuthorSummary | string | null;
   publisher?: string;
   year?: number;
   language?: string;
@@ -233,12 +240,21 @@ export interface TeekaGathaMapping {
   is_related: string[];
 }
 
+export interface TeekaBhaavarth {
+  natural_key: string;
+  gatha_teeka_natural_key: string;
+  publication_natural_key?: string;
+  publisher_id?: string;
+  text: LangText[];
+}
+
 export interface GathaDetail extends GathaSummary {
   prakrit: { natural_key: string; text: LangText[]; is_kalash: boolean } | null;
   sanskrit: { natural_key: string; text: LangText[] } | null;
   hindi_chhand: Array<{ natural_key: string; chhand_index: number; chhand_type: string; text: LangText[] }>;
   word_meanings: { prakrit: GathaWordMeanings | null; sanskrit: GathaWordMeanings | null } | null;
   teeka_mapping?: TeekaGathaMapping[];
+  teeka_bhaavarth?: TeekaBhaavarth[];
 }
 
 // Kalash (data service)

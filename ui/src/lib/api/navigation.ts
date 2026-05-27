@@ -36,3 +36,7 @@ export async function getPreview(nk: string, hops?: 1 | 2): Promise<GraphPayload
 export async function getTopicNeighbors(nk: string): Promise<TopicNeighborsResponse> {
   return apiFetch<TopicNeighborsResponse>(BASE_URL, `/v1/topics/${nk}/neighbors`);
 }
+
+export async function getKeywordTopics(nk: string): Promise<{ keyword_natural_key: string; topics: Array<{ natural_key: string; display_text: string; topic_path: string }> }> {
+  return apiFetch(BASE_URL, `/v1/keywords/${nk}/topics`);
+}

@@ -2,6 +2,13 @@ import { Link } from '@/i18n/navigation';
 import { getShastras } from '@/lib/api/metadata';
 import { getHindiText, paginatedMeta } from '@/lib/content-listing';
 import { toDevanagariNumerals } from '@/lib/format/devanagari';
+import type { AuthorSummary } from '@/lib/types';
+
+function getAuthorName(author: AuthorSummary | string | null | undefined): string {
+  if (!author) return 'अज्ञात';
+  if (typeof author === 'string') return author;
+  return getHindiText(author.display_name, author.natural_key);
+}
 
 export const revalidate = 60;
 
@@ -54,7 +61,7 @@ export default async function ShastrasPage({ searchParams }: PageProps) {
         {shastras.items.map((item) => (
           <article key={item.id} className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
             <h2 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">{getHindiText(item.title, item.natural_key)}</h2>
-            <p className="mt-1 text-sm text-foreground-muted">{item.author ?? 'अज्ञात'}</p>
+            <p className="mt-1 text-sm text-foreground-muted">{getAuthorName(item.author)}</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {(item.anuyogas ?? []).slice(0, 3).map((tag) => (
                 <span key={tag} className="rounded-full bg-accent-soft px-2 py-1 text-xs text-accent">{tag}</span>

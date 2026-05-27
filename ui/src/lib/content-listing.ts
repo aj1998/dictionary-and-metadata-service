@@ -2,7 +2,7 @@ import type { LangText, Paginated } from '@/lib/types';
 
 export function getHindiText(texts: LangText[] | undefined, fallback: string): string {
   if (!texts || texts.length === 0) return fallback;
-  return texts.find((text) => text.lang === 'hi')?.text ?? texts[0]?.text ?? fallback;
+  return texts.find((text) => text.lang === 'hi' || text.lang === 'hin')?.text ?? texts[0]?.text ?? fallback;
 }
 
 export function buildPageHref(basePath: string, page: number, limit: number): string {

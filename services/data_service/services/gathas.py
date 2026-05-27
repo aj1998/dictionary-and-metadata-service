@@ -120,8 +120,15 @@ async def get_detail(
         )
     if "teeka_bhaavarth" in include:
         include_keys.append("teeka_bhaavarth")
+        # bhaavarth docs store gatha_number + gatha_teeka_natural_key ({teeka_nk}:{N}),
+        # not a gatha_natural_key field. Derive shastra NK from gatha NK pattern.
+        shastra_nk_prefix = gatha.natural_key.split(":गाथा:")[0] if ":गाथा:" in gatha.natural_key else ""
+        import re as _re
+        bhaavarth_query: dict = {"gatha_number": str(gatha.gatha_number)}
+        if shastra_nk_prefix:
+            bhaavarth_query["gatha_teeka_natural_key"] = {"$regex": f"^{_re.escape(shastra_nk_prefix)}:"}
         base_tasks.append(
-            mongo[GATHA_TEEKA_BHAAVARTH_HINDI].find({"gatha_natural_key": gatha.natural_key}).to_list(None)
+            mongo[GATHA_TEEKA_BHAAVARTH_HINDI].find(bhaavarth_query).to_list(None)
         )
 
     results = await asyncio.gather(*base_tasks)

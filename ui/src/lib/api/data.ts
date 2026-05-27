@@ -13,6 +13,7 @@ import type {
   TopicSummary,
   TopicDetail,
   GathaDetail,
+  GathaSummary,
   KalashDetail,
   KalashWordMeanings,
   ShastraDetail,
@@ -179,6 +180,16 @@ export async function getTopics(params?: {
 
 export async function getTopic(nk: string): Promise<TopicDetail> {
   return apiFetch<TopicDetail>(BASE_URL, `/v1/topics/${nk}`);
+}
+
+export async function getGathasByShastraId(
+  shastraId: string,
+  params?: { limit?: number; offset?: number }
+): Promise<Paginated<GathaSummary>> {
+  const qs = new URLSearchParams({ shastra_id: shastraId });
+  if (params?.limit !== undefined) qs.set('limit', String(params.limit));
+  if (params?.offset !== undefined) qs.set('offset', String(params.offset));
+  return apiFetch<Paginated<GathaSummary>>(BASE_URL, `/v1/gathas?${qs.toString()}`);
 }
 
 export async function getGatha(nk: string, options?: { include?: string[] }): Promise<GathaDetail> {

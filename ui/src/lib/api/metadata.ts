@@ -23,7 +23,9 @@ export async function getShastra(nk: string): Promise<ShastraDetail> {
 }
 
 export async function getShastraTeekas(nk: string): Promise<TeekaSummary[]> {
-  return apiFetch<TeekaSummary[]>(BASE_URL, `/v1/shastras/${nk}/teekas`);
+  const result = await apiFetch<{ items: TeekaSummary[] } | TeekaSummary[]>(BASE_URL, `/v1/shastras/${nk}/teekas`);
+  if (Array.isArray(result)) return result;
+  return result.items ?? [];
 }
 
 export async function getShastraGathas(
