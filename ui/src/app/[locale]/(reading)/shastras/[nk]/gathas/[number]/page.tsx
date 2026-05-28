@@ -67,8 +67,6 @@ export default async function GathaDetailPage({ params }: PageProps) {
         </section>
 
         <GathaPanel lang="prakrit" text={joinedLangText(gatha.prakrit?.text) || '—'} />
-        {gatha.sanskrit && <GathaPanel lang="sanskrit" text={joinedLangText(gatha.sanskrit.text)} />}
-        <GathaPanel lang="hindi-harigeet" text={joinedLangText(gatha.hindi_chhand[0]?.text) || '—'} />
 
         {/* शब्दार्थ — word-by-word meanings + full anvayarth */}
         <section className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
@@ -96,6 +94,9 @@ export default async function GathaDetailPage({ params }: PageProps) {
             </div>
           )}
         </section>
+
+        {gatha.sanskrit && <GathaPanel lang="sanskrit" text={joinedLangText(gatha.sanskrit.text)} />}
+        <GathaPanel lang="hindi-harigeet" text={joinedLangText(gatha.hindi_chhand[0]?.text) || '—'} />
 
         {/* Prev / Next navigation */}
         <div className="flex items-center justify-between gap-3 pt-1">

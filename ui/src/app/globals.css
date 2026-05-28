@@ -123,6 +123,46 @@
   }
 }
 
+/* Teeka panel paragraph spacing */
+.teeka-content p {
+  margin-bottom: 1.5rem;
+}
+.teeka-content p:last-child {
+  margin-bottom: 0;
+}
+.teeka-content ul {
+  list-style: disc;
+  padding-inline-start: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.teeka-content ul:last-child {
+  margin-bottom: 0;
+}
+.teeka-content li {
+  margin-bottom: 0.5rem;
+}
+.teeka-content li:last-child {
+  margin-bottom: 0;
+}
+.teeka-content li::marker {
+  color: var(--foreground-muted);
+}
+.teeka-content .teeka-paren {
+  color: #6b21a8;
+}
+.teeka-content p.teeka-derivation {
+  color: #155e75;
+  font-style: italic;
+}
+.teeka-content p.teeka-bracket {
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+}
+.teeka-content > :first-child.teeka-bracket,
+.teeka-content p.teeka-bracket:first-child {
+  margin-top: 0;
+}
+
 /* Shimmer animation for skeleton loading blocks */
 @keyframes shimmer {
   0%   { background-position: -200% 0; }
