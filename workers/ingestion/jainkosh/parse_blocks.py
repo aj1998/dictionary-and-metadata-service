@@ -13,6 +13,7 @@ from .models import Block, Reference, SectionKind
 from .normalize import normalize_text, nfc
 from .refs import extract_refs_from_node, is_leading_reference_node, strip_refs_from_text
 from .see_also import (
+    extract_label_before_trigger,
     find_see_also_candidates_in_element,
     find_see_alsos_in_element,
     strip_dekhen_redlink_substring,
@@ -147,6 +148,58 @@ def _is_row_style_element(el: Node, config: JainkoshConfig) -> bool:
     return bool(candidates)
 
 
+def _is_after_dekhen_element(el: Node, config: JainkoshConfig) -> bool:
+    """Return True if element matches the after-dekhen pattern: देखें <link> text_after.
+
+    Condition: element's text starts with a देखें trigger (only leading whitespace allowed
+    before it), and there is text containing Devanagari characters after the anchor.
+    These elements are skipped in the normal block stream and converted to label-seed
+    child topics instead.
+    """
+    if not config.label_to_topic.enabled:
+        return False
+    raw_text = normalize_text(el.text(strip=False) or "")
+    # Element must begin with the देखें trigger — only whitespace/bullets allowed before it
+    triggers_alt = "|".join(
+        re.escape(t) for t in sorted(config.index.see_also_triggers, key=len, reverse=True)
+    )
+    start_re = re.compile(r"^\s*(?:" + triggers_alt + r")\s", re.DOTALL)
+    if not start_re.match(raw_text):
+        return False
+    # Must have at least one anchor with Devanagari text after it
+    candidates = find_see_also_candidates_in_element(el, config)
+    return any(
+        bool(re.search(r"[ऀ-ॿ]", c.get("after_anchor_text") or ""))
+        for c in candidates
+    )
+
+
+def _is_br_dekhen_element(el: Node, config: JainkoshConfig) -> bool:
+    """Return True if element has <br/>-separated देखें lines but does NOT start with देखें.
+
+    Detects patterns like:
+      <span>initial prose...<br/>देखें <a>link</a> (label text).<br/>देखें ...</span>
+    where the initial prose means _is_after_dekhen_element would return False.
+    """
+    if not config.label_to_topic.enabled:
+        return False
+    el_html = el.html or ""
+    if not re.search(r"<br\b", el_html, re.IGNORECASE):
+        return False
+    raw_text = normalize_text(el.text(strip=False) or "")
+    triggers_alt = "|".join(
+        re.escape(t) for t in sorted(config.index.see_also_triggers, key=len, reverse=True)
+    )
+    start_re = re.compile(r"^\s*(?:" + triggers_alt + r")\s", re.DOTALL)
+    if start_re.match(raw_text):
+        return False  # Already handled by _is_after_dekhen_element
+    candidates = find_see_also_candidates_in_element(el, config)
+    return any(
+        bool(re.search(r"[ऀ-ॿ]", c.get("after_anchor_text") or ""))
+        for c in candidates
+    )
+
+
 def parse_block_stream(
     elements: list[Node],
     config: JainkoshConfig,
@@ -181,6 +234,10 @@ def parse_block_stream(
             continue
 
         if _is_row_style_element(el, config):
+            prev_element = el
+            continue
+
+        if _is_after_dekhen_element(el, config):
             prev_element = el
             continue
 

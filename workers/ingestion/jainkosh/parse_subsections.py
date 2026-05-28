@@ -10,7 +10,7 @@ from selectolax.parser import Node
 from .config import JainkoshConfig, HeadingVariant
 from .models import Block, Subsection
 from .normalize import normalize_text, nfc
-from .parse_blocks import parse_block_stream, _is_row_style_element
+from .parse_blocks import parse_block_stream, _is_row_style_element, _is_after_dekhen_element, _is_br_dekhen_element
 from .selectors import block_class_kind, is_gref_node
 from .topic_keys import natural_key as compute_natural_key, parent_of, slug
 from .see_also import extract_label_before_trigger, find_see_also_candidates_in_element
@@ -399,6 +399,25 @@ def parse_subsections(
             keyword=keyword,
             config=config,
         )
+        after_dekhen_relations = extract_after_dekhen_relations_from_elements(
+            content_els,
+            keyword=keyword,
+            config=config,
+        )
+        # Merge after-dekhen relations into row_relations (same structure, deduplicating)
+        for label, sa_blocks in after_dekhen_relations.items():
+            if label not in row_relations:
+                row_relations[label] = sa_blocks
+            else:
+                existing_keys = {
+                    (b.target_keyword, b.target_topic_path, b.target_url, b.is_self, b.target_exists)
+                    for b in row_relations[label]
+                }
+                for block in sa_blocks:
+                    k = (block.target_keyword, block.target_topic_path, block.target_url, block.is_self, block.target_exists)
+                    if k not in existing_keys:
+                        row_relations[label].append(block)
+                        existing_keys.add(k)
 
         # Check if synthetic was already created and replace it
         if topic_path in nodes and nodes[topic_path].is_synthetic:
@@ -564,6 +583,54 @@ def extract_row_relations_from_elements(
     return result
 
 
+def extract_after_dekhen_relations_from_elements(
+    elements: list[Node],
+    *,
+    keyword: str,
+    config: JainkoshConfig,
+) -> dict[str, list[Block]]:
+    """Extract see_also Blocks from after-dekhen elements (देखें <link> text_after), keyed by after-link text.
+
+    For elements where देखें appears at the start (no label before the trigger) and there is
+    text after the anchor, the after-link text becomes a label-seed topic and the see_also
+    block is assigned to it — mirroring how row-style entries work for before-trigger labels.
+    """
+    result: dict[str, list[Block]] = {}
+    for el in elements:
+        if not _is_after_dekhen_element(el, config):
+            continue
+        candidates = find_see_also_candidates_in_element(el, config, current_keyword=keyword)
+        for c in candidates:
+            after_text = _normalize_label_seed_text(c.get("after_anchor_text") or "", config)
+            if not after_text:
+                continue
+            block = Block(
+                kind="see_also",
+                target_keyword=c.get("target_keyword"),
+                target_topic_path=c.get("target_topic_path"),
+                target_url=c.get("target_url"),
+                is_self=bool(c.get("is_self", False)),
+                target_exists=bool(c.get("target_exists", True)),
+            )
+            dedup_key = (
+                block.target_keyword,
+                block.target_topic_path,
+                block.target_url,
+                block.is_self,
+                block.target_exists,
+            )
+            if after_text not in result:
+                result[after_text] = [block]
+            else:
+                existing_keys = {
+                    (b.target_keyword, b.target_topic_path, b.target_url, b.is_self, b.target_exists)
+                    for b in result[after_text]
+                }
+                if dedup_key not in existing_keys:
+                    result[after_text].append(block)
+    return result
+
+
 def _append_label_seed_children(
     node: Subsection,
     keyword: str,
@@ -716,6 +783,9 @@ def extract_label_seed_candidates_from_elements(
             label = extract_label_before_trigger(parent_text, config)
             if not label:
                 label = _normalize_label_seed_text((candidate.get("label_text") or ""), config)
+            if not label and _is_after_dekhen_element(el, config):
+                # After-dekhen pattern: only use after-anchor text when element starts with देखें
+                label = _normalize_label_seed_text(candidate.get("after_anchor_text") or "", config)
             if label:
                 results.append((label, candidate))
                 break
@@ -797,6 +867,75 @@ def _should_emit_for_anchor(block: Block, config: JainkoshConfig) -> bool:
     if (not block.is_self) and block.target_exists and config.label_to_topic.emit_for_wiki_link:
         return True
     return False
+
+
+def _strip_outer_parens(text: str) -> str:
+    """Extract content from outer parens: '- (text)।' → 'text', '.(text)' → 'text'."""
+    m = re.match(r'^[-–.\s]*\(\s*(.*?)\s*\)\s*[।.]*\s*$', text, re.DOTALL)
+    if m:
+        return m.group(1).strip()
+    return text
+
+
+def _strip_br_dekhen_lines(text: str, config: JainkoshConfig) -> str:
+    """Strip <br/>-separated देखें trigger lines and their following label lines from text.
+
+    Used to clean up hindi_translation that contains br-dekhen patterns like:
+      'initial prose\nदेखें link\n(label text)\nदेखें ...'
+    Strips from the first trigger line onward, including the parenthesized label after it.
+    """
+    triggers = sorted(config.index.see_also_triggers, key=len, reverse=True)
+    triggers_alt = "|".join(re.escape(t) for t in triggers)
+    trigger_re = re.compile(r'^\s*(?:' + triggers_alt + r')\s')
+    lines = text.split("\n")
+    result: list[str] = []
+    skip_next = False
+    for line in lines:
+        stripped = line.strip()
+        if skip_next:
+            if re.match(r'^[-–.\s]*\(', stripped) or not stripped:
+                skip_next = False
+                continue
+            skip_next = False
+        if trigger_re.match(stripped):
+            skip_next = True
+            continue
+        result.append(line)
+    return "\n".join(result).strip()
+
+
+def extract_br_dekhen_seeds_from_elements(
+    elements: list[Node],
+    *,
+    keyword: str,
+    config: JainkoshConfig,
+) -> list[tuple[str, dict]]:
+    """Extract label-seed candidates from <br/>-separated देखें patterns.
+
+    For elements that contain initial prose + <br/>-separated देखें lines,
+    each देखें with parenthesized Devanagari text after it becomes a seed.
+    Returns list of (label, candidate_dict) pairs.
+    """
+    if not config.label_to_topic.enabled:
+        return []
+    results: list[tuple[str, dict]] = []
+    seen_labels: set[str] = set()
+    for el in elements:
+        if not _is_br_dekhen_element(el, config):
+            continue
+        candidates = find_see_also_candidates_in_element(el, config, current_keyword=keyword)
+        for c in candidates:
+            after_text = c.get("after_anchor_text") or ""
+            if not re.search(r"[ऀ-ॿ]", after_text):
+                continue
+            label = _normalize_label_seed_text(after_text, config)
+            label = _strip_outer_parens(label)
+            label = normalize_text(label)
+            if not label or label in seen_labels:
+                continue
+            seen_labels.add(label)
+            results.append((label, c))
+    return results
 
 
 def _make_label_seed_subsection(

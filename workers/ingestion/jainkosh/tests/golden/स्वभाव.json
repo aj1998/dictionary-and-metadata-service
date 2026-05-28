@@ -719,73 +719,81 @@
                     ],
                     "natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम",
                     "parent_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण",
-                    "is_leaf": true,
+                    "is_leaf": false,
                     "is_synthetic": false,
                     "label_topic_seed": false,
                     "source_subkind": null,
-                    "blocks": [
+                    "blocks": [],
+                    "children": [
                       {
-                        "kind": "hindi_text",
-                        "text_devanagari": "देखें तत्त्व - 1.1\nतत्त्व, परमार्थ, द्रव्य, स्वभाव, परमपरम, ध्येय, शुद्ध और परम ये सब एकार्थवाची हैं।",
-                        "hindi_translation": null,
-                        "references": [],
-                        "is_orphan_translation": false,
-                        "is_bullet_point": false,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": null,
-                        "target_topic_path": null,
-                        "target_url": null,
-                        "is_self": false,
-                        "target_exists": true
+                        "topic_path": null,
+                        "heading_text": "तत्त्व, परमार्थ, द्रव्य, स्वभाव, परमपरम, ध्येय, शुद्ध और परम ये सब एकार्थवाची हैं",
+                        "heading_path": [
+                          "स्वभाव के भेद लक्षण व विभाजन",
+                          "स्वभाव सामान्य का लक्षण",
+                          "स्वभाव व शक्ति के एकार्थवाची नाम",
+                          "तत्त्व, परमार्थ, द्रव्य, स्वभाव, परमपरम, ध्येय, शुद्ध और परम ये सब एकार्थवाची हैं"
+                        ],
+                        "natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम:तत्त्व-परमार्थ-द्रव्य-स्वभाव-परमपरम-ध्येय-शुद्ध-और-परम-ये-सब-एकार्थवाची-हैं",
+                        "parent_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम",
+                        "is_leaf": true,
+                        "is_synthetic": true,
+                        "label_topic_seed": true,
+                        "source_subkind": "label_seed",
+                        "blocks": [
+                          {
+                            "kind": "see_also",
+                            "text_devanagari": null,
+                            "hindi_translation": null,
+                            "references": [],
+                            "is_orphan_translation": false,
+                            "is_bullet_point": false,
+                            "raw_html": null,
+                            "table_rows": null,
+                            "target_keyword": "तत्त्व",
+                            "target_topic_path": "1.1",
+                            "target_url": "/wiki/%E0%A4%A4%E0%A4%A4%E0%A5%8D%E0%A4%A4%E0%A5%8D%E0%A4%B5#1.1",
+                            "is_self": false,
+                            "target_exists": true
+                          }
+                        ],
+                        "children": []
                       },
                       {
-                        "kind": "see_also",
-                        "text_devanagari": null,
-                        "hindi_translation": null,
-                        "references": [],
-                        "is_orphan_translation": false,
-                        "is_bullet_point": false,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": "तत्त्व",
-                        "target_topic_path": "1.1",
-                        "target_url": "/wiki/%E0%A4%A4%E0%A4%A4%E0%A5%8D%E0%A4%A4%E0%A5%8D%E0%A4%B5#1.1",
-                        "is_self": false,
-                        "target_exists": true
-                      },
-                      {
-                        "kind": "hindi_text",
-                        "text_devanagari": "देखें प्रकृति बंध - 1.1\nप्रकृति, शक्ति, लक्षण, विशेष, धर्म, रूप, गुण तथा शील व आकृति एकार्थवाची हैं।",
-                        "hindi_translation": null,
-                        "references": [],
-                        "is_orphan_translation": false,
-                        "is_bullet_point": false,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": null,
-                        "target_topic_path": null,
-                        "target_url": null,
-                        "is_self": false,
-                        "target_exists": true
-                      },
-                      {
-                        "kind": "see_also",
-                        "text_devanagari": null,
-                        "hindi_translation": null,
-                        "references": [],
-                        "is_orphan_translation": false,
-                        "is_bullet_point": false,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": "प्रकृति बंध",
-                        "target_topic_path": "1.1",
-                        "target_url": "/wiki/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%95%E0%A5%83%E0%A4%A4%E0%A4%BF_%E0%A4%AC%E0%A4%82%E0%A4%A7#1.1",
-                        "is_self": false,
-                        "target_exists": true
+                        "topic_path": null,
+                        "heading_text": "प्रकृति, शक्ति, लक्षण, विशेष, धर्म, रूप, गुण तथा शील व आकृति एकार्थवाची हैं",
+                        "heading_path": [
+                          "स्वभाव के भेद लक्षण व विभाजन",
+                          "स्वभाव सामान्य का लक्षण",
+                          "स्वभाव व शक्ति के एकार्थवाची नाम",
+                          "प्रकृति, शक्ति, लक्षण, विशेष, धर्म, रूप, गुण तथा शील व आकृति एकार्थवाची हैं"
+                        ],
+                        "natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम:प्रकृति-शक्ति-लक्षण-विशेष-धर्म-रूप-गुण-तथा-शील-व-आकृति-एकार्थवाची-हैं",
+                        "parent_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम",
+                        "is_leaf": true,
+                        "is_synthetic": true,
+                        "label_topic_seed": true,
+                        "source_subkind": "label_seed",
+                        "blocks": [
+                          {
+                            "kind": "see_also",
+                            "text_devanagari": null,
+                            "hindi_translation": null,
+                            "references": [],
+                            "is_orphan_translation": false,
+                            "is_bullet_point": false,
+                            "raw_html": null,
+                            "table_rows": null,
+                            "target_keyword": "प्रकृति बंध",
+                            "target_topic_path": "1.1",
+                            "target_url": "/wiki/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%95%E0%A5%83%E0%A4%A4%E0%A4%BF_%E0%A4%AC%E0%A4%82%E0%A4%A7#1.1",
+                            "is_self": false,
+                            "target_exists": true
+                          }
+                        ],
+                        "children": []
                       }
-                    ],
-                    "children": []
+                    ]
                   }
                 ]
               },
@@ -919,12 +927,17 @@
                       {
                         "text": "( आलापपद्धति/4 )",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "आलापपद्धति",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "सूत्र",
+                            "value": 4
+                          }
+                        ]
                       },
                       {
                         "text": "(नयचक्र (श्रुतभवन)/61)",
@@ -990,7 +1003,7 @@
                 ],
                 "natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:उपचरित-स्वभाव-के-भेद-व-लक्षण",
                 "parent_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन",
-                "is_leaf": true,
+                "is_leaf": false,
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
@@ -1003,12 +1016,17 @@
                       {
                         "text": "आलापपद्धति/6",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "आलापपद्धति",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "सूत्र",
+                            "value": 6
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1018,36 +1036,6 @@
                     "target_keyword": null,
                     "target_topic_path": null,
                     "target_url": null,
-                    "is_self": false,
-                    "target_exists": true
-                  },
-                  {
-                    "kind": "hindi_text",
-                    "text_devanagari": "देखें पारिणामिक - 2\nअस्तित्व, अन्यत्व, कर्तृत्व, भोक्तृत्व, पर्यायत्व, असर्वगतत्व, अनादि संतति बंधत्व, प्रदेशवत्त्व, अरूपत्व, नित्यत्व आदि भाव च शब्द से समुच्चय किये गये हैं।",
-                    "hindi_translation": null,
-                    "references": [],
-                    "is_orphan_translation": false,
-                    "is_bullet_point": false,
-                    "raw_html": null,
-                    "table_rows": null,
-                    "target_keyword": null,
-                    "target_topic_path": null,
-                    "target_url": null,
-                    "is_self": false,
-                    "target_exists": true
-                  },
-                  {
-                    "kind": "see_also",
-                    "text_devanagari": null,
-                    "hindi_translation": null,
-                    "references": [],
-                    "is_orphan_translation": false,
-                    "is_bullet_point": false,
-                    "raw_html": null,
-                    "table_rows": null,
-                    "target_keyword": "पारिणामिक",
-                    "target_topic_path": "2",
-                    "target_url": "/wiki/%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%BF%E0%A4%A3%E0%A4%BE%E0%A4%AE%E0%A4%BF%E0%A4%95#2",
                     "is_self": false,
                     "target_exists": true
                   },
@@ -1067,7 +1055,41 @@
                     "target_exists": true
                   }
                 ],
-                "children": []
+                "children": [
+                  {
+                    "topic_path": null,
+                    "heading_text": "अस्तित्व, अन्यत्व, कर्तृत्व, भोक्तृत्व, पर्यायत्व, असर्वगतत्व, अनादि संतति बंधत्व, प्रदेशवत्त्व, अरूपत्व, नित्यत्व आदि भाव च शब्द से समुच्चय किये गये हैं",
+                    "heading_path": [
+                      "स्वभाव के भेद लक्षण व विभाजन",
+                      "उपचरित स्वभाव के भेद व लक्षण",
+                      "अस्तित्व, अन्यत्व, कर्तृत्व, भोक्तृत्व, पर्यायत्व, असर्वगतत्व, अनादि संतति बंधत्व, प्रदेशवत्त्व, अरूपत्व, नित्यत्व आदि भाव च शब्द से समुच्चय किये गये हैं"
+                    ],
+                    "natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:उपचरित-स्वभाव-के-भेद-व-लक्षण:अस्तित्व-अन्यत्व-कर्तृत्व-भोक्तृत्व-पर्यायत्व-असर्वगतत्व-अनादि-संतति-बंधत्व-प्रदेशवत्त्व-अरूपत्व-नित्यत्व-आदि-भाव-च-शब्द-से-समुच्चय-किये-गये-हैं",
+                    "parent_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:उपचरित-स्वभाव-के-भेद-व-लक्षण",
+                    "is_leaf": true,
+                    "is_synthetic": true,
+                    "label_topic_seed": true,
+                    "source_subkind": "label_seed",
+                    "blocks": [
+                      {
+                        "kind": "see_also",
+                        "text_devanagari": null,
+                        "hindi_translation": null,
+                        "references": [],
+                        "is_orphan_translation": false,
+                        "is_bullet_point": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": "पारिणामिक",
+                        "target_topic_path": "2",
+                        "target_url": "/wiki/%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%BF%E0%A4%A3%E0%A4%BE%E0%A4%AE%E0%A4%BF%E0%A4%95#2",
+                        "is_self": false,
+                        "target_exists": true
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
               },
               {
                 "topic_path": "1.5",
@@ -1676,43 +1698,46 @@
                 ],
                 "natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं",
                 "parent_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश",
-                "is_leaf": true,
+                "is_leaf": false,
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "blocks": [
+                "blocks": [],
+                "children": [
                   {
-                    "kind": "hindi_text",
-                    "text_devanagari": "देखें स्वभाव - 1.6\nसप्तभंगी के विषयभूत अस्तित्व नास्तित्व आदि धर्म वस्तु में कल्पित हैं।",
-                    "hindi_translation": null,
-                    "references": [],
-                    "is_orphan_translation": false,
-                    "is_bullet_point": false,
-                    "raw_html": null,
-                    "table_rows": null,
-                    "target_keyword": null,
-                    "target_topic_path": null,
-                    "target_url": null,
-                    "is_self": false,
-                    "target_exists": true
-                  },
-                  {
-                    "kind": "see_also",
-                    "text_devanagari": null,
-                    "hindi_translation": null,
-                    "references": [],
-                    "is_orphan_translation": false,
-                    "is_bullet_point": false,
-                    "raw_html": null,
-                    "table_rows": null,
-                    "target_keyword": "स्वभाव",
-                    "target_topic_path": "1.6",
-                    "target_url": "#1.6",
-                    "is_self": true,
-                    "target_exists": true
+                    "topic_path": null,
+                    "heading_text": "सप्तभंगी के विषयभूत अस्तित्व नास्तित्व आदि धर्म वस्तु में कल्पित हैं",
+                    "heading_path": [
+                      "स्वभाव व शक्ति निर्देश",
+                      "स्वभाव या धर्म अपेक्षा कृत होते हैं",
+                      "सप्तभंगी के विषयभूत अस्तित्व नास्तित्व आदि धर्म वस्तु में कल्पित हैं"
+                    ],
+                    "natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं:सप्तभंगी-के-विषयभूत-अस्तित्व-नास्तित्व-आदि-धर्म-वस्तु-में-कल्पित-हैं",
+                    "parent_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं",
+                    "is_leaf": true,
+                    "is_synthetic": true,
+                    "label_topic_seed": true,
+                    "source_subkind": "label_seed",
+                    "blocks": [
+                      {
+                        "kind": "see_also",
+                        "text_devanagari": null,
+                        "hindi_translation": null,
+                        "references": [],
+                        "is_orphan_translation": false,
+                        "is_bullet_point": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": "स्वभाव",
+                        "target_topic_path": "1.6",
+                        "target_url": "#1.6",
+                        "is_self": true,
+                        "target_exists": true
+                      }
+                    ],
+                    "children": []
                   }
-                ],
-                "children": []
+                ]
               },
               {
                 "topic_path": "2.5",
@@ -1736,12 +1761,17 @@
                       {
                         "text": "आलापपद्धति/6",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "आलापपद्धति",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "सूत्र",
+                            "value": 6
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1936,9 +1966,45 @@
           ],
           "source": "jainkosh",
           "parent_keyword_natural_key": "स्वभाव",
-          "is_leaf": true,
+          "is_leaf": false,
           "is_synthetic": false,
           "source_subkind": null
+        },
+        {
+          "table": "topics",
+          "natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम:तत्त्व-परमार्थ-द्रव्य-स्वभाव-परमपरम-ध्येय-शुद्ध-और-परम-ये-सब-एकार्थवाची-हैं",
+          "topic_path": null,
+          "parent_topic_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "तत्त्व, परमार्थ, द्रव्य, स्वभाव, परमपरम, ध्येय, शुद्ध और परम ये सब एकार्थवाची हैं"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "स्वभाव",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "label_seed"
+        },
+        {
+          "table": "topics",
+          "natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम:प्रकृति-शक्ति-लक्षण-विशेष-धर्म-रूप-गुण-तथा-शील-व-आकृति-एकार्थवाची-हैं",
+          "topic_path": null,
+          "parent_topic_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "प्रकृति, शक्ति, लक्षण, विशेष, धर्म, रूप, गुण तथा शील व आकृति एकार्थवाची हैं"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "स्वभाव",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "label_seed"
         },
         {
           "table": "topics",
@@ -1990,9 +2056,27 @@
           ],
           "source": "jainkosh",
           "parent_keyword_natural_key": "स्वभाव",
-          "is_leaf": true,
+          "is_leaf": false,
           "is_synthetic": false,
           "source_subkind": null
+        },
+        {
+          "table": "topics",
+          "natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:उपचरित-स्वभाव-के-भेद-व-लक्षण:अस्तित्व-अन्यत्व-कर्तृत्व-भोक्तृत्व-पर्यायत्व-असर्वगतत्व-अनादि-संतति-बंधत्व-प्रदेशवत्त्व-अरूपत्व-नित्यत्व-आदि-भाव-च-शब्द-से-समुच्चय-किये-गये-हैं",
+          "topic_path": null,
+          "parent_topic_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:उपचरित-स्वभाव-के-भेद-व-लक्षण",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "अस्तित्व, अन्यत्व, कर्तृत्व, भोक्तृत्व, पर्यायत्व, असर्वगतत्व, अनादि संतति बंधत्व, प्रदेशवत्त्व, अरूपत्व, नित्यत्व आदि भाव च शब्द से समुच्चय किये गये हैं"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "स्वभाव",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "label_seed"
         },
         {
           "table": "topics",
@@ -2134,9 +2218,27 @@
           ],
           "source": "jainkosh",
           "parent_keyword_natural_key": "स्वभाव",
-          "is_leaf": true,
+          "is_leaf": false,
           "is_synthetic": false,
           "source_subkind": null
+        },
+        {
+          "table": "topics",
+          "natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं:सप्तभंगी-के-विषयभूत-अस्तित्व-नास्तित्व-आदि-धर्म-वस्तु-में-कल्पित-हैं",
+          "topic_path": null,
+          "parent_topic_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं",
+          "display_text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "सप्तभंगी के विषयभूत अस्तित्व नास्तित्व आदि धर्म वस्तु में कल्पित हैं"
+            }
+          ],
+          "source": "jainkosh",
+          "parent_keyword_natural_key": "स्वभाव",
+          "is_leaf": true,
+          "is_synthetic": true,
+          "source_subkind": "label_seed"
         },
         {
           "table": "topics",
@@ -2838,7 +2940,7 @@
           "natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम",
           "topic_path": "1.1.4",
           "parent_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण",
-          "is_leaf": true,
+          "is_leaf": false,
           "heading": [
             {
               "lang": "hin",
@@ -2846,22 +2948,24 @@
               "text": "स्वभाव व शक्ति के एकार्थवाची नाम"
             }
           ],
-          "blocks": [
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5#1.1.4"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम:तत्त्व-परमार्थ-द्रव्य-स्वभाव-परमपरम-ध्येय-शुद्ध-और-परम-ये-सब-एकार्थवाची-हैं",
+          "topic_path": null,
+          "parent_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम",
+          "is_leaf": true,
+          "heading": [
             {
-              "kind": "hindi_text",
-              "text_devanagari": "देखें तत्त्व - 1.1\nतत्त्व, परमार्थ, द्रव्य, स्वभाव, परमपरम, ध्येय, शुद्ध और परम ये सब एकार्थवाची हैं।",
-              "hindi_translation": null,
-              "references": [],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
+              "lang": "hin",
+              "script": "Deva",
+              "text": "तत्त्व, परमार्थ, द्रव्य, स्वभाव, परमपरम, ध्येय, शुद्ध और परम ये सब एकार्थवाची हैं"
+            }
+          ],
+          "blocks": [
             {
               "kind": "see_also",
               "text_devanagari": null,
@@ -2876,22 +2980,25 @@
               "target_url": "/wiki/%E0%A4%A4%E0%A4%A4%E0%A5%8D%E0%A4%A4%E0%A5%8D%E0%A4%B5#1.1",
               "is_self": false,
               "target_exists": true
-            },
+            }
+          ],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम:प्रकृति-शक्ति-लक्षण-विशेष-धर्म-रूप-गुण-तथा-शील-व-आकृति-एकार्थवाची-हैं",
+          "topic_path": null,
+          "parent_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम",
+          "is_leaf": true,
+          "heading": [
             {
-              "kind": "hindi_text",
-              "text_devanagari": "देखें प्रकृति बंध - 1.1\nप्रकृति, शक्ति, लक्षण, विशेष, धर्म, रूप, गुण तथा शील व आकृति एकार्थवाची हैं।",
-              "hindi_translation": null,
-              "references": [],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
+              "lang": "hin",
+              "script": "Deva",
+              "text": "प्रकृति, शक्ति, लक्षण, विशेष, धर्म, रूप, गुण तथा शील व आकृति एकार्थवाची हैं"
+            }
+          ],
+          "blocks": [
             {
               "kind": "see_also",
               "text_devanagari": null,
@@ -2909,7 +3016,7 @@
             }
           ],
           "source": "jainkosh",
-          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5#1.1.4"
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5"
         },
         {
           "collection": "topic_extracts",
@@ -3042,12 +3149,17 @@
                 {
                   "text": "( आलापपद्धति/4 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "आलापपद्धति",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "सूत्र",
+                      "value": 4
+                    }
+                  ]
                 },
                 {
                   "text": "(नयचक्र (श्रुतभवन)/61)",
@@ -3110,7 +3222,7 @@
           "natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:उपचरित-स्वभाव-के-भेद-व-लक्षण",
           "topic_path": "1.4",
           "parent_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन",
-          "is_leaf": true,
+          "is_leaf": false,
           "heading": [
             {
               "lang": "hin",
@@ -3127,12 +3239,17 @@
                 {
                   "text": "आलापपद्धति/6",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "आलापपद्धति",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "सूत्र",
+                      "value": 6
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -3142,36 +3259,6 @@
               "target_keyword": null,
               "target_topic_path": null,
               "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "hindi_text",
-              "text_devanagari": "देखें पारिणामिक - 2\nअस्तित्व, अन्यत्व, कर्तृत्व, भोक्तृत्व, पर्यायत्व, असर्वगतत्व, अनादि संतति बंधत्व, प्रदेशवत्त्व, अरूपत्व, नित्यत्व आदि भाव च शब्द से समुच्चय किये गये हैं।",
-              "hindi_translation": null,
-              "references": [],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "see_also",
-              "text_devanagari": null,
-              "hindi_translation": null,
-              "references": [],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": "पारिणामिक",
-              "target_topic_path": "2",
-              "target_url": "/wiki/%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%BF%E0%A4%A3%E0%A4%BE%E0%A4%AE%E0%A4%BF%E0%A4%95#2",
               "is_self": false,
               "target_exists": true
             },
@@ -3193,6 +3280,39 @@
           ],
           "source": "jainkosh",
           "source_url": "https://www.jainkosh.org/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5#1.4"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:उपचरित-स्वभाव-के-भेद-व-लक्षण:अस्तित्व-अन्यत्व-कर्तृत्व-भोक्तृत्व-पर्यायत्व-असर्वगतत्व-अनादि-संतति-बंधत्व-प्रदेशवत्त्व-अरूपत्व-नित्यत्व-आदि-भाव-च-शब्द-से-समुच्चय-किये-गये-हैं",
+          "topic_path": null,
+          "parent_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:उपचरित-स्वभाव-के-भेद-व-लक्षण",
+          "is_leaf": true,
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "अस्तित्व, अन्यत्व, कर्तृत्व, भोक्तृत्व, पर्यायत्व, असर्वगतत्व, अनादि संतति बंधत्व, प्रदेशवत्त्व, अरूपत्व, नित्यत्व आदि भाव च शब्द से समुच्चय किये गये हैं"
+            }
+          ],
+          "blocks": [
+            {
+              "kind": "see_also",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": "पारिणामिक",
+              "target_topic_path": "2",
+              "target_url": "/wiki/%E0%A4%AA%E0%A4%BE%E0%A4%B0%E0%A4%BF%E0%A4%A3%E0%A4%BE%E0%A4%AE%E0%A4%BF%E0%A4%95#2",
+              "is_self": false,
+              "target_exists": true
+            }
+          ],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5"
         },
         {
           "collection": "topic_extracts",
@@ -3802,7 +3922,7 @@
           "natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं",
           "topic_path": "2.4",
           "parent_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश",
-          "is_leaf": true,
+          "is_leaf": false,
           "heading": [
             {
               "lang": "hin",
@@ -3810,22 +3930,24 @@
               "text": "स्वभाव या धर्म अपेक्षा कृत होते हैं"
             }
           ],
-          "blocks": [
+          "blocks": [],
+          "source": "jainkosh",
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5#2.4"
+        },
+        {
+          "collection": "topic_extracts",
+          "natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं:सप्तभंगी-के-विषयभूत-अस्तित्व-नास्तित्व-आदि-धर्म-वस्तु-में-कल्पित-हैं",
+          "topic_path": null,
+          "parent_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं",
+          "is_leaf": true,
+          "heading": [
             {
-              "kind": "hindi_text",
-              "text_devanagari": "देखें स्वभाव - 1.6\nसप्तभंगी के विषयभूत अस्तित्व नास्तित्व आदि धर्म वस्तु में कल्पित हैं।",
-              "hindi_translation": null,
-              "references": [],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
+              "lang": "hin",
+              "script": "Deva",
+              "text": "सप्तभंगी के विषयभूत अस्तित्व नास्तित्व आदि धर्म वस्तु में कल्पित हैं"
+            }
+          ],
+          "blocks": [
             {
               "kind": "see_also",
               "text_devanagari": null,
@@ -3843,7 +3965,7 @@
             }
           ],
           "source": "jainkosh",
-          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5#2.4"
+          "source_url": "https://www.jainkosh.org/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5"
         },
         {
           "collection": "topic_extracts",
@@ -3867,12 +3989,17 @@
                 {
                   "text": "आलापपद्धति/6",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "आलापपद्धति",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "सूत्र",
+                      "value": 6
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -4290,6 +4417,28 @@
             "topic_path": "1.1.4",
             "parent_keyword_natural_key": "स्वभाव",
             "source": "jainkosh",
+            "is_leaf": false
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम:तत्त्व-परमार्थ-द्रव्य-स्वभाव-परमपरम-ध्येय-शुद्ध-और-परम-ये-सब-एकार्थवाची-हैं",
+          "props": {
+            "display_text_hi": "तत्त्व, परमार्थ, द्रव्य, स्वभाव, परमपरम, ध्येय, शुद्ध और परम ये सब एकार्थवाची हैं",
+            "topic_path": null,
+            "parent_keyword_natural_key": "स्वभाव",
+            "source": "jainkosh",
+            "is_leaf": true
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम:प्रकृति-शक्ति-लक्षण-विशेष-धर्म-रूप-गुण-तथा-शील-व-आकृति-एकार्थवाची-हैं",
+          "props": {
+            "display_text_hi": "प्रकृति, शक्ति, लक्षण, विशेष, धर्म, रूप, गुण तथा शील व आकृति एकार्थवाची हैं",
+            "topic_path": null,
+            "parent_keyword_natural_key": "स्वभाव",
+            "source": "jainkosh",
             "is_leaf": true
           }
         },
@@ -4330,6 +4479,26 @@
           "props": {
             "display_text_hi": "उपचरित स्वभाव के भेद व लक्षण",
             "topic_path": "1.4",
+            "parent_keyword_natural_key": "स्वभाव",
+            "source": "jainkosh",
+            "is_leaf": false
+          }
+        },
+        {
+          "label": "Gatha",
+          "key": "आलापपद्धति:गाथा:6",
+          "props": {
+            "shastra_natural_key": "आलापपद्धति",
+            "gatha_number": "6"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Topic",
+          "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:उपचरित-स्वभाव-के-भेद-व-लक्षण:अस्तित्व-अन्यत्व-कर्तृत्व-भोक्तृत्व-पर्यायत्व-असर्वगतत्व-अनादि-संतति-बंधत्व-प्रदेशवत्त्व-अरूपत्व-नित्यत्व-आदि-भाव-च-शब्द-से-समुच्चय-किये-गये-हैं",
+          "props": {
+            "display_text_hi": "अस्तित्व, अन्यत्व, कर्तृत्व, भोक्तृत्व, पर्यायत्व, असर्वगतत्व, अनादि संतति बंधत्व, प्रदेशवत्त्व, अरूपत्व, नित्यत्व आदि भाव च शब्द से समुच्चय किये गये हैं",
+            "topic_path": null,
             "parent_keyword_natural_key": "स्वभाव",
             "source": "jainkosh",
             "is_leaf": true
@@ -4523,6 +4692,17 @@
           "props": {
             "display_text_hi": "स्वभाव या धर्म अपेक्षा कृत होते हैं",
             "topic_path": "2.4",
+            "parent_keyword_natural_key": "स्वभाव",
+            "source": "jainkosh",
+            "is_leaf": false
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं:सप्तभंगी-के-विषयभूत-अस्तित्व-नास्तित्व-आदि-धर्म-वस्तु-में-कल्पित-हैं",
+          "props": {
+            "display_text_hi": "सप्तभंगी के विषयभूत अस्तित्व नास्तित्व आदि धर्म वस्तु में कल्पित हैं",
+            "topic_path": null,
             "parent_keyword_natural_key": "स्वभाव",
             "source": "jainkosh",
             "is_leaf": true
@@ -5110,10 +5290,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम:तत्त्व-परमार्थ-द्रव्य-स्वभाव-परमपरम-ध्येय-शुद्ध-और-परम-ये-सब-एकार्थवाची-हैं"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम"
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम:तत्त्व-परमार्थ-द्रव्य-स्वभाव-परमपरम-ध्येय-शुद्ध-और-परम-ये-सब-एकार्थवाची-हैं"
           },
           "to": {
             "label": "Topic",
@@ -5125,10 +5320,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम:प्रकृति-शक्ति-लक्षण-विशेष-धर्म-रूप-गुण-तथा-शील-व-आकृति-एकार्थवाची-हैं"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम"
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-व-शक्ति-के-एकार्थवाची-नाम:प्रकृति-शक्ति-लक्षण-विशेष-धर्म-रूप-गुण-तथा-शील-व-आकृति-एकार्थवाची-हैं"
           },
           "to": {
             "label": "Topic",
@@ -5203,10 +5413,43 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "आलापपद्धति:गाथा:6"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:उपचरित-स्वभाव-के-भेद-व-लक्षण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:उपचरित-स्वभाव-के-भेद-व-लक्षण/0",
+            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:उपचरित-स्वभाव-के-भेद-व-लक्षण"
+          }
+        },
+        {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:उपचरित-स्वभाव-के-भेद-व-लक्षण:अस्तित्व-अन्यत्व-कर्तृत्व-भोक्तृत्व-पर्यायत्व-असर्वगतत्व-अनादि-संतति-बंधत्व-प्रदेशवत्त्व-अरूपत्व-नित्यत्व-आदि-भाव-च-शब्द-से-समुच्चय-किये-गये-हैं"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:उपचरित-स्वभाव-के-भेद-व-लक्षण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:उपचरित-स्वभाव-के-भेद-व-लक्षण"
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:उपचरित-स्वभाव-के-भेद-व-लक्षण:अस्तित्व-अन्यत्व-कर्तृत्व-भोक्तृत्व-पर्यायत्व-असर्वगतत्व-अनादि-संतति-बंधत्व-प्रदेशवत्त्व-अरूपत्व-नित्यत्व-आदि-भाव-च-शब्द-से-समुच्चय-किये-गये-हैं"
           },
           "to": {
             "label": "Topic",
@@ -5551,10 +5794,25 @@
           }
         },
         {
+          "type": "PART_OF",
+          "from": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं:सप्तभंगी-के-विषयभूत-अस्तित्व-नास्तित्व-आदि-धर्म-वस्तु-में-कल्पित-हैं"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh"
+          }
+        },
+        {
           "type": "RELATED_TO",
           "from": {
             "label": "Topic",
-            "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं"
+            "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं:सप्तभंगी-के-विषयभूत-अस्तित्व-नास्तित्व-आदि-धर्म-वस्तु-में-कल्पित-हैं"
           },
           "to": {
             "label": "Topic",
@@ -5578,6 +5836,24 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "आलापपद्धति:गाथा:6"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:गुण-को-स्वभाव-कह-सकते-हैं-पर-स्वभाव-को-गुण-नहीं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:गुण-को-स्वभाव-कह-सकते-हैं-पर-स्वभाव-को-गुण-नहीं/0",
+            "source_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:गुण-को-स्वभाव-कह-सकते-हैं-पर-स्वभाव-को-गुण-नहीं"
           }
         },
         {

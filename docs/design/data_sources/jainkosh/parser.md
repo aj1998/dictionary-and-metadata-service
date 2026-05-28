@@ -21,6 +21,7 @@
 3. [Definitions](#3-definitions)
 4. [Topic Index Parsing](#4-topic-index-parsing)
 5. [Subsections (Topic Seeds)](#5-subsections-topic-seeds)
+   - 5.6 [`<br/>`-separated देखें in definition elements → section-level seeds (v1.10.0)](#56-br-separated-देखें-in-definition-elements--section-level-seeds-v1100)
 6. [Block Kinds & Processing Rules](#6-block-kinds--processing-rules)
 7. [File Layout](#7-file-layout)
 8. [Configuration (`jainkosh.yaml`)](#8-configuration-jainkoshyaml)
@@ -346,7 +347,91 @@ the `see_also` block is assigned to the **child seed's `blocks`**, not the paren
 subsection's blocks. `RELATED_TO` edges are emitted from the child seed's `natural_key`.
 Row detection happens at DOM element level before any text stripping (catches redlink rows).
 
-### 5.5 Parenthesised `देखें` cleanup (v1.2.0)
+### 5.5 After-`देखें` text as synthetic topic seed (v1.9.0)
+
+When a HindiText block takes the shape `देखें <X> text_after` — i.e., the block
+**starts** with the `देखें` trigger (only leading whitespace allowed before it) and
+there is **Devanagari text following the anchor** — the text after the link becomes a
+**synthetic Topic seed**, mirroring the before-trigger label_seed pattern:
+
+- `is_synthetic = True`, `label_topic_seed = True`, `topic_path = None`, `is_leaf = True`
+- `heading_text` = `text_after` (the content text following the anchor).
+- `natural_key` = slug of `text_after` appended to the parent's `natural_key`.
+- Attached as child of the **current open subsection** (same as label-seed topics).
+- The `see_also` block pointing to `<X>` is assigned to the child seed's `blocks`.
+- The original element is **skipped** in the parent's block stream (not emitted as a `hindi_text` block).
+
+**Detection rules:**
+- Only fires when `label_to_topic.enabled = true`.
+- Element's raw text must start with a `देखें` trigger — prose before the trigger disqualifies it.
+- Parenthesised patterns like `(देखें X)` and mid-prose `... देखें X ...` are NOT affected.
+- After text must contain at least one Devanagari character.
+
+**`extract_text_after_anchor` stops at `<br/>`**: when the anchor is inside an element that has multiple देखें lines separated by `<br/>`, only the text up to (and not including) the next `<br/>` is returned as `after_anchor_text`. This prevents bleed-through of subsequent देखें lines.
+
+**Implemented in:**
+- `see_also.extract_text_after_anchor(a, nth_occurrence)` — extracts text after the anchor, stopping at the first `<br/>`.
+- `parse_blocks._is_after_dekhen_element(el, config)` — detection predicate used to skip elements in the block stream.
+- `parse_subsections.extract_after_dekhen_relations_from_elements(elements, keyword, config)` — extracts see_also blocks keyed by after-text, merged into `row_relations` before seed creation.
+- `extract_label_seed_candidates_from_elements` — uses `after_anchor_text` as fallback label when element is an after-dekhen element.
+
+**Example** (स्वभाव § 1.1.4):
+```
+<p class="HindiText">देखें <a href="/wiki/तत्त्व#1.1">तत्त्व - 1.1</a>
+तत्त्व, परमार्थ, द्रव्य, स्वभाव, परमपरम ये सब एकार्थवाची हैं।</p>
+→ child seed: heading = "तत्त्व, परमार्थ, द्रव्य, स्वभाव, परमपरम ये सब एकार्थवाची हैं"
+              blocks  = [see_also → तत्त्व:1.1]
+```
+
+### 5.6 `<br/>`-separated `देखें` in definition elements → section-level seeds (v1.10.0)
+
+When a HindiText element contains **initial prose** followed by one or more `<br/>`-separated
+`देखें <link> (label text)` lines — i.e. the element does **not** start with the trigger —
+each देखें line becomes a **section-level `label_topic_seed`** in `PageSection.label_topic_seeds`.
+
+This pattern appears in `वस्तु.html` where a single `<span class="HindiText">` absorbed via
+sibling `=` contains:
+```html
+<span class="HindiText">
+  initial prose.<br/>
+  देखें <a href="/wiki/X#1.7">X 1.7</a> - (label A).<br/>
+  देखें <a href="/wiki/Y#1.4">Y 1.4</a> (label B).<br/>
+  ...
+</span>
+```
+
+**Processing rules:**
+1. Element is detected by `_is_br_dekhen_element` (has `<br/>`, does NOT start with trigger, has देखें anchors with Devanagari after-text).
+2. For each देखें anchor, `extract_text_after_anchor` (stopping at `<br/>`) retrieves the after-text.
+3. Outer parentheses are stripped: `- (label text)।` → `label text`, `.(label text)` → `label text`.
+4. A `Subsection` seed is created with `parent=None` (section root), `label_topic_seed=True`.
+5. The matched `see_also` block is assigned to the seed's `blocks`.
+6. **Post-processing of definitions**: the देखें trigger lines (and their following parenthesized label lines) are stripped from the block's `hindi_translation` using `_strip_br_dekhen_lines`. The corresponding `see_also` blocks are removed from `Definition.blocks` (since they are now represented as seeds).
+
+**Seeds are placed at `PageSection.label_topic_seeds`**, not under any subsection (these pages have no subsection tree).
+
+**Implemented in:**
+- `see_also.extract_text_after_anchor` — stops at `<br/>` (shared with §5.5).
+- `parse_blocks._is_br_dekhen_element(el, config)` — detection predicate.
+- `parse_subsections.extract_br_dekhen_seeds_from_elements(elements, keyword, config)` — returns `(label, candidate)` pairs with paren-stripped labels.
+- `parse_subsections._strip_br_dekhen_lines(text, config)` — strips trigger lines + following paren-lines from `hindi_translation`.
+- `parse_subsections._strip_outer_parens(text)` — extracts content from `(...)` wrappers.
+- `parse_section.parse_section` — calls the above to populate `PageSection.label_topic_seeds` and post-process definitions.
+
+**Example** (वस्तु § definition 3):
+```
+<span class="HindiText">
+  अर्थक्रियाकारित्व ही वस्तु का लक्षण है।<br/>
+  देखें <a href="/wiki/द्रव्य#1.7">द्रव्य 1.7</a> - (सत्त, सत्त्व, …एकार्थवाची शब्द हैं)।
+</span>
+→ PageSection.label_topic_seeds[0]:
+    heading_text = "सत्त, सत्त्व, …एकार्थवाची शब्द हैं"
+    blocks       = [see_also → द्रव्य:1.7]
+  Definition block hindi_translation cleaned to:
+    "अर्थक्रियाकारित्व ही वस्तु का लक्षण है।"
+```
+
+### 5.7 Parenthesised `देखें` cleanup (v1.2.0)
 
 When a `देखें` reference is parenthesised — e.g. `(देखें X)` — the entire parenthesised
 fragment is stripped from `text_devanagari` and `hindi_translation`. The `see_also` block
@@ -1316,6 +1401,8 @@ Written into `KeywordParseResult.parser_version` and into Postgres `parser_confi
 | `1.7.0` | Range expansion for `देखें` links: trailing `-N` after an anchor with `target_topic_path=X.M` now emits one relation per path X.M … X.N. Applies to both `IndexRelation` (index `<ol>`) and inline `see_also` blocks. |
 | `1.8.0` | **V1/V2 numeric prefix stripping**: leading `N. ` or `N.M. ` prefix stripped from heading_text for V1 and V2 (with strong). **V2-bare**: `<span class="HindiText" id="N">N. heading</span>` (no inner `<strong>`) now detected as a heading when text carries numeric prefix. **V5**: new heading variant `<p class="HindiText" id="N">N. heading</p>` (no child elements, numeric prefix required). **DFS fix**: classless `<p>` elements containing heading descendants are now recursed into instead of treated as content blocks. |
 | `1.8.1` | **V2-bare inline-content fix**: `_make_v2_content_block` now returns `None` for V2-bare spans (no inner `<strong>`), preventing the heading text from being re-emitted as a `hindi_text` block inside the subsection's own content. Affected subsections in स्वभाव: `1.1.2`, `1.1.3`, `1.1.4`. |
+| `1.9.0` | **After-`देखें` text as topic seed**: when a HindiText element starts with `देखें <link> text_after` (no prose before the trigger), the text after the anchor becomes a synthetic label-seed child topic of the current subsection, with the see_also relation assigned to it. Element is skipped in the parent block stream. Implemented via `_is_after_dekhen_element`, `extract_after_dekhen_relations_from_elements`, and `extract_text_after_anchor`. Affects स्वभाव sections 1.1.4, 1.4, 2.4. |
+| `1.10.0` | **`<br/>`-separated `देखें` as section-level seeds**: when a HindiText element contains initial prose + `<br/>`-separated `देखें <link> (label)` lines (element does NOT start with trigger), each देखें becomes a `PageSection.label_topic_seeds` entry. Outer parentheses are stripped from the after-anchor text to form the seed heading. Definition `hindi_translation` is cleaned (देखें lines removed) and the matching `see_also` blocks are removed from `Definition.blocks`. **`extract_text_after_anchor` now stops at `<br/>`** (fixes bleed-through in multi-देखें spans). Affects वस्तु. Implemented via `_is_br_dekhen_element`, `extract_br_dekhen_seeds_from_elements`, `_strip_br_dekhen_lines`, `_strip_outer_parens`. |
 
 ---
 
@@ -1334,6 +1421,7 @@ Written into `KeywordParseResult.parser_version` and into Postgres `parser_confi
 | पर्याय | `<ul class="HindiText">` at outer index level | Keyword-level relation (§4.2). |
 | पर्याय | 3-level deep paths (`1.1.3`) | Tree assembly synthesises missing parents if needed. |
 | वस्तु | All SiddhantKosh content in a classless `<p>` wrapping block-class spans | Exploded by `_is_block_span_container()` helper. |
+| वस्तु | `<span class="HindiText">` (absorbed via sibling `=`) containing initial prose + `<br/>`-separated `देखें (label)` lines | `<br/>`-dekhen pattern (§5.6): 4 `PageSection.label_topic_seeds` created; prose-only `hindi_translation` kept; `see_also` blocks relocated to seeds. |
 | any | Self-link `<a class="mw-selflink-fragment" href="#3">` | `is_self=true` (§4.3). |
 | any | Redlink `/w/index.php?title=X&action=edit&redlink=1` | Capture with `target_exists=false`; no Neo4j edge. |
 | any | Trailing `<br/>` and stray `&#160;` | Whitespace-normalise (§6.9). |

@@ -135,6 +135,36 @@ def find_see_alsos_in_element(
     return results
 
 
+def extract_text_after_anchor(a: Node, nth_occurrence: int = 0) -> str:
+    """Return text after the anchor within its parent element, stripping HTML and range suffix."""
+    parent = a.parent
+    if parent is None:
+        return ""
+    parent_html = parent.html or ""
+    a_html = a.html or ""
+    if not a_html:
+        return ""
+
+    idx = -1
+    for _ in range(nth_occurrence + 1):
+        new_idx = parent_html.find(a_html, idx + 1)
+        if new_idx < 0:
+            idx = parent_html.find(a_html)
+            break
+        idx = new_idx
+
+    if idx < 0:
+        return ""
+
+    after = parent_html[idx + len(a_html):]
+    # Stop at the first <br/> tag — each "line" in a <br/>-separated block belongs to its own anchor
+    after = re.sub(r"<br\b[^>]*/?>.*", "", after, flags=re.DOTALL | re.IGNORECASE)
+    after_text = re.sub(r"<[^>]+>", "", after)
+    # Strip leading range suffix (e.g., "-6" or "–3") so it isn't included in topic text
+    after_text = re.sub(r"^\s*[-–]\s*\d+\s*[।]?\s*", "", after_text)
+    return normalize_text(after_text)
+
+
 def find_see_also_candidates_in_element(
     el: Node,
     config: JainkoshConfig,
@@ -162,6 +192,7 @@ def find_see_also_candidates_in_element(
         parsed = parse_anchor(a, config, current_keyword=current_keyword)
         results.append({
             "label_text": _extract_label_before_anchor(a, nth_occurrence=nth),
+            "after_anchor_text": extract_text_after_anchor(a, nth_occurrence=nth),
             **parsed,
         })
     return results

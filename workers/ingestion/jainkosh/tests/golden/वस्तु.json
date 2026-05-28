@@ -125,7 +125,7 @@
               {
                 "kind": "sanskrit_text",
                 "text_devanagari": "वसंति गुणपर्याया अस्मिन्निति वस्तु।",
-                "hindi_translation": "अर्थक्रियाकारित्व ही वस्तु का लक्षण है। अथवा जिसमें गुणपर्यायें वास करें वस्तु है।\nदेखें द्रव्य 1.7\n- (सत्त, सत्त्व, सत्, सामान्य, द्रव्य, अन्वय, वस्तु, अर्थ, विधि ये सब एकार्थवाची शब्द हैं)।\nदेखें द्रव्य 1.4\n(वस्तु गुणपर्यायात्मक है)।\nदेखें सामान्य\n(वस्तु सामान्य विशेषात्मक है)।\nदेखें श्रुतज्ञान - II\n.(वस्तु श्रुतज्ञान के एक भेद का नाम है)।",
+                "hindi_translation": "अर्थक्रियाकारित्व ही वस्तु का लक्षण है। अथवा जिसमें गुणपर्यायें वास करें वस्तु है।",
                 "references": [
                   {
                     "text": "स्याद्वादमंजरी/23/272/6",
@@ -160,7 +160,27 @@
                 "target_url": null,
                 "is_self": false,
                 "target_exists": true
-              },
+              }
+            ],
+            "raw_html": null
+          }
+        ],
+        "index_relations": [],
+        "subsections": [],
+        "label_topic_seeds": [
+          {
+            "topic_path": null,
+            "heading_text": "सत्त, सत्त्व, सत्, सामान्य, द्रव्य, अन्वय, वस्तु, अर्थ, विधि ये सब एकार्थवाची शब्द हैं",
+            "heading_path": [
+              "सत्त, सत्त्व, सत्, सामान्य, द्रव्य, अन्वय, वस्तु, अर्थ, विधि ये सब एकार्थवाची शब्द हैं"
+            ],
+            "natural_key": "वस्तु:सत्त-सत्त्व-सत्-सामान्य-द्रव्य-अन्वय-वस्तु-अर्थ-विधि-ये-सब-एकार्थवाची-शब्द-हैं",
+            "parent_natural_key": null,
+            "is_leaf": true,
+            "is_synthetic": true,
+            "label_topic_seed": true,
+            "source_subkind": "label_seed",
+            "blocks": [
               {
                 "kind": "see_also",
                 "text_devanagari": null,
@@ -175,7 +195,23 @@
                 "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#1.7",
                 "is_self": false,
                 "target_exists": true
-              },
+              }
+            ],
+            "children": []
+          },
+          {
+            "topic_path": null,
+            "heading_text": "वस्तु गुणपर्यायात्मक है",
+            "heading_path": [
+              "वस्तु गुणपर्यायात्मक है"
+            ],
+            "natural_key": "वस्तु:वस्तु-गुणपर्यायात्मक-है",
+            "parent_natural_key": null,
+            "is_leaf": true,
+            "is_synthetic": true,
+            "label_topic_seed": true,
+            "source_subkind": "label_seed",
+            "blocks": [
               {
                 "kind": "see_also",
                 "text_devanagari": null,
@@ -190,7 +226,23 @@
                 "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#1.4",
                 "is_self": false,
                 "target_exists": true
-              },
+              }
+            ],
+            "children": []
+          },
+          {
+            "topic_path": null,
+            "heading_text": "वस्तु सामान्य विशेषात्मक है",
+            "heading_path": [
+              "वस्तु सामान्य विशेषात्मक है"
+            ],
+            "natural_key": "वस्तु:वस्तु-सामान्य-विशेषात्मक-है",
+            "parent_natural_key": null,
+            "is_leaf": true,
+            "is_synthetic": true,
+            "label_topic_seed": true,
+            "source_subkind": "label_seed",
+            "blocks": [
               {
                 "kind": "see_also",
                 "text_devanagari": null,
@@ -205,7 +257,23 @@
                 "target_url": "/wiki/%E0%A4%B8%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%A8%E0%A5%8D%E0%A4%AF",
                 "is_self": false,
                 "target_exists": true
-              },
+              }
+            ],
+            "children": []
+          },
+          {
+            "topic_path": null,
+            "heading_text": "वस्तु श्रुतज्ञान के एक भेद का नाम है",
+            "heading_path": [
+              "वस्तु श्रुतज्ञान के एक भेद का नाम है"
+            ],
+            "natural_key": "वस्तु:वस्तु-श्रुतज्ञान-के-एक-भेद-का-नाम-है",
+            "parent_natural_key": null,
+            "is_leaf": true,
+            "is_synthetic": true,
+            "label_topic_seed": true,
+            "source_subkind": "label_seed",
+            "blocks": [
               {
                 "kind": "see_also",
                 "text_devanagari": null,
@@ -222,12 +290,9 @@
                 "target_exists": true
               }
             ],
-            "raw_html": null
+            "children": []
           }
         ],
-        "index_relations": [],
-        "subsections": [],
-        "label_topic_seeds": [],
         "extra_blocks": []
       },
       {
@@ -425,7 +490,7 @@
                     {
                       "kind": "sanskrit_text",
                       "text_devanagari": "वसंति गुणपर्याया अस्मिन्निति वस्तु।",
-                      "hindi_translation": "अर्थक्रियाकारित्व ही वस्तु का लक्षण है। अथवा जिसमें गुणपर्यायें वास करें वस्तु है।\nदेखें द्रव्य 1.7\n- (सत्त, सत्त्व, सत्, सामान्य, द्रव्य, अन्वय, वस्तु, अर्थ, विधि ये सब एकार्थवाची शब्द हैं)।\nदेखें द्रव्य 1.4\n(वस्तु गुणपर्यायात्मक है)।\nदेखें सामान्य\n(वस्तु सामान्य विशेषात्मक है)।\nदेखें श्रुतज्ञान - II\n.(वस्तु श्रुतज्ञान के एक भेद का नाम है)।",
+                      "hindi_translation": "अर्थक्रियाकारित्व ही वस्तु का लक्षण है। अथवा जिसमें गुणपर्यायें वास करें वस्तु है।",
                       "references": [
                         {
                           "text": "स्याद्वादमंजरी/23/272/6",
@@ -460,7 +525,25 @@
                       "target_url": null,
                       "is_self": false,
                       "target_exists": true
-                    },
+                    }
+                  ],
+                  "raw_html": null
+                }
+              ],
+              "label_topic_seeds": [
+                {
+                  "topic_path": null,
+                  "heading_text": "सत्त, सत्त्व, सत्, सामान्य, द्रव्य, अन्वय, वस्तु, अर्थ, विधि ये सब एकार्थवाची शब्द हैं",
+                  "heading_path": [
+                    "सत्त, सत्त्व, सत्, सामान्य, द्रव्य, अन्वय, वस्तु, अर्थ, विधि ये सब एकार्थवाची शब्द हैं"
+                  ],
+                  "natural_key": "वस्तु:सत्त-सत्त्व-सत्-सामान्य-द्रव्य-अन्वय-वस्तु-अर्थ-विधि-ये-सब-एकार्थवाची-शब्द-हैं",
+                  "parent_natural_key": null,
+                  "is_leaf": true,
+                  "is_synthetic": true,
+                  "label_topic_seed": true,
+                  "source_subkind": "label_seed",
+                  "blocks": [
                     {
                       "kind": "see_also",
                       "text_devanagari": null,
@@ -475,7 +558,23 @@
                       "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#1.7",
                       "is_self": false,
                       "target_exists": true
-                    },
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "topic_path": null,
+                  "heading_text": "वस्तु गुणपर्यायात्मक है",
+                  "heading_path": [
+                    "वस्तु गुणपर्यायात्मक है"
+                  ],
+                  "natural_key": "वस्तु:वस्तु-गुणपर्यायात्मक-है",
+                  "parent_natural_key": null,
+                  "is_leaf": true,
+                  "is_synthetic": true,
+                  "label_topic_seed": true,
+                  "source_subkind": "label_seed",
+                  "blocks": [
                     {
                       "kind": "see_also",
                       "text_devanagari": null,
@@ -490,7 +589,23 @@
                       "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#1.4",
                       "is_self": false,
                       "target_exists": true
-                    },
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "topic_path": null,
+                  "heading_text": "वस्तु सामान्य विशेषात्मक है",
+                  "heading_path": [
+                    "वस्तु सामान्य विशेषात्मक है"
+                  ],
+                  "natural_key": "वस्तु:वस्तु-सामान्य-विशेषात्मक-है",
+                  "parent_natural_key": null,
+                  "is_leaf": true,
+                  "is_synthetic": true,
+                  "label_topic_seed": true,
+                  "source_subkind": "label_seed",
+                  "blocks": [
                     {
                       "kind": "see_also",
                       "text_devanagari": null,
@@ -505,7 +620,23 @@
                       "target_url": "/wiki/%E0%A4%B8%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%A8%E0%A5%8D%E0%A4%AF",
                       "is_self": false,
                       "target_exists": true
-                    },
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "topic_path": null,
+                  "heading_text": "वस्तु श्रुतज्ञान के एक भेद का नाम है",
+                  "heading_path": [
+                    "वस्तु श्रुतज्ञान के एक भेद का नाम है"
+                  ],
+                  "natural_key": "वस्तु:वस्तु-श्रुतज्ञान-के-एक-भेद-का-नाम-है",
+                  "parent_natural_key": null,
+                  "is_leaf": true,
+                  "is_synthetic": true,
+                  "label_topic_seed": true,
+                  "source_subkind": "label_seed",
+                  "blocks": [
                     {
                       "kind": "see_also",
                       "text_devanagari": null,
@@ -522,10 +653,9 @@
                       "target_exists": true
                     }
                   ],
-                  "raw_html": null
+                  "children": []
                 }
               ],
-              "label_topic_seeds": [],
               "extra_blocks": []
             },
             {
@@ -601,44 +731,6 @@
           "props": {
             "display_text": "द्रव्य"
           }
-        },
-        {
-          "label": "Topic",
-          "key": "द्रव्य:1:7",
-          "is_stub_seed": true,
-          "props": {
-            "display_text_hi": "7",
-            "topic_path": "1.7",
-            "parent_keyword_natural_key": "द्रव्य"
-          }
-        },
-        {
-          "label": "Topic",
-          "key": "द्रव्य:1:4",
-          "is_stub_seed": true,
-          "props": {
-            "display_text_hi": "4",
-            "topic_path": "1.4",
-            "parent_keyword_natural_key": "द्रव्य"
-          }
-        },
-        {
-          "label": "Keyword",
-          "key": "सामान्य",
-          "is_stub_seed": true,
-          "props": {
-            "display_text": "सामान्य"
-          }
-        },
-        {
-          "label": "Topic",
-          "key": "श्रुतज्ञान:II",
-          "is_stub_seed": true,
-          "props": {
-            "display_text_hi": "II",
-            "topic_path": "II",
-            "parent_keyword_natural_key": "श्रुतज्ञान"
-          }
         }
       ],
       "edges": [
@@ -671,66 +763,6 @@
           "to": {
             "label": "Keyword",
             "key": "द्रव्य"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh"
-          }
-        },
-        {
-          "type": "RELATED_TO",
-          "from": {
-            "label": "Keyword",
-            "key": "वस्तु"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "द्रव्य:1:7"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh"
-          }
-        },
-        {
-          "type": "RELATED_TO",
-          "from": {
-            "label": "Keyword",
-            "key": "वस्तु"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "द्रव्य:1:4"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh"
-          }
-        },
-        {
-          "type": "RELATED_TO",
-          "from": {
-            "label": "Keyword",
-            "key": "वस्तु"
-          },
-          "to": {
-            "label": "Keyword",
-            "key": "सामान्य"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh"
-          }
-        },
-        {
-          "type": "RELATED_TO",
-          "from": {
-            "label": "Keyword",
-            "key": "वस्तु"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "श्रुतज्ञान:II"
           },
           "props": {
             "weight": 1.0,

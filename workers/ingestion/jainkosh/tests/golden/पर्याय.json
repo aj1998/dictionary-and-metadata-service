@@ -299,12 +299,17 @@
                           {
                             "text": "आलापपद्धति/6",
                             "inline_reference": false,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
                             "shastra_name": "आलापपद्धति",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "सूत्र",
+                                "value": 6
+                              }
+                            ]
                           },
                           {
                             "text": "( नयचक्र / श्रुतभवन दीपक/ पृष्ठ 57)",
@@ -1355,12 +1360,17 @@
                           {
                             "text": "आलापपद्धति/3",
                             "inline_reference": false,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
                             "shastra_name": "आलापपद्धति",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "सूत्र",
+                                "value": 3
+                              }
+                            ]
                           },
                           {
                             "text": "( परमात्मप्रकाश टीका/1/57 )",
@@ -2344,12 +2354,17 @@
                       {
                         "text": "आलापपद्धति/6",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "आलापपद्धति",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "सूत्र",
+                            "value": 6
+                          }
+                        ]
                       },
                       {
                         "text": "( स्याद्वादमंजरी/22/267/22 )",
@@ -3973,12 +3988,17 @@
                       {
                         "text": "आलापपद्धति/3",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "आलापपद्धति",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "सूत्र",
+                            "value": 3
+                          }
+                        ]
                       },
                       {
                         "text": "( द्रव्यसंग्रह टीका/24/69/11 )",
@@ -4190,12 +4210,17 @@
                       {
                         "text": "आलापपद्धति/3",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "आलापपद्धति",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "सूत्र",
+                            "value": 3
+                          }
+                        ]
                       },
                       {
                         "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/16/36/10,11 )",
@@ -4476,12 +4501,17 @@
                       {
                         "text": "आलापपद्धति/3",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "आलापपद्धति",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "सूत्र",
+                            "value": 3
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -4788,12 +4818,17 @@
                       {
                         "text": "आलापपद्धति/3",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "आलापपद्धति",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "सूत्र",
+                            "value": 3
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -6237,12 +6272,17 @@
                 {
                   "text": "आलापपद्धति/6",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "आलापपद्धति",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "सूत्र",
+                      "value": 6
+                    }
+                  ]
                 },
                 {
                   "text": "( नयचक्र / श्रुतभवन दीपक/ पृष्ठ 57)",
@@ -7293,12 +7333,17 @@
                 {
                   "text": "आलापपद्धति/3",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "आलापपद्धति",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "सूत्र",
+                      "value": 3
+                    }
+                  ]
                 },
                 {
                   "text": "( परमात्मप्रकाश टीका/1/57 )",
@@ -8290,12 +8335,17 @@
                 {
                   "text": "आलापपद्धति/6",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "आलापपद्धति",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "सूत्र",
+                      "value": 6
+                    }
+                  ]
                 },
                 {
                   "text": "( स्याद्वादमंजरी/22/267/22 )",
@@ -9931,12 +9981,17 @@
                 {
                   "text": "आलापपद्धति/3",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "आलापपद्धति",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "सूत्र",
+                      "value": 3
+                    }
+                  ]
                 },
                 {
                   "text": "( द्रव्यसंग्रह टीका/24/69/11 )",
@@ -10149,12 +10204,17 @@
                 {
                   "text": "आलापपद्धति/3",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "आलापपद्धति",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "सूत्र",
+                      "value": 3
+                    }
+                  ]
                 },
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/16/36/10,11 )",
@@ -10436,12 +10496,17 @@
                 {
                   "text": "आलापपद्धति/3",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "आलापपद्धति",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "सूत्र",
+                      "value": 3
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -10750,12 +10815,17 @@
                 {
                   "text": "आलापपद्धति/3",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "आलापपद्धति",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "सूत्र",
+                      "value": 3
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -11125,6 +11195,15 @@
           "lazy": true
         },
         {
+          "label": "Gatha",
+          "key": "आलापपद्धति:गाथा:6",
+          "props": {
+            "shastra_natural_key": "आलापपद्धति",
+            "gatha_number": "6"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में",
           "props": {
@@ -11367,6 +11446,15 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "Gatha",
+          "key": "आलापपद्धति:गाथा:3",
+          "props": {
+            "shastra_natural_key": "आलापपद्धति",
+            "gatha_number": "3"
+          },
+          "lazy": true
         },
         {
           "label": "GathaTeekaBhaavarth",
@@ -12380,6 +12468,24 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "आलापपद्धति:गाथा:6"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ/1",
+            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -12830,6 +12936,24 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "आलापपद्धति:गाथा:3"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय/1",
+            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय"
           }
         },
         {
@@ -13459,6 +13583,24 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "आलापपद्धति:गाथा:6"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-द्रव्य-के-क्रमभावी-अंश-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-द्रव्य-के-क्रमभावी-अंश-हैं/0",
+            "source_natural_key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-द्रव्य-के-क्रमभावी-अंश-हैं"
           }
         },
         {
@@ -14220,6 +14362,24 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
+            "label": "Gatha",
+            "key": "आलापपद्धति:गाथा:3"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय/2",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
             "label": "GathaTeeka",
             "key": "पंचास्तिकाय:तात्पर्यवृत्ति:गाथा:टीका:16"
           },
@@ -14303,6 +14463,24 @@
             "source": "jainkosh",
             "block_index": 0,
             "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/0",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "आलापपद्धति:गाथा:3"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/2",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -14413,6 +14591,24 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "आलापपद्धति:गाथा:3"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय/1",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय"
           }
         },
         {
@@ -14555,6 +14751,24 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "आलापपद्धति:गाथा:3"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-व-विभाव-गुण-व्यंजन-पर्याय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-व-विभाव-गुण-व्यंजन-पर्याय/0",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-व-विभाव-गुण-व्यंजन-पर्याय"
           }
         },
         {

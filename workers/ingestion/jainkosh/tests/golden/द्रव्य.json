@@ -751,12 +751,17 @@
                       {
                         "text": "( आलापपद्धति/6 )",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "आलापपद्धति",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "सूत्र",
+                            "value": 6
+                          }
+                        ]
                       },
                       {
                         "text": "(योगसार/अमितगति /2/5)",
@@ -955,12 +960,17 @@
                       {
                         "text": "( आलापपद्धति/6 )",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "आलापपद्धति",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "सूत्र",
+                            "value": 6
+                          }
+                        ]
                       },
                       {
                         "text": "( योगसार (अमितगति)/2/6 )",
@@ -1294,12 +1304,17 @@
                       {
                         "text": "( आलापपद्धति/6 )",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "आलापपद्धति",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "सूत्र",
+                            "value": 6
+                          }
+                        ]
                       },
                       {
                         "text": "( कार्तिकेयानुप्रेक्षा/242 )",
@@ -10556,12 +10571,17 @@
                 {
                   "text": "( आलापपद्धति/6 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "आलापपद्धति",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "सूत्र",
+                      "value": 6
+                    }
+                  ]
                 },
                 {
                   "text": "(योगसार/अमितगति /2/5)",
@@ -10761,12 +10781,17 @@
                 {
                   "text": "( आलापपद्धति/6 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "आलापपद्धति",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "सूत्र",
+                      "value": 6
+                    }
+                  ]
                 },
                 {
                   "text": "( योगसार (अमितगति)/2/6 )",
@@ -11102,12 +11127,17 @@
                 {
                   "text": "( आलापपद्धति/6 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "आलापपद्धति",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "सूत्र",
+                      "value": 6
+                    }
+                  ]
                 },
                 {
                   "text": "( कार्तिकेयानुप्रेक्षा/242 )",
@@ -18891,6 +18921,15 @@
           "lazy": true
         },
         {
+          "label": "Gatha",
+          "key": "आलापपद्धति:गाथा:6",
+          "props": {
+            "shastra_natural_key": "आलापपद्धति",
+            "gatha_number": "6"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-सत्-तथा-उत्पादव्ययध्रौव्य",
           "props": {
@@ -21010,6 +21049,24 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "आलापपद्धति:गाथा:6"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-निरुक्त्यर्थ"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-निरुक्त्यर्थ/2",
+            "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-निरुक्त्यर्थ"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -21047,6 +21104,24 @@
           "from": {
             "label": "Gatha",
             "key": "प्रवचनसार:गाथा:96"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-सत्-तथा-उत्पादव्ययध्रौव्य"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-सत्-तथा-उत्पादव्ययध्रौव्य/1",
+            "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-सत्-तथा-उत्पादव्ययध्रौव्य"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "आलापपद्धति:गाथा:6"
           },
           "to": {
             "label": "Topic",
@@ -21184,6 +21259,24 @@
           "from": {
             "label": "Gatha",
             "key": "प्रवचनसार:गाथा:95"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-गुणपर्यायवान्"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-गुणपर्यायवान्/1",
+            "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-गुणपर्यायवान्"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "आलापपद्धति:गाथा:6"
           },
           "to": {
             "label": "Topic",
