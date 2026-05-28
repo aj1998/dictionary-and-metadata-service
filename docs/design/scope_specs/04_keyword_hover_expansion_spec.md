@@ -2,56 +2,35 @@
 
 Scope context: [`scope/03_shastra_reader.md`](../../scope/03_shastra_reader.md), section "Keyword expansion (hover / click)".
 
-Inline tagging of any rendered Hindi/Prakrit text token that matches a `Keyword` or `Topic`. Hover → small popover with short definition + counter. Click → docked side-panel with full definition, related topics, "open in Graph", "open in dictionary".
+Inline tagging of any rendered Hindi/Prakrit text token that matches a `Keyword`. Hover → small popover with short definition. Click → docked side-panel with full definition, related topics, "open in Graph", "open in dictionary".
 
 Single phase.
 
 Depends on:
-- The extraction-pipeline `spans` table from [`08_translation_pipeline_extraction_spec.md`](./08_translation_pipeline_extraction_spec.md). This spec assumes that table exists and exposes per-text spans `{start, end, kind, natural_key, confidence, reviewed}`.
+- Runtime keyword matches of the gatha with the Keywords stored in the database (in the inital phases)
+- The extraction-pipeline `spans` table from [`08_translation_pipeline_extraction_spec.md`](./08_translation_pipeline_extraction_spec.md). This spec assumes that table exists and exposes per-text spans `{start, end, kind, natural_key, confidence, reviewed}`. [Future]
 - The existing `<TaggedTermPopover>` component listed in [`docs/design/14_public_ui.md`](../archived/14_public_ui.md). This spec **extends** that component — does not replace it.
 - The `<KeywordSidePanel>` lives inside the reader's `<RightRail>` from [`03_shastra_reader_ui_spec.md`](./03_shastra_reader_ui_spec.md).
-- The counters API from [`10_topic_keyword_counters_spec.md`](./10_topic_keyword_counters_spec.md).
 
-## Annotated-text contract
+## Annotated-word contract
 
-Every text returned by data-service that should support hover expansion comes back as `AnnotatedText`:
+Every word returned by data-service that should support hover expansion comes back as `AnnotatedWord`:
 
 ```python
 # packages/jain_kb_common/contracts/annotated_text.py
 class Span(BaseModel):
     start: int                            # char offset into html_text (post-render, NFC)
     end: int                              # exclusive
-    kind: Literal["keyword","topic"]
-    natural_key: str                      # e.g. "आत्मा" or "jainkosh:आत्मा:बहिरात्मादि-3-भेद"
+    kind: Literal["keyword"]
+    natural_key: str                      # e.g. "आत्मा"
     confidence: float                     # 0.0–1.0; from extraction pipeline
     reviewed: bool                        # True if admin-approved, False if AI-candidate
 
-class AnnotatedText(BaseModel):
+class AnnotatedWord(BaseModel):
     html_text: str                        # sanitized HTML (no <script>, no inline event handlers)
     spans: list[Span]                     # sorted by .start ASC
     text_natural_key: str                 # source addressable id (e.g. teeka mapping NK)
 ```
-
-### How the API builds it
-
-Already-stored long-form text (anvayartha, bhaavarth, hindi_chhand) lives in Mongo. The data-service endpoint:
-
-```
-GET /v1/texts/{text_natural_key}/annotated
-```
-
-joins the Mongo doc body with rows from the `spans` table (spec 08) for `text_natural_key = $nk AND reviewed = TRUE` by default. When `?include_candidates=1`, also returns rows with `reviewed = FALSE` and they are marked via `Span.reviewed = false` (rendered with dashed slate underline; see spec 12).
-
-Span construction:
-
-1. Load the rendered HTML string (already sanitized at ingest).
-2. NFC-normalise once; record offsets.
-3. Pull spans for the text natural key from PG; verify each `[start, end)` still aligns to a token boundary by re-checking the substring; drop any that don't (graph drift defence).
-4. Sort by `start ASC`; reject overlaps where same-kind (server-side error logged + dropped). Cross-kind overlaps (keyword + topic on same range) are allowed — coalescing handled by overlay (see spec 12 §coalescing).
-
-### Mongo text-to-span source-of-truth alignment
-
-Mongo `teeka_gatha_mapping`, `gatha_hindi_chhand`, `topic_extracts`, `keyword_definitions` already carry the text. The extraction pipeline (spec 08) writes rows into Postgres `text_spans` keyed by `text_natural_key`. A nightly checksum reconciliation job (spec 08 phase C) refuses to publish spans whose substring no longer matches; this guarantees what we receive here is consistent.
 
 ## Frontend integration
 
@@ -77,9 +56,7 @@ Color rules (also drive overlay — spec 12):
 | Condition | Color | Style |
 |---|---|---|
 | `kind=keyword`, definition exists, reviewed | indigo-600 | solid underline |
-| `kind=topic`, reviewed | purple-600 | solid underline |
 | `kind=keyword`, alias-only, no definition | amber-500 | solid underline |
-| `reviewed=false` (any kind) | slate-500 | dashed underline |
 
 A `<span class="tt" data-kind="keyword" data-nk="...">` wraps each highlighted run. Styling is CSS-driven; the JS toggles the parent's `data-highlights` attribute (spec 12).
 
@@ -93,9 +70,9 @@ Renders to the right of `<PanelStack>` (or as a Sheet on mobile). Composition:
 
 ```
 ┌──────────────────────────────────────┐
-│ [✕]   आत्मा       [open in graph] [open in dictionary] │
+│ [✕]   आत्मा  [open in graph]          
 ├──────────────────────────────────────┤
-│  उल्लेख: 47 बार समयसार में, 312 बार कुल │   <- counter chips
+│  उल्लेख: 47 बार समयसार में <- counter chips
 ├──────────────────────────────────────┤
 │  परिभाषा (top 3 blocks from definition)
 │  ▸ संदर्भ: धवला...
@@ -112,23 +89,18 @@ Fetches:
 2. `GET /v1/keywords/{nk}/counters` — new endpoint, see below.
 3. `GET /v1/navigation/keywords/{nk}/neighbours?depth=1` — existing navigation-service endpoint.
 
-For `kind=topic`, the symmetric path hits `/v1/topics/{nk}` and `/v1/topics/{nk}/counters`.
-
 ## New data-service endpoints
 
 ```
 GET /v1/texts/{text_natural_key}/annotated
     query: include_candidates: bool = false
-    response: AnnotatedText
+    response: AnnotatedWord
 
 GET /v1/keywords/{nk}/preview
     response: { natural_key, display_text, short_definition, counter: {shastra: int, global: int} }
 
 GET /v1/keywords/{nk}/counters
     response: { shastra_breakdown: [{shastra_nk, count}], anuyoga_breakdown: [...], global: int }
-
-GET /v1/topics/{nk}/preview
-GET /v1/topics/{nk}/counters
 ```
 
 `short_definition` is the first 2–3 logical lines of `keyword_definitions.page_sections[0].definitions[0].blocks` rendered to plain text with `references` stripped. Cap at 280 characters. For amber (alias-only) keywords, returns `short_definition: null` and the popover displays "परिभाषा अभी संग्रहीत नहीं". Counters served from the materialized counter tables (spec 10).
@@ -139,7 +111,6 @@ GET /v1/topics/{nk}/counters
 // ui/lib/highlight/classes.ts
 export const spanClasses = (s: Span, hasDefinition: boolean) => {
   if (!s.reviewed) return "text-slate-500 underline decoration-dashed";
-  if (s.kind === "topic") return "text-purple-700 underline";
   if (s.kind === "keyword" && hasDefinition) return "text-indigo-700 underline";
   return "text-amber-600 underline"; // keyword, alias-only
 };
@@ -149,11 +120,11 @@ export const spanClasses = (s: Span, hasDefinition: boolean) => {
 
 ## Server-side render
 
-Server Component takes `AnnotatedText` and emits the HTML by walking spans:
+Server Component takes `AnnotatedWord` and emits the HTML by walking spans:
 
 ```ts
 // ui/lib/highlight/render.tsx (Server Component compatible)
-export function renderAnnotated(text: AnnotatedText): React.ReactNode {
+export function renderAnnotated(text: AnnotatedWord): React.ReactNode {
   const out: React.ReactNode[] = [];
   let cursor = 0;
   for (const s of text.spans) {
@@ -205,8 +176,8 @@ open http://localhost:3000/shastra-explorer/samaysaar/adhikaar/1/gatha/001
 
 ## Definition of done
 
-- [ ] `AnnotatedText` model + `Span` model exist in `jain_kb_common/contracts/` and are imported by data-service + ui.
-- [ ] `/v1/texts/{nk}/annotated`, `/v1/keywords/{nk}/preview`, `/v1/keywords/{nk}/counters` (and topic equivalents) return correctly.
+- [ ] `AnnotatedWord` model + `Span` model exist in `jain_kb_common/contracts/` and are imported by data-service + ui.
+- [ ] `/v1/texts/{nk}/annotated`, `/v1/keywords/{nk}/preview`, `/v1/keywords/{nk}/counters` return correctly.
 - [ ] `<TaggedTermPopover>` renders the four color states from the rules table.
 - [ ] `<KeywordSidePanel>` opens on click and fetches `/v1/keywords/{nk}` + counters + neighbours.
 - [ ] All listed tests pass.

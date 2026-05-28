@@ -5,7 +5,7 @@ Scope context: [`scope/03_shastra_reader.md`](../../scope/03_shastra_reader.md).
 Depends on:
 - [`02_shastra_layout_configs_spec.md`](./02_shastra_layout_configs_spec.md) for the layout config served at `GET /v1/shastras/{nk}/layout`.
 - [`04_keyword_hover_expansion_spec.md`](./04_keyword_hover_expansion_spec.md) for `<TaggedTermPopover>` and the annotated-spans contract.
-- [`12_jainkosh_highlight_overlay_spec.md`](./12_jainkosh_highlight_overlay_spec.md) for the `<HighlightToggle>`.
+- [`12_jainkosh_highlight_overlay_spec.md`](./12_jainkosh_highlight_overlay_spec.md) for the `<HighlightToggle>`. [Future]
 - The existing data-service contract in [`docs/design/14_public_ui.md`](../archived/14_public_ui.md). The new page lives at `ui/app/shastra-explorer/[nk]/[...unit_path]/page.tsx` — **does not modify** the existing `/shastras/[nk]/gathas/[number]/page.tsx`.
 
 ## URL contract
