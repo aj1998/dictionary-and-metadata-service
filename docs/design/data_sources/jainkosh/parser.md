@@ -7,7 +7,7 @@
 > **Current version**: `jainkosh.rules/1.11.0`
 >
 > Archived source specs (pre-v1.7 detail):
-> `archived/detailed_docs/parsing_rules.md`, `parser_spec.md`,
+> `detailed_docs/parsing_rules.md`, `parser_spec.md`,
 > `reference_parser_spec.md`, `reference_edge_creation_spec.md`
 
 ---
@@ -134,7 +134,7 @@ class Definition:
 The `would_write` envelope carries a top-level `idempotency_contracts` map keyed
 by `"<store>:<table>"`. Describes conflict key + field-level merge policy for
 idempotent upserts. Controlled by `envelope.idempotency_mode` (default `envelope_root`).
-See `archived/detailed_docs/parser_spec.md §3.4` for full schema.
+See `detailed_docs/parser_spec.md §3.4` for full schema.
 
 ---
 
@@ -544,7 +544,7 @@ parser_configs/
 ## 8. Configuration (`jainkosh.yaml`)
 
 The config is the **single source of truth** for DOM-to-concept mapping. Schema-validated at
-load time against `_schemas/jainkosh.schema.json`. See `archived/detailed_docs/parser_spec.md §3`
+load time against `_schemas/jainkosh.schema.json`. See `detailed_docs/parser_spec.md §3`
 for the full annotated YAML. Key top-level sections:
 
 | Section | Purpose |
@@ -641,7 +641,7 @@ natural_key(keyword, heading_path): ":".join([keyword] + [slug(h) for h in headi
 ## 11. Reference Parser
 
 Structured resolution of `<span class="GRef">` citation strings against `shastra.json`.
-Implemented in `parse_reference.py`. See `archived/detailed_docs/reference_parser_spec.md`
+Implemented in `parse_reference.py`. See `detailed_docs/reference_parser_spec.md`
 for full format DSL, annotated examples, and `ShastraRegistry` spec.
 
 **Key format DSL rules:**
@@ -657,7 +657,7 @@ for full format DSL, annotated examples, and `ShastraRegistry` spec.
 
 ## 12. Neo4j Edge Emission from References
 
-Implemented in `reference_edges.py`. See `archived/detailed_docs/reference_edge_creation_spec.md`
+Implemented in `reference_edges.py`. See `detailed_docs/reference_edge_creation_spec.md`
 for full block-context classification, guard rules, and node-key formats.
 
 ### 12.1 Edge types
@@ -692,7 +692,7 @@ for full block-context classification, guard rules, and node-key formats.
 
 ## 13. Would-Write Envelope
 
-`envelope.py` builds the "would_write" output. See `archived/detailed_docs/parser_spec.md §5`
+`envelope.py` builds the "would_write" output. See `detailed_docs/parser_spec.md §5`
 for full annotated JSON examples.
 
 **Postgres**: `keywords` row + `topics` rows (one per non-synthetic subsection + synthetic label seeds).
@@ -796,7 +796,7 @@ Many `index_relations` including `mw-selflink-fragment` self-links.
 
 The parser tags every output with `parser_rules_version` written into `KeywordParseResult.parser_version`.
 
-**v1.0.0–v1.6.0** — See `archived/detailed_docs/parser_spec.md` header for phased fix specs.
+**v1.0.0–v1.6.0** — See `detailed_docs/parser_spec.md` header for phased fix specs.
 Summary: configurable triggers, ref-strip, sibling `=` marker, redlink prose-strip, label→topic seeds,
 table attachment, IndexRelation chain, idempotency contracts, row-style relocation, GRef block splitting,
 DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence anchor dedup.
