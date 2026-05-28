@@ -8,17 +8,17 @@
 > (Postgres / Mongo / Neo4j) would receive on approval.
 >
 > Rules: see [`parsing_rules.md`](./parsing_rules.md). Schema changes:
-> see [`schema_updates.md`](./archived/schema_updates.md). Pipeline / fetch /
-> alias mining: see [`../08_ingestion_jainkosh.md`](../../08_ingestion_jainkosh.md).
+ Pipeline / fetch /
+> alias mining: see [`../08_ingestion_jainkosh.md`](../archived/08_ingestion_jainkosh.md).
 >
 > **Fixes applied in v1.1.0**: see
-> [`parser_fix_spec_001/README.md`](./parser_fix_spec_001/README.md)
+> [`parser_fix_spec_001/README.md`](../archived/parser/parser_fix_spec_001/README.md)
 > for the full phased correction spec (configurable triggers, ref-strip,
 > sibling-`=` marker, redlink prose-strip, label→topic seeds, table
 > attachment, IndexRelation chain, idempotency contracts).
 >
 > **Fixes applied in v1.2.0**: see
-> [`parser_fix_spec_002/README.md`](./parser_fix_spec_002/README.md)
+> [`parser_fix_spec_002/README.md`](../archived/parser/parser_fix_spec_002/README.md)
 > for the full phased correction spec (table outerHTML + raw_html whitespace
 > collapse, idempotency contracts hoisted to envelope root, IndexRelation
 > source chain resolution, DFS leading-GRef passthrough, paren-`देखें`
@@ -26,19 +26,19 @@
 > `(N)` numbering strip, redlink edge suppression).
 >
 > **Fixes applied in v1.3.0**: see
-> [`parser_fix_spec_003/parser_fix_spec_003.md`](./parser_fix_spec_003/parser_fix_spec_003.md)
+> [`parser_fix_spec_003/parser_fix_spec_003.md`](../archived/parser/parser_fix_spec_003/parser_fix_spec_003.md)
 > for the full phased correction spec (row-style `see_also` relocation from
 > parent blocks to child label-seed blocks; `RELATED_TO` edges now sourced
 > from child seed natural key; redlink row detection at DOM level before
 > text stripping).
 >
 > **Fixes applied in v1.5.0**: see
-> [`parser_fix_spec_005/README.md`](./parser_fix_spec_005/README.md)
+> [`parser_fix_spec_005/README.md`](../archived/parser/parser_fix_spec_005/README.md)
 > for the full phased correction spec (GRef attribution across nested-span
 > `<br/>` boundaries; parser version bump and golden regeneration).
 >
 > **Fixes applied in v1.6.0**: see
-> [`parser_fix_spec_006/README.md`](./parser_fix_spec_006/README.md)
+> [`parser_fix_spec_006/README.md`](../archived/parser/parser_fix_spec_006/README.md)
 > for the full phased correction spec (label_seed `RELATED_TO` edges now
 > sourced from child natural_key via see_also block relocation; `inline_reference`
 > flag on `Reference`; nth-occurrence anchor dedup fixes duplicate `IndexRelation`
@@ -1313,3 +1313,71 @@ Each step ends with all prior tests still green.
 - **Embedding deferred to v2** (per `00_overview.md`): the parser does
   not produce embeddings; topic_extracts are stored in Mongo and
   v1-traversed in Neo4j only.
+
+---
+
+## 13. Implementation notes for v1.7–v1.10
+
+### 13.1 Range expansion (v1.7.0)
+
+`see_also.py` additions:
+- `_extract_range_suffix_after_anchor(a, nth_occurrence)` — checks text immediately after anchor for `-N` pattern (hyphen/en-dash + integer).
+- `_expand_parsed_to_range(parsed, end_num)` — generates one dict per path step from M to N, iterating only the last path segment.
+
+Both `parse_index_relations` (for index `<ol>`) and inline see_also extraction call these functions.
+
+### 13.2 V2-bare and V5 heading variants (v1.8.0)
+
+New heading variants not in the YAML config (handled in code):
+
+**V2-bare** (`parse_subsections.py`):
+- Detected when `span.HindiText[id]` has no direct child elements AND text matches numeric prefix `^\d+(?:\.\d+)*[.\s]+`.
+- `_make_v2_content_block(span)` returns `None` for V2-bare spans to prevent heading text re-emission.
+
+**V5** (`parse_subsections.py`):
+- `<p class="HindiText" id="N">` with no child elements AND numeric prefix (not parenthesised).
+- PuranKosh definitions use `(N)` prefix → parenthesised check prevents false positives.
+
+**DFS classless-`<p>` fix** (`parse_subsections.py`):
+- `walk_and_collect_headings` now calls `contains_heading(el, config)` before treating a classless `<p>` as a content block.
+- If True → recurse into children; if False → emit as content block.
+
+### 13.3 After-`देखें` text as topic seed (v1.9.0)
+
+New functions:
+- `see_also.extract_text_after_anchor(a, nth_occurrence)` — walks right-siblings in the parent after the anchor, collecting text until the first `<br/>` or end of parent.
+- `parse_blocks._is_after_dekhen_element(el, config)` — returns True when element's raw text starts with a `देखें` trigger and has Devanagari text following the first anchor.
+- `parse_subsections.extract_after_dekhen_relations_from_elements(elements, keyword, config)` — returns `dict[after_text → see_also_block]`, used to build row_relations before seed creation.
+
+Flow in `parse_subsections`:
+1. `extract_after_dekhen_relations_from_elements` called on body elements.
+2. `extract_label_seed_candidates_from_elements` treats `after_anchor_text` as the label for after-dekhen elements.
+3. Elements where `_is_after_dekhen_element` returns True are skipped in the block stream.
+
+### 13.4 `<br/>`-separated `देखें` as section-level seeds (v1.10.0)
+
+New functions:
+- `parse_blocks._is_br_dekhen_element(el, config)` — True when element has `<br/>`, does NOT start with trigger, has देखें anchors with Devanagari after-text.
+- `parse_subsections.extract_br_dekhen_seeds_from_elements(elements, keyword, config)` — returns `list[(label, Subsection)]` with paren-stripped labels. Seeds placed at `PageSection.label_topic_seeds`.
+- `parse_subsections._strip_br_dekhen_lines(text, config)` — strips trigger lines + following paren-label lines from a `hindi_translation` string.
+- `parse_subsections._strip_outer_parens(text)` — unwraps `(...)` or `- (...)` wrapper from after-anchor text.
+
+`parse_section.parse_section` calls `extract_br_dekhen_seeds_from_elements` on the pre-heading elements, then post-processes `Definition.blocks` to clean the `hindi_translation` fields and remove the relocated `see_also` blocks.
+
+Note: `extract_text_after_anchor` stopping at `<br/>` is a shared fix between v1.9.0 and v1.10.0.
+
+### 13.5 Updated `Reference` model (from reference_parser_spec.md)
+
+The `Reference` model in `models.py` was augmented from the v1.0 baseline in §4 above:
+
+| New field | Type | Added in |
+|---|---|---|
+| `inline_reference` | `bool` | v1.6 |
+| `needs_manual_match` | `bool` | reference_parser_spec |
+| `is_teeka` | `bool` | reference_parser_spec |
+| `teeka_name` | `str` | reference_parser_spec |
+| `shastra_name` | `Optional[str]` | reference_parser_spec |
+| `match_method` | `Optional[Literal["shastra_name","alternate_name","short_form"]]` | reference_parser_spec |
+| `resolved_fields` | `list[ResolvedField]` | reference_parser_spec |
+
+The old `raw_html` field on `Reference` and the `ParsedReference` placeholder model were removed.

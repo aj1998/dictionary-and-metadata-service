@@ -7,7 +7,7 @@
 
 This document does **not** describe the parser code (see
 [`parser_spec.md`](./parser_spec.md)) or the DB schema (see
-[`schema_updates.md`](./archived/schema_updates.md)). It describes only **what the
+[`schema_updates.md`](../parser/archived/schema_updates.md)). It describes only **what the
 HTML means**, in enough detail that a different implementer could rebuild
 the parser without re-reading the source HTML.
 
@@ -108,60 +108,11 @@ PuranKosh content is wrapped in `<div class="HindiText">`. Two patterns:
 
 PuranKosh has **no numbered subsections** — everything is definition.
 
-### 3.3 Definition shape
+### 3.3 Definition model and idempotency contracts
 
-```python
-class Definition:
-    definition_index: int          # 1-based, per section
-    blocks: list[Block]            # see §6
-    raw_html: str | None           # debug
-```
-
-### 3.4 Idempotency contracts (hoisted to envelope root, v1.2.0)
-
-The `would_write` envelope carries a single top-level
-`idempotency_contracts` map keyed by `"<store>:<table>"`. Each entry
-describes the conflict key and field-level merge policy so the
-orchestrator can perform truly idempotent upserts without
-reverse-engineering each store:
-
-```jsonc
-"idempotency_contracts": {
-  "postgres:keywords": {
-    "conflict_key": ["natural_key"],
-    "on_conflict": "do_update",
-    "fields_replace": ["display_text", "source_url"],
-    "fields_append": ["definition_doc_ids"],
-    "fields_skip_if_set": [],
-    "stores": ["postgres:keywords", "mongo:keyword_definitions", "neo4j:Keyword"]
-  },
-  "postgres:topics": { "…": "…" },
-  "postgres:keyword_aliases": { "…": "…" },
-  "mongo:keyword_definitions": { "…": "…" },
-  "mongo:topic_extracts": { "…": "…" },
-  "neo4j:Keyword": { "…": "…" },
-  "neo4j:Topic": { "…": "…" }
-}
-```
-
-Per-row conflict semantics are identical (natural-key driven). Only
-the transport shape changed: the orchestrator now reads
-`idempotency_contracts["<store:table>"]` instead of a per-row
-`idempotency_contract` dict. Controlled by
-`envelope.idempotency_mode` (default `envelope_root`).
-
-The three canonical contracts (keyword, numeric-tree topic, label-seed
-topic) are defined in
-`parser_fix_spec_001/phase_3_redlink_prose_strip_and_label_to_synthetic_topic.md`
-§5. v1.2.0 lifts them to the envelope root via fix-spec-002 Phase 2.
-
-### 3.5 `raw_html` whitespace policy
-
-`Block(kind="table")` and inline-block `raw_html` fields (e.g. on
-`Reference`) always carry the **full outerHTML** of the source element
-(v1.2.0). Whitespace inside every `raw_html` string is collapsed: runs
-of whitespace are reduced to a single space, preserving tag boundaries.
-Controlled by `raw_html.collapse_whitespace` (default `true`).
+The `Definition` Pydantic model, idempotency contracts schema, and `raw_html`
+whitespace policy are implementation details — see `parser_spec.md §4` (models)
+and `parser_spec.md §6` (would_write envelope) for authoritative specs.
 
 ---
 
@@ -294,6 +245,21 @@ Controlled by:
 - `index.source_chain.li_path_from_inner_ol_fallback` (default `true`)
 - `index.source_chain.ancestor_strong_selectors` (existing)
 
+### 4.7 Range expansion for `देखें` links (v1.7.0)
+
+When a `देखें` link has `target_topic_path` like `X.M` and the text **immediately
+following** the anchor is `-N` (hyphen or en-dash + number, N > M), the parser
+expands into N − M + 1 relations covering `X.M` through `X.N`.
+
+Example: `देखें <a href="/wiki/गति#1.3">गति - 1.3</a>-6।` → four relations for
+`target_topic_path = "1.3"`, `"1.4"`, `"1.5"`, `"1.6"`.
+
+Rules:
+- Only the **last** path segment is iterated; the prefix stays fixed.
+- If `target_topic_path` absent (keyword-only link), expansion skipped.
+- If N ≤ M, single relation emitted.
+- Applies to both index `<ol>` relations and inline `see_also` blocks.
+
 ---
 
 ## 5. Subsections (topic seeds)
@@ -304,18 +270,21 @@ children. Subsections form a **tree** keyed by `topic_path`
 
 ### 5.1 Heading variants
 
-There are **5 known heading variants**. The parser MUST detect all
-five. The list is **configurable** via
-`parser_configs/jainkosh.yaml > headings.variants` so new variants can
-be added without code changes (see [`parser_spec.md`](./parser_spec.md) §3).
+There are **7 heading variants** (V1–V5 + V2-bare + V5-def which is NOT a heading).
+The list is **configurable** via `parser_configs/jainkosh.yaml > headings.variants`
+(see [`parser_spec.md`](./parser_spec.md) §3).
 
-| Variant | DOM shape | `topic_path` source | Heading text source | Seen in |
-|---------|-----------|---------------------|---------------------|---------|
-| **V1** | `<strong id="N">heading</strong>` | `@id` of `<strong>` | text of `<strong>` | द्रव्य L1+L2; पर्याय L3 |
-| **V2** | `<span class="HindiText" id="N"><strong>heading</strong></span>` | `@id` of `<span>` | text of inner `<strong>` | द्रव्य (mixed) |
-| **V3** | `<li id="N"><span class="HindiText"><strong>heading</strong></span>` | `@id` of `<li>` | text of inner `<strong>` | पर्याय L1, L2 |
-| **V4** | `<p class="HindiText"><b>N. heading</b></p>` (no id attr; `N` is *prefixed in heading text*) | regex on text: `^\s*(?P<id>\d+(?:\.\d+)*)[.\s]+(?P<heading>.+?)\s*$` | regex `heading` group | आत्मा SiddhantKosh |
-| **V5** | `<p id="N" class="HindiText">(N) text…</p>` | **Not a heading.** This is a definition-style numbered paragraph (see §3.2). | — | आत्मा PuranKosh |
+| Variant | DOM shape | `topic_path` source | Seen in |
+|---------|-----------|---------------------|---------|
+| **V1** | `<strong id="N">heading</strong>` | `@id` of `<strong>` | द्रव्य, पर्याय, स्वभाव |
+| **V2** | `<span class="HindiText" id="N"><strong>heading</strong></span>` | `@id` of `<span>` | द्रव्य |
+| **V2-bare** (v1.8) | `<span class="HindiText" id="N">N. heading</span>` (no `<strong>`, numeric prefix required) | `@id` of `<span>` | स्वभाव |
+| **V3** | `<li id="N"><span class="HindiText"><strong>heading</strong></span>` | `@id` of `<li>` | पर्याय |
+| **V4** | `<p class="HindiText"><b>N. heading</b></p>` | regex `^\s*(?P<id>\d+(?:\.\d+)*)[.\s]+(?P<heading>.+?)\s*$` | आत्मा |
+| **V5** (v1.8) | `<p class="HindiText" id="N">N. heading</p>` (no child elements, numeric prefix required) | `@id` of `<p>` | स्वभाव |
+| **V5-def** | `<p id="N" class="HindiText">(N) text…</p>` | **Not a heading** — PuranKosh definition (see §3.2) | आत्मा PuranKosh |
+
+V1, V2, V2-bare, V5: leading `\d+(?:\.\d+)*[.\s]+` is stripped from `heading_text` before use.
 
 V5 is included only to make the *non-match* explicit: V5 paragraphs are
 **not** subsections. The parser must recognise them as PuranKosh
@@ -462,6 +431,51 @@ Rules:
   `paren_dekhen_strip.pattern`).
 - The `see_also` block is still emitted independently; only the prose
   text is cleaned.
+
+### 5.8 V2-bare heading variant (v1.8.0)
+
+`<span class="HindiText" id="N">N. heading</span>` with no inner `<strong>` is
+treated as a heading when: (a) span has no direct child elements AND (b) text starts
+with a numeric prefix. Plain spans without a numeric prefix are NOT headings.
+
+**V2-bare inline-content guard (v1.8.1)**: `_make_v2_content_block` returns `None` for
+V2-bare spans. Without this, the heading text would be re-emitted as a `hindi_text`
+block in the subsection's own content.
+
+### 5.9 V5 heading variant (v1.8.0)
+
+`<p class="HindiText" id="N">N. heading</p>` (no child elements, numeric prefix required).
+
+**V5 guard**: same conditions as V2-bare but for `<p>`. PuranKosh definitions use
+parenthesised prefix `(N)` not `N.` — parenthesised prefix is **not** V5.
+
+### 5.10 DFS classless-`<p>` recursion (v1.8.0)
+
+When a classless `<p>` element is encountered in the DFS walk and `contains_heading(el)` returns
+True, the walker **recurses into its direct children** rather than treating the `<p>` as a content
+block. This fixes cases where a V2-bare or V1 heading is wrapped in a classless `<p>`.
+
+### 5.11 After-`देखें` text as synthetic topic seed (v1.9.0)
+
+When a HindiText element starts with the `देखें` trigger (only leading whitespace allowed before it)
+AND Devanagari text follows the anchor, that text becomes a synthetic `label_topic_seed` child topic:
+- `heading_text` = text after the anchor (stopping at `<br/>`).
+- `see_also` block assigned to the seed's `blocks`.
+- Original element skipped in the parent's block stream.
+
+Mid-prose `... देखें X ...` and parenthesised `(देखें X)` are NOT affected.
+
+### 5.12 `<br/>`-separated `देखें` as section-level seeds (v1.10.0)
+
+When a HindiText element contains **initial prose** + one or more `<br/>`-separated
+`देखें <link> (label)` lines (element does NOT start with the trigger), each देखें line becomes a
+`PageSection.label_topic_seeds` entry:
+- Outer parentheses stripped from after-anchor text to form seed heading.
+- Corresponding `see_also` blocks relocated to seed's `blocks`.
+- Definition `hindi_translation` cleaned of the देखें lines.
+
+`extract_text_after_anchor` stops at `<br/>` (shared with §5.11 — prevents bleed-through
+when multiple देखें lines are separated by `<br/>`).
 
 ---
 
@@ -741,54 +755,19 @@ these GRefs were silently swallowed, losing the topmost reference
 
 ## 7. Block flow within a subsection
 
-Once a heading is detected (§5), the parser walks DOM children of the
-heading's container (and onward to the next heading at any level)
-producing a block stream:
+The block stream algorithm (leading-reference buffering, `=` translation marker,
+nested-span flatten, see_also extraction) is the implementation's concern.
+See `parser_spec.md §5.5 – §5.7` for the full pseudocode.
 
+Conceptual ordering within a subsection:
 ```
-[reference]      ← leading; will be attached to next block
-[sanskrit_text]  ← consumes the leading reference
-[hindi_text]     ← starts with "=" → consumed as sanskrit_text.hindi_translation
-[reference]      ← leading; will attach to next
-[prakrit_gatha]  ← consumes the leading reference
-[hindi_text]     ← "=" prefix → consumed as prakrit_gatha.hindi_translation
-[hindi_text]     ← no "=" prefix → standalone hindi_text block
-[see_also]       ← inline देखें extraction
-[table]          ← standalone table block
-…
+[leading reference] → attaches to next block
+[source-language block] (+ leading references)
+[hindi_text starting with "="] → merged as hindi_translation
+[standalone hindi_text]
+[see_also] → emitted alongside (not instead of) its parent block
+[table]
 ```
-
-Algorithm:
-
-```
-buffer: list[Reference] = []
-last_block: Block | None = None
-out: list[Block] = []
-
-for el in walk_until_next_heading():
-    if el is leading_reference:
-        buffer.append(extract_ref(el))
-        continue
-    if el is body_block:
-        new = make_block(el)
-        if new.kind in HINDI_KINDS and new.text.lstrip().startswith("="):
-            if last_block is not None and last_block.kind in SOURCE_KINDS:
-                last_block.hindi_translation = strip_eq_prefix(new.text)
-                last_block.references.extend(buffer); buffer.clear()
-                continue
-            else:
-                new.is_orphan_translation = True
-                new.text = strip_eq_prefix(new.text)
-        new.references.extend(buffer); buffer.clear()
-        out.append(new); last_block = new
-
-# Trailing references at end of subsection — attach to last_block (fallback).
-if buffer and last_block is not None:
-    last_block.references.extend(buffer)
-```
-
-`HINDI_KINDS = {"hindi_text", "hindi_gatha"}`.
-`SOURCE_KINDS = {"sanskrit_text", "sanskrit_gatha", "prakrit_text", "prakrit_gatha"}`.
 
 ---
 
@@ -821,29 +800,27 @@ if buffer and last_block is not None:
 - **Parser implementation (modules, Pydantic types, CLI, tests)** —
   see [`parser_spec.md`](./parser_spec.md).
 - **Database schema additions** to support hierarchical topics and
-  multiple definitions — see [`schema_updates.md`](./archived/schema_updates.md).
+  multiple definitions — see [`schema_updates.md`](../parser/archived/schema_updates.md).
 
 ## 10. Versioning
 
-The parser MUST tag every output with the rules version it implements.
-Bump this version when any rule above changes:
-
-```
-parser_rules_version = "jainkosh.rules/1.5.0"     # bumped from 1.4.0 in fix-spec-005
-```
-
-This is written into `KeywordParseResult.parser_version` and into the
-ingestion run's `parser_configs.version` row in Postgres.
+The parser tags every output with `parser_rules_version` written into
+`KeywordParseResult.parser_version`. See `parser_spec.md` for the
+implementation-level versioning details.
 
 ### Changelog
 
 | Version | Changes |
 |---------|---------|
 | `1.0.0` | Initial rules. |
-| `1.1.0` | fix-spec-001: configurable `देखें` triggers + full-DFS index scan (§4.5); ref-strip from `text_devanagari` (§6.12); sibling `=` translation marker (§6.11); redlink prose-strip (§6.7); label→synthetic topic seeds (§5.6); tables attach to current subsection (§6.5); `IndexRelation` source path chain (Phase 5); idempotency contracts on all envelope rows (§3.4). See `parser_fix_spec_001/README.md`. |
-| `1.2.0` | fix-spec-002: table full outerHTML + raw_html whitespace collapse (§3.5, §6.5); idempotency contracts hoisted to envelope root (§3.4); IndexRelation source chain via ancestor `<strong>` text (§4.6); DFS leading-GRef passthrough (§6.14); parenthesised `देखें` stripped from prose (§5.7); label-seed scope guard for translation context (§5.6); see-also-only blocks dropped from `Subsection.blocks` (§6.13); definition `(N)` numbering prefix stripped (§3.2); redlink edges suppressed in Neo4j envelope (§6.7). See `parser_fix_spec_002/README.md`. |
-| `1.3.0` | fix-spec-003: row-style `see_also` blocks relocated from parent `Subsection.blocks` to child label-seed `blocks` (§5.6, §6.13); row detection at DOM element level before text stripping (catches redlink rows); `RELATED_TO` edges now emitted from child seed natural key, not parent. See `parser_fix_spec_003/parser_fix_spec_003.md`. |
-| `1.4.0` | fix-spec-004: IndexRelation source-chain fallbacks for enclosing `<li>` and plain-`<strong>` headings via inner `<ol>` anchors (§4.6); V2 heading inline-content extraction for span-contained prose; inline GRef-based block splitting for positional reference attribution (§6.3); index relations materialized as synthetic topic seeds in envelope outputs (mongo/postgres/neo4j alignment). See `parser_fix_spec_004/README.md`. |
-| `1.5.0` | fix-spec-005: nested-span GRef attribution across `<br/>` boundaries (§6.3); parser version bump and golden regeneration. See `parser_fix_spec_005/README.md`. |
-| `1.6.0` | fix-spec-006: label_seed `RELATED_TO` edges emitted from child's natural_key via see_also block relocation to child (§5.6, §6.13); `inline_reference` flag on `Reference` distinguishes leading from inline refs (§6.3); nth-occurrence anchor tracking fixes duplicate `IndexRelation` and missing entry for identical `<a>` HTML (§4.5). See `parser_fix_spec_006/README.md`. |
-| `1.6.0` | Fix (parse_blocks.py): Added _is_block_span_container() helper that returns True when a classless element's direct children are exclusively GRef spans, block-classed spans, and <br> tags. In flatten_for_blocks, classless containers matching this predicate are exploded into their direct children before the block stream processes them. This is narrower than using has_nested_block (which does a deep CSS traversal) and avoids false positives on `<p>` elements inside table cells in द्रव्य. This was for - The siddhantkosh section in वस्तु.html has all its content in a single classless `<p>` element wrapping `<span class="GRef">, <span class="SanskritText">, <span class="PrakritText">, and <span class="HindiText">` children. Since the `<p>` has no block class, block_class_kind returned None and make_block dropped it entirely — producing 0 definitions.
+| `1.1.0` | Configurable `देखें` triggers + full-DFS index scan (§4.5); ref-strip (§6.12); sibling `=` marker (§6.11); redlink prose-strip (§6.7); label→topic seeds (§5.6); table attachment (§6.5); IndexRelation source chain; idempotency contracts. |
+| `1.2.0` | Table full outerHTML; idempotency contracts hoisted to envelope root; IndexRelation source chain (§4.6); DFS leading-GRef passthrough (§6.14); paren-`देखें` stripped (§5.7); label-seed scope guard (§5.6); see-also-only blocks dropped (§6.13); definition `(N)` numbering prefix stripped (§3.2); redlink edges suppressed. |
+| `1.3.0` | Row-style `see_also` blocks relocated to child label-seed `blocks`; row detection at DOM level; `RELATED_TO` edges from child seed natural key. |
+| `1.4.0` | IndexRelation source-chain fallbacks (§4.6); V2 heading inline-content extraction; inline GRef-based block splitting (§6.3); index relations as synthetic topic seeds. |
+| `1.5.0` | Nested-span GRef attribution across `<br/>` boundaries. |
+| `1.6.0` | label_seed `RELATED_TO` edges from child natural_key; `inline_reference` flag on `Reference`; nth-occurrence anchor dedup. Classless `<p>` container with block-class span children exploded via `_is_block_span_container()`. |
+| `1.7.0` | **Range expansion for `देखें` links**: trailing `-N` after anchor with `target_topic_path=X.M` expands to one relation per path X.M…X.N. Applies to both index `<ol>` (§4.3) and inline `see_also` blocks (§6.7). |
+| `1.8.0` | **V1/V2 numeric prefix stripping**: leading `N. ` stripped from heading_text. **V2-bare**: `<span class="HindiText" id="N">N. heading</span>` (no inner `<strong>`) detected as heading when text has numeric prefix. **V5**: `<p class="HindiText" id="N">N. heading</p>` (no child elements, numeric prefix required) as new heading variant. **DFS fix**: classless `<p>` elements containing heading descendants are recursed into instead of treated as content blocks. |
+| `1.8.1` | V2-bare inline-content fix: `_make_v2_content_block` returns `None` for V2-bare spans to prevent heading text re-emission as a `hindi_text` block. |
+| `1.9.0` | **After-`देखें` text as topic seed**: HindiText element starting with `देखें <link> text_after` (no prose before trigger) → synthetic label-seed child topic. `extract_text_after_anchor` stops at `<br/>`. |
+| `1.10.0` | **`<br/>`-separated `देखें` as section-level seeds**: initial prose + `<br/>`-separated `देखें <link> (label)` lines → `PageSection.label_topic_seeds`. Definition `hindi_translation` cleaned of trigger lines. `extract_text_after_anchor` stops at `<br/>` (shared fix). |
