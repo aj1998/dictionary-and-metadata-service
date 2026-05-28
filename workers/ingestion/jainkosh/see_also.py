@@ -115,18 +115,22 @@ def find_see_alsos_in_element(
 
         parsed = parse_anchor(a, config, current_keyword=current_keyword)
         label_text = _extract_label_before_anchor(a, nth_occurrence=nth)
+        end_num = _extract_range_suffix_after_anchor(a, nth_occurrence=nth)
+        parsed_list = _expand_parsed_to_range(parsed, end_num) if end_num is not None else [parsed]
 
         if as_index_relation:
-            results.append(IndexRelation(
-                label_text=label_text,
-                source_topic_path=source_topic_path,
-                **parsed,
-            ))
+            for p in parsed_list:
+                results.append(IndexRelation(
+                    label_text=label_text,
+                    source_topic_path=source_topic_path,
+                    **p,
+                ))
         else:
-            results.append(Block(
-                kind="see_also",
-                **{k: v for k, v in parsed.items()},
-            ))
+            for p in parsed_list:
+                results.append(Block(
+                    kind="see_also",
+                    **{k: v for k, v in p.items()},
+                ))
 
     return results
 
@@ -227,6 +231,62 @@ def _extract_label_before_anchor(a: Node, nth_occurrence: int = 0) -> str:
     label = re.sub(r"<[^>]+>", "", before_html)
     label = re.sub(r"[(–\-।\s]*(?:विशेष\s+)?देखें\s*$", "", label).strip()
     return normalize_text(label)
+
+
+def _extract_range_suffix_after_anchor(a: Node, nth_occurrence: int = 0) -> Optional[int]:
+    """Return the end number N if text immediately after the anchor is '-N' (range suffix).
+
+    Handles patterns like: देखें <a href="/wiki/गति#1.3">गति - 1.3</a>-6
+    where '-6' means expand the relation to cover 1.3 through 1.6.
+    """
+    parent = a.parent
+    if parent is None:
+        return None
+    parent_html = parent.html or ""
+    a_html = a.html or ""
+    if not a_html:
+        return None
+
+    idx = -1
+    for _ in range(nth_occurrence + 1):
+        new_idx = parent_html.find(a_html, idx + 1)
+        if new_idx < 0:
+            idx = parent_html.find(a_html)
+            break
+        idx = new_idx
+
+    if idx < 0:
+        return None
+
+    after = parent_html[idx + len(a_html):]
+    after_text = re.sub(r"<[^>]+>", "", after)
+    m = re.match(r"^\s*[-–]\s*(\d+)", after_text)
+    if m:
+        return int(m.group(1))
+    return None
+
+
+def _expand_parsed_to_range(parsed: dict, end_num: int) -> list[dict]:
+    """Expand a parsed anchor dict to cover a range of topic paths.
+
+    If parsed has target_topic_path='X.M' and end_num=N (N > M), returns one
+    dict per path in X.M, X.(M+1), ..., X.N. Otherwise returns [parsed].
+    """
+    topic_path = parsed.get("target_topic_path")
+    if not topic_path:
+        return [parsed]
+    parts = topic_path.split(".")
+    try:
+        start_num = int(parts[-1])
+    except (ValueError, IndexError):
+        return [parsed]
+    prefix = ".".join(parts[:-1])
+    if end_num <= start_num:
+        return [parsed]
+    return [
+        {**parsed, "target_topic_path": f"{prefix}.{n}" if prefix else str(n)}
+        for n in range(start_num, end_num + 1)
+    ]
 
 
 def strip_dekhen_redlink_substring(

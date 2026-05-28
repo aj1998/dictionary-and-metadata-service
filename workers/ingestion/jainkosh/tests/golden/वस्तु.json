@@ -278,7 +278,7 @@
       "prev": "/wiki/%E0%A4%B5%E0%A4%B8%E0%A5%81%E0%A4%B8%E0%A5%87%E0%A4%A8",
       "next": "/wiki/%E0%A4%B5%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%81_%E0%A4%B5%E0%A4%BF%E0%A4%A6%E0%A5%8D%E0%A4%AF%E0%A4%BE"
     },
-    "parser_version": "jainkosh.rules/1.10.0",
+    "parser_version": "jainkosh.rules/1.11.0",
     "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },

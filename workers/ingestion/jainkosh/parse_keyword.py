@@ -141,6 +141,24 @@ def parse_keyword_html(
             _resolve_index_relation_natural_keys(section, config)
             page_sections.append(section)
 
+        # Pages with no h2 sections: treat all mw-parser-output children as a single misc section
+        if not page_sections:
+            all_children = [
+                child for child in main.iter()
+                if child.tag and child.tag not in ("-text", "#text")
+            ]
+            if all_children:
+                section = parse_section(
+                    all_children,
+                    section_kind="siddhantkosh",
+                    section_index=0,
+                    h2_text="सिद्धांतकोष से",
+                    keyword=keyword,
+                    config=config,
+                )
+                _resolve_index_relation_natural_keys(section, config)
+                page_sections.append(section)
+
         parsed_at = frozen_time if frozen_time is not None else datetime.now(timezone.utc)
         if parsed_at.tzinfo is not None:
             parsed_at = parsed_at.replace(tzinfo=None)

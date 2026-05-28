@@ -9,7 +9,13 @@ from selectolax.parser import Node
 from .config import JainkoshConfig
 from .models import IndexRelation
 from .normalize import nfc
-from .see_also import parse_anchor, _extract_label_before_anchor, _preceding_inline_text
+from .see_also import (
+    parse_anchor,
+    _extract_label_before_anchor,
+    _preceding_inline_text,
+    _extract_range_suffix_after_anchor,
+    _expand_parsed_to_range,
+)
 
 _HEADING_CHAINS_BY_REL_ID: dict[int, list[str]] = {}
 
@@ -44,16 +50,20 @@ def parse_index_relations(
             parsed = parse_anchor(a, config, current_keyword=keyword)
             label = _extract_label_before_anchor(a, nth_occurrence=nth)
             source_path_chain = _ancestor_li_ids(a, config)
-            rel = IndexRelation(
-                label_text=label,
-                source_topic_path_chain=source_path_chain,
-                source_topic_natural_key_chain=[],
-                **parsed,
-            )
-            _attach_heading_chain(rel, _ancestor_strong_chain(a, config))
-            if config.index.top_level_reference_marking and not rel.source_topic_path_chain:
-                rel.is_top_level_reference = True
-            out.append(rel)
+            heading_chain = _ancestor_strong_chain(a, config)
+            end_num = _extract_range_suffix_after_anchor(a, nth_occurrence=nth)
+            parsed_list = _expand_parsed_to_range(parsed, end_num) if end_num is not None else [parsed]
+            for p in parsed_list:
+                rel = IndexRelation(
+                    label_text=label,
+                    source_topic_path_chain=source_path_chain,
+                    source_topic_natural_key_chain=[],
+                    **p,
+                )
+                _attach_heading_chain(rel, heading_chain)
+                if config.index.top_level_reference_marking and not rel.source_topic_path_chain:
+                    rel.is_top_level_reference = True
+                out.append(rel)
 
     return out
 

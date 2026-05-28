@@ -4,7 +4,7 @@
 > Covers HTML structure rules, parser implementation, configuration, models,
 > algorithms, CLI, tests, and edge-emission specs.
 >
-> **Current version**: `jainkosh.rules/1.6.0`
+> **Current version**: `jainkosh.rules/1.11.0`
 >
 > Source docs that fed this file:
 > - `parser/parsing_rules.md` — canonical HTML rules
@@ -196,7 +196,33 @@ any `<strong id="…">` heading.
 2. `<li>` inside an inner `<ul>` → emit one `IndexRelation`. Text before `देखें` is the label; `<a>` is the target.
 3. **Source of relation**: `<ul>` *inside* a top-level `<li>` → relation sourced from that section's topic. `<ul>` at outer `<ol>` level → keyword-level relation (`source = None`).
 
-### 4.3 Three target formats for `देखें` links
+### 4.3 Range expansion for `देखें` links (v1.7.0)
+
+When a `देखें` link target has a `target_topic_path` like `X.M` and the text
+**immediately following** the anchor is `-N` (hyphen or en-dash + number, where N > M),
+the parser expands the relation into N − M + 1 relations covering `X.M` through `X.N`.
+
+Example from स्वभाव:
+```
+जीव पुद्गल का ऊर्ध अधोगति स्वभाव-देखें <a href="/wiki/गति#1.3">गति - 1.3</a>-6।
+→  four IndexRelations: target_topic_path = "1.3", "1.4", "1.5", "1.6"
+
+वस्तु में अनंतों धर्म होते हैं-देखें <a href="/wiki/गुण#3.9">गुण - 3.9</a>-11।
+→  three IndexRelations: target_topic_path = "3.9", "3.10", "3.11"
+```
+
+Rules:
+- Only the **last** path segment is iterated; the prefix remains fixed.
+- If `target_topic_path` is absent (keyword-only link), expansion is skipped.
+- If N ≤ M, expansion is skipped and one relation is emitted as usual.
+- All expanded relations share the same `label_text`, `source_topic_path_chain`, and `target_keyword`.
+- Applies to both `IndexRelation` (index `<ol>`) and `see_also` `Block` (inline `देखें`).
+
+Implemented in `see_also.py`:
+- `_extract_range_suffix_after_anchor(a, nth_occurrence)` — detects the `-N` suffix
+- `_expand_parsed_to_range(parsed, end_num)` — produces the list of expanded dicts
+
+### 4.4 Three target formats for `देखें` links
 
 | href shape | `target_keyword` | `target_topic_path` | `is_self` |
 |---|---|---|---|
@@ -207,7 +233,7 @@ any `<strong id="…">` heading.
 
 `target_keyword` from `/wiki/<percent-encoded>` is URL-decoded then NFC-normalised. Parse from URL fragment, not from visible link text.
 
-### 4.4 Configurable `देखें` triggers
+### 4.5 Configurable `देखें` triggers
 
 The trigger list is configurable in `parser_configs/jainkosh.yaml > index.see_also_triggers`
 (e.g. `["देखें", "विशेष देखें"]`). Triggers are sorted longest-first and joined into a
@@ -220,7 +246,7 @@ index `<ol>` subtree — not a two-tier walk.
 | `see_also_window_chars` | `40` | Max preceding chars to inspect |
 | `see_also_leading_punct_re` | `[(–\-।\s]*` | Punct allowed between label and trigger |
 
-### 4.5 IndexRelation source chain resolution (v1.4.0)
+### 4.6 IndexRelation source chain resolution (v1.4.0)
 
 `IndexRelation.source_topic_path_chain` and `source_topic_natural_key_chain` are
 resolved by walking ancestor `<li>` containers upward through the index DOM.
@@ -245,15 +271,28 @@ Subsections form a **tree** keyed by `topic_path` (e.g. `1`, `1.1`, `1.1.3`).
 
 ### 5.1 Heading variants
 
-There are **5 known heading variants**. V5 is NOT a heading — it's a definition.
+There are **5 active heading variants** plus one non-heading look-alike (V5-def).
 
 | Variant | DOM shape | `topic_path` source | Heading text source | Seen in |
 |---|---|---|---|---|
-| **V1** | `<strong id="N">heading</strong>` | `@id` of `<strong>` | text of `<strong>` | द्रव्य, पर्याय |
-| **V2** | `<span class="HindiText" id="N"><strong>heading</strong></span>` | `@id` of `<span>` | text of inner `<strong>` | द्रव्य |
+| **V1** | `<strong id="N">heading</strong>` | `@id` of `<strong>` | text of `<strong>` (numeric prefix stripped) | द्रव्य, पर्याय, स्वभाव |
+| **V2** | `<span class="HindiText" id="N"><strong>heading</strong></span>` | `@id` of `<span>` | text of inner `<strong>` (numeric prefix stripped) | द्रव्य |
+| **V2-bare** | `<span class="HindiText" id="N">N. heading</span>` (no inner `<strong>`) | `@id` of `<span>` | text after stripping leading `N. ` prefix (required) | स्वभाव |
 | **V3** | `<li id="N"><span class="HindiText"><strong>heading</strong></span>` | `@id` of `<li>` | text of inner `<strong>` | पर्याय |
 | **V4** | `<p class="HindiText"><b>N. heading</b></p>` | regex on text `^\s*(?P<id>\d+(?:\.\d+)*)[.\s]+(?P<heading>.+?)\s*$` | regex `heading` group | आत्मा |
-| **V5** | `<p id="N" class="HindiText">(N) text…</p>` | **Not a heading** — PuranKosh definition | — | आत्मा PuranKosh |
+| **V5** | `<p class="HindiText" id="N">N. heading</p>` (no child elements) | `@id` of `<p>` | text after stripping leading `N. ` prefix (required) | स्वभाव |
+| **V5-def** | `<p id="N" class="HindiText">(N) text…</p>` | **Not a heading** — PuranKosh definition | — | आत्मा PuranKosh |
+
+**Numeric prefix stripping** (V1, V2, V2-bare, V5): leading `\d+(?:\.\d+)*[.\s]+` is stripped
+from `heading_text`. If stripping leaves an empty string, the element is rejected.
+This does **not** affect natural keys (the `slug()` function already strips such prefixes).
+
+**V2-bare guard**: the no-strong fallback only fires when (a) the span has no direct child
+elements AND (b) the text starts with a numeric prefix. Plain `<span class="HindiText" id="N">text</span>`
+without a numeric prefix is not treated as a heading.
+
+**V5 guard**: same conditions as V2-bare but for `<p>` elements. Ensures PuranKosh definitions
+`<p id="N" class="HindiText">(N) text</p>` (parenthesised prefix) are not promoted.
 
 ### 5.2 Topic path tree assembly
 
@@ -801,7 +840,25 @@ def parse_section(elements, *, section_kind, ...):
     return PageSection(...)
 ```
 
-### 10.3 Subsection tree assembly
+### 10.3 DFS heading discovery in classless `<p>` containers
+
+When a **classless `<p>`** element is encountered in the DFS walk it is no longer
+treated unconditionally as a content block. Instead:
+
+1. If `contains_heading(el, config)` returns `True` for that `<p>`, the DFS
+   **recurses into its direct children** (any heading variants found inside become
+   heading events; non-heading children become content blocks).
+2. If the `<p>` has no heading descendants, it is treated as a plain content block
+   (previous behaviour).
+
+This fixes the case where a V2-bare or V1 heading is wrapped in a classless `<p>`:
+```html
+<p>
+  <span class="HindiText" id="1.1.2">2. heading</span>   ← V2-bare
+</p>
+```
+
+### 10.4 Subsection tree assembly
 
 ```python
 def parse_subsections(body_elements, keyword, config):
@@ -1251,6 +1308,8 @@ Written into `KeywordParseResult.parser_version` and into Postgres `parser_confi
 | `1.4.0` | IndexRelation source-chain fallbacks for enclosing `<li>` and plain-`<strong>` headings; V2 heading inline-content extraction; inline GRef-based block splitting for positional reference attribution; index relations materialized as synthetic topic seeds in envelope outputs. |
 | `1.5.0` | Nested-span GRef attribution across `<br/>` boundaries; parser version bump and golden regeneration. |
 | `1.6.0` | label_seed `RELATED_TO` edges emitted from child's natural_key; `inline_reference` flag on `Reference`; nth-occurrence anchor tracking fixes duplicate `IndexRelation` and missing entry for identical `<a>` HTML. Fix: classless `<p>` container with exclusively block-classed span children is now correctly exploded (fixes 0-definition output for `वस्तु.html`-style pages). |
+| `1.7.0` | Range expansion for `देखें` links: trailing `-N` after an anchor with `target_topic_path=X.M` now emits one relation per path X.M … X.N. Applies to both `IndexRelation` (index `<ol>`) and inline `see_also` blocks. |
+| `1.8.0` | **V1/V2 numeric prefix stripping**: leading `N. ` or `N.M. ` prefix stripped from heading_text for V1 and V2 (with strong). **V2-bare**: `<span class="HindiText" id="N">N. heading</span>` (no inner `<strong>`) now detected as a heading when text carries numeric prefix. **V5**: new heading variant `<p class="HindiText" id="N">N. heading</p>` (no child elements, numeric prefix required). **DFS fix**: classless `<p>` elements containing heading descendants are now recursed into instead of treated as content blocks. |
 
 ---
 

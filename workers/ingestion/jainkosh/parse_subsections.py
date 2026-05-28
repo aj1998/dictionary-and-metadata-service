@@ -32,6 +32,14 @@ def detect_heading(node: Node, config: JainkoshConfig) -> Optional[tuple[str, st
     return None
 
 
+_NUMERIC_PREFIX_RE = re.compile(r'^\s*\d+(?:\.\d+)*[.\s]+')
+
+
+def _strip_numeric_prefix(text: str) -> str:
+    """Strip leading 'N. ' or 'N.M. ' style prefix from heading text."""
+    return _NUMERIC_PREFIX_RE.sub('', text).strip()
+
+
 def _try_variant(
     node: Node, variant: HeadingVariant, config: JainkoshConfig
 ) -> Optional[tuple[str, str]]:
@@ -40,6 +48,7 @@ def _try_variant(
 
     if name == "V1":
         # <strong id="N">heading</strong>
+        # heading_text may carry a leading numeric prefix (e.g. "1. heading") — strip it.
         if node.tag != "strong":
             return None
         node_id = node.attributes.get("id", "") or ""
@@ -48,10 +57,16 @@ def _try_variant(
         text = normalize_text(node.text(strip=True) or "")
         if not text:
             return None
+        text = _strip_numeric_prefix(text)
+        if not text:
+            return None
         return node_id, text
 
     elif name == "V2":
-        # <span class="HindiText" id="N"><strong>heading</strong></span>
+        # Primary:  <span class="HindiText" id="N"><strong>heading</strong></span>
+        # Fallback: <span class="HindiText" id="N">N. heading</span>  (no inner strong)
+        #   — the fallback requires the text to carry a numeric prefix so we can
+        #     distinguish genuine sub-headings from ordinary HindiText spans with ids.
         if node.tag != "span":
             return None
         cls = node.attributes.get("class", "") or ""
@@ -61,12 +76,28 @@ def _try_variant(
         if not node_id:
             return None
         strong = node.css_first("strong")
-        if strong is None:
-            return None
-        text = normalize_text(strong.text(strip=True) or "")
+        if strong is not None:
+            text = normalize_text(strong.text(strip=True) or "")
+            if not text:
+                return None
+            text = _strip_numeric_prefix(text)
+            if not text:
+                return None
+            return node_id, text
+        # No inner strong: require a numeric prefix in the direct text.
+        direct_children = list(_iter_direct_children(node))
+        if direct_children:
+            return None  # has child elements — not a plain text heading span
+        text = normalize_text(node.text(strip=True) or "")
         if not text:
             return None
-        return node_id, text
+        m = _NUMERIC_PREFIX_RE.match(text)
+        if not m:
+            return None
+        heading = _NUMERIC_PREFIX_RE.sub('', text).strip()
+        if not heading:
+            return None
+        return node_id, heading
 
     elif name == "V3":
         # <li id="N"><span class="HindiText"><strong>heading</strong></span>
@@ -119,6 +150,33 @@ def _try_variant(
         if not topic_path:
             return None
         return topic_path, normalize_text(heading)
+
+    elif name == "V5":
+        # <p class="HindiText" id="N">N. heading</p>
+        # id attribute is the topic_path; text must carry a numeric prefix
+        # (distinguishes from PuranKosh definition <p id="N">(N) text</p>).
+        if node.tag != "p":
+            return None
+        cls = node.attributes.get("class", "") or ""
+        if "HindiText" not in cls.split():
+            return None
+        node_id = node.attributes.get("id", "") or ""
+        if not node_id:
+            return None
+        # Require no child elements (plain text paragraphs only)
+        elem_children = [c for c in node.iter(include_text=False) if c != node]
+        if elem_children:
+            return None
+        text = normalize_text(node.text(strip=True) or "")
+        if not text:
+            return None
+        m = _NUMERIC_PREFIX_RE.match(text)
+        if not m:
+            return None
+        heading = _NUMERIC_PREFIX_RE.sub('', text).strip()
+        if not heading:
+            return None
+        return node_id, heading
 
     return None
 
@@ -200,10 +258,14 @@ def walk_and_collect_headings(
             if tag in ("ol", "ul", "li", "div", "tbody", "tr", "td", "th"):
                 _dfs(list(_iter_direct_children(el)))
             elif tag == "p":
-                # Plain p (no block class) - if it's not empty, treat as content
-                text = (el.text(strip=True) or "")
-                if text:
-                    events.append(("block", el))
+                # Plain p (no block class): recurse if it contains a heading
+                # descendant; otherwise treat as a content block.
+                if contains_heading(el, config):
+                    _dfs(list(_iter_direct_children(el)))
+                else:
+                    text = (el.text(strip=True) or "")
+                    if text:
+                        events.append(("block", el))
             else:
                 # Any other container - recurse
                 _dfs(list(_iter_direct_children(el)))

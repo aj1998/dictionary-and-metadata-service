@@ -1,5 +1,5 @@
-version: "1.10.0"
-parser_rules_version: "jainkosh.rules/1.10.0"
+version: "1.11.0"
+parser_rules_version: "jainkosh.rules/1.11.0"
 
 normalization:
   nfc: true
@@ -204,6 +204,11 @@ headings:
     - name: V4
       selector: "p.HindiText > b:only-child"
       id_from: "regex_group(self.text, 'topic_path')"
+      heading_text: "regex_group(self.text, 'heading')"
+      regex: '^\s*(?P<topic_path>\d+(?:\.\d+)*)[.\s]+(?P<heading>.+?)\s*$'
+    - name: V5
+      selector: "p.HindiText[id]"
+      id_from: "self.attribute(id)"
       heading_text: "regex_group(self.text, 'heading')"
       regex: '^\s*(?P<topic_path>\d+(?:\.\d+)*)[.\s]+(?P<heading>.+?)\s*$'
 
