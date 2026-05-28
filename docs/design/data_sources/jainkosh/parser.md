@@ -291,6 +291,11 @@ This does **not** affect natural keys (the `slug()` function already strips such
 elements AND (b) the text starts with a numeric prefix. Plain `<span class="HindiText" id="N">text</span>`
 without a numeric prefix is not treated as a heading.
 
+**V2-bare inline-content guard**: `_make_v2_content_block` (which extracts content after
+the `<strong>` inside a V2 heading span) returns `None` immediately for V2-bare spans
+(no inner `<strong>`). Without this guard the entire heading text was re-emitted as a
+`hindi_text` content block inside the subsection's own blocks.
+
 **V5 guard**: same conditions as V2-bare but for `<p>` elements. Ensures PuranKosh definitions
 `<p id="N" class="HindiText">(N) text</p>` (parenthesised prefix) are not promoted.
 
@@ -1310,6 +1315,7 @@ Written into `KeywordParseResult.parser_version` and into Postgres `parser_confi
 | `1.6.0` | label_seed `RELATED_TO` edges emitted from child's natural_key; `inline_reference` flag on `Reference`; nth-occurrence anchor tracking fixes duplicate `IndexRelation` and missing entry for identical `<a>` HTML. Fix: classless `<p>` container with exclusively block-classed span children is now correctly exploded (fixes 0-definition output for `वस्तु.html`-style pages). |
 | `1.7.0` | Range expansion for `देखें` links: trailing `-N` after an anchor with `target_topic_path=X.M` now emits one relation per path X.M … X.N. Applies to both `IndexRelation` (index `<ol>`) and inline `see_also` blocks. |
 | `1.8.0` | **V1/V2 numeric prefix stripping**: leading `N. ` or `N.M. ` prefix stripped from heading_text for V1 and V2 (with strong). **V2-bare**: `<span class="HindiText" id="N">N. heading</span>` (no inner `<strong>`) now detected as a heading when text carries numeric prefix. **V5**: new heading variant `<p class="HindiText" id="N">N. heading</p>` (no child elements, numeric prefix required). **DFS fix**: classless `<p>` elements containing heading descendants are now recursed into instead of treated as content blocks. |
+| `1.8.1` | **V2-bare inline-content fix**: `_make_v2_content_block` now returns `None` for V2-bare spans (no inner `<strong>`), preventing the heading text from being re-emitted as a `hindi_text` block inside the subsection's own content. Affected subsections in स्वभाव: `1.1.2`, `1.1.3`, `1.1.4`. |
 
 ---
 

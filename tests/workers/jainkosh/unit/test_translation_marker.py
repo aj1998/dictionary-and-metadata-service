@@ -135,3 +135,22 @@ class TestTranslationMarker:
         html = '<p class="HindiText">= द्रव्य का लक्षण।</p>'
         block = parse_p_to_block_with_prev_source(html, config)
         assert block.hindi_translation is not None
+
+    def test_sibling_eq_with_quote_prefix(self, config):
+        """='<HindiText>span content</HindiText>: prefix quote is prepended to translation.
+
+        Mirrors the स्वभाव.html case: the text node is "='" and the span contains
+        "स्व' का भवन अर्थात् होना वह स्वभाव है।", so the full translation should be
+        "'स्व' का भवन अर्थात् होना वह स्वभाव है।".
+        """
+        html = """
+        <li>
+          <span class="GRef">समयसार / आत्मख्याति/71</span>
+          <span class="SanskritText">स्वस्य भवनं तु स्वभाव:।</span>
+          ='<span class="HindiText">स्व' का भवन अर्थात् होना वह स्वभाव है।</span>
+        </li>
+        """
+        blocks = parse_li_to_blocks(html, config)
+        src = next(b for b in blocks if b.kind == "sanskrit_text")
+        assert src.hindi_translation == "'स्व' का भवन अर्थात् होना वह स्वभाव है।"
+        assert not any(b.kind == "hindi_text" for b in blocks)

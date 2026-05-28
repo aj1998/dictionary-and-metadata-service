@@ -186,6 +186,41 @@ class TestDFSClasslessPContainer:
         assert child11 is not None, "1.1 should be detected despite being inside classless <p>"
         assert child11.heading_text == "उपशीर्षक"
 
+    def test_v2_bare_inside_classless_p_no_heading_text_in_blocks(self, config):
+        """V2-bare heading inside classless <p> must NOT produce a content block with
+        the heading text (regression for _make_v2_content_block erroneously emitting
+        the heading text as a hindi_text block for spans without inner <strong>)."""
+        html = """<html><body><div class="mw-parser-output">
+<h2><span class="mw-headline" id="सिद्धांतकोष_से">सिद्धांतकोष से</span></h2>
+<strong id="1">शीर्षक एक</strong>
+<p>
+  <span class="HindiText" id="1.1">1. उपशीर्षक</span>
+</p>
+<p class="SanskritText">सूत्रम्।</p>
+<p class="HindiText">= अनुवाद।</p>
+</div></body></html>"""
+        result = parse_keyword_html(html, "https://www.jainkosh.org/wiki/test", config)
+        section = result.page_sections[0]
+
+        def _find(subs, path):
+            for s in subs:
+                if s.topic_path == path:
+                    return s
+                found = _find(s.children, path)
+                if found:
+                    return found
+            return None
+
+        child11 = _find(section.subsections, "1.1")
+        assert child11 is not None
+        block_texts = [b.text_devanagari or "" for b in child11.blocks]
+        assert not any("उपशीर्षक" in bt for bt in block_texts), (
+            f"Heading text leaked into blocks of 1.1: {block_texts}"
+        )
+        assert not any("1. उपशीर्षक" in bt for bt in block_texts), (
+            f"Heading text with numeric prefix leaked into blocks of 1.1: {block_texts}"
+        )
+
 
 # ---------------------------------------------------------------------------
 # Integration: स्वभाव page structure
@@ -259,6 +294,23 @@ class TestSwabhavIntegration:
         for bt in block_texts:
             assert "स्वभाव का निरुक्ति अर्थ" not in bt, \
                 f"Heading text leaked into blocks: {bt!r}"
+
+    @pytest.mark.parametrize("path,heading_text", [
+        ("1.1.2", "स्वभाव का लक्षण अंतरंग भाव"),
+        ("1.1.3", "स्वभाव का लक्षण गुण पर्यायों में अन्वय परिणाम"),
+        ("1.1.4", "स्वभाव व शक्ति के एकार्थवाची नाम"),
+    ])
+    def test_v2_bare_heading_text_not_in_own_blocks(self, swabhav_result, path, heading_text):
+        """V2-bare heading text must not appear as a content block inside its own subsection
+        (regression: _make_v2_content_block was emitting the heading text as hindi_text)."""
+        section = swabhav_result.page_sections[0]
+        sub = self._find_by_path(section.subsections, path)
+        assert sub is not None, f"Subsection {path} not found"
+        block_texts = [b.text_devanagari or "" for b in sub.blocks]
+        for bt in block_texts:
+            assert heading_text not in bt, (
+                f"Heading text for {path} leaked into own blocks: {bt!r}"
+            )
 
 
 # ---------------------------------------------------------------------------

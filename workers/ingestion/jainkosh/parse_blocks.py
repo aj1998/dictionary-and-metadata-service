@@ -185,7 +185,8 @@ def parse_block_stream(
             continue
 
         # Check sibling_eq marker before splitting so synthetic nodes don't break context
-        saw_sibling_eq = _has_eq_text_marker_between(prev_element, el, config)
+        sibling_eq_prefix = _get_eq_sibling_prefix(prev_element, el, config)
+        saw_sibling_eq = sibling_eq_prefix is not None
 
         # Only split when not in a translation-absorption context (preserves sibling_eq)
         if config.reference_splitting.enabled and not saw_sibling_eq:
@@ -216,8 +217,9 @@ def parse_block_stream(
                 and last_block.kind in config.translation_marker.source_kinds
                 and block.kind in config.translation_marker.hindi_kinds
             ):
+                translation_text = (sibling_eq_prefix or "") + (block.text_devanagari or "")
                 last_block.hindi_translation = strip_paren_dekhen(
-                    strip_refs_from_text(block.text_devanagari or "", block.references, config),
+                    strip_refs_from_text(translation_text, block.references, config),
                     config,
                 )
                 if config.translation_marker.reference_ordering == "leading_then_inline":
@@ -227,6 +229,7 @@ def parse_block_stream(
                 pending_refs.clear()
                 # Translation absorbed; only applies once per original el
                 saw_sibling_eq = False
+                sibling_eq_prefix = None
             else:
                 last_block, pending_refs, out = _emit(
                     block, last_block, pending_refs, out, config
@@ -306,34 +309,48 @@ def _emit(
     return out[-1], pending_refs, out
 
 
-def _has_eq_text_marker_between(
+def _get_eq_sibling_prefix(
     previous: Optional[Node],
     current: Node,
     config: JainkoshConfig,
-) -> bool:
+) -> Optional[str]:
+    """Return the text prefix after '=' if an eq-sibling marker exists between previous and current.
+
+    Returns None if no marker found.
+    Returns "" if marker is exactly '=' with no trailing text.
+    Returns a non-empty string (e.g. "'") if the text node is "='" — the prefix should be
+    prepended to the translation text.
+    """
     if not config.translation_marker.sibling_marker_enabled:
-        return False
+        return None
     if previous is None:
-        return False
+        return None
     prev_parent = previous.parent
     cur_parent = current.parent
     if prev_parent is None or cur_parent is None or not _same_node(prev_parent, cur_parent):
-        return False
+        return None
     text_parts: list[str] = []
     marker_found = False
     node = previous.next
     while node is not None and not _same_node(node, current):
         if (node.tag or "") not in ("-text", "#text"):
-            return False
+            return None
         txt = node.text(strip=False) or ""
         if txt.strip():
             text_parts.append(txt)
             marker_found = True
         node = node.next
     if node is None or not marker_found:
-        return False
+        return None
     joined = "".join(text_parts)
-    return re.match(config.translation_marker.sibling_marker_text_node_re, joined) is not None
+    # Exact match (configured regex): = with no trailing content
+    if re.match(config.translation_marker.sibling_marker_text_node_re, joined):
+        return ""
+    # Extended match: = optionally followed by a short prefix (e.g. "='")
+    m = re.match(r'^\s*=\s*(?P<prefix>.+?)\s*$', joined)
+    if m:
+        return m.group("prefix")
+    return None
 
 
 def _same_node(left: Node, right: Node) -> bool:

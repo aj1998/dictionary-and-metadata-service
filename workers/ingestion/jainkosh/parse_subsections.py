@@ -283,8 +283,17 @@ def walk_and_collect_headings(
 
     def _make_v2_content_block(span: Node) -> Optional[Node]:
         """Create a synthetic <p class="HindiText"> from the inline content of a V2 heading
-        span, stripping the leading <strong>. Returns None if no meaningful content remains."""
+        span, stripping the leading <strong>. Returns None if no meaningful content remains.
+
+        V2-bare headings (no inner <strong>) have no inline content to extract; return None
+        so the heading text is not re-emitted as a content block.
+        """
         from selectolax.parser import HTMLParser
+
+        # V2-bare: no <strong> inside the span means there is no inline content beyond the
+        # heading text itself — nothing to extract.
+        if span.css_first("strong") is None:
+            return None
 
         html = span.html or ""
         start = html.find(">")

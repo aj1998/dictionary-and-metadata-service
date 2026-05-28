@@ -382,7 +382,7 @@
                       {
                         "kind": "sanskrit_text",
                         "text_devanagari": "स्वस्य भवनं तु स्वभाव:।",
-                        "hindi_translation": null,
+                        "hindi_translation": "'स्व' का भवन अर्थात् होना वह स्वभाव है।",
                         "references": [
                           {
                             "text": "समयसार / आत्मख्याति/71",
@@ -400,21 +400,6 @@
                             ]
                           }
                         ],
-                        "is_orphan_translation": false,
-                        "is_bullet_point": false,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": null,
-                        "target_topic_path": null,
-                        "target_url": null,
-                        "is_self": false,
-                        "target_exists": true
-                      },
-                      {
-                        "kind": "hindi_text",
-                        "text_devanagari": "स्व' का भवन अर्थात् होना वह स्वभाव है।",
-                        "hindi_translation": null,
-                        "references": [],
                         "is_orphan_translation": false,
                         "is_bullet_point": false,
                         "raw_html": null,
@@ -542,21 +527,6 @@
                     "source_subkind": null,
                     "blocks": [
                       {
-                        "kind": "hindi_text",
-                        "text_devanagari": "2. स्वभाव का लक्षण अंतरंग भाव",
-                        "hindi_translation": null,
-                        "references": [],
-                        "is_orphan_translation": false,
-                        "is_bullet_point": false,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": null,
-                        "target_topic_path": null,
-                        "target_url": null,
-                        "is_self": false,
-                        "target_exists": true
-                      },
-                      {
                         "kind": "sanskrit_text",
                         "text_devanagari": "को सहावो। अंतरंगकारणं।",
                         "hindi_translation": "अंतरंग कारण को स्वभाव कहते हैं।",
@@ -651,21 +621,6 @@
                     "label_topic_seed": false,
                     "source_subkind": null,
                     "blocks": [
-                      {
-                        "kind": "hindi_text",
-                        "text_devanagari": "3. स्वभाव का लक्षण गुण पर्यायों में अन्वय परिणाम",
-                        "hindi_translation": null,
-                        "references": [],
-                        "is_orphan_translation": false,
-                        "is_bullet_point": false,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": null,
-                        "target_topic_path": null,
-                        "target_url": null,
-                        "is_self": false,
-                        "target_exists": true
-                      },
                       {
                         "kind": "sanskrit_text",
                         "text_devanagari": "स्वभावोऽस्तित्वसामान्यान्वय:।95। स्वभावस्तु द्रव्यस्य ध्रौव्योत्पादोच्छेदैक्यात्मकपरिणाम:।99।",
@@ -769,21 +724,6 @@
                     "label_topic_seed": false,
                     "source_subkind": null,
                     "blocks": [
-                      {
-                        "kind": "hindi_text",
-                        "text_devanagari": "4. स्वभाव व शक्ति के एकार्थवाची नाम",
-                        "hindi_translation": null,
-                        "references": [],
-                        "is_orphan_translation": false,
-                        "is_bullet_point": false,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": null,
-                        "target_topic_path": null,
-                        "target_url": null,
-                        "is_self": false,
-                        "target_exists": true
-                      },
                       {
                         "kind": "hindi_text",
                         "text_devanagari": "देखें तत्त्व - 1.1\nतत्त्व, परमार्थ, द्रव्य, स्वभाव, परमपरम, ध्येय, शुद्ध और परम ये सब एकार्थवाची हैं।",
@@ -2565,7 +2505,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "स्वस्य भवनं तु स्वभाव:।",
-              "hindi_translation": null,
+              "hindi_translation": "'स्व' का भवन अर्थात् होना वह स्वभाव है।",
               "references": [
                 {
                   "text": "समयसार / आत्मख्याति/71",
@@ -2583,21 +2523,6 @@
                   ]
                 }
               ],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "hindi_text",
-              "text_devanagari": "स्व' का भवन अर्थात् होना वह स्वभाव है।",
-              "hindi_translation": null,
-              "references": [],
               "is_orphan_translation": false,
               "is_bullet_point": false,
               "raw_html": null,
@@ -2725,21 +2650,6 @@
           ],
           "blocks": [
             {
-              "kind": "hindi_text",
-              "text_devanagari": "2. स्वभाव का लक्षण अंतरंग भाव",
-              "hindi_translation": null,
-              "references": [],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
               "kind": "sanskrit_text",
               "text_devanagari": "को सहावो। अंतरंगकारणं।",
               "hindi_translation": "अंतरंग कारण को स्वभाव कहते हैं।",
@@ -2834,21 +2744,6 @@
             }
           ],
           "blocks": [
-            {
-              "kind": "hindi_text",
-              "text_devanagari": "3. स्वभाव का लक्षण गुण पर्यायों में अन्वय परिणाम",
-              "hindi_translation": null,
-              "references": [],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
             {
               "kind": "sanskrit_text",
               "text_devanagari": "स्वभावोऽस्तित्वसामान्यान्वय:।95। स्वभावस्तु द्रव्यस्य ध्रौव्योत्पादोच्छेदैक्यात्मकपरिणाम:।99।",
@@ -2952,21 +2847,6 @@
             }
           ],
           "blocks": [
-            {
-              "kind": "hindi_text",
-              "text_devanagari": "4. स्वभाव व शक्ति के एकार्थवाची नाम",
-              "hindi_translation": null,
-              "references": [],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
             {
               "kind": "hindi_text",
               "text_devanagari": "देखें तत्त्व - 1.1\nतत्त्व, परमार्थ, द्रव्य, स्वभाव, परमपरम, ध्येय, शुद्ध और परम ये सब एकार्थवाची हैं।",
@@ -5051,8 +4931,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 3,
-            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ/3",
+            "block_index": 2,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ/2",
             "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ"
           }
         },
@@ -5069,8 +4949,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 4,
-            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ/4",
+            "block_index": 3,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ/3",
             "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ"
           }
         },
@@ -5102,8 +4982,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 2,
-            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-अंतरंग-भाव/2",
+            "block_index": 1,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-अंतरंग-भाव/1",
             "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-अंतरंग-भाव"
           }
         },
@@ -5120,8 +5000,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 2,
-            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-अंतरंग-भाव/2",
+            "block_index": 1,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-अंतरंग-भाव/1",
             "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-अंतरंग-भाव"
           }
         },
@@ -5153,8 +5033,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 1,
-            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम/1",
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम/0",
             "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम"
           }
         },
@@ -5171,8 +5051,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 1,
-            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम/1",
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम/0",
             "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम"
           }
         },
@@ -5190,8 +5070,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 12,
-            "block_index": 2,
-            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम/2",
+            "block_index": 1,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम/1",
             "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम"
           }
         },
@@ -5209,8 +5089,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 12,
-            "block_index": 2,
-            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम/2",
+            "block_index": 1,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम/1",
             "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम"
           }
         },
