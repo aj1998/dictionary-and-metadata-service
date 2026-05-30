@@ -135,7 +135,7 @@ export interface DefinitionReference {
 
 export interface DefinitionBlock {
   kind: string;
-  text_devanagari: string;
+  text_devanagari: string | null;
   hindi_translation: string | null;
   references: DefinitionReference[];
   is_orphan_translation: boolean;

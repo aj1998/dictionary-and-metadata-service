@@ -1,9 +1,47 @@
 'use client';
 
+import { Fragment } from 'react';
 import { Dialog } from '@base-ui/react/dialog';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import type { DefinitionBlock, KeywordPageSection } from '@/lib/types';
+import type { DefinitionBlock, DefinitionReference, KeywordPageSection } from '@/lib/types';
+
+export type MarkdownSegment = { kind: 'text'; text: string } | { kind: 'bold'; text: string } | { kind: 'italic'; text: string };
+
+// Parses **bold**, *italic*, _italic_ markdown tokens into typed segments.
+export function parseMarkdownSegments(text: string | null): MarkdownSegment[] {
+  if (!text) return [];
+  const segments: MarkdownSegment[] = [];
+  const regex = /\*\*(.+?)\*\*|\*(.+?)\*|_(.+?)_/g;
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) segments.push({ kind: 'text', text: text.slice(lastIndex, match.index) });
+    if (match[1] !== undefined) {
+      segments.push({ kind: 'bold', text: match[1] });
+    } else {
+      segments.push({ kind: 'italic', text: match[2] ?? match[3] });
+    }
+    lastIndex = regex.lastIndex;
+  }
+  if (lastIndex < text.length) segments.push({ kind: 'text', text: text.slice(lastIndex) });
+  return segments;
+}
+
+// Renders parsed markdown segments as React nodes.
+export function renderInlineMarkdown(text: string | null): React.ReactNode {
+  const segments = parseMarkdownSegments(text);
+  if (segments.length === 1 && segments[0].kind === 'text') return segments[0].text;
+  return (
+    <Fragment>
+      {segments.map((seg, i) =>
+        seg.kind === 'bold' ? <strong key={i}>{seg.text}</strong>
+        : seg.kind === 'italic' ? <em key={i}>{seg.text}</em>
+        : seg.text
+      )}
+    </Fragment>
+  );
+}
 
 interface DefinitionModalProps {
   open: boolean;
@@ -13,37 +51,59 @@ interface DefinitionModalProps {
   topicExtracts?: DefinitionBlock[];
 }
 
+// Returns the left-border colour class for a block.
+// All blocks get a coloured left accent — grey when unreferenced, colour-coded when referenced.
+// Teeka refs → amber; shastra refs on Sanskrit/Prakrit → teal; shastra refs on others → sky-blue.
+export function getBlockBorderClass(block: DefinitionBlock, refsToShow: DefinitionReference[]): string {
+  if (refsToShow.length === 0) return 'border-border-strong';
+  if (refsToShow.some((r) => r.is_teeka)) return 'border-amber-400';
+  if (block.kind === 'prakrit_text' || block.kind === 'prakrit_gatha') return 'border-emerald-500';
+  if (block.kind === 'sanskrit_text') return 'border-cat-keyword';
+  return 'border-sky-500';
+}
+
+// Returns the display label for a reference badge.
+// Teeka refs show "shastra_name, teeka_name"; shastra refs show shastra_name.
+export function formatRefSourceLabel(ref: DefinitionReference): string {
+  if (ref.is_teeka) {
+    const parts = [ref.shastra_name, ref.teeka_name].filter(Boolean);
+    return parts.join(', ');
+  }
+  return ref.shastra_name ?? '';
+}
+
+function pickRefsToShow(block: DefinitionBlock): DefinitionReference[] {
+  const nonInline = block.references.filter((r) => !r.inline_reference);
+  const candidates = nonInline.length > 0 ? nonInline : block.references.filter((r) => r.inline_reference);
+  const withFields = candidates.filter((r) => r.resolved_fields.length > 0);
+  // Show only the first qualifying reference per block.
+  return withFields.slice(0, 1);
+}
+
 function ModalBlock({ block }: { block: DefinitionBlock }) {
-  const isSanskrit = block.kind === 'sanskrit_text' || block.kind === 'prakrit_text';
-
-  // Prefer non-inline references; fall back to inline ones only if no non-inline exist.
-  // Skip any reference that has no resolved_fields.
-  const nonInline = block.references.filter(r => !r.inline_reference);
-  const candidates = nonInline.length > 0 ? nonInline : block.references.filter(r => r.inline_reference);
-  const refsToShow = candidates.filter(r => r.resolved_fields.length > 0);
-
+  const isPrakrit = block.kind === 'prakrit_text' || block.kind === 'prakrit_gatha';
+  const isSanskrit = block.kind === 'sanskrit_text' || isPrakrit;
+  const refsToShow = pickRefsToShow(block);
+  const borderClass = getBlockBorderClass(block, refsToShow);
   return (
     <div>
-      <div className={cn(isSanskrit && 'rounded border-l-4 border-cat-keyword bg-surface-muted p-3')}>
+      <div className={`rounded border-l-4 ${borderClass} bg-surface-muted p-3`}>
         <p className={cn(
           'font-serif-hindi text-foreground',
           isSanskrit ? 'text-sm' : 'text-[length:var(--font-size-body)]',
         )}>
-          {block.text_devanagari}
+          {renderInlineMarkdown(block.text_devanagari)}
         </p>
         {block.hindi_translation && (
-          <p className={cn(
-            'font-serif-hindi text-foreground-muted',
-            isSanskrit ? 'mt-1.5 text-sm' : 'mt-1 text-sm',
-          )}>
-            {block.hindi_translation}
+          <p className="mt-1.5 font-serif-hindi text-sm text-foreground-muted">
+            {renderInlineMarkdown(block.hindi_translation)}
           </p>
         )}
       </div>
       {refsToShow.length > 0 && (
-        <div className="mt-1.5 flex flex-wrap gap-1.5 border-t border-border pt-1.5">
+        <div className="mt-2 flex flex-wrap gap-1.5">
           {refsToShow.map((ref, ri) => {
-            const sourceName = ref.is_teeka ? ref.teeka_name : ref.shastra_name;
+            const sourceLabel = formatRefSourceLabel(ref);
             return (
               <span
                 key={ri}
@@ -54,13 +114,13 @@ function ModalBlock({ block }: { block: DefinitionBlock }) {
                     : 'bg-surface-muted text-foreground-muted ring-border',
                 )}
               >
-                {sourceName && (
+                {sourceLabel && (
                   <>
                     <span className={cn(
                       'font-semibold',
-                      ref.is_teeka ? 'text-amber-700' : 'text-sky-700',
+                      ref.is_teeka ? 'text-amber-700' : isPrakrit ? 'text-emerald-700' : 'text-sky-700',
                     )}>
-                      {sourceName}
+                      {sourceLabel}
                     </span>
                     {ref.resolved_fields.length > 0 && (
                       <span className="mx-1.5 opacity-30">|</span>
@@ -103,19 +163,38 @@ export function DefinitionModal({ open, onClose, title, definitionSections, topi
 
           <div className="flex-1 overflow-y-auto px-5 py-4">
             {definitionSections && (
-              <div className="space-y-8">
-                {definitionSections.map((section) => (
-                  <div key={section.section_index}>
-                    <p className="mb-3 text-xs font-medium uppercase tracking-wide text-foreground-muted">
-                      {section.h2_text}
-                    </p>
-                    {section.definitions.map((def) => (
-                      <div key={def.definition_index} className="space-y-3">
-                        {def.blocks.map((block, bi) => (
-                          <ModalBlock key={bi} block={block} />
-                        ))}
+              <div>
+                {definitionSections.map((section, si) => (
+                  <div key={section.section_index} className={si > 0 ? 'mt-8' : ''}>
+                    {si > 0 && (
+                      <div className="mb-4 space-y-1">
+                        <div className="h-px bg-border-strong" />
+                        <div className="h-px bg-border" />
                       </div>
-                    ))}
+                    )}
+                    <div className="mb-4">
+                      <span className="text-xs font-semibold uppercase tracking-widest text-foreground-muted">
+                        {section.h2_text}
+                      </span>
+                    </div>
+                    <div className="space-y-1">
+                      {section.definitions.map((def, di) => {
+                        const visibleBlocks = def.blocks.filter((b) => b.kind !== 'see_also');
+                        return (
+                          <div key={def.definition_index}>
+                            {di > 0 && <hr className="my-3 border-border" />}
+                            <div className="space-y-3">
+                              {visibleBlocks.map((block, bi) => (
+                                <div key={bi}>
+                                  {bi > 0 && <hr className="mb-3 border-border" />}
+                                  <ModalBlock block={block} />
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -124,10 +203,13 @@ export function DefinitionModal({ open, onClose, title, definitionSections, topi
             {topicExtracts && (
               <div className="space-y-3">
                 <p className="text-xs font-medium uppercase tracking-wide text-foreground-muted">
-                  विषय अंश ({topicExtracts.length})
+                  विषय अंश ({topicExtracts.filter((b) => b.kind !== 'see_also').length})
                 </p>
-                {topicExtracts.map((block, i) => (
-                  <ModalBlock key={i} block={block} />
+                {topicExtracts.filter((b) => b.kind !== 'see_also').map((block, i) => (
+                  <div key={i}>
+                    {i > 0 && <hr className="mb-3 border-border" />}
+                    <ModalBlock block={block} />
+                  </div>
                 ))}
               </div>
             )}

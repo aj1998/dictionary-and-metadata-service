@@ -336,8 +336,8 @@ Exports `isNavActive(pathname, route)`, `truncateLabel(label, max?)`, and the th
 | `NodeCard` | `components/NodeCard.tsx` | 220px wide graph node. 5 states: resting/hover/selected/faded/pinned. Top 4px category stripe. Exports `NODE_KIND_META`. Used in `<foreignObject>`. |
 | `RelationConnector` | `components/RelationConnector.tsx` | Static cubic Bézier SVG connector. Endpoint circles + midpoint pill label. Pill rotates with path tangent clamped ±20°. Exports `EDGE_LABELS`, `EDGE_TOOLTIPS`. |
 | `CategoryFilterList` | `components/CategoryFilterList.tsx` | 4 category toggles, layout radio (Force and Hierarchical functional; Radial placeholder), depth stepper 1–4. Fully controlled; wired to graph store. Exports `CATEGORY_DATA`. |
-| `DetailsPanel` | `components/DetailsPanel.tsx` | Right panel (380px desktop, 75vh bottom sheet mobile). Node mode: badge + title + stats + vivaran + connected rows + CTA. Edge mode: relation pill + src→dst + description. Fetches entity detail on selection. |
-| `DefinitionModal` | `components/DefinitionModal.tsx` | Full-screen `@base-ui/react` dialog. Keyword path: all sections → `ModalBlock` per block. Topic path: extracts list. Closes on node selection change. |
+| `DetailsPanel` | `components/DetailsPanel.tsx` | Right panel (380px desktop, 75vh bottom sheet mobile). Node mode: badge + title + stats + vivaran + connected rows + CTA ("पूरा वर्णन पढ़ें"). The node body div uses `flex flex-1 min-h-0 flex-col` so the inner content area scrolls independently while the CTA stays pinned at the bottom. Edge mode: relation pill + src→dst + description. Fetches entity detail on selection. |
+| `DefinitionModal` | `components/DefinitionModal.tsx` | Full-screen `@base-ui/react` dialog. Keyword path: all sections → `ModalBlock` per block; `<hr>` dividers between sections and between definitions. Topic path: extracts list with `<hr>` dividers. Each block shows at most one reference badge (first qualifying ref). Left border colour: teal for Sanskrit/Prakrit, amber for teeka refs, sky-blue for shastra refs. Teeka badge label = `shastra_name, teeka_name`. Exports `getBlockBorderClass`, `formatRefSourceLabel` (pure, tested). Closes on node selection change. |
 | `MiniGraphPreview` | `components/MiniGraphPreview.tsx` | Server component. Static SVG of 1-hop neighborhood. Hover overlay links to `/graph?node={nk}`. |
 
 ### Detail page components
@@ -394,7 +394,7 @@ Key interfaces:
 - `GraphEdge` — `{ id, src, dst, kind, weight }`
 - `GraphPayload` — `{ nodes, edges, focus_nk, depth }`
 - `EntityDetail` — `{ nk, kind, title_hi, description?, stats, connected[], definitionSections?, topicExtracts? }`
-- `KeywordDefinitionData` / `KeywordPageSection` / `DefinitionBlock` / `DefinitionEntry` / `DefinitionReference` — full keyword definition tree
+- `KeywordDefinitionData` / `KeywordPageSection` / `DefinitionBlock` / `DefinitionEntry` / `DefinitionReference` — full keyword definition tree. `DefinitionBlock.text_devanagari` is `string | null` (backend may omit it for non-text block kinds).
 
 ---
 
@@ -574,6 +574,7 @@ The vitest config (`vitest.config.ts`) targets `src/__tests__/**/*.test.ts` and 
 | `components/MiniGraphPreview.test.ts` | SVG coordinate projection bounds |
 | `lib/gatha-content.test.ts` | Bracket-tagged teeka term extraction and splitting |
 | `lib/feedback-validation.test.ts` | Valid data passes, type required, message length bounds, email regex |
+| `components/DefinitionModal.test.ts` | `getBlockBorderClass`, `formatRefSourceLabel`, `parseMarkdownSegments` (including null-input guards) |
 
 ---
 
@@ -594,6 +595,8 @@ The vitest config (`vitest.config.ts`) targets `src/__tests__/**/*.test.ts` and 
 | Bugfixes | ✅ | Node limit (MAX=20), graph stability on panel open, 404 handling, disconnected node gravity |
 | Hierarchical layout | ✅ | BFS-depth hierarchical layout mode; made default; Force and Hierarchical both functional |
 | Gatha/Shastra graph fix | ✅ | Added `MENTIONS_TOPIC` and `IN_SHASTRA` to expand/landing Cypher; fixed isolated focus-node kind fallback; added gatha/shastra UI tests |
+| DefinitionModal polish | ✅ | Dividers between sections/definitions; left border on blocks with references (amber=teeka, sky=shastra); only first qualifying reference shown per block; teeka badge now shows `shastra_name, teeka_name`; DetailsPanel body fixed with `flex-1 min-h-0` so panel scrolls and CTA stays visible |
+| Null text_devanagari fix | ✅ | `DefinitionBlock.text_devanagari` typed as `string \| null`; `parseMarkdownSegments` / `renderInlineMarkdown` accept null (return empty); `BlockPreview` guards null before `.length` check — prevents runtime TypeError on nodes whose blocks have no Devanagari text |
 
 ---
 

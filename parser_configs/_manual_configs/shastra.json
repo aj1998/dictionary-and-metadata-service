@@ -577,7 +577,7 @@
     "edition": "",
     "type": "publication",
     "alternate_name": "",
-    "public_url": ""
+    "public_url": "https://vitragelibrary.org/imagehandler/image-handler.ashx?imagepath=shastra/pdf/Naychakradi%20Sangrah.pdf"
   },
   {
     "shastra_name": "नयचक्र/श्रुतभवन",
@@ -680,7 +680,8 @@
     "short_form": "पं.का./मू.",
     "format": [
       "गाथा/पृष्ठ/पंक्ति",
-      "गाथा/पृष्ठ"
+      "गाथा/पृष्ठ",
+      "गाथा"
     ],
     "author": "",
     "date_format": "वि.सं.",

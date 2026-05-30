@@ -7,7 +7,7 @@ import { BadgeChip } from '@/components/BadgeChip';
 import { StatTileRow } from '@/components/StatTileRow';
 import { ConnectedItemRow } from '@/components/ConnectedItemRow';
 import { PrimaryCTA } from '@/components/PrimaryCTA';
-import { DefinitionModal } from '@/components/DefinitionModal';
+import { DefinitionModal, getBlockBorderClass, renderInlineMarkdown } from '@/components/DefinitionModal';
 import { EDGE_LABELS } from '@/components/RelationConnector';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import * as dataApi from '@/lib/api/data';
@@ -32,20 +32,23 @@ function buildTiles(detail: EntityDetail): [{ count: number; label: string }, { 
 
 function BlockPreview({ block }: { block: DefinitionBlock }) {
   const isSanskrit = block.kind === 'sanskrit_text' || block.kind === 'prakrit_text';
-  const devanagari = block.text_devanagari.length > 180
-    ? block.text_devanagari.slice(0, 180) + '…'
-    : block.text_devanagari;
+  const nonInline = block.references.filter((r) => !r.inline_reference);
+  const candidates = nonInline.length > 0 ? nonInline : block.references.filter((r) => r.inline_reference);
+  const refsToShow = candidates.filter((r) => r.resolved_fields.length > 0).slice(0, 1);
+  const borderClass = getBlockBorderClass(block, refsToShow);
+  const rawText = block.text_devanagari ?? '';
+  const devanagari = rawText.length > 180 ? rawText.slice(0, 180) + '…' : rawText;
   return (
-    <div className={cn(isSanskrit && 'rounded border-l-4 border-cat-keyword bg-surface-muted p-3')}>
+    <div className={`rounded border-l-4 ${borderClass} bg-surface-muted p-3`}>
       <p className={cn(
         'font-serif-hindi text-foreground',
         isSanskrit ? 'text-sm' : 'text-[length:var(--font-size-body)]',
       )}>
-        {devanagari}
+        {renderInlineMarkdown(devanagari)}
       </p>
       {block.hindi_translation && (
         <p className="mt-1 font-serif-hindi text-sm text-foreground-muted">
-          {block.hindi_translation}
+          {renderInlineMarkdown(block.hindi_translation)}
         </p>
       )}
     </div>
@@ -143,13 +146,13 @@ export function DetailsPanel({ open, selected, nodes, edges, depth, onClose, onS
   );
 
   const body = selectedNode ? (
-    <div className="flex flex-col">
-      <div className="border-b border-border p-4">
+    <div className="flex flex-1 min-h-0 flex-col">
+      <div className="shrink-0 border-b border-border p-4">
         <BadgeChip kind={selectedNode.kind} />
         <h2 className="mt-2 font-serif-hindi text-[length:var(--font-size-h1)] font-semibold text-foreground">{selectedNode.title_hi}</h2>
         {selectedNode.title_en && <p className="text-[length:var(--font-size-sm)] text-foreground-muted">{selectedNode.title_en}</p>}
       </div>
-      <div className="flex-1 space-y-4 overflow-y-auto p-4">
+      <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-4">
         {detail && <StatTileRow tiles={buildTiles(detail)} />}
         <section>
           <h3 className="mb-2 text-[length:var(--font-size-h3)] font-semibold">विवरण</h3>
@@ -172,7 +175,7 @@ export function DetailsPanel({ open, selected, nodes, edges, depth, onClose, onS
         </section>
       </div>
       {hasDefinitionContent && (
-        <div className="border-t border-border py-4">
+        <div className="shrink-0 border-t border-border py-4">
           <PrimaryCTA
             variant="soft"
             labelHi="पूरा वर्णन पढ़ें"
@@ -213,7 +216,7 @@ export function DetailsPanel({ open, selected, nodes, edges, depth, onClose, onS
   if (isDesktop) {
     return (
       <>
-        <aside role="complementary" aria-label="विवरण" className="flex h-screen w-[380px] shrink-0 flex-col overflow-hidden border-l border-border bg-surface">
+        <aside role="complementary" aria-label="विवरण" className="flex h-[calc(100vh-4rem)] w-[380px] shrink-0 flex-col overflow-hidden border-l border-border bg-surface">
           <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border bg-surface px-4 py-3">
             <p className="text-sm font-medium">विवरण</p>
             <button type="button" aria-label="Close details" onClick={onClose}><X className="size-4" /></button>
