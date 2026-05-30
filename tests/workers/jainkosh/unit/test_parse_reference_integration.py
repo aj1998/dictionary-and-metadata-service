@@ -665,3 +665,73 @@ def test_unknown_shastra_no_keyword_extraction(registry, config):
     assert result.needs_manual_match is True
     assert result.shastra_name is None
     assert result.resolved_fields == []
+
+
+# ---------------------------------------------------------------------------
+# Keyword-trigger group: {word1/word2}fieldname format support
+# ---------------------------------------------------------------------------
+
+@pytest.fixture
+def dhavala_kw_registry(norm_config):
+    """Registry with धवला having keyword-group format first."""
+    from workers.ingestion.jainkosh.parse_reference import ShastraEntry, ShastraRegistry, _normalise, parse_format_string
+    reg = ShastraRegistry()
+    entry = ShastraEntry(
+        shastra_name="धवला",
+        alternate_names=[],
+        short_form="ध",
+        format_str="पुस्तक/खण्ड,भाग,धवलासूत्र/{श्लोक/गाथा}गाथा/पृष्ठ",
+        format_groups=parse_format_string("पुस्तक/खण्ड,भाग,धवलासूत्र/{श्लोक/गाथा}गाथा/पृष्ठ"),
+        all_format_groups=[
+            parse_format_string("पुस्तक/खण्ड,भाग,धवलासूत्र/{श्लोक/गाथा}गाथा/पृष्ठ"),
+            parse_format_string("पुस्तक/खण्ड,भाग,धवलासूत्र/पृष्ठ/गाथा"),
+        ],
+        publisher="अमरावती",
+        type="publication",
+    )
+    reg.entries.append(entry)
+    reg._by_primary[_normalise("धवला", norm_config)] = entry
+    reg._by_short_form[_normalise("ध", norm_config)] = entry
+    return reg
+
+
+def test_dhavala_gatha_keyword_group(dhavala_kw_registry, config):
+    """धवला X/ गाथा N/P → keyword group matches, गाथा=N, पृष्ठ=P, no extra field."""
+    results = parse_reference_text("( धवला 3/1,2,1/ गाथा 4/6)", dhavala_kw_registry, config)
+    result = _single(results)
+    assert result.needs_manual_match is False
+    assert result.shastra_name == "धवला"
+    fields = {f.field: f.value for f in result.resolved_fields}
+    assert fields == {"पुस्तक": 3, "खण्ड": 1, "भाग": 2, "धवलासूत्र": 1, "गाथा": 4, "पृष्ठ": 6}
+
+
+def test_dhavala_shloka_maps_to_gatha_field(dhavala_kw_registry, config):
+    """धवला X/ श्लोक N/P → श्लोक trigger maps to गाथा field, no separate श्लोक field."""
+    results = parse_reference_text("( धवला 3/1,2,1/ श्लोक 3/5)", dhavala_kw_registry, config)
+    result = _single(results)
+    assert result.needs_manual_match is False
+    fields = {f.field: f.value for f in result.resolved_fields}
+    assert fields == {"पुस्तक": 3, "खण्ड": 1, "भाग": 2, "धवलासूत्र": 1, "गाथा": 3, "पृष्ठ": 5}
+    assert "श्लोक" not in fields  # श्लोक suppressed — consumed by keyword group
+
+
+def test_dhavala_no_keyword_falls_back_to_format1(dhavala_kw_registry, config):
+    """धवला with no गाथा/श्लोक keyword falls back to format 1 (पृष्ठ/गाथा order)."""
+    results = parse_reference_text("( धवला 1/1,1,1/183/11 )", dhavala_kw_registry, config)
+    result = _single(results)
+    assert result.needs_manual_match is False
+    fields = {f.field: f.value for f in result.resolved_fields}
+    assert fields["पुस्तक"] == 1
+    assert fields["पृष्ठ"] == 183
+    assert fields["गाथा"] == 11
+
+
+def test_dhavala_gatha_consumed_keyword_suppresses_level2(dhavala_kw_registry, config):
+    """When keyword group consumes गाथा, level-2 extraction must NOT add a conflicting गाथा field."""
+    # If गाथा were extracted by level-2 AND keyword-group, they'd conflict.
+    # The keyword group should suppress level-2 गाथा extraction.
+    results = parse_reference_text("धवला 9/4,1,45/ गाथा 67/183", dhavala_kw_registry, config)
+    result = _single(results)
+    assert result.needs_manual_match is False
+    fields = {f.field: f.value for f in result.resolved_fields}
+    assert fields == {"पुस्तक": 9, "खण्ड": 4, "भाग": 1, "धवलासूत्र": 45, "गाथा": 67, "पृष्ठ": 183}

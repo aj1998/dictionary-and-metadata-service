@@ -37,6 +37,9 @@ class FormatField:
 class FormatGroup:
     fields: list[FormatField]
     sub_separator: Optional[str]  # None | "," | "-"
+    keyword_triggers: list[str] = field(default_factory=list)
+    # Non-empty → this group matches by exact keyword prefix in the numeric string.
+    # The first matching keyword is consumed; the trailing number maps to fields[0].
 
     @property
     def is_optional(self) -> bool:
@@ -45,6 +48,10 @@ class FormatGroup:
     @property
     def has_required_field(self) -> bool:
         return any(not f.optional for f in self.fields)
+
+    @property
+    def is_keyword_group(self) -> bool:
+        return bool(self.keyword_triggers)
 
 
 # ---------------------------------------------------------------------------
@@ -228,12 +235,17 @@ def _collapse_ws(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
-def _preprocess_text(text: str, config: "ReferenceConfig") -> str:
+def _preprocess_text(
+    text: str,
+    config: "ReferenceConfig",
+    skip_section_keywords: bool = False,
+) -> str:
     # 14A.6a: pipeline is parens → punct → noise → keywords → collapse
     text = _strip_parens(text)
     text = _strip_punct(text)
     text = _strip_noise_phrases(text, config.noise_phrases)
-    text = _strip_section_keywords(text, config.section_keywords)
+    if not skip_section_keywords:
+        text = _strip_section_keywords(text, config.section_keywords)
     text = _collapse_ws(text)
     return text
 
@@ -243,15 +255,50 @@ def _preprocess_text(text: str, config: "ReferenceConfig") -> str:
 # ---------------------------------------------------------------------------
 
 _FIELD_RE = re.compile(r"(§?)([^/,\-§]+)")
+_KEYWORD_GROUP_RE = re.compile(r"^\{([^}]+)\}(.+)$")
+
+
+def _split_format_string_groups(fmt: str) -> list[str]:
+    """Split a format string on '/' while respecting '{...}' blocks."""
+    groups: list[str] = []
+    current: list[str] = []
+    depth = 0
+    for ch in fmt:
+        if ch == "{":
+            depth += 1
+            current.append(ch)
+        elif ch == "}":
+            depth -= 1
+            current.append(ch)
+        elif ch == "/" and depth == 0:
+            groups.append("".join(current))
+            current = []
+        else:
+            current.append(ch)
+    if current:
+        groups.append("".join(current))
+    return groups
 
 
 def parse_format_string(fmt: str) -> list[FormatGroup]:
     if not fmt:
         return []
     groups = []
-    for group_str in fmt.split("/"):
+    for group_str in _split_format_string_groups(fmt):
         group_str = group_str.strip()
         if not group_str:
+            continue
+
+        # Keyword trigger group: {word1/word2}fieldname
+        m_kw = _KEYWORD_GROUP_RE.match(group_str)
+        if m_kw:
+            triggers = [t.strip() for t in m_kw.group(1).split("/") if t.strip()]
+            field_name = m_kw.group(2).strip()
+            groups.append(FormatGroup(
+                fields=[FormatField(name=field_name, optional=False)],
+                sub_separator=None,
+                keyword_triggers=triggers,
+            ))
             continue
 
         if "," in group_str:
@@ -527,14 +574,41 @@ def _assign_group(
     return resolved, mismatch
 
 
+def _assign_keyword_group(
+    f_group: FormatGroup,
+    value_str: str,
+) -> tuple[list[ResolvedField], bool, str]:
+    """Match a keyword-trigger group: value_str must start with one of the triggers.
+
+    Returns (resolved_fields, mismatch_flag, matched_trigger).
+    matched_trigger is the keyword that was consumed, or "" on mismatch.
+    """
+    for trigger in f_group.keyword_triggers:
+        if value_str.startswith(trigger):
+            numeric_part = value_str[len(trigger):]
+            coerced = _coerce_value(numeric_part)
+            if coerced is not None:
+                field_name = f_group.fields[0].name
+                return [ResolvedField(field=field_name, value=coerced)], False, trigger
+    return [], True, ""
+
+
 def resolve_fields(
     numeric_clean: str,
     format_groups: list[FormatGroup],
     config: "ReferenceNeedsManualMatchConfig",
-) -> tuple[list[ResolvedField], bool]:
+) -> tuple[list[ResolvedField], bool, set[str]]:
+    """Resolve numeric string against format groups.
+
+    Returns (resolved_fields, needs_manual, consumed_keyword_triggers).
+    consumed_keyword_triggers: keyword trigger words consumed by keyword groups —
+    callers should suppress these from secondary _extract_keyword_fields extraction.
+    """
+    consumed_keyword_triggers: set[str] = set()
+
     if not numeric_clean:
         has_required = any(g.has_required_field for g in format_groups)
-        return [], has_required and config.on_missing_fields
+        return [], has_required and config.on_missing_fields, consumed_keyword_triggers
 
     value_groups = numeric_clean.split("/")
     resolved: list[ResolvedField] = []
@@ -547,7 +621,16 @@ def resolve_fields(
                 needs_manual = True
             continue
 
-        if f_group.is_optional:
+        if f_group.is_keyword_group:
+            value_str = value_groups[v_idx]
+            partial, mismatch, matched_trigger = _assign_keyword_group(f_group, value_str)
+            resolved.extend(partial)
+            if mismatch and config.on_missing_fields:
+                needs_manual = True
+            elif matched_trigger:
+                consumed_keyword_triggers.add(matched_trigger)
+            v_idx += 1
+        elif f_group.is_optional:
             if value_groups[v_idx].startswith("§"):
                 value_str = value_groups[v_idx][1:]
                 partial, mismatch = _assign_group(f_group, value_str)
@@ -567,7 +650,7 @@ def resolve_fields(
     if v_idx < len(value_groups) and config.on_extra_groups:
         needs_manual = True
 
-    return resolved, needs_manual
+    return resolved, needs_manual, consumed_keyword_triggers
 
 
 # ---------------------------------------------------------------------------
@@ -608,6 +691,13 @@ def parse_reference_text(
     numeric_raw = _strip_trailing_non_numeric(numeric_raw)
     numeric_clean = numeric_raw.replace(" ", "")
 
+    # Keyword-group formats need the numeric string WITH section keywords preserved
+    # so that keyword triggers (e.g. "गाथा", "श्लोक") are visible in the value stream.
+    clean_with_kw = _preprocess_text(text, config, skip_section_keywords=True)
+    _, numeric_raw_with_kw = split_name_and_numeric(clean_with_kw)
+    numeric_raw_with_kw = _strip_trailing_non_numeric(numeric_raw_with_kw)
+    numeric_clean_with_kw = numeric_raw_with_kw.replace(" ", "")
+
     entry, method, is_teeka, teeka_name = match_shastra(name_raw, registry, config)
 
     if entry is None:
@@ -624,12 +714,17 @@ def parse_reference_text(
     format_groups_list = entry.all_format_groups if entry.all_format_groups else [entry.format_groups]
     resolved_fields: list[ResolvedField] = []
     needs_manual = True
+    consumed_keyword_triggers: set[str] = set()
 
     for fmt_groups in format_groups_list:
-        rf, nm = resolve_fields(numeric_clean, fmt_groups, config.needs_manual_match)
+        # Keyword-group formats need the kw-preserved numeric string.
+        has_kw_groups = any(g.is_keyword_group for g in fmt_groups)
+        numeric = numeric_clean_with_kw if has_kw_groups else numeric_clean
+        rf, nm, consumed_kws = resolve_fields(numeric, fmt_groups, config.needs_manual_match)
         if not nm:
             resolved_fields = rf
             needs_manual = False
+            consumed_keyword_triggers = consumed_kws
             break
 
     # Invariant: when first-level fails, format-resolved fields are discarded.
@@ -638,8 +733,14 @@ def parse_reference_text(
 
     # ── Level 2: scan original text for 'keyword <number>' patterns ─────────
     # Keyword fields take priority over format-matched fields (add or override).
+    # Keywords already consumed by a keyword-group format are suppressed here
+    # to avoid double-extraction or conflicting values.
     # This runs whenever the shastra was identified, regardless of level-1 outcome.
-    keyword_fields = _extract_keyword_fields(text, config.section_keywords.keywords)
+    remaining_kw_keywords = [
+        kw for kw in config.section_keywords.keywords
+        if kw not in consumed_keyword_triggers
+    ]
+    keyword_fields = _extract_keyword_fields(text, remaining_kw_keywords)
     if keyword_fields:
         field_map: dict[str, ResolvedField] = {rf.field: rf for rf in resolved_fields}
         for kf in keyword_fields:

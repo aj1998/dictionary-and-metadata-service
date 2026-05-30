@@ -647,9 +647,12 @@ for full format DSL, annotated examples, and `ShastraRegistry` spec.
 **Key format DSL rules:**
 - `/` = primary section boundary; `,` or `-` = sub-separator within a group; `§` prefix = optional group.
 - `-` ambiguity: if format group separator is `,` then `"13-14"` is a range string (single value); if separator is `-` then `"13-14"` splits into two field values.
+- **`{word1/word2}fieldname` — keyword trigger group (v1.11.3)**: a group enclosed in `{…}` lists exact trigger words separated by `/`. If the corresponding position in the reference numeric stream starts with any of the listed words, the following number is mapped to `fieldname`. The matched trigger is suppressed from level-2 `_extract_keyword_fields`. Used in धवला format 1 to unambiguously capture `गाथा` or `श्लोक` as the गाथा field when the word appears literally between other numeric groups.
 - Resolution tries `shastra_name`, then `alternate_name`, then `short_form` (sets `match_method`).
 - **Space-to-slash fallback (v1.11.1)**: if name_raw contains spaces and all lookups fail, also try replacing spaces with `/` — handles `(नयचक्र (श्रुतभवन)/N)` which after paren-stripping gives `"नयचक्र श्रुतभवन"`, matched as `"नयचक्र/श्रुतभवन"`.
 - Unresolved → `needs_manual_match=true`.
+
+**Two-pass numeric resolution (v1.11.3)**: when a format has keyword trigger groups, the parser computes a second preprocessing pass that skips section-keyword stripping so the keywords remain visible in the numeric stream (`numeric_clean_with_kw`). This is used only for formats that contain `{…}` groups; regular formats continue to use the keyword-stripped numeric string.
 
 **`ShastraRegistry`**: loaded from `shastra.json`; NFC-indexed on name/alternate/short_form.
 `get_type(shastra_name)` → `"shastra"` | `"teeka"` | `"publication"` | `None`.
@@ -818,6 +821,7 @@ DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence an
 | `1.10.1` | Classless `<p>` containers with `<strong>/<b>` direct children: `_is_block_span_container` now allows `<strong>/<b>` as transparent wrappers. `parse_block_stream` carries the sibling `=` marker forward when a `<strong>/<b>` between source block and HindiText span produces no block, accumulating its text into the translation prefix. Fixes स्वभाव subsection 2.4 where `<strong><span class="HindiText">प्रश्न</span></strong>` was silently dropped. |
 | `1.11.1` | **(1)** Multi-verse block splitting: blocks whose non-inline refs all come from the same GRef text and carry multiple गाथा values are split at `।N।` markers (one block per verse). **(2)** Keyword underscore preservation: `target_keyword` in `see_also` blocks now keeps MediaWiki URL underscores (`प्रकृति_बंध`) instead of converting to spaces. **(3)** Space-to-slash matching in `ShastraRegistry`: names with spaces are tried as `/`-joined variants to handle `(नयचक्र (श्रुतभवन)/N)` after paren stripping. **(4)** `hindi_text` + `hindi_translation=null` + publication type + no teeka → `GathaTeekaBhaavarth` edge (was `Gatha`). |
 | `1.11.2` | **(1)** Stray-semicolon cleanup: after `strip_refs_from_text`, lines that consist solely of `;` (inter-GRef separator text left after stripping adjacent `<span class="GRef">` elements) are removed and multiple blank lines collapsed. **(2)** Flexible-whitespace ref matching: when exact `ref.text` is not found in the block text (because `_render_inline` normalises HTML-source newlines per line while `extract_ref_text` uses `text(strip=True)` which preserves internal `\n`), a regex with `\s+` between tokens is tried as a fallback. Both fixes apply in `strip_refs_from_text`. |
+| `1.11.3` | **Keyword trigger groups in format strings**: `{word1/word2}fieldname` syntax in `shastra.json` format strings. When the numeric stream at this position starts with one of the listed words, the trailing number is mapped to `fieldname` and the trigger word is suppressed from level-2 keyword extraction. Resolves धवला references of the form `धवला N/K,B,S/ गाथा G/P` and `धवला N/K,B,S/ श्लोक G/P` correctly — `गाथा`/`श्लोक` trigger maps to the `गाथा` field, and `पृष्ठ` follows. Previously these were `needs_manual_match=true` (गाथा refs) or produced wrong field order plus an extra `श्लोक` field (श्लोक refs). |
 
 ---
 
@@ -828,6 +832,7 @@ DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence an
 | आत्मा | V4 headings; no `<ol>` index | Detect via V4 regex; `index_relations` is empty. |
 | आत्मा | Standalone `• X - देखें Y` between subsections | Inline `देखें` (§6.7); attached to child label-seed. |
 | आत्मा | PuranKosh `<p id="1">(1)…`, `<p id="2">…` | Two separate Definitions (§3.2). |
+| द्रव्य | `धवला N/K,B,S/ गाथा G/P` and `धवला N/K,B,S/ श्लोक G/P` citations | Keyword trigger group `{श्लोक/गाथा}गाथा` (§11): `गाथा`/`श्लोक` maps to गाथा field; trigger suppressed from level-2 extraction. |
 | द्रव्य | Mixed V1+V2 headings within same section | Detect both. |
 | द्रव्य | Big `<table>` between sections 3 and 4 | Section's `extra_blocks` (§6.5). |
 | द्रव्य | Nested `<span class="SanskritText">…<span>…</span></span>` | Flatten via §6.4. |

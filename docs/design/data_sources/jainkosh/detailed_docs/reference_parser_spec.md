@@ -111,7 +111,40 @@ Group 1: "5"   → श्लोक=5
 Group 2: "18"  → पृष्ठ=18
 ```
 
-### 1.3 Parsed representation
+### 1.3 Keyword trigger groups
+
+Format strings may contain a `{word1/word2}fieldname` group:
+
+```
+Format:  पुस्तक/खण्ड,भाग,धवलासूत्र/{श्लोक/गाथा}गाथा/पृष्ठ
+Groups:  [पुस्तक] / [खण्ड, भाग, धवलासूत्र] / keyword-group[गाथा] / [पृष्ठ]
+```
+
+The `{श्लोक/गाथा}` part is a set of **trigger words**. When the corresponding position in the
+numeric stream starts with one of these exact words (after whitespace removal), the following
+digits are mapped to the named field (`गाथा` in this example). The matched trigger word is
+**consumed and suppressed** from the level-2 `_extract_keyword_fields` step.
+
+```
+Reference:  धवला 3/1,2,1/ गाथा 4/6
+  → numeric_with_kw = "3/1,2,1/गाथा4/6"  (keywords NOT stripped for this pass)
+  → Group 2 (keyword-group): "गाथा4" starts with "गाथा" → strip → "4" → गाथा=4
+  → Group 3 (पृष्ठ): "6" → पृष्ठ=6
+  → consumed: {"गाथा"}  (suppresses level-2 extraction of "गाथा 4")
+
+Reference:  धवला 3/1,2,1/ श्लोक 3/5
+  → numeric_with_kw = "3/1,2,1/श्लोक3/5"
+  → Group 2 (keyword-group): "श्लोक3" starts with "श्लोक" → strip → "3" → गाथा=3
+  → consumed: {"श्लोक"}  (no separate श्लोक field emitted)
+```
+
+Formats with keyword groups are tried with `numeric_clean_with_kw` (preprocessing that skips
+section-keyword stripping). Regular formats continue to use `numeric_clean` (keywords stripped).
+
+The format list should place the keyword-trigger format **first** so it wins when the keyword
+is present; it fails automatically (mismatch) when the numeric stream has no matching trigger.
+
+### 1.4 Parsed representation
 
 ```python
 @dataclass
@@ -123,6 +156,7 @@ class FormatField:
 class FormatGroup:
     fields: list[FormatField]
     sub_separator: Optional[str]   # None | "," | "-"
+    keyword_triggers: list[str]    # Non-empty for {word1/word2}fieldname groups
 
     @property
     def is_optional(self) -> bool:
@@ -131,10 +165,14 @@ class FormatGroup:
     @property
     def has_required_field(self) -> bool:
         return any(not f.optional for f in self.fields)
+
+    @property
+    def is_keyword_group(self) -> bool:
+        return bool(self.keyword_triggers)
 ```
 
 `FormatGroup.fields` always contains at least one `FormatField`.
-`FormatGroup.sub_separator` is `None` for single-field groups.
+`FormatGroup.sub_separator` is `None` for single-field groups and keyword-trigger groups.
 
 ---
 

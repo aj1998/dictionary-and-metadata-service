@@ -37,7 +37,8 @@ def missing_ok_config():
 
 def _resolve(fmt, numeric_clean, config):
     groups = parse_format_string(fmt)
-    return resolve_fields(numeric_clean, groups, config)
+    fields, needs_manual, _consumed = resolve_fields(numeric_clean, groups, config)
+    return fields, needs_manual
 
 
 def test_full_match(default_config):
@@ -227,3 +228,45 @@ def test_expand_resolved_fields_overflow():
         ResolvedField(field="b", value="1-10"),
     ]
     assert _expand_resolved_fields(fields) is None
+
+
+# ---------------------------------------------------------------------------
+# Keyword trigger groups
+# ---------------------------------------------------------------------------
+
+def test_keyword_group_matches_gatha(default_config):
+    """Keyword group {श्लोक/गाथा}गाथा resolves when value starts with 'गाथा'."""
+    groups = parse_format_string("पुस्तक/खण्ड,भाग,धवलासूत्र/{श्लोक/गाथा}गाथा/पृष्ठ")
+    fields, needs_manual, consumed = resolve_fields("3/1,2,1/गाथा4/6", groups, default_config)
+    assert needs_manual is False
+    assert consumed == {"गाथा"}
+    assert [(f.field, f.value) for f in fields] == [
+        ("पुस्तक", 3), ("खण्ड", 1), ("भाग", 2), ("धवलासूत्र", 1), ("गाथा", 4), ("पृष्ठ", 6),
+    ]
+
+
+def test_keyword_group_matches_shloka(default_config):
+    """Keyword group {श्लोक/गाथा}गाथा resolves when value starts with 'श्लोक'."""
+    groups = parse_format_string("पुस्तक/खण्ड,भाग,धवलासूत्र/{श्लोक/गाथा}गाथा/पृष्ठ")
+    fields, needs_manual, consumed = resolve_fields("3/1,2,1/श्लोक5/6", groups, default_config)
+    assert needs_manual is False
+    assert consumed == {"श्लोक"}
+    assert [(f.field, f.value) for f in fields] == [
+        ("पुस्तक", 3), ("खण्ड", 1), ("भाग", 2), ("धवलासूत्र", 1), ("गाथा", 5), ("पृष्ठ", 6),
+    ]
+
+
+def test_keyword_group_no_match_fails(default_config):
+    """Keyword group fails (needs_manual) when no trigger keyword is found."""
+    groups = parse_format_string("पुस्तक/{श्लोक/गाथा}गाथा/पृष्ठ")
+    fields, needs_manual, consumed = resolve_fields("3/183/11", groups, default_config)
+    assert needs_manual is True
+    assert consumed == set()
+
+
+def test_keyword_group_consumed_keywords_empty_for_regular_format(default_config):
+    """Regular (non-keyword-group) formats return empty consumed set."""
+    groups = parse_format_string("पुस्तक/खण्ड,भाग,सूत्र/पृष्ठ/गाथा")
+    fields, needs_manual, consumed = resolve_fields("1/1,1,1/84/1", groups, default_config)
+    assert needs_manual is False
+    assert consumed == set()

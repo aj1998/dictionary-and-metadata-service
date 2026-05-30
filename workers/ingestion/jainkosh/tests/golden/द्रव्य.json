@@ -1647,9 +1647,9 @@
                     "hindi_translation": "एक द्रव्य में अतीत अनागत और ‘अपि’ शब्द से वर्तमान पर्यायरूप जितनी अर्थपर्याय और व्यंजनपर्याय हैं, तत्प्रमाण वह द्रव्य होता है।।",
                     "references": [
                       {
-                        "text": "धवला 1/1,1,136/ गाथा 199/386",
+                        "text": "धवला 1/1,1,136/ गाथा 199/388",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "धवला",
@@ -1672,19 +1672,19 @@
                             "value": 136
                           },
                           {
-                            "field": "पृष्ठ",
+                            "field": "गाथा",
                             "value": 199
                           },
                           {
-                            "field": "गाथा",
-                            "value": 199
+                            "field": "पृष्ठ",
+                            "value": 388
                           }
                         ]
                       },
                       {
                         "text": "( धवला 3/1,2,1/ गाथा 4/6)",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "धवला",
@@ -1707,19 +1707,19 @@
                             "value": 1
                           },
                           {
-                            "field": "पृष्ठ",
+                            "field": "गाथा",
                             "value": 4
                           },
                           {
-                            "field": "गाथा",
-                            "value": 4
+                            "field": "पृष्ठ",
+                            "value": 6
                           }
                         ]
                       },
                       {
                         "text": "( धवला 9/4,1,45/ गाथा 67/183)",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "धवला",
@@ -1742,12 +1742,12 @@
                             "value": 45
                           },
                           {
-                            "field": "पृष्ठ",
+                            "field": "गाथा",
                             "value": 67
                           },
                           {
-                            "field": "गाथा",
-                            "value": 67
+                            "field": "पृष्ठ",
+                            "value": 183
                           }
                         ]
                       },
@@ -1819,7 +1819,7 @@
                       {
                         "text": "( धवला 3/1,2,1/ गाथा 3/5)",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "धवला",
@@ -1842,19 +1842,19 @@
                             "value": 1
                           },
                           {
-                            "field": "पृष्ठ",
+                            "field": "गाथा",
                             "value": 3
                           },
                           {
-                            "field": "गाथा",
-                            "value": 3
+                            "field": "पृष्ठ",
+                            "value": 5
                           }
                         ]
                       },
                       {
                         "text": "( धवला 9/4,1,45/ गाथा 66/183)",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "धवला",
@@ -1877,19 +1877,19 @@
                             "value": 45
                           },
                           {
-                            "field": "पृष्ठ",
+                            "field": "गाथा",
                             "value": 66
                           },
                           {
-                            "field": "गाथा",
-                            "value": 66
+                            "field": "पृष्ठ",
+                            "value": 183
                           }
                         ]
                       },
                       {
                         "text": "( धवला 13/5,5,59/ गाथा 32/310)",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "धवला",
@@ -1912,12 +1912,12 @@
                             "value": 59
                           },
                           {
-                            "field": "पृष्ठ",
+                            "field": "गाथा",
                             "value": 32
                           },
                           {
-                            "field": "गाथा",
-                            "value": 32
+                            "field": "पृष्ठ",
+                            "value": 310
                           }
                         ]
                       }
@@ -5992,16 +5992,12 @@
                                 "value": 1
                               },
                               {
-                                "field": "पृष्ठ",
-                                "value": 5
-                              },
-                              {
                                 "field": "गाथा",
-                                "value": 6
+                                "value": 5
                               },
                               {
-                                "field": "श्लोक",
-                                "value": 5
+                                "field": "पृष्ठ",
+                                "value": 6
                               }
                             ]
                           }
@@ -6018,35 +6014,44 @@
                       },
                       {
                         "kind": "hindi_text",
-                        "text_devanagari": "त्रिकाली पर्यायों का पिंड होने से द्रव्य कथंचित् एक व अनेक है।",
+                        "text_devanagari": "त्रिकाली पर्यायों का पिंड होने से द्रव्य कथंचित् एक व अनेक है।;",
                         "hindi_translation": null,
                         "references": [
                           {
-                            "text": "( धवला 3/1,2,1/",
+                            "text": "( धवला 3/1,2,1/ श्लोक 3/5)",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
                             "shastra_name": "धवला",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
-                          }
-                        ],
-                        "is_orphan_translation": false,
-                        "is_bullet_point": true,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": null,
-                        "target_topic_path": null,
-                        "target_url": null,
-                        "is_self": false,
-                        "target_exists": true
-                      },
-                      {
-                        "kind": "hindi_text",
-                        "text_devanagari": "श्लो.3/5);",
-                        "hindi_translation": null,
-                        "references": [
+                            "resolved_fields": [
+                              {
+                                "field": "पुस्तक",
+                                "value": 3
+                              },
+                              {
+                                "field": "खण्ड",
+                                "value": 1
+                              },
+                              {
+                                "field": "भाग",
+                                "value": 2
+                              },
+                              {
+                                "field": "धवलासूत्र",
+                                "value": 1
+                              },
+                              {
+                                "field": "गाथा",
+                                "value": 3
+                              },
+                              {
+                                "field": "पृष्ठ",
+                                "value": 5
+                              }
+                            ]
+                          },
                           {
                             "text": "( धवला 9/4,1,45/ श्लोक 66/183)",
                             "inline_reference": true,
@@ -6073,16 +6078,12 @@
                                 "value": 45
                               },
                               {
-                                "field": "पृष्ठ",
-                                "value": 66
-                              },
-                              {
                                 "field": "गाथा",
-                                "value": 183
+                                "value": 66
                               },
                               {
-                                "field": "श्लोक",
-                                "value": 66
+                                "field": "पृष्ठ",
+                                "value": 183
                               }
                             ]
                           }
@@ -6964,16 +6965,12 @@
                                 "value": 45
                               },
                               {
-                                "field": "पृष्ठ",
-                                "value": 68
-                              },
-                              {
                                 "field": "गाथा",
-                                "value": 183
+                                "value": 68
                               },
                               {
-                                "field": "श्लोक",
-                                "value": 68
+                                "field": "पृष्ठ",
+                                "value": 183
                               }
                             ]
                           }
@@ -8678,7 +8675,7 @@
       "next": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF_%E0%A4%86%E0%A4%B8%E0%A5%8D%E0%A4%B0%E0%A4%B5"
     },
     "parser_version": "jainkosh.rules/1.11.0",
-    "parsed_at": "2026-05-30T13:28:53.439728",
+    "parsed_at": "2026-05-30T18:35:00.563627",
     "warnings": []
   },
   "would_write": {
@@ -11567,9 +11564,9 @@
               "hindi_translation": "एक द्रव्य में अतीत अनागत और ‘अपि’ शब्द से वर्तमान पर्यायरूप जितनी अर्थपर्याय और व्यंजनपर्याय हैं, तत्प्रमाण वह द्रव्य होता है।।",
               "references": [
                 {
-                  "text": "धवला 1/1,1,136/ गाथा 199/386",
+                  "text": "धवला 1/1,1,136/ गाथा 199/388",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "धवला",
@@ -11592,19 +11589,19 @@
                       "value": 136
                     },
                     {
-                      "field": "पृष्ठ",
+                      "field": "गाथा",
                       "value": 199
                     },
                     {
-                      "field": "गाथा",
-                      "value": 199
+                      "field": "पृष्ठ",
+                      "value": 388
                     }
                   ]
                 },
                 {
                   "text": "( धवला 3/1,2,1/ गाथा 4/6)",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "धवला",
@@ -11627,19 +11624,19 @@
                       "value": 1
                     },
                     {
-                      "field": "पृष्ठ",
+                      "field": "गाथा",
                       "value": 4
                     },
                     {
-                      "field": "गाथा",
-                      "value": 4
+                      "field": "पृष्ठ",
+                      "value": 6
                     }
                   ]
                 },
                 {
                   "text": "( धवला 9/4,1,45/ गाथा 67/183)",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "धवला",
@@ -11662,12 +11659,12 @@
                       "value": 45
                     },
                     {
-                      "field": "पृष्ठ",
+                      "field": "गाथा",
                       "value": 67
                     },
                     {
-                      "field": "गाथा",
-                      "value": 67
+                      "field": "पृष्ठ",
+                      "value": 183
                     }
                   ]
                 },
@@ -11739,7 +11736,7 @@
                 {
                   "text": "( धवला 3/1,2,1/ गाथा 3/5)",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "धवला",
@@ -11762,19 +11759,19 @@
                       "value": 1
                     },
                     {
-                      "field": "पृष्ठ",
+                      "field": "गाथा",
                       "value": 3
                     },
                     {
-                      "field": "गाथा",
-                      "value": 3
+                      "field": "पृष्ठ",
+                      "value": 5
                     }
                   ]
                 },
                 {
                   "text": "( धवला 9/4,1,45/ गाथा 66/183)",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "धवला",
@@ -11797,19 +11794,19 @@
                       "value": 45
                     },
                     {
-                      "field": "पृष्ठ",
+                      "field": "गाथा",
                       "value": 66
                     },
                     {
-                      "field": "गाथा",
-                      "value": 66
+                      "field": "पृष्ठ",
+                      "value": 183
                     }
                   ]
                 },
                 {
                   "text": "( धवला 13/5,5,59/ गाथा 32/310)",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "धवला",
@@ -11832,12 +11829,12 @@
                       "value": 59
                     },
                     {
-                      "field": "पृष्ठ",
+                      "field": "गाथा",
                       "value": 32
                     },
                     {
-                      "field": "गाथा",
-                      "value": 32
+                      "field": "पृष्ठ",
+                      "value": 310
                     }
                   ]
                 }
@@ -15935,16 +15932,12 @@
                       "value": 1
                     },
                     {
-                      "field": "पृष्ठ",
-                      "value": 5
-                    },
-                    {
                       "field": "गाथा",
-                      "value": 6
+                      "value": 5
                     },
                     {
-                      "field": "श्लोक",
-                      "value": 5
+                      "field": "पृष्ठ",
+                      "value": 6
                     }
                   ]
                 }
@@ -15961,35 +15954,44 @@
             },
             {
               "kind": "hindi_text",
-              "text_devanagari": "त्रिकाली पर्यायों का पिंड होने से द्रव्य कथंचित् एक व अनेक है।",
+              "text_devanagari": "त्रिकाली पर्यायों का पिंड होने से द्रव्य कथंचित् एक व अनेक है।;",
               "hindi_translation": null,
               "references": [
                 {
-                  "text": "( धवला 3/1,2,1/",
+                  "text": "( धवला 3/1,2,1/ श्लोक 3/5)",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "धवला",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
-                }
-              ],
-              "is_orphan_translation": false,
-              "is_bullet_point": true,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "hindi_text",
-              "text_devanagari": "श्लो.3/5);",
-              "hindi_translation": null,
-              "references": [
+                  "resolved_fields": [
+                    {
+                      "field": "पुस्तक",
+                      "value": 3
+                    },
+                    {
+                      "field": "खण्ड",
+                      "value": 1
+                    },
+                    {
+                      "field": "भाग",
+                      "value": 2
+                    },
+                    {
+                      "field": "धवलासूत्र",
+                      "value": 1
+                    },
+                    {
+                      "field": "गाथा",
+                      "value": 3
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 5
+                    }
+                  ]
+                },
                 {
                   "text": "( धवला 9/4,1,45/ श्लोक 66/183)",
                   "inline_reference": true,
@@ -16016,16 +16018,12 @@
                       "value": 45
                     },
                     {
-                      "field": "पृष्ठ",
-                      "value": 66
-                    },
-                    {
                       "field": "गाथा",
-                      "value": 183
+                      "value": 66
                     },
                     {
-                      "field": "श्लोक",
-                      "value": 66
+                      "field": "पृष्ठ",
+                      "value": 183
                     }
                   ]
                 }
@@ -16907,16 +16905,12 @@
                       "value": 45
                     },
                     {
-                      "field": "पृष्ठ",
-                      "value": 68
-                    },
-                    {
                       "field": "गाथा",
-                      "value": 183
+                      "value": 68
                     },
                     {
-                      "field": "श्लोक",
-                      "value": 68
+                      "field": "पृष्ठ",
+                      "value": 183
                     }
                   ]
                 }
@@ -19302,12 +19296,12 @@
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:199",
+          "key": "धवला:टीका:2:पृष्ठ:388",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
             "publisher_id": "2",
-            "page_number": "199"
+            "page_number": "388"
           },
           "lazy": true
         },
@@ -19322,12 +19316,12 @@
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:4",
+          "key": "धवला:टीका:2:पृष्ठ:6",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
             "publisher_id": "2",
-            "page_number": "4"
+            "page_number": "6"
           },
           "lazy": true
         },
@@ -19337,17 +19331,6 @@
           "props": {
             "shastra_natural_key": "धवला",
             "gatha_number": "67"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:67",
-          "props": {
-            "shastra_natural_key": "धवला",
-            "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
-            "page_number": "67"
           },
           "lazy": true
         },
@@ -20148,12 +20131,23 @@
         },
         {
           "label": "GathaTeekaBhaavarth",
-          "key": "धवला:2:गाथा:टीका:भावार्थ:6",
+          "key": "धवला:2:गाथा:टीका:भावार्थ:5",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला",
             "publisher_id": "2",
-            "gatha_number": "6"
+            "gatha_number": "5"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "धवला:2:गाथा:टीका:भावार्थ:3",
+          "props": {
+            "shastra_natural_key": "धवला",
+            "teeka_natural_key": "धवला",
+            "publisher_id": "2",
+            "gatha_number": "3"
           },
           "lazy": true
         },
@@ -20169,24 +20163,11 @@
           "lazy": true
         },
         {
-          "label": "GathaTeekaBhaavarth",
-          "key": "धवला:2:गाथा:टीका:भावार्थ:183",
+          "label": "Gatha",
+          "key": "धवला:गाथा:66",
           "props": {
             "shastra_natural_key": "धवला",
-            "teeka_natural_key": "धवला",
-            "publisher_id": "2",
-            "gatha_number": "183"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:66",
-          "props": {
-            "shastra_natural_key": "धवला",
-            "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
-            "page_number": "66"
+            "gatha_number": "66"
           },
           "lazy": true
         },
@@ -20298,28 +20279,6 @@
             "source": "jainkosh",
             "is_leaf": true
           }
-        },
-        {
-          "label": "GathaTeekaBhaavarth",
-          "key": "धवला:2:गाथा:टीका:भावार्थ:3",
-          "props": {
-            "shastra_natural_key": "धवला",
-            "teeka_natural_key": "धवला",
-            "publisher_id": "2",
-            "gatha_number": "3"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:6",
-          "props": {
-            "shastra_natural_key": "धवला",
-            "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
-            "page_number": "6"
-          },
-          "lazy": true
         },
         {
           "label": "Gatha",
@@ -21690,7 +21649,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:199"
+            "key": "धवला:टीका:2:पृष्ठ:388"
           },
           "to": {
             "label": "Topic",
@@ -21726,7 +21685,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:4"
+            "key": "धवला:टीका:2:पृष्ठ:6"
           },
           "to": {
             "label": "Topic",
@@ -21762,7 +21721,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:67"
+            "key": "धवला:टीका:2:पृष्ठ:183"
           },
           "to": {
             "label": "Topic",
@@ -23311,7 +23270,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeekaBhaavarth",
-            "key": "धवला:2:गाथा:टीका:भावार्थ:6"
+            "key": "धवला:2:गाथा:टीका:भावार्थ:5"
           },
           "to": {
             "label": "Topic",
@@ -23329,7 +23288,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:5"
+            "key": "धवला:टीका:2:पृष्ठ:6"
           },
           "to": {
             "label": "Topic",
@@ -23347,7 +23306,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeekaBhaavarth",
-            "key": "धवला:2:गाथा:टीका:भावार्थ:183"
+            "key": "धवला:2:गाथा:टीका:भावार्थ:3"
           },
           "to": {
             "label": "Topic",
@@ -23356,8 +23315,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 4,
-            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:भेदाभेद-का-समन्वय/4",
+            "block_index": 3,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:भेदाभेद-का-समन्वय/3",
             "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:भेदाभेद-का-समन्वय"
           }
         },
@@ -23365,7 +23324,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:66"
+            "key": "धवला:टीका:2:पृष्ठ:5"
           },
           "to": {
             "label": "Topic",
@@ -23374,8 +23333,44 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 4,
-            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:भेदाभेद-का-समन्वय/4",
+            "block_index": 3,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:भेदाभेद-का-समन्वय/3",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:भेदाभेद-का-समन्वय"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "धवला:गाथा:66"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:भेदाभेद-का-समन्वय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 3,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:भेदाभेद-का-समन्वय/3",
+            "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:भेदाभेद-का-समन्वय"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "धवला:टीका:2:पृष्ठ:183"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:भेदाभेद-का-समन्वय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 3,
+            "mention_path": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:भेदाभेद-का-समन्वय/3",
             "source_natural_key": "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-या-पर्यायपर्यायी-की-अपेक्षा-द्रव्य-में-कथंचित्-भेदाभेद:भेदाभेद-का-समन्वय"
           }
         },

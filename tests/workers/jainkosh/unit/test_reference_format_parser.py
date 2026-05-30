@@ -72,3 +72,33 @@ def test_has_required_field():
     groups = parse_format_string("गाथा")
     assert groups[0].has_required_field is True
     assert groups[0].is_optional is False
+
+
+# ---------------------------------------------------------------------------
+# Keyword trigger group: {word1/word2}fieldname syntax
+# ---------------------------------------------------------------------------
+
+def test_keyword_group_parsed():
+    """'{श्लोक/गाथा}गाथा' produces a keyword-trigger group."""
+    groups = parse_format_string("पुस्तक/खण्ड,भाग,धवलासूत्र/{श्लोक/गाथा}गाथा/पृष्ठ")
+    assert len(groups) == 4
+    kw_group = groups[2]
+    assert kw_group.is_keyword_group is True
+    assert kw_group.keyword_triggers == ["श्लोक", "गाथा"]
+    assert kw_group.fields[0].name == "गाथा"
+    assert kw_group.sub_separator is None
+
+
+def test_keyword_group_not_is_optional():
+    groups = parse_format_string("{श्लोक/गाथा}गाथा")
+    assert len(groups) == 1
+    assert groups[0].is_keyword_group is True
+    assert groups[0].is_optional is False
+    assert groups[0].has_required_field is True
+
+
+def test_regular_groups_not_keyword_groups():
+    """Non-{} groups must not be flagged as keyword groups."""
+    groups = parse_format_string("पुस्तक/खण्ड,भाग,धवलासूत्र/पृष्ठ/गाथा")
+    for g in groups:
+        assert g.is_keyword_group is False
