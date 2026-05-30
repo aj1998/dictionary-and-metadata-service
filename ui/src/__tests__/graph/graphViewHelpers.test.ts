@@ -84,6 +84,65 @@ describe('buildCanvasNodes', () => {
     expect(result).toHaveLength(1);
   });
 
+  it('includes gatha nodes when gatha category is visible', () => {
+    const nodes: Record<string, GraphNode> = {
+      g1: makeNode('g1', 'gatha'),
+      g2: makeNode('g2', 'gatha'),
+      t1: makeNode('t1', 'topic'),
+    };
+    const result = buildCanvasNodes(nodes, ALL_VISIBLE, null, new Set());
+    const gathaNodes = result.filter((n) => n.kind === 'gatha');
+    expect(gathaNodes).toHaveLength(2);
+  });
+
+  it('excludes gatha nodes when gatha category is hidden', () => {
+    const nodes: Record<string, GraphNode> = {
+      g1: makeNode('g1', 'gatha'),
+      t1: makeNode('t1', 'topic'),
+    };
+    const vis = { ...ALL_VISIBLE, gatha: false };
+    const result = buildCanvasNodes(nodes, vis, null, new Set());
+    expect(result.every((n) => n.kind !== 'gatha')).toBe(true);
+    expect(result).toHaveLength(1);
+  });
+
+  it('includes shastra nodes when shastra category is visible', () => {
+    const nodes: Record<string, GraphNode> = {
+      s1: makeNode('s1', 'shastra'),
+      t1: makeNode('t1', 'topic'),
+    };
+    const result = buildCanvasNodes(nodes, ALL_VISIBLE, null, new Set());
+    const shastraNodes = result.filter((n) => n.kind === 'shastra');
+    expect(shastraNodes).toHaveLength(1);
+  });
+
+  it('excludes shastra nodes when shastra category is hidden', () => {
+    const nodes: Record<string, GraphNode> = {
+      s1: makeNode('s1', 'shastra'),
+      g1: makeNode('g1', 'gatha'),
+      t1: makeNode('t1', 'topic'),
+    };
+    const vis = { ...ALL_VISIBLE, shastra: false };
+    const result = buildCanvasNodes(nodes, vis, null, new Set());
+    expect(result.every((n) => n.kind !== 'shastra')).toBe(true);
+    expect(result).toHaveLength(2);
+  });
+
+  it('includes all 4 node kinds when all categories are visible', () => {
+    const nodes: Record<string, GraphNode> = {
+      s1: makeNode('s1', 'shastra'),
+      g1: makeNode('g1', 'gatha'),
+      t1: makeNode('t1', 'topic'),
+      k1: makeNode('k1', 'keyword'),
+    };
+    const result = buildCanvasNodes(nodes, ALL_VISIBLE, null, new Set());
+    const kinds = new Set(result.map((n) => n.kind));
+    expect(kinds).toContain('shastra');
+    expect(kinds).toContain('gatha');
+    expect(kinds).toContain('topic');
+    expect(kinds).toContain('keyword');
+  });
+
   it('marks the selected node', () => {
     const nodes = { a: makeNode('a'), b: makeNode('b') };
     const result = buildCanvasNodes(nodes, ALL_VISIBLE, 'a', new Set());
@@ -188,6 +247,62 @@ describe('buildCanvasEdges', () => {
     const rendered = new Set(['a', 'b', 'c']);
     const result = buildCanvasEdges(edges, nodes, rendered, ALL_VISIBLE, null);
     expect(result).toHaveLength(3);
+  });
+
+  it('includes MENTIONS_TOPIC edges between gatha and topic nodes', () => {
+    const nodes = {
+      g1: makeNode('g1', 'gatha'),
+      t1: makeNode('t1', 'topic'),
+    };
+    const edges: Record<string, GraphEdge> = {
+      e1: { id: 'e1', src: 'g1', dst: 't1', kind: 'MENTIONS_TOPIC', weight: 1 },
+    };
+    const rendered = new Set(['g1', 't1']);
+    const result = buildCanvasEdges(edges, nodes, rendered, ALL_VISIBLE, null);
+    expect(result).toHaveLength(1);
+    expect(result[0].kind).toBe('MENTIONS_TOPIC');
+  });
+
+  it('includes IN_SHASTRA edges between gatha and shastra nodes', () => {
+    const nodes = {
+      g1: makeNode('g1', 'gatha'),
+      s1: makeNode('s1', 'shastra'),
+    };
+    const edges: Record<string, GraphEdge> = {
+      e1: { id: 'e1', src: 'g1', dst: 's1', kind: 'IN_SHASTRA', weight: 1 },
+    };
+    const rendered = new Set(['g1', 's1']);
+    const result = buildCanvasEdges(edges, nodes, rendered, ALL_VISIBLE, null);
+    expect(result).toHaveLength(1);
+    expect(result[0].kind).toBe('IN_SHASTRA');
+  });
+
+  it('excludes MENTIONS_TOPIC edge when gatha category is hidden', () => {
+    const nodes = {
+      g1: makeNode('g1', 'gatha'),
+      t1: makeNode('t1', 'topic'),
+    };
+    const edges: Record<string, GraphEdge> = {
+      e1: { id: 'e1', src: 'g1', dst: 't1', kind: 'MENTIONS_TOPIC', weight: 1 },
+    };
+    const rendered = new Set(['g1', 't1']);
+    const vis = { ...ALL_VISIBLE, gatha: false };
+    const result = buildCanvasEdges(edges, nodes, rendered, vis, null);
+    expect(result).toHaveLength(0);
+  });
+
+  it('excludes IN_SHASTRA edge when shastra category is hidden', () => {
+    const nodes = {
+      g1: makeNode('g1', 'gatha'),
+      s1: makeNode('s1', 'shastra'),
+    };
+    const edges: Record<string, GraphEdge> = {
+      e1: { id: 'e1', src: 'g1', dst: 's1', kind: 'IN_SHASTRA', weight: 1 },
+    };
+    const rendered = new Set(['g1', 's1']);
+    const vis = { ...ALL_VISIBLE, shastra: false };
+    const result = buildCanvasEdges(edges, nodes, rendered, vis, null);
+    expect(result).toHaveLength(0);
   });
 });
 

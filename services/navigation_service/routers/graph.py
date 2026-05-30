@@ -46,7 +46,13 @@ def _label_to_kind(label: str | None) -> str:
     return mapping.get(normalized, "topic")
 
 
-def _build_payload(records: list[dict], *, focus_nk: str, depth: int) -> GraphPayload:
+def _build_payload(
+    records: list[dict],
+    *,
+    focus_nk: str,
+    depth: int,
+    focus_label: str | None = None,
+) -> GraphPayload:
     nodes: dict[str, GraphNode] = {}
     edges: list[GraphEdge] = []
 
@@ -90,7 +96,14 @@ def _build_payload(records: list[dict], *, focus_nk: str, depth: int) -> GraphPa
             )
 
     if focus_nk not in nodes:
-        nodes[focus_nk] = GraphNode(nk=focus_nk, kind="topic", title_hi=focus_nk, degree=0)
+        # Use the label returned by the Cypher query if available, falling back to "topic"
+        # so that isolated gatha/shastra focus nodes get the correct kind.
+        nodes[focus_nk] = GraphNode(
+            nk=focus_nk,
+            kind=_label_to_kind(focus_label),
+            title_hi=focus_nk,
+            degree=0,
+        )
 
     return GraphPayload(nodes=list(nodes.values()), edges=edges, focus_nk=focus_nk, depth=depth)
 
@@ -124,7 +137,7 @@ async def landing(
 ) -> GraphPayload:
     stub_clause = "AND NOT (coalesce(s.is_stub, false) OR coalesce(t.is_stub, false))" if exclude_stubs else ""
     cypher = f"""
-    MATCH (s)-[r:IS_A|PART_OF|RELATED_TO]-(t)
+    MATCH (s)-[r:IS_A|PART_OF|RELATED_TO|HAS_TOPIC|MENTIONS_KEYWORD|MENTIONS_TOPIC|IN_SHASTRA]-(t)
     WHERE (s:Topic OR s:Keyword OR s:Shastra OR s:Gatha)
       AND (t:Topic OR t:Keyword OR t:Shastra OR t:Gatha)
       {stub_clause}
@@ -178,11 +191,11 @@ async def expand(
     stub_clause = "AND NOT (coalesce(s.is_stub, false) OR coalesce(t.is_stub, false))" if exclude_stubs else ""
     cypher = f"""
     MATCH (focus {{natural_key: $nk}})
-    OPTIONAL MATCH p=(focus)-[r:IS_A|PART_OF|RELATED_TO|HAS_TOPIC|MENTIONS_KEYWORD*1..4]-(n)
-    WITH focus, p, n, relationships(p) AS rels
+    OPTIONAL MATCH p=(focus)-[r:IS_A|PART_OF|RELATED_TO|HAS_TOPIC|MENTIONS_KEYWORD|MENTIONS_TOPIC|IN_SHASTRA*1..4]-(n)
+    WITH focus, p, n, relationships(p) AS rels, labels(focus)[0] AS focus_label
     WHERE p IS NULL OR length(p) <= $depth
     UNWIND CASE WHEN p IS NULL THEN [] ELSE rels END AS rel
-    WITH focus, startNode(rel) AS s, endNode(rel) AS t, rel
+    WITH focus, focus_label, startNode(rel) AS s, endNode(rel) AS t, rel
     WHERE true {stub_clause}
     RETURN coalesce(s.natural_key, '') AS src_nk,
            labels(s)[0] AS src_label,
@@ -191,13 +204,15 @@ async def expand(
            labels(t)[0] AS dst_label,
            coalesce(t.display_text_hi, t.display_text, t.natural_key, '') AS dst_hi,
            type(rel) AS rel_type,
-           coalesce(rel.weight, 1.0) AS weight
+           coalesce(rel.weight, 1.0) AS weight,
+           focus_label
     LIMIT 500
     """
     async with driver.session(database=settings.NEO4J_DATABASE) as session:
         records = await (await session.run(cypher, nk=natural_key, depth=depth)).data()
+    focus_label = records[0].get("focus_label") if records else None
     logger.info("Graph expand payload generated for nk=%s, depth=%s, records=%s (exclude_stubs=%s)", natural_key, depth, len(records), exclude_stubs)
-    return _build_payload(records, focus_nk=natural_key, depth=depth)
+    return _build_payload(records, focus_nk=natural_key, depth=depth, focus_label=focus_label)
 
 
 @router.get("/preview/{natural_key}", response_model=GraphPayload)

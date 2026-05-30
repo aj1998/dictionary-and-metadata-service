@@ -409,6 +409,20 @@ Files: `src/app/[locale]/graph/`
 4. Force simulation starts and settles automatically.
 5. URL sync: 500ms debounce, `history.replaceState`.
 
+### Graph edge types traversed
+
+The navigation service expand/preview queries traverse these Neo4j relationship types to build the graph payload:
+
+| Edge type | Direction | Connects |
+|---|---|---|
+| `IS_A` / `PART_OF` / `RELATED_TO` | any | Topic ↔ Topic |
+| `HAS_TOPIC` | Keyword → Topic | Keyword to its sub-topics |
+| `MENTIONS_KEYWORD` | Topic → Keyword | Topic to keywords it mentions |
+| `MENTIONS_TOPIC` | Gatha → Topic | **Gatha to topics it discusses** |
+| `IN_SHASTRA` | Gatha → Shastra | **Gatha to its parent Shastra** |
+
+`MENTIONS_TOPIC` and `IN_SHASTRA` are required for gatha and shastra nodes to appear in the graph. Without them, expanding from a topic yields only topic/keyword nodes.
+
 ### Canvas (`GraphCanvas.tsx`)
 - Full-size `<svg>` with a dotted 24×24px tile grid (dot radius clamped `[0.75, 1.5]`).
 - Single `<g>` wrapper with camera transform (translate + scale) applied for pan/zoom.
@@ -579,6 +593,7 @@ The vitest config (`vitest.config.ts`) targets `src/__tests__/**/*.test.ts` and 
 | Vivaran fix | ✅ | Keyword definition rendering, topic extracts, DefinitionModal, CTA soft variant, footer clip fix |
 | Bugfixes | ✅ | Node limit (MAX=20), graph stability on panel open, 404 handling, disconnected node gravity |
 | Hierarchical layout | ✅ | BFS-depth hierarchical layout mode; made default; Force and Hierarchical both functional |
+| Gatha/Shastra graph fix | ✅ | Added `MENTIONS_TOPIC` and `IN_SHASTRA` to expand/landing Cypher; fixed isolated focus-node kind fallback; added gatha/shastra UI tests |
 
 ---
 
