@@ -122,6 +122,79 @@ class TestExtractRefsFromNode:
         assert refs[0].shastra_name == "पंचास्तिकाय"
 
 
+class TestStripRefsFromText:
+    """Tests for strip_refs_from_text: trailing-semicolon cleanup and flexible whitespace."""
+
+    def test_trailing_semicolons_between_grefs_stripped(self, config):
+        """Stray semicolons left between adjacent GRef spans are removed from text_devanagari.
+
+        HTML pattern: prose <span class="GRef">(ref1)</span>\n;  <span class="GRef">(ref2)</span>
+        After stripping refs, the '; ' line should disappear.
+        """
+        html = (
+            '<p class="HindiText">गुण और पर्यायों वाला द्रव्य है। '
+            '<span class="GRef">( नियमसार/9 )</span>\n'
+            ';  <span class="GRef">( प्रवचनसार/95 )</span>\n'
+            '</p>'
+        )
+        block = parse_p_to_block(html, config)
+        assert block.kind == "hindi_text"
+        assert ";" not in block.text_devanagari, (
+            f"Stray semicolon found in text_devanagari: {block.text_devanagari!r}"
+        )
+        assert "गुण और पर्यायों वाला द्रव्य है।" in block.text_devanagari
+
+    def test_multiple_trailing_semicolons_stripped(self, config):
+        """Multiple stray semicolons (one per GRef separator) are all removed."""
+        html = (
+            '<p class="HindiText">द्रव्य है।'
+            '<span class="GRef">( ref1 )</span>\n'
+            ';  <span class="GRef">( ref2 )</span>\n'
+            ';  <span class="GRef">( ref3 )</span>\n'
+            ';  <span class="GRef">( ref4 )</span>\n'
+            '</p>'
+        )
+        block = parse_p_to_block(html, config)
+        assert ";" not in block.text_devanagari, (
+            f"Stray semicolons in text: {block.text_devanagari!r}"
+        )
+        assert "द्रव्य है।" in block.text_devanagari
+
+    def test_ref_with_html_source_newline_stripped(self, config):
+        """A GRef whose inner text has an HTML-source newline (not <br>) is stripped.
+
+        This covers the हरिवंशपुराण case: the GRef HTML has a raw newline between
+        the anchor text and the continuation ', 2.108, 17.135'. After rendering, the
+        block text has a newline where ref.text has a space — but the ref must still
+        be stripped from text_devanagari.
+        """
+        # Simulate the HTML pattern with indentation that creates ref.text with \n + space
+        # while _render_inline normalises each line (stripping leading space after \n).
+        html = (
+            '<p class="HindiText">ज्ञेय होता है। '
+            '<span class="GRef">'
+            '<a href="/wiki/X">हरिवंशपुराण - 1.1</a>\n'
+            '    , 2.108, 17.135\n'
+            '</span></p>'
+        )
+        block = parse_p_to_block(html, config)
+        assert "हरिवंशपुराण" not in block.text_devanagari, (
+            f"Reference text not stripped from text_devanagari: {block.text_devanagari!r}"
+        )
+        assert "ज्ञेय होता है।" in block.text_devanagari
+
+    def test_legitimate_inline_semicolon_preserved(self, config):
+        """A semicolon within prose (not on its own line) is NOT removed."""
+        html = (
+            '<p class="HindiText">गुणों के समुदाय को द्रव्य कहते हैं; '
+            'केवल इतने से भी कोई आचार्य द्रव्य का लक्षण करते हैं।</p>'
+        )
+        block = parse_p_to_block(html, config)
+        assert ";" in block.text_devanagari, (
+            "Inline prose semicolon was incorrectly removed"
+        )
+
+
 class TestIsBulletPoint:
     def test_is_bullet_point_set_for_li_element(self, config):
         """A block produced from an <li> node gets is_bullet_point=True."""

@@ -4,7 +4,7 @@
 > Covers HTML structure rules, parser implementation, configuration, models,
 > algorithms, CLI, tests, and edge-emission specs.
 >
-> **Current version**: `jainkosh.rules/1.11.0`
+> **Current version**: `jainkosh.rules/1.11.2`
 >
 > Archived source specs (pre-v1.7 detail):
 > `detailed_docs/parsing_rules.md`, `parser_spec.md`,
@@ -817,6 +817,7 @@ DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence an
 | `1.10.0` | `<br/>`-separated `देखें` as section-level seeds: initial prose + `<br/>`-separated `देखें (label)` lines → `PageSection.label_topic_seeds`. Definition `hindi_translation` cleaned. |
 | `1.10.1` | Classless `<p>` containers with `<strong>/<b>` direct children: `_is_block_span_container` now allows `<strong>/<b>` as transparent wrappers. `parse_block_stream` carries the sibling `=` marker forward when a `<strong>/<b>` between source block and HindiText span produces no block, accumulating its text into the translation prefix. Fixes स्वभाव subsection 2.4 where `<strong><span class="HindiText">प्रश्न</span></strong>` was silently dropped. |
 | `1.11.1` | **(1)** Multi-verse block splitting: blocks whose non-inline refs all come from the same GRef text and carry multiple गाथा values are split at `।N।` markers (one block per verse). **(2)** Keyword underscore preservation: `target_keyword` in `see_also` blocks now keeps MediaWiki URL underscores (`प्रकृति_बंध`) instead of converting to spaces. **(3)** Space-to-slash matching in `ShastraRegistry`: names with spaces are tried as `/`-joined variants to handle `(नयचक्र (श्रुतभवन)/N)` after paren stripping. **(4)** `hindi_text` + `hindi_translation=null` + publication type + no teeka → `GathaTeekaBhaavarth` edge (was `Gatha`). |
+| `1.11.2` | **(1)** Stray-semicolon cleanup: after `strip_refs_from_text`, lines that consist solely of `;` (inter-GRef separator text left after stripping adjacent `<span class="GRef">` elements) are removed and multiple blank lines collapsed. **(2)** Flexible-whitespace ref matching: when exact `ref.text` is not found in the block text (because `_render_inline` normalises HTML-source newlines per line while `extract_ref_text` uses `text(strip=True)` which preserves internal `\n`), a regex with `\s+` between tokens is tried as a fallback. Both fixes apply in `strip_refs_from_text`. |
 
 ---
 

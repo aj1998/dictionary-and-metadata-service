@@ -136,14 +136,36 @@ def is_leading_reference_node(node: Node, config: JainkoshConfig) -> bool:
     return not remaining
 
 
+def _flexible_ref_pattern(ref_text: str) -> "re.Pattern[str] | None":
+    """Build a regex matching ref_text with flexible whitespace between tokens.
+
+    Used as a fallback when the exact ref_text string is not found in the block
+    text — handles cases where the HTML source has raw newlines (not <br> tags)
+    inside a GRef span, producing a different whitespace shape in the rendered
+    block text vs. the normalised ref.text.
+    """
+    tokens = ref_text.split()
+    if not tokens:
+        return None
+    return re.compile(r"\s+".join(re.escape(t) for t in tokens))
+
+
 def strip_refs_from_text(text: str, refs: list[Reference], config: JainkoshConfig) -> str:
     """Remove inline reference text snippets from prose according to parser config."""
     if not config.ref_strip.enabled:
         return text
     out = text
     for ref in refs:
-        if ref.text:
+        if not ref.text:
+            continue
+        if ref.text in out:
             out = out.replace(ref.text, " ")
+        else:
+            # Fallback: match with flexible whitespace (handles HTML-source newlines
+            # inside GRef spans whose text(strip=True) collapses them to spaces).
+            pat = _flexible_ref_pattern(ref.text)
+            if pat:
+                out = pat.sub(" ", out)
     if config.ref_strip.collapse_orphan_parens:
         out = re.sub(r"\(\s*\)", "", out)
     if config.ref_strip.collapse_orphan_brackets:
@@ -151,6 +173,12 @@ def strip_refs_from_text(text: str, refs: list[Reference], config: JainkoshConfi
     if config.ref_strip.collapse_double_spaces:
         out = re.sub(r"[ \t]{2,}", " ", out)
         out = re.sub(r"\s*\n\s*", "\n", out)
+    # Remove lines that consist solely of semicolons — these are inter-GRef
+    # separator characters (plain HTML text between adjacent <span class="GRef">
+    # elements) that remain after ref-text stripping.
+    out = re.sub(r"(?m)^[ \t]*;[ \t]*$", "", out)
+    # Collapse multiple blank lines left by the above cleanup.
+    out = re.sub(r"\n{2,}", "\n", out)
     trim_chars = config.ref_strip.trim_trailing_chars
     if trim_chars:
         out = re.sub(r"^[" + re.escape(trim_chars) + r"]+", "", out)
