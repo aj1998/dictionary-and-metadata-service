@@ -145,7 +145,7 @@
           },
           {
             "label_text": "षट् द्रव्यों की सिद्धि",
-            "target_keyword": "वह वह नाम",
+            "target_keyword": "वह_वह_नाम",
             "target_topic_path": null,
             "target_url": "/w/index.php?title=%E0%A4%B5%E0%A4%B9_%E0%A4%B5%E0%A4%B9_%E0%A4%A8%E0%A4%BE%E0%A4%AE&action=edit&redlink=1",
             "is_self": false,
@@ -2145,8 +2145,8 @@
                   },
                   {
                     "kind": "sanskrit_text",
-                    "text_devanagari": "अजीवकाया धर्माधर्माकाशपुद्गला:।1। द्रव्याणि।2। जीवाश्च।3। कालश्च।39।",
-                    "hindi_translation": "धर्म, अधर्म, आकाश और पुद्गल ये अजीवकाय हैं।1। ये चारों द्रव्य हैं।2। जीव भी द्रव्य है।3। काल भी द्रव्य है।39।।",
+                    "text_devanagari": "अजीवकाया धर्माधर्माकाशपुद्गला:।1।",
+                    "hindi_translation": "धर्म, अधर्म, आकाश और पुद्गल ये अजीवकाय हैं।1।",
                     "references": [
                       {
                         "text": "तत्त्वार्थसूत्र/5/1-3,39",
@@ -2166,7 +2166,23 @@
                             "value": 1
                           }
                         ]
-                      },
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "sanskrit_text",
+                    "text_devanagari": "द्रव्याणि।2।",
+                    "hindi_translation": "ये चारों द्रव्य हैं।2।",
+                    "references": [
                       {
                         "text": "तत्त्वार्थसूत्र/5/1-3,39",
                         "inline_reference": false,
@@ -2185,7 +2201,23 @@
                             "value": 2
                           }
                         ]
-                      },
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "sanskrit_text",
+                    "text_devanagari": "जीवाश्च।3।",
+                    "hindi_translation": "जीव भी द्रव्य है।3।",
+                    "references": [
                       {
                         "text": "तत्त्वार्थसूत्र/5/1-3,39",
                         "inline_reference": false,
@@ -2204,7 +2236,23 @@
                             "value": 3
                           }
                         ]
-                      },
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "sanskrit_text",
+                    "text_devanagari": "कालश्च।39।",
+                    "hindi_translation": "काल भी द्रव्य है।39।।",
+                    "references": [
                       {
                         "text": "तत्त्वार्थसूत्र/5/1-3,39",
                         "inline_reference": false,
@@ -3894,8 +3942,8 @@
                 "blocks": [
                   {
                     "kind": "prakrit_text",
-                    "text_devanagari": "वंजणपरिणइविरहा धम्मादीआ हवे अपरिणामा। अत्थपरिणामभासिय सव्वे परिणामिणो अत्था।27। मुत्ता जीवं कायं णिच्चा सेसा पयासिया समये। वंजणमपरिणामचुया इयरे तं परिणयंपत्ता।3।",
-                    "hindi_translation": "धर्म, अधर्म, आकाश और चार द्रव्य व्यंजनपर्याय के अभाव से अपरिणामी कहलाते हैं। किंतु अर्थपर्याय की अपेक्षा सभी पदार्थ परिणामी माने जाते हैं, क्योंकि अर्थपर्याय सभी द्रव्यों में होती है।27। जीव और पुद्गल इन दो द्रव्यों को छोड़कर शेष चारों द्रव्यों को परमागम में नित्य कहा गया है, क्योंकि उनमें व्यंजनपर्यायें नहीं पायी जाती हैं। जीव और पुद्गल इन दो द्रव्यों में व्यंजनपर्याय पायी जाती है, इसलिए वे परिणामी व अनित्य हैं।33।।",
+                    "text_devanagari": "वंजणपरिणइविरहा धम्मादीआ हवे अपरिणामा। अत्थपरिणामभासिय सव्वे परिणामिणो अत्था।27।",
+                    "hindi_translation": "धर्म, अधर्म, आकाश और चार द्रव्य व्यंजनपर्याय के अभाव से अपरिणामी कहलाते हैं। किंतु अर्थपर्याय की अपेक्षा सभी पदार्थ परिणामी माने जाते हैं, क्योंकि अर्थपर्याय सभी द्रव्यों में होती है।27।",
                     "references": [
                       {
                         "text": "वसुनंदी श्रावकाचार/27,33",
@@ -3911,7 +3959,23 @@
                             "value": 27
                           }
                         ]
-                      },
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "prakrit_text",
+                    "text_devanagari": "मुत्ता जीवं कायं णिच्चा सेसा पयासिया समये। वंजणमपरिणामचुया इयरे तं परिणयंपत्ता।33।",
+                    "hindi_translation": "जीव और पुद्गल इन दो द्रव्यों को छोड़कर शेष चारों द्रव्यों को परमागम में नित्य कहा गया है, क्योंकि उनमें व्यंजनपर्यायें नहीं पायी जाती हैं। जीव और पुद्गल इन दो द्रव्यों में व्यंजनपर्याय पायी जाती है, इसलिए वे परिणामी व अनित्य हैं।33।।",
+                    "references": [
                       {
                         "text": "वसुनंदी श्रावकाचार/27,33",
                         "inline_reference": false,
@@ -4836,7 +4900,7 @@
                         "is_bullet_point": false,
                         "raw_html": null,
                         "table_rows": null,
-                        "target_keyword": "वह वह नाम",
+                        "target_keyword": "वह_वह_नाम",
                         "target_topic_path": null,
                         "target_url": "/w/index.php?title=%E0%A4%B5%E0%A4%B9_%E0%A4%B5%E0%A4%B9_%E0%A4%A8%E0%A4%BE%E0%A4%AE&action=edit&redlink=1",
                         "is_self": false,
@@ -8402,8 +8466,8 @@
                   },
                   {
                     "kind": "sanskrit_text",
-                    "text_devanagari": "तत्त्वं सल्लक्षणिकं ...स्वसहायं निर्विकल्पं च।8। अस्तमितसर्वसंकरदोषं क्षतसर्वशून्यदोषं वा। अणुरिव वस्तुसमस्तं ज्ञानं भवतीत्यनन्यशरणम्।528।",
-                    "hindi_translation": "तत्त्व सत् लक्षणवाला, स्वसहाय व निर्विकल्प होता है।8। संपूर्ण संकर व शून्य दोषों से रहित संपूर्ण वस्तु सद्भूत व्यवहारनय से अणु की तरह अनन्य शरण है, ऐसा ज्ञान होता है।",
+                    "text_devanagari": "तत्त्वं सल्लक्षणिकं ...स्वसहायं निर्विकल्पं च।8।",
+                    "hindi_translation": "तत्त्व सत् लक्षणवाला, स्वसहाय व निर्विकल्प होता है।8।",
                     "references": [
                       {
                         "text": "पंचाध्यायी / पूर्वार्ध/8,528",
@@ -8419,7 +8483,23 @@
                             "value": 8
                           }
                         ]
-                      },
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "sanskrit_text",
+                    "text_devanagari": "अस्तमितसर्वसंकरदोषं क्षतसर्वशून्यदोषं वा। अणुरिव वस्तुसमस्तं ज्ञानं भवतीत्यनन्यशरणम्।528।",
+                    "hindi_translation": "संपूर्ण संकर व शून्य दोषों से रहित संपूर्ण वस्तु सद्भूत व्यवहारनय से अणु की तरह अनन्य शरण है, ऐसा ज्ञान होता है।",
+                    "references": [
                       {
                         "text": "पंचाध्यायी / पूर्वार्ध/8,528",
                         "inline_reference": false,
@@ -8583,7 +8663,7 @@
       "next": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF_%E0%A4%86%E0%A4%B8%E0%A5%8D%E0%A4%B0%E0%A4%B5"
     },
     "parser_version": "jainkosh.rules/1.11.0",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parsed_at": "2026-05-30T09:53:45.787796",
     "warnings": []
   },
   "would_write": {
@@ -11972,8 +12052,8 @@
             },
             {
               "kind": "sanskrit_text",
-              "text_devanagari": "अजीवकाया धर्माधर्माकाशपुद्गला:।1। द्रव्याणि।2। जीवाश्च।3। कालश्च।39।",
-              "hindi_translation": "धर्म, अधर्म, आकाश और पुद्गल ये अजीवकाय हैं।1। ये चारों द्रव्य हैं।2। जीव भी द्रव्य है।3। काल भी द्रव्य है।39।।",
+              "text_devanagari": "अजीवकाया धर्माधर्माकाशपुद्गला:।1।",
+              "hindi_translation": "धर्म, अधर्म, आकाश और पुद्गल ये अजीवकाय हैं।1।",
               "references": [
                 {
                   "text": "तत्त्वार्थसूत्र/5/1-3,39",
@@ -11993,7 +12073,23 @@
                       "value": 1
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "sanskrit_text",
+              "text_devanagari": "द्रव्याणि।2।",
+              "hindi_translation": "ये चारों द्रव्य हैं।2।",
+              "references": [
                 {
                   "text": "तत्त्वार्थसूत्र/5/1-3,39",
                   "inline_reference": false,
@@ -12012,7 +12108,23 @@
                       "value": 2
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "sanskrit_text",
+              "text_devanagari": "जीवाश्च।3।",
+              "hindi_translation": "जीव भी द्रव्य है।3।",
+              "references": [
                 {
                   "text": "तत्त्वार्थसूत्र/5/1-3,39",
                   "inline_reference": false,
@@ -12031,7 +12143,23 @@
                       "value": 3
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "sanskrit_text",
+              "text_devanagari": "कालश्च।39।",
+              "hindi_translation": "काल भी द्रव्य है।39।।",
+              "references": [
                 {
                   "text": "तत्त्वार्थसूत्र/5/1-3,39",
                   "inline_reference": false,
@@ -13734,8 +13862,8 @@
           "blocks": [
             {
               "kind": "prakrit_text",
-              "text_devanagari": "वंजणपरिणइविरहा धम्मादीआ हवे अपरिणामा। अत्थपरिणामभासिय सव्वे परिणामिणो अत्था।27। मुत्ता जीवं कायं णिच्चा सेसा पयासिया समये। वंजणमपरिणामचुया इयरे तं परिणयंपत्ता।3।",
-              "hindi_translation": "धर्म, अधर्म, आकाश और चार द्रव्य व्यंजनपर्याय के अभाव से अपरिणामी कहलाते हैं। किंतु अर्थपर्याय की अपेक्षा सभी पदार्थ परिणामी माने जाते हैं, क्योंकि अर्थपर्याय सभी द्रव्यों में होती है।27। जीव और पुद्गल इन दो द्रव्यों को छोड़कर शेष चारों द्रव्यों को परमागम में नित्य कहा गया है, क्योंकि उनमें व्यंजनपर्यायें नहीं पायी जाती हैं। जीव और पुद्गल इन दो द्रव्यों में व्यंजनपर्याय पायी जाती है, इसलिए वे परिणामी व अनित्य हैं।33।।",
+              "text_devanagari": "वंजणपरिणइविरहा धम्मादीआ हवे अपरिणामा। अत्थपरिणामभासिय सव्वे परिणामिणो अत्था।27।",
+              "hindi_translation": "धर्म, अधर्म, आकाश और चार द्रव्य व्यंजनपर्याय के अभाव से अपरिणामी कहलाते हैं। किंतु अर्थपर्याय की अपेक्षा सभी पदार्थ परिणामी माने जाते हैं, क्योंकि अर्थपर्याय सभी द्रव्यों में होती है।27।",
               "references": [
                 {
                   "text": "वसुनंदी श्रावकाचार/27,33",
@@ -13751,7 +13879,23 @@
                       "value": 27
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "prakrit_text",
+              "text_devanagari": "मुत्ता जीवं कायं णिच्चा सेसा पयासिया समये। वंजणमपरिणामचुया इयरे तं परिणयंपत्ता।33।",
+              "hindi_translation": "जीव और पुद्गल इन दो द्रव्यों को छोड़कर शेष चारों द्रव्यों को परमागम में नित्य कहा गया है, क्योंकि उनमें व्यंजनपर्यायें नहीं पायी जाती हैं। जीव और पुद्गल इन दो द्रव्यों में व्यंजनपर्याय पायी जाती है, इसलिए वे परिणामी व अनित्य हैं।33।।",
+              "references": [
                 {
                   "text": "वसुनंदी श्रावकाचार/27,33",
                   "inline_reference": false,
@@ -14684,7 +14828,7 @@
               "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
-              "target_keyword": "वह वह नाम",
+              "target_keyword": "वह_वह_नाम",
               "target_topic_path": null,
               "target_url": "/w/index.php?title=%E0%A4%B5%E0%A4%B9_%E0%A4%B5%E0%A4%B9_%E0%A4%A8%E0%A4%BE%E0%A4%AE&action=edit&redlink=1",
               "is_self": false,
@@ -18252,8 +18396,8 @@
             },
             {
               "kind": "sanskrit_text",
-              "text_devanagari": "तत्त्वं सल्लक्षणिकं ...स्वसहायं निर्विकल्पं च।8। अस्तमितसर्वसंकरदोषं क्षतसर्वशून्यदोषं वा। अणुरिव वस्तुसमस्तं ज्ञानं भवतीत्यनन्यशरणम्।528।",
-              "hindi_translation": "तत्त्व सत् लक्षणवाला, स्वसहाय व निर्विकल्प होता है।8। संपूर्ण संकर व शून्य दोषों से रहित संपूर्ण वस्तु सद्भूत व्यवहारनय से अणु की तरह अनन्य शरण है, ऐसा ज्ञान होता है।",
+              "text_devanagari": "तत्त्वं सल्लक्षणिकं ...स्वसहायं निर्विकल्पं च।8।",
+              "hindi_translation": "तत्त्व सत् लक्षणवाला, स्वसहाय व निर्विकल्प होता है।8।",
               "references": [
                 {
                   "text": "पंचाध्यायी / पूर्वार्ध/8,528",
@@ -18269,7 +18413,23 @@
                       "value": 8
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "sanskrit_text",
+              "text_devanagari": "अस्तमितसर्वसंकरदोषं क्षतसर्वशून्यदोषं वा। अणुरिव वस्तुसमस्तं ज्ञानं भवतीत्यनन्यशरणम्।528।",
+              "hindi_translation": "संपूर्ण संकर व शून्य दोषों से रहित संपूर्ण वस्तु सद्भूत व्यवहारनय से अणु की तरह अनन्य शरण है, ऐसा ज्ञान होता है।",
+              "references": [
                 {
                   "text": "पंचाध्यायी / पूर्वार्ध/8,528",
                   "inline_reference": false,
@@ -19776,10 +19936,12 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "प्रवचनसार:गाथा:144",
+          "label": "GathaTeekaBhaavarth",
+          "key": "प्रवचनसार:publisher_to_be_added:गाथा:टीका:भावार्थ:144",
           "props": {
             "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार",
+            "publisher_id": "publisher_to_be_added",
             "gatha_number": "144"
           },
           "lazy": true
@@ -19892,10 +20054,12 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "प्रवचनसार:गाथा:107",
+          "label": "GathaTeekaBhaavarth",
+          "key": "प्रवचनसार:publisher_to_be_added:गाथा:टीका:भावार्थ:107",
           "props": {
             "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार",
+            "publisher_id": "publisher_to_be_added",
             "gatha_number": "107"
           },
           "lazy": true
@@ -19953,6 +20117,17 @@
           "lazy": true
         },
         {
+          "label": "GathaTeekaBhaavarth",
+          "key": "धवला:2:गाथा:टीका:भावार्थ:6",
+          "props": {
+            "shastra_natural_key": "धवला",
+            "teeka_natural_key": "धवला",
+            "publisher_id": "2",
+            "gatha_number": "6"
+          },
+          "lazy": true
+        },
+        {
           "label": "Page",
           "key": "धवला:टीका:2:पृष्ठ:5",
           "props": {
@@ -19964,10 +20139,12 @@
           "lazy": true
         },
         {
-          "label": "Gatha",
-          "key": "धवला:गाथा:183",
+          "label": "GathaTeekaBhaavarth",
+          "key": "धवला:2:गाथा:टीका:भावार्थ:183",
           "props": {
             "shastra_natural_key": "धवला",
+            "teeka_natural_key": "धवला",
+            "publisher_id": "2",
             "gatha_number": "183"
           },
           "lazy": true
@@ -20039,10 +20216,12 @@
           "lazy": true
         },
         {
-          "label": "Gatha",
-          "key": "प्रवचनसार:गाथा:105",
+          "label": "GathaTeekaBhaavarth",
+          "key": "प्रवचनसार:publisher_to_be_added:गाथा:टीका:भावार्थ:105",
           "props": {
             "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार",
+            "publisher_id": "publisher_to_be_added",
             "gatha_number": "105"
           },
           "lazy": true
@@ -20091,10 +20270,12 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "धवला:गाथा:3",
+          "label": "GathaTeekaBhaavarth",
+          "key": "धवला:2:गाथा:टीका:भावार्थ:3",
           "props": {
             "shastra_natural_key": "धवला",
+            "teeka_natural_key": "धवला",
+            "publisher_id": "2",
             "gatha_number": "3"
           },
           "lazy": true
@@ -20202,6 +20383,17 @@
             "teeka_natural_key": "प्रवचनसार:तात्पर्यवृत्ति",
             "publisher_id": "publisher_to_be_added",
             "gatha_number": "98"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "सर्वार्थसिद्धि:18:गाथा:टीका:भावार्थ:2",
+          "props": {
+            "shastra_natural_key": "सर्वार्थसिद्धि",
+            "teeka_natural_key": "सर्वार्थसिद्धि",
+            "publisher_id": "18",
+            "gatha_number": "2"
           },
           "lazy": true
         },
@@ -22749,8 +22941,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "प्रवचनसार:गाथा:144"
+            "label": "GathaTeekaBhaavarth",
+            "key": "प्रवचनसार:publisher_to_be_added:गाथा:टीका:भावार्थ:144"
           },
           "to": {
             "label": "Topic",
@@ -22986,8 +23178,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "प्रवचनसार:गाथा:107"
+            "label": "GathaTeekaBhaavarth",
+            "key": "प्रवचनसार:publisher_to_be_added:गाथा:टीका:भावार्थ:107"
           },
           "to": {
             "label": "Topic",
@@ -23088,8 +23280,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:6"
+            "label": "GathaTeekaBhaavarth",
+            "key": "धवला:2:गाथा:टीका:भावार्थ:6"
           },
           "to": {
             "label": "Topic",
@@ -23124,8 +23316,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:183"
+            "label": "GathaTeekaBhaavarth",
+            "key": "धवला:2:गाथा:टीका:भावार्थ:183"
           },
           "to": {
             "label": "Topic",
@@ -23298,8 +23490,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "प्रवचनसार:गाथा:105"
+            "label": "GathaTeekaBhaavarth",
+            "key": "प्रवचनसार:publisher_to_be_added:गाथा:टीका:भावार्थ:105"
           },
           "to": {
             "label": "Topic",
@@ -23424,8 +23616,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:3"
+            "label": "GathaTeekaBhaavarth",
+            "key": "धवला:2:गाथा:टीका:भावार्थ:3"
           },
           "to": {
             "label": "Topic",
@@ -23663,8 +23855,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "सर्वार्थसिद्धि:गाथा:2"
+            "label": "GathaTeekaBhaavarth",
+            "key": "सर्वार्थसिद्धि:18:गाथा:टीका:भावार्थ:2"
           },
           "to": {
             "label": "Topic",

@@ -52,10 +52,10 @@ class TestParseAnchor:
         result = parse_anchor(node, config, current_keyword="आत्मा")
         assert result["target_exists"] is False
 
-    def test_underscore_to_space(self, config):
+    def test_underscore_preserved(self, config):
         node = parse_node('<a href="/wiki/वह_वह_नाम">text</a>', "a")
         result = parse_anchor(node, config, current_keyword="आत्मा")
-        assert result["target_keyword"] == "वह वह नाम"
+        assert result["target_keyword"] == "वह_वह_नाम"
 
 
 class TestFindSeeAlsos:

@@ -181,7 +181,10 @@ Each `IndexRelation` resolves the `<a>` href into one of:
 | `/w/index.php?title=X&action=edit&redlink=1` | `X` (decoded)    | `None`              | `false` (target page does not exist yet — emit relation but flag `target_exists=false`) |
 
 `target_keyword` from `/wiki/<percent-encoded>` is URL-decoded then
-NFC-normalised. The visible link text (e.g. `"X - 2.3"`) is **not**
+NFC-normalised. **Underscores are preserved** — MediaWiki encodes page
+title spaces as `_` in URLs, so a href ending `प्रकृति_बंध` yields
+`target_keyword = "प्रकृति_बंध"`. (v1.11.1 changed from converting `_` to space.)
+The visible link text (e.g. `"X - 2.3"`) is **not**
 parsed for the path — always parse from the URL fragment.
 
 ### 4.4 Relation type

@@ -76,6 +76,7 @@ def _emit_gatha(
     pankti_props: dict,
     config: "JainkoshConfig",
     extra_props: Optional[dict] = None,
+    is_bhaavarth: bool = False,
 ) -> list[dict]:
     sn = ref.shastra_name
     tn = ref.teeka_name
@@ -105,6 +106,9 @@ def _emit_gatha(
             return [_make_edge(edge_type, "GathaTeeka", key, target, pankti_props, extra_props)]
         if block_kind == "hindi_text":
             if not tn:
+                if is_bhaavarth:
+                    key = f"{sn}:{publisher_id}:गाथा:टीका:भावार्थ:{g}"
+                    return [_make_edge(edge_type, "GathaTeekaBhaavarth", key, target, pankti_props, extra_props)]
                 key = f"{sn}:गाथा:{g}"
                 return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
             edges = []
@@ -329,6 +333,11 @@ def build_reference_edges(
     if definition_index is not None:
         extra_props["definition_index"] = definition_index
 
+    is_bhaavarth = (
+        block_kind == "hindi_text"
+        and getattr(block, "hindi_translation", None) is None
+    )
+
     edges: list[dict] = []
 
     g = _first_value(rf, ek.gatha)
@@ -336,6 +345,7 @@ def build_reference_edges(
         edges.extend(_emit_gatha(
             ref, shastra_type, block_kind, g, publisher_id,
             edge_type, target, pankti_props, config, extra_props,
+            is_bhaavarth=is_bhaavarth,
         ))
 
     k = _first_value(rf, ek.kalash)

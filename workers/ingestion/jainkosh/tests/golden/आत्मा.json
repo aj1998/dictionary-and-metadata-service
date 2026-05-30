@@ -421,7 +421,7 @@
                     "is_bullet_point": false,
                     "raw_html": null,
                     "table_rows": null,
-                    "target_keyword": "वह वह नाम",
+                    "target_keyword": "वह_वह_नाम",
                     "target_topic_path": null,
                     "target_url": "/w/index.php?title=%E0%A4%B5%E0%A4%B9_%E0%A4%B5%E0%A4%B9_%E0%A4%A8%E0%A4%BE%E0%A4%AE&action=edit&redlink=1",
                     "is_self": false,
@@ -745,7 +745,7 @@
       "next": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%81%E0%A4%B2"
     },
     "parser_version": "jainkosh.rules/1.11.0",
-    "parsed_at": "2026-05-28T20:14:22.790180",
+    "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
   "would_write": {
@@ -1408,7 +1408,7 @@
               "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
-              "target_keyword": "वह वह नाम",
+              "target_keyword": "वह_वह_नाम",
               "target_topic_path": null,
               "target_url": "/w/index.php?title=%E0%A4%B5%E0%A4%B9_%E0%A4%B5%E0%A4%B9_%E0%A4%A8%E0%A4%BE%E0%A4%AE&action=edit&redlink=1",
               "is_self": false,

@@ -42,7 +42,7 @@ def parse_anchor(a: Node, config: JainkoshConfig, *, current_keyword: str = "") 
         qs = parse_qs(parsed_url.query)
         title = qs.get("title", [None])[0]
         if title:
-            title = nfc(unquote(title)).replace("_", " ")
+            title = nfc(unquote(title))
         else:
             title = normalize_text(a.text(strip=True) or "")
         return dict(
@@ -66,7 +66,7 @@ def parse_anchor(a: Node, config: JainkoshConfig, *, current_keyword: str = "") 
     if href.startswith("/wiki/"):
         path_part = href[len("/wiki/"):]
         path, _, frag = path_part.partition("#")
-        keyword = nfc(unquote(path, encoding="utf-8")).replace("_", " ")
+        keyword = nfc(unquote(path, encoding="utf-8"))
         return dict(
             target_keyword=keyword,
             target_topic_path=frag or None,

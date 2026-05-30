@@ -322,7 +322,7 @@ def parse_block_stream(
     if pending_refs and last_block is not None:
         last_block.references = list(last_block.references) + list(pending_refs)
 
-    return _drop_see_also_only(out, config)
+    return split_multi_verse_blocks(_drop_see_also_only(out, config), config)
 
 
 def _drop_see_also_only(blocks: list[Block], config: JainkoshConfig) -> list[Block]:
@@ -770,3 +770,121 @@ def _make_synthetic_block(text: str, kind: str, config: JainkoshConfig) -> Node:
     html = f'<p class="{css_class}">{text}</p>'
     tree = HTMLParser(html)
     return tree.css_first(f"p.{css_class}")
+
+
+# ---------------------------------------------------------------------------
+# Multi-verse block splitting (Issue: प्रवचनसार/19,96,98 style blocks)
+# ---------------------------------------------------------------------------
+
+def _split_text_at_verse_markers(text: str, verse_numbers: list[int]) -> list[str]:
+    """Split text at ।N। Devanagari verse-number markers.
+
+    Returns one segment per verse number. When a marker is absent the segment
+    gets all text up to the next found marker (or all remaining for the last).
+    """
+    if not text or not verse_numbers:
+        return [text] * len(verse_numbers) if verse_numbers else []
+
+    segments: list[str] = []
+    pos = 0
+
+    for i, n in enumerate(verse_numbers[:-1]):
+        marker = f"।{n}।"
+        idx = text.find(marker, pos)
+        if idx != -1:
+            end = idx + len(marker)
+            segments.append(text[pos:end].strip())
+            pos = end
+        else:
+            # Marker absent — give text up to the first available later marker
+            found_later = False
+            for next_n in verse_numbers[i + 1:]:
+                next_marker = f"।{next_n}।"
+                next_idx = text.find(next_marker, pos)
+                if next_idx != -1:
+                    segments.append(text[pos:next_idx].strip())
+                    pos = next_idx
+                    found_later = True
+                    break
+            if not found_later:
+                # No more markers — dump everything, pad with empty strings
+                segments.append(text[pos:].strip())
+                segments.extend([""] * (len(verse_numbers) - len(segments)))
+                return segments
+
+    # Last verse gets everything that remains
+    segments.append(text[pos:].strip())
+    return segments
+
+
+def split_multi_verse_blocks(blocks: list[Block], config: JainkoshConfig) -> list[Block]:
+    """Post-process block list: split each block whose non-inline references were
+    all expanded from the same GRef text and carry distinct gatha values.
+
+    Example:
+        GRef "नयचक्र बृहद्/59-60" expands to refs [gatha=59, gatha=60].
+        The PrakritText "...।59। ...।60।" is split into two blocks at ।59।.
+    """
+    result: list[Block] = []
+    for block in blocks:
+        result.extend(_try_split_multi_verse(block, config))
+    return result
+
+
+def _try_split_multi_verse(block: Block, config: JainkoshConfig) -> list[Block]:
+    """Try to split one block at verse markers. Returns [block] if not applicable."""
+    if block.kind not in config.reference_splitting.applicable_block_kinds:
+        return [block]
+
+    non_inline = [r for r in block.references if not r.inline_reference]
+    inline_refs = [r for r in block.references if r.inline_reference]
+
+    if len(non_inline) < 2:
+        return [block]
+
+    # All non-inline refs must share the same source text (same original GRef)
+    ref_texts = {r.text for r in non_inline}
+    if len(ref_texts) != 1:
+        return [block]
+
+    # Each must resolve to a single gatha field value
+    gatha_field_names = set(config.reference.entity_keywords.gatha)
+
+    def _gatha_value(r: Reference) -> Optional[int]:
+        for rf in r.resolved_fields:
+            if rf.field in gatha_field_names and isinstance(rf.value, int):
+                return rf.value
+        return None
+
+    pairs = [(r, _gatha_value(r)) for r in non_inline]
+    if any(v is None for _, v in pairs):
+        return [block]
+
+    # Sort by gatha value
+    pairs.sort(key=lambda x: x[1])  # type: ignore[arg-type]
+    sorted_refs = [r for r, _ in pairs]
+    sorted_nums = [v for _, v in pairs]  # type: ignore[misc]
+
+    src_segments = _split_text_at_verse_markers(block.text_devanagari or "", sorted_nums)
+    tl_segments = (
+        _split_text_at_verse_markers(block.hindi_translation, sorted_nums)
+        if block.hindi_translation is not None
+        else [None] * len(sorted_nums)
+    )
+
+    split_blocks: list[Block] = []
+    for i, ref in enumerate(sorted_refs):
+        tl = tl_segments[i] if tl_segments[i] else None
+        # Inline refs travel with the last split block (they appear at end of text)
+        extra = inline_refs if i == len(sorted_refs) - 1 else []
+        b = Block(
+            kind=block.kind,
+            text_devanagari=src_segments[i] or None,
+            hindi_translation=tl,
+            references=[ref] + extra,
+            is_orphan_translation=block.is_orphan_translation,
+            is_bullet_point=block.is_bullet_point,
+        )
+        split_blocks.append(b)
+
+    return split_blocks

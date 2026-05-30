@@ -198,12 +198,12 @@ Implemented in `see_also.py`:
 
 | href shape | `target_keyword` | `target_topic_path` | `is_self` |
 |---|---|---|---|
-| `/wiki/X` | `X` (NFC) | `None` | `false` |
-| `/wiki/X#Y` | `X` (NFC) | `Y` | `false` |
+| `/wiki/X` | `X` (NFC, underscores preserved) | `None` | `false` |
+| `/wiki/X#Y` | `X` (NFC, underscores preserved) | `Y` | `false` |
 | `#X.Y` (`mw-selflink-fragment`) | current keyword | `X.Y` | `true` |
-| `/w/index.php?title=X&action=edit&redlink=1` | `X` (decoded) | `None` | `false` / `target_exists=false` |
+| `/w/index.php?title=X&action=edit&redlink=1` | `X` (decoded, underscores preserved) | `None` | `false` / `target_exists=false` |
 
-`target_keyword` from `/wiki/<percent-encoded>` is URL-decoded then NFC-normalised.
+`target_keyword` from `/wiki/<percent-encoded>` is URL-decoded then NFC-normalised. **Underscores are preserved** (not converted to spaces) — MediaWiki encodes spaces as `_` in URLs, so `प्रकृति_बंध` in a href represents the keyword `प्रकृति_बंध`, consistent with how `decode_keyword_from_url` processes the main page URL. (v1.11.1)
 
 ### 4.5 Configurable `देखें` triggers
 
@@ -648,10 +648,13 @@ for full format DSL, annotated examples, and `ShastraRegistry` spec.
 - `/` = primary section boundary; `,` or `-` = sub-separator within a group; `§` prefix = optional group.
 - `-` ambiguity: if format group separator is `,` then `"13-14"` is a range string (single value); if separator is `-` then `"13-14"` splits into two field values.
 - Resolution tries `shastra_name`, then `alternate_name`, then `short_form` (sets `match_method`).
+- **Space-to-slash fallback (v1.11.1)**: if name_raw contains spaces and all lookups fail, also try replacing spaces with `/` — handles `(नयचक्र (श्रुतभवन)/N)` which after paren-stripping gives `"नयचक्र श्रुतभवन"`, matched as `"नयचक्र/श्रुतभवन"`.
 - Unresolved → `needs_manual_match=true`.
 
 **`ShastraRegistry`**: loaded from `shastra.json`; NFC-indexed on name/alternate/short_form.
 `get_type(shastra_name)` → `"shastra"` | `"teeka"` | `"publication"` | `None`.
+
+**Multi-verse block splitting (v1.11.1)**: when a leading GRef expands to 2+ references all from the same source text with distinct `गाथा` field values, the associated source-language block is split into N blocks at `।{verse_number}।` Devanagari markers. Each split block carries exactly one non-inline reference. Inline references travel with the last split block. When a verse number marker is absent from one of the language layers (source or translation), the corresponding segment gets all text up to the next marker or all remaining text. Implemented in `parse_blocks.split_multi_verse_blocks` (called as post-processing in `parse_block_stream`).
 
 ---
 
@@ -671,14 +674,18 @@ for full block-context classification, guard rules, and node-key formats.
 
 ### 12.2 Gatha edge rules by shastra type + block kind
 
-| Type | Block kind | Target node |
-|---|---|---|
-| `shastra` | any | `Gatha("<shastra>:गाथा:<g>")` |
-| `teeka` | gatha kinds | `Gatha` |
-| `teeka` | text kinds | `GathaTeeka("<shastra>:<teeka>:गाथा:टीका:<g>")` |
-| `publication` | gatha kinds | `Gatha` |
-| `publication` | text/prakrit kinds | `GathaTeeka` |
-| `publication` | `hindi_text` | 2 edges: `GathaTeeka` + `GathaTeekaBhaavarth` |
+| Type | Block kind | Condition | Target node |
+|---|---|---|---|
+| `shastra` | any | — | `Gatha("<shastra>:गाथा:<g>")` |
+| `teeka` | gatha kinds | — | `Gatha` |
+| `teeka` | text kinds | — | `GathaTeeka("<shastra>:<teeka>:गाथा:टीका:<g>")` |
+| `publication` | gatha kinds | — | `Gatha` |
+| `publication` | text/prakrit kinds | — | `GathaTeeka` |
+| `publication` | `hindi_text` | teeka present | 2 edges: `GathaTeeka` + `GathaTeekaBhaavarth` |
+| `publication` | `hindi_text` | no teeka, `hindi_translation` present | `Gatha` |
+| `publication` | `hindi_text` | no teeka, `hindi_translation` is `null` | `GathaTeekaBhaavarth("<shastra>:<pub_id>:गाथा:टीका:भावार्थ:<g>")` |
+
+**`hindi_text` bhaavarth rule (v1.11.1)**: when a `hindi_text` block has `hindi_translation=null`, the block is standalone prose (not a verse translation) and is emitted as `GathaTeekaBhaavarth` rather than `Gatha`.
 
 **Kalash**: `teeka`/`publication` gatha → `Kalash`; `publication` `hindi_text` → `KalashBhaavarth`.
 **Page**: `publication` only → `Page`. **Guard**: skip when `shastra_name=None`, type=None, required field absent.
@@ -809,6 +816,7 @@ DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence an
 | `1.9.0` | After-`देखें` text as topic seed: HindiText element starting with `देखें <link> text_after` creates synthetic child seed. `extract_text_after_anchor` stops at `<br/>`. |
 | `1.10.0` | `<br/>`-separated `देखें` as section-level seeds: initial prose + `<br/>`-separated `देखें (label)` lines → `PageSection.label_topic_seeds`. Definition `hindi_translation` cleaned. |
 | `1.10.1` | Classless `<p>` containers with `<strong>/<b>` direct children: `_is_block_span_container` now allows `<strong>/<b>` as transparent wrappers. `parse_block_stream` carries the sibling `=` marker forward when a `<strong>/<b>` between source block and HindiText span produces no block, accumulating its text into the translation prefix. Fixes स्वभाव subsection 2.4 where `<strong><span class="HindiText">प्रश्न</span></strong>` was silently dropped. |
+| `1.11.1` | **(1)** Multi-verse block splitting: blocks whose non-inline refs all come from the same GRef text and carry multiple गाथा values are split at `।N।` markers (one block per verse). **(2)** Keyword underscore preservation: `target_keyword` in `see_also` blocks now keeps MediaWiki URL underscores (`प्रकृति_बंध`) instead of converting to spaces. **(3)** Space-to-slash matching in `ShastraRegistry`: names with spaces are tried as `/`-joined variants to handle `(नयचक्र (श्रुतभवन)/N)` after paren stripping. **(4)** `hindi_text` + `hindi_translation=null` + publication type + no teeka → `GathaTeekaBhaavarth` edge (was `Gatha`). |
 
 ---
 
@@ -830,6 +838,11 @@ DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence an
 | स्वभाव | Classless `<p>` for subsection 2.4 contains `<strong><span HindiText>` as direct child | `_is_block_span_container` allows `<strong>/<b>`; carry-forward in `parse_block_stream` merges bold prefix into translation (v1.10.1). |
 | वस्तु | All SiddhantKosh content in classless `<p>` wrapping block-class spans | Exploded by `_is_block_span_container()`. |
 | वस्तु | `<span class="HindiText">` with initial prose + `<br/>`-separated `देखें (label)` | `<br/>`-dekhen pattern (§5.6): section-level seeds; definition cleaned. |
+| स्वभाव | `प्रवचनसार / तत्त्वप्रदीपिका/19,96,98` — text has `।19। ... ।96। ... ।98।` | Multi-verse split (§11): 3 separate blocks, one per gatha. |
+| स्वभाव | `नयचक्र बृहद्/59-60` — text has `।59। ... ।60।` | Multi-verse split (§11): 2 separate blocks. |
+| स्वभाव | `(नयचक्र (श्रुतभवन)/61)` — paren-stripping gives `नयचक्र श्रुतभवन/61` | Space-to-slash matching (§11) resolves to `नयचक्र/श्रुतभवन`. |
+| स्वभाव | `देखें ... प्रकृति_बंध` href | Underscore preserved in `target_keyword` (§4.4). |
+| any | `hindi_text` block with `hindi_translation=null` + publication shastra | `GathaTeekaBhaavarth` edge (§12.2). |
 | any | Self-link `<a class="mw-selflink-fragment" href="#3">` | `is_self=true` (§4.3). |
 | any | Redlink `/w/index.php?title=X&action=edit&redlink=1` | `target_exists=false`; no Neo4j edge. |
 | any | Trailing `<br/>` and stray `&#160;` | Whitespace-normalise (§6.11). |

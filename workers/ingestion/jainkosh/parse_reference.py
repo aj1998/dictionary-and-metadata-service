@@ -375,6 +375,14 @@ def match_shastra(
         if entry:
             return entry, method, False, ""
 
+    # Step 2.5: try replacing spaces with "/" to handle "(नयचक्र (श्रुतभवन)/N)" →
+    # "नयचक्र श्रुतभवन" → "नयचक्र/श्रुतभवन" after paren stripping
+    if " " in name_raw:
+        slash_variant = re.sub(r"\s+", "/", name_raw.strip())
+        entry, method = registry.lookup(norm(slash_variant))
+        if entry:
+            return entry, method, False, ""
+
     # Step 3: teeka detection (slash split)
     name_for_split = re.sub(r"\s*/\s*", "/", name_raw)
     if "/" in name_for_split:

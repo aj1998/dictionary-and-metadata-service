@@ -636,6 +636,16 @@ def match_shastra(
         if entry:
             return entry, method, False, ""
 
+    # ── Step 2.5: space-to-slash fallback ────────────────────────────────
+    # Handles "(नयचक्र (श्रुतभवन)/N)": after paren stripping the name becomes
+    # "नयचक्र श्रुतभवन" (space-separated). The registry has "नयचक्र/श्रुतभवन".
+    # Replacing spaces with "/" yields a key that matches the registry entry.
+    if " " in name_raw:
+        slash_variant = re.sub(r"\s+", "/", name_raw.strip())
+        entry, method = registry.lookup(norm(slash_variant))
+        if entry:
+            return entry, method, False, ""
+
     # ── Step 3: teeka detection (slash split) ────────────────────────────
     # Normalise slashes before splitting so "name / teeka" and "name/teeka" work.
     name_for_split = re.sub(r"\s*/\s*", "/", name_raw)

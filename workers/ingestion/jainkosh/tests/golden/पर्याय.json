@@ -489,7 +489,23 @@
                                 "value": 345
                               }
                             ]
-                          },
+                          }
+                        ],
+                        "is_orphan_translation": false,
+                        "is_bullet_point": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "sanskrit_text",
+                        "text_devanagari": null,
+                        "hindi_translation": null,
+                        "references": [
                           {
                             "text": "समयसार / आत्मख्याति/345 -348",
                             "inline_reference": false,
@@ -504,7 +520,23 @@
                                 "value": 346
                               }
                             ]
-                          },
+                          }
+                        ],
+                        "is_orphan_translation": false,
+                        "is_bullet_point": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "sanskrit_text",
+                        "text_devanagari": null,
+                        "hindi_translation": null,
+                        "references": [
                           {
                             "text": "समयसार / आत्मख्याति/345 -348",
                             "inline_reference": false,
@@ -519,7 +551,23 @@
                                 "value": 347
                               }
                             ]
-                          },
+                          }
+                        ],
+                        "is_orphan_translation": false,
+                        "is_bullet_point": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "sanskrit_text",
+                        "text_devanagari": null,
+                        "hindi_translation": null,
+                        "references": [
                           {
                             "text": "समयसार / आत्मख्याति/345 -348",
                             "inline_reference": false,
@@ -565,7 +613,23 @@
                                 "value": 26
                               }
                             ]
-                          },
+                          }
+                        ],
+                        "is_orphan_translation": false,
+                        "is_bullet_point": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "sanskrit_text",
+                        "text_devanagari": null,
+                        "hindi_translation": null,
+                        "references": [
                           {
                             "text": "पंचाध्यायी / पूर्वार्ध/26, 117",
                             "inline_reference": false,
@@ -676,7 +740,23 @@
                                 "value": 7
                               }
                             ]
-                          },
+                          }
+                        ],
+                        "is_orphan_translation": false,
+                        "is_bullet_point": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "sanskrit_text",
+                        "text_devanagari": null,
+                        "hindi_translation": null,
+                        "references": [
                           {
                             "text": "सर्वार्थसिद्धि/5/38/309-310/7",
                             "inline_reference": false,
@@ -1287,7 +1367,23 @@
                                 "value": 17
                               }
                             ]
-                          },
+                          }
+                        ],
+                        "is_orphan_translation": false,
+                        "is_bullet_point": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "prakrit_text",
+                        "text_devanagari": null,
+                        "hindi_translation": null,
+                        "references": [
                           {
                             "text": "नयचक्र बृहद्/17-19",
                             "inline_reference": false,
@@ -1302,7 +1398,23 @@
                                 "value": 18
                               }
                             ]
-                          },
+                          }
+                        ],
+                        "is_orphan_translation": false,
+                        "is_bullet_point": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "prakrit_text",
+                        "text_devanagari": null,
+                        "hindi_translation": null,
+                        "references": [
                           {
                             "text": "नयचक्र बृहद्/17-19",
                             "inline_reference": false,
@@ -2235,7 +2347,23 @@
                             "value": 80
                           }
                         ]
-                      },
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "sanskrit_text",
+                    "text_devanagari": null,
+                    "hindi_translation": null,
+                    "references": [
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/80, 95",
                         "inline_reference": false,
@@ -2541,7 +2669,23 @@
                             "value": 89
                           }
                         ]
-                      },
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "sanskrit_text",
+                    "text_devanagari": null,
+                    "hindi_translation": null,
+                    "references": [
                       {
                         "text": "पंचाध्यायी / पूर्वार्ध/89, 117",
                         "inline_reference": false,
@@ -3480,7 +3624,23 @@
                                 "value": 9
                               }
                             ]
-                          },
+                          }
+                        ],
+                        "is_orphan_translation": false,
+                        "is_bullet_point": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "prakrit_text",
+                        "text_devanagari": null,
+                        "hindi_translation": null,
+                        "references": [
                           {
                             "text": "धवला 9/4,1,48/242-244/9",
                             "inline_reference": false,
@@ -3515,7 +3675,23 @@
                                 "value": 9
                               }
                             ]
-                          },
+                          }
+                        ],
+                        "is_orphan_translation": false,
+                        "is_bullet_point": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "prakrit_text",
+                        "text_devanagari": null,
+                        "hindi_translation": null,
+                        "references": [
                           {
                             "text": "धवला 9/4,1,48/242-244/9",
                             "inline_reference": false,
@@ -3844,7 +4020,23 @@
                             "value": 15
                           }
                         ]
-                      },
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "prakrit_text",
+                    "text_devanagari": null,
+                    "hindi_translation": null,
+                    "references": [
                       {
                         "text": "नियमसार/15, 28",
                         "inline_reference": false,
@@ -4096,7 +4288,23 @@
                             "value": 15
                           }
                         ]
-                      },
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "prakrit_text",
+                    "text_devanagari": null,
+                    "hindi_translation": null,
+                    "references": [
                       {
                         "text": "नियमसार/15, 28",
                         "inline_reference": false,
@@ -5071,7 +5279,7 @@
       "next": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%B8%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8"
     },
     "parser_version": "jainkosh.rules/1.11.0",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parsed_at": "2026-05-30T09:55:01.241118",
     "warnings": []
   },
   "would_write": {
@@ -6462,7 +6670,23 @@
                       "value": 345
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "sanskrit_text",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [
                 {
                   "text": "समयसार / आत्मख्याति/345 -348",
                   "inline_reference": false,
@@ -6477,7 +6701,23 @@
                       "value": 346
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "sanskrit_text",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [
                 {
                   "text": "समयसार / आत्मख्याति/345 -348",
                   "inline_reference": false,
@@ -6492,7 +6732,23 @@
                       "value": 347
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "sanskrit_text",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [
                 {
                   "text": "समयसार / आत्मख्याति/345 -348",
                   "inline_reference": false,
@@ -6538,7 +6794,23 @@
                       "value": 26
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "sanskrit_text",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [
                 {
                   "text": "पंचाध्यायी / पूर्वार्ध/26, 117",
                   "inline_reference": false,
@@ -6649,7 +6921,23 @@
                       "value": 7
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "sanskrit_text",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [
                 {
                   "text": "सर्वार्थसिद्धि/5/38/309-310/7",
                   "inline_reference": false,
@@ -7260,7 +7548,23 @@
                       "value": 17
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "prakrit_text",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [
                 {
                   "text": "नयचक्र बृहद्/17-19",
                   "inline_reference": false,
@@ -7275,7 +7579,23 @@
                       "value": 18
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "prakrit_text",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [
                 {
                   "text": "नयचक्र बृहद्/17-19",
                   "inline_reference": false,
@@ -8215,7 +8535,23 @@
                       "value": 80
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "sanskrit_text",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/80, 95",
                   "inline_reference": false,
@@ -8523,7 +8859,23 @@
                       "value": 89
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "sanskrit_text",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [
                 {
                   "text": "पंचाध्यायी / पूर्वार्ध/89, 117",
                   "inline_reference": false,
@@ -9474,7 +9826,23 @@
                       "value": 9
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "prakrit_text",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [
                 {
                   "text": "धवला 9/4,1,48/242-244/9",
                   "inline_reference": false,
@@ -9509,7 +9877,23 @@
                       "value": 9
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "prakrit_text",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [
                 {
                   "text": "धवला 9/4,1,48/242-244/9",
                   "inline_reference": false,
@@ -9837,7 +10221,23 @@
                       "value": 15
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "prakrit_text",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [
                 {
                   "text": "नियमसार/15, 28",
                   "inline_reference": false,
@@ -10090,7 +10490,23 @@
                       "value": 15
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "prakrit_text",
+              "text_devanagari": null,
+              "hindi_translation": null,
+              "references": [
                 {
                   "text": "नियमसार/15, 28",
                   "inline_reference": false,
@@ -11265,34 +11681,31 @@
           "lazy": true
         },
         {
-          "label": "GathaTeekaBhaavarth",
-          "key": "समयसार:आत्मख्याति:3:गाथा:टीका:भावार्थ:346",
+          "label": "GathaTeeka",
+          "key": "समयसार:आत्मख्याति:गाथा:टीका:346",
           "props": {
             "shastra_natural_key": "समयसार",
             "teeka_natural_key": "समयसार:आत्मख्याति",
-            "publisher_id": "3",
             "gatha_number": "346"
           },
           "lazy": true
         },
         {
-          "label": "GathaTeekaBhaavarth",
-          "key": "समयसार:आत्मख्याति:3:गाथा:टीका:भावार्थ:347",
+          "label": "GathaTeeka",
+          "key": "समयसार:आत्मख्याति:गाथा:टीका:347",
           "props": {
             "shastra_natural_key": "समयसार",
             "teeka_natural_key": "समयसार:आत्मख्याति",
-            "publisher_id": "3",
             "gatha_number": "347"
           },
           "lazy": true
         },
         {
-          "label": "GathaTeekaBhaavarth",
-          "key": "समयसार:आत्मख्याति:3:गाथा:टीका:भावार्थ:348",
+          "label": "GathaTeeka",
+          "key": "समयसार:आत्मख्याति:गाथा:टीका:348",
           "props": {
             "shastra_natural_key": "समयसार",
             "teeka_natural_key": "समयसार:आत्मख्याति",
-            "publisher_id": "3",
             "gatha_number": "348"
           },
           "lazy": true
@@ -11659,12 +12072,11 @@
           "lazy": true
         },
         {
-          "label": "GathaTeekaBhaavarth",
-          "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:95",
+          "label": "GathaTeeka",
+          "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:95",
           "props": {
             "shastra_natural_key": "प्रवचनसार",
             "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
-            "publisher_id": "publisher_to_be_added",
             "gatha_number": "95"
           },
           "lazy": true
@@ -12595,8 +13007,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeekaBhaavarth",
-            "key": "समयसार:आत्मख्याति:3:गाथा:टीका:भावार्थ:346"
+            "label": "GathaTeeka",
+            "key": "समयसार:आत्मख्याति:गाथा:टीका:346"
           },
           "to": {
             "label": "Topic",
@@ -12605,16 +13017,16 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 3,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में/3",
+            "block_index": 4,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में/4",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में"
           }
         },
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeekaBhaavarth",
-            "key": "समयसार:आत्मख्याति:3:गाथा:टीका:भावार्थ:347"
+            "label": "GathaTeeka",
+            "key": "समयसार:आत्मख्याति:गाथा:टीका:347"
           },
           "to": {
             "label": "Topic",
@@ -12623,16 +13035,16 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 3,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में/3",
+            "block_index": 5,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में/5",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में"
           }
         },
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeekaBhaavarth",
-            "key": "समयसार:आत्मख्याति:3:गाथा:टीका:भावार्थ:348"
+            "label": "GathaTeeka",
+            "key": "समयसार:आत्मख्याति:गाथा:टीका:348"
           },
           "to": {
             "label": "Topic",
@@ -12641,8 +13053,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 3,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में/3",
+            "block_index": 6,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में/6",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में"
           }
         },
@@ -12702,6 +13114,25 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
+            "label": "Gatha",
+            "key": "सर्वार्थसिद्धि:गाथा:38"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्य-विकार-के-अर्थ-में"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 7,
+            "block_index": 2,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्य-विकार-के-अर्थ-में/2",
+            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्य-विकार-के-अर्थ-में"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
             "label": "Page",
             "key": "सर्वार्थसिद्धि:टीका:18:पृष्ठ:310"
           },
@@ -12713,8 +13144,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 7,
-            "block_index": 1,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्य-विकार-के-अर्थ-में/1",
+            "block_index": 2,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्य-विकार-के-अर्थ-में/2",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्य-विकार-के-अर्थ-में"
           }
         },
@@ -12951,8 +13382,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 1,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय/1",
+            "block_index": 3,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय/3",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय"
           }
         },
@@ -12969,8 +13400,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 2,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय/2",
+            "block_index": 4,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय/4",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय"
           }
         },
@@ -12988,8 +13419,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 13,
-            "block_index": 2,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय/2",
+            "block_index": 4,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय/4",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय"
           }
         },
@@ -13007,8 +13438,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 13,
-            "block_index": 2,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय/2",
+            "block_index": 4,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय/4",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय"
           }
         },
@@ -13537,8 +13968,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeekaBhaavarth",
-            "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:95"
+            "label": "GathaTeeka",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:95"
           },
           "to": {
             "label": "Topic",
@@ -13547,8 +13978,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 1,
-            "mention_path": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-द्रव्य-के-व्यतिरेकी-अंश-हैं/1",
+            "block_index": 2,
+            "mention_path": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-द्रव्य-के-व्यतिरेकी-अंश-हैं/2",
             "source_natural_key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-द्रव्य-के-व्यतिरेकी-अंश-हैं"
           }
         },
@@ -13565,8 +13996,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 1,
-            "mention_path": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-द्रव्य-के-व्यतिरेकी-अंश-हैं/1",
+            "block_index": 2,
+            "mention_path": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-द्रव्य-के-व्यतिरेकी-अंश-हैं/2",
             "source_natural_key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-द्रव्य-के-व्यतिरेकी-अंश-हैं"
           }
         },
@@ -14207,6 +14638,24 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
+            "label": "Gatha",
+            "key": "धवला:गाथा:9"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल/1",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
             "label": "Page",
             "key": "धवला:टीका:2:पृष्ठ:243"
           },
@@ -14217,8 +14666,26 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल/0",
+            "block_index": 1,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल/1",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "धवला:गाथा:9"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल/2",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल"
           }
         },
@@ -14235,8 +14702,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल/0",
+            "block_index": 2,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल/2",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल"
           }
         },
@@ -14354,8 +14821,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय/0",
+            "block_index": 1,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय/1",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -14372,8 +14839,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 2,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय/2",
+            "block_index": 3,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय/3",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -14391,8 +14858,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 11,
-            "block_index": 3,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय/3",
+            "block_index": 4,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय/4",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -14410,8 +14877,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 11,
-            "block_index": 3,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय/3",
+            "block_index": 4,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय/4",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -14461,8 +14928,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/0",
+            "block_index": 1,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/1",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -14479,8 +14946,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 2,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/2",
+            "block_index": 3,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/3",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -14498,8 +14965,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 10,
-            "block_index": 2,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/2",
+            "block_index": 3,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/3",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -14517,8 +14984,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 10,
-            "block_index": 2,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/2",
+            "block_index": 3,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/3",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -14536,8 +15003,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 18,
-            "block_index": 3,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/3",
+            "block_index": 4,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/4",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -14555,8 +15022,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 18,
-            "block_index": 3,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/3",
+            "block_index": 4,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/4",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -14573,8 +15040,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 4,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/4",
+            "block_index": 5,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/5",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },

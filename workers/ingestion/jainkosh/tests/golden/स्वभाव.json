@@ -33,7 +33,7 @@
         "index_relations": [
           {
             "label_text": "प्रत्येक द्रव्य के स्वभाव",
-            "target_keyword": "वह वह द्रव्य।",
+            "target_keyword": "वह_वह_द्रव्य।",
             "target_topic_path": null,
             "target_url": "/w/index.php?title=%E0%A4%B5%E0%A4%B9_%E0%A4%B5%E0%A4%B9_%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF%E0%A5%A4&action=edit&redlink=1",
             "is_self": false,
@@ -623,8 +623,8 @@
                     "blocks": [
                       {
                         "kind": "sanskrit_text",
-                        "text_devanagari": "स्वभावोऽस्तित्वसामान्यान्वय:।95। स्वभावस्तु द्रव्यस्य ध्रौव्योत्पादोच्छेदैक्यात्मकपरिणाम:।99।",
-                        "hindi_translation": "द्रव्य का स्वभाव वह अस्तित्व सामान्य रूप अन्वय है।95। स्वभाव द्रव्य का ध्रौव्यउत्पादविनाश की एकता स्वरूप परिणाम है।99।",
+                        "text_devanagari": "स्वभावोऽस्तित्वसामान्यान्वय:।95।",
+                        "hindi_translation": "द्रव्य का स्वभाव वह अस्तित्व सामान्य रूप अन्वय है।95।",
                         "references": [
                           {
                             "text": "प्रवचनसार / तत्त्वप्रदीपिका/95,99",
@@ -640,7 +640,23 @@
                                 "value": 95
                               }
                             ]
-                          },
+                          }
+                        ],
+                        "is_orphan_translation": false,
+                        "is_bullet_point": false,
+                        "raw_html": null,
+                        "table_rows": null,
+                        "target_keyword": null,
+                        "target_topic_path": null,
+                        "target_url": null,
+                        "is_self": false,
+                        "target_exists": true
+                      },
+                      {
+                        "kind": "sanskrit_text",
+                        "text_devanagari": "स्वभावस्तु द्रव्यस्य ध्रौव्योत्पादोच्छेदैक्यात्मकपरिणाम:।99।",
+                        "hindi_translation": "स्वभाव द्रव्य का ध्रौव्यउत्पादविनाश की एकता स्वरूप परिणाम है।99।",
+                        "references": [
                           {
                             "text": "प्रवचनसार / तत्त्वप्रदीपिका/95,99",
                             "inline_reference": false,
@@ -784,7 +800,7 @@
                             "is_bullet_point": false,
                             "raw_html": null,
                             "table_rows": null,
-                            "target_keyword": "प्रकृति बंध",
+                            "target_keyword": "प्रकृति_बंध",
                             "target_topic_path": "1.1",
                             "target_url": "/wiki/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%95%E0%A5%83%E0%A4%A4%E0%A4%BF_%E0%A4%AC%E0%A4%82%E0%A4%A7#1.1",
                             "is_self": false,
@@ -876,8 +892,8 @@
                 "blocks": [
                   {
                     "kind": "prakrit_text",
-                    "text_devanagari": "अत्थित्ति णत्थि णिच्चं अणिच्चमेगं अणेगभेदिदरं भव्वा भव्वं परमं सामण्णं सव्वदव्वाणं।59। चेदणमचेदणं पि हु मुत्तममुत्तं च एगबहुदेसं। सुद्धासुद्धविभावं उवयरियं होइ कस्सेव।60।",
-                    "hindi_translation": "अस्तित्व, नास्तित्व, नित्य, अनित्य, एक, अनेक, भेद, अभेद, भव्य, अभव्य और परम। ये 11 सर्व द्रव्यों के सामान्य स्वभाव हैं।59। चेतन, अचेतन, मूर्त, अमूर्त, एकप्रदेशी, बहुप्रदेशी, शुद्ध, अशुद्ध, विभाव और उपचरित ये 10 स्वभाव द्रव्यों के विशेष स्वभाव हैं। [इस प्रकार कुल 21 सामान्य व विशेष स्वभाव हैं।\n];\n,",
+                    "text_devanagari": "अत्थित्ति णत्थि णिच्चं अणिच्चमेगं अणेगभेदिदरं भव्वा भव्वं परमं सामण्णं सव्वदव्वाणं।59।",
+                    "hindi_translation": "अस्तित्व, नास्तित्व, नित्य, अनित्य, एक, अनेक, भेद, अभेद, भव्य, अभव्य और परम। ये 11 सर्व द्रव्यों के सामान्य स्वभाव हैं।59।",
                     "references": [
                       {
                         "text": "नयचक्र बृहद्/59-60",
@@ -893,7 +909,23 @@
                             "value": 59
                           }
                         ]
-                      },
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "prakrit_text",
+                    "text_devanagari": "चेदणमचेदणं पि हु मुत्तममुत्तं च एगबहुदेसं। सुद्धासुद्धविभावं उवयरियं होइ कस्सेव।60।",
+                    "hindi_translation": "चेतन, अचेतन, मूर्त, अमूर्त, एकप्रदेशी, बहुप्रदेशी, शुद्ध, अशुद्ध, विभाव और उपचरित ये 10 स्वभाव द्रव्यों के विशेष स्वभाव हैं। [इस प्रकार कुल 21 सामान्य व विशेष स्वभाव हैं।\n];\n,",
+                    "references": [
                       {
                         "text": "नयचक्र बृहद्/59-60",
                         "inline_reference": false,
@@ -945,8 +977,8 @@
                         "needs_manual_match": true,
                         "is_teeka": false,
                         "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
+                        "shastra_name": "नयचक्र/श्रुतभवन",
+                        "match_method": "shastra_name",
                         "resolved_fields": []
                       }
                     ],
@@ -1317,8 +1349,8 @@
                   },
                   {
                     "kind": "sanskrit_text",
-                    "text_devanagari": "स्वभावस्य तु परानपेक्षत्वात्।19। स्वभाव: तत्पुनरंयसाधननिरपेक्षत्वादनाद्यनंततया हेतुकयैकरूपया...।96। सर्वद्रव्याणां स्वभावसिद्धत्वात् स्वभावसिद्धत्वं तु तेषामनादिनिधनत्वात्। अनादिनिधनं हि न साधनांतरमपेक्षते।98।",
-                    "hindi_translation": "स्वभाव पर से अनपेक्ष है।19। स्वभाव अन्य साधन से निरपेक्ष होने के कारण अनादि अनंत होने से तथा अहेतुक, एकरूप वृत्ति से...।96। वास्तव में सर्वद्रव्य स्वभावसिद्ध हैं। स्वभावसिद्धता तो उनकी अनादिनिधनता से है, क्योंकि अनादिनिधन साधनांतर की अपेक्षा नहीं रखता।98।",
+                    "text_devanagari": "स्वभावस्य तु परानपेक्षत्वात्।19।",
+                    "hindi_translation": "स्वभाव पर से अनपेक्ष है।19।",
                     "references": [
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/19,96,98",
@@ -1334,7 +1366,23 @@
                             "value": 19
                           }
                         ]
-                      },
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "sanskrit_text",
+                    "text_devanagari": "स्वभाव: तत्पुनरंयसाधननिरपेक्षत्वादनाद्यनंततया हेतुकयैकरूपया...।96।",
+                    "hindi_translation": "स्वभाव अन्य साधन से निरपेक्ष होने के कारण अनादि अनंत होने से तथा अहेतुक, एकरूप वृत्ति से...।96।",
+                    "references": [
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/19,96,98",
                         "inline_reference": false,
@@ -1349,7 +1397,23 @@
                             "value": 96
                           }
                         ]
-                      },
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "sanskrit_text",
+                    "text_devanagari": "सर्वद्रव्याणां स्वभावसिद्धत्वात् स्वभावसिद्धत्वं तु तेषामनादिनिधनत्वात्। अनादिनिधनं हि न साधनांतरमपेक्षते।98।",
+                    "hindi_translation": "वास्तव में सर्वद्रव्य स्वभावसिद्ध हैं। स्वभावसिद्धता तो उनकी अनादिनिधनता से है, क्योंकि अनादिनिधन साधनांतर की अपेक्षा नहीं रखता।98।",
+                    "references": [
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/19,96,98",
                         "inline_reference": false,
@@ -2888,8 +2952,8 @@
           "blocks": [
             {
               "kind": "sanskrit_text",
-              "text_devanagari": "स्वभावोऽस्तित्वसामान्यान्वय:।95। स्वभावस्तु द्रव्यस्य ध्रौव्योत्पादोच्छेदैक्यात्मकपरिणाम:।99।",
-              "hindi_translation": "द्रव्य का स्वभाव वह अस्तित्व सामान्य रूप अन्वय है।95। स्वभाव द्रव्य का ध्रौव्यउत्पादविनाश की एकता स्वरूप परिणाम है।99।",
+              "text_devanagari": "स्वभावोऽस्तित्वसामान्यान्वय:।95।",
+              "hindi_translation": "द्रव्य का स्वभाव वह अस्तित्व सामान्य रूप अन्वय है।95।",
               "references": [
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/95,99",
@@ -2905,7 +2969,23 @@
                       "value": 95
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "sanskrit_text",
+              "text_devanagari": "स्वभावस्तु द्रव्यस्य ध्रौव्योत्पादोच्छेदैक्यात्मकपरिणाम:।99।",
+              "hindi_translation": "स्वभाव द्रव्य का ध्रौव्यउत्पादविनाश की एकता स्वरूप परिणाम है।99।",
+              "references": [
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/95,99",
                   "inline_reference": false,
@@ -3048,7 +3128,7 @@
               "is_bullet_point": false,
               "raw_html": null,
               "table_rows": null,
-              "target_keyword": "प्रकृति बंध",
+              "target_keyword": "प्रकृति_बंध",
               "target_topic_path": "1.1",
               "target_url": "/wiki/%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%95%E0%A5%83%E0%A4%A4%E0%A4%BF_%E0%A4%AC%E0%A4%82%E0%A4%A7#1.1",
               "is_self": false,
@@ -3138,8 +3218,8 @@
           "blocks": [
             {
               "kind": "prakrit_text",
-              "text_devanagari": "अत्थित्ति णत्थि णिच्चं अणिच्चमेगं अणेगभेदिदरं भव्वा भव्वं परमं सामण्णं सव्वदव्वाणं।59। चेदणमचेदणं पि हु मुत्तममुत्तं च एगबहुदेसं। सुद्धासुद्धविभावं उवयरियं होइ कस्सेव।60।",
-              "hindi_translation": "अस्तित्व, नास्तित्व, नित्य, अनित्य, एक, अनेक, भेद, अभेद, भव्य, अभव्य और परम। ये 11 सर्व द्रव्यों के सामान्य स्वभाव हैं।59। चेतन, अचेतन, मूर्त, अमूर्त, एकप्रदेशी, बहुप्रदेशी, शुद्ध, अशुद्ध, विभाव और उपचरित ये 10 स्वभाव द्रव्यों के विशेष स्वभाव हैं। [इस प्रकार कुल 21 सामान्य व विशेष स्वभाव हैं।\n];\n,",
+              "text_devanagari": "अत्थित्ति णत्थि णिच्चं अणिच्चमेगं अणेगभेदिदरं भव्वा भव्वं परमं सामण्णं सव्वदव्वाणं।59।",
+              "hindi_translation": "अस्तित्व, नास्तित्व, नित्य, अनित्य, एक, अनेक, भेद, अभेद, भव्य, अभव्य और परम। ये 11 सर्व द्रव्यों के सामान्य स्वभाव हैं।59।",
               "references": [
                 {
                   "text": "नयचक्र बृहद्/59-60",
@@ -3155,7 +3235,23 @@
                       "value": 59
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "prakrit_text",
+              "text_devanagari": "चेदणमचेदणं पि हु मुत्तममुत्तं च एगबहुदेसं। सुद्धासुद्धविभावं उवयरियं होइ कस्सेव।60।",
+              "hindi_translation": "चेतन, अचेतन, मूर्त, अमूर्त, एकप्रदेशी, बहुप्रदेशी, शुद्ध, अशुद्ध, विभाव और उपचरित ये 10 स्वभाव द्रव्यों के विशेष स्वभाव हैं। [इस प्रकार कुल 21 सामान्य व विशेष स्वभाव हैं।\n];\n,",
+              "references": [
                 {
                   "text": "नयचक्र बृहद्/59-60",
                   "inline_reference": false,
@@ -3207,8 +3303,8 @@
                   "needs_manual_match": true,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
+                  "shastra_name": "नयचक्र/श्रुतभवन",
+                  "match_method": "shastra_name",
                   "resolved_fields": []
                 }
               ],
@@ -3583,8 +3679,8 @@
             },
             {
               "kind": "sanskrit_text",
-              "text_devanagari": "स्वभावस्य तु परानपेक्षत्वात्।19। स्वभाव: तत्पुनरंयसाधननिरपेक्षत्वादनाद्यनंततया हेतुकयैकरूपया...।96। सर्वद्रव्याणां स्वभावसिद्धत्वात् स्वभावसिद्धत्वं तु तेषामनादिनिधनत्वात्। अनादिनिधनं हि न साधनांतरमपेक्षते।98।",
-              "hindi_translation": "स्वभाव पर से अनपेक्ष है।19। स्वभाव अन्य साधन से निरपेक्ष होने के कारण अनादि अनंत होने से तथा अहेतुक, एकरूप वृत्ति से...।96। वास्तव में सर्वद्रव्य स्वभावसिद्ध हैं। स्वभावसिद्धता तो उनकी अनादिनिधनता से है, क्योंकि अनादिनिधन साधनांतर की अपेक्षा नहीं रखता।98।",
+              "text_devanagari": "स्वभावस्य तु परानपेक्षत्वात्।19।",
+              "hindi_translation": "स्वभाव पर से अनपेक्ष है।19।",
               "references": [
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/19,96,98",
@@ -3600,7 +3696,23 @@
                       "value": 19
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "sanskrit_text",
+              "text_devanagari": "स्वभाव: तत्पुनरंयसाधननिरपेक्षत्वादनाद्यनंततया हेतुकयैकरूपया...।96।",
+              "hindi_translation": "स्वभाव अन्य साधन से निरपेक्ष होने के कारण अनादि अनंत होने से तथा अहेतुक, एकरूप वृत्ति से...।96।",
+              "references": [
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/19,96,98",
                   "inline_reference": false,
@@ -3615,7 +3727,23 @@
                       "value": 96
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "sanskrit_text",
+              "text_devanagari": "सर्वद्रव्याणां स्वभावसिद्धत्वात् स्वभावसिद्धत्वं तु तेषामनादिनिधनत्वात्। अनादिनिधनं हि न साधनांतरमपेक्षते।98।",
+              "hindi_translation": "वास्तव में सर्वद्रव्य स्वभावसिद्ध हैं। स्वभावसिद्धता तो उनकी अनादिनिधनता से है, क्योंकि अनादिनिधन साधनांतर की अपेक्षा नहीं रखता।98।",
+              "references": [
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/19,96,98",
                   "inline_reference": false,
@@ -4458,12 +4586,11 @@
           "lazy": true
         },
         {
-          "label": "GathaTeekaBhaavarth",
-          "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:99",
+          "label": "GathaTeeka",
+          "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:99",
           "props": {
             "shastra_natural_key": "प्रवचनसार",
             "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
-            "publisher_id": "publisher_to_be_added",
             "gatha_number": "99"
           },
           "lazy": true
@@ -4545,10 +4672,12 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "कार्तिकेयानुप्रेक्षा:गाथा:312",
+          "label": "GathaTeekaBhaavarth",
+          "key": "कार्तिकेयानुप्रेक्षा:23:गाथा:टीका:भावार्थ:312",
           "props": {
             "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
+            "teeka_natural_key": "कार्तिकेयानुप्रेक्षा",
+            "publisher_id": "23",
             "gatha_number": "312"
           },
           "lazy": true
@@ -4670,23 +4799,21 @@
           "lazy": true
         },
         {
-          "label": "GathaTeekaBhaavarth",
-          "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:96",
+          "label": "GathaTeeka",
+          "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:96",
           "props": {
             "shastra_natural_key": "प्रवचनसार",
             "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
-            "publisher_id": "publisher_to_be_added",
             "gatha_number": "96"
           },
           "lazy": true
         },
         {
-          "label": "GathaTeekaBhaavarth",
-          "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:98",
+          "label": "GathaTeeka",
+          "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:98",
           "props": {
             "shastra_natural_key": "प्रवचनसार",
             "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
-            "publisher_id": "publisher_to_be_added",
             "gatha_number": "98"
           },
           "lazy": true
@@ -4943,12 +5070,12 @@
         },
         {
           "label": "Topic",
-          "key": "प्रकृति बंध:1:1",
+          "key": "प्रकृति_बंध:1:1",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "1",
             "topic_path": "1.1",
-            "parent_keyword_natural_key": "प्रकृति बंध"
+            "parent_keyword_natural_key": "प्रकृति_बंध"
           }
         },
         {
@@ -5301,8 +5428,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeekaBhaavarth",
-            "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:99"
+            "label": "GathaTeeka",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:99"
           },
           "to": {
             "label": "Topic",
@@ -5311,8 +5438,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम/0",
+            "block_index": 1,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम/1",
             "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम"
           }
         },
@@ -5330,8 +5457,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 12,
-            "block_index": 1,
-            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम/1",
+            "block_index": 2,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम/2",
             "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम"
           }
         },
@@ -5349,8 +5476,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 12,
-            "block_index": 1,
-            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम/1",
+            "block_index": 2,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम/2",
             "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-लक्षण-गुण-पर्यायों-में-अन्वय-परिणाम"
           }
         },
@@ -5422,7 +5549,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "प्रकृति बंध:1:1"
+            "key": "प्रकृति_बंध:1:1"
           },
           "props": {
             "weight": 1.0,
@@ -5462,8 +5589,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "कार्तिकेयानुप्रेक्षा:गाथा:312"
+            "label": "GathaTeekaBhaavarth",
+            "key": "कार्तिकेयानुप्रेक्षा:23:गाथा:टीका:भावार्थ:312"
           },
           "to": {
             "label": "Topic",
@@ -5472,8 +5599,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 1,
-            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:सामान्य-व-विशेष-स्वभावों-के-भेद/1",
+            "block_index": 2,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:सामान्य-व-विशेष-स्वभावों-के-भेद/2",
             "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:सामान्य-व-विशेष-स्वभावों-के-भेद"
           }
         },
@@ -5675,8 +5802,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeekaBhaavarth",
-            "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:96"
+            "label": "GathaTeeka",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:96"
           },
           "to": {
             "label": "Topic",
@@ -5685,16 +5812,16 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 2,
-            "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-पर-की-अपेक्षा-नहीं-रखता/2",
+            "block_index": 3,
+            "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-पर-की-अपेक्षा-नहीं-रखता/3",
             "source_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-पर-की-अपेक्षा-नहीं-रखता"
           }
         },
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeekaBhaavarth",
-            "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:98"
+            "label": "GathaTeeka",
+            "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:98"
           },
           "to": {
             "label": "Topic",
@@ -5703,8 +5830,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 2,
-            "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-पर-की-अपेक्षा-नहीं-रखता/2",
+            "block_index": 4,
+            "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-पर-की-अपेक्षा-नहीं-रखता/4",
             "source_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-पर-की-अपेक्षा-नहीं-रखता"
           }
         },
