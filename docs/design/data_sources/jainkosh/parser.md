@@ -808,6 +808,7 @@ DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence an
 | `1.8.1` | V2-bare inline-content fix: `_make_v2_content_block` returns `None` for V2-bare spans, preventing heading text re-emission as `hindi_text` block. |
 | `1.9.0` | After-`देखें` text as topic seed: HindiText element starting with `देखें <link> text_after` creates synthetic child seed. `extract_text_after_anchor` stops at `<br/>`. |
 | `1.10.0` | `<br/>`-separated `देखें` as section-level seeds: initial prose + `<br/>`-separated `देखें (label)` lines → `PageSection.label_topic_seeds`. Definition `hindi_translation` cleaned. |
+| `1.10.1` | Classless `<p>` containers with `<strong>/<b>` direct children: `_is_block_span_container` now allows `<strong>/<b>` as transparent wrappers. `parse_block_stream` carries the sibling `=` marker forward when a `<strong>/<b>` between source block and HindiText span produces no block, accumulating its text into the translation prefix. Fixes स्वभाव subsection 2.4 where `<strong><span class="HindiText">प्रश्न</span></strong>` was silently dropped. |
 
 ---
 
@@ -826,6 +827,7 @@ DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence an
 | पर्याय | 3-level deep paths (`1.1.3`) | Tree assembly synthesises missing parents if needed. |
 | स्वभाव | V2-bare headings wrapped in classless `<p>` | DFS classless-`<p>` recursion (§6.10). |
 | स्वभाव | `देखें <link> text_after` element (§ 1.1.4, 1.4, 2.4) | After-`देखें` seed (§5.5). |
+| स्वभाव | Classless `<p>` for subsection 2.4 contains `<strong><span HindiText>` as direct child | `_is_block_span_container` allows `<strong>/<b>`; carry-forward in `parse_block_stream` merges bold prefix into translation (v1.10.1). |
 | वस्तु | All SiddhantKosh content in classless `<p>` wrapping block-class spans | Exploded by `_is_block_span_container()`. |
 | वस्तु | `<span class="HindiText">` with initial prose + `<br/>`-separated `देखें (label)` | `<br/>`-dekhen pattern (§5.6): section-level seeds; definition cleaned. |
 | any | Self-link `<a class="mw-selflink-fragment" href="#3">` | `is_self=true` (§4.3). |

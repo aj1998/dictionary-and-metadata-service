@@ -11,7 +11,7 @@ FIXTURE_DIR = Path("workers/ingestion/jainkosh/tests/fixtures")
 GOLDEN_DIR = Path("workers/ingestion/jainkosh/tests/golden")
 FROZEN = "2026-05-04T00:00:00Z"
 
-KEYWORDS = ["आत्मा", "द्रव्य", "पर्याय", "वस्तु"]
+KEYWORDS = ["आत्मा", "द्रव्य", "पर्याय", "वस्तु", "स्वभाव"]
 
 
 def _walk_subs(subsections):
@@ -213,6 +213,42 @@ def test_no_truncated_table_raw_html_in_goldens():
                         continue
                     assert block["raw_html"].startswith("<table")
                     assert block["raw_html"].rstrip().endswith("</table>")
+
+
+def test_svabhav_sanity():
+    """स्वभाव subsection 2.4 must have the Sanskrit block with hindi_translation populated."""
+    from workers.ingestion.jainkosh.config import load_config
+    from workers.ingestion.jainkosh.parse_keyword import parse_keyword_html
+
+    config = load_config()
+    with open(FIXTURE_DIR / "स्वभाव.html", encoding="utf-8") as f:
+        html = f.read()
+    result = parse_keyword_html(html, "https://jainkosh.org/wiki/स्वभाव", config)
+
+    def find_sub(subs, path):
+        for s in subs:
+            if s.topic_path == path:
+                return s
+            found = find_sub(s.children or [], path)
+            if found:
+                return found
+        return None
+
+    siddhantkosh = next(s for s in result.page_sections if s.section_kind == "siddhantkosh")
+    sub24 = find_sub(siddhantkosh.subsections, "2.4")
+    assert sub24 is not None, "Subsection 2.4 not found"
+
+    # Must have at least one block (the Sanskrit text + translation)
+    assert len(sub24.blocks) >= 1, "Subsection 2.4 has no blocks"
+    src = sub24.blocks[0]
+    assert src.kind == "sanskrit_text"
+    assert src.hindi_translation is not None, "Sanskrit block has no hindi_translation"
+    assert "प्रश्न" in src.hindi_translation, "Translation should contain प्रश्न"
+    assert src.references, "Sanskrit block should have a reference"
+    assert "स्याद्वादमंजरी" in src.references[0].text
+
+    # Child seed (देखें स्वभाव 1.6) must still exist
+    assert len(sub24.children) >= 1, "After-dekhen seed should still be present"
 
 
 def test_envelope_carries_root_idempotency_contracts():

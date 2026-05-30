@@ -1702,7 +1702,47 @@
                 "is_synthetic": false,
                 "label_topic_seed": false,
                 "source_subkind": null,
-                "blocks": [],
+                "blocks": [
+                  {
+                    "kind": "sanskrit_text",
+                    "text_devanagari": "नन्वेते धर्मा: परस्परं विरुद्धा: तत्कथमेकत्र वस्तुन्येषां समावेश: संभवति। ...उपाधयोऽवच्छेदका अंशप्रकारा: तेषां भेदो नानात्वम्, तेनोपहितमर्पितम्। असत्त्वस्य विशेषणमेतत्। उपाधिभेदोपहितं सदर्थेष्वसत्त्वं न विरुद्धम्।",
+                    "hindi_translation": "**प्रश्न**-अस्तित्व, नास्तित्व और अवक्तव्य परस्पर विरुद्ध हैं, अतएव ये किसी वस्तु में एक साथ नहीं रह सकते। **उत्तर**\n-वास्तव में अस्तित्वादि में विरोध नहीं है। क्योंकि अस्तित्वादि किसी अपेक्षा से स्वीकार किये गये हैं। पदार्थों में अस्तित्व, नास्तित्वादि नाना धर्म विद्यमान हैं। जिस समय हम पदार्थों का अस्तित्व सिद्ध करते हैं, उस समय अस्तित्व धर्म की प्रधानता और अन्य धर्म की गौणता रहती है। अतएव अस्तित्व, नास्तित्व धर्म में परस्पर विरोध नहीं है।",
+                    "references": [
+                      {
+                        "text": "स्याद्वादमंजरी/24/289/21",
+                        "inline_reference": false,
+                        "needs_manual_match": false,
+                        "is_teeka": false,
+                        "teeka_name": "",
+                        "shastra_name": "स्याद्वादमञ्जरी",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "श्लोक",
+                            "value": 24
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 289
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 21
+                          }
+                        ]
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  }
+                ],
                 "children": [
                   {
                     "topic_path": null,
@@ -3930,7 +3970,47 @@
               "text": "स्वभाव या धर्म अपेक्षा कृत होते हैं"
             }
           ],
-          "blocks": [],
+          "blocks": [
+            {
+              "kind": "sanskrit_text",
+              "text_devanagari": "नन्वेते धर्मा: परस्परं विरुद्धा: तत्कथमेकत्र वस्तुन्येषां समावेश: संभवति। ...उपाधयोऽवच्छेदका अंशप्रकारा: तेषां भेदो नानात्वम्, तेनोपहितमर्पितम्। असत्त्वस्य विशेषणमेतत्। उपाधिभेदोपहितं सदर्थेष्वसत्त्वं न विरुद्धम्।",
+              "hindi_translation": "**प्रश्न**-अस्तित्व, नास्तित्व और अवक्तव्य परस्पर विरुद्ध हैं, अतएव ये किसी वस्तु में एक साथ नहीं रह सकते। **उत्तर**\n-वास्तव में अस्तित्वादि में विरोध नहीं है। क्योंकि अस्तित्वादि किसी अपेक्षा से स्वीकार किये गये हैं। पदार्थों में अस्तित्व, नास्तित्वादि नाना धर्म विद्यमान हैं। जिस समय हम पदार्थों का अस्तित्व सिद्ध करते हैं, उस समय अस्तित्व धर्म की प्रधानता और अन्य धर्म की गौणता रहती है। अतएव अस्तित्व, नास्तित्व धर्म में परस्पर विरोध नहीं है।",
+              "references": [
+                {
+                  "text": "स्याद्वादमंजरी/24/289/21",
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": false,
+                  "teeka_name": "",
+                  "shastra_name": "स्याद्वादमञ्जरी",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "श्लोक",
+                      "value": 24
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 289
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 21
+                    }
+                  ]
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            }
+          ],
           "source": "jainkosh",
           "source_url": "https://www.jainkosh.org/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5#2.4"
         },

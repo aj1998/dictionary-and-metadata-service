@@ -212,6 +212,8 @@ def parse_block_stream(
     pending_refs: list[Reference] = []
     last_block: Optional[Block] = None
     prev_element: Optional[Node] = None
+    _carry_sibling_eq: bool = False
+    _carry_sibling_eq_prefix: str = ""
 
     for el in flatten_for_blocks(elements, config, current_keyword=current_keyword):
         tag = el.tag if hasattr(el, 'tag') else None
@@ -241,9 +243,17 @@ def parse_block_stream(
             prev_element = el
             continue
 
-        # Check sibling_eq marker before splitting so synthetic nodes don't break context
-        sibling_eq_prefix = _get_eq_sibling_prefix(prev_element, el, config)
-        saw_sibling_eq = sibling_eq_prefix is not None
+        # Check sibling_eq marker before splitting so synthetic nodes don't break context.
+        # If a transparent wrapper (strong/b) was skipped in the previous iteration while
+        # sibling_eq was active, carry the flag forward rather than recomputing from DOM.
+        if _carry_sibling_eq:
+            sibling_eq_prefix = _carry_sibling_eq_prefix
+            saw_sibling_eq = True
+            _carry_sibling_eq = False
+            _carry_sibling_eq_prefix = ""
+        else:
+            sibling_eq_prefix = _get_eq_sibling_prefix(prev_element, el, config)
+            saw_sibling_eq = sibling_eq_prefix is not None
 
         # Only split when not in a translation-absorption context (preserves sibling_eq)
         if config.reference_splitting.enabled and not saw_sibling_eq:
@@ -254,6 +264,16 @@ def parse_block_stream(
         for sub_el in sub_els:
             result = make_block(sub_el, config, current_keyword=current_keyword, section_kind=section_kind)
             if result is None:
+                # When a transparent inline wrapper (strong/b) sits directly after the "="
+                # sibling marker and produces no block, carry the marker forward to the
+                # next element and accumulate the wrapper's text into the prefix so it
+                # becomes part of the translation (e.g. <strong><span HindiText>प्रश्न).
+                if saw_sibling_eq and (sub_el.tag or "") in ("strong", "b"):
+                    inner_text = normalize_text(sub_el.text() or "")
+                    if inner_text and config.emphasis.bold_to_markdown:
+                        inner_text = f"**{inner_text}**"
+                    _carry_sibling_eq = True
+                    _carry_sibling_eq_prefix = (sibling_eq_prefix or "") + inner_text
                 continue
 
             if isinstance(result, tuple):
@@ -523,7 +543,8 @@ def split_element_at_inline_refs(
 
 def _is_block_span_container(el: Node, config: JainkoshConfig) -> bool:
     """Return True if el's direct element children are ALL GRef spans, block-classed
-    elements, or <br> tags — i.e. it's a classless wrapper around block-level spans."""
+    elements, <br> tags, or transparent inline wrappers (<strong>/<b>) — i.e. it's a
+    classless wrapper around block-level spans."""
     has_block = False
     for child in el.iter(include_text=False):
         if child is el:
@@ -535,6 +556,9 @@ def _is_block_span_container(el: Node, config: JainkoshConfig) -> bool:
         if "GRef" in cls.split() and tag == "span":
             continue
         if tag == "br":
+            continue
+        if tag in ("strong", "b"):
+            # Transparent inline bold wrappers (e.g. <strong><span class="HindiText">)
             continue
         if block_class_kind(child, config) is not None:
             has_block = True

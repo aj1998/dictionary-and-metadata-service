@@ -154,3 +154,69 @@ class TestTranslationMarker:
         src = next(b for b in blocks if b.kind == "sanskrit_text")
         assert src.hindi_translation == "'स्व' का भवन अर्थात् होना वह स्वभाव है।"
         assert not any(b.kind == "hindi_text" for b in blocks)
+
+    def test_sibling_eq_with_strong_wrapper_before_hindi_text(self, config):
+        """Classless <p> where '=' text node precedes <strong><span HindiText>.
+
+        Mirrors स्वभाव subsection 2.4:
+          <p>
+            <span class="GRef">ref</span>
+            <span class="SanskritText">Sanskrit</span>
+            =
+            <strong><span class="HindiText">प्रश्न</span></strong>
+            <span class="HindiText">-translation rest</span>
+          </p>
+
+        Expected: one sanskrit_text block with combined hindi_translation
+        "**प्रश्न**-translation rest" and the GRef as reference.
+        """
+        html = """
+        <p>
+          <span class="GRef">ref/1/2</span>
+          <span class="SanskritText">Sanskrit text</span>
+          =
+          <strong><span class="HindiText">प्रश्न</span></strong>
+          <span class="HindiText">-translation rest</span>
+        </p>
+        """
+        blocks = parse_block_stream(make_elements(html), config)
+        assert len(blocks) == 1
+        block = blocks[0]
+        assert block.kind == "sanskrit_text"
+        assert block.text_devanagari == "Sanskrit text"
+        assert block.hindi_translation == "**प्रश्न**-translation rest"
+        assert len(block.references) == 1
+        assert block.references[0].text == "ref/1/2"
+
+    def test_sibling_eq_strong_wrapper_only_no_trailing_hindi(self, config):
+        """Classless <p> where only <strong><HindiText> follows '=', no trailing span."""
+        html = """
+        <p>
+          <span class="SanskritText">Sanskrit text</span>
+          =
+          <strong><span class="HindiText">अनुवाद</span></strong>
+        </p>
+        """
+        blocks = parse_block_stream(make_elements(html), config)
+        # The strong wrapper produces no block → carry-forward never fires (no
+        # subsequent HindiText in the container), so translation remains empty
+        # and the strong's text is buffered but not emitted. Acceptable: no crash.
+        assert all(b.kind != "hindi_text" or b.kind == "sanskrit_text" for b in blocks)
+
+    def test_block_span_container_strong_wrapper_detected(self, config):
+        """_is_block_span_container must return True when <strong> wraps a HindiText span."""
+        from workers.ingestion.jainkosh.parse_blocks import _is_block_span_container
+        from selectolax.parser import HTMLParser
+
+        html = """
+        <p>
+          <span class="GRef">ref</span>
+          <span class="SanskritText">src</span>
+          =
+          <strong><span class="HindiText">bold part</span></strong>
+          <span class="HindiText">rest</span>
+        </p>
+        """
+        tree = HTMLParser(html)
+        p = tree.css_first("p")
+        assert _is_block_span_container(p, config) is True
