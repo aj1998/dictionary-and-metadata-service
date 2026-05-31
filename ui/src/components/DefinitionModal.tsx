@@ -4,6 +4,7 @@ import { Fragment } from 'react';
 import { Dialog } from '@base-ui/react/dialog';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import type { DefinitionBlock, DefinitionReference, KeywordPageSection } from '@/lib/types';
 
 export type MarkdownSegment = { kind: 'text'; text: string } | { kind: 'bold'; text: string } | { kind: 'italic'; text: string };
@@ -72,19 +73,66 @@ export function formatRefSourceLabel(ref: DefinitionReference): string {
   return ref.shastra_name ?? '';
 }
 
-function pickRefsToShow(block: DefinitionBlock): DefinitionReference[] {
+export function pickRefsToShow(block: DefinitionBlock): DefinitionReference[] {
   const nonInline = block.references.filter((r) => !r.inline_reference);
-  const candidates = nonInline.length > 0 ? nonInline : block.references.filter((r) => r.inline_reference);
-  const withFields = candidates.filter((r) => r.resolved_fields.length > 0);
-  // Show only the first qualifying reference per block.
-  return withFields.slice(0, 1);
+  if (nonInline.length > 0) {
+    // Show all non-inline references that have resolved fields.
+    return nonInline.filter((r) => r.resolved_fields.length > 0);
+  }
+  // Fallback: show only the first qualifying inline reference.
+  return block.references.filter((r) => r.inline_reference && r.resolved_fields.length > 0).slice(0, 1);
+}
+
+// Returns references with resolved fields that are NOT already shown by pickRefsToShow.
+export function pickHiddenRefs(block: DefinitionBlock): DefinitionReference[] {
+  const shownSet = new Set(pickRefsToShow(block));
+  return block.references.filter((r) => r.resolved_fields.length > 0 && !shownSet.has(r));
+}
+
+function RefBadge({ ref, isPrakrit }: { ref: DefinitionReference; isPrakrit: boolean }) {
+  const sourceLabel = formatRefSourceLabel(ref);
+  return (
+    <span
+      className={cn(
+        'inline-flex items-center gap-0 rounded-full px-2.5 py-0.5 text-xs ring-1',
+        ref.is_teeka
+          ? 'bg-amber-50 text-amber-800 ring-amber-200'
+          : 'bg-surface-muted text-foreground-muted ring-border',
+      )}
+    >
+      {sourceLabel && (
+        <>
+          <span className={cn(
+            'font-semibold',
+            ref.is_teeka ? 'text-amber-700' : isPrakrit ? 'text-emerald-700' : 'text-sky-700',
+          )}>
+            {sourceLabel}
+          </span>
+          {ref.resolved_fields.length > 0 && (
+            <span className="mx-1.5 opacity-30">|</span>
+          )}
+        </>
+      )}
+      {ref.resolved_fields.map((f, fi) => (
+        <span key={fi} className="flex items-center">
+          {fi > 0 && <span className="mx-1 opacity-30">·</span>}
+          <span className="opacity-60">{f.field}:</span>
+          <span className="ml-0.5 font-medium">{f.value}</span>
+        </span>
+      ))}
+    </span>
+  );
 }
 
 function ModalBlock({ block }: { block: DefinitionBlock }) {
   const isPrakrit = block.kind === 'prakrit_text' || block.kind === 'prakrit_gatha';
   const isSanskrit = block.kind === 'sanskrit_text' || isPrakrit;
   const refsToShow = pickRefsToShow(block);
+  const hiddenRefs = pickHiddenRefs(block);
   const borderClass = getBlockBorderClass(block, refsToShow);
+
+  const hasAnyRef = refsToShow.length > 0 || hiddenRefs.length > 0;
+
   return (
     <div>
       <div className={`rounded border-l-4 ${borderClass} bg-surface-muted p-3`}>
@@ -100,43 +148,37 @@ function ModalBlock({ block }: { block: DefinitionBlock }) {
           </p>
         )}
       </div>
-      {refsToShow.length > 0 && (
-        <div className="mt-2 flex flex-wrap gap-1.5">
-          {refsToShow.map((ref, ri) => {
-            const sourceLabel = formatRefSourceLabel(ref);
-            return (
-              <span
-                key={ri}
-                className={cn(
-                  'inline-flex items-center gap-0 rounded-full px-2.5 py-0.5 text-xs ring-1',
-                  ref.is_teeka
-                    ? 'bg-amber-50 text-amber-800 ring-amber-200'
-                    : 'bg-surface-muted text-foreground-muted ring-border',
-                )}
+      {hasAnyRef && (
+        <div className="mt-2 flex items-start gap-2">
+          <div className="flex flex-1 flex-wrap gap-1.5">
+            {refsToShow.map((ref, ri) => (
+              <RefBadge key={ri} ref={ref} isPrakrit={isPrakrit} />
+            ))}
+          </div>
+          {hiddenRefs.length > 0 && (
+            <Popover>
+              <PopoverTrigger
+                aria-haspopup="dialog"
+                className="ml-auto shrink-0 rounded-[var(--radius-sm)] bg-accent px-2.5 py-0.5 font-serif-hindi text-xs font-bold text-white transition-colors hover:bg-accent-hover"
               >
-                {sourceLabel && (
-                  <>
-                    <span className={cn(
-                      'font-semibold',
-                      ref.is_teeka ? 'text-amber-700' : isPrakrit ? 'text-emerald-700' : 'text-sky-700',
-                    )}>
-                      {sourceLabel}
-                    </span>
-                    {ref.resolved_fields.length > 0 && (
-                      <span className="mx-1.5 opacity-30">|</span>
-                    )}
-                  </>
-                )}
-                {ref.resolved_fields.map((f, fi) => (
-                  <span key={fi} className="flex items-center">
-                    {fi > 0 && <span className="mx-1 opacity-30">·</span>}
-                    <span className="opacity-60">{f.field}:</span>
-                    <span className="ml-0.5 font-medium">{f.value}</span>
-                  </span>
-                ))}
-              </span>
-            );
-          })}
+                समान संदर्भ
+              </PopoverTrigger>
+              <PopoverContent
+                align="end"
+                sideOffset={6}
+                className="w-[480px] max-w-[min(480px,calc(100vw-2rem))] rounded-[var(--radius-md)] border border-border bg-surface p-4 text-foreground"
+              >
+                <p className="mb-2.5 font-sans text-xs font-semibold uppercase tracking-widest text-foreground-muted">
+                  समान संदर्भ ({hiddenRefs.length})
+                </p>
+                <div className="flex flex-col gap-1.5 overflow-x-auto">
+                  {hiddenRefs.map((ref, ri) => (
+                    <RefBadge key={ri} ref={ref} isPrakrit={isPrakrit} />
+                  ))}
+                </div>
+              </PopoverContent>
+            </Popover>
+          )}
         </div>
       )}
     </div>

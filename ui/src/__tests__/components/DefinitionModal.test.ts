@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getBlockBorderClass, formatRefSourceLabel, parseMarkdownSegments } from '@/components/DefinitionModal';
+import { getBlockBorderClass, formatRefSourceLabel, parseMarkdownSegments, pickRefsToShow, pickHiddenRefs } from '@/components/DefinitionModal';
 import type { DefinitionBlock, DefinitionReference } from '@/lib/types';
 
 function makeRef(overrides: Partial<DefinitionReference> = {}): DefinitionReference {
@@ -169,5 +169,126 @@ describe('formatRefSourceLabel', () => {
   it('returns only shastra_name when teeka_name is empty for teeka ref', () => {
     const ref = makeRef({ is_teeka: true, shastra_name: 'समयसार', teeka_name: '' });
     expect(formatRefSourceLabel(ref)).toBe('समयसार');
+  });
+});
+
+describe('pickRefsToShow', () => {
+  it('returns empty array when block has no references', () => {
+    const block = makeBlock({ references: [] });
+    expect(pickRefsToShow(block)).toEqual([]);
+  });
+
+  it('returns a single non-inline ref with resolved_fields', () => {
+    const ref = makeRef({ inline_reference: false });
+    const block = makeBlock({ references: [ref] });
+    expect(pickRefsToShow(block)).toEqual([ref]);
+  });
+
+  it('returns ALL non-inline refs when multiple exist', () => {
+    const ref1 = makeRef({ inline_reference: false, shastra_name: 'समयसार' });
+    const ref2 = makeRef({ inline_reference: false, shastra_name: 'नियमसार' });
+    const block = makeBlock({ references: [ref1, ref2] });
+    const result = pickRefsToShow(block);
+    expect(result).toHaveLength(2);
+    expect(result).toContain(ref1);
+    expect(result).toContain(ref2);
+  });
+
+  it('excludes non-inline refs with no resolved_fields', () => {
+    const withFields = makeRef({ inline_reference: false });
+    const noFields = makeRef({ inline_reference: false, resolved_fields: [] });
+    const block = makeBlock({ references: [withFields, noFields] });
+    expect(pickRefsToShow(block)).toEqual([withFields]);
+  });
+
+  it('falls back to first inline ref when all refs are inline', () => {
+    const inline1 = makeRef({ inline_reference: true, shastra_name: 'समयसार' });
+    const inline2 = makeRef({ inline_reference: true, shastra_name: 'नियमसार' });
+    const block = makeBlock({ references: [inline1, inline2] });
+    // Inline fallback: only the first qualifying ref
+    expect(pickRefsToShow(block)).toEqual([inline1]);
+  });
+
+  it('prefers non-inline refs over inline refs when both present', () => {
+    const nonInline = makeRef({ inline_reference: false, shastra_name: 'समयसार' });
+    const inline = makeRef({ inline_reference: true, shastra_name: 'नियमसार' });
+    const block = makeBlock({ references: [inline, nonInline] });
+    expect(pickRefsToShow(block)).toEqual([nonInline]);
+  });
+
+  it('returns empty array when inline fallback refs have no resolved_fields', () => {
+    const inline = makeRef({ inline_reference: true, resolved_fields: [] });
+    const block = makeBlock({ references: [inline] });
+    expect(pickRefsToShow(block)).toEqual([]);
+  });
+
+  it('returns all non-inline refs including teeka refs', () => {
+    const shastraRef = makeRef({ inline_reference: false, is_teeka: false, shastra_name: 'समयसार' });
+    const teekaRef = makeRef({ inline_reference: false, is_teeka: true, shastra_name: 'समयसार', teeka_name: 'टीका' });
+    const block = makeBlock({ references: [shastraRef, teekaRef] });
+    const result = pickRefsToShow(block);
+    expect(result).toHaveLength(2);
+    expect(result).toContain(shastraRef);
+    expect(result).toContain(teekaRef);
+  });
+});
+
+describe('pickHiddenRefs', () => {
+  it('returns empty array when block has no references', () => {
+    expect(pickHiddenRefs(makeBlock({ references: [] }))).toEqual([]);
+  });
+
+  it('returns empty array when all non-inline refs are already shown', () => {
+    const ref = makeRef({ inline_reference: false });
+    expect(pickHiddenRefs(makeBlock({ references: [ref] }))).toEqual([]);
+  });
+
+  it('returns inline refs hidden when non-inline refs take precedence', () => {
+    const nonInline = makeRef({ inline_reference: false, shastra_name: 'समयसार' });
+    const inline = makeRef({ inline_reference: true, shastra_name: 'नियमसार' });
+    const block = makeBlock({ references: [nonInline, inline] });
+    const hidden = pickHiddenRefs(block);
+    expect(hidden).toEqual([inline]);
+  });
+
+  it('returns extra inline refs beyond the first when only inline refs exist', () => {
+    const first = makeRef({ inline_reference: true, shastra_name: 'समयसार' });
+    const second = makeRef({ inline_reference: true, shastra_name: 'नियमसार' });
+    const third = makeRef({ inline_reference: true, shastra_name: 'प्रवचनसार' });
+    const block = makeBlock({ references: [first, second, third] });
+    const hidden = pickHiddenRefs(block);
+    expect(hidden).toHaveLength(2);
+    expect(hidden).toContain(second);
+    expect(hidden).toContain(third);
+  });
+
+  it('excludes refs with no resolved_fields from hidden list', () => {
+    const nonInline = makeRef({ inline_reference: false });
+    const inlineNoFields = makeRef({ inline_reference: true, resolved_fields: [] });
+    const block = makeBlock({ references: [nonInline, inlineNoFields] });
+    // inlineNoFields has no resolved_fields, so it should not appear in hidden
+    expect(pickHiddenRefs(block)).toEqual([]);
+  });
+
+  it('returns multiple hidden refs when both inline and non-inline without fields coexist', () => {
+    const nonInline = makeRef({ inline_reference: false, shastra_name: 'समयसार' });
+    const inline1 = makeRef({ inline_reference: true, shastra_name: 'नियमसार' });
+    const inline2 = makeRef({ inline_reference: true, shastra_name: 'प्रवचनसार' });
+    const block = makeBlock({ references: [nonInline, inline1, inline2] });
+    const hidden = pickHiddenRefs(block);
+    expect(hidden).toHaveLength(2);
+    expect(hidden).toContain(inline1);
+    expect(hidden).toContain(inline2);
+  });
+
+  it('hidden + shown together equal all refs with resolved_fields', () => {
+    const ref1 = makeRef({ inline_reference: false, shastra_name: 'अ' });
+    const ref2 = makeRef({ inline_reference: true, shastra_name: 'ब' });
+    const ref3 = makeRef({ inline_reference: true, shastra_name: 'क', resolved_fields: [] });
+    const block = makeBlock({ references: [ref1, ref2, ref3] });
+    const shown = pickRefsToShow(block);
+    const hidden = pickHiddenRefs(block);
+    const allWithFields = block.references.filter((r) => r.resolved_fields.length > 0);
+    expect([...shown, ...hidden].sort()).toEqual(allWithFields.sort());
   });
 });

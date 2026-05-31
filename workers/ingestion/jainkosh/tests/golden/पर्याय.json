@@ -664,7 +664,7 @@
                       {
                         "kind": "sanskrit_text",
                         "text_devanagari": "दव्व विकारी हि पज्जवो भणिदो। तेषां विकारा विशेषात्मना भिद्यमानाः पर्यायाः।",
-                        "hindi_translation": null,
+                        "hindi_translation": "द्रव्य के विकार को पर्याय कहते हैं। द्रव्य के विकार विशेष रूप से भेद को प्राप्त होते हैं इसलिए वे पर्याय कहलाते हैं।",
                         "references": [
                           {
                             "text": "सर्वार्थसिद्धि/5/38/309-310/7",
@@ -732,28 +732,13 @@
                         "target_exists": true
                       },
                       {
-                        "kind": "hindi_text",
-                        "text_devanagari": "द्रव्य के विकार को पर्याय कहते हैं।",
-                        "hindi_translation": null,
-                        "references": [],
-                        "is_orphan_translation": false,
-                        "is_bullet_point": true,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": null,
-                        "target_topic_path": null,
-                        "target_url": null,
-                        "is_self": false,
-                        "target_exists": true
-                      },
-                      {
-                        "kind": "hindi_text",
-                        "text_devanagari": "द्रव्य के विकार विशेष रूप से भेद को प्राप्त होते हैं इसलिए वे पर्याय कहलाते हैं।",
-                        "hindi_translation": null,
+                        "kind": "sanskrit_text",
+                        "text_devanagari": "सामान्यविशेषगुणा एकस्मिन् धर्मणि वस्तुत्व-निष्पादकास्तेषां परिणामः पर्यायः।",
+                        "hindi_translation": "सामान्य विशेषात्मक गुण एक द्रव्य में वस्तुत्व के बतलानेवाले हैं उनका परिणाम पर्याय है।",
                         "references": [
                           {
                             "text": "( नयचक्र बृहद्/17 )",
-                            "inline_reference": true,
+                            "inline_reference": false,
                             "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
@@ -765,23 +750,7 @@
                                 "value": 17
                               }
                             ]
-                          }
-                        ],
-                        "is_orphan_translation": false,
-                        "is_bullet_point": false,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": null,
-                        "target_topic_path": null,
-                        "target_url": null,
-                        "is_self": false,
-                        "target_exists": true
-                      },
-                      {
-                        "kind": "sanskrit_text",
-                        "text_devanagari": "सामान्यविशेषगुणा एकस्मिन् धर्मणि वस्तुत्व-निष्पादकास्तेषां परिणामः पर्यायः।",
-                        "hindi_translation": "सामान्य विशेषात्मक गुण एक द्रव्य में वस्तुत्व के बतलानेवाले हैं उनका परिणाम पर्याय है।",
-                        "references": [
+                          },
                           {
                             "text": "नयचक्र / श्रुतभवन दीपक/ पृष्ठ 57",
                             "inline_reference": false,
@@ -5488,8 +5457,8 @@
       "prev": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AA%E0%A5%8D%E0%A4%A4%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%B2",
       "next": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%B8%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8"
     },
-    "parser_version": "jainkosh.rules/1.11.0",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parser_version": "jainkosh.rules/1.11.7",
+    "parsed_at": "2026-05-31T18:14:09.889922",
     "warnings": []
   },
   "would_write": {
@@ -7055,7 +7024,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "दव्व विकारी हि पज्जवो भणिदो। तेषां विकारा विशेषात्मना भिद्यमानाः पर्यायाः।",
-              "hindi_translation": null,
+              "hindi_translation": "द्रव्य के विकार को पर्याय कहते हैं। द्रव्य के विकार विशेष रूप से भेद को प्राप्त होते हैं इसलिए वे पर्याय कहलाते हैं।",
               "references": [
                 {
                   "text": "सर्वार्थसिद्धि/5/38/309-310/7",
@@ -7123,28 +7092,13 @@
               "target_exists": true
             },
             {
-              "kind": "hindi_text",
-              "text_devanagari": "द्रव्य के विकार को पर्याय कहते हैं।",
-              "hindi_translation": null,
-              "references": [],
-              "is_orphan_translation": false,
-              "is_bullet_point": true,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "hindi_text",
-              "text_devanagari": "द्रव्य के विकार विशेष रूप से भेद को प्राप्त होते हैं इसलिए वे पर्याय कहलाते हैं।",
-              "hindi_translation": null,
+              "kind": "sanskrit_text",
+              "text_devanagari": "सामान्यविशेषगुणा एकस्मिन् धर्मणि वस्तुत्व-निष्पादकास्तेषां परिणामः पर्यायः।",
+              "hindi_translation": "सामान्य विशेषात्मक गुण एक द्रव्य में वस्तुत्व के बतलानेवाले हैं उनका परिणाम पर्याय है।",
               "references": [
                 {
                   "text": "( नयचक्र बृहद्/17 )",
-                  "inline_reference": true,
+                  "inline_reference": false,
                   "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
@@ -7156,23 +7110,7 @@
                       "value": 17
                     }
                   ]
-                }
-              ],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "sanskrit_text",
-              "text_devanagari": "सामान्यविशेषगुणा एकस्मिन् धर्मणि वस्तुत्व-निष्पादकास्तेषां परिणामः पर्यायः।",
-              "hindi_translation": "सामान्य विशेषात्मक गुण एक द्रव्य में वस्तुत्व के बतलानेवाले हैं उनका परिणाम पर्याय है।",
-              "references": [
+                },
                 {
                   "text": "नयचक्र / श्रुतभवन दीपक/ पृष्ठ 57",
                   "inline_reference": false,
