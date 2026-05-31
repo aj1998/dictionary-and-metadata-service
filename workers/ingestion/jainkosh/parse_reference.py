@@ -40,6 +40,10 @@ class FormatGroup:
     keyword_triggers: list[str] = field(default_factory=list)
     # Non-empty → this group matches by exact keyword prefix in the numeric string.
     # The first matching keyword is consumed; the trailing number maps to fields[0].
+    is_passthrough: bool = False
+    # When True, the value at this position is stored as-is (no numeric parsing,
+    # no sub-separator splitting, no range expansion).  Field name is taken
+    # verbatim from inside the <…> brackets in the format string.
 
     @property
     def is_optional(self) -> bool:
@@ -256,21 +260,29 @@ def _preprocess_text(
 
 _FIELD_RE = re.compile(r"(§?)([^/,\-§]+)")
 _KEYWORD_GROUP_RE = re.compile(r"^\{([^}]+)\}(.+)$")
+_PASSTHROUGH_GROUP_RE = re.compile(r"^<(.+)>$")
 
 
 def _split_format_string_groups(fmt: str) -> list[str]:
-    """Split a format string on '/' while respecting '{...}' blocks."""
+    """Split a format string on '/' while respecting '{...}' and '<...>' blocks."""
     groups: list[str] = []
     current: list[str] = []
-    depth = 0
+    brace_depth = 0
+    angle_depth = 0
     for ch in fmt:
         if ch == "{":
-            depth += 1
+            brace_depth += 1
             current.append(ch)
         elif ch == "}":
-            depth -= 1
+            brace_depth -= 1
             current.append(ch)
-        elif ch == "/" and depth == 0:
+        elif ch == "<":
+            angle_depth += 1
+            current.append(ch)
+        elif ch == ">":
+            angle_depth -= 1
+            current.append(ch)
+        elif ch == "/" and brace_depth == 0 and angle_depth == 0:
             groups.append("".join(current))
             current = []
         else:
@@ -287,6 +299,17 @@ def parse_format_string(fmt: str) -> list[FormatGroup]:
     for group_str in _split_format_string_groups(fmt):
         group_str = group_str.strip()
         if not group_str:
+            continue
+
+        # Passthrough group: <fieldname>  — value stored as-is, no numeric parsing
+        m_pt = _PASSTHROUGH_GROUP_RE.match(group_str)
+        if m_pt:
+            field_name = m_pt.group(1).strip()
+            groups.append(FormatGroup(
+                fields=[FormatField(name=field_name, optional=False)],
+                sub_separator=None,
+                is_passthrough=True,
+            ))
             continue
 
         # Keyword trigger group: {word1/word2}fieldname
@@ -527,18 +550,27 @@ def _expand_resolved_fields(
 ) -> Optional[list[list[ResolvedField]]]:
     """Expand range/list field values into cartesian product of result sets.
 
+    Passthrough fields (is_passthrough=True) are never expanded — their string
+    value is kept verbatim even when it looks like a range (e.g. "13-14").
+
     Returns None if total expansion exceeds 50 (overflow → needs_manual).
     """
-    per_field: list[list[int]] = []
+    per_field: list[list] = []
     field_names: list[str] = []
+    pt_flags: list[bool] = []
 
     for rf in resolved_fields:
-        values = _expand_value(rf.value)
-        if values is None:
-            # Non-expandable (guard: shouldn't happen post-coerce)
-            per_field.append([rf.value])  # type: ignore[list-item]
+        if rf.is_passthrough:
+            per_field.append([rf.value])
+            pt_flags.append(True)
         else:
-            per_field.append(values)
+            values = _expand_value(rf.value)
+            if values is None:
+                # Non-expandable (guard: shouldn't happen post-coerce)
+                per_field.append([rf.value])  # type: ignore[list-item]
+            else:
+                per_field.append(values)
+            pt_flags.append(False)
         field_names.append(rf.field)
 
     total = 1
@@ -550,8 +582,8 @@ def _expand_resolved_fields(
     results: list[list[ResolvedField]] = []
     for combo in itertools.product(*per_field):
         results.append([
-            ResolvedField(field=name, value=val)
-            for name, val in zip(field_names, combo)
+            ResolvedField(field=name, value=val, is_passthrough=pt)
+            for name, val, pt in zip(field_names, combo, pt_flags)
         ])
     return results
 
@@ -642,7 +674,12 @@ def resolve_fields(
                 needs_manual = True
             continue
 
-        if f_group.is_keyword_group:
+        if f_group.is_passthrough:
+            value_str = value_groups[v_idx]
+            field_name = f_group.fields[0].name
+            resolved.append(ResolvedField(field=field_name, value=value_str, is_passthrough=True))
+            v_idx += 1
+        elif f_group.is_keyword_group:
             value_str = value_groups[v_idx]
             partial, mismatch, matched_trigger = _assign_keyword_group(f_group, value_str)
             resolved.extend(partial)
@@ -765,8 +802,36 @@ def parse_reference_text(
     if keyword_fields:
         field_map: dict[str, ResolvedField] = {rf.field: rf for rf in resolved_fields}
         for kf in keyword_fields:
-            if kf.field in field_map and not needs_manual and field_map[kf.field].value != kf.value:
-                needs_manual = True
+            if kf.field in field_map:
+                # Same field: flag if Level 2 disagrees with Level 1's value.
+                if not needs_manual and field_map[kf.field].value != kf.value:
+                    needs_manual = True
+            else:
+                # New field from Level 2: flag if BOTH of:
+                #  (a) the keyword appeared inside the NUMERIC portion of the reference
+                #      (i.e. visible in numeric_raw_with_kw — between the name and end),
+                #  (b) its value is already claimed by a different Level 1 field.
+                #
+                # Rationale: when a keyword like "गाथा" appears inside a slash-group
+                # of the numeric string (e.g. "/ गाथा 108/253"), it is stripped by
+                # section-keyword processing and the adjacent number is mapped to
+                # a format field (e.g. पृष्ठ=108).  Level 2 then re-extracts the
+                # same keyword+number (गाथा=108), creating two conflicting labels for
+                # the same position → manual review required.
+                #
+                # Exclusion: keywords in the name portion (e.g. "कलश" in a teeka
+                # sub-title like "समयसार/आत्मख्याति/कलश 2") are NOT in
+                # numeric_raw_with_kw and should NOT trigger this check — they provide
+                # additional type information (e.g. kalash-type verse) rather than
+                # competing for a format slot.
+                if not needs_manual:
+                    kw_pattern = r"(?<!\S)" + re.escape(kf.field) + r"\s*\d"
+                    kw_in_numeric = bool(re.search(kw_pattern, numeric_raw_with_kw))
+                    if kw_in_numeric:
+                        for existing_rf in field_map.values():
+                            if existing_rf.value == kf.value:
+                                needs_manual = True
+                                break
             field_map[kf.field] = kf
         resolved_fields = list(field_map.values())
 

@@ -19,6 +19,7 @@ class ResolvedField(BaseModel):
     model_config = ConfigDict(extra="forbid")
     field: str
     value: Union[int, str]
+    is_passthrough: bool = Field(default=False, exclude=True)
 
 
 class Reference(BaseModel):

@@ -867,3 +867,156 @@ class TestHybridOlParsing:
         assert len(body_refs) == 0, (
             "Body <ol> देखें should not be captured as IndexRelation when a proper index <ol> exists"
         )
+
+
+# ---------------------------------------------------------------------------
+# Passthrough field syntax: <fieldname> in format strings
+# ---------------------------------------------------------------------------
+
+class TestPassthroughFormatGroup:
+    """<fieldname> in a format string stores the value as-is (no numeric parsing)."""
+
+    def test_parse_format_string_detects_passthrough(self):
+        from workers.ingestion.jainkosh.parse_reference import parse_format_string
+        groups = parse_format_string("पुस्तक/<कषायपाहुड़-गाथा>/§प्रकरण/पृष्ठ/पंक्ति")
+        assert len(groups) == 5
+        pt_group = groups[1]
+        assert pt_group.is_passthrough is True
+        assert pt_group.fields[0].name == "कषायपाहुड़-गाथा"
+        # First and remaining groups are normal
+        assert groups[0].is_passthrough is False
+        assert groups[2].is_passthrough is False
+
+    def test_passthrough_value_stored_as_string(self):
+        from workers.ingestion.jainkosh.parse_reference import (
+            parse_format_string, resolve_fields
+        )
+        from workers.ingestion.jainkosh.config import load_config
+        cfg = load_config()
+        fmt_groups = parse_format_string("पुस्तक/<कषायपाहुड़-गाथा>/§प्रकरण/पृष्ठ/पंक्ति")
+        resolved, needs_manual, _ = resolve_fields("1/13-14/§181/217/1", fmt_groups, cfg.reference.needs_manual_match)
+        assert needs_manual is False
+        field_map = {rf.field: rf for rf in resolved}
+        # Passthrough field keeps the hyphen
+        assert "कषायपाहुड़-गाथा" in field_map
+        assert field_map["कषायपाहुड़-गाथा"].value == "13-14"
+        assert isinstance(field_map["कषायपाहुड़-गाथा"].value, str)
+        # Other fields parsed numerically
+        assert field_map["पुस्तक"].value == 1
+        assert field_map["प्रकरण"].value == 181
+        assert field_map["पृष्ठ"].value == 217
+        assert field_map["पंक्ति"].value == 1
+
+    def test_passthrough_not_range_expanded(self):
+        from workers.ingestion.jainkosh.parse_reference import (
+            parse_format_string, resolve_fields, _expand_resolved_fields
+        )
+        from workers.ingestion.jainkosh.config import load_config
+        cfg = load_config()
+        fmt_groups = parse_format_string("पुस्तक/<कषायपाहुड़-गाथा>/§प्रकरण/पृष्ठ/पंक्ति")
+        resolved, _, _ = resolve_fields("1/13-14/§181/217/1", fmt_groups, cfg.reference.needs_manual_match)
+        expanded = _expand_resolved_fields(resolved)
+        # Must not expand "13-14" into [13, 14] — must stay as single result
+        assert expanded is not None
+        assert len(expanded) == 1
+        field_map = {rf.field: rf for rf in expanded[0]}
+        assert field_map["कषायपाहुड़-गाथा"].value == "13-14"
+
+    def test_kashayapaahud_end_to_end(self, cfg: JainkoshConfig):
+        """Full parse_reference_text for कषायपाहुड़ 1/13-14/§181/217/1."""
+        import unicodedata
+        from workers.ingestion.jainkosh.parse_reference import parse_reference_text
+        if cfg.shastra_registry is None:
+            pytest.skip("shastra_registry not available in test config")
+        results = parse_reference_text(
+            "कषायपाहुड़ 1/13-14/§181/217/1",
+            cfg.shastra_registry,
+            cfg.reference,
+        )
+        assert len(results) == 1
+        r = results[0]
+        assert r.needs_manual_match is False
+        assert r.shastra_name is not None
+        # Normalise all keys to NFC before lookup to handle NFC/NFD variants
+        field_map = {unicodedata.normalize("NFC", rf.field): rf.value for rf in r.resolved_fields}
+        assert field_map.get("पुस्तक") == 1
+        # The passthrough field name contains a hyphen; value must be kept as string
+        pt_key = unicodedata.normalize("NFC", "कषायपाहुड़-गाथा")
+        assert pt_key in field_map, (
+            f"Passthrough field missing; available fields: {list(field_map)}"
+        )
+        assert field_map[pt_key] == "13-14", (
+            f"Expected '13-14' (as string), got {field_map[pt_key]!r}"
+        )
+        assert field_map.get("प्रकरण") == 181
+        assert field_map.get("पृष्ठ") == 217
+        assert field_map.get("पंक्ति") == 1
+
+    def test_passthrough_field_name_in_brackets_with_hyphen(self):
+        """Hyphens inside <> are part of the field name, not a separator."""
+        from workers.ingestion.jainkosh.parse_reference import parse_format_string
+        groups = parse_format_string("अधिकार/<sub-field>/पृष्ठ")
+        assert groups[1].is_passthrough is True
+        assert groups[1].fields[0].name == "sub-field"
+        assert groups[0].is_passthrough is False
+        assert groups[2].is_passthrough is False
+
+    def test_passthrough_slash_inside_angle_brackets_not_split(self):
+        """A '/' inside <> should not split the format group."""
+        from workers.ingestion.jainkosh.parse_reference import parse_format_string
+        groups = parse_format_string("<field/name>/पृष्ठ")
+        assert len(groups) == 2
+        assert groups[0].is_passthrough is True
+        assert groups[0].fields[0].name == "field/name"
+
+
+# ---------------------------------------------------------------------------
+# Level-2 keyword collision: same value claimed by two different field names
+# ---------------------------------------------------------------------------
+
+class TestLevel2KeywordValueCollision:
+    """When Level 2 extracts a keyword field whose value is already used by a
+    different Level 1 field, needs_manual_match must be set to True."""
+
+    def test_gatha_value_same_as_existing_field_flags_manual(self, cfg: JainkoshConfig):
+        """कषायपाहुड़ 1/1,14/ गाथा 108/253:
+        Level 1 maps 108→पृष्ठ; Level 2 extracts गाथा=108 — same value, different
+        field name → needs_manual_match=True.
+        """
+        from workers.ingestion.jainkosh.parse_reference import parse_reference_text
+        if cfg.shastra_registry is None:
+            pytest.skip("shastra_registry not available in test config")
+        results = parse_reference_text(
+            "( कषायपाहुड़ 1/1,14/ गाथा 108/253)",
+            cfg.shastra_registry,
+            cfg.reference,
+        )
+        assert len(results) == 1
+        r = results[0]
+        assert r.needs_manual_match is True, (
+            "Same numeric value 108 was resolved as both पृष्ठ (Level 1) and "
+            "गाथा (Level 2 keyword extraction) — should require manual review"
+        )
+        # Shastra must still be identified and fields present for review
+        assert r.shastra_name is not None
+        field_names = {rf.field for rf in r.resolved_fields}
+        assert "पृष्ठ" in field_names or "गाथा" in field_names
+
+    def test_no_false_positive_when_new_keyword_field_has_distinct_value(self, cfg: JainkoshConfig):
+        """When Level 2 adds a keyword field whose value is NOT shared by any
+        Level 1 field, needs_manual_match should remain False."""
+        from workers.ingestion.jainkosh.parse_reference import parse_reference_text
+        if cfg.shastra_registry is None:
+            pytest.skip("shastra_registry not available in test config")
+        # Format: गाथा — single field, no collision possible with any keyword extraction
+        # नयचक्र बृहद् resolves via format "गाथा" (single field)
+        results = parse_reference_text(
+            "नयचक्र बृहद्/21",
+            cfg.shastra_registry,
+            cfg.reference,
+        )
+        assert len(results) == 1
+        r = results[0]
+        assert r.needs_manual_match is False, (
+            f"Simple single-field ref should resolve cleanly; got {r}"
+        )

@@ -57,7 +57,7 @@
     "author": "",
     "date_format": "वी.नि.",
     "date": "2459",
-    "publisher": "चौरासी, मथुरा",
+    "publisher": "दिगम्बर जैन संघ, चौरासी, मथुरा",
     "notes": "",
     "edition": "",
     "type": "publication",
@@ -116,12 +116,13 @@
     "shastra_name": "कषायपाहुड़",
     "short_form": "क.पा",
     "format": [
+      "पुस्तक/<कषायपाहुड़-गाथा>/§प्रकरण/पृष्ठ/पंक्ति",
       "पुस्तक,भाग/प्रकरण/पृष्ठ/पंक्ति"
     ],
     "author": "",
     "date_format": "वि.सं.",
     "date": "2000",
-    "publisher": "दिगम्बर जैन संघ, मथुरा",
+    "publisher": "दिगम्बर जैन संघ, चौरासी, मथुरा",
     "notes": "",
     "edition": "",
     "type": "publication",

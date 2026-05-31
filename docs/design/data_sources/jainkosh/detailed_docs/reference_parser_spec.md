@@ -111,7 +111,35 @@ Group 1: "5"   → श्लोक=5
 Group 2: "18"  → पृष्ठ=18
 ```
 
-### 1.3 Keyword trigger groups
+### 1.3 Passthrough groups
+
+Format strings may contain a `<fieldname>` group:
+
+```
+Format:  पुस्तक/<कषायपाहुड़-गाथा>/§प्रकरण/पृष्ठ/पंक्ति
+Groups:  [पुस्तक] / passthrough[कषायपाहुड़-गाथा] / [§प्रकरण (optional)] / [पृष्ठ] / [पंक्ति]
+```
+
+The `<…>` syntax creates a **passthrough** group: the value at that position is stored
+verbatim as a string without any numeric parsing, sub-separator splitting, or range
+expansion. Hyphens inside `<…>` are treated as part of the field name, not as separators.
+`_split_format_string_groups` tracks `<>` depth so that a `/` inside angle brackets does
+not create a new group.
+
+```
+Reference value:  1/13-14/§181/217/1
+Group 0 (पुस्तक):           "1"      → पुस्तक=1
+Group 1 (passthrough):      "13-14"  → कषायपाहुड़-गाथा="13-14"  (string, NOT expanded to [13,14])
+Group 2 (§प्रकरण optional): "§181"   → प्रकरण=181
+Group 3 (पृष्ठ):             "217"    → पृष्ठ=217
+Group 4 (पंक्ति):             "1"      → पंक्ति=1
+```
+
+`ResolvedField.is_passthrough` is set to `True` for fields produced by passthrough groups.
+It is excluded from JSON serialization so existing golden files are unaffected.
+`_expand_resolved_fields` skips range expansion for passthrough fields.
+
+### 1.4 Keyword trigger groups
 
 Format strings may contain a `{word1/word2}fieldname` group:
 
@@ -157,6 +185,7 @@ class FormatGroup:
     fields: list[FormatField]
     sub_separator: Optional[str]   # None | "," | "-"
     keyword_triggers: list[str]    # Non-empty for {word1/word2}fieldname groups
+    is_passthrough: bool           # True for <fieldname> groups — value stored as-is
 
     @property
     def is_optional(self) -> bool:
@@ -970,7 +999,21 @@ Keyword-extracted fields are merged into (or override) the level-1 resolved fiel
 ```python
 field_map = {rf.field: rf for rf in resolved_fields}
 for kf in keyword_fields:
-    field_map[kf.field] = kf          # keyword takes priority
+    if kf.field in field_map:
+        # Same field name: flag if Level-2 value disagrees with Level-1 value.
+        if field_map[kf.field].value != kf.value:
+            needs_manual = True
+    else:
+        # New field from Level-2: flag if the keyword appeared inside the numeric
+        # portion AND its value is already used by a different Level-1 field.
+        # (Keyword in the name/teeka portion is excluded — it provides type info,
+        #  not a competing slot assignment.)
+        kw_in_numeric = bool(re.search(r"(?<!\S)" + kf.field + r"\s*\d", numeric_raw_with_kw))
+        if kw_in_numeric:
+            for existing_rf in field_map.values():
+                if existing_rf.value == kf.value:
+                    needs_manual = True; break
+    field_map[kf.field] = kf
 resolved_fields = list(field_map.values())
 ```
 
@@ -979,6 +1022,14 @@ When `needs_manual_match=False` (level-1 succeeded), the merged fields proceed t
 range/list expansion (§14A.4) as usual.
 When `needs_manual_match=True`, a single result is returned with the merged fields;
 no range expansion is performed.
+
+**Level-2 keyword-value collision (v1.11.9)**: when Level-2 adds a new field name
+whose value equals an existing Level-1 field AND the keyword appeared in the numeric
+portion of the reference, `needs_manual_match` is set to `True`. This catches cases like
+`कषायपाहुड़ 1/1,14/ गाथा 108/253` where `गाथा` was stripped from a numeric slot and
+`108` was mapped to `पृष्ठ=108` by Level-1 — Level-2 re-extracts `गाथा=108`, creating
+two contradictory labels for the same number. Keywords appearing only in the name/teeka
+portion (e.g. `कलश` in `समयसार/आत्मख्याति/कलश 2`) are excluded from this check.
 
 ### 8A.4 Example
 

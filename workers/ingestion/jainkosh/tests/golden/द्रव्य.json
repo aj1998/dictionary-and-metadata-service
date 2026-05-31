@@ -1765,6 +1765,22 @@
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
+                            "field": "पुस्तक",
+                            "value": 1
+                          },
+                          {
+                            "field": "कषायपाहुड़-गाथा",
+                            "value": "1,14"
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 108
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 253
+                          },
+                          {
                             "field": "गाथा",
                             "value": 108
                           }
@@ -8869,8 +8885,8 @@
       "prev": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A4%BF%E0%A4%A1%E0%A4%BC_%E0%A4%B8%E0%A4%82%E0%A4%98",
       "next": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF_%E0%A4%86%E0%A4%B8%E0%A5%8D%E0%A4%B0%E0%A4%B5"
     },
-    "parser_version": "jainkosh.rules/1.11.0",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parser_version": "jainkosh.rules/1.11.7",
+    "parsed_at": "2026-05-31T20:10:17.819697",
     "warnings": []
   },
   "would_write": {
@@ -11876,6 +11892,22 @@
                   "shastra_name": "कषायपाहुड़",
                   "match_method": "shastra_name",
                   "resolved_fields": [
+                    {
+                      "field": "पुस्तक",
+                      "value": 1
+                    },
+                    {
+                      "field": "कषायपाहुड़-गाथा",
+                      "value": "1,14"
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 108
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 253
+                    },
                     {
                       "field": "गाथा",
                       "value": 108

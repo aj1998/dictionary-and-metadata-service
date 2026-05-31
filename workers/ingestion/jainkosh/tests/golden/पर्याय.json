@@ -256,14 +256,35 @@
                             ]
                           },
                           {
-                            "text": "( कषायपाहुड़ 1/1,13-14/ §181/217/1)",
+                            "text": "( कषायपाहुड़ 1/13-14/§181/217/1)",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
                             "shastra_name": "कषायपाहुड़",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "पुस्तक",
+                                "value": 1
+                              },
+                              {
+                                "field": "कषायपाहुड़-गाथा",
+                                "value": "13-14"
+                              },
+                              {
+                                "field": "प्रकरण",
+                                "value": 181
+                              },
+                              {
+                                "field": "पृष्ठ",
+                                "value": 217
+                              },
+                              {
+                                "field": "पंक्ति",
+                                "value": 1
+                              }
+                            ]
                           },
                           {
                             "text": "( नियमसार / तात्पर्यवृत्ति 14 )",
@@ -5458,7 +5479,7 @@
       "next": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%B8%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8"
     },
     "parser_version": "jainkosh.rules/1.11.7",
-    "parsed_at": "2026-05-31T18:14:09.889922",
+    "parsed_at": "2026-05-31T19:48:43.214841",
     "warnings": []
   },
   "would_write": {
@@ -6616,14 +6637,35 @@
                   ]
                 },
                 {
-                  "text": "( कषायपाहुड़ 1/1,13-14/ §181/217/1)",
+                  "text": "( कषायपाहुड़ 1/13-14/§181/217/1)",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "कषायपाहुड़",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "पुस्तक",
+                      "value": 1
+                    },
+                    {
+                      "field": "कषायपाहुड़-गाथा",
+                      "value": "13-14"
+                    },
+                    {
+                      "field": "प्रकरण",
+                      "value": 181
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 217
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 1
+                    }
+                  ]
                 },
                 {
                   "text": "( नियमसार / तात्पर्यवृत्ति 14 )",

@@ -63,6 +63,7 @@ GOLDENS: tuple[GoldenSpec, ...] = (
     GoldenSpec("पर्याय", "https://jainkosh.org/wiki/पर्याय"),
     GoldenSpec("वस्तु", "https://jainkosh.org/wiki/वस्तु"),
     GoldenSpec("स्वभाव", "https://jainkosh.org/wiki/स्वभाव"),
+    GoldenSpec("गुण", "https://jainkosh.org/wiki/गुण"),
 )
 
 
