@@ -686,7 +686,7 @@
                       {
                         "kind": "sanskrit_text",
                         "text_devanagari": "द्रव्यस्य क: स्वभाव इति पृष्टे गुणपर्यायाणामात्मा एव स्वभाव इति।",
-                        "hindi_translation": "**प्रश्न**\n-द्रव्य का क्या स्वभाव है &nbsp;? **उत्तर**\n-गुण पर्यायों की आत्मा ही स्वभाव है।",
+                        "hindi_translation": "**प्रश्न**\n-द्रव्य का क्या स्वभाव है ? **उत्तर**\n-गुण पर्यायों की आत्मा ही स्वभाव है।",
                         "references": [
                           {
                             "text": "प्रवचनसार / तात्पर्यवृत्ति/87/110/12",
@@ -909,37 +909,6 @@
                             "value": 59
                           }
                         ]
-                      }
-                    ],
-                    "is_orphan_translation": false,
-                    "is_bullet_point": false,
-                    "raw_html": null,
-                    "table_rows": null,
-                    "target_keyword": null,
-                    "target_topic_path": null,
-                    "target_url": null,
-                    "is_self": false,
-                    "target_exists": true
-                  },
-                  {
-                    "kind": "prakrit_text",
-                    "text_devanagari": "चेदणमचेदणं पि हु मुत्तममुत्तं च एगबहुदेसं। सुद्धासुद्धविभावं उवयरियं होइ कस्सेव।60।",
-                    "hindi_translation": "चेतन, अचेतन, मूर्त, अमूर्त, एकप्रदेशी, बहुप्रदेशी, शुद्ध, अशुद्ध, विभाव और उपचरित ये 10 स्वभाव द्रव्यों के विशेष स्वभाव हैं। [इस प्रकार कुल 21 सामान्य व विशेष स्वभाव हैं।\n];\n,",
-                    "references": [
-                      {
-                        "text": "नयचक्र बृहद्/59-60",
-                        "inline_reference": false,
-                        "needs_manual_match": false,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": "नयचक्र बृहद्",
-                        "match_method": "shastra_name",
-                        "resolved_fields": [
-                          {
-                            "field": "गाथा",
-                            "value": 60
-                          }
-                        ]
                       },
                       {
                         "text": "( नयचक्र बृहद्/70 )",
@@ -980,6 +949,37 @@
                         "shastra_name": "नयचक्र/श्रुतभवन",
                         "match_method": "shastra_name",
                         "resolved_fields": []
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "prakrit_text",
+                    "text_devanagari": "चेदणमचेदणं पि हु मुत्तममुत्तं च एगबहुदेसं। सुद्धासुद्धविभावं उवयरियं होइ कस्सेव।60।",
+                    "hindi_translation": "चेतन, अचेतन, मूर्त, अमूर्त, एकप्रदेशी, बहुप्रदेशी, शुद्ध, अशुद्ध, विभाव और उपचरित ये 10 स्वभाव द्रव्यों के विशेष स्वभाव हैं। [इस प्रकार कुल 21 सामान्य व विशेष स्वभाव हैं।\n];",
+                    "references": [
+                      {
+                        "text": "नयचक्र बृहद्/59-60",
+                        "inline_reference": false,
+                        "needs_manual_match": false,
+                        "is_teeka": false,
+                        "teeka_name": "",
+                        "shastra_name": "नयचक्र बृहद्",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 60
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1460,7 +1460,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "न हि स्वभावा: परपर्यानुयोगार्हा:।",
-                    "hindi_translation": "स्वभाव दूसरों के प्रश्नों के योग्य नहीं हुआ करते हैं।\n,।",
+                    "hindi_translation": "स्वभाव दूसरों के प्रश्नों के योग्य नहीं हुआ करते हैं।",
                     "references": [
                       {
                         "text": "धवला 1/1,1,22/199/2",
@@ -1597,7 +1597,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "स्वभावोऽतर्कगोचर: इति समस्तवादिसमतत्वात्।",
-                    "hindi_translation": "स्वभाव में तर्क नहीं चलता, ऐसा समस्तवादी मानते हैं\nभाषा/1/6/38/393/12);\n।",
+                    "hindi_translation": "स्वभाव में तर्क नहीं चलता, ऐसा समस्तवादी मानते हैं\nभाषा/1/6/38/393/12);",
                     "references": [
                       {
                         "text": "गोम्मटसार जीवकांड / जीवतत्त्व प्रदीपिका/184/419/20",
@@ -3015,7 +3015,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "द्रव्यस्य क: स्वभाव इति पृष्टे गुणपर्यायाणामात्मा एव स्वभाव इति।",
-              "hindi_translation": "**प्रश्न**\n-द्रव्य का क्या स्वभाव है &nbsp;? **उत्तर**\n-गुण पर्यायों की आत्मा ही स्वभाव है।",
+              "hindi_translation": "**प्रश्न**\n-द्रव्य का क्या स्वभाव है ? **उत्तर**\n-गुण पर्यायों की आत्मा ही स्वभाव है।",
               "references": [
                 {
                   "text": "प्रवचनसार / तात्पर्यवृत्ति/87/110/12",
@@ -3235,37 +3235,6 @@
                       "value": 59
                     }
                   ]
-                }
-              ],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "prakrit_text",
-              "text_devanagari": "चेदणमचेदणं पि हु मुत्तममुत्तं च एगबहुदेसं। सुद्धासुद्धविभावं उवयरियं होइ कस्सेव।60।",
-              "hindi_translation": "चेतन, अचेतन, मूर्त, अमूर्त, एकप्रदेशी, बहुप्रदेशी, शुद्ध, अशुद्ध, विभाव और उपचरित ये 10 स्वभाव द्रव्यों के विशेष स्वभाव हैं। [इस प्रकार कुल 21 सामान्य व विशेष स्वभाव हैं।\n];\n,",
-              "references": [
-                {
-                  "text": "नयचक्र बृहद्/59-60",
-                  "inline_reference": false,
-                  "needs_manual_match": false,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": "नयचक्र बृहद्",
-                  "match_method": "shastra_name",
-                  "resolved_fields": [
-                    {
-                      "field": "गाथा",
-                      "value": 60
-                    }
-                  ]
                 },
                 {
                   "text": "( नयचक्र बृहद्/70 )",
@@ -3306,6 +3275,37 @@
                   "shastra_name": "नयचक्र/श्रुतभवन",
                   "match_method": "shastra_name",
                   "resolved_fields": []
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "prakrit_text",
+              "text_devanagari": "चेदणमचेदणं पि हु मुत्तममुत्तं च एगबहुदेसं। सुद्धासुद्धविभावं उवयरियं होइ कस्सेव।60।",
+              "hindi_translation": "चेतन, अचेतन, मूर्त, अमूर्त, एकप्रदेशी, बहुप्रदेशी, शुद्ध, अशुद्ध, विभाव और उपचरित ये 10 स्वभाव द्रव्यों के विशेष स्वभाव हैं। [इस प्रकार कुल 21 सामान्य व विशेष स्वभाव हैं।\n];",
+              "references": [
+                {
+                  "text": "नयचक्र बृहद्/59-60",
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": false,
+                  "teeka_name": "",
+                  "shastra_name": "नयचक्र बृहद्",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 60
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -3791,7 +3791,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "न हि स्वभावा: परपर्यानुयोगार्हा:।",
-              "hindi_translation": "स्वभाव दूसरों के प्रश्नों के योग्य नहीं हुआ करते हैं।\n,।",
+              "hindi_translation": "स्वभाव दूसरों के प्रश्नों के योग्य नहीं हुआ करते हैं।",
               "references": [
                 {
                   "text": "धवला 1/1,1,22/199/2",
@@ -3928,7 +3928,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "स्वभावोऽतर्कगोचर: इति समस्तवादिसमतत्वात्।",
-              "hindi_translation": "स्वभाव में तर्क नहीं चलता, ऐसा समस्तवादी मानते हैं\nभाषा/1/6/38/393/12);\n।",
+              "hindi_translation": "स्वभाव में तर्क नहीं चलता, ऐसा समस्तवादी मानते हैं\nभाषा/1/6/38/393/12);",
               "references": [
                 {
                   "text": "गोम्मटसार जीवकांड / जीवतत्त्व प्रदीपिका/184/419/20",

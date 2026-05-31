@@ -12,6 +12,7 @@ def test_golden_specs_match_apply_tests():
         "द्रव्य",
         "पर्याय",
         "वस्तु",
+        "स्वभाव",
     ]
 
 
@@ -25,12 +26,8 @@ def test_dry_run_summarizes_selected_goldens(capsys):
     assert "would apply 1 golden" in captured.out
 
 
-def test_clear_first_runs_before_apply(monkeypatch):
+def test_apply_runs_for_selected_keyword(monkeypatch):
     calls: list[str] = []
-
-    async def fake_clear(**kwargs):
-        calls.append("clear")
-        assert kwargs["neo4j_database"] == "neo4j"
 
     async def fake_apply(selected, *, neo4j_database, ingestion_run_id):
         calls.append("apply")
@@ -38,22 +35,24 @@ def test_clear_first_runs_before_apply(monkeypatch):
         assert neo4j_database == "neo4j"
         assert ingestion_run_id is None
 
-    monkeypatch.setattr(ingest_goldens_apply, "_clear_existing_data", fake_clear)
     monkeypatch.setattr(ingest_goldens_apply, "_run_apply", fake_apply)
     monkeypatch.setenv("DATABASE_URL", "postgresql+asyncpg://example")
     monkeypatch.setenv("NEO4J_URL", "bolt://example")
     monkeypatch.setenv("NEO4J_PASSWORD", "secret")
 
-    exit_code = ingest_goldens_apply.main(["--clear-first", "--keyword", "आत्मा"])
+    exit_code = ingest_goldens_apply.main(["--keyword", "आत्मा"])
 
     assert exit_code == 0
-    assert calls == ["clear", "apply"]
+    assert calls == ["apply"]
 
 
 def test_apply_bootstraps_postgres_schema(monkeypatch):
     calls: list[str] = []
 
     class FakeConn:
+        async def execute(self, *_args, **_kwargs):
+            return None
+
         async def run_sync(self, fn):
             calls.append(fn.__name__)
 

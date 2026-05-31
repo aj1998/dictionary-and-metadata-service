@@ -404,6 +404,34 @@ def parse_subsections(
             keyword=keyword,
             config=config,
         )
+        # Also extract br-dekhen seeds from body elements (e.g. translation blocks that
+        # contain initial prose + देखें <link> (label) lines separated by <br/>)
+        br_dekhen_pairs = extract_br_dekhen_seeds_from_elements(
+            content_els,
+            keyword=keyword,
+            config=config,
+        )
+        for label, candidate in br_dekhen_pairs:
+            see_also_block = Block(
+                kind="see_also",
+                target_keyword=candidate.get("target_keyword"),
+                target_topic_path=candidate.get("target_topic_path"),
+                target_url=candidate.get("target_url"),
+                is_self=bool(candidate.get("is_self", False)),
+                target_exists=bool(candidate.get("target_exists", True)),
+            )
+            if label not in after_dekhen_relations:
+                after_dekhen_relations[label] = [see_also_block]
+            else:
+                existing_keys = {
+                    (b.target_keyword, b.target_topic_path, b.target_url, b.is_self, b.target_exists)
+                    for b in after_dekhen_relations[label]
+                }
+                k = (see_also_block.target_keyword, see_also_block.target_topic_path,
+                     see_also_block.target_url, see_also_block.is_self, see_also_block.target_exists)
+                if k not in existing_keys:
+                    after_dekhen_relations[label].append(see_also_block)
+
         # Merge after-dekhen relations into row_relations (same structure, deduplicating)
         for label, sa_blocks in after_dekhen_relations.items():
             if label not in row_relations:
@@ -893,7 +921,10 @@ def _strip_br_dekhen_lines(text: str, config: JainkoshConfig) -> str:
     for line in lines:
         stripped = line.strip()
         if skip_next:
-            if re.match(r'^[-–.\s]*\(', stripped) or not stripped:
+            # Skip parenthesised label lines, empty lines, or pure-punct lines (stray dandas etc.)
+            if (re.match(r'^[-–.\s]*\(', stripped)
+                    or not stripped
+                    or re.match(r'^[।॥,;.\s]+$', stripped)):
                 skip_next = False
                 continue
             skip_next = False

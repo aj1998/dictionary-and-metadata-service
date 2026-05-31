@@ -1,5 +1,5 @@
-version: "1.11.0"
-parser_rules_version: "jainkosh.rules/1.11.0"
+version: "1.11.7"
+parser_rules_version: "jainkosh.rules/1.11.7"
 
 normalization:
   nfc: true
@@ -235,6 +235,8 @@ reference_splitting:
     - sanskrit_text
     - prakrit_text
     - hindi_gatha
+    - prakrit_gatha
+    - sanskrit_gatha
   gref_selector: "span.GRef"
 
 dfs:

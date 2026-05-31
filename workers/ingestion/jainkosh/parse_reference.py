@@ -458,6 +458,27 @@ def match_shastra(
                     if entry:
                         base = stripped_base
             if entry:
+                # Strip all trailing /<field_keyword> segments from teeka name.
+                # Field keywords include both section keywords (गाथा, पंक्ति, …)
+                # and entity keywords (पृष्ठ, कलश, …) that appear as format
+                # descriptors in GRef text like "teeka/गाथा /पृष्ठ / पंक्ति".
+                ek = config.entity_keywords
+                all_field_kws = set(config.section_keywords.keywords) | set(
+                    ek.gatha + ek.page + ek.kalash + ek.pankti
+                )
+                changed = True
+                while changed:
+                    changed = False
+                    for kw in all_field_kws:
+                        suffix = "/" + kw
+                        if teeka_candidate.endswith(suffix):
+                            teeka_candidate = teeka_candidate[: -len(suffix)].strip()
+                            changed = True
+                            break
+                        if teeka_candidate == kw:
+                            teeka_candidate = ""
+                            changed = True
+                            break
                 return entry, method, True, teeka_candidate
 
     return None, None, False, ""

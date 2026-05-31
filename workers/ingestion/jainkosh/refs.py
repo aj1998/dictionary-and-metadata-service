@@ -173,14 +173,21 @@ def strip_refs_from_text(text: str, refs: list[Reference], config: JainkoshConfi
     if config.ref_strip.collapse_double_spaces:
         out = re.sub(r"[ \t]{2,}", " ", out)
         out = re.sub(r"\s*\n\s*", "\n", out)
-    # Remove lines that consist solely of semicolons — these are inter-GRef
-    # separator characters (plain HTML text between adjacent <span class="GRef">
-    # elements) that remain after ref-text stripping.
-    out = re.sub(r"(?m)^[ \t]*;[ \t]*$", "", out)
+    # Remove lines that consist solely of semicolons or commas — inter-GRef
+    # separator characters that remain after ref-text stripping.
+    out = re.sub(r"(?m)^[ \t]*[;,][ \t]*$", "", out)
     # Collapse multiple blank lines left by the above cleanup.
     out = re.sub(r"\n{2,}", "\n", out)
     trim_chars = config.ref_strip.trim_trailing_chars
     if trim_chars:
         out = re.sub(r"^[" + re.escape(trim_chars) + r"]+", "", out)
     out = re.sub(r"[ \t]+([।॥;,])", r"\1", out)
+    # Remove stray trailing ; or , that remain after danda/double-danda at line end
+    # e.g. "text।;" → "text।"  or  "text।\n," → "text।"
+    out = re.sub(r"([।॥])\s*[;,]+(\s*)$", r"\1\2", out, flags=re.MULTILINE)
+    out = re.sub(r"([।॥])\s*[;,]+\s*\n", r"\1\n", out)
+    # Remove lines that contain only dandas/punctuation (stray artifact lines)
+    out = re.sub(r"(?m)^[ \t]*[।॥,;.]+[ \t]*$", "", out)
+    # Final collapse of multiple blank lines
+    out = re.sub(r"\n{2,}", "\n", out)
     return out.strip()

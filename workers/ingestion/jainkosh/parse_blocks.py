@@ -23,6 +23,14 @@ from .selectors import block_class_kind, is_gref_node, node_outer_html
 from .tables import extract_table_block
 
 
+def _decode_html_entities(text: str) -> str:
+    """Decode common HTML entities that survive tag stripping."""
+    text = text.replace("&nbsp;", " ").replace("&#160;", " ").replace("&#xA0;", " ")
+    text = text.replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
+    text = text.replace("&quot;", '"').replace("&#39;", "'").replace("&apos;", "'")
+    return text
+
+
 def _render_inline(node: Node, config: JainkoshConfig) -> str:
     """Render a node's inline content, converting <br> to \\n and emphasis to markdown."""
     html = node.html or ""
@@ -38,6 +46,8 @@ def _render_inline(node: Node, config: JainkoshConfig) -> str:
         html = re.sub(r"<i>([^<]*)</i>", r"*\1*", html)
     # Strip remaining HTML tags
     text = re.sub(r"<[^>]+>", "", html)
+    # Decode HTML entities (e.g. &nbsp; → space, &amp; → &)
+    text = _decode_html_entities(text)
     # Normalize per-line
     lines = text.split("\n")
     lines = [normalize_text(line) for line in lines]
@@ -92,6 +102,7 @@ def make_block(
                     connector_re=config.redlink.prose_strip.connector_re,
                 )
 
+    pre_strip = text
     text = strip_refs_from_text(text, refs, config)
     text = strip_paren_dekhen(text, config)
     if not text.strip():
@@ -104,6 +115,7 @@ def make_block(
         text_devanagari=text,
         references=refs,
     )
+    block._pre_strip_text = pre_strip
     if config.blocks.is_bullet_point_for_li and tag == "li":
         block.is_bullet_point = True
 
@@ -115,6 +127,35 @@ def _strip_eq_prefix(text: str) -> str:
     if text.startswith("="):
         text = text[1:].lstrip()
     return text
+
+
+def _strip_dekhen_trigger_lines(text: str, config: JainkoshConfig) -> str:
+    """Strip lines starting with a देखें trigger and the following parenthesised/punct line.
+
+    Used to clean translation text that embeds a देखें link inline:
+      'prose.\nदेखें X - 1.2\n(label text)।'  →  'prose.'
+    """
+    triggers = sorted(config.index.see_also_triggers, key=len, reverse=True)
+    triggers_alt = "|".join(re.escape(t) for t in triggers)
+    trigger_re = re.compile(r"^\s*(?:" + triggers_alt + r")\s")
+    lines = text.split("\n")
+    result: list[str] = []
+    skip_next = False
+    for line in lines:
+        stripped = line.strip()
+        if skip_next:
+            # Skip parenthesised label line, empty line, or pure-punct line
+            if (re.match(r'^[-–.\s]*\(', stripped)
+                    or not stripped
+                    or re.match(r'^[।॥,;.\s]+$', stripped)):
+                skip_next = False
+                continue
+            skip_next = False
+        if trigger_re.match(stripped):
+            skip_next = True
+            continue
+        result.append(line)
+    return "\n".join(result).strip()
 
 
 def _is_translation_block(block: Block, config: JainkoshConfig) -> bool:
@@ -295,9 +336,16 @@ def parse_block_stream(
                 and block.kind in config.translation_marker.hindi_kinds
             ):
                 translation_text = (sibling_eq_prefix or "") + (block.text_devanagari or "")
-                last_block.hindi_translation = strip_paren_dekhen(
+                tl = strip_paren_dekhen(
                     strip_refs_from_text(translation_text, block.references, config),
                     config,
+                )
+                tl = _strip_dekhen_trigger_lines(tl, config)
+                last_block.hindi_translation = tl
+                # Store pre-strip translation for inline-ref position detection in _do_split
+                last_block._hindi_translation_pre_strip = (
+                    (sibling_eq_prefix or "")
+                    + (block._pre_strip_text or block.text_devanagari or "")
                 )
                 if config.translation_marker.reference_ordering == "leading_then_inline":
                     last_block.references = list(last_block.references) + list(pending_refs) + list(block.references)
@@ -363,9 +411,14 @@ def _emit(
     """Emit a block, handling translation-marker absorption."""
     if _is_translation_block(block, config):
         if last_block is not None and last_block.kind in config.translation_marker.source_kinds:
-            last_block.hindi_translation = strip_paren_dekhen(
-                _strip_eq_prefix(block.text_devanagari or ""),
-                config,
+            tl_text = _strip_eq_prefix(block.text_devanagari or "")
+            tl_text = strip_paren_dekhen(tl_text, config)
+            # Strip embedded देखें trigger lines (e.g. '\nदेखें X\n(label)।') from translation
+            tl_text = _strip_dekhen_trigger_lines(tl_text, config)
+            last_block.hindi_translation = tl_text
+            # Store pre-strip translation for inline-ref position detection in _do_split
+            last_block._hindi_translation_pre_strip = _strip_eq_prefix(
+                block._pre_strip_text or block.text_devanagari or ""
             )
             if config.translation_marker.reference_ordering == "leading_then_inline":
                 last_block.references = list(last_block.references) + list(pending_refs) + list(block.references)
@@ -375,10 +428,10 @@ def _emit(
             return last_block, pending_refs, out
         # Orphan translation
         block.is_orphan_translation = True
-        block.text_devanagari = strip_paren_dekhen(
-            _strip_eq_prefix(block.text_devanagari or ""),
-            config,
-        )
+        tl_text = _strip_eq_prefix(block.text_devanagari or "")
+        tl_text = strip_paren_dekhen(tl_text, config)
+        tl_text = _strip_dekhen_trigger_lines(tl_text, config)
+        block.text_devanagari = tl_text
 
     block.references = list(pending_refs) + list(block.references)
     pending_refs.clear()
@@ -776,8 +829,20 @@ def _make_synthetic_block(text: str, kind: str, config: JainkoshConfig) -> Node:
 # Multi-verse block splitting (Issue: प्रवचनसार/19,96,98 style blocks)
 # ---------------------------------------------------------------------------
 
+def _find_verse_marker(text: str, n: int, pos: int) -> tuple[int, int]:
+    """Find ।N। marker (with optional surrounding spaces) starting at pos.
+
+    Returns (start, end) of the match or (-1, -1) if not found.
+    """
+    pattern = re.compile(r"।\s*" + str(n) + r"\s*।")
+    m = pattern.search(text, pos)
+    if m:
+        return m.start(), m.end()
+    return -1, -1
+
+
 def _split_text_at_verse_markers(text: str, verse_numbers: list[int]) -> list[str]:
-    """Split text at ।N। Devanagari verse-number markers.
+    """Split text at ।N। Devanagari verse-number markers (spaces around N allowed).
 
     Returns one segment per verse number. When a marker is absent the segment
     gets all text up to the next found marker (or all remaining for the last).
@@ -789,21 +854,19 @@ def _split_text_at_verse_markers(text: str, verse_numbers: list[int]) -> list[st
     pos = 0
 
     for i, n in enumerate(verse_numbers[:-1]):
-        marker = f"।{n}।"
-        idx = text.find(marker, pos)
-        if idx != -1:
-            end = idx + len(marker)
+        _, end = _find_verse_marker(text, n, pos)
+        if end != -1:
             segments.append(text[pos:end].strip())
             pos = end
         else:
             # Marker absent — give text up to the first available later marker
             found_later = False
             for next_n in verse_numbers[i + 1:]:
-                next_marker = f"।{next_n}।"
-                next_idx = text.find(next_marker, pos)
-                if next_idx != -1:
-                    segments.append(text[pos:next_idx].strip())
-                    pos = next_idx
+                _, next_end = _find_verse_marker(text, next_n, pos)
+                if next_end != -1:
+                    next_start, _ = _find_verse_marker(text, next_n, pos)
+                    segments.append(text[pos:next_start].strip())
+                    pos = next_start
                     found_later = True
                     break
             if not found_later:
@@ -831,6 +894,51 @@ def split_multi_verse_blocks(blocks: list[Block], config: JainkoshConfig) -> lis
     return result
 
 
+def _auto_detect_verse_numbers(text: str) -> list[int]:
+    """Extract verse numbers from ।N। markers (with optional spaces) in text."""
+    return sorted({int(m.group(1)) for m in re.finditer(r"।\s*(\d+)\s*।", text)})
+
+
+def _nums_in_text_order(text: str, nums: list[int]) -> list[int]:
+    """Return nums ordered by their first occurrence position in text."""
+    positions = []
+    for n in nums:
+        start, _ = _find_verse_marker(text, n, 0)
+        if start != -1:
+            positions.append((start, n))
+    return [n for _, n in sorted(positions)]
+
+
+def _order_pairs_by_text_position(
+    pairs: list[tuple],
+    src_text: str,
+) -> list[tuple]:
+    """Order (ref, gatha_value) pairs by sequential marker appearance in src_text.
+
+    Uses a greedy scan so duplicate values (e.g. [168, 15, 168]) are assigned
+    to their respective sequential occurrence rather than all mapping to the first.
+    """
+    ordered: list[tuple] = []
+    remaining = list(pairs)
+    pos = 0
+    while remaining:
+        best_start = -1
+        best_idx = -1
+        best_end = pos
+        for i, (_, v) in enumerate(remaining):
+            start, end = _find_verse_marker(src_text, v, pos)
+            if start != -1 and (best_start == -1 or start < best_start):
+                best_start = start
+                best_end = end
+                best_idx = i
+        if best_idx == -1:
+            ordered.extend(remaining)
+            break
+        ordered.append(remaining.pop(best_idx))
+        pos = best_end
+    return ordered
+
+
 def _try_split_multi_verse(block: Block, config: JainkoshConfig) -> list[Block]:
     """Try to split one block at verse markers. Returns [block] if not applicable."""
     if block.kind not in config.reference_splitting.applicable_block_kinds:
@@ -839,15 +947,6 @@ def _try_split_multi_verse(block: Block, config: JainkoshConfig) -> list[Block]:
     non_inline = [r for r in block.references if not r.inline_reference]
     inline_refs = [r for r in block.references if r.inline_reference]
 
-    if len(non_inline) < 2:
-        return [block]
-
-    # All non-inline refs must share the same source text (same original GRef)
-    ref_texts = {r.text for r in non_inline}
-    if len(ref_texts) != 1:
-        return [block]
-
-    # Each must resolve to a single gatha field value
     gatha_field_names = set(config.reference.entity_keywords.gatha)
 
     def _gatha_value(r: Reference) -> Optional[int]:
@@ -856,32 +955,203 @@ def _try_split_multi_verse(block: Block, config: JainkoshConfig) -> list[Block]:
                 return rf.value
         return None
 
-    pairs = [(r, _gatha_value(r)) for r in non_inline]
-    if any(v is None for _, v in pairs):
-        return [block]
+    # --- Case A: multiple non-inline refs from same GRef text ---
+    # Guard: only split when BOTH text_devanagari AND hindi_translation have
+    # the required verse markers (same policy as Case B). Without a matching
+    # translation the split produces stub blocks with no translation context.
+    if len(non_inline) >= 2:
+        ref_texts = {r.text for r in non_inline}
+        if len(ref_texts) == 1:
+            pairs = [(r, _gatha_value(r)) for r in non_inline]
+            if not any(v is None for _, v in pairs):
+                # Order refs by their marker's sequential position in src text
+                # (not ascending numeric value) to handle cases like 168,15,168
+                # where the GRef list order matches text order, not ascending order.
+                src_for_order = block.text_devanagari or ""
+                pairs = _order_pairs_by_text_position(pairs, src_for_order)  # type: ignore[arg-type]
+                ordered_refs = [r for r, _ in pairs]
+                ordered_nums = [v for _, v in pairs]  # type: ignore[misc]
+                # Guard: all gatha values must appear as ।N। markers in the
+                # source text. When a GRef lists e.g. 22,27,31 but the Prakrit
+                # text only has markers 22, 26, 31 (verse numbering mismatch),
+                # Case A must not run — it would create an empty third block.
+                # Fall through to Case B which splits on common src+tl markers.
+                src_nums_a = set(_auto_detect_verse_numbers(src_for_order))
+                if not all(n in src_nums_a for n in ordered_nums):
+                    pass  # fall through to Case B
+                # Skip split when translation is present but contains NONE of the
+                # verse markers (e.g. नयचक्र बृहद्/17-19 whose translation has no
+                # ।17।/।18।/।19। markers — the translation covers the full range).
+                elif (tl_text_a := block.hindi_translation) is not None:
+                    tl_nums_a = _auto_detect_verse_numbers(tl_text_a)
+                    if any(n in tl_nums_a for n in ordered_nums):
+                        return _do_split(block, ordered_refs, ordered_nums, inline_refs)
+                    # else: fall through (no verse markers in translation)
+                else:
+                    return _do_split(block, ordered_refs, ordered_nums, inline_refs)
 
-    # Sort by gatha value
-    pairs.sort(key=lambda x: x[1])  # type: ignore[arg-type]
-    sorted_refs = [r for r, _ in pairs]
-    sorted_nums = [v for _, v in pairs]  # type: ignore[misc]
+    # --- Case C: equal-count independent-marker split ---
+    # Applies when src and tl each have exactly N (≥ 2) verse markers with the
+    # SAME count, even when their values differ (verse-numbering mismatch between
+    # source language and translation).  The N unique non-inline refs (deduped by
+    # gatha value, sorted ascending) are paired with the N verse pairs in order.
+    #
+    # Example: GRef 22,27,31 — Prakrit has markers [22,26,31], Hindi has [22,23,31].
+    # Case A skips (27 absent from src).  Case C detects both have 3 markers,
+    # splits src at [22,26,31] and tl at [22,23,31], producing 3 correctly-paired
+    # blocks with refs ref22, ref27, ref31 respectively.
+    src_text_c = block.text_devanagari or ""
+    tl_text_c = block.hindi_translation or ""
+    if src_text_c and tl_text_c:
+        src_nums_c = _nums_in_text_order(src_text_c, list(set(_auto_detect_verse_numbers(src_text_c))))
+        tl_nums_c = _nums_in_text_order(tl_text_c, list(set(_auto_detect_verse_numbers(tl_text_c))))
+        if len(src_nums_c) >= 2 and len(src_nums_c) == len(tl_nums_c):
+            # Dedup non_inline refs by gatha value, keeping first occurrence.
+            # Sort ascending so they pair naturally with ascending src markers.
+            seen_g: set[Optional[int]] = set()
+            unique_refs_c: list[Reference] = []
+            for r in non_inline:
+                v = _gatha_value(r)
+                if v not in seen_g:
+                    seen_g.add(v)
+                    unique_refs_c.append(r)
+            unique_refs_c = sorted(unique_refs_c, key=lambda r: (_gatha_value(r) or 0))
+            if len(unique_refs_c) == len(src_nums_c):
+                return _do_split(
+                    block, unique_refs_c, src_nums_c, inline_refs,
+                    tl_nums=tl_nums_c,
+                )
 
+    # --- Case B: auto-detect from ।N। markers in text when both sides agree ---
+    # Applies when: single-ref (matched or not), or no refs at all.
+    # Only split if markers appear in BOTH text_devanagari AND hindi_translation.
+    src_text = block.text_devanagari or ""
+    tl_text = block.hindi_translation or ""
+    if src_text and tl_text:
+        src_nums = _auto_detect_verse_numbers(src_text)
+        tl_nums = _auto_detect_verse_numbers(tl_text)
+        # Intersect and order by position in src text (not ascending numeric value)
+        # so that markers like ।168।...।15。 split in the correct order.
+        common_nums = _nums_in_text_order(src_text, list(set(src_nums) & set(tl_nums)))
+        if len(common_nums) >= 2:
+            # Build one synthetic ref per split number from the first non-inline ref (if any)
+            base_ref = non_inline[0] if non_inline else None
+            split_refs: list[Optional[Reference]] = []
+            for n in common_nums:
+                if base_ref is not None:
+                    # Clone ref with only this gatha value, preserving the
+                    # existing gatha field name (e.g. "दोहक") if present.
+                    from .models import ResolvedField
+                    gatha_field_name = next(
+                        (rf.field for rf in base_ref.resolved_fields if rf.field in gatha_field_names),
+                        "गाथा",
+                    )
+                    new_resolved = [ResolvedField(field=rf.field, value=rf.value)
+                                    for rf in base_ref.resolved_fields
+                                    if rf.field not in gatha_field_names]
+                    new_resolved.append(ResolvedField(field=gatha_field_name, value=n))
+                    split_refs.append(Reference(
+                        text=base_ref.text,
+                        inline_reference=False,
+                        needs_manual_match=base_ref.needs_manual_match,
+                        is_teeka=base_ref.is_teeka,
+                        teeka_name=base_ref.teeka_name,
+                        shastra_name=base_ref.shastra_name,
+                        match_method=base_ref.match_method,
+                        resolved_fields=new_resolved,
+                    ))
+                else:
+                    split_refs.append(None)
+            return _do_split(block, split_refs, common_nums, inline_refs + non_inline[1:])
+
+    return [block]
+
+
+def _assign_inline_refs_to_segments(
+    inline_refs: list[Reference],
+    pre_strip_text: Optional[str],
+    tl_split_nums: list[int],
+    n_segments: int,
+) -> dict[int, list[Reference]]:
+    """Distribute inline refs to split segments based on their position in the
+    pre-strip translation text relative to verse markers.
+
+    A ref that appears immediately after ।N। belongs to the gatha-N segment —
+    it is a footnote to that verse, not to the following verse.
+    Falls back to placing all refs in the last segment when position cannot be
+    determined (missing pre_strip_text or ref text not found).
+    """
+    result: dict[int, list[Reference]] = {i: [] for i in range(n_segments)}
+    if not inline_refs:
+        return result
+
+    if not pre_strip_text or not tl_split_nums or len(tl_split_nums) < 2:
+        result[n_segments - 1].extend(inline_refs)
+        return result
+
+    # End position of each tl verse marker in the pre-strip text.
+    # -1 means the marker was not found.
+    marker_ends: list[int] = []
+    for n in tl_split_nums:
+        _, end = _find_verse_marker(pre_strip_text, n, 0)
+        marker_ends.append(end)
+
+    for ref in inline_refs:
+        pos = pre_strip_text.find(ref.text)
+        if pos == -1:
+            result[n_segments - 1].append(ref)
+            continue
+        # Assign to the segment corresponding to the most recently passed verse
+        # marker: largest j where marker_ends[j] != -1 and marker_ends[j] <= pos.
+        assigned = 0
+        for j in range(n_segments):
+            if marker_ends[j] != -1 and marker_ends[j] <= pos:
+                assigned = j
+            elif marker_ends[j] != -1:
+                break
+        result[assigned].append(ref)
+
+    return result
+
+
+def _do_split(
+    block: Block,
+    sorted_refs: list,
+    sorted_nums: list[int],
+    inline_refs: list[Reference],
+    *,
+    tl_nums: Optional[list[int]] = None,
+) -> list[Block]:
+    """Perform the actual text split and build new blocks.
+
+    tl_nums: if provided, split the translation at these markers instead of
+    sorted_nums (used by Case C when src and tl use different verse numbering).
+    """
     src_segments = _split_text_at_verse_markers(block.text_devanagari or "", sorted_nums)
+    _tl_split_nums = tl_nums if tl_nums is not None else sorted_nums
     tl_segments = (
-        _split_text_at_verse_markers(block.hindi_translation, sorted_nums)
+        _split_text_at_verse_markers(block.hindi_translation, _tl_split_nums)
         if block.hindi_translation is not None
         else [None] * len(sorted_nums)
+    )
+
+    # Distribute inline refs by their position in the pre-strip translation text.
+    inline_ref_map = _assign_inline_refs_to_segments(
+        inline_refs,
+        block._hindi_translation_pre_strip,
+        _tl_split_nums,
+        len(sorted_nums),
     )
 
     split_blocks: list[Block] = []
     for i, ref in enumerate(sorted_refs):
         tl = tl_segments[i] if tl_segments[i] else None
-        # Inline refs travel with the last split block (they appear at end of text)
-        extra = inline_refs if i == len(sorted_refs) - 1 else []
+        refs_for_block = ([ref] if ref is not None else []) + inline_ref_map[i]
         b = Block(
             kind=block.kind,
             text_devanagari=src_segments[i] or None,
             hindi_translation=tl,
-            references=[ref] + extra,
+            references=refs_for_block,
             is_orphan_translation=block.is_orphan_translation,
             is_bullet_point=block.is_bullet_point,
         )

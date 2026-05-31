@@ -395,11 +395,11 @@ async def sync_has_topic_edge(
             """
             MERGE (k:Keyword {natural_key: $kw})
               SET k.is_stub = coalesce(k.is_stub, true),
-                  k.stub_source = coalesce(k.stub_source, 'jainkosh_ingestion'),
+                  k.stub_source = CASE WHEN k.is_stub = false THEN k.stub_source ELSE coalesce(k.stub_source, 'jainkosh_ingestion') END,
                   k.created_at = coalesce(k.created_at, datetime())
             MERGE (t:Topic {natural_key: $tp})
               SET t.is_stub = coalesce(t.is_stub, true),
-                  t.stub_source = coalesce(t.stub_source, 'jainkosh_ingestion'),
+                  t.stub_source = CASE WHEN t.is_stub = false THEN t.stub_source ELSE coalesce(t.stub_source, 'jainkosh_ingestion') END,
                   t.created_at = coalesce(t.created_at, datetime())
             MERGE (k)-[r:HAS_TOPIC]->(t)
             SET r.weight = coalesce(r.weight, 1.0), r.source = $source
@@ -422,11 +422,11 @@ async def sync_part_of_edge(
             """
             MERGE (child:Topic {natural_key: $c})
               SET child.is_stub = coalesce(child.is_stub, true),
-                  child.stub_source = coalesce(child.stub_source, 'jainkosh_ingestion'),
+                  child.stub_source = CASE WHEN child.is_stub = false THEN child.stub_source ELSE coalesce(child.stub_source, 'jainkosh_ingestion') END,
                   child.created_at = coalesce(child.created_at, datetime())
             MERGE (parent:Topic {natural_key: $p})
               SET parent.is_stub = coalesce(parent.is_stub, true),
-                  parent.stub_source = coalesce(parent.stub_source, 'jainkosh_ingestion'),
+                  parent.stub_source = CASE WHEN parent.is_stub = false THEN parent.stub_source ELSE coalesce(parent.stub_source, 'jainkosh_ingestion') END,
                   parent.created_at = coalesce(parent.created_at, datetime())
             MERGE (child)-[r:PART_OF]->(parent)
             SET r.weight = coalesce(r.weight, 1.0), r.source = 'jainkosh'
@@ -455,11 +455,11 @@ async def sync_related_to_edge(
             f"""
             MERGE (src:{source_label} {{natural_key: $s}})
               SET src.is_stub = coalesce(src.is_stub, true),
-                  src.stub_source = coalesce(src.stub_source, 'jainkosh_ingestion'),
+                  src.stub_source = CASE WHEN src.is_stub = false THEN src.stub_source ELSE coalesce(src.stub_source, 'jainkosh_ingestion') END,
                   src.created_at = coalesce(src.created_at, datetime())
             MERGE (tgt:{target_label} {{natural_key: $t}})
               SET tgt.is_stub = coalesce(tgt.is_stub, true),
-                  tgt.stub_source = coalesce(tgt.stub_source, 'jainkosh_ingestion'),
+                  tgt.stub_source = CASE WHEN tgt.is_stub = false THEN tgt.stub_source ELSE coalesce(tgt.stub_source, 'jainkosh_ingestion') END,
                   tgt.created_at = coalesce(tgt.created_at, datetime())
             MERGE (src)-[r:RELATED_TO]->(tgt)
             SET r.weight = coalesce(r.weight, $w), r.source = 'jainkosh'

@@ -480,6 +480,18 @@ When a HindiText element contains **initial prose** + one or more `<br/>`-separa
 `extract_text_after_anchor` stops at `<br/>` (shared with §5.11 — prevents bleed-through
 when multiple देखें lines are separated by `<br/>`).
 
+### 5.13 Body-element br-dekhen seeds (v1.11.4)
+
+In addition to the section-level seeds (§5.12), subsection body `content_els` are also scanned
+for `<br/>`-separated `देखें` patterns. When a mid-body HindiText element contains initial prose
+followed by one or more `<br/>`-separated `देखें <link>` lines, each such line produces a
+`see_also` label-topic seed in the subsection's `after_dekhen_relations`. The trigger lines and
+any following pure-punctuation lines are stripped from `hindi_translation` via
+`_strip_dekhen_trigger_lines`.
+
+This handles patterns like `देखें जीव - 3.8\n(context)।` inside a `=`-sibling HindiText
+element that would otherwise leak into the translation of the preceding source block.
+
 ---
 
 ## 6. Block kinds
@@ -827,3 +839,9 @@ implementation-level versioning details.
 | `1.8.1` | V2-bare inline-content fix: `_make_v2_content_block` returns `None` for V2-bare spans to prevent heading text re-emission as a `hindi_text` block. |
 | `1.9.0` | **After-`देखें` text as topic seed**: HindiText element starting with `देखें <link> text_after` (no prose before trigger) → synthetic label-seed child topic. `extract_text_after_anchor` stops at `<br/>`. |
 | `1.10.0` | **`<br/>`-separated `देखें` as section-level seeds**: initial prose + `<br/>`-separated `देखें <link> (label)` lines → `PageSection.label_topic_seeds`. Definition `hindi_translation` cleaned of trigger lines. `extract_text_after_anchor` stops at `<br/>` (shared fix). |
+| `1.11.1` | Multi-verse block splitting (§6.X); keyword underscore preservation (§6.7); space-to-slash shastra matching; `hindi_text` + null translation → `GathaTeekaBhaavarth`. |
+| `1.11.2` | Stray-semicolon cleanup after ref-strip; flexible-whitespace ref matching fallback. |
+| `1.11.3` | Keyword trigger groups `{word/word}field` in format strings. |
+| `1.11.4` | **(1) HTML entity decoding** in `_render_inline` (`&nbsp;`, `&amp;`, `&lt;`/`&gt;`, `&quot;`, `&apos;`). **(2) Extended stray-punct cleanup**: `,`-only lines, trailing `;`/`,` after `।`/`॥`, danda-only lines removed after ref-strip. **(3) Verse-marker spacing fix**: `।\s*N\s*।` regex (was literal `।N।`) in `_split_text_at_verse_markers`. **(4) Auto-detect verse splitting (Case B)**: when both `text_devanagari` and `hindi_translation` contain 2+ identical `।N।` markers and no multi-ref Case A applies, split is triggered automatically. **(5) `देखें` stripping from translation**: `_emit` strips trigger lines and following paren/punctuation lines from `hindi_translation` before emitting. **(6) Body br-dekhen seeds**: `parse_subsections` extracts `<br/>`-separated `देखें` seeds from subsection body `content_els` (§5.13). |
+| `1.11.5` | **(1) Case A/B split ordering by text position**: refs are ordered by sequential `।N।` marker occurrence in `text_devanagari` (greedy `_order_pairs_by_text_position`) rather than ascending gatha value. Fixes GRef lists like `168,15,168` where the comma order reflects text order and values may be non-ascending or repeated. **(2) Deterministic gatha field name** in Case B synthetic refs: field name preserved from base_ref's resolved_fields instead of non-deterministic set iteration. **(3) Teeka name keyword cleanup**: all trailing `/<field_keyword>` segments iteratively stripped from `teeka_candidate` in `match_shastra`, covering both section keywords (गाथा, पंक्ति, …) and entity keywords (पृष्ठ, कलश, …). Handles multi-segment suffixes like `"/गाथा /पृष्ठ / पंक्ति"` → `""`. |
+| `1.11.6` | **`prakrit_gatha`/`sanskrit_gatha` multi-verse splitting**: both kinds added to `reference_splitting.applicable_block_kinds`. **Case A source-text guard**: all gatha values must appear as `।N।` markers in `text_devanagari` before Case A fires; when absent, falls through to Case C. **Case C — equal-count independent-marker split**: when src and tl each have exactly N (≥ 2) verse markers (same count, different values OK) and exactly N unique-gatha non-inline refs, splits src at src markers and tl at tl markers, pairing positionally. `_do_split` extended with `tl_nums` kwarg. |

@@ -84,11 +84,11 @@ async def sync_reference_edge(
             f"""
 MERGE (src:{src_label} {{natural_key: $s}})
   SET src.is_stub = coalesce(src.is_stub, true),
-      src.stub_source = coalesce(src.stub_source, 'jainkosh_ingestion'),
+      src.stub_source = CASE WHEN src.is_stub = false THEN src.stub_source ELSE coalesce(src.stub_source, 'jainkosh_ingestion') END,
       src.created_at = coalesce(src.created_at, datetime())
 MERGE (tgt:{tgt_label} {{natural_key: $t}})
   SET tgt.is_stub = coalesce(tgt.is_stub, true),
-      tgt.stub_source = coalesce(tgt.stub_source, 'jainkosh_ingestion'),
+      tgt.stub_source = CASE WHEN tgt.is_stub = false THEN tgt.stub_source ELSE coalesce(tgt.stub_source, 'jainkosh_ingestion') END,
       tgt.created_at = coalesce(tgt.created_at, datetime())
 MERGE (src)-[r:{edge_type}]->(tgt)
 SET r.weight = coalesce(r.weight, 1.0), r.source = 'jainkosh'

@@ -208,7 +208,7 @@
                       {
                         "kind": "sanskrit_text",
                         "text_devanagari": "परि समंतादायः पर्यायः।",
-                        "hindi_translation": "जो सर्व ओर से भेद को प्राप्त करे सो पर्याय है।।",
+                        "hindi_translation": "जो सर्व ओर से भेद को प्राप्त करे सो पर्याय है।",
                         "references": [
                           {
                             "text": "राजवार्तिक/1/33/1/95/6",
@@ -489,23 +489,7 @@
                                 "value": 345
                               }
                             ]
-                          }
-                        ],
-                        "is_orphan_translation": false,
-                        "is_bullet_point": false,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": null,
-                        "target_topic_path": null,
-                        "target_url": null,
-                        "is_self": false,
-                        "target_exists": true
-                      },
-                      {
-                        "kind": "sanskrit_text",
-                        "text_devanagari": null,
-                        "hindi_translation": null,
-                        "references": [
+                          },
                           {
                             "text": "समयसार / आत्मख्याति/345 -348",
                             "inline_reference": false,
@@ -520,23 +504,7 @@
                                 "value": 346
                               }
                             ]
-                          }
-                        ],
-                        "is_orphan_translation": false,
-                        "is_bullet_point": false,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": null,
-                        "target_topic_path": null,
-                        "target_url": null,
-                        "is_self": false,
-                        "target_exists": true
-                      },
-                      {
-                        "kind": "sanskrit_text",
-                        "text_devanagari": null,
-                        "hindi_translation": null,
-                        "references": [
+                          },
                           {
                             "text": "समयसार / आत्मख्याति/345 -348",
                             "inline_reference": false,
@@ -551,23 +519,7 @@
                                 "value": 347
                               }
                             ]
-                          }
-                        ],
-                        "is_orphan_translation": false,
-                        "is_bullet_point": false,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": null,
-                        "target_topic_path": null,
-                        "target_url": null,
-                        "is_self": false,
-                        "target_exists": true
-                      },
-                      {
-                        "kind": "sanskrit_text",
-                        "text_devanagari": null,
-                        "hindi_translation": null,
-                        "references": [
+                          },
                           {
                             "text": "समयसार / आत्मख्याति/345 -348",
                             "inline_reference": false,
@@ -596,8 +548,8 @@
                       },
                       {
                         "kind": "sanskrit_text",
-                        "text_devanagari": "पर्यायाणामेतद्धर्म यत्त्वंशकल्पनं द्रव्ये। 26। स च परिणामोऽवस्था तेषामेव (गुणानामेव)। 117।",
-                        "hindi_translation": "द्रव्य में जो अंश कल्पना की जाती है यही तो पर्यायों का स्वरूप है। 26। परिणमन गुणों की ही अवस्था है अर्थात् गुणों की प्रतिसमय होनेवाली अवस्था का नाम पर्याय है।",
+                        "text_devanagari": "पर्यायाणामेतद्धर्म यत्त्वंशकल्पनं द्रव्ये। 26।",
+                        "hindi_translation": "द्रव्य में जो अंश कल्पना की जाती है यही तो पर्यायों का स्वरूप है। 26।",
                         "references": [
                           {
                             "text": "पंचाध्यायी / पूर्वार्ध/26, 117",
@@ -627,8 +579,8 @@
                       },
                       {
                         "kind": "sanskrit_text",
-                        "text_devanagari": null,
-                        "hindi_translation": null,
+                        "text_devanagari": "स च परिणामोऽवस्था तेषामेव (गुणानामेव)। 117।",
+                        "hindi_translation": "परिणमन गुणों की ही अवस्था है अर्थात् गुणों की प्रतिसमय होनेवाली अवस्था का नाम पर्याय है।",
                         "references": [
                           {
                             "text": "पंचाध्यायी / पूर्वार्ध/26, 117",
@@ -740,23 +692,7 @@
                                 "value": 7
                               }
                             ]
-                          }
-                        ],
-                        "is_orphan_translation": false,
-                        "is_bullet_point": false,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": null,
-                        "target_topic_path": null,
-                        "target_url": null,
-                        "is_self": false,
-                        "target_exists": true
-                      },
-                      {
-                        "kind": "sanskrit_text",
-                        "text_devanagari": null,
-                        "hindi_translation": null,
-                        "references": [
+                          },
                           {
                             "text": "सर्वार्थसिद्धि/5/38/309-310/7",
                             "inline_reference": false,
@@ -812,7 +748,7 @@
                       },
                       {
                         "kind": "hindi_text",
-                        "text_devanagari": "द्रव्य के विकार विशेष रूप से भेद को प्राप्त होते हैं इसलिए वे पर्याय कहलाते हैं।।",
+                        "text_devanagari": "द्रव्य के विकार विशेष रूप से भेद को प्राप्त होते हैं इसलिए वे पर्याय कहलाते हैं।",
                         "hindi_translation": null,
                         "references": [
                           {
@@ -1111,7 +1047,7 @@
                       {
                         "kind": "sanskrit_text",
                         "text_devanagari": "पर्यायास्तु... द्रव्यात्मका अपि गुणात्मका अपि।",
-                        "hindi_translation": "पर्याय गुणात्मक भी हैं और द्रव्यात्मक भी।।",
+                        "hindi_translation": "पर्याय गुणात्मक भी हैं और द्रव्यात्मक भी।",
                         "references": [
                           {
                             "text": "प्रवचनसार / तत्त्वप्रदीपिका/93",
@@ -1202,7 +1138,7 @@
                       {
                         "kind": "sanskrit_text",
                         "text_devanagari": "द्विधा पर्याया द्रव्यपर्याया गुणपर्यायाश्च।",
-                        "hindi_translation": "पर्याय दो प्रकार की होती हैं - द्रव्य पर्याय और गुणपर्याय।।",
+                        "hindi_translation": "पर्याय दो प्रकार की होती हैं - द्रव्य पर्याय और गुणपर्याय।",
                         "references": [
                           {
                             "text": "पंचास्तिकाय / तात्पर्यवृत्ति/16/35/12",
@@ -1351,7 +1287,7 @@
                       {
                         "kind": "prakrit_text",
                         "text_devanagari": "पज्जयं द्विविधः। 17। सब्भावं खुविहावं दव्वाणं पज्जयं जिणुद्दिट्ठं। 18। दव्वगुणाण सहावा पज्जायंतह विहावदो णेयं। 19।",
-                        "hindi_translation": "पर्याय दो प्रकार की होती हैं - स्वभाव व विभाव। तहाँ द्रव्य व गुण दोनों की ही पर्याय स्वभाव व विभाव के भेद से दो-दो प्रकार की जाननी चाहिए।।",
+                        "hindi_translation": "पर्याय दो प्रकार की होती हैं - स्वभाव व विभाव। तहाँ द्रव्य व गुण दोनों की ही पर्याय स्वभाव व विभाव के भेद से दो-दो प्रकार की जाननी चाहिए।",
                         "references": [
                           {
                             "text": "नयचक्र बृहद्/17-19",
@@ -1367,23 +1303,7 @@
                                 "value": 17
                               }
                             ]
-                          }
-                        ],
-                        "is_orphan_translation": false,
-                        "is_bullet_point": false,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": null,
-                        "target_topic_path": null,
-                        "target_url": null,
-                        "is_self": false,
-                        "target_exists": true
-                      },
-                      {
-                        "kind": "prakrit_text",
-                        "text_devanagari": null,
-                        "hindi_translation": null,
-                        "references": [
+                          },
                           {
                             "text": "नयचक्र बृहद्/17-19",
                             "inline_reference": false,
@@ -1398,23 +1318,7 @@
                                 "value": 18
                               }
                             ]
-                          }
-                        ],
-                        "is_orphan_translation": false,
-                        "is_bullet_point": false,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": null,
-                        "target_topic_path": null,
-                        "target_url": null,
-                        "is_self": false,
-                        "target_exists": true
-                      },
-                      {
-                        "kind": "prakrit_text",
-                        "text_devanagari": null,
-                        "hindi_translation": null,
-                        "references": [
+                          },
                           {
                             "text": "नयचक्र बृहद्/17-19",
                             "inline_reference": false,
@@ -1467,7 +1371,7 @@
                       {
                         "kind": "sanskrit_text",
                         "text_devanagari": "पर्यायास्तु द्वेधा स्वभावविभावपर्यायभेदात्। ...विभावद्रव्य-व्यंजनपर्यायः... विभावगुणव्यंजनपर्यायः... स्वभावद्रव्यव्यंजनपर्यायः ...स्वभावगुणव्यंजनपर्यायः।",
-                        "hindi_translation": "पर्याय दो प्रकार की होती हैं - स्वभाव व विभाव। ये दोनों भी दो प्रकार की होती हैं यथा - विभाव-द्रव्य व्यंजनपर्याय, विभावगुण व्यंजनपर्याय, स्वभाव द्रव्य-व्यंजन पर्याय व स्वभाव गुण व्यंजन पर्याय।।",
+                        "hindi_translation": "पर्याय दो प्रकार की होती हैं - स्वभाव व विभाव। ये दोनों भी दो प्रकार की होती हैं यथा - विभाव-द्रव्य व्यंजनपर्याय, विभावगुण व्यंजनपर्याय, स्वभाव द्रव्य-व्यंजन पर्याय व स्वभाव गुण व्यंजन पर्याय।",
                         "references": [
                           {
                             "text": "आलापपद्धति/3",
@@ -1508,7 +1412,7 @@
                       {
                         "kind": "sanskrit_text",
                         "text_devanagari": "द्रव्यपर्यायः। स द्विविधः, समानजातीयोऽसमानजातीयश्च। ...गुणपर्यायः। सोऽपि द्विविधः स्वभावपर्यायो विभावंपर्यायश्च।",
-                        "hindi_translation": "द्रव्यपर्याय दो प्रकार की होती है - समानजातीय और असमानजातीय। ...गुणपर्याय दो प्रकार की है - स्वभाव पर्याय व विभाव पर्याय।।",
+                        "hindi_translation": "द्रव्यपर्याय दो प्रकार की होती है - समानजातीय और असमानजातीय। ...गुणपर्याय दो प्रकार की है - स्वभाव पर्याय व विभाव पर्याय।",
                         "references": [
                           {
                             "text": "प्रवचनसार / तत्त्वप्रदीपिका/93",
@@ -1630,7 +1534,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "तत्रानेकद्रव्यात्मकैक्यप्रतिपत्तिनिबंधनो द्रव्यपर्यायः।",
-                    "hindi_translation": "अनेक द्रव्यात्मक एकता की प्रतिपत्ति की कारणभूत द्रव्य पर्याय है।।",
+                    "hindi_translation": "अनेक द्रव्यात्मक एकता की प्रतिपत्ति की कारणभूत द्रव्य पर्याय है।",
                     "references": [
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/92",
@@ -1920,7 +1824,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "यतरे च विशेषांस्ततरे गुणपर्यया भवंत्येव। 135।",
-                    "hindi_translation": "जितने गुण के अंश हैं, उतने वे सब गुणपर्याय ही कहे जाते हैं। 135।।",
+                    "hindi_translation": "जितने गुण के अंश हैं, उतने वे सब गुणपर्याय ही कहे जाते हैं। 135।",
                     "references": [
                       {
                         "text": "पंचाध्यायी / पूर्वार्ध/135",
@@ -2069,8 +1973,8 @@
                 "blocks": [
                   {
                     "kind": "sanskrit_gatha",
-                    "text_devanagari": "केवलिप्रज्ञया तस्या जघन्योऽशंस्तु पर्य्ययः। तदाऽनंत्येन निष्पन्नं सा द्युतिर्निजपर्य्ययाः। 23। क्षयोपशम-वैचित्र्यं ज्ञेयवैचित्र्यमेव वा। जीवस्य परपर्यायाः षट्स्थनपतितामी। 25।",
-                    "hindi_translation": "केवलज्ञान के द्वारा निष्पन्न जो अनंत अंतर्द्युति या अंतर्तेज है वही निज पर्याय है। 23। और क्षयोपशम के द्वारा व ज्ञेयों के द्वारा चित्र-विचित्र जो पर्याय है, सो परपर्याय है। दोनों ही षट्स्थान पतित वृद्धि हानि युक्त है। 25।",
+                    "text_devanagari": "केवलिप्रज्ञया तस्या जघन्योऽशंस्तु पर्य्ययः। तदाऽनंत्येन निष्पन्नं सा द्युतिर्निजपर्य्ययाः। 23।",
+                    "hindi_translation": "केवलज्ञान के द्वारा निष्पन्न जो अनंत अंतर्द्युति या अंतर्तेज है वही निज पर्याय है। 23।",
                     "references": [
                       {
                         "text": "मोक्ष पंचाशत/23-25",
@@ -2080,7 +1984,43 @@
                         "teeka_name": "",
                         "shastra_name": null,
                         "match_method": null,
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 23
+                          }
+                        ]
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "sanskrit_gatha",
+                    "text_devanagari": "क्षयोपशम-वैचित्र्यं ज्ञेयवैचित्र्यमेव वा। जीवस्य परपर्यायाः षट्स्थनपतितामी। 25।",
+                    "hindi_translation": "और क्षयोपशम के द्वारा व ज्ञेयों के द्वारा चित्र-विचित्र जो पर्याय है, सो परपर्याय है। दोनों ही षट्स्थान पतित वृद्धि हानि युक्त है। 25।",
+                    "references": [
+                      {
+                        "text": "मोक्ष पंचाशत/23-25",
+                        "inline_reference": false,
+                        "needs_manual_match": true,
+                        "is_teeka": false,
+                        "teeka_name": "",
+                        "shastra_name": null,
+                        "match_method": null,
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 25
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2220,7 +2160,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "व्यतिरेकिणः पर्यायाः।",
-                    "hindi_translation": "पर्याय व्यतिरेकी होती है\n।",
+                    "hindi_translation": "पर्याय व्यतिरेकी होती है",
                     "references": [
                       {
                         "text": "सर्वार्थसिद्धि/5/35/309/5",
@@ -2335,8 +2275,8 @@
                   },
                   {
                     "kind": "sanskrit_text",
-                    "text_devanagari": "अन्वयव्यतिरेकाः पर्यायाः। 80। पर्याया आयत-विशेषाः। 95।",
-                    "hindi_translation": "अन्वय व्यतिरेक वे पर्याय हैं। 80। पर्याय आयत विशेष है। 95।।",
+                    "text_devanagari": "अन्वयव्यतिरेकाः पर्यायाः। 80।",
+                    "hindi_translation": "अन्वय व्यतिरेक वे पर्याय हैं। 80।",
                     "references": [
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/80, 95",
@@ -2366,8 +2306,8 @@
                   },
                   {
                     "kind": "sanskrit_text",
-                    "text_devanagari": null,
-                    "hindi_translation": null,
+                    "text_devanagari": "पर्याया आयत-विशेषाः। 95।",
+                    "hindi_translation": "पर्याय आयत विशेष है। 95।",
                     "references": [
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/80, 95",
@@ -2487,7 +2427,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "क्रमवर्तिनः पर्यायाः।",
-                    "hindi_translation": "पर्याय एक के पश्चात् दूसरी, इस प्रकार क्रमपूर्वक होती है। इसलिए पर्याय क्रमवर्ती कही जाती है।।",
+                    "hindi_translation": "पर्याय एक के पश्चात् दूसरी, इस प्रकार क्रमपूर्वक होती है। इसलिए पर्याय क्रमवर्ती कही जाती है।",
                     "references": [
                       {
                         "text": "आलापपद्धति/6",
@@ -2541,7 +2481,7 @@
                   {
                     "kind": "prakrit_text",
                     "text_devanagari": "कम-भुव पज्जउ वुत्तु। 57।",
-                    "hindi_translation": "द्रव्य को अनेक रूप परिणति क्रम से हो अर्थात् अनित्यरूप समय-समय उपजे, विनशे, वह पर्याय कही जाती है।।",
+                    "hindi_translation": "द्रव्य को अनेक रूप परिणति क्रम से हो अर्थात् अनित्यरूप समय-समय उपजे, विनशे, वह पर्याय कही जाती है।",
                     "references": [
                       {
                         "text": "परमात्मप्रकाश/ मूल/57",
@@ -2662,8 +2602,8 @@
                 "blocks": [
                   {
                     "kind": "sanskrit_text",
-                    "text_devanagari": "वस्त्वस्ति स्वतः सिद्धं यथा तथा तत्स्वतश्च परिणामि। 89। अपि नित्याः प्रतिसमयं विनापि यत्नं हि परिणमंति गुणाः। 117।",
-                    "hindi_translation": "जैसे वस्तु स्वतःसिद्ध है वैसे ही वह स्वतः परिणमनशील भी है। 89। गुण नित्य हैं तो भी वे निश्चय करके स्वभाव से ही प्रतिसमय परिणमन करते रहते हैं। 117।",
+                    "text_devanagari": "वस्त्वस्ति स्वतः सिद्धं यथा तथा तत्स्वतश्च परिणामि। 89।",
+                    "hindi_translation": "जैसे वस्तु स्वतःसिद्ध है वैसे ही वह स्वतः परिणमनशील भी है। 89।",
                     "references": [
                       {
                         "text": "पंचाध्यायी / पूर्वार्ध/89, 117",
@@ -2693,8 +2633,8 @@
                   },
                   {
                     "kind": "sanskrit_text",
-                    "text_devanagari": null,
-                    "hindi_translation": null,
+                    "text_devanagari": "अपि नित्याः प्रतिसमयं विनापि यत्नं हि परिणमंति गुणाः। 117।",
+                    "hindi_translation": "गुण नित्य हैं तो भी वे निश्चय करके स्वभाव से ही प्रतिसमय परिणमन करते रहते हैं। 117।",
                     "references": [
                       {
                         "text": "पंचाध्यायी / पूर्वार्ध/89, 117",
@@ -2938,22 +2878,43 @@
                   },
                   {
                     "kind": "sanskrit_text",
-                    "text_devanagari": "षड्ढानिवृद्धिरूपाः सूक्ष्माः परमागमप्रामाण्यादभ्युपगमाः अर्थपर्य्यायाः। 168। व्यज्यते प्रकृटीक्रियते अनेनेति व्यंजनपर्यायः। कुतः, लोचनगोचरत्वात् पटादिवत्। अथवा सादिसनि-धनमूर्तविजातीयविभावस्वभावत्वात्, दृश्यमानविनाशस्वरूपत्वात्। 15। नरनारकादिव्यंजनपर्याया जीवानां पंचसंसारप्रपंचानां, पुद्गलानां स्थूलस्थूलादिस्कंधपर्य्यायाः। 168।",
-                    "hindi_translation": "षट् हानि वृद्धि रूप, सूक्ष्म, परमागम प्रमाण से स्वीकार करने योग्य अर्थपर्यायें (होती हैं)। 168। जिससे व्यक्त हो - प्रगट हो वह व्यंजनपर्याय है। किस कारण? पटादि की भाँति चक्षु गोचर होने से (प्रगट होती हैं) अथवा सादि-सांत मूर्त विजातीय विभाव-स्वभाववाली होने से दिखकर नष्ट होनेवाले स्वरूपवाली होने से (प्रगट होती हैं।)।15। नर-नारकादि व्यंजन पर्याय पाँच प्रकार की संसार प्रपंच वाले जीवों के होती हैं। पुद्गलों को स्थूल-स्थूल आदि स्कंध पर्यायें (व्यंजन पर्यायें) होती हैं। 168।",
+                    "text_devanagari": "षड्ढानिवृद्धिरूपाः सूक्ष्माः परमागमप्रामाण्यादभ्युपगमाः अर्थपर्य्यायाः। 168।",
+                    "hindi_translation": "षट् हानि वृद्धि रूप, सूक्ष्म, परमागम प्रमाण से स्वीकार करने योग्य अर्थपर्यायें (होती हैं)। 168।",
                     "references": [
                       {
-                        "text": "नियमसार / तात्पर्यवृत्ति/गाथा",
+                        "text": "नियमसार / तात्पर्यवृत्ति 168,15,168",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
-                        "teeka_name": "तात्पर्यवृत्ति/गाथा",
+                        "teeka_name": "तात्पर्यवृत्ति",
                         "shastra_name": "नियमसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
-                      },
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 168
+                          }
+                        ]
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "sanskrit_text",
+                    "text_devanagari": "व्यज्यते प्रकृटीक्रियते अनेनेति व्यंजनपर्यायः। कुतः, लोचनगोचरत्वात् पटादिवत्। अथवा सादिसनि-धनमूर्तविजातीयविभावस्वभावत्वात्, दृश्यमानविनाशस्वरूपत्वात्। 15।",
+                    "hindi_translation": "जिससे व्यक्त हो - प्रगट हो वह व्यंजनपर्याय है। किस कारण? पटादि की भाँति चक्षु गोचर होने से (प्रगट होती हैं) अथवा सादि-सांत मूर्त विजातीय विभाव-स्वभाववाली होने से दिखकर नष्ट होनेवाले स्वरूपवाली होने से (प्रगट होती हैं।)।15।",
+                    "references": [
                       {
-                        "text": "( नियमसार / तात्पर्यवृत्ति/15 )",
-                        "inline_reference": true,
+                        "text": "नियमसार / तात्पर्यवृत्ति 168,15,168",
+                        "inline_reference": false,
                         "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "तात्पर्यवृत्ति",
@@ -2978,9 +2939,40 @@
                     "target_exists": true
                   },
                   {
+                    "kind": "sanskrit_text",
+                    "text_devanagari": "नरनारकादिव्यंजनपर्याया जीवानां पंचसंसारप्रपंचानां, पुद्गलानां स्थूलस्थूलादिस्कंधपर्य्यायाः। 168।",
+                    "hindi_translation": "नर-नारकादि व्यंजन पर्याय पाँच प्रकार की संसार प्रपंच वाले जीवों के होती हैं। पुद्गलों को स्थूल-स्थूल आदि स्कंध पर्यायें (व्यंजन पर्यायें) होती हैं। 168।",
+                    "references": [
+                      {
+                        "text": "नियमसार / तात्पर्यवृत्ति 168,15,168",
+                        "inline_reference": false,
+                        "needs_manual_match": false,
+                        "is_teeka": true,
+                        "teeka_name": "तात्पर्यवृत्ति",
+                        "shastra_name": "नियमसार",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 168
+                          }
+                        ]
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
                     "kind": "prakrit_gatha",
                     "text_devanagari": "सुहुमा अवायविसया खणरवइणो अत्थपज्जया द्रिट्ठा। वंजणपज्जायां पुण थूलागिरगोयरा चिरविवत्था। 25।",
-                    "hindi_translation": "अर्थ पर्याय सूक्ष्म है, अवाय (ज्ञान) विषयक है, अतः शब्द से नहीं कही जा सकती हैं और क्षण-क्षण में बदलती हैं, किंतु व्यंजन पर्याय स्थूल है, शब्द गोचर है अर्थात् शब्द से कही जा सकती है और चिरस्थायी है। 25।।",
+                    "hindi_translation": "अर्थ पर्याय सूक्ष्म है, अवाय (ज्ञान) विषयक है, अतः शब्द से नहीं कही जा सकती हैं और क्षण-क्षण में बदलती हैं, किंतु व्यंजन पर्याय स्थूल है, शब्द गोचर है अर्थात् शब्द से कही जा सकती है और चिरस्थायी है। 25।",
                     "references": [
                       {
                         "text": "वसुनंदी श्रावकाचार/25",
@@ -3164,7 +3156,7 @@
                   {
                     "kind": "prakrit_text",
                     "text_devanagari": "वंजणपज्जायस्स दव्वत्तब्भुवगमादो।",
-                    "hindi_translation": "व्यंजन पर्याय के द्रव्यपना माना गया है।।",
+                    "hindi_translation": "व्यंजन पर्याय के द्रव्यपना माना गया है।",
                     "references": [
                       {
                         "text": "धवला 4/1,5,4/337/6",
@@ -3328,8 +3320,8 @@
                 "blocks": [
                   {
                     "kind": "sanskrit_gatha",
-                    "text_devanagari": "ननु चैवं सति नियमादिह पर्यायाः भवंति यावंतः। सर्वे गुणपर्याया वाच्या न द्रव्यपर्यायाः केचित्। 132। तत्र यतोऽस्ति विशेषः सति च गुणानां गुणत्ववत्वेऽपि। चिदचिद्यथा तथा स्यात् क्रियावती शक्तिरथ च भाववती। 133। यतरे प्रदेशभागस्ततरे द्रव्यस्य पर्यया नाम्ना। यतरे च विशेषांस्ततरे गुणपर्यया भवंत्येव। 135।",
-                    "hindi_translation": "**प्रश्न -**\nगुणों के समुदायात्मक द्रव्य के मानने पर यहाँ पर नियम से जितनी भी पर्यायें होती हैं, वे सब गुण पर्याय कही जानी चाहिए, किसी को भी द्रव्य पर्याय नहीं कहना चाहिए। 132। **उत्तर -**\nयह शंका ठीक नहीं है, क्योंकि सामान्यपने से गुणवत्व के सदृश रहते हुए भी गुणों में विशेष भेद है, जैसे - आत्मा के चिदात्मक शक्तिरूप गुण और अजीव द्रव्यों के अचिदात्मक शक्तिरूप गुण ऐसे तथा वैसे ही द्रव्य के क्रियावती शक्तिरूप गुण और भाववती शक्तिरूप गुण ऐसे गुणों के दो भेद हैं। 133। जितने द्रव्य के प्रदेशरूप अंश हैं, वे सब नाम से द्रव्य पर्याय हैं और जितने गुण के अंश हैं वे सब गुण पर्याय कहे जाते हैं। 135। भावार्थ - ‘अमुक द्रव्य के इतने प्रदेश हैं’, इस कल्पना को द्रव्यपर्याय कहते हैं। और प्रत्येक द्रव्य संबंधी जो अनंतानंत गुण हैं उनकी प्रतिसमय होनेवाली षट्गुणी हानि-वृद्धि से तरतमरूप अवस्था को गुणपर्याय कहते हैं।",
+                    "text_devanagari": "ननु चैवं सति नियमादिह पर्यायाः भवंति यावंतः। सर्वे गुणपर्याया वाच्या न द्रव्यपर्यायाः केचित्। 132।",
+                    "hindi_translation": "**प्रश्न -**\nगुणों के समुदायात्मक द्रव्य के मानने पर यहाँ पर नियम से जितनी भी पर्यायें होती हैं, वे सब गुण पर्याय कही जानी चाहिए, किसी को भी द्रव्य पर्याय नहीं कहना चाहिए। 132।",
                     "references": [
                       {
                         "text": "पंचाध्यायी / पूर्वार्ध/132-135",
@@ -3343,6 +3335,68 @@
                           {
                             "field": "श्लोक",
                             "value": 132
+                          }
+                        ]
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "sanskrit_gatha",
+                    "text_devanagari": "तत्र यतोऽस्ति विशेषः सति च गुणानां गुणत्ववत्वेऽपि। चिदचिद्यथा तथा स्यात् क्रियावती शक्तिरथ च भाववती। 133।",
+                    "hindi_translation": "**उत्तर -**\nयह शंका ठीक नहीं है, क्योंकि सामान्यपने से गुणवत्व के सदृश रहते हुए भी गुणों में विशेष भेद है, जैसे - आत्मा के चिदात्मक शक्तिरूप गुण और अजीव द्रव्यों के अचिदात्मक शक्तिरूप गुण ऐसे तथा वैसे ही द्रव्य के क्रियावती शक्तिरूप गुण और भाववती शक्तिरूप गुण ऐसे गुणों के दो भेद हैं। 133।",
+                    "references": [
+                      {
+                        "text": "पंचाध्यायी / पूर्वार्ध/132-135",
+                        "inline_reference": false,
+                        "needs_manual_match": false,
+                        "is_teeka": false,
+                        "teeka_name": "",
+                        "shastra_name": "पंचाध्यायी/पूर्वार्ध",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "श्लोक",
+                            "value": 133
+                          }
+                        ]
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "sanskrit_gatha",
+                    "text_devanagari": "यतरे प्रदेशभागस्ततरे द्रव्यस्य पर्यया नाम्ना। यतरे च विशेषांस्ततरे गुणपर्यया भवंत्येव। 135।",
+                    "hindi_translation": "जितने द्रव्य के प्रदेशरूप अंश हैं, वे सब नाम से द्रव्य पर्याय हैं और जितने गुण के अंश हैं वे सब गुण पर्याय कहे जाते हैं। 135। भावार्थ - ‘अमुक द्रव्य के इतने प्रदेश हैं’, इस कल्पना को द्रव्यपर्याय कहते हैं। और प्रत्येक द्रव्य संबंधी जो अनंतानंत गुण हैं उनकी प्रतिसमय होनेवाली षट्गुणी हानि-वृद्धि से तरतमरूप अवस्था को गुणपर्याय कहते हैं।",
+                    "references": [
+                      {
+                        "text": "पंचाध्यायी / पूर्वार्ध/132-135",
+                        "inline_reference": false,
+                        "needs_manual_match": false,
+                        "is_teeka": false,
+                        "teeka_name": "",
+                        "shastra_name": "पंचाध्यायी/पूर्वार्ध",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "श्लोक",
+                            "value": 135
                           }
                         ]
                       },
@@ -3448,7 +3502,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "धर्माधर्माकाशकालानां मुख्यवृत्त्यैकसमयवर्तिनोऽर्थपर्याया एव जीवपुद्गलानामर्थपर्याय-व्यंजनपर्यायाश्च।",
-                    "hindi_translation": "धर्म, अधर्म, आकाश, काल की तो मुख्य वृत्ति से एक समयवर्ती अर्थ पर्याय ही होती हैं और जीव व पुद्गल में अर्थ व व्यंजन दोनों पर्याय होती हैं।।",
+                    "hindi_translation": "धर्म, अधर्म, आकाश, काल की तो मुख्य वृत्ति से एक समयवर्ती अर्थ पर्याय ही होती हैं और जीव व पुद्गल में अर्थ व व्यंजन दोनों पर्याय होती हैं।",
                     "references": [
                       {
                         "text": "प्रवचनसार / तात्पर्यवृत्ति/129/181/21",
@@ -3634,23 +3688,7 @@
                                 "value": 9
                               }
                             ]
-                          }
-                        ],
-                        "is_orphan_translation": false,
-                        "is_bullet_point": false,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": null,
-                        "target_topic_path": null,
-                        "target_url": null,
-                        "is_self": false,
-                        "target_exists": true
-                      },
-                      {
-                        "kind": "prakrit_text",
-                        "text_devanagari": null,
-                        "hindi_translation": null,
-                        "references": [
+                          },
                           {
                             "text": "धवला 9/4,1,48/242-244/9",
                             "inline_reference": false,
@@ -3685,23 +3723,7 @@
                                 "value": 9
                               }
                             ]
-                          }
-                        ],
-                        "is_orphan_translation": false,
-                        "is_bullet_point": false,
-                        "raw_html": null,
-                        "table_rows": null,
-                        "target_keyword": null,
-                        "target_topic_path": null,
-                        "target_url": null,
-                        "is_self": false,
-                        "target_exists": true
-                      },
-                      {
-                        "kind": "prakrit_text",
-                        "text_devanagari": null,
-                        "hindi_translation": null,
-                        "references": [
+                          },
                           {
                             "text": "धवला 9/4,1,48/242-244/9",
                             "inline_reference": false,
@@ -4013,8 +4035,8 @@
                 "blocks": [
                   {
                     "kind": "prakrit_text",
-                    "text_devanagari": "कम्मोपाधिविवज्जिय पज्जाया ते सहावमिदि भणिया। 15। अण्णणिरावेक्खो जो परिणामो सो सहावपज्जावो। 28।",
-                    "hindi_translation": "कर्मोपाधि रहित पर्यायें वे स्वभाव (द्रव्य) पर्यायें कही गयी हैं। 15। अन्य की अपेक्षा से रहित जो (परमाणु का) परिणाम वह (पुद्गल द्रव्य की) स्वभाव पर्याय है। 28।",
+                    "text_devanagari": "कम्मोपाधिविवज्जिय पज्जाया ते सहावमिदि भणिया। 15।",
+                    "hindi_translation": "कर्मोपाधि रहित पर्यायें वे स्वभाव (द्रव्य) पर्यायें कही गयी हैं। 15।",
                     "references": [
                       {
                         "text": "नियमसार/15, 28",
@@ -4044,8 +4066,8 @@
                   },
                   {
                     "kind": "prakrit_text",
-                    "text_devanagari": null,
-                    "hindi_translation": null,
+                    "text_devanagari": "अण्णणिरावेक्खो जो परिणामो सो सहावपज्जावो। 28।",
+                    "hindi_translation": "अन्य की अपेक्षा से रहित जो (परमाणु का) परिणाम वह (पुद्गल द्रव्य की) स्वभाव पर्याय है। 28।",
                     "references": [
                       {
                         "text": "नियमसार/15, 28",
@@ -4075,8 +4097,8 @@
                   },
                   {
                     "kind": "prakrit_gatha",
-                    "text_devanagari": "दव्वाणं खु पयेसा जे जे सहाव संठिया लोए। ते ते पुण पज्जाया जाण तुमं दविणसब्भावं। 21। देहायारपएसा जे थक्का उहयकम्मणिम्मुक्का। जीवस्स णिच्चला खलु ते सुद्धा दव्व-पज्जाया। 25। जो खलु अणाइणिहणो कारणरूवो हु कज्जरूवो वा। परमाणुपोग्गलाणं सो दव्वसहावपज्जाओ। 30।",
-                    "hindi_translation": "सब द्रव्यों की जो अपने-अपने प्रदेशों की स्वाभाविक स्थिति है वही द्रव्य की स्वभाव पर्याय जानो। 21। कर्मों से निर्मुक्त सिद्ध जीवों में जो देहाकाररूप से प्रदेशों की निश्चल स्थिति है, वह जीव की शुद्ध या स्वभाव द्रव्य पर्याय है। 25। निश्चय से जो अनादि-निधन कारणरूप तथा कार्यरूप परमाणु है वही पुद्गल द्रव्य की स्वभाव द्रव्य पर्याय है। 30।\n,\n,\nटी./57)।",
+                    "text_devanagari": "दव्वाणं खु पयेसा जे जे सहाव संठिया लोए। ते ते पुण पज्जाया जाण तुमं दविणसब्भावं। 21।",
+                    "hindi_translation": "सब द्रव्यों की जो अपने-अपने प्रदेशों की स्वाभाविक स्थिति है वही द्रव्य की स्वभाव पर्याय जानो। 21।",
                     "references": [
                       {
                         "text": "नयचक्र बृहद्/21,25,30",
@@ -4092,7 +4114,23 @@
                             "value": 21
                           }
                         ]
-                      },
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "prakrit_gatha",
+                    "text_devanagari": "देहायारपएसा जे थक्का उहयकम्मणिम्मुक्का। जीवस्स णिच्चला खलु ते सुद्धा दव्व-पज्जाया। 25।",
+                    "hindi_translation": "कर्मों से निर्मुक्त सिद्ध जीवों में जो देहाकाररूप से प्रदेशों की निश्चल स्थिति है, वह जीव की शुद्ध या स्वभाव द्रव्य पर्याय है। 25।",
+                    "references": [
                       {
                         "text": "नयचक्र बृहद्/21,25,30",
                         "inline_reference": false,
@@ -4107,7 +4145,23 @@
                             "value": 25
                           }
                         ]
-                      },
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "prakrit_gatha",
+                    "text_devanagari": "जो खलु अणाइणिहणो कारणरूवो हु कज्जरूवो वा। परमाणुपोग्गलाणं सो दव्वसहावपज्जाओ। 30।",
+                    "hindi_translation": "निश्चय से जो अनादि-निधन कारणरूप तथा कार्यरूप परमाणु है वही पुद्गल द्रव्य की स्वभाव द्रव्य पर्याय है। 30।",
+                    "references": [
                       {
                         "text": "नयचक्र बृहद्/21,25,30",
                         "inline_reference": false,
@@ -4162,11 +4216,11 @@
                         ]
                       },
                       {
-                        "text": "( परमात्मप्रकाश",
+                        "text": "( परमात्मप्रकाश / टीका/57)",
                         "inline_reference": true,
                         "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
                         "shastra_name": "परमात्मप्रकाश",
                         "match_method": "shastra_name",
                         "resolved_fields": []
@@ -4185,7 +4239,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "स्वभावद्रव्यव्यंजनपर्यायाश्चरमशरीरात् किंचिन्न्यूनसिद्ध-पर्यायाः। ....अविभागीपुद्गलपरमाणुः स्वभावद्रव्यव्यंजनपर्यायः।",
-                    "hindi_translation": "चरम शरीर से किंचित् न्यून जो सिद्ध पर्याय है वह (जीव द्रव्य की) स्वभाव द्रव्य व्यंजन पर्याय है। अविभागी पुद्गल परमाणु द्रव्य की स्वभाव द्रव्य व्यंजन पर्याय है।।",
+                    "hindi_translation": "चरम शरीर से किंचित् न्यून जो सिद्ध पर्याय है वह (जीव द्रव्य की) स्वभाव द्रव्य व्यंजन पर्याय है। अविभागी पुद्गल परमाणु द्रव्य की स्वभाव द्रव्य व्यंजन पर्याय है।",
                     "references": [
                       {
                         "text": "आलापपद्धति/3",
@@ -4281,8 +4335,8 @@
                 "blocks": [
                   {
                     "kind": "prakrit_text",
-                    "text_devanagari": "णरणारयतिरियसुरा पज्जाया ते विभावमिदि भणिदा। 15। खंधसरूवेण पुणो परिणामो सो विहावपज्जाओ। 28।",
-                    "hindi_translation": "मनुष्य, नारक, तिर्यंच और देवरूप पर्यायें, वे (जीव द्रव्य की) विभाव पर्यायें कही गयी हैं। 15। तथा स्कंधरूप परिणाम वह (पुद्गल द्रव्य की) विभाव पर्याय कही गयी है।",
+                    "text_devanagari": "णरणारयतिरियसुरा पज्जाया ते विभावमिदि भणिदा। 15।",
+                    "hindi_translation": "मनुष्य, नारक, तिर्यंच और देवरूप पर्यायें, वे (जीव द्रव्य की) विभाव पर्यायें कही गयी हैं। 15।",
                     "references": [
                       {
                         "text": "नियमसार/15, 28",
@@ -4312,8 +4366,8 @@
                   },
                   {
                     "kind": "prakrit_text",
-                    "text_devanagari": null,
-                    "hindi_translation": null,
+                    "text_devanagari": "खंधसरूवेण पुणो परिणामो सो विहावपज्जाओ। 28।",
+                    "hindi_translation": "तथा स्कंधरूप परिणाम वह (पुद्गल द्रव्य की) विभाव पर्याय कही गयी है।",
                     "references": [
                       {
                         "text": "नियमसार/15, 28",
@@ -4343,8 +4397,8 @@
                   },
                   {
                     "kind": "prakrit_gatha",
-                    "text_devanagari": "जं चदुगदिदेहीणं देहायारं पदेसपरिमाणं। अह विग्गहगइजीवे तं दव्वविहावपज्जायं। 23। जे संखाई खंधा परिणामिआ दुअणुआदिखंधेहिं। ते विय दव्वविहावा जाण तुमं पोग्गलाणं च। 33।",
-                    "hindi_translation": "जो चारों गति के जीवों का तथा विग्रहगति में जीवों का देहाकार रूप से प्रदेशों का प्रमाण है, वह जीव की विभाव द्रव्य पर्याय है। 23। और जो दो अणु आदि स्कंधों से परिणामित संख्यात स्कंध हैं वे पुद्गलों की विभाव द्रव्य पर्याय तुम जानो। 33।\n,\n।",
+                    "text_devanagari": "जं चदुगदिदेहीणं देहायारं पदेसपरिमाणं। अह विग्गहगइजीवे तं दव्वविहावपज्जायं। 23।",
+                    "hindi_translation": "जो चारों गति के जीवों का तथा विग्रहगति में जीवों का देहाकार रूप से प्रदेशों का प्रमाण है, वह जीव की विभाव द्रव्य पर्याय है। 23।",
                     "references": [
                       {
                         "text": "नयचक्र बृहद्/23,33",
@@ -4360,7 +4414,23 @@
                             "value": 23
                           }
                         ]
-                      },
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "prakrit_gatha",
+                    "text_devanagari": "जे संखाई खंधा परिणामिआ दुअणुआदिखंधेहिं। ते विय दव्वविहावा जाण तुमं पोग्गलाणं च। 33।",
+                    "hindi_translation": "और जो दो अणु आदि स्कंधों से परिणामित संख्यात स्कंध हैं वे पुद्गलों की विभाव द्रव्य पर्याय तुम जानो। 33।",
+                    "references": [
                       {
                         "text": "नयचक्र बृहद्/23,33",
                         "inline_reference": false,
@@ -4423,7 +4493,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "विभावद्रव्यव्यंजनपर्यायाश्चतुर्विधा नरनारकादिपर्याया अथवा चतुरशीतिलक्षा योनयः। ...पुद्गलस्य तु द्वयणुकादयो विभावद्रव्यव्यंजनपर्यायाः।",
-                    "hindi_translation": "चार प्रकार की नर नारकादि पर्यायें अथवा चौरासी लाख योनियाँ जीव द्रव्य की विभाव द्रव्य व्यंजन पर्याय हैं। ...तथा दो अणुकादि पुद्गलद्रव्य की विभाव द्रव्य व्यंजन पर्याय हैं।।",
+                    "hindi_translation": "चार प्रकार की नर नारकादि पर्यायें अथवा चौरासी लाख योनियाँ जीव द्रव्य की विभाव द्रव्य व्यंजन पर्याय हैं। ...तथा दो अणुकादि पुद्गलद्रव्य की विभाव द्रव्य व्यंजन पर्याय हैं।",
                     "references": [
                       {
                         "text": "आलापपद्धति/3",
@@ -4500,7 +4570,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "सुरनारकतिर्यङ्मनुष्यलक्षणाः परद्रव्यसंबंधनिर्वृत्त-त्वादशुद्धाश्चेति।",
-                    "hindi_translation": "देव-नारक-तियच-मनुष्य-स्वरूप पर्यायें परद्रव्य के संबंध से उत्पन्न होती हैं इसलिए अशुद्ध पर्यायें हैं।।",
+                    "hindi_translation": "देव-नारक-तियच-मनुष्य-स्वरूप पर्यायें परद्रव्य के संबंध से उत्पन्न होती हैं इसलिए अशुद्ध पर्यायें हैं।",
                     "references": [
                       {
                         "text": "पंचास्तिकाय / तत्त्वप्रदीपिका/16",
@@ -4601,11 +4671,11 @@
                 "blocks": [
                   {
                     "kind": "prakrit_gatha",
-                    "text_devanagari": "अगुरुलहुगा अणंता समयं समयं स समुब्भवा जे वि। दव्वाणं ते भणिया सहावगुणपज्जया जाणं। 22। णाणं दंसण सुह बीरियं च जं उहयकम्मपरिहीणं। तं सुद्ध जाण तुमं जीवे गुणपज्जयं सव्वं। 26। रूवरसगंधफासा जे थक्का जेसु अणुकदव्वेसु। ते चेव पोग्गलाणं सहावगुणपज्जया णेया। 31।",
-                    "hindi_translation": "द्रव्यों के अगुरुलघु गुण के अनंत अविभाग प्रतिच्छेदों की समय-समय उत्पन्न होनेवाली पर्यायें हैं, वह द्रव्यों की स्वभाव गुणपर्याय कही गयी है, ऐसा तुम जानो। 22। द्रव्य व भावकर्म से रहित शुद्ध ज्ञान, दर्शन, सुख व वीर्य जीव द्रव्य की स्वभाव गुणपर्याय जानो। 23।\nएक अणु रूप पुद्गल द्रव्य में स्थित रूप, रस, गंध व वर्ण है, वह पुद्गल द्रव्य की स्वभाव गुण पर्याय जानो। 31।।",
+                    "text_devanagari": "अगुरुलहुगा अणंता समयं समयं स समुब्भवा जे वि। दव्वाणं ते भणिया सहावगुणपज्जया जाणं। 22।",
+                    "hindi_translation": "द्रव्यों के अगुरुलघु गुण के अनंत अविभाग प्रतिच्छेदों की समय-समय उत्पन्न होनेवाली पर्यायें हैं, वह द्रव्यों की स्वभाव गुणपर्याय कही गयी है, ऐसा तुम जानो। 22।",
                     "references": [
                       {
-                        "text": "नयचक्र बृहद्/22,27,31",
+                        "text": "नयचक्र बृहद्/22,25,30",
                         "inline_reference": false,
                         "needs_manual_match": false,
                         "is_teeka": false,
@@ -4618,9 +4688,25 @@
                             "value": 22
                           }
                         ]
-                      },
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "prakrit_gatha",
+                    "text_devanagari": "णाणं दंसण सुह बीरियं च जं उहयकम्मपरिहीणं। तं सुद्ध जाण तुमं जीवे गुणपज्जयं सव्वं। 25।",
+                    "hindi_translation": "द्रव्य व भावकर्म से रहित शुद्ध ज्ञान, दर्शन, सुख व वीर्य जीव द्रव्य की स्वभाव गुणपर्याय जानो। 25।",
+                    "references": [
                       {
-                        "text": "नयचक्र बृहद्/22,27,31",
+                        "text": "नयचक्र बृहद्/22,25,30",
                         "inline_reference": false,
                         "needs_manual_match": false,
                         "is_teeka": false,
@@ -4630,22 +4716,7 @@
                         "resolved_fields": [
                           {
                             "field": "गाथा",
-                            "value": 27
-                          }
-                        ]
-                      },
-                      {
-                        "text": "नयचक्र बृहद्/22,27,31",
-                        "inline_reference": false,
-                        "needs_manual_match": false,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": "नयचक्र बृहद्",
-                        "match_method": "shastra_name",
-                        "resolved_fields": [
-                          {
-                            "field": "गाथा",
-                            "value": 31
+                            "value": 25
                           }
                         ]
                       },
@@ -4658,6 +4729,37 @@
                         "shastra_name": null,
                         "match_method": null,
                         "resolved_fields": []
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "prakrit_gatha",
+                    "text_devanagari": "रूवरसगंधफासा जे थक्का जेसु अणुकदव्वेसु। ते चेव पोग्गलाणं सहावगुणपज्जया णेया। 30।",
+                    "hindi_translation": "एक अणु रूप पुद्गल द्रव्य में स्थित रूप, रस, गंध व वर्ण है, वह पुद्गल द्रव्य की स्वभाव गुण पर्याय जानो। 30।",
+                    "references": [
+                      {
+                        "text": "नयचक्र बृहद्/22,25,30",
+                        "inline_reference": false,
+                        "needs_manual_match": false,
+                        "is_teeka": false,
+                        "teeka_name": "",
+                        "shastra_name": "नयचक्र बृहद्",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 30
+                          }
+                        ]
                       },
                       {
                         "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/5/14-15/13 )",
@@ -4750,7 +4852,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "स्वभावपर्यायो नाम समस्तद्रव्याणामात्मीयात्मीयागुरुलघुगुणद्वारेण प्रतिसमयसमुदीयमानषट्स्थानपतित-वृद्धिहानिनानात्वानुभूतिः।",
-                    "hindi_translation": "समस्त द्रव्यों के अपने-अपने अगुरुलघुगुण द्वारा प्रति समय प्रगट होनेवाली षट् स्थानपतित हानिवृद्धि रूप अनेकत्व की अनुभूति स्वभाव गुण पर्याय है।;\n।",
+                    "hindi_translation": "समस्त द्रव्यों के अपने-अपने अगुरुलघुगुण द्वारा प्रति समय प्रगट होनेवाली षट् स्थानपतित हानिवृद्धि रूप अनेकत्व की अनुभूति स्वभाव गुण पर्याय है।",
                     "references": [
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/93",
@@ -4828,18 +4930,70 @@
                   },
                   {
                     "kind": "sanskrit_text",
-                    "text_devanagari": "परमाणु....वर्णादिभ्यो वर्णांतरादि-परिणमनं स्वभावगुणपर्याय (5/14/14) शुद्धार्थ पर्याया अगुरुलघुगुण-षड्ढानिवृद्धिरूपेण पूर्वमेव स्वभावगुणपर्यायव्याख्यानकाले सर्व-द्रव्याणां कथिताः (16/16/14)",
-                    "hindi_translation": "वर्ण से वर्णांतर परिणमन करना यह परमाणु की स्वभाव गुण पर्याय है। (5/14/14)। शुद्धगुण पर्याय की भाँति सर्व द्रव्यों की अगुरुलघुगुण की षट् हानि वृद्धि रूप से शुद्ध अर्थ पर्याय होती हैं।",
+                    "text_devanagari": "परमाणु....वर्णादिभ्यो वर्णांतरादि-परिणमनं स्वभावगुणपर्याय",
+                    "hindi_translation": "वर्ण से वर्णांतर परिणमन करना यह परमाणु की स्वभाव गुण पर्याय है।",
                     "references": [
                       {
-                        "text": "पंचास्तिकाय / तात्पर्यवृत्ति/गाथा /पृष्ठ / पंक्ति",
+                        "text": "पंचास्तिकाय / तात्पर्यवृत्ति/5/14/14",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
-                        "teeka_name": "तात्पर्यवृत्ति/गाथा/पृष्ठ/पंक्ति",
+                        "teeka_name": "तात्पर्यवृत्ति",
                         "shastra_name": "पंचास्तिकाय",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 5
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 14
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 14
+                          }
+                        ]
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "sanskrit_text",
+                    "text_devanagari": "शुद्धार्थ पर्याया अगुरुलघुगुण-षड्ढानिवृद्धिरूपेण पूर्वमेव स्वभावगुणपर्यायव्याख्यानकाले सर्व-द्रव्याणां कथिताः",
+                    "hindi_translation": "शुद्धगुण पर्याय की भाँति सर्व द्रव्यों की अगुरुलघुगुण की षट् हानि वृद्धि रूप से शुद्ध अर्थ पर्याय होती हैं।",
+                    "references": [
+                      {
+                        "text": "पंचास्तिकाय / तात्पर्यवृत्ति/16/16/14",
+                        "inline_reference": false,
+                        "needs_manual_match": false,
+                        "is_teeka": true,
+                        "teeka_name": "तात्पर्यवृत्ति",
+                        "shastra_name": "पंचास्तिकाय",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 16
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 16
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 14
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -4871,18 +5025,23 @@
                 "blocks": [
                   {
                     "kind": "prakrit_gatha",
-                    "text_devanagari": "मदिसुदओहीमणपज्जयं च अण्णाणं तिण्णि जे भणिया। एवं जीवस्स इमे विभावगुणपज्जया सव्वे। 24। रूपाइय जे उत्ता जे दिट्ठा दुअणुआइखंधम्मि। ते पुग्गलाण भणिया विहावगुणपज्जया सव्वे। 24।",
-                    "hindi_translation": "मति, श्रुत, अवधि व मनःपर्यय ये चार ज्ञान तथा तीन अज्ञान जो कहे गये हैं ये सब जीव द्रव्य की विभावगुण पर्याय है। (24) द्वि अणुकादि स्कंधों में जो रूपादिक कहे गये हैं, अथवा देखे गये हैं वे सब पुद्गल द्रव्य की विभाव गुण पर्याय हैं।\n,\n,\n।",
+                    "text_devanagari": "मदिसुदओहीमणपज्जयं च अण्णाणं तिण्णि जे भणिया। एवं जीवस्स इमे विभावगुणपज्जया सव्वे। 23।",
+                    "hindi_translation": "मति, श्रुत, अवधि व मनःपर्यय ये चार ज्ञान तथा तीन अज्ञान जो कहे गये हैं ये सब जीव द्रव्य की विभावगुण पर्याय है। 23।",
                     "references": [
                       {
-                        "text": "नयचक्र/24,34/",
+                        "text": "नयचक्र बृहद्/23,33",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "shastra_name": "नयचक्र बृहद्",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 23
+                          }
+                        ]
                       },
                       {
                         "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/5/14/12 )",
@@ -4939,6 +5098,37 @@
                         "shastra_name": null,
                         "match_method": null,
                         "resolved_fields": []
+                      }
+                    ],
+                    "is_orphan_translation": false,
+                    "is_bullet_point": false,
+                    "raw_html": null,
+                    "table_rows": null,
+                    "target_keyword": null,
+                    "target_topic_path": null,
+                    "target_url": null,
+                    "is_self": false,
+                    "target_exists": true
+                  },
+                  {
+                    "kind": "prakrit_gatha",
+                    "text_devanagari": "रूपाइय जे उत्ता जे दिट्ठा दुअणुआइखंधम्मि। ते पुग्गलाण भणिया विहावगुणपज्जया सव्वे। 33।",
+                    "hindi_translation": "द्वि अणुकादि स्कंधों में जो रूपादिक कहे गये हैं, अथवा देखे गये हैं वे सब पुद्गल द्रव्य की विभाव गुण पर्याय हैं।",
+                    "references": [
+                      {
+                        "text": "नयचक्र बृहद्/23,33",
+                        "inline_reference": false,
+                        "needs_manual_match": false,
+                        "is_teeka": false,
+                        "teeka_name": "",
+                        "shastra_name": "नयचक्र बृहद्",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 33
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -5299,7 +5489,7 @@
       "next": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%B8%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8"
     },
     "parser_version": "jainkosh.rules/1.11.0",
-    "parsed_at": "2026-05-30T20:33:27.552608",
+    "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
   "would_write": {
@@ -6409,7 +6599,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "परि समंतादायः पर्यायः।",
-              "hindi_translation": "जो सर्व ओर से भेद को प्राप्त करे सो पर्याय है।।",
+              "hindi_translation": "जो सर्व ओर से भेद को प्राप्त करे सो पर्याय है।",
               "references": [
                 {
                   "text": "राजवार्तिक/1/33/1/95/6",
@@ -6690,23 +6880,7 @@
                       "value": 345
                     }
                   ]
-                }
-              ],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "sanskrit_text",
-              "text_devanagari": null,
-              "hindi_translation": null,
-              "references": [
+                },
                 {
                   "text": "समयसार / आत्मख्याति/345 -348",
                   "inline_reference": false,
@@ -6721,23 +6895,7 @@
                       "value": 346
                     }
                   ]
-                }
-              ],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "sanskrit_text",
-              "text_devanagari": null,
-              "hindi_translation": null,
-              "references": [
+                },
                 {
                   "text": "समयसार / आत्मख्याति/345 -348",
                   "inline_reference": false,
@@ -6752,23 +6910,7 @@
                       "value": 347
                     }
                   ]
-                }
-              ],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "sanskrit_text",
-              "text_devanagari": null,
-              "hindi_translation": null,
-              "references": [
+                },
                 {
                   "text": "समयसार / आत्मख्याति/345 -348",
                   "inline_reference": false,
@@ -6797,8 +6939,8 @@
             },
             {
               "kind": "sanskrit_text",
-              "text_devanagari": "पर्यायाणामेतद्धर्म यत्त्वंशकल्पनं द्रव्ये। 26। स च परिणामोऽवस्था तेषामेव (गुणानामेव)। 117।",
-              "hindi_translation": "द्रव्य में जो अंश कल्पना की जाती है यही तो पर्यायों का स्वरूप है। 26। परिणमन गुणों की ही अवस्था है अर्थात् गुणों की प्रतिसमय होनेवाली अवस्था का नाम पर्याय है।",
+              "text_devanagari": "पर्यायाणामेतद्धर्म यत्त्वंशकल्पनं द्रव्ये। 26।",
+              "hindi_translation": "द्रव्य में जो अंश कल्पना की जाती है यही तो पर्यायों का स्वरूप है। 26।",
               "references": [
                 {
                   "text": "पंचाध्यायी / पूर्वार्ध/26, 117",
@@ -6828,8 +6970,8 @@
             },
             {
               "kind": "sanskrit_text",
-              "text_devanagari": null,
-              "hindi_translation": null,
+              "text_devanagari": "स च परिणामोऽवस्था तेषामेव (गुणानामेव)। 117।",
+              "hindi_translation": "परिणमन गुणों की ही अवस्था है अर्थात् गुणों की प्रतिसमय होनेवाली अवस्था का नाम पर्याय है।",
               "references": [
                 {
                   "text": "पंचाध्यायी / पूर्वार्ध/26, 117",
@@ -6941,23 +7083,7 @@
                       "value": 7
                     }
                   ]
-                }
-              ],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "sanskrit_text",
-              "text_devanagari": null,
-              "hindi_translation": null,
-              "references": [
+                },
                 {
                   "text": "सर्वार्थसिद्धि/5/38/309-310/7",
                   "inline_reference": false,
@@ -7013,7 +7139,7 @@
             },
             {
               "kind": "hindi_text",
-              "text_devanagari": "द्रव्य के विकार विशेष रूप से भेद को प्राप्त होते हैं इसलिए वे पर्याय कहलाते हैं।।",
+              "text_devanagari": "द्रव्य के विकार विशेष रूप से भेद को प्राप्त होते हैं इसलिए वे पर्याय कहलाते हैं।",
               "hindi_translation": null,
               "references": [
                 {
@@ -7312,7 +7438,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "पर्यायास्तु... द्रव्यात्मका अपि गुणात्मका अपि।",
-              "hindi_translation": "पर्याय गुणात्मक भी हैं और द्रव्यात्मक भी।।",
+              "hindi_translation": "पर्याय गुणात्मक भी हैं और द्रव्यात्मक भी।",
               "references": [
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/93",
@@ -7403,7 +7529,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "द्विधा पर्याया द्रव्यपर्याया गुणपर्यायाश्च।",
-              "hindi_translation": "पर्याय दो प्रकार की होती हैं - द्रव्य पर्याय और गुणपर्याय।।",
+              "hindi_translation": "पर्याय दो प्रकार की होती हैं - द्रव्य पर्याय और गुणपर्याय।",
               "references": [
                 {
                   "text": "पंचास्तिकाय / तात्पर्यवृत्ति/16/35/12",
@@ -7552,7 +7678,7 @@
             {
               "kind": "prakrit_text",
               "text_devanagari": "पज्जयं द्विविधः। 17। सब्भावं खुविहावं दव्वाणं पज्जयं जिणुद्दिट्ठं। 18। दव्वगुणाण सहावा पज्जायंतह विहावदो णेयं। 19।",
-              "hindi_translation": "पर्याय दो प्रकार की होती हैं - स्वभाव व विभाव। तहाँ द्रव्य व गुण दोनों की ही पर्याय स्वभाव व विभाव के भेद से दो-दो प्रकार की जाननी चाहिए।।",
+              "hindi_translation": "पर्याय दो प्रकार की होती हैं - स्वभाव व विभाव। तहाँ द्रव्य व गुण दोनों की ही पर्याय स्वभाव व विभाव के भेद से दो-दो प्रकार की जाननी चाहिए।",
               "references": [
                 {
                   "text": "नयचक्र बृहद्/17-19",
@@ -7568,23 +7694,7 @@
                       "value": 17
                     }
                   ]
-                }
-              ],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "prakrit_text",
-              "text_devanagari": null,
-              "hindi_translation": null,
-              "references": [
+                },
                 {
                   "text": "नयचक्र बृहद्/17-19",
                   "inline_reference": false,
@@ -7599,23 +7709,7 @@
                       "value": 18
                     }
                   ]
-                }
-              ],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "prakrit_text",
-              "text_devanagari": null,
-              "hindi_translation": null,
-              "references": [
+                },
                 {
                   "text": "नयचक्र बृहद्/17-19",
                   "inline_reference": false,
@@ -7668,7 +7762,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "पर्यायास्तु द्वेधा स्वभावविभावपर्यायभेदात्। ...विभावद्रव्य-व्यंजनपर्यायः... विभावगुणव्यंजनपर्यायः... स्वभावद्रव्यव्यंजनपर्यायः ...स्वभावगुणव्यंजनपर्यायः।",
-              "hindi_translation": "पर्याय दो प्रकार की होती हैं - स्वभाव व विभाव। ये दोनों भी दो प्रकार की होती हैं यथा - विभाव-द्रव्य व्यंजनपर्याय, विभावगुण व्यंजनपर्याय, स्वभाव द्रव्य-व्यंजन पर्याय व स्वभाव गुण व्यंजन पर्याय।।",
+              "hindi_translation": "पर्याय दो प्रकार की होती हैं - स्वभाव व विभाव। ये दोनों भी दो प्रकार की होती हैं यथा - विभाव-द्रव्य व्यंजनपर्याय, विभावगुण व्यंजनपर्याय, स्वभाव द्रव्य-व्यंजन पर्याय व स्वभाव गुण व्यंजन पर्याय।",
               "references": [
                 {
                   "text": "आलापपद्धति/3",
@@ -7709,7 +7803,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "द्रव्यपर्यायः। स द्विविधः, समानजातीयोऽसमानजातीयश्च। ...गुणपर्यायः। सोऽपि द्विविधः स्वभावपर्यायो विभावंपर्यायश्च।",
-              "hindi_translation": "द्रव्यपर्याय दो प्रकार की होती है - समानजातीय और असमानजातीय। ...गुणपर्याय दो प्रकार की है - स्वभाव पर्याय व विभाव पर्याय।।",
+              "hindi_translation": "द्रव्यपर्याय दो प्रकार की होती है - समानजातीय और असमानजातीय। ...गुणपर्याय दो प्रकार की है - स्वभाव पर्याय व विभाव पर्याय।",
               "references": [
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/93",
@@ -7830,7 +7924,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "तत्रानेकद्रव्यात्मकैक्यप्रतिपत्तिनिबंधनो द्रव्यपर्यायः।",
-              "hindi_translation": "अनेक द्रव्यात्मक एकता की प्रतिपत्ति की कारणभूत द्रव्य पर्याय है।।",
+              "hindi_translation": "अनेक द्रव्यात्मक एकता की प्रतिपत्ति की कारणभूत द्रव्य पर्याय है।",
               "references": [
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/92",
@@ -8122,7 +8216,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "यतरे च विशेषांस्ततरे गुणपर्यया भवंत्येव। 135।",
-              "hindi_translation": "जितने गुण के अंश हैं, उतने वे सब गुणपर्याय ही कहे जाते हैं। 135।।",
+              "hindi_translation": "जितने गुण के अंश हैं, उतने वे सब गुणपर्याय ही कहे जाते हैं। 135।",
               "references": [
                 {
                   "text": "पंचाध्यायी / पूर्वार्ध/135",
@@ -8273,8 +8367,8 @@
           "blocks": [
             {
               "kind": "sanskrit_gatha",
-              "text_devanagari": "केवलिप्रज्ञया तस्या जघन्योऽशंस्तु पर्य्ययः। तदाऽनंत्येन निष्पन्नं सा द्युतिर्निजपर्य्ययाः। 23। क्षयोपशम-वैचित्र्यं ज्ञेयवैचित्र्यमेव वा। जीवस्य परपर्यायाः षट्स्थनपतितामी। 25।",
-              "hindi_translation": "केवलज्ञान के द्वारा निष्पन्न जो अनंत अंतर्द्युति या अंतर्तेज है वही निज पर्याय है। 23। और क्षयोपशम के द्वारा व ज्ञेयों के द्वारा चित्र-विचित्र जो पर्याय है, सो परपर्याय है। दोनों ही षट्स्थान पतित वृद्धि हानि युक्त है। 25।",
+              "text_devanagari": "केवलिप्रज्ञया तस्या जघन्योऽशंस्तु पर्य्ययः। तदाऽनंत्येन निष्पन्नं सा द्युतिर्निजपर्य्ययाः। 23।",
+              "hindi_translation": "केवलज्ञान के द्वारा निष्पन्न जो अनंत अंतर्द्युति या अंतर्तेज है वही निज पर्याय है। 23।",
               "references": [
                 {
                   "text": "मोक्ष पंचाशत/23-25",
@@ -8284,7 +8378,43 @@
                   "teeka_name": "",
                   "shastra_name": null,
                   "match_method": null,
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 23
+                    }
+                  ]
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "sanskrit_gatha",
+              "text_devanagari": "क्षयोपशम-वैचित्र्यं ज्ञेयवैचित्र्यमेव वा। जीवस्य परपर्यायाः षट्स्थनपतितामी। 25।",
+              "hindi_translation": "और क्षयोपशम के द्वारा व ज्ञेयों के द्वारा चित्र-विचित्र जो पर्याय है, सो परपर्याय है। दोनों ही षट्स्थान पतित वृद्धि हानि युक्त है। 25।",
+              "references": [
+                {
+                  "text": "मोक्ष पंचाशत/23-25",
+                  "inline_reference": false,
+                  "needs_manual_match": true,
+                  "is_teeka": false,
+                  "teeka_name": "",
+                  "shastra_name": null,
+                  "match_method": null,
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 25
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -8428,7 +8558,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "व्यतिरेकिणः पर्यायाः।",
-              "hindi_translation": "पर्याय व्यतिरेकी होती है\n।",
+              "hindi_translation": "पर्याय व्यतिरेकी होती है",
               "references": [
                 {
                   "text": "सर्वार्थसिद्धि/5/35/309/5",
@@ -8543,8 +8673,8 @@
             },
             {
               "kind": "sanskrit_text",
-              "text_devanagari": "अन्वयव्यतिरेकाः पर्यायाः। 80। पर्याया आयत-विशेषाः। 95।",
-              "hindi_translation": "अन्वय व्यतिरेक वे पर्याय हैं। 80। पर्याय आयत विशेष है। 95।।",
+              "text_devanagari": "अन्वयव्यतिरेकाः पर्यायाः। 80।",
+              "hindi_translation": "अन्वय व्यतिरेक वे पर्याय हैं। 80।",
               "references": [
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/80, 95",
@@ -8574,8 +8704,8 @@
             },
             {
               "kind": "sanskrit_text",
-              "text_devanagari": null,
-              "hindi_translation": null,
+              "text_devanagari": "पर्याया आयत-विशेषाः। 95।",
+              "hindi_translation": "पर्याय आयत विशेष है। 95।",
               "references": [
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/80, 95",
@@ -8696,7 +8826,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "क्रमवर्तिनः पर्यायाः।",
-              "hindi_translation": "पर्याय एक के पश्चात् दूसरी, इस प्रकार क्रमपूर्वक होती है। इसलिए पर्याय क्रमवर्ती कही जाती है।।",
+              "hindi_translation": "पर्याय एक के पश्चात् दूसरी, इस प्रकार क्रमपूर्वक होती है। इसलिए पर्याय क्रमवर्ती कही जाती है।",
               "references": [
                 {
                   "text": "आलापपद्धति/6",
@@ -8750,7 +8880,7 @@
             {
               "kind": "prakrit_text",
               "text_devanagari": "कम-भुव पज्जउ वुत्तु। 57।",
-              "hindi_translation": "द्रव्य को अनेक रूप परिणति क्रम से हो अर्थात् अनित्यरूप समय-समय उपजे, विनशे, वह पर्याय कही जाती है।।",
+              "hindi_translation": "द्रव्य को अनेक रूप परिणति क्रम से हो अर्थात् अनित्यरूप समय-समय उपजे, विनशे, वह पर्याय कही जाती है।",
               "references": [
                 {
                   "text": "परमात्मप्रकाश/ मूल/57",
@@ -8872,8 +9002,8 @@
           "blocks": [
             {
               "kind": "sanskrit_text",
-              "text_devanagari": "वस्त्वस्ति स्वतः सिद्धं यथा तथा तत्स्वतश्च परिणामि। 89। अपि नित्याः प्रतिसमयं विनापि यत्नं हि परिणमंति गुणाः। 117।",
-              "hindi_translation": "जैसे वस्तु स्वतःसिद्ध है वैसे ही वह स्वतः परिणमनशील भी है। 89। गुण नित्य हैं तो भी वे निश्चय करके स्वभाव से ही प्रतिसमय परिणमन करते रहते हैं। 117।",
+              "text_devanagari": "वस्त्वस्ति स्वतः सिद्धं यथा तथा तत्स्वतश्च परिणामि। 89।",
+              "hindi_translation": "जैसे वस्तु स्वतःसिद्ध है वैसे ही वह स्वतः परिणमनशील भी है। 89।",
               "references": [
                 {
                   "text": "पंचाध्यायी / पूर्वार्ध/89, 117",
@@ -8903,8 +9033,8 @@
             },
             {
               "kind": "sanskrit_text",
-              "text_devanagari": null,
-              "hindi_translation": null,
+              "text_devanagari": "अपि नित्याः प्रतिसमयं विनापि यत्नं हि परिणमंति गुणाः। 117।",
+              "hindi_translation": "गुण नित्य हैं तो भी वे निश्चय करके स्वभाव से ही प्रतिसमय परिणमन करते रहते हैं। 117।",
               "references": [
                 {
                   "text": "पंचाध्यायी / पूर्वार्ध/89, 117",
@@ -9152,22 +9282,43 @@
             },
             {
               "kind": "sanskrit_text",
-              "text_devanagari": "षड्ढानिवृद्धिरूपाः सूक्ष्माः परमागमप्रामाण्यादभ्युपगमाः अर्थपर्य्यायाः। 168। व्यज्यते प्रकृटीक्रियते अनेनेति व्यंजनपर्यायः। कुतः, लोचनगोचरत्वात् पटादिवत्। अथवा सादिसनि-धनमूर्तविजातीयविभावस्वभावत्वात्, दृश्यमानविनाशस्वरूपत्वात्। 15। नरनारकादिव्यंजनपर्याया जीवानां पंचसंसारप्रपंचानां, पुद्गलानां स्थूलस्थूलादिस्कंधपर्य्यायाः। 168।",
-              "hindi_translation": "षट् हानि वृद्धि रूप, सूक्ष्म, परमागम प्रमाण से स्वीकार करने योग्य अर्थपर्यायें (होती हैं)। 168। जिससे व्यक्त हो - प्रगट हो वह व्यंजनपर्याय है। किस कारण? पटादि की भाँति चक्षु गोचर होने से (प्रगट होती हैं) अथवा सादि-सांत मूर्त विजातीय विभाव-स्वभाववाली होने से दिखकर नष्ट होनेवाले स्वरूपवाली होने से (प्रगट होती हैं।)।15। नर-नारकादि व्यंजन पर्याय पाँच प्रकार की संसार प्रपंच वाले जीवों के होती हैं। पुद्गलों को स्थूल-स्थूल आदि स्कंध पर्यायें (व्यंजन पर्यायें) होती हैं। 168।",
+              "text_devanagari": "षड्ढानिवृद्धिरूपाः सूक्ष्माः परमागमप्रामाण्यादभ्युपगमाः अर्थपर्य्यायाः। 168।",
+              "hindi_translation": "षट् हानि वृद्धि रूप, सूक्ष्म, परमागम प्रमाण से स्वीकार करने योग्य अर्थपर्यायें (होती हैं)। 168।",
               "references": [
                 {
-                  "text": "नियमसार / तात्पर्यवृत्ति/गाथा",
+                  "text": "नियमसार / तात्पर्यवृत्ति 168,15,168",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
-                  "teeka_name": "तात्पर्यवृत्ति/गाथा",
+                  "teeka_name": "तात्पर्यवृत्ति",
                   "shastra_name": "नियमसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
-                },
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 168
+                    }
+                  ]
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "sanskrit_text",
+              "text_devanagari": "व्यज्यते प्रकृटीक्रियते अनेनेति व्यंजनपर्यायः। कुतः, लोचनगोचरत्वात् पटादिवत्। अथवा सादिसनि-धनमूर्तविजातीयविभावस्वभावत्वात्, दृश्यमानविनाशस्वरूपत्वात्। 15।",
+              "hindi_translation": "जिससे व्यक्त हो - प्रगट हो वह व्यंजनपर्याय है। किस कारण? पटादि की भाँति चक्षु गोचर होने से (प्रगट होती हैं) अथवा सादि-सांत मूर्त विजातीय विभाव-स्वभाववाली होने से दिखकर नष्ट होनेवाले स्वरूपवाली होने से (प्रगट होती हैं।)।15।",
+              "references": [
                 {
-                  "text": "( नियमसार / तात्पर्यवृत्ति/15 )",
-                  "inline_reference": true,
+                  "text": "नियमसार / तात्पर्यवृत्ति 168,15,168",
+                  "inline_reference": false,
                   "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "तात्पर्यवृत्ति",
@@ -9192,9 +9343,40 @@
               "target_exists": true
             },
             {
+              "kind": "sanskrit_text",
+              "text_devanagari": "नरनारकादिव्यंजनपर्याया जीवानां पंचसंसारप्रपंचानां, पुद्गलानां स्थूलस्थूलादिस्कंधपर्य्यायाः। 168।",
+              "hindi_translation": "नर-नारकादि व्यंजन पर्याय पाँच प्रकार की संसार प्रपंच वाले जीवों के होती हैं। पुद्गलों को स्थूल-स्थूल आदि स्कंध पर्यायें (व्यंजन पर्यायें) होती हैं। 168।",
+              "references": [
+                {
+                  "text": "नियमसार / तात्पर्यवृत्ति 168,15,168",
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "तात्पर्यवृत्ति",
+                  "shastra_name": "नियमसार",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 168
+                    }
+                  ]
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
               "kind": "prakrit_gatha",
               "text_devanagari": "सुहुमा अवायविसया खणरवइणो अत्थपज्जया द्रिट्ठा। वंजणपज्जायां पुण थूलागिरगोयरा चिरविवत्था। 25।",
-              "hindi_translation": "अर्थ पर्याय सूक्ष्म है, अवाय (ज्ञान) विषयक है, अतः शब्द से नहीं कही जा सकती हैं और क्षण-क्षण में बदलती हैं, किंतु व्यंजन पर्याय स्थूल है, शब्द गोचर है अर्थात् शब्द से कही जा सकती है और चिरस्थायी है। 25।।",
+              "hindi_translation": "अर्थ पर्याय सूक्ष्म है, अवाय (ज्ञान) विषयक है, अतः शब्द से नहीं कही जा सकती हैं और क्षण-क्षण में बदलती हैं, किंतु व्यंजन पर्याय स्थूल है, शब्द गोचर है अर्थात् शब्द से कही जा सकती है और चिरस्थायी है। 25।",
               "references": [
                 {
                   "text": "वसुनंदी श्रावकाचार/25",
@@ -9380,7 +9562,7 @@
             {
               "kind": "prakrit_text",
               "text_devanagari": "वंजणपज्जायस्स दव्वत्तब्भुवगमादो।",
-              "hindi_translation": "व्यंजन पर्याय के द्रव्यपना माना गया है।।",
+              "hindi_translation": "व्यंजन पर्याय के द्रव्यपना माना गया है।",
               "references": [
                 {
                   "text": "धवला 4/1,5,4/337/6",
@@ -9546,8 +9728,8 @@
           "blocks": [
             {
               "kind": "sanskrit_gatha",
-              "text_devanagari": "ननु चैवं सति नियमादिह पर्यायाः भवंति यावंतः। सर्वे गुणपर्याया वाच्या न द्रव्यपर्यायाः केचित्। 132। तत्र यतोऽस्ति विशेषः सति च गुणानां गुणत्ववत्वेऽपि। चिदचिद्यथा तथा स्यात् क्रियावती शक्तिरथ च भाववती। 133। यतरे प्रदेशभागस्ततरे द्रव्यस्य पर्यया नाम्ना। यतरे च विशेषांस्ततरे गुणपर्यया भवंत्येव। 135।",
-              "hindi_translation": "**प्रश्न -**\nगुणों के समुदायात्मक द्रव्य के मानने पर यहाँ पर नियम से जितनी भी पर्यायें होती हैं, वे सब गुण पर्याय कही जानी चाहिए, किसी को भी द्रव्य पर्याय नहीं कहना चाहिए। 132। **उत्तर -**\nयह शंका ठीक नहीं है, क्योंकि सामान्यपने से गुणवत्व के सदृश रहते हुए भी गुणों में विशेष भेद है, जैसे - आत्मा के चिदात्मक शक्तिरूप गुण और अजीव द्रव्यों के अचिदात्मक शक्तिरूप गुण ऐसे तथा वैसे ही द्रव्य के क्रियावती शक्तिरूप गुण और भाववती शक्तिरूप गुण ऐसे गुणों के दो भेद हैं। 133। जितने द्रव्य के प्रदेशरूप अंश हैं, वे सब नाम से द्रव्य पर्याय हैं और जितने गुण के अंश हैं वे सब गुण पर्याय कहे जाते हैं। 135। भावार्थ - ‘अमुक द्रव्य के इतने प्रदेश हैं’, इस कल्पना को द्रव्यपर्याय कहते हैं। और प्रत्येक द्रव्य संबंधी जो अनंतानंत गुण हैं उनकी प्रतिसमय होनेवाली षट्गुणी हानि-वृद्धि से तरतमरूप अवस्था को गुणपर्याय कहते हैं।",
+              "text_devanagari": "ननु चैवं सति नियमादिह पर्यायाः भवंति यावंतः। सर्वे गुणपर्याया वाच्या न द्रव्यपर्यायाः केचित्। 132।",
+              "hindi_translation": "**प्रश्न -**\nगुणों के समुदायात्मक द्रव्य के मानने पर यहाँ पर नियम से जितनी भी पर्यायें होती हैं, वे सब गुण पर्याय कही जानी चाहिए, किसी को भी द्रव्य पर्याय नहीं कहना चाहिए। 132।",
               "references": [
                 {
                   "text": "पंचाध्यायी / पूर्वार्ध/132-135",
@@ -9561,6 +9743,68 @@
                     {
                       "field": "श्लोक",
                       "value": 132
+                    }
+                  ]
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "sanskrit_gatha",
+              "text_devanagari": "तत्र यतोऽस्ति विशेषः सति च गुणानां गुणत्ववत्वेऽपि। चिदचिद्यथा तथा स्यात् क्रियावती शक्तिरथ च भाववती। 133।",
+              "hindi_translation": "**उत्तर -**\nयह शंका ठीक नहीं है, क्योंकि सामान्यपने से गुणवत्व के सदृश रहते हुए भी गुणों में विशेष भेद है, जैसे - आत्मा के चिदात्मक शक्तिरूप गुण और अजीव द्रव्यों के अचिदात्मक शक्तिरूप गुण ऐसे तथा वैसे ही द्रव्य के क्रियावती शक्तिरूप गुण और भाववती शक्तिरूप गुण ऐसे गुणों के दो भेद हैं। 133।",
+              "references": [
+                {
+                  "text": "पंचाध्यायी / पूर्वार्ध/132-135",
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": false,
+                  "teeka_name": "",
+                  "shastra_name": "पंचाध्यायी/पूर्वार्ध",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "श्लोक",
+                      "value": 133
+                    }
+                  ]
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "sanskrit_gatha",
+              "text_devanagari": "यतरे प्रदेशभागस्ततरे द्रव्यस्य पर्यया नाम्ना। यतरे च विशेषांस्ततरे गुणपर्यया भवंत्येव। 135।",
+              "hindi_translation": "जितने द्रव्य के प्रदेशरूप अंश हैं, वे सब नाम से द्रव्य पर्याय हैं और जितने गुण के अंश हैं वे सब गुण पर्याय कहे जाते हैं। 135। भावार्थ - ‘अमुक द्रव्य के इतने प्रदेश हैं’, इस कल्पना को द्रव्यपर्याय कहते हैं। और प्रत्येक द्रव्य संबंधी जो अनंतानंत गुण हैं उनकी प्रतिसमय होनेवाली षट्गुणी हानि-वृद्धि से तरतमरूप अवस्था को गुणपर्याय कहते हैं।",
+              "references": [
+                {
+                  "text": "पंचाध्यायी / पूर्वार्ध/132-135",
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": false,
+                  "teeka_name": "",
+                  "shastra_name": "पंचाध्यायी/पूर्वार्ध",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "श्लोक",
+                      "value": 135
                     }
                   ]
                 },
@@ -9667,7 +9911,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "धर्माधर्माकाशकालानां मुख्यवृत्त्यैकसमयवर्तिनोऽर्थपर्याया एव जीवपुद्गलानामर्थपर्याय-व्यंजनपर्यायाश्च।",
-              "hindi_translation": "धर्म, अधर्म, आकाश, काल की तो मुख्य वृत्ति से एक समयवर्ती अर्थ पर्याय ही होती हैं और जीव व पुद्गल में अर्थ व व्यंजन दोनों पर्याय होती हैं।।",
+              "hindi_translation": "धर्म, अधर्म, आकाश, काल की तो मुख्य वृत्ति से एक समयवर्ती अर्थ पर्याय ही होती हैं और जीव व पुद्गल में अर्थ व व्यंजन दोनों पर्याय होती हैं।",
               "references": [
                 {
                   "text": "प्रवचनसार / तात्पर्यवृत्ति/129/181/21",
@@ -9856,23 +10100,7 @@
                       "value": 9
                     }
                   ]
-                }
-              ],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "prakrit_text",
-              "text_devanagari": null,
-              "hindi_translation": null,
-              "references": [
+                },
                 {
                   "text": "धवला 9/4,1,48/242-244/9",
                   "inline_reference": false,
@@ -9907,23 +10135,7 @@
                       "value": 9
                     }
                   ]
-                }
-              ],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "prakrit_text",
-              "text_devanagari": null,
-              "hindi_translation": null,
-              "references": [
+                },
                 {
                   "text": "धवला 9/4,1,48/242-244/9",
                   "inline_reference": false,
@@ -10234,8 +10446,8 @@
           "blocks": [
             {
               "kind": "prakrit_text",
-              "text_devanagari": "कम्मोपाधिविवज्जिय पज्जाया ते सहावमिदि भणिया। 15। अण्णणिरावेक्खो जो परिणामो सो सहावपज्जावो। 28।",
-              "hindi_translation": "कर्मोपाधि रहित पर्यायें वे स्वभाव (द्रव्य) पर्यायें कही गयी हैं। 15। अन्य की अपेक्षा से रहित जो (परमाणु का) परिणाम वह (पुद्गल द्रव्य की) स्वभाव पर्याय है। 28।",
+              "text_devanagari": "कम्मोपाधिविवज्जिय पज्जाया ते सहावमिदि भणिया। 15।",
+              "hindi_translation": "कर्मोपाधि रहित पर्यायें वे स्वभाव (द्रव्य) पर्यायें कही गयी हैं। 15।",
               "references": [
                 {
                   "text": "नियमसार/15, 28",
@@ -10265,8 +10477,8 @@
             },
             {
               "kind": "prakrit_text",
-              "text_devanagari": null,
-              "hindi_translation": null,
+              "text_devanagari": "अण्णणिरावेक्खो जो परिणामो सो सहावपज्जावो। 28।",
+              "hindi_translation": "अन्य की अपेक्षा से रहित जो (परमाणु का) परिणाम वह (पुद्गल द्रव्य की) स्वभाव पर्याय है। 28।",
               "references": [
                 {
                   "text": "नियमसार/15, 28",
@@ -10296,8 +10508,8 @@
             },
             {
               "kind": "prakrit_gatha",
-              "text_devanagari": "दव्वाणं खु पयेसा जे जे सहाव संठिया लोए। ते ते पुण पज्जाया जाण तुमं दविणसब्भावं। 21। देहायारपएसा जे थक्का उहयकम्मणिम्मुक्का। जीवस्स णिच्चला खलु ते सुद्धा दव्व-पज्जाया। 25। जो खलु अणाइणिहणो कारणरूवो हु कज्जरूवो वा। परमाणुपोग्गलाणं सो दव्वसहावपज्जाओ। 30।",
-              "hindi_translation": "सब द्रव्यों की जो अपने-अपने प्रदेशों की स्वाभाविक स्थिति है वही द्रव्य की स्वभाव पर्याय जानो। 21। कर्मों से निर्मुक्त सिद्ध जीवों में जो देहाकाररूप से प्रदेशों की निश्चल स्थिति है, वह जीव की शुद्ध या स्वभाव द्रव्य पर्याय है। 25। निश्चय से जो अनादि-निधन कारणरूप तथा कार्यरूप परमाणु है वही पुद्गल द्रव्य की स्वभाव द्रव्य पर्याय है। 30।\n,\n,\nटी./57)।",
+              "text_devanagari": "दव्वाणं खु पयेसा जे जे सहाव संठिया लोए। ते ते पुण पज्जाया जाण तुमं दविणसब्भावं। 21।",
+              "hindi_translation": "सब द्रव्यों की जो अपने-अपने प्रदेशों की स्वाभाविक स्थिति है वही द्रव्य की स्वभाव पर्याय जानो। 21।",
               "references": [
                 {
                   "text": "नयचक्र बृहद्/21,25,30",
@@ -10313,7 +10525,23 @@
                       "value": 21
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "prakrit_gatha",
+              "text_devanagari": "देहायारपएसा जे थक्का उहयकम्मणिम्मुक्का। जीवस्स णिच्चला खलु ते सुद्धा दव्व-पज्जाया। 25।",
+              "hindi_translation": "कर्मों से निर्मुक्त सिद्ध जीवों में जो देहाकाररूप से प्रदेशों की निश्चल स्थिति है, वह जीव की शुद्ध या स्वभाव द्रव्य पर्याय है। 25।",
+              "references": [
                 {
                   "text": "नयचक्र बृहद्/21,25,30",
                   "inline_reference": false,
@@ -10328,7 +10556,23 @@
                       "value": 25
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "prakrit_gatha",
+              "text_devanagari": "जो खलु अणाइणिहणो कारणरूवो हु कज्जरूवो वा। परमाणुपोग्गलाणं सो दव्वसहावपज्जाओ। 30।",
+              "hindi_translation": "निश्चय से जो अनादि-निधन कारणरूप तथा कार्यरूप परमाणु है वही पुद्गल द्रव्य की स्वभाव द्रव्य पर्याय है। 30।",
+              "references": [
                 {
                   "text": "नयचक्र बृहद्/21,25,30",
                   "inline_reference": false,
@@ -10383,11 +10627,11 @@
                   ]
                 },
                 {
-                  "text": "( परमात्मप्रकाश",
+                  "text": "( परमात्मप्रकाश / टीका/57)",
                   "inline_reference": true,
                   "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
                   "shastra_name": "परमात्मप्रकाश",
                   "match_method": "shastra_name",
                   "resolved_fields": []
@@ -10406,7 +10650,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "स्वभावद्रव्यव्यंजनपर्यायाश्चरमशरीरात् किंचिन्न्यूनसिद्ध-पर्यायाः। ....अविभागीपुद्गलपरमाणुः स्वभावद्रव्यव्यंजनपर्यायः।",
-              "hindi_translation": "चरम शरीर से किंचित् न्यून जो सिद्ध पर्याय है वह (जीव द्रव्य की) स्वभाव द्रव्य व्यंजन पर्याय है। अविभागी पुद्गल परमाणु द्रव्य की स्वभाव द्रव्य व्यंजन पर्याय है।।",
+              "hindi_translation": "चरम शरीर से किंचित् न्यून जो सिद्ध पर्याय है वह (जीव द्रव्य की) स्वभाव द्रव्य व्यंजन पर्याय है। अविभागी पुद्गल परमाणु द्रव्य की स्वभाव द्रव्य व्यंजन पर्याय है।",
               "references": [
                 {
                   "text": "आलापपद्धति/3",
@@ -10503,8 +10747,8 @@
           "blocks": [
             {
               "kind": "prakrit_text",
-              "text_devanagari": "णरणारयतिरियसुरा पज्जाया ते विभावमिदि भणिदा। 15। खंधसरूवेण पुणो परिणामो सो विहावपज्जाओ। 28।",
-              "hindi_translation": "मनुष्य, नारक, तिर्यंच और देवरूप पर्यायें, वे (जीव द्रव्य की) विभाव पर्यायें कही गयी हैं। 15। तथा स्कंधरूप परिणाम वह (पुद्गल द्रव्य की) विभाव पर्याय कही गयी है।",
+              "text_devanagari": "णरणारयतिरियसुरा पज्जाया ते विभावमिदि भणिदा। 15।",
+              "hindi_translation": "मनुष्य, नारक, तिर्यंच और देवरूप पर्यायें, वे (जीव द्रव्य की) विभाव पर्यायें कही गयी हैं। 15।",
               "references": [
                 {
                   "text": "नियमसार/15, 28",
@@ -10534,8 +10778,8 @@
             },
             {
               "kind": "prakrit_text",
-              "text_devanagari": null,
-              "hindi_translation": null,
+              "text_devanagari": "खंधसरूवेण पुणो परिणामो सो विहावपज्जाओ। 28।",
+              "hindi_translation": "तथा स्कंधरूप परिणाम वह (पुद्गल द्रव्य की) विभाव पर्याय कही गयी है।",
               "references": [
                 {
                   "text": "नियमसार/15, 28",
@@ -10565,8 +10809,8 @@
             },
             {
               "kind": "prakrit_gatha",
-              "text_devanagari": "जं चदुगदिदेहीणं देहायारं पदेसपरिमाणं। अह विग्गहगइजीवे तं दव्वविहावपज्जायं। 23। जे संखाई खंधा परिणामिआ दुअणुआदिखंधेहिं। ते विय दव्वविहावा जाण तुमं पोग्गलाणं च। 33।",
-              "hindi_translation": "जो चारों गति के जीवों का तथा विग्रहगति में जीवों का देहाकार रूप से प्रदेशों का प्रमाण है, वह जीव की विभाव द्रव्य पर्याय है। 23। और जो दो अणु आदि स्कंधों से परिणामित संख्यात स्कंध हैं वे पुद्गलों की विभाव द्रव्य पर्याय तुम जानो। 33।\n,\n।",
+              "text_devanagari": "जं चदुगदिदेहीणं देहायारं पदेसपरिमाणं। अह विग्गहगइजीवे तं दव्वविहावपज्जायं। 23।",
+              "hindi_translation": "जो चारों गति के जीवों का तथा विग्रहगति में जीवों का देहाकार रूप से प्रदेशों का प्रमाण है, वह जीव की विभाव द्रव्य पर्याय है। 23।",
               "references": [
                 {
                   "text": "नयचक्र बृहद्/23,33",
@@ -10582,7 +10826,23 @@
                       "value": 23
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "prakrit_gatha",
+              "text_devanagari": "जे संखाई खंधा परिणामिआ दुअणुआदिखंधेहिं। ते विय दव्वविहावा जाण तुमं पोग्गलाणं च। 33।",
+              "hindi_translation": "और जो दो अणु आदि स्कंधों से परिणामित संख्यात स्कंध हैं वे पुद्गलों की विभाव द्रव्य पर्याय तुम जानो। 33।",
+              "references": [
                 {
                   "text": "नयचक्र बृहद्/23,33",
                   "inline_reference": false,
@@ -10645,7 +10905,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "विभावद्रव्यव्यंजनपर्यायाश्चतुर्विधा नरनारकादिपर्याया अथवा चतुरशीतिलक्षा योनयः। ...पुद्गलस्य तु द्वयणुकादयो विभावद्रव्यव्यंजनपर्यायाः।",
-              "hindi_translation": "चार प्रकार की नर नारकादि पर्यायें अथवा चौरासी लाख योनियाँ जीव द्रव्य की विभाव द्रव्य व्यंजन पर्याय हैं। ...तथा दो अणुकादि पुद्गलद्रव्य की विभाव द्रव्य व्यंजन पर्याय हैं।।",
+              "hindi_translation": "चार प्रकार की नर नारकादि पर्यायें अथवा चौरासी लाख योनियाँ जीव द्रव्य की विभाव द्रव्य व्यंजन पर्याय हैं। ...तथा दो अणुकादि पुद्गलद्रव्य की विभाव द्रव्य व्यंजन पर्याय हैं।",
               "references": [
                 {
                   "text": "आलापपद्धति/3",
@@ -10722,7 +10982,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "सुरनारकतिर्यङ्मनुष्यलक्षणाः परद्रव्यसंबंधनिर्वृत्त-त्वादशुद्धाश्चेति।",
-              "hindi_translation": "देव-नारक-तियच-मनुष्य-स्वरूप पर्यायें परद्रव्य के संबंध से उत्पन्न होती हैं इसलिए अशुद्ध पर्यायें हैं।।",
+              "hindi_translation": "देव-नारक-तियच-मनुष्य-स्वरूप पर्यायें परद्रव्य के संबंध से उत्पन्न होती हैं इसलिए अशुद्ध पर्यायें हैं।",
               "references": [
                 {
                   "text": "पंचास्तिकाय / तत्त्वप्रदीपिका/16",
@@ -10824,11 +11084,11 @@
           "blocks": [
             {
               "kind": "prakrit_gatha",
-              "text_devanagari": "अगुरुलहुगा अणंता समयं समयं स समुब्भवा जे वि। दव्वाणं ते भणिया सहावगुणपज्जया जाणं। 22। णाणं दंसण सुह बीरियं च जं उहयकम्मपरिहीणं। तं सुद्ध जाण तुमं जीवे गुणपज्जयं सव्वं। 26। रूवरसगंधफासा जे थक्का जेसु अणुकदव्वेसु। ते चेव पोग्गलाणं सहावगुणपज्जया णेया। 31।",
-              "hindi_translation": "द्रव्यों के अगुरुलघु गुण के अनंत अविभाग प्रतिच्छेदों की समय-समय उत्पन्न होनेवाली पर्यायें हैं, वह द्रव्यों की स्वभाव गुणपर्याय कही गयी है, ऐसा तुम जानो। 22। द्रव्य व भावकर्म से रहित शुद्ध ज्ञान, दर्शन, सुख व वीर्य जीव द्रव्य की स्वभाव गुणपर्याय जानो। 23।\nएक अणु रूप पुद्गल द्रव्य में स्थित रूप, रस, गंध व वर्ण है, वह पुद्गल द्रव्य की स्वभाव गुण पर्याय जानो। 31।।",
+              "text_devanagari": "अगुरुलहुगा अणंता समयं समयं स समुब्भवा जे वि। दव्वाणं ते भणिया सहावगुणपज्जया जाणं। 22।",
+              "hindi_translation": "द्रव्यों के अगुरुलघु गुण के अनंत अविभाग प्रतिच्छेदों की समय-समय उत्पन्न होनेवाली पर्यायें हैं, वह द्रव्यों की स्वभाव गुणपर्याय कही गयी है, ऐसा तुम जानो। 22।",
               "references": [
                 {
-                  "text": "नयचक्र बृहद्/22,27,31",
+                  "text": "नयचक्र बृहद्/22,25,30",
                   "inline_reference": false,
                   "needs_manual_match": false,
                   "is_teeka": false,
@@ -10841,9 +11101,25 @@
                       "value": 22
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "prakrit_gatha",
+              "text_devanagari": "णाणं दंसण सुह बीरियं च जं उहयकम्मपरिहीणं। तं सुद्ध जाण तुमं जीवे गुणपज्जयं सव्वं। 25।",
+              "hindi_translation": "द्रव्य व भावकर्म से रहित शुद्ध ज्ञान, दर्शन, सुख व वीर्य जीव द्रव्य की स्वभाव गुणपर्याय जानो। 25।",
+              "references": [
                 {
-                  "text": "नयचक्र बृहद्/22,27,31",
+                  "text": "नयचक्र बृहद्/22,25,30",
                   "inline_reference": false,
                   "needs_manual_match": false,
                   "is_teeka": false,
@@ -10853,22 +11129,7 @@
                   "resolved_fields": [
                     {
                       "field": "गाथा",
-                      "value": 27
-                    }
-                  ]
-                },
-                {
-                  "text": "नयचक्र बृहद्/22,27,31",
-                  "inline_reference": false,
-                  "needs_manual_match": false,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": "नयचक्र बृहद्",
-                  "match_method": "shastra_name",
-                  "resolved_fields": [
-                    {
-                      "field": "गाथा",
-                      "value": 31
+                      "value": 25
                     }
                   ]
                 },
@@ -10881,6 +11142,37 @@
                   "shastra_name": null,
                   "match_method": null,
                   "resolved_fields": []
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "prakrit_gatha",
+              "text_devanagari": "रूवरसगंधफासा जे थक्का जेसु अणुकदव्वेसु। ते चेव पोग्गलाणं सहावगुणपज्जया णेया। 30।",
+              "hindi_translation": "एक अणु रूप पुद्गल द्रव्य में स्थित रूप, रस, गंध व वर्ण है, वह पुद्गल द्रव्य की स्वभाव गुण पर्याय जानो। 30।",
+              "references": [
+                {
+                  "text": "नयचक्र बृहद्/22,25,30",
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": false,
+                  "teeka_name": "",
+                  "shastra_name": "नयचक्र बृहद्",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 30
+                    }
+                  ]
                 },
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/5/14-15/13 )",
@@ -10973,7 +11265,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "स्वभावपर्यायो नाम समस्तद्रव्याणामात्मीयात्मीयागुरुलघुगुणद्वारेण प्रतिसमयसमुदीयमानषट्स्थानपतित-वृद्धिहानिनानात्वानुभूतिः।",
-              "hindi_translation": "समस्त द्रव्यों के अपने-अपने अगुरुलघुगुण द्वारा प्रति समय प्रगट होनेवाली षट् स्थानपतित हानिवृद्धि रूप अनेकत्व की अनुभूति स्वभाव गुण पर्याय है।;\n।",
+              "hindi_translation": "समस्त द्रव्यों के अपने-अपने अगुरुलघुगुण द्वारा प्रति समय प्रगट होनेवाली षट् स्थानपतित हानिवृद्धि रूप अनेकत्व की अनुभूति स्वभाव गुण पर्याय है।",
               "references": [
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/93",
@@ -11051,18 +11343,70 @@
             },
             {
               "kind": "sanskrit_text",
-              "text_devanagari": "परमाणु....वर्णादिभ्यो वर्णांतरादि-परिणमनं स्वभावगुणपर्याय (5/14/14) शुद्धार्थ पर्याया अगुरुलघुगुण-षड्ढानिवृद्धिरूपेण पूर्वमेव स्वभावगुणपर्यायव्याख्यानकाले सर्व-द्रव्याणां कथिताः (16/16/14)",
-              "hindi_translation": "वर्ण से वर्णांतर परिणमन करना यह परमाणु की स्वभाव गुण पर्याय है। (5/14/14)। शुद्धगुण पर्याय की भाँति सर्व द्रव्यों की अगुरुलघुगुण की षट् हानि वृद्धि रूप से शुद्ध अर्थ पर्याय होती हैं।",
+              "text_devanagari": "परमाणु....वर्णादिभ्यो वर्णांतरादि-परिणमनं स्वभावगुणपर्याय",
+              "hindi_translation": "वर्ण से वर्णांतर परिणमन करना यह परमाणु की स्वभाव गुण पर्याय है।",
               "references": [
                 {
-                  "text": "पंचास्तिकाय / तात्पर्यवृत्ति/गाथा /पृष्ठ / पंक्ति",
+                  "text": "पंचास्तिकाय / तात्पर्यवृत्ति/5/14/14",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
-                  "teeka_name": "तात्पर्यवृत्ति/गाथा/पृष्ठ/पंक्ति",
+                  "teeka_name": "तात्पर्यवृत्ति",
                   "shastra_name": "पंचास्तिकाय",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 5
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 14
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 14
+                    }
+                  ]
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "sanskrit_text",
+              "text_devanagari": "शुद्धार्थ पर्याया अगुरुलघुगुण-षड्ढानिवृद्धिरूपेण पूर्वमेव स्वभावगुणपर्यायव्याख्यानकाले सर्व-द्रव्याणां कथिताः",
+              "hindi_translation": "शुद्धगुण पर्याय की भाँति सर्व द्रव्यों की अगुरुलघुगुण की षट् हानि वृद्धि रूप से शुद्ध अर्थ पर्याय होती हैं।",
+              "references": [
+                {
+                  "text": "पंचास्तिकाय / तात्पर्यवृत्ति/16/16/14",
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "तात्पर्यवृत्ति",
+                  "shastra_name": "पंचास्तिकाय",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 16
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 16
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 14
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -11095,18 +11439,23 @@
           "blocks": [
             {
               "kind": "prakrit_gatha",
-              "text_devanagari": "मदिसुदओहीमणपज्जयं च अण्णाणं तिण्णि जे भणिया। एवं जीवस्स इमे विभावगुणपज्जया सव्वे। 24। रूपाइय जे उत्ता जे दिट्ठा दुअणुआइखंधम्मि। ते पुग्गलाण भणिया विहावगुणपज्जया सव्वे। 24।",
-              "hindi_translation": "मति, श्रुत, अवधि व मनःपर्यय ये चार ज्ञान तथा तीन अज्ञान जो कहे गये हैं ये सब जीव द्रव्य की विभावगुण पर्याय है। (24) द्वि अणुकादि स्कंधों में जो रूपादिक कहे गये हैं, अथवा देखे गये हैं वे सब पुद्गल द्रव्य की विभाव गुण पर्याय हैं।\n,\n,\n।",
+              "text_devanagari": "मदिसुदओहीमणपज्जयं च अण्णाणं तिण्णि जे भणिया। एवं जीवस्स इमे विभावगुणपज्जया सव्वे। 23।",
+              "hindi_translation": "मति, श्रुत, अवधि व मनःपर्यय ये चार ज्ञान तथा तीन अज्ञान जो कहे गये हैं ये सब जीव द्रव्य की विभावगुण पर्याय है। 23।",
               "references": [
                 {
-                  "text": "नयचक्र/24,34/",
+                  "text": "नयचक्र बृहद्/23,33",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "shastra_name": "नयचक्र बृहद्",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 23
+                    }
+                  ]
                 },
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/5/14/12 )",
@@ -11163,6 +11512,37 @@
                   "shastra_name": null,
                   "match_method": null,
                   "resolved_fields": []
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "prakrit_gatha",
+              "text_devanagari": "रूपाइय जे उत्ता जे दिट्ठा दुअणुआइखंधम्मि। ते पुग्गलाण भणिया विहावगुणपज्जया सव्वे। 33।",
+              "hindi_translation": "द्वि अणुकादि स्कंधों में जो रूपादिक कहे गये हैं, अथवा देखे गये हैं वे सब पुद्गल द्रव्य की विभाव गुण पर्याय हैं।",
+              "references": [
+                {
+                  "text": "नयचक्र बृहद्/23,33",
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": false,
+                  "teeka_name": "",
+                  "shastra_name": "नयचक्र बृहद्",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 33
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -11721,31 +12101,34 @@
           "lazy": true
         },
         {
-          "label": "GathaTeeka",
-          "key": "समयसार:आत्मख्याति:गाथा:टीका:346",
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:आत्मख्याति:3:गाथा:टीका:भावार्थ:346",
           "props": {
             "shastra_natural_key": "समयसार",
             "teeka_natural_key": "समयसार:आत्मख्याति",
+            "publisher_id": "3",
             "gatha_number": "346"
           },
           "lazy": true
         },
         {
-          "label": "GathaTeeka",
-          "key": "समयसार:आत्मख्याति:गाथा:टीका:347",
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:आत्मख्याति:3:गाथा:टीका:भावार्थ:347",
           "props": {
             "shastra_natural_key": "समयसार",
             "teeka_natural_key": "समयसार:आत्मख्याति",
+            "publisher_id": "3",
             "gatha_number": "347"
           },
           "lazy": true
         },
         {
-          "label": "GathaTeeka",
-          "key": "समयसार:आत्मख्याति:गाथा:टीका:348",
+          "label": "GathaTeekaBhaavarth",
+          "key": "समयसार:आत्मख्याति:3:गाथा:टीका:भावार्थ:348",
           "props": {
             "shastra_natural_key": "समयसार",
             "teeka_natural_key": "समयसार:आत्मख्याति",
+            "publisher_id": "3",
             "gatha_number": "348"
           },
           "lazy": true
@@ -12315,6 +12698,16 @@
         },
         {
           "label": "GathaTeeka",
+          "key": "नियमसार:तात्पर्यवृत्ति:गाथा:टीका:168",
+          "props": {
+            "shastra_natural_key": "नियमसार",
+            "teeka_natural_key": "नियमसार:तात्पर्यवृत्ति",
+            "gatha_number": "168"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
           "key": "प्रवचनसार:तात्पर्यवृत्ति:गाथा:टीका:80",
           "props": {
             "shastra_natural_key": "प्रवचनसार",
@@ -12638,6 +13031,27 @@
             "teeka_natural_key": "पंचास्तिकाय:तत्त्वप्रदीपिका",
             "publisher_id": "17",
             "gatha_number": "16"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "पंचास्तिकाय:तात्पर्यवृत्ति:गाथा:टीका:5",
+          "props": {
+            "shastra_natural_key": "पंचास्तिकाय",
+            "teeka_natural_key": "पंचास्तिकाय:तात्पर्यवृत्ति",
+            "gatha_number": "5"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:पृष्ठ:16",
+          "props": {
+            "shastra_natural_key": "पंचास्तिकाय",
+            "teeka_natural_key": "पंचास्तिकाय:तात्पर्यवृत्ति",
+            "publisher_id": "17",
+            "page_number": "16"
           },
           "lazy": true
         },
@@ -13089,8 +13503,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "समयसार:आत्मख्याति:गाथा:टीका:346"
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:आत्मख्याति:3:गाथा:टीका:भावार्थ:346"
           },
           "to": {
             "label": "Topic",
@@ -13099,16 +13513,16 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 4,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में/4",
+            "block_index": 3,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में/3",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में"
           }
         },
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "समयसार:आत्मख्याति:गाथा:टीका:347"
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:आत्मख्याति:3:गाथा:टीका:भावार्थ:347"
           },
           "to": {
             "label": "Topic",
@@ -13117,16 +13531,16 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 5,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में/5",
+            "block_index": 3,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में/3",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में"
           }
         },
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "समयसार:आत्मख्याति:गाथा:टीका:348"
+            "label": "GathaTeekaBhaavarth",
+            "key": "समयसार:आत्मख्याति:3:गाथा:टीका:भावार्थ:348"
           },
           "to": {
             "label": "Topic",
@@ -13135,8 +13549,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 6,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में/6",
+            "block_index": 3,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में/3",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में"
           }
         },
@@ -13196,25 +13610,6 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "सर्वार्थसिद्धि:गाथा:38"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्य-विकार-के-अर्थ-में"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "pankti": 7,
-            "block_index": 2,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्य-विकार-के-अर्थ-में/2",
-            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्य-विकार-के-अर्थ-में"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
             "label": "Page",
             "key": "सर्वार्थसिद्धि:टीका:18:पृष्ठ:310"
           },
@@ -13226,8 +13621,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 7,
-            "block_index": 2,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्य-विकार-के-अर्थ-में/2",
+            "block_index": 1,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्य-विकार-के-अर्थ-में/1",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्य-विकार-के-अर्थ-में"
           }
         },
@@ -13464,8 +13859,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 3,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय/3",
+            "block_index": 1,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय/1",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय"
           }
         },
@@ -13482,8 +13877,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 4,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय/4",
+            "block_index": 2,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय/2",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय"
           }
         },
@@ -13501,8 +13896,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 13,
-            "block_index": 4,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय/4",
+            "block_index": 2,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय/2",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय"
           }
         },
@@ -13520,8 +13915,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 13,
-            "block_index": 4,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय/4",
+            "block_index": 2,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय/2",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय"
           }
         },
@@ -14397,7 +14792,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "नियमसार:तात्पर्यवृत्ति:गाथा:टीका:15"
+            "key": "नियमसार:तात्पर्यवृत्ति:गाथा:टीका:168"
           },
           "to": {
             "label": "Topic",
@@ -14415,6 +14810,42 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
+            "key": "नियमसार:तात्पर्यवृत्ति:गाथा:टीका:15"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-के-लक्षण-व-उदाहरण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 3,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-के-लक्षण-व-उदाहरण/3",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-के-लक्षण-व-उदाहरण"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "नियमसार:तात्पर्यवृत्ति:गाथा:टीका:168"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-के-लक्षण-व-उदाहरण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 4,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-के-लक्षण-व-उदाहरण/4",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-के-लक्षण-व-उदाहरण"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
             "key": "प्रवचनसार:तात्पर्यवृत्ति:गाथा:टीका:80"
           },
           "to": {
@@ -14425,8 +14856,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 17,
-            "block_index": 5,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-के-लक्षण-व-उदाहरण/5",
+            "block_index": 7,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-के-लक्षण-व-उदाहरण/7",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-के-लक्षण-व-उदाहरण"
           }
         },
@@ -14444,8 +14875,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 17,
-            "block_index": 5,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-के-लक्षण-व-उदाहरण/5",
+            "block_index": 7,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-के-लक्षण-व-उदाहरण/7",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-के-लक्षण-व-उदाहरण"
           }
         },
@@ -14756,24 +15187,6 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:9"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 1,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल/1",
-            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
             "label": "Page",
             "key": "धवला:टीका:2:पृष्ठ:243"
           },
@@ -14784,26 +15197,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 1,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल/1",
-            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:9"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 2,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल/2",
+            "block_index": 0,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल/0",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल"
           }
         },
@@ -14820,8 +15215,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 2,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल/2",
+            "block_index": 0,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल/0",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल"
           }
         },
@@ -14957,8 +15352,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 3,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय/3",
+            "block_index": 5,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय/5",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -14976,8 +15371,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 11,
-            "block_index": 4,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय/4",
+            "block_index": 6,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय/6",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -14995,8 +15390,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 11,
-            "block_index": 4,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय/4",
+            "block_index": 6,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय/6",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -15064,8 +15459,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 3,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/3",
+            "block_index": 4,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/4",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -15083,8 +15478,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 10,
-            "block_index": 3,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/3",
+            "block_index": 4,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/4",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -15102,8 +15497,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 10,
-            "block_index": 3,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/3",
+            "block_index": 4,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/4",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -15120,8 +15515,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 4,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/4",
+            "block_index": 5,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/5",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -15139,8 +15534,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 18,
-            "block_index": 4,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/4",
+            "block_index": 5,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/5",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -15158,8 +15553,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 18,
-            "block_index": 4,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/4",
+            "block_index": 5,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/5",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -15176,8 +15571,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 5,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/5",
+            "block_index": 6,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय/6",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-द्रव्य-व-व्यंजन-पर्याय"
           }
         },
@@ -15209,8 +15604,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 1,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय/1",
+            "block_index": 3,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय/3",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय"
           }
         },
@@ -15227,8 +15622,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 2,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय/2",
+            "block_index": 4,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय/4",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय"
           }
         },
@@ -15245,8 +15640,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 2,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय/2",
+            "block_index": 4,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय/4",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय"
           }
         },
@@ -15264,8 +15659,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 7,
-            "block_index": 2,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय/2",
+            "block_index": 4,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय/4",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय"
           }
         },
@@ -15283,8 +15678,84 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 7,
-            "block_index": 2,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय/2",
+            "block_index": 4,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय/4",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:गाथा:टीका:5"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 14,
+            "block_index": 5,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय/5",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:पृष्ठ:14"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 14,
+            "block_index": 5,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय/5",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:गाथा:टीका:16"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 14,
+            "block_index": 6,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय/6",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:पृष्ठ:16"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 14,
+            "block_index": 6,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय/6",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-गुण-व-अर्थ-पर्याय"
           }
         },
@@ -15316,8 +15787,8 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 1,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-गुण-व-अर्थ-पर्याय/1",
+            "block_index": 2,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-गुण-व-अर्थ-पर्याय/2",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-गुण-व-अर्थ-पर्याय"
           }
         },
@@ -15335,8 +15806,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 12,
-            "block_index": 2,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-गुण-व-अर्थ-पर्याय/2",
+            "block_index": 3,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-गुण-व-अर्थ-पर्याय/3",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-गुण-व-अर्थ-पर्याय"
           }
         },
@@ -15354,8 +15825,8 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 12,
-            "block_index": 2,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-गुण-व-अर्थ-पर्याय/2",
+            "block_index": 3,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-गुण-व-अर्थ-पर्याय/3",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:विभाव-गुण-व-अर्थ-पर्याय"
           }
         },

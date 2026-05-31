@@ -347,7 +347,8 @@ class ReferenceSplittingConfig(BaseModel):
     enabled: bool = True
     applicable_block_kinds: list[str] = Field(
         default_factory=lambda: [
-            "hindi_text", "sanskrit_text", "prakrit_text", "hindi_gatha"
+            "hindi_text", "sanskrit_text", "prakrit_text", "hindi_gatha",
+            "prakrit_gatha", "sanskrit_gatha",
         ]
     )
     gref_selector: str = "span.GRef"

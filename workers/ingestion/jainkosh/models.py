@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Literal, Optional, Union
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, PrivateAttr, model_validator
 
 
 class Multilingual(BaseModel):
@@ -61,6 +61,12 @@ class Block(BaseModel):
     target_url: Optional[str] = None
     is_self: bool = False
     target_exists: bool = True
+
+    # Internal-only: not serialized; set during stream processing for inline-ref
+    # position detection in _do_split. Stores rendered text of the source block
+    # (text_devanagari before strip_refs_from_text) and the pre-strip translation.
+    _pre_strip_text: Optional[str] = PrivateAttr(default=None)
+    _hindi_translation_pre_strip: Optional[str] = PrivateAttr(default=None)
 
 
 class Definition(BaseModel):
