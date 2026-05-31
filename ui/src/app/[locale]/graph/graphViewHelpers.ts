@@ -102,10 +102,51 @@ export function computeHierarchicalPositions(
     }
   }
 
-  // Unreachable nodes go one row past the deepest reachable node
-  const maxReachable = level.size > 0 ? Math.max(...level.values()) : 0;
+  // Unreachable nodes: run BFS within each remaining connected component
+  // from a local root (highest local degree). Stack each component as its
+  // own subtree below the main one, separated by one extra level of spacing.
+  let nextBaseLevel = (level.size > 0 ? Math.max(...level.values()) : 0) + 2;
   for (const nk of nodeNks) {
-    if (!level.has(nk)) level.set(nk, maxReachable + 1);
+    if (level.has(nk)) continue;
+    // Collect this component
+    const componentNks: string[] = [];
+    const stack = [nk];
+    const seenInComponent = new Set<string>([nk]);
+    while (stack.length) {
+      const cur = stack.pop()!;
+      componentNks.push(cur);
+      for (const neighbor of adj.get(cur) ?? []) {
+        if (!level.has(neighbor) && !seenInComponent.has(neighbor)) {
+          seenInComponent.add(neighbor);
+          stack.push(neighbor);
+        }
+      }
+    }
+    // Pick local root = highest-degree node in this component
+    let localRoot = componentNks[0];
+    let bestDegree = -1;
+    for (const cnk of componentNks) {
+      const deg = (adj.get(cnk) ?? []).length;
+      if (deg > bestDegree) { bestDegree = deg; localRoot = cnk; }
+    }
+    // BFS within component to assign relative depths, offset by nextBaseLevel
+    level.set(localRoot, nextBaseLevel);
+    const localQueue: string[] = [localRoot];
+    let lqi = 0;
+    let localMax = nextBaseLevel;
+    while (lqi < localQueue.length) {
+      const cur = localQueue[lqi++];
+      const curLevel = level.get(cur)!;
+      for (const neighbor of adj.get(cur) ?? []) {
+        if (!level.has(neighbor) && seenInComponent.has(neighbor)) {
+          const nl = curLevel + 1;
+          level.set(neighbor, nl);
+          if (nl > localMax) localMax = nl;
+          localQueue.push(neighbor);
+        }
+      }
+    }
+    nextBaseLevel = localMax + 2;
   }
 
   // Group nks by level
@@ -178,10 +219,48 @@ export function computeRadialPositions(
     }
   }
 
-  // Unreachable nodes go one ring past the deepest reachable node
-  const maxReachable = level.size > 0 ? Math.max(...level.values()) : 0;
+  // Unreachable nodes: BFS within each remaining connected component from a
+  // local root (highest-degree). Stack each as additional outer rings so
+  // disconnected subtrees retain shape instead of flattening into one ring.
+  let nextBaseLevel = (level.size > 0 ? Math.max(...level.values()) : 0) + 1;
   for (const nk of nodeNks) {
-    if (!level.has(nk)) level.set(nk, maxReachable + 1);
+    if (level.has(nk)) continue;
+    const componentNks: string[] = [];
+    const stack = [nk];
+    const seenInComponent = new Set<string>([nk]);
+    while (stack.length) {
+      const cur = stack.pop()!;
+      componentNks.push(cur);
+      for (const neighbor of adj.get(cur) ?? []) {
+        if (!level.has(neighbor) && !seenInComponent.has(neighbor)) {
+          seenInComponent.add(neighbor);
+          stack.push(neighbor);
+        }
+      }
+    }
+    let localRoot = componentNks[0];
+    let bestDegree = -1;
+    for (const cnk of componentNks) {
+      const deg = (adj.get(cnk) ?? []).length;
+      if (deg > bestDegree) { bestDegree = deg; localRoot = cnk; }
+    }
+    level.set(localRoot, nextBaseLevel);
+    const localQueue: string[] = [localRoot];
+    let lqi = 0;
+    let localMax = nextBaseLevel;
+    while (lqi < localQueue.length) {
+      const cur = localQueue[lqi++];
+      const curLevel = level.get(cur)!;
+      for (const neighbor of adj.get(cur) ?? []) {
+        if (!level.has(neighbor) && seenInComponent.has(neighbor)) {
+          const nl = curLevel + 1;
+          level.set(neighbor, nl);
+          if (nl > localMax) localMax = nl;
+          localQueue.push(neighbor);
+        }
+      }
+    }
+    nextBaseLevel = localMax + 1;
   }
 
   // Group nks by level, preserving BFS insertion order

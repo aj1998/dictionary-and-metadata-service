@@ -360,13 +360,30 @@ describe('computeHierarchicalPositions', () => {
     expect(Math.abs(xB - xC)).toBeCloseTo(HIER_NODE_SPACING);
   });
 
-  it('assigns unreachable nodes one row past the deepest reachable level', () => {
-    // 'isolated' has no edges to the focus node
+  it('places unreachable component as its own subtree below the main one', () => {
+    // 'isolated' has no edges to the focus node; left as its own component root.
+    // Main deepest = 1; disconnected component starts at level 3 (gap of 1 row).
     const nodeNks = ['focus', 'child', 'isolated'];
     const edges = [{ src: 'focus', dst: 'child' }];
     const result = computeHierarchicalPositions(nodeNks, edges, 'focus', W, H);
-    // deepest reachable = 1 (child), so isolated → level 2
-    expect(result.get('isolated')!.y).toBe(HIER_PADDING_TOP + 2 * HIER_LEVEL_HEIGHT);
+    expect(result.get('isolated')!.y).toBe(HIER_PADDING_TOP + 3 * HIER_LEVEL_HEIGHT);
+  });
+
+  it('lays out a disconnected component using its own BFS rather than flattening it', () => {
+    // Two disconnected components: focus↔a, and b↔c↔d (chain).
+    const nodeNks = ['focus', 'a', 'b', 'c', 'd'];
+    const edges = [
+      { src: 'focus', dst: 'a' },
+      { src: 'b', dst: 'c' },
+      { src: 'c', dst: 'd' },
+    ];
+    const result = computeHierarchicalPositions(nodeNks, edges, 'focus', W, H);
+    // 'c' has highest local degree → local root. b and d are its neighbours.
+    const yC = result.get('c')!.y;
+    const yB = result.get('b')!.y;
+    const yD = result.get('d')!.y;
+    expect(yB).toBe(yD);          // siblings on the same row
+    expect(yB).toBeGreaterThan(yC); // c is the root of its own subtree
   });
 
   it('falls back to the first node as root when focusNk is null', () => {

@@ -18,7 +18,7 @@ import {
   type EdgeEl,
 } from './useForceSimulation';
 import { cn } from '@/lib/utils';
-import { computeHierarchicalPositions, computeRadialPositions, RADIAL_MIN_ARC } from './graphViewHelpers';
+import { computeHierarchicalPositions, computeRadialPositions, RADIAL_MIN_ARC, HIER_LEVEL_HEIGHT, HIER_NODE_SPACING } from './graphViewHelpers';
 import type { EntityKind, EdgeKind } from '@/lib/types';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -229,6 +229,10 @@ export function GraphCanvas({
   // Stores the last committed canvas positions so incremental expansions can
   // pin existing nodes and only place newly added ones.
   const lastPositionsRef = useRef<Map<string, { x: number; y: number }>>(new Map());
+  // Snapshots of committed positions keyed by the node that triggered the
+  // expansion — used to restore the previous radial layout when that node is
+  // collapsed again.
+  const expandSnapshotsRef = useRef<Map<string, Map<string, { x: number; y: number }>>>(new Map());
   // Stable layout ref so the expand handler doesn't capture a stale closure.
   const layoutRef = useRef(layout);
   layoutRef.current = layout;
@@ -290,14 +294,142 @@ export function GraphCanvas({
     }));
 
     if (layout === 'hierarchical') {
-      lastPositionsRef.current = new Map();
-      const positions = computeHierarchicalPositions(nodes.map(n => n.nk), simEdges, focusNkRef.current, w, h);
-      const simNodes: SimNodeInput[] = nodes.map(n => {
-        const pos = positions.get(n.nk);
-        const x = pos?.x ?? w / 2;
-        const y = pos?.y ?? h / 2;
-        return { nk: n.nk, x, y, fx: x, fy: y };
-      });
+      const expanderNk = expanderNkRef.current;
+      expanderNkRef.current = null;
+
+      const prevPos = lastPositionsRef.current;
+      const newNks = nodes.filter(n => !prevPos.has(n.nk));
+      const existingCount = nodes.length - newNks.length;
+      const expanderPos = expanderNk ? prevPos.get(expanderNk) : undefined;
+
+      // Collapse: same toggle, no new nodes, total count dropped, snapshot exists.
+      const isCollapse =
+        !!expanderNk &&
+        newNks.length === 0 &&
+        nodes.length < prevPos.size &&
+        expandSnapshotsRef.current.has(expanderNk);
+
+      // Incremental expand: expander has a known position, existing nodes remain,
+      // and new children arrived. Keep everything in place; drop children below.
+      const canIncremental =
+        !!expanderPos &&
+        existingCount > 0 &&
+        newNks.length > 0;
+
+      let simNodes: SimNodeInput[];
+
+      if (isCollapse) {
+        const snapshot = expandSnapshotsRef.current.get(expanderNk!)!;
+        expandSnapshotsRef.current.delete(expanderNk!);
+        simNodes = nodes.map(node => {
+          const pos = snapshot.get(node.nk) ?? prevPos.get(node.nk);
+          const x = pos?.x ?? w / 2;
+          const y = pos?.y ?? h / 2;
+          return { nk: node.nk, x, y, fx: x, fy: y };
+        });
+      } else if (newNks.length === 0 && nodes.length < prevPos.size) {
+        // Pure collapse without a snapshot (e.g. the original expand happened
+        // before any incremental layout ran). Just keep the surviving nodes
+        // exactly where they are instead of running a full re-layout — that
+        // would scatter them into disconnected components.
+        simNodes = nodes.map(node => {
+          const existing = prevPos.get(node.nk);
+          const x = existing?.x ?? w / 2;
+          const y = existing?.y ?? h / 2;
+          return { nk: node.nk, x, y, fx: x, fy: y };
+        });
+      } else if (canIncremental && expanderPos) {
+        // Snapshot pre-expand layout so a later collapse can restore it.
+        expandSnapshotsRef.current.set(expanderNk!, new Map(prevPos));
+
+        const n = newNks.length;
+        // Wrap children into multiple rows so the expansion stays locally
+        // clustered under the parent, rather than stretching across the
+        // canvas. Each row stays centred on expanderPos.x.
+        const MAX_PER_ROW = 5;
+        const rowsCount = Math.ceil(n / MAX_PER_ROW);
+        const cols = Math.min(n, MAX_PER_ROW);
+        const childRowSpacing = HIER_LEVEL_HEIGHT * 0.75;
+        const childColSpacing = HIER_NODE_SPACING * 0.85;
+        const indexFor = (i: number) => {
+          const row = Math.floor(i / MAX_PER_ROW);
+          const col = i % MAX_PER_ROW;
+          // Last (possibly shorter) row is centred on its own count.
+          const colsThisRow = row === rowsCount - 1 && n % MAX_PER_ROW !== 0
+            ? n % MAX_PER_ROW
+            : cols;
+          const rowWidth = (colsThisRow - 1) * childColSpacing;
+          const x = expanderPos.x - rowWidth / 2 + col * childColSpacing;
+          const y = expanderPos.y + HIER_LEVEL_HEIGHT + row * childRowSpacing;
+          return { x, y };
+        };
+
+        simNodes = nodes.map(node => {
+          if (node.nk === expanderNk) {
+            return { nk: node.nk, x: expanderPos.x, y: expanderPos.y, fx: expanderPos.x, fy: expanderPos.y };
+          }
+          const existing = prevPos.get(node.nk);
+          if (existing) {
+            return { nk: node.nk, x: existing.x, y: existing.y, fx: existing.x, fy: existing.y };
+          }
+          const idx = newNks.findIndex(nn => nn.nk === node.nk);
+          const { x, y } = indexFor(idx);
+          return { nk: node.nk, x, y, fx: x, fy: y };
+        });
+      } else if (existingCount > 0 && newNks.length > 0) {
+        // External addition (e.g. user navigated to a different node via the
+        // dictionary). No expander to anchor against, so freeze existing nodes
+        // and lay out the new subtree as its own BFS tree beside them.
+        const newNkSet = new Set(newNks.map(n => n.nk));
+        const subEdges = simEdges.filter(e => newNkSet.has(e.src) && newNkSet.has(e.dst));
+        const subFocus = focusNkRef.current && newNkSet.has(focusNkRef.current) ? focusNkRef.current : newNks[0].nk;
+        const subPositions = computeHierarchicalPositions(
+          newNks.map(n => n.nk), subEdges, subFocus, w, h,
+        );
+        // Compute the existing tree's bounding box so we can drop the new
+        // subtree just to the right of it (and aligned at the same top row).
+        let exMinX = Infinity, exMaxX = -Infinity, exMinY = Infinity;
+        for (const p of prevPos.values()) {
+          if (p.x < exMinX) exMinX = p.x;
+          if (p.x > exMaxX) exMaxX = p.x;
+          if (p.y < exMinY) exMinY = p.y;
+        }
+        // Sub-layout's own bbox (computed positions are centred on w/2).
+        let subMinX = Infinity, subMaxX = -Infinity, subMinY = Infinity;
+        for (const p of subPositions.values()) {
+          if (p.x < subMinX) subMinX = p.x;
+          if (p.x > subMaxX) subMaxX = p.x;
+          if (p.y < subMinY) subMinY = p.y;
+        }
+        const xOffset = (exMaxX + HIER_NODE_SPACING) - subMinX;
+        const yOffset = exMinY - subMinY;
+        simNodes = nodes.map(node => {
+          const existing = prevPos.get(node.nk);
+          if (existing) {
+            return { nk: node.nk, x: existing.x, y: existing.y, fx: existing.x, fy: existing.y };
+          }
+          const pos = subPositions.get(node.nk);
+          const x = (pos?.x ?? w / 2) + xOffset;
+          const y = (pos?.y ?? h / 2) + yOffset;
+          return { nk: node.nk, x, y, fx: x, fy: y };
+        });
+      } else {
+        // Full BFS layout: first load, reset, layout switch.
+        lastPositionsRef.current = new Map();
+        const positions = computeHierarchicalPositions(nodes.map(n => n.nk), simEdges, focusNkRef.current, w, h);
+        simNodes = nodes.map(n => {
+          const pos = positions.get(n.nk);
+          const x = pos?.x ?? w / 2;
+          const y = pos?.y ?? h / 2;
+          return { nk: n.nk, x, y, fx: x, fy: y };
+        });
+      }
+
+      // Commit positions for the next incremental step.
+      const committed = new Map<string, { x: number; y: number }>();
+      for (const sn of simNodes) committed.set(sn.nk, { x: sn.x ?? w / 2, y: sn.y ?? h / 2 });
+      lastPositionsRef.current = committed;
+
       restart(simNodes, simEdges, 'static');
 
     } else if (layout === 'radial') {
@@ -327,29 +459,73 @@ export function GraphCanvas({
         newNks.length > 0 &&
         expanderDist >= 1; // centre-node expansion → BFS handles it cleanly
 
-      if (canIncremental && expanderPos) {
-        // ── Incremental (Neo4j-style): expander stays put, children fan from it ─
+      // Detect a collapse: same expander toggle was pressed but no new nodes
+      // arrived and at least one previously committed node is now gone. In
+      // that case, restore the snapshot we took right before this node was
+      // expanded so the user gets their original radial view back.
+      const isCollapse =
+        !!expanderNk &&
+        newNks.length === 0 &&
+        nodes.length < prevPos.size &&
+        expandSnapshotsRef.current.has(expanderNk);
+
+      if (isCollapse) {
+        const snapshot = expandSnapshotsRef.current.get(expanderNk)!;
+        expandSnapshotsRef.current.delete(expanderNk);
+        simNodes = nodes.map(node => {
+          const pos = snapshot.get(node.nk) ?? prevPos.get(node.nk);
+          const x = pos?.x ?? w / 2;
+          const y = pos?.y ?? h / 2;
+          return { nk: node.nk, x, y, fx: x, fy: y };
+        });
+      } else if (newNks.length === 0 && nodes.length < prevPos.size) {
+        // Pure collapse without a snapshot — preserve surviving positions
+        // rather than running a full re-layout that would scatter them.
+        simNodes = nodes.map(node => {
+          const existing = prevPos.get(node.nk);
+          const x = existing?.x ?? w / 2;
+          const y = existing?.y ?? h / 2;
+          return { nk: node.nk, x, y, fx: x, fy: y };
+        });
+      } else if (canIncremental && expanderPos) {
+        // Save a snapshot of the current layout BEFORE we mutate it so that a
+        // later collapse of this same expander can restore the original view.
+        expandSnapshotsRef.current.set(expanderNk!, new Map(prevPos));
+
+        // ── Incremental (Neo4j-style): push the expander outward, then place its
+        // children in a full circle around its new position. ─
         const awayAngle = Math.atan2(edy, edx);
-        const fanAngle = Math.PI; // 180° arc facing away from focus
         const n = newNks.length;
+        // Children ring radius: large enough to keep adjacent cards apart
+        // (arc length ≥ RADIAL_MIN_ARC) using the full 360°.
+        const fanAngle = 2 * Math.PI;
         const fanR = Math.max(RADIAL_FAN_RADIUS, (n * RADIAL_MIN_ARC) / fanAngle);
-        const dTheta = n > 1 ? fanAngle / (n - 1) : 0;
+        const dTheta = n > 0 ? fanAngle / n : 0;
+        // Push the expander outward by the child ring radius + a small gap so
+        // the children's circle clears the focus side and doesn't overlap it.
+        const pushOut = fanR + RADIAL_FAN_RADIUS * 0.4;
+        const newExpanderPos = {
+          x: expanderPos.x + Math.cos(awayAngle) * pushOut,
+          y: expanderPos.y + Math.sin(awayAngle) * pushOut,
+        };
 
         simNodes = nodes.map(node => {
-          // Expander: stays exactly where it is (pin in place)
+          // Expander: moved outward, pinned at the new position
           if (node.nk === expanderNk) {
-            return { nk: node.nk, x: expanderPos.x, y: expanderPos.y, fx: expanderPos.x, fy: expanderPos.y };
+            return { nk: node.nk, x: newExpanderPos.x, y: newExpanderPos.y, fx: newExpanderPos.x, fy: newExpanderPos.y };
           }
           // Existing nodes: keep their committed positions
           const existing = prevPos.get(node.nk);
           if (existing) {
             return { nk: node.nk, x: existing.x, y: existing.y, fx: existing.x, fy: existing.y };
           }
-          // New child: fan from the expander's position outward
+          // New child: place on a full circle around the expander's new position.
+          // Start angle = awayAngle (12-o'clock from focus's view) so the ring is
+          // centred symmetrically around the outward direction.
           const idx = newNks.findIndex(nn => nn.nk === node.nk);
-          const theta = awayAngle - fanAngle / 2 + idx * dTheta;
-          const x = expanderPos.x + fanR * Math.cos(theta);
-          const y = expanderPos.y + fanR * Math.sin(theta);
+          const theta = awayAngle + idx * dTheta;
+          const x = newExpanderPos.x + fanR * Math.cos(theta);
+          const y = newExpanderPos.y + fanR * Math.sin(theta);
           return { nk: node.nk, x, y, fx: x, fy: y };
         });
       } else {
@@ -426,7 +602,7 @@ export function GraphCanvas({
   // Capture which node was expanded BEFORE the store mutation fires so the
   // restart effect can read it via expanderNkRef when nodes.length changes.
   const handleNodeExpand = useCallback((nk: string) => {
-    if (layoutRef.current === 'radial') {
+    if (layoutRef.current === 'radial' || layoutRef.current === 'hierarchical') {
       expanderNkRef.current = nk;
     }
     onNodeExpand?.(nk);

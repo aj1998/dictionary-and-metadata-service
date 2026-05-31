@@ -177,3 +177,52 @@ Collapse logic:
 - `ui/src/components/NodeCard.tsx` — `bandFg`/`bandIconBoxBg` added to `NODE_KIND_META`; 4 px stripe removed; header band replaces old header row
 - `ui/src/components/NodeCard.test.ts` — two new `describe` blocks for `bandFg` field and CSS variable values
 - `ui/src/styles/theme.test.ts` — `--cat-*-fg` tokens added to `REQUIRED_TOKENS`; topic color assertion updated; new `it` block for fg hex values
+
+### Section 4 — Expand/Collapse UX (2026-05-31)
+
+A multi-part pass on the graph layout effect in `ui/src/app/[locale]/graph/GraphCanvas.tsx` to make per-node expand/collapse feel local and predictable, plus matching changes in `graphViewHelpers.ts`.
+
+#### Connected-component fallback (hierarchical + radial)
+
+Before: nodes BFS-unreachable from `focusNk` were all dumped onto a single row/ring at `maxReachable + 1`. After navigating from one keyword to another the previously expanded subtree flattened into one horizontal line.
+
+After (`graphViewHelpers.ts` — `computeHierarchicalPositions` / `computeRadialPositions`):
+- After the primary BFS, find each remaining connected component.
+- Pick the highest-degree node in the component as its local root.
+- BFS within the component to assign relative depths, offset by `nextBaseLevel = maxSoFar + 2` (hierarchical) / `+ 1` (radial).
+- Each disconnected subtree retains its shape instead of collapsing into one row.
+
+Test in `graphViewHelpers.test.ts` was updated (`"places unreachable component as its own subtree below the main one"`) and a new test added (`"lays out a disconnected component using its own BFS rather than flattening it"`).
+
+#### Radial — Neo4j-style incremental expansion
+
+Replaced the 180° fan-away-from-focus arc with a full 360° circle around the expander. The expander is also pushed outward along the focus→expander direction by `fanR + RADIAL_FAN_RADIUS * 0.4` so the children's ring clears the focus side. Ring radius grows when `n * RADIAL_MIN_ARC` would exceed the circumference to prevent overlap.
+
+#### Snapshot-restore on collapse (hierarchical + radial)
+
+Added `expandSnapshotsRef: Map<expanderNk, Map<nk, {x,y}>>` in `GraphCanvas.tsx`. On a canIncremental expansion path the pre-expand `lastPositionsRef` is snapshotted under the expander's key. When the same expand toggle is clicked again (collapse), the snapshot is restored and consumed, so the user gets back the exact layout they had before the expand pushed positions around.
+
+`handleNodeExpand` was extended to set `expanderNkRef` for both `radial` and `hierarchical` layouts (previously only radial).
+
+#### Pure-collapse fallback
+
+When the expander toggle is pressed but no snapshot exists (e.g. the original expand happened before any incremental path ran, like at boot), running a full BFS re-layout scatters surviving nodes into disconnected components. Added a "pure collapse" branch to both hierarchical and radial paths: when `newNks.length === 0 && nodes.length < prevPos.size` and no snapshot is available, pin every surviving node at its `prevPos` coordinates. Eliminates the "ghost nodes scattered across the canvas" symptom after a collapse.
+
+#### Hierarchical — incremental expand in place
+
+Before: the hierarchical effect always ran a full BFS via `computeHierarchicalPositions`, so any user-initiated expansion re-centered the whole tree on the canvas center.
+
+After: a four-way branch:
+1. **Collapse** (snapshot present) — restore snapshot.
+2. **Pure collapse** (no snapshot) — pin survivors at `prevPos`.
+3. **Incremental expand** — pin all existing nodes at `prevPos`, drop new children in rows directly under the expander.
+4. **External addition** — new nodes arrived without an expander (e.g. dictionary navigation). Pin existing nodes; lay out the new subtree's own BFS to the right of the existing tree using bbox math (`xOffset = (exMaxX + HIER_NODE_SPACING) - subMinX`, `yOffset = exMinY - subMinY`). Existing trees stay exactly where the user put them.
+5. **Full BFS** — first load, reset, layout switch.
+
+Children placement uses **multi-row wrapping** (`MAX_PER_ROW = 5`, `childRowSpacing = HIER_LEVEL_HEIGHT * 0.75`, `childColSpacing = HIER_NODE_SPACING * 0.85`) so large neighbourhoods cluster locally under the parent instead of stretching across the canvas. Last row centres on its own (possibly shorter) count.
+
+#### Files changed
+
+- `ui/src/app/[locale]/graph/GraphCanvas.tsx` — full rewrite of the layout effect's `hierarchical` and `radial` branches; added `expandSnapshotsRef`; `handleNodeExpand` now captures hierarchical too; new imports `HIER_LEVEL_HEIGHT`, `HIER_NODE_SPACING`.
+- `ui/src/app/[locale]/graph/graphViewHelpers.ts` — connected-component logic appended to both `computeHierarchicalPositions` and `computeRadialPositions`.
+- `ui/src/__tests__/graph/graphViewHelpers.test.ts` — renamed unreachable-row test; new test for disconnected-component BFS.
