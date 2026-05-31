@@ -20,6 +20,7 @@ import {
 import { cn } from '@/lib/utils';
 import { computeHierarchicalPositions, computeRadialPositions, RADIAL_MIN_ARC, HIER_LEVEL_HEIGHT, HIER_NODE_SPACING } from './graphViewHelpers';
 import type { EntityKind, EdgeKind } from '@/lib/types';
+import { useGraphStore } from '@/lib/store/graphStore';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -227,8 +228,13 @@ export function GraphCanvas({
   // incremental positioning instead of a full re-layout.
   const expanderNkRef = useRef<string | null>(null);
   // Stores the last committed canvas positions so incremental expansions can
-  // pin existing nodes and only place newly added ones.
-  const lastPositionsRef = useRef<Map<string, { x: number; y: number }>>(new Map());
+  // pin existing nodes and only place newly added ones. Seeded from the
+  // zustand store on mount so positions survive page navigation away/back.
+  const storePositions = useGraphStore.getState().positions;
+  const setStorePositions = useGraphStore.getState().setPositions;
+  const lastPositionsRef = useRef<Map<string, { x: number; y: number }>>(
+    new Map(Object.entries(storePositions)),
+  );
   // Snapshots of committed positions keyed by the node that triggered the
   // expansion — used to restore the previous radial layout when that node is
   // collapsed again.
@@ -343,26 +349,10 @@ export function GraphCanvas({
         expandSnapshotsRef.current.set(expanderNk!, new Map(prevPos));
 
         const n = newNks.length;
-        // Wrap children into multiple rows so the expansion stays locally
-        // clustered under the parent, rather than stretching across the
-        // canvas. Each row stays centred on expanderPos.x.
-        const MAX_PER_ROW = 5;
-        const rowsCount = Math.ceil(n / MAX_PER_ROW);
-        const cols = Math.min(n, MAX_PER_ROW);
-        const childRowSpacing = HIER_LEVEL_HEIGHT * 0.75;
-        const childColSpacing = HIER_NODE_SPACING * 0.85;
-        const indexFor = (i: number) => {
-          const row = Math.floor(i / MAX_PER_ROW);
-          const col = i % MAX_PER_ROW;
-          // Last (possibly shorter) row is centred on its own count.
-          const colsThisRow = row === rowsCount - 1 && n % MAX_PER_ROW !== 0
-            ? n % MAX_PER_ROW
-            : cols;
-          const rowWidth = (colsThisRow - 1) * childColSpacing;
-          const x = expanderPos.x - rowWidth / 2 + col * childColSpacing;
-          const y = expanderPos.y + HIER_LEVEL_HEIGHT + row * childRowSpacing;
-          return { x, y };
-        };
+        const childY = expanderPos.y + HIER_LEVEL_HEIGHT;
+        // Centre the children row under the expander.
+        const rowWidth = (n - 1) * HIER_NODE_SPACING;
+        const startX = expanderPos.x - rowWidth / 2;
 
         simNodes = nodes.map(node => {
           if (node.nk === expanderNk) {
@@ -373,7 +363,8 @@ export function GraphCanvas({
             return { nk: node.nk, x: existing.x, y: existing.y, fx: existing.x, fy: existing.y };
           }
           const idx = newNks.findIndex(nn => nn.nk === node.nk);
-          const { x, y } = indexFor(idx);
+          const x = startX + idx * HIER_NODE_SPACING;
+          const y = childY;
           return { nk: node.nk, x, y, fx: x, fy: y };
         });
       } else if (existingCount > 0 && newNks.length > 0) {
@@ -429,6 +420,9 @@ export function GraphCanvas({
       const committed = new Map<string, { x: number; y: number }>();
       for (const sn of simNodes) committed.set(sn.nk, { x: sn.x ?? w / 2, y: sn.y ?? h / 2 });
       lastPositionsRef.current = committed;
+      // Mirror into the store so positions survive GraphCanvas remounts
+      // (e.g. after the user navigates to /dictionary and back).
+      setStorePositions(Object.fromEntries(committed));
 
       restart(simNodes, simEdges, 'static');
 

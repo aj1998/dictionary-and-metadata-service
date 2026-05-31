@@ -219,7 +219,13 @@ After: a four-way branch:
 4. **External addition** — new nodes arrived without an expander (e.g. dictionary navigation). Pin existing nodes; lay out the new subtree's own BFS to the right of the existing tree using bbox math (`xOffset = (exMaxX + HIER_NODE_SPACING) - subMinX`, `yOffset = exMinY - subMinY`). Existing trees stay exactly where the user put them.
 5. **Full BFS** — first load, reset, layout switch.
 
-Children placement uses **multi-row wrapping** (`MAX_PER_ROW = 5`, `childRowSpacing = HIER_LEVEL_HEIGHT * 0.75`, `childColSpacing = HIER_NODE_SPACING * 0.85`) so large neighbourhoods cluster locally under the parent instead of stretching across the canvas. Last row centres on its own (possibly shorter) count.
+New children are placed in a single row at `expanderPos.y + HIER_LEVEL_HEIGHT`, centred on `expanderPos.x` with `HIER_NODE_SPACING` between siblings. (An earlier iteration of this pass added multi-row wrapping for large neighbourhoods; it was reverted because it broke the BFS-tree readability — every BFS depth must remain on a single horizontal row.)
+
+#### Persisting positions across GraphCanvas remounts
+
+When the user navigated away (e.g. to `/dictionary`) and back to `/graph`, the `GraphCanvas` component remounted with an empty `lastPositionsRef`, even though the zustand store still held all the previously rendered nodes. The layout effect then fell into the "Full BFS" branch and re-centered every node on `canvasW/2`, losing the parent's prior position.
+
+Fix: added `positions: Record<string, {x, y}>` and `setPositions` to `graphStore.ts`. After every layout commit, `GraphCanvas` mirrors `lastPositionsRef` into the store via `setStorePositions(Object.fromEntries(committed))`. On mount, `lastPositionsRef` is seeded from `useGraphStore.getState().positions`, so the External Addition branch now correctly identifies existing nodes and keeps them pinned at their prior coordinates after a remount.
 
 #### Files changed
 

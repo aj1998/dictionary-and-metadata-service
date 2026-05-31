@@ -29,6 +29,12 @@ type GraphState = {
   lastError: string | null;
   seedNk: string | null;
   nodeOrigins: Record<string, Set<string>>;
+  /** Last committed canvas positions per node. Persists across GraphCanvas
+   *  remounts (e.g. when the user navigates to /dictionary and back) so the
+   *  hierarchical/radial incremental layout has the original positions to
+   *  anchor against instead of falling back to a full BFS re-centering. */
+  positions: Record<string, { x: number; y: number }>;
+  setPositions: (positions: Record<string, { x: number; y: number }>) => void;
   selectNode: (id: string) => void;
   selectEdge: (id: string) => void;
   clearSelection: () => void;
@@ -70,11 +76,13 @@ const initialState = {
   lastError: null,
   seedNk: null as string | null,
   nodeOrigins: {} as Record<string, Set<string>>,
+  positions: {} as Record<string, { x: number; y: number }>,
 };
 
 export const useGraphStore = create<GraphState>((set, get) => ({
   ...initialState,
 
+  setPositions: (positions) => set({ positions }),
   selectNode: (id) => set({ selected: { kind: 'node', id } }),
   selectEdge: (id) => set({ selected: { kind: 'edge', id } }),
   clearSelection: () => set({ selected: null }),
