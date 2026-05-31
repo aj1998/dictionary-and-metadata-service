@@ -4,7 +4,7 @@
 > Covers HTML structure rules, parser implementation, configuration, models,
 > algorithms, CLI, tests, and edge-emission specs.
 >
-> **Current version**: `jainkosh.rules/1.11.7`
+> **Current version**: `jainkosh.rules/1.11.8`
 >
 > Archived source specs (pre-v1.7 detail):
 > `detailed_docs/parsing_rules.md`, `parser_spec.md`,
@@ -205,7 +205,27 @@ Implemented in `see_also.py`:
 
 `target_keyword` from `/wiki/<percent-encoded>` is URL-decoded then NFC-normalised. **Underscores are preserved** (not converted to spaces) — MediaWiki encodes spaces as `_` in URLs, so `प्रकृति_बंध` in a href represents the keyword `प्रकृति_बंध`, consistent with how `decode_keyword_from_url` processes the main page URL. (v1.11.1)
 
-### 4.5 Configurable `देखें` triggers
+### 4.5 Hybrid `<ol>` — dual index + body processing (v1.11.8)
+
+Some pages (e.g. गुण) have **no `<h2>` section markers** and embed the entire
+article inside a single top-level `<ol>`. This `<ol>` contains both:
+- **Index-style `<p>` notes** with `देखें` cross-references inside the outer `<li>` items.
+- **Body content** (V1/V2/V3 headings and their text) deep inside a nested `<ol>`.
+
+Because the `<ol>` contains headings, the standard split logic puts it in `body`
+(not `index_ols`), and `parse_index_relations` receives nothing.
+
+**Fix (v1.11.8)**: in `parse_section`, when an `<ol>` contains headings AND **no
+prior pure index `<ol>` has been collected yet** (`index_ols` is empty), the `<ol>`
+is added to **both** `index_ols` and `body`:
+- `parse_index_relations(index_ols, …)` scans it and captures the देखें relations.
+- `parse_subsections(body, …)` finds the headings via the deep-recursion rule (§6.12).
+
+The guard `not index_ols` prevents false positives on pages that have a proper
+separate index `<ol>` (e.g. द्रव्य), where the body `<ol>` with headings appears
+after the index and must not be re-scanned.
+
+### 4.6 Configurable `देखें` triggers
 
 Config: `index.see_also_triggers` (e.g. `["देखें", "विशेष देखें"]`). Triggers are sorted
 longest-first and joined into a regex alternation. The scanner uses a **full CSS `a`-element
@@ -217,7 +237,7 @@ scan (DFS)** of the entire index `<ol>` subtree — not a two-tier walk.
 | `see_also_window_chars` | `40` | Max preceding chars to inspect |
 | `see_also_leading_punct_re` | `[(–\-।\s]*` | Punct allowed between label and trigger |
 
-### 4.6 IndexRelation source chain resolution (v1.4.0)
+### 4.7 IndexRelation source chain resolution (v1.4.0)
 
 `IndexRelation.source_topic_path_chain` resolved by walking ancestor `<li>` containers upward.
 
@@ -492,6 +512,22 @@ This fixes the case where a V2-bare or V1 heading is wrapped in a classless `<p>
   <span class="HindiText" id="1.1.2">2. heading</span>   ← V2-bare inside classless p
 </p>
 ```
+
+### 6.12 DFS deep-heading recursion for block-class elements (v1.11.8)
+
+When a **block-class element** (e.g. `<li class="HindiText">`) has headings nested
+**deeper than its direct children** (i.e. `has_heading_child` is False but
+`contains_heading(el, config)` is True), the DFS **recurses into its direct children**
+instead of treating the element as a flat content block.
+
+This handles pages like गुण where the entire body is nested inside a top-level
+`<ol>` → `<li class="HindiText">` → inner `<ol>` with V1 headings. Without this
+guard, the outer `<li>` is emitted as a single opaque block and all subsections
+are lost.
+
+**Implementation**: in `walk_and_collect_headings._dfs` (`parse_subsections.py`),
+after the `has_heading_child` check returns False, `contains_heading(el, config)`
+is used as a fallback to decide whether to recurse.
 
 ### 6.11 Whitespace normalisation
 
@@ -825,6 +861,7 @@ DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence an
 | `1.11.4` | **(1) HTML entity decoding**: `_render_inline` now decodes common HTML entities (`&nbsp;` → space, `&#160;`/`&#xA0;`, `&amp;`, `&lt;`, `&gt;`, `&quot;`, `&#39;`/`&apos;`) after stripping HTML tags. Previously these entities appeared literally in text fields. Tables use the existing `extract_table_block` path and are unaffected. **(2) Extended stray-punct cleanup** in `strip_refs_from_text`: in addition to `;`-only lines, `,`-only lines are now removed; trailing `;` or `,` after `।`/`॥` at line-end are stripped; lines containing only dandas/punctuation are removed; all collapsed with a final multi-blank-line pass. **(3) Verse-marker spacing fix**: `_split_text_at_verse_markers` now uses a regex `।\s*N\s*।` (allowing optional whitespace around the verse number) instead of a literal `।N।` string search. Fixes samples like `नियमसार/15, 28` where the rendered text has `। 15।` with a space. **(4) Multi-verse split translation guard** (Case A and Case B): splitting at `।N।` markers is now gated on the verse numbers appearing in BOTH `text_devanagari` AND `hindi_translation`. Range references like `नयचक्र बृहद्/17-19` where only the source text has markers — but the translation does not — are no longer split. Case B (auto-detect from markers alone) applies the same guard. A `_do_split` helper was extracted shared by both cases. **(5) Auto-detect verse splitting (Case B)**: when no multi-ref Case A trigger applies, `_try_split_multi_verse` scans both `text_devanagari` and `hindi_translation` for `।N।` markers; if 2+ verse numbers appear in both layers, the block is split (resolves cases like `मोक्ष पंचाशत/23-25` whose shastra is unregistered). **(6) देखें trigger-line stripping from translation blocks**: `_emit` in `parse_block_stream` now calls `_strip_dekhen_trigger_lines` on `hindi_translation` text before emitting, removing lines that start with `देखें` (or configured triggers) and any immediately following parenthetical or pure-punctuation continuation lines. This prevents `देखें X - N.M\n(…)।` text that appears inside a `=`-sibling HindiText element from leaking into `hindi_translation`. **(7) Body-element br-dekhen seeds**: `parse_subsections` now also extracts `<br/>`-separated `देखें` seeds from the subsection's body `content_els` (in addition to the section-level elements handled previously), creating `see_also` label-topic seeds for patterns like `देखें जीव - 3.8` embedded in mid-body translation elements. |
 | `1.11.5` | **(1) Case A split ordering by text position**: `_try_split_multi_verse` Case A no longer sorts refs by ascending gatha value; instead a greedy `_order_pairs_by_text_position` helper assigns each (ref, value) pair to its sequential marker occurrence in `text_devanagari`. This correctly handles GRef lists like `168,15,168` (non-ascending, with duplicates) where the comma-separated order reflects text order. **(2) Case B ordering by text position**: `_nums_in_text_order` helper replaces `sorted()` for Case B common-num ordering; markers are ordered by their first position in `text_devanagari`. **(3) Deterministic gatha field name in Case B synthetic refs**: `next(iter(gatha_field_names))` (non-deterministic set iteration) replaced by inspecting the base_ref's `resolved_fields` to preserve the existing field name (e.g., `दोहक` stays `दोहक`). **(4) Teeka name keyword cleanup**: `match_shastra` now iteratively strips all trailing `/<field_keyword>` segments from `teeka_candidate`, where field keywords include both `section_keywords` (गाथा, पंक्ति, …) and entity keywords (पृष्ठ, कलश, …). Handles cases like `"पंचास्तिकाय / तात्पर्यवृत्ति/गाथा /पृष्ठ / पंक्ति"` → `teeka_name="तात्पर्यवृत्ति"`. |
 | `1.11.6` | **`prakrit_gatha`/`sanskrit_gatha` multi-verse splitting**: both kinds added to `reference_splitting.applicable_block_kinds`. **Case A source-text guard**: all gatha values must appear as `।N।` markers in `text_devanagari` before Case A fires; when absent (GRef numbering differs from text), falls through to Case C. **Case C (new) — equal-count independent-marker split**: when `text_devanagari` and `hindi_translation` each have exactly N (≥ 2) verse markers (same count, potentially different values) and exactly N unique-gatha non-inline refs are available, splits src at its own markers and tl at its own markers, pairing positionally with refs sorted by ascending gatha value. Handles `नयचक्र बृहद्/22,27,31` where Prakrit has `[22,26,31]` and Hindi has `[22,23,31]` → 3 correctly-paired blocks (refs gatha=22, 27, 31). `_do_split` extended with optional `tl_nums` kwarg for independent translation splitting. |
+| `1.11.8` | **(1) DFS deep-heading recursion for block-class elements**: when a block-class element (e.g. `<li class="HindiText">`) has no heading as a direct child but `contains_heading` returns True (headings are nested inside a child `<ol>`), the DFS now recurses into its direct children instead of emitting it as a flat content block. Fixes pages like गुण where all content was nested inside one outer `<li>`. **(2) Hybrid `<ol>` dual processing**: in `parse_section`, a heading-containing `<ol>` that has no prior pure index `<ol>` (`index_ols` is empty) is added to both `index_ols` and `body`, so its `देखें` notes become `IndexRelation` objects while its headings are parsed as subsections. |
 | `1.11.7` | **Inline-ref distribution by position in split blocks**: `_do_split` no longer assigns all inline refs to the last split block. A new `_assign_inline_refs_to_segments` helper uses the pre-strip translation text (stored as `Block._hindi_translation_pre_strip` via `PrivateAttr`, set during sibling-`=` absorption and `_emit` translation absorption) to find each inline ref's position relative to verse markers. A ref that appears immediately after `।N।` is assigned to the gatha-N split block rather than the final block. Fixes `नयचक्र बृहद्/22,25,30` where `( परमात्मप्रकाश टीका/1/57 )` appears right after `। 25।` in the HindiText — it is now placed in the gatha-25 block instead of the gatha-30 block. Falls back to last-segment assignment when pre-strip text is unavailable or the ref text is not found. |
 
 ---
@@ -856,6 +893,7 @@ DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence an
 | स्वभाव | `(नयचक्र (श्रुतभवन)/61)` — paren-stripping gives `नयचक्र श्रुतभवन/61` | Space-to-slash matching (§11) resolves to `नयचक्र/श्रुतभवन`. |
 | स्वभाव | `देखें ... प्रकृति_बंध` href | Underscore preserved in `target_keyword` (§4.4). |
 | any | `hindi_text` block with `hindi_translation=null` + publication shastra | `GathaTeekaBhaavarth` edge (§12.2). |
+| गुण | No `<h2>` — entire page in single top-level `<ol>` containing both index `<p>` notes and body `<strong id="N">` headings nested 3 levels deep | Hybrid ol dual-processing (§4.5); DFS deep-heading recursion (§6.12). |
 | any | Self-link `<a class="mw-selflink-fragment" href="#3">` | `is_self=true` (§4.3). |
 | any | Redlink `/w/index.php?title=X&action=edit&redlink=1` | `target_exists=false`; no Neo4j edge. |
 | any | Trailing `<br/>` and stray `&#160;` | Whitespace-normalise (§6.11). |

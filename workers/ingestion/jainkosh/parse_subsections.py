@@ -246,6 +246,12 @@ def walk_and_collect_headings(
                 if has_heading_child:
                     _dfs(list(_iter_direct_children(el)))
                     continue
+                # Also recurse when headings are nested deeper (e.g. गुण: entire
+                # page content inside a single <li class="HindiText"> that wraps
+                # both the index <ol> and the body <ol>).
+                if contains_heading(el, config):
+                    _dfs(list(_iter_direct_children(el)))
+                    continue
                 # Otherwise treat as a content block
                 events.append(("block", el))
                 continue

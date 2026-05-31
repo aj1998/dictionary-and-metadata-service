@@ -261,6 +261,7 @@ def _extract_label_before_anchor(a: Node, nth_occurrence: int = 0) -> str:
         before_html = before_html[best_pos + best_sep_len:]
     label = re.sub(r"<[^>]+>", "", before_html)
     label = re.sub(r"[(–\-।\s]*(?:विशेष\s+)?देखें\s*$", "", label).strip()
+    label = re.sub(r"^[*•]\s*", "", label)
     return normalize_text(label)
 
 

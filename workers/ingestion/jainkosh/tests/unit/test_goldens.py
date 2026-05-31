@@ -21,7 +21,7 @@ from workers.ingestion.jainkosh.parse_keyword import parse_keyword_html
 FIXTURES_DIR = Path(__file__).parents[1] / "fixtures"
 GOLDEN_DIR = Path(__file__).parents[1] / "golden"
 
-KEYWORDS = ["आत्मा", "द्रव्य", "पर्याय", "वस्तु", "स्वभाव"]
+KEYWORDS = ["आत्मा", "द्रव्य", "गुण", "पर्याय", "वस्तु", "स्वभाव"]
 
 FROZEN_TIME = datetime.fromisoformat("2026-05-04T00:00:00")
 

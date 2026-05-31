@@ -56,6 +56,13 @@ def parse_section(
             if el.tag == "ol" and not contains_heading(el, config):
                 index_ols.append(el)
                 continue
+            if el.tag == "ol" and contains_heading(el, config) and not index_ols:
+                # Hybrid <ol>: serves as both index and body (e.g. गुण — entire
+                # page content nested inside the index <ol> with no separate
+                # index ol preceding it). Scan it for देखें relations as well as
+                # processing it as body content.
+                index_ols.append(el)
+                # fall through to body logic
             if not contains_heading(el, config):
                 pre_heading.append(el)
                 continue

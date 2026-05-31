@@ -743,3 +743,127 @@ class TestInlineRefDistributionInSplit:
         assert len(result) == 2
         inline_in_last = [r for r in result[1].references if r.inline_reference]
         assert len(inline_in_last) == 1
+
+
+# ---------------------------------------------------------------------------
+# Hybrid <ol> — subsections and index_relations (गुण page structure)
+# ---------------------------------------------------------------------------
+
+class TestHybridOlParsing:
+    """
+    Pages like गुण have no <h2> sections and embed all content inside a single
+    top-level <ol>:
+      - The outer <li class="HindiText"> items wrap BOTH index notes (देखें <p>s)
+        AND actual body content (nested <ol> with <strong id="N"> headings).
+
+    Two bugs were fixed:
+      1. DFS in parse_subsections: block-class elements with headings nested
+         deeper than direct children are now recursed into.
+      2. parse_section: a hybrid <ol> (contains headings AND has no prior pure
+         index <ol>) is dual-processed — added to both index_ols and body.
+    """
+
+    _OUTER_OL_HTML = """
+    <html><body>
+    <div class="mw-parser-output">
+      <p class="HindiText">Intro text.</p>
+      <ol>
+        <li class="HindiText">
+          <strong><a href="#1">Section one (index title)</a></strong><br/>
+          <ol>
+            <li class="HindiText"><a href="#1.1">Subsec 1.1</a></li>
+            <p class="HindiText">* see also –देखें <a class="mw-selflink-fragment" href="#2.1">keyword - 2.1</a>।</p>
+          </ol>
+          <ol>
+            <li class="HindiText">
+              <strong id="1">Section one</strong>
+              <ol>
+                <li>
+                  <p class="HindiText"><strong id="1.1">Subsection one-one</strong></p>
+                </li>
+                <p class="PrakritText">गाहा text।</p>
+                <p class="HindiText">=Hindi translation।</p>
+              </ol>
+            </li>
+            <li class="HindiText">
+              <strong id="2">Section two</strong>
+              <ol>
+                <li>
+                  <p class="HindiText"><strong id="2.1">Subsection two-one</strong></p>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </div>
+    </body></html>
+    """
+
+    def _parse(self, cfg: JainkoshConfig):
+        from workers.ingestion.jainkosh.parse_keyword import parse_keyword_html
+        url = "https://www.jainkosh.org/wiki/%E0%A4%97%E0%A5%81%E0%A4%A3"
+        return parse_keyword_html(self._OUTER_OL_HTML, url, cfg)
+
+    def test_subsections_found(self, cfg: JainkoshConfig):
+        """DFS must recurse into block-class <li> that wraps body <ol> with headings."""
+        result = self._parse(cfg)
+        assert len(result.page_sections) == 1
+        section = result.page_sections[0]
+        assert len(section.subsections) == 2, (
+            f"Expected 2 top-level subsections, got {len(section.subsections)}: "
+            f"{[s.topic_path for s in section.subsections]}"
+        )
+        paths = {s.topic_path for s in section.subsections}
+        assert "1" in paths
+        assert "2" in paths
+
+    def test_nested_subsection_found(self, cfg: JainkoshConfig):
+        """Child subsections inside the body <ol> are also assembled correctly."""
+        result = self._parse(cfg)
+        section = result.page_sections[0]
+        sec1 = next(s for s in section.subsections if s.topic_path == "1")
+        assert len(sec1.children) == 1, f"Expected 1 child under section 1, got {len(sec1.children)}"
+        assert sec1.children[0].topic_path == "1.1"
+
+    def test_index_relations_extracted_from_hybrid_ol(self, cfg: JainkoshConfig):
+        """देखें <p> notes inside the hybrid <ol> become IndexRelations."""
+        result = self._parse(cfg)
+        section = result.page_sections[0]
+        assert len(section.index_relations) >= 1, (
+            "Expected at least 1 index_relation from the देखें note in the hybrid ol"
+        )
+        rel = section.index_relations[0]
+        assert rel.target_topic_path == "2.1"
+        assert rel.is_self is True
+
+    def test_no_false_index_relations_when_proper_index_precedes(self, cfg: JainkoshConfig):
+        """When a pure index <ol> exists, body <ol> with headings is NOT added to index_ols."""
+        from workers.ingestion.jainkosh.parse_keyword import parse_keyword_html
+        html = """
+        <html><body><div class="mw-parser-output">
+          <h2><span class="mw-headline" id="सिद्धांतकोष_से">सिद्धांतकोष से</span></h2>
+          <p class="HindiText">Intro.</p>
+          <ol>
+            <li class="HindiText"><a href="#1">Section one</a></li>
+          </ol>
+          <ol>
+            <li class="HindiText">
+              <strong id="1">Section one</strong>
+              <p class="HindiText">* ignored –देखें <a href="/wiki/Other">Other</a>।</p>
+            </li>
+          </ol>
+        </div></body></html>
+        """
+        url = "https://www.jainkosh.org/wiki/Test"
+        result = parse_keyword_html(html, url, cfg)
+        section = result.page_sections[0]
+        # The body <ol>'s देखें reference must NOT become an IndexRelation
+        # because the section has a proper index <ol> before it.
+        body_refs = [
+            r for r in section.index_relations
+            if r.target_keyword == "Other"
+        ]
+        assert len(body_refs) == 0, (
+            "Body <ol> देखें should not be captured as IndexRelation when a proper index <ol> exists"
+        )
