@@ -18,7 +18,15 @@ import {
   type EdgeEl,
 } from './useForceSimulation';
 import { cn } from '@/lib/utils';
-import { computeHierarchicalPositions, computeRadialPositions, RADIAL_MIN_ARC, HIER_LEVEL_HEIGHT, HIER_NODE_SPACING } from './graphViewHelpers';
+import {
+  computeHierarchicalPositions,
+  computeRadialPositions,
+  resolveHierRowCollisions,
+  resolveRadialDiscCollisions,
+  RADIAL_MIN_ARC,
+  HIER_LEVEL_HEIGHT,
+  HIER_NODE_SPACING,
+} from './graphViewHelpers';
 import type { EntityKind, EdgeKind } from '@/lib/types';
 import { useGraphStore } from '@/lib/store/graphStore';
 
@@ -354,13 +362,32 @@ export function GraphCanvas({
         const rowWidth = (n - 1) * HIER_NODE_SPACING;
         const startX = expanderPos.x - rowWidth / 2;
 
+        // Detect existing nodes on the same row as the new children's band
+        // and shift them outward so the new children don't overlap them.
+        const yTolerance = HIER_LEVEL_HEIGHT / 2;
+        const sameRowExisting: Array<{ nk: string; x: number }> = [];
+        for (const [nk, pos] of prevPos.entries()) {
+          if (nk === expanderNk) continue;
+          if (Math.abs(pos.y - childY) < yTolerance) {
+            sameRowExisting.push({ nk, x: pos.x });
+          }
+        }
+        const shifts = resolveHierRowCollisions(
+          sameRowExisting,
+          startX,
+          startX + rowWidth,
+          expanderPos.x,
+        );
+
         simNodes = nodes.map(node => {
           if (node.nk === expanderNk) {
             return { nk: node.nk, x: expanderPos.x, y: expanderPos.y, fx: expanderPos.x, fy: expanderPos.y };
           }
           const existing = prevPos.get(node.nk);
           if (existing) {
-            return { nk: node.nk, x: existing.x, y: existing.y, fx: existing.x, fy: existing.y };
+            const shiftedX = shifts.get(node.nk);
+            const x = shiftedX ?? existing.x;
+            return { nk: node.nk, x, y: existing.y, fx: x, fy: existing.y };
           }
           const idx = newNks.findIndex(nn => nn.nk === node.nk);
           const x = startX + idx * HIER_NODE_SPACING;
@@ -503,15 +530,36 @@ export function GraphCanvas({
           y: expanderPos.y + Math.sin(awayAngle) * pushOut,
         };
 
+        // Push any existing node sitting inside the new fan disc outward
+        // (preserving its angle relative to the new expander position) so the
+        // children's circle doesn't collide with previously placed nodes.
+        const discR = fanR + CARD_W * 0.5;
+        const clearance = CARD_W * 0.3;
+        const existingForDisc: Array<{ nk: string; x: number; y: number }> = [];
+        for (const [nk, pos] of prevPos.entries()) {
+          if (nk === expanderNk) continue;
+          existingForDisc.push({ nk, x: pos.x, y: pos.y });
+        }
+        const radialShifts = resolveRadialDiscCollisions(
+          existingForDisc,
+          newExpanderPos,
+          discR,
+          clearance,
+        );
+
         simNodes = nodes.map(node => {
           // Expander: moved outward, pinned at the new position
           if (node.nk === expanderNk) {
             return { nk: node.nk, x: newExpanderPos.x, y: newExpanderPos.y, fx: newExpanderPos.x, fy: newExpanderPos.y };
           }
-          // Existing nodes: keep their committed positions
+          // Existing nodes: keep their committed positions (shifted if they
+          // collided with the new fan disc).
           const existing = prevPos.get(node.nk);
           if (existing) {
-            return { nk: node.nk, x: existing.x, y: existing.y, fx: existing.x, fy: existing.y };
+            const shifted = radialShifts.get(node.nk);
+            const x = shifted?.x ?? existing.x;
+            const y = shifted?.y ?? existing.y;
+            return { nk: node.nk, x, y, fx: x, fy: y };
           }
           // New child: place on a full circle around the expander's new position.
           // Start angle = awayAngle (12-o'clock from focus's view) so the ring is

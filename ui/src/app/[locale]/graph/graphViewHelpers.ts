@@ -300,6 +300,90 @@ export function computeRadialPositions(
 }
 
 /**
+ * Resolves horizontal overlap between existing same-row nodes and a newly
+ * placed children band on a hierarchical row.
+ *
+ * Existing nodes whose x falls inside (or within `spacing` of) the reserved
+ * band [bandLeft, bandRight] are pushed horizontally outward — left of the
+ * band's centre go further left, right of centre go further right. Cascading
+ * shifts preserve at least `spacing` between same-row siblings.
+ *
+ * Returns a Map of nk → new x for every existing node that needs to move.
+ * Nodes that don't need to move are absent from the map.
+ */
+export function resolveHierRowCollisions(
+  existingSameRow: Array<{ nk: string; x: number }>,
+  bandLeft: number,
+  bandRight: number,
+  bandCenterX: number,
+  spacing: number = HIER_NODE_SPACING,
+): Map<string, number> {
+  const shifts = new Map<string, number>();
+
+  const leftSide = existingSameRow
+    .filter(e => e.x < bandCenterX)
+    .sort((a, b) => b.x - a.x); // closest to band first
+  const rightSide = existingSameRow
+    .filter(e => e.x >= bandCenterX)
+    .sort((a, b) => a.x - b.x); // closest to band first
+
+  let leftFrontier = bandLeft;
+  for (const e of leftSide) {
+    const maxAllowed = leftFrontier - spacing;
+    if (e.x > maxAllowed) {
+      shifts.set(e.nk, maxAllowed);
+      leftFrontier = maxAllowed;
+    } else {
+      leftFrontier = e.x;
+    }
+  }
+
+  let rightFrontier = bandRight;
+  for (const e of rightSide) {
+    const minAllowed = rightFrontier + spacing;
+    if (e.x < minAllowed) {
+      shifts.set(e.nk, minAllowed);
+      rightFrontier = minAllowed;
+    } else {
+      rightFrontier = e.x;
+    }
+  }
+
+  return shifts;
+}
+
+/**
+ * Pushes existing nodes radially outward from `pivot` when they fall inside a
+ * disc of radius `discR` centred on `pivot`. The angular position relative to
+ * pivot is preserved; only the distance is increased to `discR + clearance`.
+ *
+ * Used when a radial incremental expand fans children around the expander —
+ * any previously-placed node sitting inside that fan disc is pushed out so
+ * the new children don't overlap them.
+ */
+export function resolveRadialDiscCollisions(
+  existing: Array<{ nk: string; x: number; y: number }>,
+  pivot: { x: number; y: number },
+  discR: number,
+  clearance: number,
+): Map<string, { x: number; y: number }> {
+  const shifts = new Map<string, { x: number; y: number }>();
+  for (const e of existing) {
+    const dx = e.x - pivot.x;
+    const dy = e.y - pivot.y;
+    const d = Math.sqrt(dx * dx + dy * dy);
+    if (d >= discR) continue;
+    const angle = d < 1e-6 ? 0 : Math.atan2(dy, dx);
+    const newR = discR + clearance;
+    shifts.set(e.nk, {
+      x: pivot.x + Math.cos(angle) * newR,
+      y: pivot.y + Math.sin(angle) * newR,
+    });
+  }
+  return shifts;
+}
+
+/**
  * Returns only edges where both endpoints are in `renderedNks` AND
  * both categories are visible.  Edges that reference nodes outside the
  * rendered set would produce dangling lines in the force simulation.

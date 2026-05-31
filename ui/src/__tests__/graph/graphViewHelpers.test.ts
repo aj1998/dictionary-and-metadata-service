@@ -4,6 +4,8 @@ import {
   buildCanvasEdges,
   computeHierarchicalPositions,
   computeRadialPositions,
+  resolveHierRowCollisions,
+  resolveRadialDiscCollisions,
   HIER_LEVEL_HEIGHT,
   HIER_NODE_SPACING,
   HIER_PADDING_TOP,
@@ -597,5 +599,106 @@ describe('computeRadialPositions', () => {
     expect(RADIAL_FIRST_RING).toBeGreaterThan(0);
     expect(RADIAL_RING_SPACING).toBeGreaterThan(0);
     expect(RADIAL_MIN_ARC).toBeGreaterThan(0);
+  });
+});
+
+// ─── resolveHierRowCollisions ─────────────────────────────────────────────────
+
+describe('resolveHierRowCollisions', () => {
+  it('returns empty map when no existing nodes overlap the band', () => {
+    const shifts = resolveHierRowCollisions(
+      [
+        { nk: 'a', x: -1000 },
+        { nk: 'b', x: 1000 },
+      ],
+      -100, 100, 0, 320,
+    );
+    expect(shifts.size).toBe(0);
+  });
+
+  it('shifts a left-side node inside the band outward by spacing', () => {
+    const shifts = resolveHierRowCollisions(
+      [{ nk: 'a', x: -50 }],
+      -100, 100, 0, 320,
+    );
+    // band left = -100; spacing = 320 → max allowed = -100 - 320 = -420
+    expect(shifts.get('a')).toBe(-420);
+  });
+
+  it('shifts a right-side node inside the band outward by spacing', () => {
+    const shifts = resolveHierRowCollisions(
+      [{ nk: 'a', x: 50 }],
+      -100, 100, 0, 320,
+    );
+    // band right = 100; spacing = 320 → min allowed = 100 + 320 = 420
+    expect(shifts.get('a')).toBe(420);
+  });
+
+  it('cascades — a second left node pushed further when first was shifted', () => {
+    const shifts = resolveHierRowCollisions(
+      [
+        { nk: 'inner', x: -50 },   // inside band → shifted to -420
+        { nk: 'outer', x: -300 },  // too close to shifted inner (-420) → must shift further
+      ],
+      -100, 100, 0, 320,
+    );
+    expect(shifts.get('inner')).toBe(-420);
+    expect(shifts.get('outer')).toBe(-740); // -420 - 320
+  });
+
+  it('leaves a left node alone when it already clears the shifted frontier', () => {
+    const shifts = resolveHierRowCollisions(
+      [
+        { nk: 'inner', x: -50 },    // shifted to -420
+        { nk: 'far', x: -1000 },    // already past -420 - 320 = -740
+      ],
+      -100, 100, 0, 320,
+    );
+    expect(shifts.get('inner')).toBe(-420);
+    expect(shifts.has('far')).toBe(false);
+  });
+});
+
+// ─── resolveRadialDiscCollisions ──────────────────────────────────────────────
+
+describe('resolveRadialDiscCollisions', () => {
+  it('returns empty map when no node falls inside the disc', () => {
+    const shifts = resolveRadialDiscCollisions(
+      [{ nk: 'a', x: 1000, y: 0 }],
+      { x: 0, y: 0 }, 200, 50,
+    );
+    expect(shifts.size).toBe(0);
+  });
+
+  it('pushes a node inside the disc outward, preserving angle', () => {
+    const shifts = resolveRadialDiscCollisions(
+      [{ nk: 'a', x: 100, y: 0 }], // angle 0, d=100
+      { x: 0, y: 0 }, 200, 50,
+    );
+    const p = shifts.get('a')!;
+    // newR = 200 + 50 = 250; angle preserved
+    expect(p.x).toBeCloseTo(250, 5);
+    expect(p.y).toBeCloseTo(0, 5);
+  });
+
+  it('handles a node at the pivot by pushing along angle 0', () => {
+    const shifts = resolveRadialDiscCollisions(
+      [{ nk: 'a', x: 0, y: 0 }],
+      { x: 0, y: 0 }, 200, 50,
+    );
+    const p = shifts.get('a')!;
+    expect(p.x).toBeCloseTo(250, 5);
+    expect(p.y).toBeCloseTo(0, 5);
+  });
+
+  it('preserves diagonal angles when shifting', () => {
+    const shifts = resolveRadialDiscCollisions(
+      [{ nk: 'a', x: 30, y: 40 }], // angle = atan2(40, 30), d = 50
+      { x: 0, y: 0 }, 200, 50,
+    );
+    const p = shifts.get('a')!;
+    // newR = 250; preserve unit direction (0.6, 0.8)
+    expect(p.x).toBeCloseTo(150, 5);
+    expect(p.y).toBeCloseTo(200, 5);
   });
 });

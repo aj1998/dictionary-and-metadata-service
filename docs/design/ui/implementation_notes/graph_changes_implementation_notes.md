@@ -221,6 +221,23 @@ After: a four-way branch:
 
 New children are placed in a single row at `expanderPos.y + HIER_LEVEL_HEIGHT`, centred on `expanderPos.x` with `HIER_NODE_SPACING` between siblings. (An earlier iteration of this pass added multi-row wrapping for large neighbourhoods; it was reverted because it broke the BFS-tree readability — every BFS depth must remain on a single horizontal row.)
 
+#### Collision resolution on incremental expand (2026-05-31)
+
+Before: incremental expand pinned every existing node at `prevPos` and dropped new children in a row centred under the expander. When that row already held nodes from a sibling subtree (e.g. expanding a second-row keyword whose children land in the same y-band as another parent's existing children), the new children rendered on top of the existing ones.
+
+After: two new pure helpers in `graphViewHelpers.ts`:
+
+- `resolveHierRowCollisions(existing, bandLeft, bandRight, bandCenterX, spacing)` — for the hierarchical incremental branch. Finds existing nodes whose x falls inside or within `spacing` of the new children's band on the same row and pushes them horizontally outward (left of `bandCenterX` go further left, right go further right). Cascading shifts preserve `HIER_NODE_SPACING` between same-row siblings, so a chain of nodes makes room together.
+- `resolveRadialDiscCollisions(existing, pivot, discR, clearance)` — for the radial incremental branch. Any existing node sitting inside the disc of radius `discR` around the new expander position is pushed radially outward to `discR + clearance`, preserving its angle relative to the pivot.
+
+In `GraphCanvas.tsx`:
+- The hierarchical `canIncremental` branch collects existing nodes within `HIER_LEVEL_HEIGHT / 2` of `childY`, runs `resolveHierRowCollisions` with band `[startX, startX + rowWidth]` centred on `expanderPos.x`, and applies the returned x shifts when emitting the pinned existing nodes.
+- The radial `canIncremental` branch runs `resolveRadialDiscCollisions` with `discR = fanR + CARD_W * 0.5` and `clearance = CARD_W * 0.3` around `newExpanderPos`.
+
+Existing positions are still preserved exactly when there's no collision — only the colliding nodes move, and only by the minimum needed to clear the new children.
+
+Tests added in `graphViewHelpers.test.ts`: 5 for `resolveHierRowCollisions` (no-op, left/right shift, cascade, already-clear node), 4 for `resolveRadialDiscCollisions` (no-op, axis-aligned shift, node at pivot, diagonal angle preservation). Full UI suite: 348/348 passing.
+
 #### Persisting positions across GraphCanvas remounts
 
 When the user navigated away (e.g. to `/dictionary`) and back to `/graph`, the `GraphCanvas` component remounted with an empty `lastPositionsRef`, even though the zustand store still held all the previously rendered nodes. The layout effect then fell into the "Full BFS" branch and re-centered every node on `canvasW/2`, losing the parent's prior position.
