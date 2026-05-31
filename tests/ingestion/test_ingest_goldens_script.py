@@ -13,6 +13,7 @@ def test_golden_specs_match_apply_tests():
         "पर्याय",
         "वस्तु",
         "स्वभाव",
+        "गुण",
     ]
 
 

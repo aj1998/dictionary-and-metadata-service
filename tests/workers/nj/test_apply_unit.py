@@ -538,9 +538,8 @@ def test_envelope_neo4j_has_kalash_bhaavarth_nodes_and_edges():
     assert hb_edges[0]["from"]["label"] == "Publication"
 
 
-def test_apply_calls_sync_for_gatha_teeka_and_kalash_bhaavarth_nodes():
+async def test_apply_calls_sync_for_gatha_teeka_and_kalash_bhaavarth_nodes():
     """apply_nj_shastra_payload must call sync functions for new node types."""
-    import asyncio
     import contextlib
 
     cfg = _cfg()
@@ -612,13 +611,11 @@ def test_apply_calls_sync_for_gatha_teeka_and_kalash_bhaavarth_nodes():
         for p in patches:
             stack.enter_context(p)
         from workers.ingestion.nj.apply import apply_nj_shastra_payload
-        asyncio.get_event_loop().run_until_complete(
-            apply_nj_shastra_payload(
-                envelope=envelope,
-                pg_session=pg_session,
-                mongo_db=AsyncMock(),
-                neo4j_driver=AsyncMock(),
-            )
+        await apply_nj_shastra_payload(
+            envelope=envelope,
+            pg_session=pg_session,
+            mongo_db=AsyncMock(),
+            neo4j_driver=AsyncMock(),
         )
 
     called_fns = set(neo4j_calls)
