@@ -1020,3 +1020,83 @@ class TestLevel2KeywordValueCollision:
         assert r.needs_manual_match is False, (
             f"Simple single-field ref should resolve cleanly; got {r}"
         )
+
+
+# ---------------------------------------------------------------------------
+# Compound shastra name matching (v1.11.9+)
+# ---------------------------------------------------------------------------
+
+class TestCompoundShastraNameMatching:
+    """Compound shastra names like "नयचक्र/श्रुतभवन" where "/" is part of the
+    primary name — not a teeka separator — must be matched correctly even when
+    a trailing field keyword (e.g. पृष्ठ) leaks into the name portion because
+    it appears before the first digit in the reference text.
+    """
+
+    def test_space_slash_field_keyword_resolves(self, cfg: JainkoshConfig):
+        """( नयचक्र / श्रुतभवन/ पृष्ठ 57) → shastra=नयचक्र/श्रुतभवन, पृष्ठ=57."""
+        from workers.ingestion.jainkosh.parse_reference import parse_reference_text
+        if cfg.shastra_registry is None:
+            pytest.skip("shastra_registry not available in test config")
+        results = parse_reference_text(
+            "( नयचक्र / श्रुतभवन/ पृष्ठ 57)",
+            cfg.shastra_registry,
+            cfg.reference,
+        )
+        assert len(results) == 1
+        r = results[0]
+        assert r.needs_manual_match is False
+        assert r.shastra_name == "नयचक्र/श्रुतभवन"
+        assert r.is_teeka is False
+        assert r.teeka_name == ""
+        field_names = {rf.field for rf in r.resolved_fields}
+        field_values = {rf.field: rf.value for rf in r.resolved_fields}
+        assert "पृष्ठ" in field_names
+        assert field_values["पृष्ठ"] == 57
+
+    def test_compound_name_no_false_teeka(self, cfg: JainkoshConfig):
+        """match_shastra on "नयचक्र / श्रुतभवन/ पृष्ठ" must return is_teeka=False."""
+        from workers.ingestion.jainkosh.parse_reference import match_shastra
+        if cfg.shastra_registry is None:
+            pytest.skip("shastra_registry not available in test config")
+        entry, method, is_teeka, teeka_name = match_shastra(
+            "नयचक्र / श्रुतभवन/ पृष्ठ",
+            cfg.shastra_registry,
+            cfg.reference,
+        )
+        assert entry is not None, "Should match नयचक्र/श्रुतभवन"
+        assert entry.shastra_name == "नयचक्र/श्रुतभवन"
+        assert is_teeka is False
+        assert teeka_name == ""
+
+    def test_paren_inner_paren_variant_still_works(self, cfg: JainkoshConfig):
+        """(नयचक्र (श्रुतभवन)/61) still resolves via space-to-slash fallback."""
+        from workers.ingestion.jainkosh.parse_reference import parse_reference_text
+        if cfg.shastra_registry is None:
+            pytest.skip("shastra_registry not available in test config")
+        results = parse_reference_text(
+            "(नयचक्र (श्रुतभवन)/61)",
+            cfg.shastra_registry,
+            cfg.reference,
+        )
+        assert len(results) == 1
+        r = results[0]
+        assert r.needs_manual_match is False
+        assert r.shastra_name == "नयचक्र/श्रुतभवन"
+        assert r.is_teeka is False
+        field_values = {rf.field: rf.value for rf in r.resolved_fields}
+        assert field_values.get("पृष्ठ") == 61
+
+    def test_regular_teeka_detection_unaffected(self, cfg: JainkoshConfig):
+        """Normal teeka resolution via first-slash split still works."""
+        from workers.ingestion.jainkosh.parse_reference import match_shastra
+        if cfg.shastra_registry is None:
+            pytest.skip("shastra_registry not available in test config")
+        entry, method, is_teeka, teeka_name = match_shastra(
+            "नियमसार / तात्पर्यवृत्ति/गाथा",
+            cfg.shastra_registry,
+            cfg.reference,
+        )
+        assert entry is not None
+        assert is_teeka is True
+        assert teeka_name == "तात्पर्यवृत्ति"

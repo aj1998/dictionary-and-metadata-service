@@ -453,26 +453,25 @@ def match_shastra(
         if entry:
             return entry, method, False, ""
 
-    # Step 3: teeka detection (slash split)
+    # Step 3: teeka detection — try all slash split points, longest prefix first.
+    # This handles compound shastra names like "नयचक्र/श्रुतभवन" where the name
+    # itself contains "/" and a trailing field keyword like "पृष्ठ" leaks into
+    # the name portion (e.g. "नयचक्र / श्रुतभवन/ पृष्ठ" after paren-stripping
+    # "( नयचक्र / श्रुतभवन/ पृष्ठ 57)").
     name_for_split = re.sub(r"\s*/\s*", "/", name_raw)
     if "/" in name_for_split:
-        base, _, teeka_candidate = name_for_split.partition("/")
-        base = base.strip()
-        teeka_candidate = teeka_candidate.strip()
-
-        # 14A.6b: if teeka_candidate is a mool marker, retry base-only lookup
-        first_token = teeka_candidate.split()[0] if teeka_candidate else ""
-        is_mool_marker = (
-            teeka_candidate in config.mool.keywords
-            or first_token in config.mool.keywords
+        ek = config.entity_keywords
+        all_field_kws = set(config.section_keywords.keywords) | set(
+            ek.gatha + ek.page + ek.kalash + ek.pankti
         )
-        if is_mool_marker:
-            entry, method = registry.lookup(norm(base))
-            if entry:
-                return entry, method, False, ""
-            # no match — fall through to no-match
-        else:
-            # Normal teeka path
+        parts = name_for_split.split("/")
+
+        # Try from longest prefix (rightmost split) down to single-segment base.
+        for split_at in range(len(parts) - 1, 0, -1):
+            base = "/".join(parts[:split_at]).strip()
+            remaining_parts = [p.strip() for p in parts[split_at:] if p.strip()]
+            remaining = "/".join(remaining_parts)
+
             entry, method = registry.lookup(norm(base))
             if not entry:
                 stripped_base = _strip_mool(base, config.mool)
@@ -480,29 +479,45 @@ def match_shastra(
                     entry, method = registry.lookup(norm(stripped_base))
                     if entry:
                         base = stripped_base
-            if entry:
-                # Strip all trailing /<field_keyword> segments from teeka name.
-                # Field keywords include both section keywords (गाथा, पंक्ति, …)
-                # and entity keywords (पृष्ठ, कलश, …) that appear as format
-                # descriptors in GRef text like "teeka/गाथा /पृष्ठ / पंक्ति".
-                ek = config.entity_keywords
-                all_field_kws = set(config.section_keywords.keywords) | set(
-                    ek.gatha + ek.page + ek.kalash + ek.pankti
-                )
-                changed = True
-                while changed:
-                    changed = False
-                    for kw in all_field_kws:
-                        suffix = "/" + kw
-                        if teeka_candidate.endswith(suffix):
-                            teeka_candidate = teeka_candidate[: -len(suffix)].strip()
-                            changed = True
-                            break
-                        if teeka_candidate == kw:
-                            teeka_candidate = ""
-                            changed = True
-                            break
-                return entry, method, True, teeka_candidate
+
+            if not entry:
+                continue
+
+            # Found a registry match for this prefix. Handle the remaining part.
+            first_token = remaining.split()[0] if remaining else ""
+            is_mool_marker = (
+                remaining in config.mool.keywords
+                or first_token in config.mool.keywords
+            )
+
+            if not remaining or is_mool_marker:
+                # No teeka — remaining is empty or a mool marker.
+                return entry, method, False, ""
+
+            if all(p in all_field_kws for p in remaining_parts):
+                # Remaining consists entirely of field-descriptor keywords
+                # (पृष्ठ, गाथा, …) — these are format hints, not a teeka name.
+                return entry, method, False, ""
+
+            # Normal teeka path: strip trailing /<field_keyword> segments.
+            # Field keywords include section keywords (गाथा, पंक्ति, …)
+            # and entity keywords (पृष्ठ, कलश, …) that appear in GRef text
+            # like "teeka/गाथा /पृष्ठ / पंक्ति".
+            teeka_candidate = remaining
+            changed = True
+            while changed:
+                changed = False
+                for kw in all_field_kws:
+                    suffix = "/" + kw
+                    if teeka_candidate.endswith(suffix):
+                        teeka_candidate = teeka_candidate[: -len(suffix)].strip()
+                        changed = True
+                        break
+                    if teeka_candidate == kw:
+                        teeka_candidate = ""
+                        changed = True
+                        break
+            return entry, method, True, teeka_candidate
 
     return None, None, False, ""
 

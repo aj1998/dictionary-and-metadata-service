@@ -333,14 +333,19 @@
                             ]
                           },
                           {
-                            "text": "( नयचक्र / श्रुतभवन दीपक/ पृष्ठ 57)",
+                            "text": "( नयचक्र / श्रुतभवन/ पृष्ठ 57)",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
-                            "shastra_name": null,
-                            "match_method": null,
-                            "resolved_fields": []
+                            "shastra_name": "नयचक्र/श्रुतभवन",
+                            "match_method": "shastra_name",
+                            "resolved_fields": [
+                              {
+                                "field": "पृष्ठ",
+                                "value": 57
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -5479,7 +5484,7 @@
       "next": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%B8%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8"
     },
     "parser_version": "jainkosh.rules/1.11.7",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parsed_at": "2026-05-31T21:02:36.613743",
     "warnings": []
   },
   "would_write": {
@@ -6714,14 +6719,19 @@
                   ]
                 },
                 {
-                  "text": "( नयचक्र / श्रुतभवन दीपक/ पृष्ठ 57)",
+                  "text": "( नयचक्र / श्रुतभवन/ पृष्ठ 57)",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "shastra_name": "नयचक्र/श्रुतभवन",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "पृष्ठ",
+                      "value": 57
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -12020,6 +12030,17 @@
           "lazy": true
         },
         {
+          "label": "Page",
+          "key": "नयचक्र/श्रुतभवन:टीका:28:पृष्ठ:57",
+          "props": {
+            "shastra_natural_key": "नयचक्र/श्रुतभवन",
+            "teeka_natural_key": "नयचक्र/श्रुतभवन:टीका",
+            "publisher_id": "28",
+            "page_number": "57"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में",
           "props": {
@@ -13360,6 +13381,24 @@
           "from": {
             "label": "Gatha",
             "key": "आलापपद्धति:गाथा:6"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ/1",
+            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "नयचक्र/श्रुतभवन:टीका:28:पृष्ठ:57"
           },
           "to": {
             "label": "Topic",
