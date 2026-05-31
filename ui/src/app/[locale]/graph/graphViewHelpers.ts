@@ -8,8 +8,6 @@ export const HIER_LEVEL_HEIGHT = 240;
 export const HIER_NODE_SPACING = 320;
 /** Top padding (px) before the first level row. */
 export const HIER_PADDING_TOP = 120;
-/** Max nodes placed in a single horizontal row before wrapping to the next row. */
-export const HIER_MAX_PER_ROW = 4;
 
 export interface RenderedNode {
   nk: string;
@@ -108,21 +106,17 @@ export function computeHierarchicalPositions(
     byLevel.get(lv)!.push(nk);
   }
 
-  // Place each level as one or more horizontal rows (wrapping every HIER_MAX_PER_ROW
-  // nodes).  Levels are visited in ascending BFS depth order so that y increases
-  // monotonically top-to-bottom.  Each row is centered on canvasW/2.
+  // Place every node at a given BFS depth on a single horizontal row so that
+  // same-depth siblings share the same y, even if the row extends beyond the
+  // visible canvas (pan/zoom is expected). Rows are centered on canvasW/2.
   const cx = canvasW / 2;
   const result = new Map<string, { x: number; y: number }>();
-  let currentY = HIER_PADDING_TOP;
 
-  for (const [, nks] of [...byLevel.entries()].sort((a, b) => a[0] - b[0])) {
-    for (let rowStart = 0; rowStart < nks.length; rowStart += HIER_MAX_PER_ROW) {
-      const rowNks = nks.slice(rowStart, rowStart + HIER_MAX_PER_ROW);
-      for (let i = 0; i < rowNks.length; i++) {
-        const x = cx + (i - (rowNks.length - 1) / 2) * HIER_NODE_SPACING;
-        result.set(rowNks[i], { x, y: currentY });
-      }
-      currentY += HIER_LEVEL_HEIGHT;
+  for (const [lv, nks] of [...byLevel.entries()].sort((a, b) => a[0] - b[0])) {
+    const y = HIER_PADDING_TOP + lv * HIER_LEVEL_HEIGHT;
+    for (let i = 0; i < nks.length; i++) {
+      const x = cx + (i - (nks.length - 1) / 2) * HIER_NODE_SPACING;
+      result.set(nks[i], { x, y });
     }
   }
 

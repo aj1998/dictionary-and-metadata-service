@@ -6,7 +6,6 @@ import {
   HIER_LEVEL_HEIGHT,
   HIER_NODE_SPACING,
   HIER_PADDING_TOP,
-  HIER_MAX_PER_ROW,
 } from '@/app/[locale]/graph/graphViewHelpers';
 import type { GraphNode, GraphEdge, EntityKind } from '@/lib/types';
 
@@ -399,31 +398,48 @@ describe('computeHierarchicalPositions', () => {
     expect(result.get('b')!.y).toBe(HIER_PADDING_TOP + HIER_LEVEL_HEIGHT);
   });
 
-  it('wraps a level with more than HIER_MAX_PER_ROW nodes into multiple rows', () => {
-    // focusNk has HIER_MAX_PER_ROW + 2 direct neighbors → they fill one full row
-    // plus a second partial row, both below the focus node.
-    const count = HIER_MAX_PER_ROW + 2;
+  it('places every node at the same BFS depth at the same y, regardless of count', () => {
+    // 10 direct neighbors of root → all must share y = level 1, even if x
+    // values extend beyond the canvas width.
+    const count = 10;
     const neighbors = Array.from({ length: count }, (_, i) => `n${i}`);
     const nodeNks = ['root', ...neighbors];
-    const edges = neighbors.map(n => ({ src: 'root', dst: n }));
+    const edges = neighbors.map((n) => ({ src: 'root', dst: n }));
     const result = computeHierarchicalPositions(nodeNks, edges, 'root', W, H);
 
-    // root is at depth 0 → first row
     expect(result.get('root')!.y).toBe(HIER_PADDING_TOP);
 
-    // First HIER_MAX_PER_ROW neighbors share the second row (y = HIER_PADDING_TOP + HIER_LEVEL_HEIGHT)
-    for (let i = 0; i < HIER_MAX_PER_ROW; i++) {
-      expect(result.get(`n${i}`)!.y).toBe(HIER_PADDING_TOP + HIER_LEVEL_HEIGHT);
-    }
-
-    // Remaining 2 neighbors wrap into a third row
-    for (let i = HIER_MAX_PER_ROW; i < count; i++) {
-      expect(result.get(`n${i}`)!.y).toBe(HIER_PADDING_TOP + 2 * HIER_LEVEL_HEIGHT);
+    const expectedY = HIER_PADDING_TOP + HIER_LEVEL_HEIGHT;
+    for (const n of neighbors) {
+      expect(result.get(n)!.y).toBe(expectedY);
     }
   });
 
-  it('HIER_MAX_PER_ROW is a positive integer', () => {
-    expect(Number.isInteger(HIER_MAX_PER_ROW)).toBe(true);
-    expect(HIER_MAX_PER_ROW).toBeGreaterThan(0);
+  it('keeps same-depth nodes symmetric around the horizontal center even when off-screen', () => {
+    const count = 8;
+    const neighbors = Array.from({ length: count }, (_, i) => `n${i}`);
+    const nodeNks = ['root', ...neighbors];
+    const edges = neighbors.map((n) => ({ src: 'root', dst: n }));
+    const result = computeHierarchicalPositions(nodeNks, edges, 'root', W, H);
+    const xs = neighbors.map((n) => result.get(n)!.x);
+    // First and last are equidistant from center
+    expect(xs[0] + xs[xs.length - 1]).toBeCloseTo(W);
+    // Adjacent spacing
+    expect(xs[1] - xs[0]).toBeCloseTo(HIER_NODE_SPACING);
+  });
+
+  it('keeps each subsequent BFS depth on its own row at the expected y', () => {
+    // Chain: a → b → c → d. Each at depths 0..3.
+    const nodeNks = ['a', 'b', 'c', 'd'];
+    const edges = [
+      { src: 'a', dst: 'b' },
+      { src: 'b', dst: 'c' },
+      { src: 'c', dst: 'd' },
+    ];
+    const result = computeHierarchicalPositions(nodeNks, edges, 'a', W, H);
+    expect(result.get('a')!.y).toBe(HIER_PADDING_TOP);
+    expect(result.get('b')!.y).toBe(HIER_PADDING_TOP + HIER_LEVEL_HEIGHT);
+    expect(result.get('c')!.y).toBe(HIER_PADDING_TOP + 2 * HIER_LEVEL_HEIGHT);
+    expect(result.get('d')!.y).toBe(HIER_PADDING_TOP + 3 * HIER_LEVEL_HEIGHT);
   });
 });

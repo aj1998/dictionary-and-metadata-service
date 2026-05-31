@@ -445,7 +445,7 @@ The navigation service expand/preview queries traverse these Neo4j relationship 
 Pure functions, no React:
 - `buildCanvasNodes` — slices to `MAX_GRAPH_NODES = 20`, applies category visibility, sets active/selected/pinned flags.
 - `buildCanvasEdges` — filters to edges whose both endpoints exist in the sliced node set (prevents dangling lines). Also deduplicates bidirectional edges (the backend returns both A→B and B→A as separate IDs) via a canonical key `min(src,dst) + '\x00' + max(src,dst) + '\x00' + kind`; first-seen edge wins, but is promoted to `active: true` if the other direction's ID is the selected one.
-- `computeHierarchicalPositions(nodeNks, edges, focusNk, canvasW, canvasH)` — BFS from focusNk to assign depth levels; nodes in each level are chunked into rows of `HIER_MAX_PER_ROW = 4` (prevents sprawling single rows for wide levels); places unreachable nodes one row past the deepest reachable level. Returns `Map<nk, {x, y}>`. Exported constants: `HIER_PADDING_TOP` (120 px), `HIER_LEVEL_HEIGHT` (240 px), `HIER_NODE_SPACING` (320 px).
+- `computeHierarchicalPositions(nodeNks, edges, focusNk, canvasW, canvasH)` — BFS from focusNk to assign depth levels; **every node at the same BFS depth is placed on a single horizontal row at the same y**, even when the row extends beyond the visible canvas (pan/zoom expected). Rows are centered on `canvasW/2`. Places unreachable nodes one row past the deepest reachable level. Returns `Map<nk, {x, y}>`. Exported constants: `HIER_PADDING_TOP` (120 px), `HIER_LEVEL_HEIGHT` (240 px), `HIER_NODE_SPACING` (320 px).
 
 ### URL state (`graphUrlState.ts`)
 - `parseGraphQuery(params)` — parses `node`, `edge`, `depth` (clamped 1–4), `cat` (CSV of hidden kinds) from URL.
@@ -594,6 +594,7 @@ The vitest config (`vitest.config.ts`) targets `src/__tests__/**/*.test.ts` and 
 | Vivaran fix | ✅ | Keyword definition rendering, topic extracts, DefinitionModal, CTA soft variant, footer clip fix |
 | Bugfixes | ✅ | Node limit (MAX=20), graph stability on panel open, 404 handling, disconnected node gravity |
 | Hierarchical layout | ✅ | BFS-depth hierarchical layout mode; made default; Force and Hierarchical both functional |
+| Hierarchical same-level-y fix | ✅ | Removed `HIER_MAX_PER_ROW` row wrapping in `computeHierarchicalPositions`; all nodes at the same BFS depth now share a single y, extending horizontally off-screen when needed (relies on pan/zoom) |
 | Gatha/Shastra graph fix | ✅ | Added `MENTIONS_TOPIC` and `IN_SHASTRA` to expand/landing Cypher; fixed isolated focus-node kind fallback; added gatha/shastra UI tests |
 | DefinitionModal polish | ✅ | Dividers between sections/definitions; left border on blocks with references (amber=teeka, sky=shastra); only first qualifying reference shown per block; teeka badge now shows `shastra_name, teeka_name`; DetailsPanel body fixed with `flex-1 min-h-0` so panel scrolls and CTA stays visible |
 | Null text_devanagari fix | ✅ | `DefinitionBlock.text_devanagari` typed as `string \| null`; `parseMarkdownSegments` / `renderInlineMarkdown` accept null (return empty); `BlockPreview` guards null before `.length` check — prevents runtime TypeError on nodes whose blocks have no Devanagari text |

@@ -38,7 +38,6 @@ In hierarchical mode the D3 force sim is stopped and nodes are fixed via `fx`/`f
 | `HIER_PADDING_TOP` | 120 px | Top margin before depth-0 row |
 | `HIER_LEVEL_HEIGHT` | 240 px | Vertical gap between consecutive depth levels |
 | `HIER_NODE_SPACING` | 320 px | Horizontal gap between nodes in the same level |
-| `HIER_MAX_PER_ROW` | 4 | Max nodes per horizontal row before wrapping |
 
 ### Known limitations / future work
 
@@ -55,7 +54,7 @@ The fix uses sim.alpha(0.001).restart() in static mode:
 
 Also a secondary benefit: the async firing guarantees React has already committed the DOM and registerNode ref callbacks have populated nodeElsRef before the tick runs.
 
-Also,  instead of placing all nodes of a BFS level in a single row, it chunks them into groups of HIER_MAX_PER_ROW = 5 and increments currentY after each chunk. For a landing page with 10 topic nodes at the same level, you'd get two rows of 5 instead of one row of 10 sprawling off-screen.
+Note (2026-05-31 update): the earlier row-wrapping behavior (chunking each BFS level into rows of `HIER_MAX_PER_ROW`) was reverted. All nodes at the same BFS depth are now placed on a single horizontal row at the same y, even when the row extends beyond the visible canvas. Reason: wrapped rows broke the visual invariant of "same depth = same height" — a row of 5 + a row of 2 looked like two separate levels. Off-screen nodes are reachable via pan/zoom.
 
 ## Bugfix - 2
 
