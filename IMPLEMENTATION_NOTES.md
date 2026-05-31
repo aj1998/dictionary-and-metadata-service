@@ -1,5 +1,31 @@
 # Implementation status
 
+## 2026-05-31: Core-service merge (metadata + data + navigation)
+
+- Implemented `services/core_service/` with merged `config.py`, `deps.py`, and `main.py`.
+- Moved domain code to:
+  - `services/core_service/domains/metadata/`
+  - `services/core_service/domains/data/`
+  - `services/core_service/domains/navigation/`
+- Deleted legacy packages:
+  - `services/metadata_service/`
+  - `services/data_service/`
+  - `services/navigation_service/`
+- Rewrote service tests to import `services.core_service.*` and updated navigation patch targets.
+- Updated UI rewrites in `ui/next.config.ts` so `/api/metadata/*`, `/api/data/*`, and `/api/navigation/*` all proxy to one backend target (`CORE_SVC_URL` fallback to `METADATA_SVC_URL`, default `http://localhost:8001`).
+- Archived prior API specs and replaced with updated post-merge versions:
+  - `docs/design/api/metadata/archived/01_spec.md` + new `docs/design/api/metadata/01_spec.md`
+  - `docs/design/api/data/archived/01_spec.md` + new `docs/design/api/data/01_spec.md`
+  - `docs/design/api/navigation/archived/01_spec.md` + new `docs/design/api/navigation/01_spec.md`
+
+### Verification run in this environment
+
+- Added TDD guard test: `tests/services/core/test_main.py`.
+- Ran:
+  - `python -m pytest tests/services/core/test_main.py -q` (pass)
+  - `python -m pytest tests/services/core/test_main.py tests/services/navigation/test_config.py -q` (pass)
+- DB-backed suites could not run in this sandbox due local socket restrictions (`PermissionError` connecting to Postgres on `localhost:5432`).
+
 ### ✅ Completed: Postgres data model (`docs/design/data_model_postgres.md`)
 
 **Package**: `packages/jain_kb_common` — shared Python library installed as `jain-kb-common`.

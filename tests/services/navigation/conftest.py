@@ -118,8 +118,8 @@ async def client():
     factory = async_sessionmaker(engine, expire_on_commit=False)
     mock_driver = make_mock_neo4j()
 
-    from services.navigation_service.main import app
-    from services.navigation_service import deps
+    from services.core_service.main import app
+    from services.core_service import deps
 
     async def _override_pg() -> AsyncSession:  # type: ignore[return]
         async with factory() as s:
@@ -132,7 +132,7 @@ async def client():
     app.dependency_overrides[deps.get_neo4j_driver] = _override_neo4j
 
     # Patch lifespan Neo4j check
-    with patch("services.navigation_service.main.get_neo4j_driver", return_value=mock_driver):
+    with patch("services.core_service.main.get_neo4j_driver", return_value=mock_driver):
         async with AsyncClient(
             transport=ASGITransport(app=app), base_url="http://test"
         ) as c:
@@ -164,8 +164,8 @@ async def client_with_neo4j(request):
     factory = async_sessionmaker(engine, expire_on_commit=False)
     mock_driver = make_mock_neo4j(records)
 
-    from services.navigation_service.main import app
-    from services.navigation_service import deps
+    from services.core_service.main import app
+    from services.core_service import deps
 
     async def _override_pg() -> AsyncSession:  # type: ignore[return]
         async with factory() as s:
@@ -177,7 +177,7 @@ async def client_with_neo4j(request):
     app.dependency_overrides[deps.get_session] = _override_pg
     app.dependency_overrides[deps.get_neo4j_driver] = _override_neo4j
 
-    with patch("services.navigation_service.main.get_neo4j_driver", return_value=mock_driver):
+    with patch("services.core_service.main.get_neo4j_driver", return_value=mock_driver):
         async with AsyncClient(
             transport=ASGITransport(app=app), base_url="http://test"
         ) as c:

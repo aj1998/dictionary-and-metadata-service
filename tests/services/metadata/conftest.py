@@ -68,8 +68,8 @@ async def client():
 
     factory = async_sessionmaker(engine, expire_on_commit=False)
 
-    from services.metadata_service.main import app
-    from services.metadata_service import deps
+    from services.core_service.main import app
+    from services.core_service import deps
 
     async def _override():
         async with factory() as s:

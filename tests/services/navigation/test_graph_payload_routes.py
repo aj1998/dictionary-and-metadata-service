@@ -3,7 +3,7 @@ from __future__ import annotations
 import pytest
 from httpx import AsyncClient
 
-from services.navigation_service.routers.graph import _label_to_kind, _build_payload
+from services.core_service.domains.navigation.routers.graph import _label_to_kind, _build_payload
 
 pytestmark = pytest.mark.asyncio
 

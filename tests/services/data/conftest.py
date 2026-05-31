@@ -86,8 +86,8 @@ async def client():
 
     factory = async_sessionmaker(engine, expire_on_commit=False)
 
-    from services.data_service.main import app
-    from services.data_service import deps
+    from services.core_service.main import app
+    from services.core_service import deps
 
     async def _override_pg() -> AsyncSession:  # type: ignore[return]
         async with factory() as s:
@@ -100,9 +100,9 @@ async def client():
     app.dependency_overrides[deps.get_mongo_db] = _override_mongo
 
     # Reset in-process caches between tests
-    from services.data_service.routers import keywords as kw_router
+    from services.core_service.domains.data.routers import keywords as kw_router
     kw_router._letter_cache = None
-    from services.data_service.routers import browse as browse_router
+    from services.core_service.domains.data.routers import browse as browse_router
     browse_router._shastras_cache = None
 
     async with AsyncClient(

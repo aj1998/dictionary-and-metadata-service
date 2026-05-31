@@ -44,13 +44,11 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Complements
 
 ### Services
 
-Four separate FastAPI apps, each a separate process/Dockerfile, sharing the `jain_kb_common` library:
+Two FastAPI apps: one consolidated core app plus an independent query app:
 
 | Service | Port | Role | Reads | Writes |
 |---|---|---|---|---|
-| `metadata-service` | 8001 | CRUD on authors / shastras / teekas / publications / books / pravachans | Postgres | Postgres |
-| `data-service` | 8002 | Read API for gathas, keywords, topics, kalashas; browse and cross-entity search | Postgres + Mongo | Postgres (admin edits only) |
-| `navigation-service` | 8003 | Neo4j graph navigation: alias resolution, topic neighbors, keyword↔topic links; random-seed graph landing (`/v1/landing/random`); alias and edge admin | Neo4j + Postgres | Neo4j + Postgres |
+| `core-service` | 8001 | Metadata + data + navigation APIs: CRUD, browse/search, graph traversal/admin | Postgres + Mongo + Neo4j | Postgres + Mongo + Neo4j |
 | `query-service` | 8004 | GraphRAG endpoint for `cataloguesearch-chat`: tokenize → resolve → graph-traverse → rank | Postgres + Mongo + Neo4j | Postgres (query_logs) |
 
 ### Data Stores
@@ -108,15 +106,16 @@ Postgres is the **source of truth for IDs**. Every entity in Mongo or Neo4j has 
                    │Postgres │ │ Mongo  │ │ Neo4j   │
                    └────┬────┘ └───┬────┘ └────┬────┘
                         │          │           │
-              ┌─────────┴──┐  ┌────┴──────┐ ┌──┴──────────────┐
-              │metadata-svc│  │data-svc   │ │navigation-svc   │
-              │ (port 8001)│  │(port 8002)│ │(port 8003)      │
-              └─────────┬──┘  └────┬──────┘ └───┬─────────────┘
-                        │          │            │
-                        │──────────└─────┬──────┘
-                        │                │
-                        ▼                ▼
-                   Public UI          query-svc
+                   ┌───────────────┐
+                   │  core-service │
+                   │  (port 8001)  │
+                   └───────┬───────┘
+                           │
+                           ▼
+                        Public UI
+                           │
+                           ▼
+                        query-svc
                                  (port 8004 - public)
                                         │
                                         ▼
@@ -134,9 +133,7 @@ See [`IMPLEMENTATION_NOTES.md`](IMPLEMENTATION_NOTES.md) for full details on eac
 | Neo4j graph data model (constraints, upserts, queries) | ✅ |
 | JainKosh HTML parser (`workers/ingestion/jainkosh/`) | ✅ |
 | Phase 1 ingestion apply layer (`apply_approved_keyword_payload`) | ✅ |
-| Metadata Service API (port 8001, 60 tests) | ✅ |
-| Data Service API (port 8002, 60 tests) | ✅ |
-| Navigation Service API (port 8003, 44 passing tests) | ✅ |
+| Core Service API (port 8001, merged metadata+data+navigation) | ✅ |
 | Query Service API (port 8004, GraphRAG — 6 phases, 91 tests) | ✅ |
 | NikkYJain ingestion pipeline (`workers/ingestion/nj/`, 72 tests) | ✅ |
 | Ingestion workers (vyakaran OCR) | 🔜 |
@@ -223,7 +220,7 @@ All tests now live under `tests/`. Tightly-correlated suites:
 | **Ingestion apply** | `tests/ingestion/` | Integration tests for `apply_approved_keyword_payload` |
 | **metadata + data services** | `tests/services/metadata/` + `tests/services/data/` | Both use the same Postgres schema; data entities FK-depend on metadata entities |
 | **navigation + query services** | `tests/services/navigation/` + `tests/services/query/` | Both mock Neo4j and share the same Postgres schema |
-| **All four services together** | `tests/services/` | Run as one suite to catch cross-service regressions from shared Postgres model changes |
+| **Core + query services together** | `tests/services/` | Run as one suite to catch cross-service regressions |
 | **Workers / parsers** | `tests/workers/` | Ingestion pipeline unit tests — no DB required |
 | **Common library** | `tests/common/` | `jain_kb_common` hydration unit tests — no DB required |
 
@@ -240,7 +237,7 @@ python -m pytest tests/db/ -v
 export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
 python -m pytest tests/ingestion/ -v
 
-# All four services (tightly coupled via shared Postgres schema — run together)
+# Core + query services (run together)
 export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
 export NEO4J_PASSWORD=jainkb_password
 python -m pytest tests/services/ -v
@@ -407,9 +404,7 @@ dictionary-and-metadata-service/
 │       ├── jainkosh/                   # Golden test + 30 unit tests; fixtures/ symlinked from workers/ingestion/jainkosh/tests/
 │       └── nj/                         # 9 nj parser unit tests
 ├── services/
-│   ├── metadata_service/      # FastAPI metadata service (port 8001) — authors, shastras, teekas, publications, books, pravachans; fuzzy search
-│   ├── data_service/          # FastAPI data service (port 8002) — keywords, gathas, topics, kalashas, browse, search
-│   ├── navigation_service/    # FastAPI navigation service (port 8003) — Neo4j graph navigation, alias CRUD, topic edge admin
+│   ├── core_service/          # FastAPI core service (port 8001) — metadata + data + navigation domains
 │   └── query_service/         # FastAPI query service (port 8004) — GraphRAG: keyword resolve, topics match, graphrag, subworkflow endpoints
 ├── workers/
 │   └── ingestion/

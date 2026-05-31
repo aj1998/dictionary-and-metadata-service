@@ -43,8 +43,16 @@ async def traverse_topics(
             """
             UNWIND $seed_keyword_nks AS kw
             MATCH (k:Keyword {natural_key: kw})
-            MATCH (k)-[r:HAS_TOPIC|MENTIONS_KEYWORD|RELATED_TO|IS_A|PART_OF*1..2]-(t:Topic)
-            WITH t, count(DISTINCT k) AS overlap, sum(coalesce(1.0)) AS weight_sum
+            CALL {
+                WITH k, kw
+                MATCH (k)-[r:HAS_TOPIC|MENTIONS_KEYWORD|RELATED_TO|IS_A|PART_OF*1..2]-(t:Topic)
+                RETURN t
+                UNION
+                WITH kw
+                MATCH (t:Topic {parent_keyword_natural_key: kw})
+                RETURN t
+            }
+            WITH t, count(DISTINCT k) AS overlap, sum(1.0) AS weight_sum
             RETURN t.natural_key AS topic_nk,
                    t.display_text_hi AS heading,
                    t.pg_id AS topic_pg_id,

@@ -137,8 +137,8 @@ class TestKalashWordMeanings:
     async def test_200_with_word_meanings(self, client: AsyncClient, kalash_data):
         from unittest.mock import AsyncMock, MagicMock
 
-        from services.data_service import deps
-        from services.data_service.main import app
+        from services.core_service import deps
+        from services.core_service.main import app
 
         wm_doc = {
             "natural_key": f"{kalash_data['kalash_nk']}:word_meanings",

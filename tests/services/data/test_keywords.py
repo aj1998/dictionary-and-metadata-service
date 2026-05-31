@@ -130,8 +130,8 @@ class TestAdminKeyword:
 async def client_with_definition(client: AsyncClient):
     """Override mongo so keyword_definitions.find_one returns a real document."""
     from unittest.mock import AsyncMock, MagicMock
-    from services.data_service import deps
-    from services.data_service.main import app
+    from services.core_service import deps
+    from services.core_service.main import app
 
     kdef_doc = {
         "natural_key": "आत्मा",

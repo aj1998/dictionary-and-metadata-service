@@ -97,7 +97,7 @@ async def client_with_fallback_neo4j(request):
         "DROP TYPE IF EXISTS author_kind CASCADE",
     ]
 
-    from services.navigation_service.config import LANDING_SEED_KEYWORDS
+    from services.core_service.config import LANDING_SEED_KEYWORDS
 
     # First seed has no neighbors; only the second seed returns records.
     records_by_nk: dict[str, list[dict]] = {LANDING_SEED_KEYWORDS[0]: [], LANDING_SEED_KEYWORDS[1]: _SEED_RECORDS}
@@ -111,8 +111,8 @@ async def client_with_fallback_neo4j(request):
 
     factory = async_sessionmaker(engine, expire_on_commit=False)
 
-    from services.navigation_service.main import app
-    from services.navigation_service import deps
+    from services.core_service.main import app
+    from services.core_service import deps
     from unittest.mock import patch
 
     async def _override_pg() -> AsyncSession:  # type: ignore[return]
@@ -125,7 +125,7 @@ async def client_with_fallback_neo4j(request):
     app.dependency_overrides[deps.get_session] = _override_pg
     app.dependency_overrides[deps.get_neo4j_driver] = _override_neo4j
 
-    with patch("services.navigation_service.main.get_neo4j_driver", return_value=mock_driver):
+    with patch("services.core_service.main.get_neo4j_driver", return_value=mock_driver):
         async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as c:
             yield c
 
@@ -143,7 +143,7 @@ async def client_with_fallback_neo4j(request):
 @pytest.mark.parametrize("client_with_neo4j", [_SEED_RECORDS], indirect=True)
 class TestLandingRandom:
     async def test_returns_focus_nk_in_seed_keywords(self, client_with_neo4j: AsyncClient):
-        from services.navigation_service.config import LANDING_SEED_KEYWORDS
+        from services.core_service.config import LANDING_SEED_KEYWORDS
 
         r = await client_with_neo4j.get("/v1/landing/random")
         assert r.status_code == 200
@@ -178,7 +178,7 @@ class TestLandingRandomFallback:
     async def test_falls_back_to_next_seed_when_first_is_empty(
         self, client_with_fallback_neo4j: AsyncClient
     ):
-        from services.navigation_service.config import LANDING_SEED_KEYWORDS
+        from services.core_service.config import LANDING_SEED_KEYWORDS
 
         r = await client_with_fallback_neo4j.get("/v1/landing/random")
         assert r.status_code == 200

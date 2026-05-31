@@ -502,4 +502,26 @@ Single commit / single PR. Rollback = `git revert`. No DB migration, no irrevers
 
 ## 14. Implementation notes
 
-_(to be filled in by the implementing agent, per `AGENTS.md` §7)_
+- Implemented on **2026-05-31**.
+- `services/core_service/` created with merged:
+  - `config.py` (union of metadata/data/navigation settings)
+  - `deps.py` (shared SQLAlchemy + Mongo + Neo4j + admin deps)
+  - `main.py` (single FastAPI app, merged routers, composite `/healthz`)
+- Lift-and-shift domain moves completed:
+  - `services/core_service/domains/metadata/{routers,schemas,services}`
+  - `services/core_service/domains/data/{routers,schemas,services}`
+  - `services/core_service/domains/navigation/{routers,schemas,services}`
+- Relative import depth was rewritten from `..config` / `..deps` to `....config` / `....deps` in moved domain files.
+- Test imports were rewritten to `services.core_service.*`; navigation test string patch targets were updated to `services.core_service.main.get_neo4j_driver`.
+- Legacy packages were removed:
+  - `services/metadata_service/`
+  - `services/data_service/`
+  - `services/navigation_service/`
+- `ui/next.config.ts` rewrites were updated so `/api/metadata/*`, `/api/data/*`, and `/api/navigation/*` all proxy to one core target.
+- Added TDD regression test: `tests/services/core/test_main.py` asserting merged `/healthz` payload shape.
+
+### Verification executed here
+
+- ✅ `python -m pytest tests/services/core/test_main.py -q`
+- ✅ `python -m pytest tests/services/core/test_main.py tests/services/navigation/test_config.py -q`
+- ⚠️ DB-backed suites are blocked in this sandbox (`PermissionError` connecting to Postgres socket on localhost:5432), so full `tests/services/*` and `tests/*` counts were not reproducible in this environment.

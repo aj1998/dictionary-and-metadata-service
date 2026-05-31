@@ -11,7 +11,7 @@ def test_neo4j_use_default_database_env_switch(monkeypatch):
     monkeypatch.setenv("NEO4J_DATABASE", "jainkb")
     monkeypatch.setenv("NEO4J_USE_DEFAULT_DATABASE", "true")
 
-    from services.navigation_service import config
+    from services.core_service import config
 
     importlib.reload(config)
 
