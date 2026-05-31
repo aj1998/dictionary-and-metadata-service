@@ -43,7 +43,38 @@ In hierarchical mode the D3 force sim is stopped and nodes are fixed via `fx`/`f
 
 - `focusNk` is not added to the effect deps — if the user selects a different node and expects the hierarchy to re-root, they must switch layout away and back. This was intentional to avoid jarring position resets on every node click.
 - Dragging a node in hierarchical mode pins it (`fx`/`fy`), but switching layout and back resets all positions.
-- Radial layout is still a placeholder (disabled radio option).
+
+## Radial Layout (2026-05-31)
+
+### What was built
+
+Implemented the **Radial layout** for the graph page. The focus node is placed at the canvas centre; each BFS ring is a concentric circle at `RADIAL_FIRST_RING + (level - 1) * RADIAL_RING_SPACING`. The `RADIAL_MIN_ARC` clamp expands rings when the arc-per-node would fall below 96 px, preventing card overlap on dense inner rings. Unreachable nodes go one ring past the deepest reachable level, consistent with hierarchical.
+
+### Layout constants
+
+| Constant | Value | Meaning |
+|---|---|---|
+| `RADIAL_FIRST_RING` | 220 px | Radius of the level-1 ring around the focus |
+| `RADIAL_RING_SPACING` | 220 px | Additional radius per BFS depth beyond level 1 |
+| `RADIAL_MIN_ARC` | 96 px | Minimum arc length between adjacent same-ring nodes |
+
+### Algorithm summary
+
+1. BFS from `focusNk` (fallback: `nodeNks[0]`), identical to hierarchical.
+2. Group nodes by BFS level.
+3. Place focus at `(canvasW/2, canvasH/2)`.
+4. For each ring `lv ≥ 1`: compute `r = max(RADIAL_FIRST_RING + (lv-1)*RADIAL_RING_SPACING, n*RADIAL_MIN_ARC/(2π))`; distribute nodes evenly from `θ_start = -π/2` (12 o'clock).
+
+### Files changed
+
+| File | Change |
+|---|---|
+| `graph/graphViewHelpers.ts` | Added `computeRadialPositions`; exported `RADIAL_FIRST_RING`, `RADIAL_RING_SPACING`, `RADIAL_MIN_ARC` |
+| `graph/GraphCanvas.tsx` | Extended static-layout branch to `layout === 'hierarchical' \|\| layout === 'radial'`; imports `computeRadialPositions` |
+| `components/CategoryFilterList.tsx` | Radial radio `enabled` flipped to `true` |
+| `graph/graphViewHelpers.test.ts` | 12 new tests for `computeRadialPositions` |
+
+---
 
 ## Bugfix - 1
 

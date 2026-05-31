@@ -3,9 +3,13 @@ import {
   buildCanvasNodes,
   buildCanvasEdges,
   computeHierarchicalPositions,
+  computeRadialPositions,
   HIER_LEVEL_HEIGHT,
   HIER_NODE_SPACING,
   HIER_PADDING_TOP,
+  RADIAL_FIRST_RING,
+  RADIAL_RING_SPACING,
+  RADIAL_MIN_ARC,
 } from '@/app/[locale]/graph/graphViewHelpers';
 import type { GraphNode, GraphEdge, EntityKind } from '@/lib/types';
 
@@ -441,5 +445,140 @@ describe('computeHierarchicalPositions', () => {
     expect(result.get('b')!.y).toBe(HIER_PADDING_TOP + HIER_LEVEL_HEIGHT);
     expect(result.get('c')!.y).toBe(HIER_PADDING_TOP + 2 * HIER_LEVEL_HEIGHT);
     expect(result.get('d')!.y).toBe(HIER_PADDING_TOP + 3 * HIER_LEVEL_HEIGHT);
+  });
+});
+
+// ─── computeRadialPositions ───────────────────────────────────────────────────
+
+describe('computeRadialPositions', () => {
+  const W = 1000;
+  const H = 800;
+
+  it('returns an empty map when given no nodes', () => {
+    const result = computeRadialPositions([], [], null, W, H);
+    expect(result.size).toBe(0);
+  });
+
+  it('places the focus node at the canvas centre (W/2, H/2)', () => {
+    const result = computeRadialPositions(['focus'], [], 'focus', W, H);
+    expect(result.get('focus')!.x).toBeCloseTo(W / 2);
+    expect(result.get('focus')!.y).toBeCloseTo(H / 2);
+  });
+
+  it('places a single 1-hop neighbour on the level-1 ring at 12-o\'clock', () => {
+    const nodeNks = ['focus', 'n1'];
+    const edges = [{ src: 'focus', dst: 'n1' }];
+    const result = computeRadialPositions(nodeNks, edges, 'focus', W, H);
+    expect(result.get('n1')!.x).toBeCloseTo(W / 2);
+    expect(result.get('n1')!.y).toBeCloseTo(H / 2 - RADIAL_FIRST_RING);
+  });
+
+  it('two 1-hop neighbours are diametrically opposite — sum of x ≈ W, sum of y ≈ H', () => {
+    const nodeNks = ['focus', 'a', 'b'];
+    const edges = [{ src: 'focus', dst: 'a' }, { src: 'focus', dst: 'b' }];
+    const result = computeRadialPositions(nodeNks, edges, 'focus', W, H);
+    const ax = result.get('a')!.x;
+    const bx = result.get('b')!.x;
+    const ay = result.get('a')!.y;
+    const by = result.get('b')!.y;
+    expect(ax + bx).toBeCloseTo(W);
+    expect(ay + by).toBeCloseTo(H);
+  });
+
+  it('all same-level nodes share the same euclidean distance to centre (within ε)', () => {
+    const count = 6;
+    const neighbors = Array.from({ length: count }, (_, i) => `n${i}`);
+    const nodeNks = ['focus', ...neighbors];
+    const edges = neighbors.map(n => ({ src: 'focus', dst: n }));
+    const result = computeRadialPositions(nodeNks, edges, 'focus', W, H);
+    const cx = W / 2;
+    const cy = H / 2;
+    const dists = neighbors.map(n => {
+      const p = result.get(n)!;
+      return Math.sqrt((p.x - cx) ** 2 + (p.y - cy) ** 2);
+    });
+    const first = dists[0];
+    for (const d of dists) {
+      expect(d).toBeCloseTo(first, 5);
+    }
+  });
+
+  it('a 2-hop chain a→b→c puts c on the level-2 ring', () => {
+    const nodeNks = ['a', 'b', 'c'];
+    const edges = [{ src: 'a', dst: 'b' }, { src: 'b', dst: 'c' }];
+    const result = computeRadialPositions(nodeNks, edges, 'a', W, H);
+    const cx = W / 2;
+    const cy = H / 2;
+    const p = result.get('c')!;
+    const dist = Math.sqrt((p.x - cx) ** 2 + (p.y - cy) ** 2);
+    expect(dist).toBeCloseTo(RADIAL_FIRST_RING + RADIAL_RING_SPACING, 5);
+  });
+
+  it('unreachable nodes go on the ring one past the deepest reachable level', () => {
+    const nodeNks = ['focus', 'child', 'isolated'];
+    const edges = [{ src: 'focus', dst: 'child' }];
+    const result = computeRadialPositions(nodeNks, edges, 'focus', W, H);
+    // deepest reachable = 1 (child), so isolated goes to level 2
+    const cx = W / 2;
+    const cy = H / 2;
+    const p = result.get('isolated')!;
+    const dist = Math.sqrt((p.x - cx) ** 2 + (p.y - cy) ** 2);
+    expect(dist).toBeCloseTo(RADIAL_FIRST_RING + RADIAL_RING_SPACING, 5);
+  });
+
+  it('falls back to the first node as focus when focusNk is null', () => {
+    const nodeNks = ['x', 'y'];
+    const edges = [{ src: 'x', dst: 'y' }];
+    const result = computeRadialPositions(nodeNks, edges, null, W, H);
+    expect(result.get('x')!.x).toBeCloseTo(W / 2);
+    expect(result.get('x')!.y).toBeCloseTo(H / 2);
+  });
+
+  it('falls back to the first node when focusNk is not in the node list', () => {
+    const nodeNks = ['a', 'b'];
+    const edges = [{ src: 'a', dst: 'b' }];
+    const result = computeRadialPositions(nodeNks, edges, 'nonexistent', W, H);
+    expect(result.get('a')!.x).toBeCloseTo(W / 2);
+    expect(result.get('a')!.y).toBeCloseTo(H / 2);
+  });
+
+  it('treats edges as bidirectional (focus reachable from a child-direction edge)', () => {
+    // Edge goes b→a but focus is 'a', so 'b' should still be on level-1 ring
+    const nodeNks = ['a', 'b'];
+    const edges = [{ src: 'b', dst: 'a' }];
+    const result = computeRadialPositions(nodeNks, edges, 'a', W, H);
+    const cx = W / 2;
+    const cy = H / 2;
+    const p = result.get('b')!;
+    const dist = Math.sqrt((p.x - cx) ** 2 + (p.y - cy) ** 2);
+    expect(dist).toBeCloseTo(RADIAL_FIRST_RING, 5);
+  });
+
+  it('RADIAL_MIN_ARC clamp: 12 same-level siblings expand ring beyond RADIAL_FIRST_RING; all share same radius', () => {
+    const count = 12;
+    const neighbors = Array.from({ length: count }, (_, i) => `n${i}`);
+    const nodeNks = ['focus', ...neighbors];
+    const edges = neighbors.map(n => ({ src: 'focus', dst: n }));
+    const result = computeRadialPositions(nodeNks, edges, 'focus', W, H);
+    const cx = W / 2;
+    const cy = H / 2;
+    const dists = neighbors.map(n => {
+      const p = result.get(n)!;
+      return Math.sqrt((p.x - cx) ** 2 + (p.y - cy) ** 2);
+    });
+    // Minimum required radius for 12 nodes at RADIAL_MIN_ARC spacing
+    const minR = (count * RADIAL_MIN_ARC) / (2 * Math.PI);
+    // Ring must be at least minR (clamped) and beyond RADIAL_FIRST_RING in this case
+    expect(dists[0]).toBeGreaterThanOrEqual(minR - 0.01);
+    // All nodes share the same radius
+    for (const d of dists) {
+      expect(d).toBeCloseTo(dists[0], 5);
+    }
+  });
+
+  it('all exported constants are positive numbers', () => {
+    expect(RADIAL_FIRST_RING).toBeGreaterThan(0);
+    expect(RADIAL_RING_SPACING).toBeGreaterThan(0);
+    expect(RADIAL_MIN_ARC).toBeGreaterThan(0);
   });
 });

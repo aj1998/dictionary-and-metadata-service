@@ -18,13 +18,16 @@ import {
   type EdgeEl,
 } from './useForceSimulation';
 import { cn } from '@/lib/utils';
-import { computeHierarchicalPositions } from './graphViewHelpers';
+import { computeHierarchicalPositions, computeRadialPositions, RADIAL_MIN_ARC } from './graphViewHelpers';
 import type { EntityKind, EdgeKind } from '@/lib/types';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const CARD_W = 220;
 const CARD_H = 88;
+
+// Radial incremental-expansion constant (Neo4j-style)
+const RADIAL_FAN_RADIUS = 280;  // base radius for new-child fan around the expander
 const MIN_ZOOM = 0.4;
 const MAX_ZOOM = 2.5;
 const FIT_DURATION_MS = 600;
@@ -220,6 +223,16 @@ export function GraphCanvas({
   const focusNkRef = useRef(focusNk ?? null);
   focusNkRef.current = focusNk ?? null;
 
+  // Tracks which node triggered an expansion so the radial branch can do
+  // incremental positioning instead of a full re-layout.
+  const expanderNkRef = useRef<string | null>(null);
+  // Stores the last committed canvas positions so incremental expansions can
+  // pin existing nodes and only place newly added ones.
+  const lastPositionsRef = useRef<Map<string, { x: number; y: number }>>(new Map());
+  // Stable layout ref so the expand handler doesn't capture a stale closure.
+  const layoutRef = useRef(layout);
+  layoutRef.current = layout;
+
   // Measure canvas on mount / resize
   useEffect(() => {
     const el = containerRef.current;
@@ -277,13 +290,8 @@ export function GraphCanvas({
     }));
 
     if (layout === 'hierarchical') {
-      const positions = computeHierarchicalPositions(
-        nodes.map(n => n.nk),
-        simEdges,
-        focusNkRef.current,
-        w,
-        h,
-      );
+      lastPositionsRef.current = new Map();
+      const positions = computeHierarchicalPositions(nodes.map(n => n.nk), simEdges, focusNkRef.current, w, h);
       const simNodes: SimNodeInput[] = nodes.map(n => {
         const pos = positions.get(n.nk);
         const x = pos?.x ?? w / 2;
@@ -291,7 +299,79 @@ export function GraphCanvas({
         return { nk: n.nk, x, y, fx: x, fy: y };
       });
       restart(simNodes, simEdges, 'static');
+
+    } else if (layout === 'radial') {
+      const expanderNk = expanderNkRef.current;
+      expanderNkRef.current = null;
+
+      const prevPos = lastPositionsRef.current;
+      const newNks = nodes.filter(n => !prevPos.has(n.nk));
+      const existingCount = nodes.length - newNks.length;
+
+      let simNodes: SimNodeInput[];
+
+      // Incremental path: expander was clicked, it has a prior position, and
+      // it is NOT at the canvas centre (expanding the focus node falls through
+      // to BFS which correctly places new ring-1 siblings without overlap).
+      const expanderPos = expanderNk ? prevPos.get(expanderNk) : undefined;
+      const focusPos = focusNkRef.current
+        ? (prevPos.get(focusNkRef.current) ?? { x: w / 2, y: h / 2 })
+        : { x: w / 2, y: h / 2 };
+      const edx = expanderPos ? expanderPos.x - focusPos.x : 0;
+      const edy = expanderPos ? expanderPos.y - focusPos.y : 0;
+      const expanderDist = Math.sqrt(edx * edx + edy * edy);
+
+      const canIncremental =
+        !!expanderPos &&
+        existingCount > 0 &&
+        newNks.length > 0 &&
+        expanderDist >= 1; // centre-node expansion → BFS handles it cleanly
+
+      if (canIncremental && expanderPos) {
+        // ── Incremental (Neo4j-style): expander stays put, children fan from it ─
+        const awayAngle = Math.atan2(edy, edx);
+        const fanAngle = Math.PI; // 180° arc facing away from focus
+        const n = newNks.length;
+        const fanR = Math.max(RADIAL_FAN_RADIUS, (n * RADIAL_MIN_ARC) / fanAngle);
+        const dTheta = n > 1 ? fanAngle / (n - 1) : 0;
+
+        simNodes = nodes.map(node => {
+          // Expander: stays exactly where it is (pin in place)
+          if (node.nk === expanderNk) {
+            return { nk: node.nk, x: expanderPos.x, y: expanderPos.y, fx: expanderPos.x, fy: expanderPos.y };
+          }
+          // Existing nodes: keep their committed positions
+          const existing = prevPos.get(node.nk);
+          if (existing) {
+            return { nk: node.nk, x: existing.x, y: existing.y, fx: existing.x, fy: existing.y };
+          }
+          // New child: fan from the expander's position outward
+          const idx = newNks.findIndex(nn => nn.nk === node.nk);
+          const theta = awayAngle - fanAngle / 2 + idx * dTheta;
+          const x = expanderPos.x + fanR * Math.cos(theta);
+          const y = expanderPos.y + fanR * Math.sin(theta);
+          return { nk: node.nk, x, y, fx: x, fy: y };
+        });
+      } else {
+        // ── Full BFS radial layout (first load, reset, layout switch, or centre expansion) ─
+        const positions = computeRadialPositions(nodes.map(n => n.nk), simEdges, focusNkRef.current, w, h);
+        simNodes = nodes.map(n => {
+          const pos = positions.get(n.nk);
+          const x = pos?.x ?? w / 2;
+          const y = pos?.y ?? h / 2;
+          return { nk: n.nk, x, y, fx: x, fy: y };
+        });
+      }
+
+      // Save positions for the next incremental expansion
+      const committed = new Map<string, { x: number; y: number }>();
+      for (const sn of simNodes) committed.set(sn.nk, { x: sn.x ?? w / 2, y: sn.y ?? h / 2 });
+      lastPositionsRef.current = committed;
+
+      restart(simNodes, simEdges, 'static');
+
     } else {
+      lastPositionsRef.current = new Map();
       const cx = w / 2;
       const cy = h / 2;
       const spread = 80;
@@ -342,6 +422,15 @@ export function GraphCanvas({
     void rect; // accessed only for side-effect check
     requestAnimationFrame(step);
   }, []);
+
+  // Capture which node was expanded BEFORE the store mutation fires so the
+  // restart effect can read it via expanderNkRef when nodes.length changes.
+  const handleNodeExpand = useCallback((nk: string) => {
+    if (layoutRef.current === 'radial') {
+      expanderNkRef.current = nk;
+    }
+    onNodeExpand?.(nk);
+  }, [onNodeExpand]);
 
   // ── Event handlers ───────────────────────────────────────────────────────────
 
@@ -430,7 +519,7 @@ export function GraphCanvas({
             onNodeClick={onNodeClick}
             onNodeDoubleClick={onNodeDoubleClick}
             onNodePinToggle={onNodePinToggle}
-            onNodeExpand={onNodeExpand}
+            onNodeExpand={handleNodeExpand}
             onEdgeClick={onEdgeClick}
           />
         </g>

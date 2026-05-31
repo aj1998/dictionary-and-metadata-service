@@ -9,6 +9,15 @@ export const HIER_NODE_SPACING = 320;
 /** Top padding (px) before the first level row. */
 export const HIER_PADDING_TOP = 120;
 
+// ─── Radial layout constants (exported for tests) ─────────────────────────────
+
+/** Radius (px) of the level-1 ring around the focus node. */
+export const RADIAL_FIRST_RING = 300;
+/** Additional radius (px) per BFS depth beyond level 1. */
+export const RADIAL_RING_SPACING = 300;
+/** Minimum arc length (px) between adjacent same-ring nodes — prevents card overlap. */
+export const RADIAL_MIN_ARC = 256;
+
 export interface RenderedNode {
   nk: string;
   kind: EntityKind;
@@ -117,6 +126,94 @@ export function computeHierarchicalPositions(
     for (let i = 0; i < nks.length; i++) {
       const x = cx + (i - (nks.length - 1) / 2) * HIER_NODE_SPACING;
       result.set(nks[i], { x, y });
+    }
+  }
+
+  return result;
+}
+
+/**
+ * Computes radial node positions using BFS depth from `focusNk`.
+ * The focus node sits at the canvas centre; each BFS ring is a concentric
+ * circle at radius RADIAL_FIRST_RING + (level-1) * RADIAL_RING_SPACING.
+ * When a ring's arc per node falls below RADIAL_MIN_ARC, the ring radius
+ * is expanded so nodes stay visually separated.
+ * Unreachable nodes are placed one ring past the deepest reachable level.
+ */
+export function computeRadialPositions(
+  nodeNks: string[],
+  edges: Array<{ src: string; dst: string }>,
+  focusNk: string | null,
+  canvasW: number,
+  canvasH: number,
+): Map<string, { x: number; y: number }> {
+  if (nodeNks.length === 0) return new Map();
+
+  const startNk = focusNk && nodeNks.includes(focusNk) ? focusNk : nodeNks[0];
+
+  // Build bidirectional adjacency list restricted to rendered nodes
+  const nkSet = new Set(nodeNks);
+  const adj = new Map<string, string[]>();
+  for (const nk of nodeNks) adj.set(nk, []);
+  for (const e of edges) {
+    if (nkSet.has(e.src) && nkSet.has(e.dst)) {
+      adj.get(e.src)!.push(e.dst);
+      adj.get(e.dst)!.push(e.src);
+    }
+  }
+
+  // BFS to assign depth levels
+  const level = new Map<string, number>();
+  level.set(startNk, 0);
+  const queue: string[] = [startNk];
+  let qi = 0;
+  while (qi < queue.length) {
+    const cur = queue[qi++];
+    const curLevel = level.get(cur)!;
+    for (const neighbor of adj.get(cur) ?? []) {
+      if (!level.has(neighbor)) {
+        level.set(neighbor, curLevel + 1);
+        queue.push(neighbor);
+      }
+    }
+  }
+
+  // Unreachable nodes go one ring past the deepest reachable node
+  const maxReachable = level.size > 0 ? Math.max(...level.values()) : 0;
+  for (const nk of nodeNks) {
+    if (!level.has(nk)) level.set(nk, maxReachable + 1);
+  }
+
+  // Group nks by level, preserving BFS insertion order
+  const byLevel = new Map<number, string[]>();
+  for (const [nk, lv] of level) {
+    if (!byLevel.has(lv)) byLevel.set(lv, []);
+    byLevel.get(lv)!.push(nk);
+  }
+
+  const cx = canvasW / 2;
+  const cy = canvasH / 2;
+  const THETA_START = -Math.PI / 2; // 12-o'clock start position
+  const result = new Map<string, { x: number; y: number }>();
+
+  for (const [lv, nks] of byLevel.entries()) {
+    if (lv === 0) {
+      result.set(nks[0], { x: cx, y: cy });
+      continue;
+    }
+
+    const baseR = RADIAL_FIRST_RING + (lv - 1) * RADIAL_RING_SPACING;
+    const minR = (nks.length * RADIAL_MIN_ARC) / (2 * Math.PI);
+    const r = Math.max(baseR, minR);
+
+    const n = nks.length;
+    const dTheta = (2 * Math.PI) / n;
+    for (let i = 0; i < n; i++) {
+      const theta = THETA_START + i * dTheta;
+      result.set(nks[i], {
+        x: cx + r * Math.cos(theta),
+        y: cy + r * Math.sin(theta),
+      });
     }
   }
 
