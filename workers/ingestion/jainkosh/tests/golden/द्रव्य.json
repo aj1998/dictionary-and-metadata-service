@@ -3348,6 +3348,18 @@
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
+                            "field": "गाथा",
+                            "value": 2
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 76
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 8
+                          },
+                          {
                             "field": "अधिकार",
                             "value": 2
                           }
@@ -3589,6 +3601,18 @@
                         "shastra_name": "द्रव्यसंग्रह",
                         "match_method": "shastra_name",
                         "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 2
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 77
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 2
+                          },
                           {
                             "field": "अधिकार",
                             "value": 2
@@ -4123,6 +4147,18 @@
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
+                            "field": "गाथा",
+                            "value": 2
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 77
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 6
+                          },
+                          {
                             "field": "अधिकार",
                             "value": 2
                           }
@@ -4264,7 +4300,7 @@
                       {
                         "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/76-7; 77-10)",
                         "inline_reference": true,
-                        "needs_manual_match": false,
+                        "needs_manual_match": true,
                         "is_teeka": true,
                         "teeka_name": "टीका",
                         "shastra_name": "द्रव्यसंग्रह",
@@ -4364,6 +4400,18 @@
                         "shastra_name": "द्रव्यसंग्रह",
                         "match_method": "shastra_name",
                         "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 2
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 77
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 4
+                          },
                           {
                             "field": "अधिकार",
                             "value": 2
@@ -4489,6 +4537,18 @@
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
+                            "field": "गाथा",
+                            "value": 2
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 77
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 7
+                          },
+                          {
                             "field": "अधिकार",
                             "value": 2
                           }
@@ -4582,6 +4642,18 @@
                         "shastra_name": "द्रव्यसंग्रह",
                         "match_method": "shastra_name",
                         "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 2
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 78
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 11
+                          },
                           {
                             "field": "अधिकार",
                             "value": 2
@@ -4684,6 +4756,18 @@
                         "shastra_name": "द्रव्यसंग्रह",
                         "match_method": "shastra_name",
                         "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 2
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 78
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 6
+                          },
                           {
                             "field": "अधिकार",
                             "value": 2
@@ -10207,8 +10291,8 @@
       "prev": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A4%BF%E0%A4%A1%E0%A4%BC_%E0%A4%B8%E0%A4%82%E0%A4%98",
       "next": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF_%E0%A4%86%E0%A4%B8%E0%A5%8D%E0%A4%B0%E0%A4%B5"
     },
-    "parser_version": "jainkosh.rules/1.11.11",
-    "parsed_at": "2026-06-01T20:06:44.776629",
+    "parser_version": "jainkosh.rules/1.11.16",
+    "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
   "would_write": {
@@ -14809,6 +14893,18 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
+                      "field": "गाथा",
+                      "value": 2
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 76
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 8
+                    },
+                    {
                       "field": "अधिकार",
                       "value": 2
                     }
@@ -15051,6 +15147,18 @@
                   "shastra_name": "द्रव्यसंग्रह",
                   "match_method": "shastra_name",
                   "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 2
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 77
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 2
+                    },
                     {
                       "field": "अधिकार",
                       "value": 2
@@ -15587,6 +15695,18 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
+                      "field": "गाथा",
+                      "value": 2
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 77
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 6
+                    },
+                    {
                       "field": "अधिकार",
                       "value": 2
                     }
@@ -15729,7 +15849,7 @@
                 {
                   "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/76-7; 77-10)",
                   "inline_reference": true,
-                  "needs_manual_match": false,
+                  "needs_manual_match": true,
                   "is_teeka": true,
                   "teeka_name": "टीका",
                   "shastra_name": "द्रव्यसंग्रह",
@@ -15830,6 +15950,18 @@
                   "shastra_name": "द्रव्यसंग्रह",
                   "match_method": "shastra_name",
                   "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 2
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 77
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 4
+                    },
                     {
                       "field": "अधिकार",
                       "value": 2
@@ -15956,6 +16088,18 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
+                      "field": "गाथा",
+                      "value": 2
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 77
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 7
+                    },
+                    {
                       "field": "अधिकार",
                       "value": 2
                     }
@@ -16050,6 +16194,18 @@
                   "shastra_name": "द्रव्यसंग्रह",
                   "match_method": "shastra_name",
                   "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 2
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 78
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 11
+                    },
                     {
                       "field": "अधिकार",
                       "value": 2
@@ -16153,6 +16309,18 @@
                   "shastra_name": "द्रव्यसंग्रह",
                   "match_method": "shastra_name",
                   "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 2
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 78
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 6
+                    },
                     {
                       "field": "अधिकार",
                       "value": 2
@@ -22804,6 +22972,28 @@
           "lazy": true
         },
         {
+          "label": "GathaTeekaBhaavarth",
+          "key": "द्रव्यसंग्रह:टीका:14:गाथा:टीका:भावार्थ:2",
+          "props": {
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+            "publisher_id": "14",
+            "gatha_number": "2"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:76",
+          "props": {
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+            "publisher_id": "14",
+            "page_number": "76"
+          },
+          "lazy": true
+        },
+        {
           "label": "Gatha",
           "key": "पंचास्तिकाय:गाथा:124",
           "props": {
@@ -22840,6 +23030,17 @@
           "props": {
             "shastra_natural_key": "पंचास्तिकाय",
             "gatha_number": "97"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:77",
+          "props": {
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+            "publisher_id": "14",
+            "page_number": "77"
           },
           "lazy": true
         },
@@ -23012,6 +23213,27 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "द्रव्यसंग्रह:टीका:गाथा:टीका:2",
+          "props": {
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+            "gatha_number": "2"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:78",
+          "props": {
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+            "publisher_id": "14",
+            "page_number": "78"
+          },
+          "lazy": true
         },
         {
           "label": "Topic",
@@ -26377,6 +26599,44 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "द्रव्यसंग्रह:टीका:14:गाथा:टीका:भावार्थ:2"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:चेतनाचेतन-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 8,
+            "block_index": 0,
+            "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:चेतनाचेतन-विभाग/0",
+            "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:चेतनाचेतन-विभाग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:76"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:चेतनाचेतन-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 8,
+            "block_index": 0,
+            "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:चेतनाचेतन-विभाग/0",
+            "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:चेतनाचेतन-विभाग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
             "label": "Gatha",
             "key": "पंचास्तिकाय:गाथा:124"
           },
@@ -26438,6 +26698,44 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग/0",
+            "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "द्रव्यसंग्रह:टीका:14:गाथा:टीका:भावार्थ:2"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 2,
+            "block_index": 0,
+            "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग/0",
+            "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:77"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 2,
             "block_index": 0,
             "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग/0",
             "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग"
@@ -26738,6 +27036,44 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeekaBhaavarth",
+            "key": "द्रव्यसंग्रह:टीका:14:गाथा:टीका:भावार्थ:2"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:एक-अनेक-की-अपेक्षा-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 6,
+            "block_index": 0,
+            "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:एक-अनेक-की-अपेक्षा-विभाग/0",
+            "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:एक-अनेक-की-अपेक्षा-विभाग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:77"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:एक-अनेक-की-अपेक्षा-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 6,
+            "block_index": 0,
+            "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:एक-अनेक-की-अपेक्षा-विभाग/0",
+            "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:एक-अनेक-की-अपेक्षा-विभाग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
             "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:गाथा:टीका:भावार्थ:27"
           },
           "to": {
@@ -26865,6 +27201,44 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
+            "label": "GathaTeeka",
+            "key": "द्रव्यसंग्रह:टीका:गाथा:टीका:2"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:सर्वगत-व-असर्वगत-की-अपेक्षा-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 11,
+            "block_index": 1,
+            "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:सर्वगत-व-असर्वगत-की-अपेक्षा-विभाग/1",
+            "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:सर्वगत-व-असर्वगत-की-अपेक्षा-विभाग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:78"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:सर्वगत-व-असर्वगत-की-अपेक्षा-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 11,
+            "block_index": 1,
+            "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:सर्वगत-व-असर्वगत-की-अपेक्षा-विभाग/1",
+            "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:सर्वगत-व-असर्वगत-की-अपेक्षा-विभाग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
             "label": "GathaTeekaBhaavarth",
             "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:गाथा:टीका:भावार्थ:27"
           },
@@ -26913,6 +27287,44 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "द्रव्यसंग्रह:टीका:गाथा:टीका:2"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:कर्ता-व-भोक्ता-की-अपेक्षा-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 6,
+            "block_index": 1,
+            "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:कर्ता-व-भोक्ता-की-अपेक्षा-विभाग/1",
+            "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:कर्ता-व-भोक्ता-की-अपेक्षा-विभाग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:78"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:कर्ता-व-भोक्ता-की-अपेक्षा-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 6,
+            "block_index": 1,
+            "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:कर्ता-व-भोक्ता-की-अपेक्षा-विभाग/1",
+            "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:कर्ता-व-भोक्ता-की-अपेक्षा-विभाग"
           }
         },
         {

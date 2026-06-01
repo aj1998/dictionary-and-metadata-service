@@ -1,5 +1,5 @@
-version: "1.11.11"
-parser_rules_version: "jainkosh.rules/1.11.11"
+version: "1.11.16"
+parser_rules_version: "jainkosh.rules/1.11.16"
 
 normalization:
   nfc: true
@@ -95,6 +95,7 @@ reference:
       - श्लोक
       - पंक्ति
       - कलश
+      - परिशिष्ठ
       - अधिकार
       - अध्याय
       - सर्ग

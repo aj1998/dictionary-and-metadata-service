@@ -3575,12 +3575,25 @@
                       {
                         "text": "( कार्तिकेयानुप्रेक्षा टीका/220/154/6 )",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "टीका",
                         "shastra_name": "कार्तिकेयानुप्रेक्षा",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 220
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 154
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 6
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -4304,12 +4317,25 @@
                       {
                         "text": "( द्रव्यसंग्रह टीका/24/69/11 )",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "टीका",
                         "shastra_name": "द्रव्यसंग्रह",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 24
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 69
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 11
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -5551,8 +5577,8 @@
       "prev": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AA%E0%A5%8D%E0%A4%A4%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%B2",
       "next": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%B8%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8"
     },
-    "parser_version": "jainkosh.rules/1.11.11",
-    "parsed_at": "2026-06-01T20:06:44.977825",
+    "parser_version": "jainkosh.rules/1.11.16",
+    "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
   "would_write": {
@@ -10047,12 +10073,25 @@
                 {
                   "text": "( कार्तिकेयानुप्रेक्षा टीका/220/154/6 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "टीका",
                   "shastra_name": "कार्तिकेयानुप्रेक्षा",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 220
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 154
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 6
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -10778,12 +10817,25 @@
                 {
                   "text": "( द्रव्यसंग्रह टीका/24/69/11 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "टीका",
                   "shastra_name": "द्रव्यसंग्रह",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 24
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 69
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 11
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -13001,6 +13053,28 @@
           "lazy": true
         },
         {
+          "label": "GathaTeekaBhaavarth",
+          "key": "कार्तिकेयानुप्रेक्षा:टीका:23:गाथा:टीका:भावार्थ:220",
+          "props": {
+            "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
+            "teeka_natural_key": "कार्तिकेयानुप्रेक्षा:टीका",
+            "publisher_id": "23",
+            "gatha_number": "220"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "कार्तिकेयानुप्रेक्षा:टीका:23:पृष्ठ:154",
+          "props": {
+            "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
+            "teeka_natural_key": "कार्तिकेयानुप्रेक्षा:टीका",
+            "publisher_id": "23",
+            "page_number": "154"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:व्यंजन-पर्याय-के-अभाव-होने-का-नियम-नहीं-है",
           "props": {
@@ -13166,6 +13240,28 @@
             "shastra_natural_key": "नियमसार",
             "teeka_natural_key": "नियमसार:टीका",
             "gatha_number": "28"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "द्रव्यसंग्रह:टीका:14:गाथा:टीका:भावार्थ:24",
+          "props": {
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+            "publisher_id": "14",
+            "gatha_number": "24"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:69",
+          "props": {
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+            "publisher_id": "14",
+            "page_number": "69"
           },
           "lazy": true
         },
@@ -15386,6 +15482,44 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "कार्तिकेयानुप्रेक्षा:टीका:23:गाथा:टीका:भावार्थ:220"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-का-स्वामित्व"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 6,
+            "block_index": 1,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-का-स्वामित्व/1",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-का-स्वामित्व"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "कार्तिकेयानुप्रेक्षा:टीका:23:पृष्ठ:154"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-का-स्वामित्व"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 6,
+            "block_index": 1,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-का-स्वामित्व/1",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-का-स्वामित्व"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -15670,6 +15804,44 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
+            "block_index": 5,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय/5",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "द्रव्यसंग्रह:टीका:14:गाथा:टीका:भावार्थ:24"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 11,
+            "block_index": 5,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय/5",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:69"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 11,
             "block_index": 5,
             "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय/5",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-द्रव्य-व-व्यंजन-पर्याय"

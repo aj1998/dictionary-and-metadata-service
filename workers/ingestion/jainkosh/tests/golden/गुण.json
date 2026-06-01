@@ -3590,7 +3590,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "ज्ञानानंदी चितो धर्मौ नित्यौ द्रव्योपजीविनौ। देहेंद्रियाद्यभावेऽपि नाभावस्तद्द्वयोरिति।379।",
-                    "hindi_translation": "ज्ञान व आनंद ये दोनों चेतन-धर्म नित्य द्रव्योपजीवी हैं, क्योंकि देह व इंद्रियों का अभाव हो जाने पर भी उसका अभाव नहीं हो जाता।37।",
+                    "hindi_translation": "ज्ञान व आनंद ये दोनों चेतन-धर्म नित्य द्रव्योपजीवी हैं, क्योंकि देह व इंद्रियों का अभाव हो जाने पर भी उसका अभाव नहीं हो जाता।379।",
                     "references": [
                       {
                         "text": "पंचाध्यायी / उत्तरार्ध/74,379",
@@ -3853,12 +3853,25 @@
                       {
                         "text": "कार्तिकेयानुप्रेक्षा/टीका/224/156/11",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "टीका",
                         "shastra_name": "कार्तिकेयानुप्रेक्षा",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 224
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 156
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 11
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -3968,7 +3981,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "अनंतधर्मणस्तत्त्वं पश्यंती प्रत्यगात्मन:। अनेकांतमयी मूर्तिर्नित्यमेव प्रकाशताम्।2।",
-                    "hindi_translation": null,
+                    "hindi_translation": "जिसमें अनंत धर्म हैं ऐसे जो ज्ञान तथा वचन तन्मयी जो मूर्ति (आत्मा) सदा ही प्रकाशमान है।",
                     "references": [
                       {
                         "text": "समयसार / आत्मख्याति/ कलश 2",
@@ -3979,10 +3992,6 @@
                         "shastra_name": "समयसार",
                         "match_method": "shastra_name",
                         "resolved_fields": [
-                          {
-                            "field": "गाथा",
-                            "value": 2
-                          },
                           {
                             "field": "कलश",
                             "value": 2
@@ -4003,17 +4012,22 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "अत एवास्य ज्ञानमात्रैकभाषांत:पातिंयोऽनंता: शक्तय उत्प्लवंते।",
-                    "hindi_translation": "1.जिसमें अनंत धर्म हैं ऐसे जो ज्ञान तथा वचन तन्मयी जो मूर्ति (आत्मा) सदा ही प्रकाशमान है। 2. अतएव उस (आत्मा) में ज्ञानमात्र एक भाव की अंत:पातिनी अनंत शक्तियाँ उछलती हैं।",
+                    "hindi_translation": "अतएव उस (आत्मा) में ज्ञानमात्र एक भाव की अंत:पातिनी अनंत शक्तियाँ उछलती हैं।",
                     "references": [
                       {
-                        "text": "समयसार / आत्मख्याति/ परिशिष्ठ",
+                        "text": "समयसार / आत्मख्याति/ परिशिष्ठ 1",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
-                        "teeka_name": "आत्मख्याति/परिशिष्ठ",
+                        "teeka_name": "आत्मख्याति",
                         "shastra_name": "समयसार",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "परिशिष्ठ",
+                            "value": 1
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -4034,12 +4048,25 @@
                       {
                         "text": "द्रव्यसंग्रह टीका/14/43/6",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "टीका",
                         "shastra_name": "द्रव्यसंग्रह",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 14
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 43
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 6
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -4114,10 +4141,6 @@
                         "shastra_name": "समयसार",
                         "match_method": "shastra_name",
                         "resolved_fields": [
-                          {
-                            "field": "गाथा",
-                            "value": 2
-                          },
                           {
                             "field": "कलश",
                             "value": 2
@@ -4259,8 +4282,8 @@
       "prev": "/wiki/%E0%A4%97%E0%A5%80%E0%A4%A4%E0%A4%97%E0%A5%8B%E0%A4%B7%E0%A5%8D%E0%A4%A0%E0%A5%80",
       "next": "/wiki/Aaaa"
     },
-    "parser_version": "jainkosh.rules/1.11.11",
-    "parsed_at": "2026-06-01T20:06:44.589509",
+    "parser_version": "jainkosh.rules/1.11.16",
+    "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
   "would_write": {
@@ -8496,7 +8519,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "ज्ञानानंदी चितो धर्मौ नित्यौ द्रव्योपजीविनौ। देहेंद्रियाद्यभावेऽपि नाभावस्तद्द्वयोरिति।379।",
-              "hindi_translation": "ज्ञान व आनंद ये दोनों चेतन-धर्म नित्य द्रव्योपजीवी हैं, क्योंकि देह व इंद्रियों का अभाव हो जाने पर भी उसका अभाव नहीं हो जाता।37।",
+              "hindi_translation": "ज्ञान व आनंद ये दोनों चेतन-धर्म नित्य द्रव्योपजीवी हैं, क्योंकि देह व इंद्रियों का अभाव हो जाने पर भी उसका अभाव नहीं हो जाता।379।",
               "references": [
                 {
                   "text": "पंचाध्यायी / उत्तरार्ध/74,379",
@@ -8760,12 +8783,25 @@
                 {
                   "text": "कार्तिकेयानुप्रेक्षा/टीका/224/156/11",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "टीका",
                   "shastra_name": "कार्तिकेयानुप्रेक्षा",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 224
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 156
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 11
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -8876,7 +8912,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "अनंतधर्मणस्तत्त्वं पश्यंती प्रत्यगात्मन:। अनेकांतमयी मूर्तिर्नित्यमेव प्रकाशताम्।2।",
-              "hindi_translation": null,
+              "hindi_translation": "जिसमें अनंत धर्म हैं ऐसे जो ज्ञान तथा वचन तन्मयी जो मूर्ति (आत्मा) सदा ही प्रकाशमान है।",
               "references": [
                 {
                   "text": "समयसार / आत्मख्याति/ कलश 2",
@@ -8887,10 +8923,6 @@
                   "shastra_name": "समयसार",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "गाथा",
-                      "value": 2
-                    },
                     {
                       "field": "कलश",
                       "value": 2
@@ -8911,17 +8943,22 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "अत एवास्य ज्ञानमात्रैकभाषांत:पातिंयोऽनंता: शक्तय उत्प्लवंते।",
-              "hindi_translation": "1.जिसमें अनंत धर्म हैं ऐसे जो ज्ञान तथा वचन तन्मयी जो मूर्ति (आत्मा) सदा ही प्रकाशमान है। 2. अतएव उस (आत्मा) में ज्ञानमात्र एक भाव की अंत:पातिनी अनंत शक्तियाँ उछलती हैं।",
+              "hindi_translation": "अतएव उस (आत्मा) में ज्ञानमात्र एक भाव की अंत:पातिनी अनंत शक्तियाँ उछलती हैं।",
               "references": [
                 {
-                  "text": "समयसार / आत्मख्याति/ परिशिष्ठ",
+                  "text": "समयसार / आत्मख्याति/ परिशिष्ठ 1",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
-                  "teeka_name": "आत्मख्याति/परिशिष्ठ",
+                  "teeka_name": "आत्मख्याति",
                   "shastra_name": "समयसार",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "परिशिष्ठ",
+                      "value": 1
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -8942,12 +8979,25 @@
                 {
                   "text": "द्रव्यसंग्रह टीका/14/43/6",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "टीका",
                   "shastra_name": "द्रव्यसंग्रह",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 14
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 43
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 6
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -9023,10 +9073,6 @@
                   "shastra_name": "समयसार",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "गाथा",
-                      "value": 2
-                    },
                     {
                       "field": "कलश",
                       "value": 2
@@ -10156,6 +10202,27 @@
           "lazy": true
         },
         {
+          "label": "GathaTeeka",
+          "key": "कार्तिकेयानुप्रेक्षा:टीका:गाथा:टीका:224",
+          "props": {
+            "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
+            "teeka_natural_key": "कार्तिकेयानुप्रेक्षा:टीका",
+            "gatha_number": "224"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "कार्तिकेयानुप्रेक्षा:टीका:23:पृष्ठ:156",
+          "props": {
+            "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
+            "teeka_natural_key": "कार्तिकेयानुप्रेक्षा:टीका",
+            "publisher_id": "23",
+            "page_number": "156"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "गुण:द्रव्य-गुण-संबंध:जीव-द्रव्य-में-अनंतगुणों-का-निर्देश",
           "props": {
@@ -10167,12 +10234,32 @@
           }
         },
         {
-          "label": "GathaTeeka",
-          "key": "समयसार:आत्मख्याति:गाथा:टीका:2",
+          "label": "Kalash",
+          "key": "समयसार:आत्मख्याति:कलश:2",
           "props": {
-            "shastra_natural_key": "समयसार",
             "teeka_natural_key": "समयसार:आत्मख्याति",
-            "gatha_number": "2"
+            "kalash_number": "2"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "द्रव्यसंग्रह:टीका:गाथा:टीका:14",
+          "props": {
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+            "gatha_number": "14"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:43",
+          "props": {
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+            "publisher_id": "14",
+            "page_number": "43"
           },
           "lazy": true
         },
@@ -10186,17 +10273,6 @@
             "source": "jainkosh",
             "is_leaf": true
           }
-        },
-        {
-          "label": "GathaTeekaBhaavarth",
-          "key": "समयसार:आत्मख्याति:3:गाथा:टीका:भावार्थ:2",
-          "props": {
-            "shastra_natural_key": "समयसार",
-            "teeka_natural_key": "समयसार:आत्मख्याति",
-            "publisher_id": "3",
-            "gatha_number": "2"
-          },
-          "lazy": true
         },
         {
           "label": "KalashBhaavarth",
@@ -12138,6 +12214,44 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "कार्तिकेयानुप्रेक्षा:टीका:गाथा:टीका:224"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 11,
+            "block_index": 3,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं/3",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "कार्तिकेयानुप्रेक्षा:टीका:23:पृष्ठ:156"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 11,
+            "block_index": 3,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं/3",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -12155,8 +12269,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "समयसार:आत्मख्याति:गाथा:टीका:2"
+            "label": "Kalash",
+            "key": "समयसार:आत्मख्याति:कलश:2"
           },
           "to": {
             "label": "Topic",
@@ -12167,6 +12281,44 @@
             "source": "jainkosh",
             "block_index": 0,
             "mention_path": "गुण:द्रव्य-गुण-संबंध:जीव-द्रव्य-में-अनंतगुणों-का-निर्देश/0",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:जीव-द्रव्य-में-अनंतगुणों-का-निर्देश"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "द्रव्यसंग्रह:टीका:गाथा:टीका:14"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:जीव-द्रव्य-में-अनंतगुणों-का-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 6,
+            "block_index": 2,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:जीव-द्रव्य-में-अनंतगुणों-का-निर्देश/2",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:जीव-द्रव्य-में-अनंतगुणों-का-निर्देश"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:43"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:जीव-द्रव्य-में-अनंतगुणों-का-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 6,
+            "block_index": 2,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:जीव-द्रव्य-में-अनंतगुणों-का-निर्देश/2",
             "source_natural_key": "गुण:द्रव्य-गुण-संबंध:जीव-द्रव्य-में-अनंतगुणों-का-निर्देश"
           }
         },
@@ -12183,42 +12335,6 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "GathaTeeka",
-            "key": "समयसार:आत्मख्याति:गाथा:टीका:2"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "गुण:द्रव्य-गुण-संबंध:गुणों-के-अनंतत्व-विषयक-शंका-व-समन्वय"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "गुण:द्रव्य-गुण-संबंध:गुणों-के-अनंतत्व-विषयक-शंका-व-समन्वय/0",
-            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:गुणों-के-अनंतत्व-विषयक-शंका-व-समन्वय"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "GathaTeekaBhaavarth",
-            "key": "समयसार:आत्मख्याति:3:गाथा:टीका:भावार्थ:2"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "गुण:द्रव्य-गुण-संबंध:गुणों-के-अनंतत्व-विषयक-शंका-व-समन्वय"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "गुण:द्रव्य-गुण-संबंध:गुणों-के-अनंतत्व-विषयक-शंका-व-समन्वय/0",
-            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:गुणों-के-अनंतत्व-विषयक-शंका-व-समन्वय"
           }
         },
         {

@@ -288,6 +288,35 @@ def test_publication_kalash_hindi_text():
     assert edges[0]["from"] == {"label": "KalashBhaavarth", "key": "धवला:जयधवला:1:कलश:भावार्थ:3"}
 
 
+def test_teeka_kalash_sanskrit_text_kind():
+    """teeka + sanskrit_text with कलश ref should emit Kalash (same key as *_gatha)."""
+    cfg = _make_config()
+    b = _block("sanskrit_text", "नियमसार", [_rf("कलश", 2)], teeka_name="आत्मख्याति")
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert len(edges) == 1
+    assert edges[0]["from"] == {"label": "Kalash", "key": "नियमसार:आत्मख्याति:कलश:2"}
+
+
+def test_teeka_kalash_prakrit_text_kind():
+    """teeka + prakrit_text with कलश ref should emit Kalash."""
+    cfg = _make_config()
+    b = _block("prakrit_text", "नियमसार", [_rf("कलश", 5)], teeka_name="आत्मख्याति")
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert len(edges) == 1
+    assert edges[0]["from"] == {"label": "Kalash", "key": "नियमसार:आत्मख्याति:कलश:5"}
+
+
+def test_publication_kalash_sanskrit_text_kind():
+    """publication + sanskrit_text with कलश ref → Kalash (same key as *_gatha).
+    समयसार is registered as 'publication' but kalash verses appear as sanskrit_text blocks.
+    """
+    cfg = _make_config()
+    b = _block("sanskrit_text", "धवला", [_rf("कलश", 2)], teeka_name="जयधवला")
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert len(edges) == 1
+    assert edges[0]["from"] == {"label": "Kalash", "key": "धवला:जयधवला:कलश:2"}
+
+
 def test_shastra_no_kalash_edge():
     cfg = _make_config()
     b = _block("sanskrit_gatha", "समयसार", [_rf("कलश", 3)])

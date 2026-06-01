@@ -140,13 +140,19 @@ def _emit_kalash(
         return []
 
     if shastra_type == "teeka":
-        if block_kind in {"sanskrit_gatha", "prakrit_gatha", "hindi_gatha"}:
+        if block_kind in {
+            "sanskrit_gatha", "prakrit_gatha", "hindi_gatha",
+            "sanskrit_text", "prakrit_text",
+        }:
             key = f"{sn}:{tn}:कलश:{k}"
             return [_make_edge(edge_type, "Kalash", key, target, pankti_props, extra_props)]
         return []
 
     if shastra_type == "publication":
-        if block_kind in {"sanskrit_gatha", "prakrit_gatha", "hindi_gatha"}:
+        if block_kind in {
+            "sanskrit_gatha", "prakrit_gatha", "hindi_gatha",
+            "sanskrit_text", "prakrit_text",
+        }:
             key = f"{sn}:{tn}:कलश:{k}"
             return [_make_edge(edge_type, "Kalash", key, target, pankti_props, extra_props)]
         if block_kind == "hindi_text":

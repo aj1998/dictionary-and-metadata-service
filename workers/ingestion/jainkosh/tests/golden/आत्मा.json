@@ -377,7 +377,7 @@
                   {
                     "text": "द्रव्यसंग्रह / मूल या टीका गाथा 14/49/1",
                     "inline_reference": false,
-                    "needs_manual_match": true,
+                    "needs_manual_match": false,
                     "is_teeka": false,
                     "teeka_name": "",
                     "shastra_name": "द्रव्यसंग्रह",
@@ -386,6 +386,14 @@
                       {
                         "field": "गाथा",
                         "value": 14
+                      },
+                      {
+                        "field": "पृष्ठ",
+                        "value": 49
+                      },
+                      {
+                        "field": "पंक्ति",
+                        "value": 1
                       }
                     ]
                   }
@@ -748,8 +756,8 @@
       "prev": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%B9%E0%A4%A4%E0%A5%8D%E0%A4%AF%E0%A4%BE",
       "next": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%81%E0%A4%B2"
     },
-    "parser_version": "jainkosh.rules/1.11.11",
-    "parsed_at": "2026-06-01T20:06:44.413727",
+    "parser_version": "jainkosh.rules/1.11.16",
+    "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
   "would_write": {
@@ -1366,7 +1374,7 @@
                 {
                   "text": "द्रव्यसंग्रह / मूल या टीका गाथा 14/49/1",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "द्रव्यसंग्रह",
@@ -1375,6 +1383,14 @@
                     {
                       "field": "गाथा",
                       "value": 14
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 49
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 1
                     }
                   ]
                 }
@@ -1759,6 +1775,17 @@
           }
         },
         {
+          "label": "Page",
+          "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:49",
+          "props": {
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+            "publisher_id": "14",
+            "page_number": "49"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद:बहिरात्मा-अंतरात्मा-व-परमात्मा",
           "props": {
@@ -2110,6 +2137,26 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
+            "pankti": 1,
+            "block_index": 0,
+            "mention_path": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद/0",
+            "source_natural_key": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:49"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 1,
             "block_index": 0,
             "mention_path": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद/0",
             "source_natural_key": "आत्मा:गुण-स्थानों-की-अपेक्षा-बहिरात्मा-आदि-भेद"

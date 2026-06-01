@@ -6,6 +6,8 @@ Covers:
 - Verse marker spacing fix (Bug 4)
 - Auto-detect verse splitting (Feature)
 - Cross-page topic stub resolve_key (Feature)
+- Kalash keyword-trigger format priority (v1.11.14)
+- Parishisht keyword-trigger format priority (v1.11.15)
 """
 from __future__ import annotations
 
@@ -1412,3 +1414,170 @@ class TestCrossPageTopicResolveKey:
         assert svabhav_stub is not None, "स्वभाव:2 stub not found in गुण golden"
         assert svabhav_stub["props"]["topic_path"] == "2"
         assert svabhav_stub["props"]["parent_keyword_natural_key"] == "स्वभाव"
+
+
+# ---------------------------------------------------------------------------
+# Kalash keyword-trigger format priority (v1.11.14)
+# ---------------------------------------------------------------------------
+
+class TestKalashKeywordTriggerPriority:
+    """'{कलश}कलश' format takes priority over plain 'गाथा' format when the
+    reference text contains 'कलश N' after the teeka name.
+
+    Bug: split_name_and_numeric absorbed 'कलश' into the name portion, so
+    numeric_clean_with_kw was just '2' instead of 'कलश2'.  The keyword-
+    trigger format could not match, and the parser fell back to 'गाथा'
+    format → both गाथा=2 and कलश=2 appeared in resolved_fields.
+
+    Fix (v1.11.14): split_name_and_numeric_kw splits at '/ keyword'
+    boundaries before the first digit, so 'कलश 2' lands in the numeric
+    portion and '{कलश}कलश' fires correctly.
+    """
+
+    def test_split_name_numeric_kw_splits_at_kalash(self):
+        """split_name_and_numeric_kw: '/ कलश 2' → numeric='कलश 2'."""
+        from workers.ingestion.jainkosh.parse_reference import split_name_and_numeric_kw
+        text = "समयसार / आत्मख्याति/ कलश 2"
+        _, numeric = split_name_and_numeric_kw(text, ["कलश", "गाथा", "श्लोक"])
+        assert numeric == "कलश 2", f"Expected 'कलश 2', got {numeric!r}"
+
+    def test_split_name_numeric_kw_does_not_split_when_kw_after_digit(self):
+        """When keyword comes after the first digit, split is unchanged."""
+        from workers.ingestion.jainkosh.parse_reference import split_name_and_numeric_kw
+        text = "धवला 1/खण्ड 2/ गाथा 5"
+        _, numeric = split_name_and_numeric_kw(text, ["कलश", "गाथा", "श्लोक"])
+        # First digit is '1' in "धवला 1..." so split is at '1', not at 'गाथा'
+        assert numeric.startswith("1"), f"Numeric should start with '1', got {numeric!r}"
+
+    def test_split_name_numeric_kw_no_keyword_fallback(self):
+        """Without a /keyword prefix the behaviour matches split_name_and_numeric."""
+        from workers.ingestion.jainkosh.parse_reference import (
+            split_name_and_numeric,
+            split_name_and_numeric_kw,
+        )
+        text = "समयसार / आत्मख्याति/ 71"
+        name1, num1 = split_name_and_numeric(text)
+        name2, num2 = split_name_and_numeric_kw(text, ["कलश", "गाथा"])
+        assert num1 == num2, f"Numeric should be identical; got {num1!r} vs {num2!r}"
+
+    def test_kalash_ref_resolves_only_kalash_field(self, cfg: JainkoshConfig):
+        """'समयसार / आत्मख्याति/ कलश 2' → resolved_fields = [कलश=2] only, not गाथा=2."""
+        from workers.ingestion.jainkosh.parse_reference import parse_reference_text
+        if cfg.shastra_registry is None:
+            pytest.skip("shastra_registry not available in test config")
+        results = parse_reference_text(
+            "समयसार / आत्मख्याति/ कलश 2",
+            cfg.shastra_registry,
+            cfg.reference,
+        )
+        assert len(results) == 1
+        r = results[0]
+        assert r.needs_manual_match is False
+        assert r.shastra_name == "समयसार"
+        assert r.is_teeka is True
+        assert r.teeka_name == "आत्मख्याति"
+        field_map = {rf.field: rf.value for rf in r.resolved_fields}
+        assert "कलश" in field_map, f"कलश field missing; got {field_map}"
+        assert field_map["कलश"] == 2
+        assert "गाथा" not in field_map, (
+            f"गाथा field should NOT appear for a kalash reference; got {field_map}"
+        )
+
+    def test_kalash_ref_with_suffix_resolves_only_kalash(self, cfg: JainkoshConfig):
+        """'समयसार / आत्मख्याति/ कलश 2/पं.जयचंद' → only कलश=2 in resolved_fields."""
+        from workers.ingestion.jainkosh.parse_reference import parse_reference_text
+        if cfg.shastra_registry is None:
+            pytest.skip("shastra_registry not available in test config")
+        results = parse_reference_text(
+            "समयसार / आत्मख्याति/ कलश 2/पं.जयचंद",
+            cfg.shastra_registry,
+            cfg.reference,
+        )
+        assert len(results) == 1
+        r = results[0]
+        assert r.needs_manual_match is False
+        field_map = {rf.field: rf.value for rf in r.resolved_fields}
+        assert "कलश" in field_map and field_map["कलश"] == 2
+        assert "गाथा" not in field_map, f"गाथा should not appear; got {field_map}"
+
+    def test_regular_samaysar_ref_still_resolves_gatha(self, cfg: JainkoshConfig):
+        """'समयसार / आत्मख्याति/ 71' (no 'कलश' keyword) → गाथा=71 as before."""
+        from workers.ingestion.jainkosh.parse_reference import parse_reference_text
+        if cfg.shastra_registry is None:
+            pytest.skip("shastra_registry not available in test config")
+        results = parse_reference_text(
+            "समयसार / आत्मख्याति/ 71",
+            cfg.shastra_registry,
+            cfg.reference,
+        )
+        assert len(results) == 1
+        r = results[0]
+        assert r.needs_manual_match is False
+        field_map = {rf.field: rf.value for rf in r.resolved_fields}
+        assert "गाथा" in field_map, f"गाथा field expected; got {field_map}"
+        assert field_map["गाथा"] == 71
+        assert "कलश" not in field_map
+
+
+# ---------------------------------------------------------------------------
+# परिशिष्ठ keyword-trigger format priority (v1.11.15)
+# ---------------------------------------------------------------------------
+
+class TestParishishtKeywordTriggerPriority:
+    """'{परिशिष्ठ}परिशिष्ठ' format resolves correctly for 'समयसार / आत्मख्याति/ परिशिष्ठ 1'.
+
+    Bug: 'परिशिष्ठ' was not in section_keywords, so match_shastra could not
+    strip it from the teeka_candidate → teeka_name became "आत्मख्याति/परिशिष्ठ"
+    and split_name_and_numeric_kw did not split there → numeric was "1" →
+    plain "गाथा" format matched → resolved_fields = [{गाथा=1}] (wrong).
+
+    Fix (v1.11.15): Add 'परिशिष्ठ' to section_keywords in jainkosh.yaml.
+    """
+
+    def test_parishisht_ref_resolves_parishisht_field(self, cfg: JainkoshConfig):
+        """'समयसार / आत्मख्याति/ परिशिष्ठ 1' → resolved_fields=[परिशिष्ठ=1], teeka_name='आत्मख्याति'."""
+        from workers.ingestion.jainkosh.parse_reference import parse_reference_text
+        if cfg.shastra_registry is None:
+            pytest.skip("shastra_registry not available in test config")
+        results = parse_reference_text(
+            "समयसार / आत्मख्याति/ परिशिष्ठ 1",
+            cfg.shastra_registry,
+            cfg.reference,
+        )
+        assert len(results) == 1
+        r = results[0]
+        assert r.needs_manual_match is False
+        assert r.shastra_name == "समयसार"
+        assert r.is_teeka is True
+        assert r.teeka_name == "आत्मख्याति", (
+            f"teeka_name should be 'आत्मख्याति', got {r.teeka_name!r}"
+        )
+        field_map = {rf.field: rf.value for rf in r.resolved_fields}
+        assert "परिशिष्ठ" in field_map, f"परिशिष्ठ field missing; got {field_map}"
+        assert field_map["परिशिष्ठ"] == 1
+        assert "गाथा" not in field_map, (
+            f"गाथा field should NOT appear for a parishisht reference; got {field_map}"
+        )
+
+    def test_split_name_numeric_kw_splits_at_parishisht(self):
+        """split_name_and_numeric_kw: '/ परिशिष्ठ 1' → numeric='परिशिष्ठ 1'."""
+        from workers.ingestion.jainkosh.parse_reference import split_name_and_numeric_kw
+        text = "समयसार / आत्मख्याति/ परिशिष्ठ 1"
+        _, numeric = split_name_and_numeric_kw(text, ["परिशिष्ठ", "कलश", "गाथा"])
+        assert numeric == "परिशिष्ठ 1", f"Expected 'परिशिष्ठ 1', got {numeric!r}"
+
+    def test_kalash_ref_still_resolves_after_parishisht_added(self, cfg: JainkoshConfig):
+        """Adding 'परिशिष्ठ' to section_keywords does not break कलश resolution."""
+        from workers.ingestion.jainkosh.parse_reference import parse_reference_text
+        if cfg.shastra_registry is None:
+            pytest.skip("shastra_registry not available in test config")
+        results = parse_reference_text(
+            "समयसार / आत्मख्याति/ कलश 2",
+            cfg.shastra_registry,
+            cfg.reference,
+        )
+        assert len(results) == 1
+        r = results[0]
+        field_map = {rf.field: rf.value for rf in r.resolved_fields}
+        assert field_map.get("कलश") == 2
+        assert "गाथा" not in field_map

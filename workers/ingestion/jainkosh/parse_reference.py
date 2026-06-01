@@ -362,6 +362,37 @@ def split_name_and_numeric(text: str) -> tuple[str, str]:
     return name_raw, numeric_raw
 
 
+def split_name_and_numeric_kw(text: str, section_keywords: list[str]) -> tuple[str, str]:
+    """Like split_name_and_numeric but also splits at '/keyword' boundaries.
+
+    When a section keyword (e.g. 'कलश', 'गाथा') follows a '/' separator and
+    appears BEFORE the first bare digit, the split point is moved to the start
+    of that keyword so it lands in the numeric portion rather than the name.
+
+    This ensures that keyword-trigger format groups like '{कलश}कलश' can match
+    against the numeric string, e.g. '/ कलश 2' → numeric='कलश 2'.
+    """
+    m = re.search(r"[\d§]", text)
+    digit_pos = m.start() if m else len(text)
+
+    earliest = digit_pos
+    for kw in section_keywords:
+        # Match: a "/" followed by optional whitespace, then the keyword as a
+        # standalone word (Devanagari chars are word chars in Python's Unicode
+        # regex engine, so \b works correctly here).
+        pat = r"/\s*(" + re.escape(kw) + r")\b"
+        m_kw = re.search(pat, text)
+        if m_kw and m_kw.start(1) < digit_pos and m_kw.start(1) < earliest:
+            earliest = m_kw.start(1)
+
+    if earliest >= len(text):
+        return text.strip().strip("/").strip(), ""
+
+    name_raw = text[:earliest].strip().strip("/").strip()
+    numeric_raw = text[earliest:].strip().strip("/").strip()
+    return name_raw, numeric_raw
+
+
 # ---------------------------------------------------------------------------
 # 14A.8: Strip trailing non-numeric slash-segments from numeric portion
 # ---------------------------------------------------------------------------
@@ -785,9 +816,14 @@ def parse_reference_text(
     numeric_clean = numeric_raw.replace(" ", "")
 
     # Keyword-group formats need the numeric string WITH section keywords preserved
-    # so that keyword triggers (e.g. "गाथा", "श्लोक") are visible in the value stream.
+    # so that keyword triggers (e.g. "गाथा", "श्लोक", "कलश") are visible in the
+    # value stream.  We use a keyword-aware split so that a section keyword
+    # immediately following a "/" and preceding the first digit is included in
+    # the numeric portion (e.g. "/ कलश 2" → numeric_raw_with_kw = "कलश 2").
+    # This allows the '{कलश}कलश' keyword-trigger format to fire correctly.
     clean_with_kw = _preprocess_text(text, config, skip_section_keywords=True)
-    _, numeric_raw_with_kw = split_name_and_numeric(clean_with_kw)
+    _sec_kws = config.section_keywords.keywords if config.section_keywords.enabled else []
+    _, numeric_raw_with_kw = split_name_and_numeric_kw(clean_with_kw, _sec_kws)
     numeric_raw_with_kw = _strip_trailing_non_numeric(numeric_raw_with_kw)
     numeric_clean_with_kw = numeric_raw_with_kw.replace(" ", "")
 
