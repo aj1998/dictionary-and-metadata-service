@@ -10311,7 +10311,7 @@
         },
         {
           "label": "Topic",
-          "key": "स्वभाव:2",
+          "resolve_key": "स्वभाव:2",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "2",
@@ -10321,7 +10321,7 @@
         },
         {
           "label": "Topic",
-          "key": "सप्तभंगी:5:8",
+          "resolve_key": "सप्तभंगी:5:8",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "8",
@@ -10347,7 +10347,7 @@
         },
         {
           "label": "Topic",
-          "key": "जीव:3",
+          "resolve_key": "जीव:3",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "3",
@@ -10357,7 +10357,7 @@
         },
         {
           "label": "Topic",
-          "key": "उपचार:3",
+          "resolve_key": "उपचार:3",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "3",
@@ -12270,7 +12270,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "स्वभाव:2"
+            "resolve_key": "स्वभाव:2"
           },
           "props": {
             "weight": 1.0,
@@ -12331,7 +12331,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "सप्तभंगी:5:8"
+            "resolve_key": "सप्तभंगी:5:8"
           },
           "props": {
             "weight": 1.0,
@@ -12424,7 +12424,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "जीव:3"
+            "resolve_key": "जीव:3"
           },
           "props": {
             "weight": 1.0,
@@ -12455,7 +12455,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "उपचार:3"
+            "resolve_key": "उपचार:3"
           },
           "props": {
             "weight": 1.0,

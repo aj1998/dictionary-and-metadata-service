@@ -5,6 +5,7 @@ Covers:
 - Stray punctuation cleanup after GRef stripping (Bug 2)
 - Verse marker spacing fix (Bug 4)
 - Auto-detect verse splitting (Feature)
+- Cross-page topic stub resolve_key (Feature)
 """
 from __future__ import annotations
 
@@ -1262,3 +1263,152 @@ class TestTeekaSpaceSuffixDetection:
         )
         assert entry is None, "Unknown base shastra should not produce a match"
         assert is_teeka is False
+
+
+# ---------------------------------------------------------------------------
+# Cross-page topic stub resolve_key
+# ---------------------------------------------------------------------------
+
+class TestCrossPageTopicResolveKey:
+    """Cross-page Topic stubs must carry resolve_key instead of key so that the
+    ingestion layer can look up the actual heading-based natural_key from
+    Postgres once the target keyword has been ingested."""
+
+    _MINIMAL_HTML = """
+    <html><body>
+    <div class="mw-parser-output">
+      <h2><span class="mw-headline" id="सिद्धांतकोष_से">सिद्धांतकोष से</span></h2>
+      <ol>
+        <li class="HindiText">
+          <strong>1. first section</strong>
+          <ul>
+            <li class="HindiText">देखें <a href="/wiki/अन्यशब्द#2.3">अन्यशब्द - 2.3</a></li>
+          </ul>
+        </li>
+      </ol>
+      <strong id="1">1. first section</strong>
+      <p class="HindiText">some text</p>
+    </div>
+    </body></html>
+    """
+
+    @pytest.fixture
+    def envelope_neo4j(self, cfg):
+        from workers.ingestion.jainkosh.parse_keyword import parse_keyword_html
+        from workers.ingestion.jainkosh.envelope import build_envelope
+        result = parse_keyword_html(
+            self._MINIMAL_HTML,
+            "https://www.jainkosh.org/wiki/परीक्षा",
+            cfg,
+        )
+        env = build_envelope(result, cfg)
+        return env.would_write["neo4j"]
+
+    def test_cross_page_stub_has_resolve_key(self, envelope_neo4j):
+        """A stub targeting a different keyword must have resolve_key, not key."""
+        nodes = envelope_neo4j["nodes"]
+        stubs = [
+            n for n in nodes
+            if n.get("is_stub_seed") and n.get("label") == "Topic"
+        ]
+        assert stubs, "Expected at least one cross-page Topic stub"
+        for stub in stubs:
+            assert "resolve_key" in stub, (
+                f"Cross-page stub must carry resolve_key: {stub}"
+            )
+            assert "key" not in stub, (
+                f"Cross-page stub must NOT have key (use resolve_key): {stub}"
+            )
+
+    def test_cross_page_stub_resolve_key_format(self, envelope_neo4j):
+        """resolve_key must be {parent_keyword}:{path_with_colons}."""
+        nodes = envelope_neo4j["nodes"]
+        stubs = [
+            n for n in nodes
+            if n.get("is_stub_seed") and n.get("label") == "Topic"
+        ]
+        for stub in stubs:
+            rk = stub["resolve_key"]
+            props = stub["props"]
+            kw = props["parent_keyword_natural_key"]
+            tp = props["topic_path"]
+            expected_rk = f"{kw}:{tp.replace('.', ':')}"
+            assert rk == expected_rk, (
+                f"resolve_key {rk!r} does not match expected {expected_rk!r}"
+            )
+
+    def test_edge_to_uses_resolve_key(self, envelope_neo4j):
+        """RELATED_TO edges targeting cross-page topics must reference resolve_key."""
+        edges = envelope_neo4j["edges"]
+        cross_page_edges = [
+            e for e in edges
+            if e.get("type") == "RELATED_TO"
+            and e.get("to", {}).get("resolve_key")
+        ]
+        assert cross_page_edges, "Expected at least one RELATED_TO edge with resolve_key"
+        for edge in cross_page_edges:
+            to = edge["to"]
+            assert "resolve_key" in to
+            assert "key" not in to
+
+    def test_same_keyword_self_ref_uses_key_not_resolve_key(self, cfg):
+        """Self-references within the same keyword keep using key (actual heading key)."""
+        html = """
+        <html><body>
+        <div class="mw-parser-output">
+          <h2><span class="mw-headline" id="सिद्धांतकोष_से">सिद्धांतकोष से</span></h2>
+          <strong id="1">1. पहला विभाग</strong>
+          <p class="HindiText">some text देखें
+            <a class="mw-selflink-fragment" href="#2">स्वयं - 2</a>
+          </p>
+          <strong id="2">2. दूसरा विभाग</strong>
+          <p class="HindiText">other text</p>
+        </div>
+        </body></html>
+        """
+        from workers.ingestion.jainkosh.parse_keyword import parse_keyword_html
+        from workers.ingestion.jainkosh.envelope import build_envelope
+        result = parse_keyword_html(
+            html, "https://www.jainkosh.org/wiki/आत्मपरीक्षा", cfg,
+        )
+        env = build_envelope(result, cfg)
+        nodes = env.would_write["neo4j"]["nodes"]
+        stubs = [
+            n for n in nodes
+            if n.get("is_stub_seed") and n.get("label") == "Topic"
+        ]
+        for stub in stubs:
+            # Same-keyword self-references are already resolved to heading-based
+            # natural_key at parse time — no resolve_key needed.
+            assert "key" in stub, f"Same-keyword stub should have key: {stub}"
+            assert "resolve_key" not in stub, (
+                f"Same-keyword stub should NOT have resolve_key: {stub}"
+            )
+
+    def test_गुण_golden_stubs_use_resolve_key(self, cfg):
+        """गुण golden: cross-page stubs for स्वभाव:2 etc. use resolve_key."""
+        import json
+        from pathlib import Path
+        golden_path = (
+            Path(__file__).parents[1] / "golden" / "गुण.json"
+        )
+        if not golden_path.exists():
+            pytest.skip("गुण golden not found")
+        with open(golden_path) as f:
+            data = json.load(f)
+        nodes = data["would_write"]["neo4j"]["nodes"]
+        stubs = [
+            n for n in nodes
+            if n.get("is_stub_seed") and n.get("label") == "Topic"
+        ]
+        assert stubs, "गुण golden should have cross-page Topic stubs"
+        for stub in stubs:
+            assert "resolve_key" in stub, f"Stub missing resolve_key: {stub}"
+            assert "key" not in stub, f"Stub should not have key: {stub}"
+        # Specifically verify the स्वभाव:2 stub
+        svabhav_stub = next(
+            (s for s in stubs if s.get("resolve_key") == "स्वभाव:2"), None
+        )
+        assert svabhav_stub is not None, "स्वभाव:2 stub not found in गुण golden"
+        assert svabhav_stub["props"]["topic_path"] == "2"
+        assert svabhav_stub["props"]["parent_keyword_natural_key"] == "स्वभाव"

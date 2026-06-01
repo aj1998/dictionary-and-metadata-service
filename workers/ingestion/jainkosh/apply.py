@@ -17,6 +17,9 @@ from jain_kb_common.db.mongo.upserts import (
 from jain_kb_common.db.postgres.enums import IngestionSource
 from jain_kb_common.db.postgres.keywords import Keyword
 from jain_kb_common.db.postgres.topics import Topic
+
+import logging
+_log = logging.getLogger(__name__)
 from jain_kb_common.db.postgres.upserts import (
     upsert_keyword,
     upsert_keyword_alias,
@@ -44,6 +47,80 @@ def _nfc_str(v: Any) -> Any:
     if isinstance(v, dict):
         return {k: _nfc_str(val) for k, val in v.items()}
     return v
+
+
+async def _resolve_topic_stubs(
+    pg_session: AsyncSession,
+    neo4j_nodes: list[dict],
+    neo4j_edges: list[dict],
+) -> tuple[list[dict], list[dict]]:
+    """Resolve cross-page Topic stubs that carry resolve_key to actual natural_keys.
+
+    During parsing, cross-page Topic references are emitted as stub nodes with
+    ``resolve_key`` (e.g. ``"स्वभाव:2"``) because the heading text of the target
+    topic is not available in the current keyword's HTML page.  When the target
+    keyword has already been ingested (its topics exist in Postgres), this function
+    looks up the real ``natural_key`` by ``(parent_keyword_natural_key, topic_path)``
+    and replaces the placeholder with it.  If the target keyword has not yet been
+    ingested, the resolve_key itself is used as a fallback (preserving the previous
+    behaviour).
+    """
+    # Collect unique (parent_kw, topic_path) pairs from resolve_key stub nodes.
+    rk_lookup: dict[str, tuple[str, str]] = {}
+    for node in neo4j_nodes:
+        rk = node.get("resolve_key")
+        if rk and node.get("is_stub_seed") and node.get("label") == "Topic":
+            props = node.get("props", {})
+            parent_kw = props.get("parent_keyword_natural_key", "")
+            tp = props.get("topic_path", "")
+            if parent_kw and tp:
+                rk_lookup[rk] = (parent_kw, tp)
+
+    if not rk_lookup:
+        return neo4j_nodes, neo4j_edges
+
+    # Query Postgres for actual natural_keys.
+    rk_to_actual: dict[str, str] = {}
+    for rk, (parent_kw, tp) in rk_lookup.items():
+        res = await pg_session.execute(
+            select(Topic.natural_key)
+            .join(Keyword, Topic.parent_keyword_id == Keyword.id)
+            .where(Keyword.natural_key == parent_kw, Topic.topic_path == tp)
+        )
+        actual_nk = res.scalars().first()
+        if actual_nk:
+            _log.debug("resolve_key %s → %s", rk, actual_nk)
+            rk_to_actual[rk] = actual_nk
+        else:
+            _log.debug("resolve_key %s: target not in Postgres yet, using placeholder", rk)
+            rk_to_actual[rk] = rk
+
+    # Update nodes: replace resolve_key with the resolved (or fallback) key.
+    resolved_nodes: list[dict] = []
+    for node in neo4j_nodes:
+        rk = node.get("resolve_key")
+        if rk and node.get("is_stub_seed") and node.get("label") == "Topic":
+            actual_key = rk_to_actual.get(rk, rk)
+            new_node = {k: v for k, v in node.items() if k != "resolve_key"}
+            new_node["key"] = actual_key
+            resolved_nodes.append(new_node)
+        else:
+            resolved_nodes.append(node)
+
+    # Update edges: replace resolve_key in the ``to`` field.
+    resolved_edges: list[dict] = []
+    for edge in neo4j_edges:
+        to = edge.get("to", {})
+        rk = to.get("resolve_key")
+        if rk:
+            actual_key = rk_to_actual.get(rk, rk)
+            new_to = {k: v for k, v in to.items() if k != "resolve_key"}
+            new_to["key"] = actual_key
+            resolved_edges.append({**edge, "to": new_to})
+        else:
+            resolved_edges.append(edge)
+
+    return resolved_nodes, resolved_edges
 
 
 async def _resolve_keyword_id(session: AsyncSession, natural_key: str) -> uuid.UUID | None:
@@ -153,6 +230,14 @@ async def apply_approved_keyword_payload(
 
     await pg_session.commit()
 
+    # Resolve cross-page Topic stubs now that Postgres has been committed.
+    # If the target keyword was already ingested (earlier in the same run or a
+    # prior run), the actual heading-based natural_key is returned; otherwise
+    # the placeholder resolve_key is used as a fallback.
+    neo4j_nodes, neo4j_edges = await _resolve_topic_stubs(
+        pg_session, neo.get("nodes", []), neo.get("edges", [])
+    )
+
     # --- Mongo (after Postgres commit) ---
     run_id_str = str(ingestion_run_id) if ingestion_run_id else None
 
@@ -208,10 +293,6 @@ async def apply_approved_keyword_payload(
             if display_text:
                 return display_text[0].get("text", "") if isinstance(display_text[0], dict) else str(display_text[0])
         return str(display_text) if display_text else ""
-
-    # Use neo4j nodes from envelope if present, else build from topic_rows
-    neo4j_nodes = neo.get("nodes", [])
-    neo4j_edges = neo.get("edges", [])
 
     # Sync Topics (parents first, same order as Postgres)
     topic_nodes = [n for n in neo4j_nodes if n.get("label") == "Topic"]

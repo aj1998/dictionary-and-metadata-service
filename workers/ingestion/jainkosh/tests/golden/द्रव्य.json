@@ -24452,7 +24452,7 @@
         },
         {
           "label": "Topic",
-          "key": "केवलज्ञान:5:2",
+          "resolve_key": "केवलज्ञान:5:2",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "2",
@@ -24462,7 +24462,7 @@
         },
         {
           "label": "Topic",
-          "key": "जीव:3:8",
+          "resolve_key": "जीव:3:8",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "8",
@@ -24480,7 +24480,7 @@
         },
         {
           "label": "Topic",
-          "key": "आकाश:3",
+          "resolve_key": "आकाश:3",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "3",
@@ -24490,7 +24490,7 @@
         },
         {
           "label": "Topic",
-          "key": "आकाश:2",
+          "resolve_key": "आकाश:2",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "2",
@@ -24500,7 +24500,7 @@
         },
         {
           "label": "Topic",
-          "key": "जीव:4:1",
+          "resolve_key": "जीव:4:1",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "1",
@@ -24510,7 +24510,7 @@
         },
         {
           "label": "Topic",
-          "key": "जीव:4",
+          "resolve_key": "जीव:4",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "4",
@@ -24520,7 +24520,7 @@
         },
         {
           "label": "Topic",
-          "key": "इंद्रिय:3:5",
+          "resolve_key": "इंद्रिय:3:5",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "5",
@@ -24546,7 +24546,7 @@
         },
         {
           "label": "Topic",
-          "key": "गुण:3",
+          "resolve_key": "गुण:3",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "3",
@@ -24564,7 +24564,7 @@
         },
         {
           "label": "Topic",
-          "key": "उत्पाद:2",
+          "resolve_key": "उत्पाद:2",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "2",
@@ -24590,7 +24590,7 @@
         },
         {
           "label": "Topic",
-          "key": "राग:2",
+          "resolve_key": "राग:2",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "2",
@@ -24600,7 +24600,7 @@
         },
         {
           "label": "Topic",
-          "key": "चैत्य:1:11",
+          "resolve_key": "चैत्य:1:11",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "11",
@@ -24610,7 +24610,7 @@
         },
         {
           "label": "Topic",
-          "key": "दान:5",
+          "resolve_key": "दान:5",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "5",
@@ -24620,7 +24620,7 @@
         },
         {
           "label": "Topic",
-          "key": "पूजा:4",
+          "resolve_key": "पूजा:4",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "4",
@@ -24630,7 +24630,7 @@
         },
         {
           "label": "Topic",
-          "key": "मूर्त:2",
+          "resolve_key": "मूर्त:2",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "2",
@@ -24640,7 +24640,7 @@
         },
         {
           "label": "Topic",
-          "key": "सम्यग्दर्शन:II:3:3",
+          "resolve_key": "सम्यग्दर्शन:II:3:3",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "3",
@@ -24650,7 +24650,7 @@
         },
         {
           "label": "Topic",
-          "key": "कारण:III:1",
+          "resolve_key": "कारण:III:1",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "1",
@@ -24660,7 +24660,7 @@
         },
         {
           "label": "Topic",
-          "key": "परमाणु:3",
+          "resolve_key": "परमाणु:3",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "3",
@@ -24670,7 +24670,7 @@
         },
         {
           "label": "Topic",
-          "key": "उपचार:3",
+          "resolve_key": "उपचार:3",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "3",
@@ -24680,7 +24680,7 @@
         },
         {
           "label": "Topic",
-          "key": "सप्तभंगी:5",
+          "resolve_key": "सप्तभंगी:5",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "5",
@@ -24698,7 +24698,7 @@
         },
         {
           "label": "Topic",
-          "key": "कारण:II",
+          "resolve_key": "कारण:II",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "II",
@@ -25958,7 +25958,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "केवलज्ञान:5:2"
+            "resolve_key": "केवलज्ञान:5:2"
           },
           "props": {
             "weight": 1.0,
@@ -26451,7 +26451,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "जीव:3:8"
+            "resolve_key": "जीव:3:8"
           },
           "props": {
             "weight": 1.0,
@@ -26617,7 +26617,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "आकाश:3"
+            "resolve_key": "आकाश:3"
           },
           "props": {
             "weight": 1.0,
@@ -27263,7 +27263,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "आकाश:2"
+            "resolve_key": "आकाश:2"
           },
           "props": {
             "weight": 1.0,
@@ -27331,7 +27331,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "जीव:4:1"
+            "resolve_key": "जीव:4:1"
           },
           "props": {
             "weight": 1.0,
@@ -27346,7 +27346,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "जीव:4"
+            "resolve_key": "जीव:4"
           },
           "props": {
             "weight": 1.0,
@@ -27399,7 +27399,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "इंद्रिय:3:5"
+            "resolve_key": "इंद्रिय:3:5"
           },
           "props": {
             "weight": 1.0,
@@ -30420,7 +30420,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "गुण:3"
+            "resolve_key": "गुण:3"
           },
           "props": {
             "weight": 1.0,
@@ -30482,7 +30482,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "उत्पाद:2"
+            "resolve_key": "उत्पाद:2"
           },
           "props": {
             "weight": 1.0,
@@ -30559,7 +30559,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "आकाश:3"
+            "resolve_key": "आकाश:3"
           },
           "props": {
             "weight": 1.0,
@@ -30652,7 +30652,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "राग:2"
+            "resolve_key": "राग:2"
           },
           "props": {
             "weight": 1.0,
@@ -30683,7 +30683,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "चैत्य:1:11"
+            "resolve_key": "चैत्य:1:11"
           },
           "props": {
             "weight": 1.0,
@@ -30714,7 +30714,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "दान:5"
+            "resolve_key": "दान:5"
           },
           "props": {
             "weight": 1.0,
@@ -30745,7 +30745,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "पूजा:4"
+            "resolve_key": "पूजा:4"
           },
           "props": {
             "weight": 1.0,
@@ -30776,7 +30776,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "मूर्त:2"
+            "resolve_key": "मूर्त:2"
           },
           "props": {
             "weight": 1.0,
@@ -30807,7 +30807,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "सम्यग्दर्शन:II:3:3"
+            "resolve_key": "सम्यग्दर्शन:II:3:3"
           },
           "props": {
             "weight": 1.0,
@@ -30838,7 +30838,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "जीव:3:8"
+            "resolve_key": "जीव:3:8"
           },
           "props": {
             "weight": 1.0,
@@ -30869,7 +30869,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "कारण:III:1"
+            "resolve_key": "कारण:III:1"
           },
           "props": {
             "weight": 1.0,
@@ -30900,7 +30900,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "परमाणु:3"
+            "resolve_key": "परमाणु:3"
           },
           "props": {
             "weight": 1.0,
@@ -30931,7 +30931,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "उत्पाद:2"
+            "resolve_key": "उत्पाद:2"
           },
           "props": {
             "weight": 1.0,
@@ -30962,7 +30962,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "उपचार:3"
+            "resolve_key": "उपचार:3"
           },
           "props": {
             "weight": 1.0,
@@ -30993,7 +30993,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "सप्तभंगी:5"
+            "resolve_key": "सप्तभंगी:5"
           },
           "props": {
             "weight": 1.0,
@@ -31086,7 +31086,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "कारण:II"
+            "resolve_key": "कारण:II"
           },
           "props": {
             "weight": 1.0,

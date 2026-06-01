@@ -85,7 +85,48 @@ async def _ensure_postgres_extensions(conn) -> None:
         await conn.execute(text(stmt))
 
 
-async def _run_apply(selected: tuple[GoldenSpec, ...], *, neo4j_database: str, ingestion_run_id: uuid.UUID | None) -> None:
+async def _apply_batch(
+    selected: tuple[GoldenSpec, ...],
+    *,
+    pg_session,
+    mongo_db,
+    neo4j_driver,
+    ingestion_run_id: uuid.UUID | None,
+    neo4j_database: str,
+    pass_label: str = "pass 1",
+) -> None:
+    """Apply one batch of envelopes.  Safe to call multiple times (idempotent)."""
+    for spec in selected:
+        envelope = _load_envelope(spec)
+        await apply_approved_keyword_payload(
+            envelope=envelope,
+            pg_session=pg_session,
+            mongo_db=mongo_db,
+            neo4j_driver=neo4j_driver,
+            ingestion_run_id=ingestion_run_id,
+            neo4j_database=neo4j_database,
+        )
+        print(f"[{pass_label}] applied {spec.keyword}")
+
+
+async def _run_apply(
+    selected: tuple[GoldenSpec, ...],
+    *,
+    neo4j_database: str,
+    ingestion_run_id: uuid.UUID | None,
+    resolve_pass: bool = True,
+) -> None:
+    """Ingest selected golden envelopes (two passes).
+
+    Cross-page Topic stubs carry ``resolve_key`` (e.g. "स्वभाव:2") which the
+    ingestion layer resolves to the actual heading-based natural_key via a
+    Postgres lookup at apply time.
+
+    Because keywords can form an arbitrary dependency graph (A references B,
+    B references A), pass 1 resolves stubs whose target was processed earlier
+    in the batch, and pass 2 resolves the remainder (at that point all
+    keywords are in Postgres).  Both passes are fully idempotent.
+    """
     database_url = os.environ["DATABASE_URL"]
     mongo_url = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
     mongo_db_name = os.environ.get("MONGO_DB_NAME") or os.environ.get("MONGO_DB", "jain_kb")
@@ -105,17 +146,30 @@ async def _run_apply(selected: tuple[GoldenSpec, ...], *, neo4j_database: str, i
             await conn.run_sync(Base.metadata.create_all)
         await ensure_constraints(neo4j_driver, database=neo4j_database)
         async with session_factory() as pg_session:
-            for spec in selected:
-                envelope = _load_envelope(spec)
-                await apply_approved_keyword_payload(
-                    envelope=envelope,
+            await _apply_batch(
+                selected,
+                pg_session=pg_session,
+                mongo_db=mongo_db,
+                neo4j_driver=neo4j_driver,
+                ingestion_run_id=ingestion_run_id,
+                neo4j_database=neo4j_database,
+                pass_label="pass 1",
+            )
+            if resolve_pass:
+                # Second pass: by now all target keywords are in Postgres, so
+                # any resolve_key stubs that remained as placeholders in pass 1
+                # (because their target keyword was processed later in the batch)
+                # will now be resolved to the actual heading-based natural_key.
+                print("running resolve pass (pass 2)…")
+                await _apply_batch(
+                    selected,
                     pg_session=pg_session,
                     mongo_db=mongo_db,
                     neo4j_driver=neo4j_driver,
                     ingestion_run_id=ingestion_run_id,
                     neo4j_database=neo4j_database,
+                    pass_label="pass 2",
                 )
-                print(f"applied {spec.keyword}")
     finally:
         await close_driver()
         await engine.dispose()
@@ -155,7 +209,11 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     try:
-        asyncio.run(_run_apply(selected, neo4j_database=args.neo4j_database, ingestion_run_id=ingestion_run_id))
+        asyncio.run(_run_apply(
+            selected,
+            neo4j_database=args.neo4j_database,
+            ingestion_run_id=ingestion_run_id,
+        ))
     except KeyError as exc:
         print(f"Missing environment variable: {exc.args[0]}", file=sys.stderr)
         return 2

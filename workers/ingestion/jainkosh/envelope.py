@@ -305,17 +305,22 @@ def _index_relation_edge(rel, src: tuple, *, keyword: str, config: JainkoshConfi
     }
 
 
+def _node_identity(item: dict) -> tuple:
+    """Return (label, key_or_resolve_key) for node deduplication."""
+    return (item.get("label", ""), item.get("key") or item.get("resolve_key", ""))
+
+
 def _dedupe(items: list[dict]) -> list[dict]:
     """Deduplicate nodes and edges.
 
-    Nodes: keyed on (label, key); real nodes win over stub seeds / lazy nodes.
-    Edges: keyed on (type, from, to, mention_path); resolve_by fields included
+    Nodes: keyed on (label, key or resolve_key); real nodes win over stub seeds / lazy nodes.
+    Edges: keyed on (type, from, to, mention_path); resolve_by and resolve_key fields included
            so that distinct cross-page targets are preserved.
     """
     seen_edges: set = set()
     out_edges: list[dict] = []
-    node_map: dict = {}   # (label, key) → item
-    node_order: list = []  # insertion-order list of (label, key) tuples
+    node_map: dict = {}   # (label, key_or_rk) → item
+    node_order: list = []  # insertion-order list of (label, key_or_rk) tuples
 
     for item in items:
         if "type" in item and "from" in item and "to" in item:
@@ -324,7 +329,7 @@ def _dedupe(items: list[dict]) -> list[dict]:
             rb = to.get("resolve_by")
             to_key = (
                 to.get("label", ""),
-                to.get("key", ""),
+                to.get("key", "") or to.get("resolve_key", ""),
                 rb.get("parent_keyword", "") if rb else "",
                 rb.get("topic_path", "") if rb else "",
             )
@@ -338,7 +343,7 @@ def _dedupe(items: list[dict]) -> list[dict]:
                 seen_edges.add(key)
                 out_edges.append(item)
         else:
-            nk = (item.get("label", ""), item.get("key", ""))
+            nk = _node_identity(item)
             is_stub = item.get("is_stub_seed") or item.get("lazy")
             if nk not in node_map:
                 node_map[nk] = item
@@ -681,19 +686,39 @@ def build_neo4j_fragment(result: KeywordParseResult, config: JainkoshConfig) -> 
             if not target_exists:
                 # Redlinks: drop per spec (no stub for non-existent pages)
                 continue
-            nk = _resolve_rb_natural_key(rb_parent, rb_path, result.keyword, _path_to_nk)
-            stub_seeds.append({
-                "label": "Topic",
-                "key": nk,
-                "is_stub_seed": True,
-                "props": {
-                    "display_text_hi": _last_segment_unhyphen(rb_path),
-                    "topic_path": rb_path,
-                    "parent_keyword_natural_key": rb_parent,
-                },
-            })
             new_edge = dict(edge)
-            new_edge["to"] = {"label": "Topic", "key": nk}
+            if rb_parent == result.keyword:
+                # Same-keyword self-reference: heading-based key is available now.
+                nk = _resolve_rb_natural_key(rb_parent, rb_path, result.keyword, _path_to_nk)
+                stub_seeds.append({
+                    "label": "Topic",
+                    "key": nk,
+                    "is_stub_seed": True,
+                    "props": {
+                        "display_text_hi": _last_segment_unhyphen(rb_path),
+                        "topic_path": rb_path,
+                        "parent_keyword_natural_key": rb_parent,
+                    },
+                })
+                new_edge["to"] = {"label": "Topic", "key": nk}
+            else:
+                # Cross-page reference: use resolve_key so the ingestion layer can
+                # look up the actual natural_key from Postgres once the target
+                # keyword has been ingested, rather than landing on a permanent
+                # numeric-path placeholder key (e.g. "स्वभाव:2") that never
+                # matches the real node ("स्वभाव:स्वभाव-व-शक्ति-निर्देश").
+                rk = f"{rb_parent}:{rb_path.replace('.', ':')}"
+                stub_seeds.append({
+                    "label": "Topic",
+                    "resolve_key": rk,
+                    "is_stub_seed": True,
+                    "props": {
+                        "display_text_hi": _last_segment_unhyphen(rb_path),
+                        "topic_path": rb_path,
+                        "parent_keyword_natural_key": rb_parent,
+                    },
+                })
+                new_edge["to"] = {"label": "Topic", "resolve_key": rk}
             resolved_edges.append(new_edge)
         else:
             # Cross-page Keyword references get a Keyword stub seed

@@ -4,7 +4,7 @@
 > Covers HTML structure rules, parser implementation, configuration, models,
 > algorithms, CLI, tests, and edge-emission specs.
 >
-> **Current version**: `jainkosh.rules/1.11.12`
+> **Current version**: `jainkosh.rules/1.11.13`
 >
 > Archived source specs (pre-v1.7 detail):
 > `detailed_docs/parsing_rules.md`, `parser_spec.md`,
@@ -735,8 +735,37 @@ for full block-context classification, guard rules, and node-key formats.
 
 ### 12.3 `see_also` edge target resolution
 
-- `target_topic_path` present → `RELATED_TO` with placeholder `{"label":"Topic","resolve_by":{"parent_keyword":"X","topic_path":"1.2"}}` — resolved by orchestrator using Postgres.
+- `target_topic_path` present → `RELATED_TO` emitted from `build_neo4j_fragment`:
+  - **Same-keyword self-reference** (`target_keyword == current keyword`): edge target uses `{"label":"Topic","key":"<heading-based-natural-key>"}` — resolved immediately using the `topic_path → natural_key` map built from the current envelope.
+  - **Cross-page reference** (`target_keyword != current keyword`): edge target uses `{"label":"Topic","resolve_key":"<parent_keyword>:<path_with_colons>"}` — the ingestion layer resolves this at apply time (see [ingestion doc](ingestion.md#cross-page-topic-stub-resolution)).
 - Only `target_keyword` → `RELATED_TO` to `{"label":"Keyword","key":"<target_keyword>"}`.
+
+### 12.4 Cross-page topic stub `resolve_key`
+
+When the parser encounters a `देखें` link to another keyword's topic (e.g. `देखें स्वभाव#2`), it cannot know the heading text of that topic at parse time. Previously, a stub node was emitted with a numeric-path placeholder key (`"स्वभाव:2"`), which never matched the real node's heading-based key (`"स्वभाव:स्वभाव-व-शक्ति-निर्देश"`) once that keyword was ingested.
+
+**Current behaviour (v1.11.12+)**:
+
+- The stub node is emitted with `resolve_key` instead of `key`:
+  ```json
+  {
+    "label": "Topic",
+    "resolve_key": "स्वभाव:2",
+    "is_stub_seed": true,
+    "props": {
+      "display_text_hi": "2",
+      "topic_path": "2",
+      "parent_keyword_natural_key": "स्वभाव"
+    }
+  }
+  ```
+- The edge's `to` field also uses `resolve_key`:
+  ```json
+  {"label": "Topic", "resolve_key": "स्वभाव:2"}
+  ```
+- During ingestion (`apply.py`), the ingestion layer looks up `(parent_keyword_natural_key, topic_path)` in Postgres. If the target keyword has already been ingested, the resolve_key is replaced with the actual heading-based natural_key before writing to Neo4j.
+- If the target keyword has not yet been ingested, `resolve_key` itself is used as a fallback (same behaviour as before, creates a placeholder stub).
+- A second ingestion pass (via `--resolve-pass` in `ingest_goldens_apply.py`) ensures all cross-references are resolved even for mutually-referencing keyword pairs.
 
 ---
 
@@ -870,6 +899,7 @@ DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence an
 | `1.11.8` | **(1) DFS deep-heading recursion for block-class elements**: when a block-class element (e.g. `<li class="HindiText">`) has no heading as a direct child but `contains_heading` returns True (headings are nested inside a child `<ol>`), the DFS now recurses into its direct children instead of emitting it as a flat content block. Fixes pages like गुण where all content was nested inside one outer `<li>`. **(2) Hybrid `<ol>` dual processing**: in `parse_section`, a heading-containing `<ol>` that has no prior pure index `<ol>` (`index_ols` is empty) is added to both `index_ols` and `body`, so its `देखें` notes become `IndexRelation` objects while its headings are parsed as subsections. |
 | `1.11.11` | **Case B split: no synthetic resolved_fields for unregistered shastras**: in `_try_split_multi_verse` Case B, when the base reference has `shastra_name=None` (shastra not found in the registry), synthetic clones now keep `resolved_fields=[]` instead of fabricating a `गाथा` field. Preserves the invariant `needs_manual_match=True ∧ shastra_name=None ⇒ resolved_fields=[]`. Affected pages: गुण (`अध्यात्मकमल मार्तंड/2/7-8`, `पंचाध्यायी x\`/5/112-159`) and पर्याय (`मोक्ष पंचाशत/23-25`). |
 | `1.11.12` | **Teeka-keyword space suffix detection**: `match_shastra` now recognises `टीका` and `की टीका` as teeka markers even when they appear after the shastra name with only a space (no `/` separator). The suffix is stripped; the base name is looked up in the registry. If found, returns `is_teeka=True`, `teeka_name="टीका"`. This is Step 2.6, inserted before the existing slash-split Step 3. Fixes `परमात्मप्रकाश टीका/1/57` (previously `needs_manual_match=true`); now resolves to अधिकार=1, गाथा=57. Also fixes `परमात्मप्रकाश टीका/1/57/56/13` → अधिकार=1, गाथा=57, पृष्ठ=56, पंक्ति=13. Goldens updated: पर्याय, गुण. |
+| `1.11.13` | **Cross-page topic stub `resolve_key`**: cross-page Topic stubs now carry `resolve_key` (e.g. `"स्वभाव:2"`) instead of `key`. The ingestion layer (`apply.py`) looks up the actual heading-based `natural_key` in Postgres at apply time and replaces the placeholder. If the target keyword has not yet been ingested, `resolve_key` is used as a fallback. Same-keyword self-references are unaffected (still use `key`). Goldens updated for all keywords. |
 | `1.11.7` | **Inline-ref distribution by position in split blocks**: `_do_split` no longer assigns all inline refs to the last split block. A new `_assign_inline_refs_to_segments` helper uses the pre-strip translation text (stored as `Block._hindi_translation_pre_strip` via `PrivateAttr`, set during sibling-`=` absorption and `_emit` translation absorption) to find each inline ref's position relative to verse markers. A ref that appears immediately after `।N।` is assigned to the gatha-N split block rather than the final block. Fixes `नयचक्र बृहद्/22,25,30` where `( परमात्मप्रकाश टीका/1/57 )` appears right after `। 25।` in the HindiText — it is now placed in the gatha-25 block instead of the gatha-30 block. Falls back to last-segment assignment when pre-strip text is unavailable or the ref text is not found. |
 
 ---
@@ -905,5 +935,6 @@ DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence an
 | any | `hindi_text` block with `hindi_translation=null` + publication shastra | `GathaTeekaBhaavarth` edge (§12.2). |
 | गुण | No `<h2>` — entire page in single top-level `<ol>` containing both index `<p>` notes and body `<strong id="N">` headings nested 3 levels deep | Hybrid ol dual-processing (§4.5); DFS deep-heading recursion (§6.12). |
 | any | Self-link `<a class="mw-selflink-fragment" href="#3">` | `is_self=true` (§4.3). |
+| any | Cross-page `देखें <a href="/wiki/स्वभाव#2">` (target on different keyword page) | Stub node emitted with `resolve_key: "स्वभाव:2"` (no `key`). Ingestion layer resolves to heading-based natural_key via Postgres lookup (§12.4). |
 | any | Redlink `/w/index.php?title=X&action=edit&redlink=1` | `target_exists=false`; no Neo4j edge. |
 | any | Trailing `<br/>` and stray `&#160;` | Whitespace-normalise (§6.11). |

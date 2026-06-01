@@ -269,11 +269,33 @@ async def apply_approved_keyword_payload(
 
 Stub seeds are derived at envelope-build time in `envelope.py`, not at apply time:
 
-- **`resolve_by` cross-page Topics**: the envelope resolves the target `natural_key` via `topic_keys.slug` and emits a stub-seed node `{"label": "Topic", "key": derived_nk, "is_stub_seed": True, "props": {...}}`.
+- **Same-keyword self-reference Topics**: emit a stub-seed node with `"key": heading_based_natural_key`. The actual key is known at parse time from the current envelope's topic tree.
+- **Cross-page Topic refs** (`target_keyword != current keyword`): emit a stub-seed node with `"resolve_key": "{parent_keyword}:{topic_path_with_colons}"` (e.g. `"स्वभाว:2"`). The `key` field is absent; the ingestion layer resolves the actual key at apply time (see §Cross-page topic stub resolution below).
 - **Cross-page Keyword refs**: emits `{"label": "Keyword", "key": kw, "is_stub_seed": True, "props": {"display_text": kw}}`.
 - **Lazy nodes** (Gatha, GathaTeeka, etc.): tagged `lazy: true` with derived props from `_derive_props`.
-- **`_dedupe`** collapses `(label, key)` duplicates; if a node appears as both real and stub-seed, the real copy wins.
+- **`_dedupe`** collapses `(label, key or resolve_key)` duplicates; if a node appears as both real and stub-seed, the real copy wins.
 - **Redlinks** (`target_exists: false`): edges are dropped at envelope time; no stub is emitted.
+
+---
+
+## Cross-page topic stub resolution
+
+Cross-page Topic stubs carry `resolve_key` instead of `key` (e.g. `"स्वभाव:2"`) because the heading text of the target topic is only available in that keyword's own HTML page.
+
+**At apply time** (`apply_approved_keyword_payload`):
+
+After the Postgres commit, `_resolve_topic_stubs` runs:
+
+1. Finds all stub nodes with `resolve_key` and `is_stub_seed: true`.
+2. For each, queries Postgres: `SELECT topics.natural_key FROM topics JOIN keywords ON topics.parent_keyword_id = keywords.id WHERE keywords.natural_key = $parent_kw AND topics.topic_path = $path`.
+3. If found → replace `resolve_key` with the actual heading-based `key` (e.g. `"स्वभाव:स्वभाव-व-शक्ति-निर्देश"`). The RELATED_TO edge target is updated to match.
+4. If not found (target keyword not yet ingested) → use `resolve_key` itself as the fallback `key`. A placeholder stub is written to Neo4j (same as before this feature).
+
+**Why a second ingestion pass may be needed:**
+
+When two keywords cross-reference each other (A → B and B → A), a single sequential pass resolves only the direction where the target was processed earlier. Use `--resolve-pass` in `ingest_goldens_apply.py` to run a second application of all envelopes; by then all keywords are in Postgres and all stubs resolve correctly. The second pass is fully idempotent (MERGE / ON CONFLICT DO NOTHING).
+
+**No infinite loops:** `_resolve_topic_stubs` only issues `SELECT` queries to Postgres — it never triggers recursive ingestion calls. There is no risk of cycles or loops.
 
 ---
 

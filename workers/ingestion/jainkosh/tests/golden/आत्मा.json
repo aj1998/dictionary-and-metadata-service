@@ -1903,7 +1903,7 @@
         },
         {
           "label": "Topic",
-          "key": "प्रमाण:3:3",
+          "resolve_key": "प्रमाण:3:3",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "3",
@@ -1913,7 +1913,7 @@
         },
         {
           "label": "Topic",
-          "key": "मोक्षमार्ग:2:5",
+          "resolve_key": "मोक्षमार्ग:2:5",
           "is_stub_seed": true,
           "props": {
             "display_text_hi": "5",
@@ -2288,7 +2288,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "प्रमाण:3:3"
+            "resolve_key": "प्रमाण:3:3"
           },
           "props": {
             "weight": 1.0,
@@ -2318,7 +2318,7 @@
           },
           "to": {
             "label": "Topic",
-            "key": "मोक्षमार्ग:2:5"
+            "resolve_key": "मोक्षमार्ग:2:5"
           },
           "props": {
             "weight": 1.0,
