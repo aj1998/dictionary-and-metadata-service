@@ -292,7 +292,7 @@
                   {
                     "text": "(परमात्मप्रकाश / मूल या टीका अधिकार 1/11)",
                     "inline_reference": false,
-                    "needs_manual_match": true,
+                    "needs_manual_match": false,
                     "is_teeka": false,
                     "teeka_name": "",
                     "shastra_name": "परमात्मप्रकाश",
@@ -301,6 +301,10 @@
                       {
                         "field": "अधिकार",
                         "value": 1
+                      },
+                      {
+                        "field": "गाथा",
+                        "value": 11
                       }
                     ]
                   },
@@ -744,8 +748,8 @@
       "prev": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%B9%E0%A4%A4%E0%A5%8D%E0%A4%AF%E0%A4%BE",
       "next": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%81%E0%A4%B2"
     },
-    "parser_version": "jainkosh.rules/1.11.7",
-    "parsed_at": "2026-05-31T21:02:36.081999",
+    "parser_version": "jainkosh.rules/1.11.11",
+    "parsed_at": "2026-06-01T16:43:49.761001",
     "warnings": []
   },
   "would_write": {
@@ -1275,7 +1279,7 @@
                 {
                   "text": "(परमात्मप्रकाश / मूल या टीका अधिकार 1/11)",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "परमात्मप्रकाश",
@@ -1284,6 +1288,10 @@
                     {
                       "field": "अधिकार",
                       "value": 1
+                    },
+                    {
+                      "field": "गाथा",
+                      "value": 11
                     }
                   ]
                 },
@@ -1703,6 +1711,15 @@
         },
         {
           "label": "Gatha",
+          "key": "परमात्मप्रकाश:गाथा:11",
+          "props": {
+            "shastra_natural_key": "परमात्मप्रकाश",
+            "gatha_number": "11"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
           "key": "द्रव्यसंग्रह:गाथा:14",
           "props": {
             "shastra_natural_key": "द्रव्यसंग्रह",
@@ -1980,6 +1997,24 @@
           "from": {
             "label": "Gatha",
             "key": "ज्ञानसार:गाथा:29"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/1",
+            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "परमात्मप्रकाश:गाथा:11"
           },
           "to": {
             "label": "Topic",

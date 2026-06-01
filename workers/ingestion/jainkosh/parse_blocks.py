@@ -1039,17 +1039,22 @@ def _try_split_multi_verse(block: Block, config: JainkoshConfig) -> list[Block]:
             split_refs: list[Optional[Reference]] = []
             for n in common_nums:
                 if base_ref is not None:
-                    # Clone ref with only this gatha value, preserving the
-                    # existing gatha field name (e.g. "दोहक") if present.
-                    from .models import ResolvedField
-                    gatha_field_name = next(
-                        (rf.field for rf in base_ref.resolved_fields if rf.field in gatha_field_names),
-                        "गाथा",
-                    )
-                    new_resolved = [ResolvedField(field=rf.field, value=rf.value)
-                                    for rf in base_ref.resolved_fields
-                                    if rf.field not in gatha_field_names]
-                    new_resolved.append(ResolvedField(field=gatha_field_name, value=n))
+                    # Only synthesize gatha resolved_fields when the shastra was
+                    # found in the registry (shastra_name is not None). For
+                    # unregistered shastras the field schema is unknown, so adding
+                    # a fabricated गाथा field would be misleading.
+                    if base_ref.shastra_name is not None:
+                        from .models import ResolvedField
+                        gatha_field_name = next(
+                            (rf.field for rf in base_ref.resolved_fields if rf.field in gatha_field_names),
+                            "गाथा",
+                        )
+                        new_resolved = [ResolvedField(field=rf.field, value=rf.value)
+                                        for rf in base_ref.resolved_fields
+                                        if rf.field not in gatha_field_names]
+                        new_resolved.append(ResolvedField(field=gatha_field_name, value=n))
+                    else:
+                        new_resolved = []
                     split_refs.append(Reference(
                         text=base_ref.text,
                         inline_reference=False,

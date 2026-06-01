@@ -213,12 +213,33 @@
                           {
                             "text": "राजवार्तिक/1/33/1/95/6",
                             "inline_reference": false,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "भाग",
+                                "value": 1
+                              },
+                              {
+                                "field": "अध्याय",
+                                "value": 33
+                              },
+                              {
+                                "field": "सूत्र",
+                                "value": 1
+                              },
+                              {
+                                "field": "पृष्ठ",
+                                "value": 95
+                              },
+                              {
+                                "field": "पंक्ति",
+                                "value": 6
+                              }
+                            ]
                           },
                           {
                             "text": "( धवला 1/1,1,1/84/1 )",
@@ -427,12 +448,33 @@
                           {
                             "text": "राजवार्तिक/1/29/4/89/4",
                             "inline_reference": false,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "भाग",
+                                "value": 1
+                              },
+                              {
+                                "field": "अध्याय",
+                                "value": 29
+                              },
+                              {
+                                "field": "सूत्र",
+                                "value": 4
+                              },
+                              {
+                                "field": "पृष्ठ",
+                                "value": 89
+                              },
+                              {
+                                "field": "पंक्ति",
+                                "value": 4
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -1979,12 +2021,7 @@
                         "teeka_name": "",
                         "shastra_name": null,
                         "match_method": null,
-                        "resolved_fields": [
-                          {
-                            "field": "गाथा",
-                            "value": 23
-                          }
-                        ]
+                        "resolved_fields": []
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2010,12 +2047,7 @@
                         "teeka_name": "",
                         "shastra_name": null,
                         "match_method": null,
-                        "resolved_fields": [
-                          {
-                            "field": "गाथा",
-                            "value": 25
-                          }
-                        ]
+                        "resolved_fields": []
                       }
                     ],
                     "is_orphan_translation": false,
@@ -5483,8 +5515,8 @@
       "prev": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AA%E0%A5%8D%E0%A4%A4%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%B2",
       "next": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%B8%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8"
     },
-    "parser_version": "jainkosh.rules/1.11.7",
-    "parsed_at": "2026-05-31T21:02:36.613743",
+    "parser_version": "jainkosh.rules/1.11.11",
+    "parsed_at": "2026-06-01T16:43:50.294620",
     "warnings": []
   },
   "would_write": {
@@ -6599,12 +6631,33 @@
                 {
                   "text": "राजवार्तिक/1/33/1/95/6",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "भाग",
+                      "value": 1
+                    },
+                    {
+                      "field": "अध्याय",
+                      "value": 33
+                    },
+                    {
+                      "field": "सूत्र",
+                      "value": 1
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 95
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 6
+                    }
+                  ]
                 },
                 {
                   "text": "( धवला 1/1,1,1/84/1 )",
@@ -6813,12 +6866,33 @@
                 {
                   "text": "राजवार्तिक/1/29/4/89/4",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "भाग",
+                      "value": 1
+                    },
+                    {
+                      "field": "अध्याय",
+                      "value": 29
+                    },
+                    {
+                      "field": "सूत्र",
+                      "value": 4
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 89
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 4
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -8368,12 +8442,7 @@
                   "teeka_name": "",
                   "shastra_name": null,
                   "match_method": null,
-                  "resolved_fields": [
-                    {
-                      "field": "गाथा",
-                      "value": 23
-                    }
-                  ]
+                  "resolved_fields": []
                 }
               ],
               "is_orphan_translation": false,
@@ -8399,12 +8468,7 @@
                   "teeka_name": "",
                   "shastra_name": null,
                   "match_method": null,
-                  "resolved_fields": [
-                    {
-                      "field": "गाथा",
-                      "value": 25
-                    }
-                  ]
+                  "resolved_fields": []
                 }
               ],
               "is_orphan_translation": false,
@@ -11992,6 +12056,26 @@
         },
         {
           "label": "Gatha",
+          "key": "राजवार्तिक:गाथा:1",
+          "props": {
+            "shastra_natural_key": "राजवार्तिक",
+            "gatha_number": "1"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:95",
+          "props": {
+            "shastra_natural_key": "राजवार्तिक",
+            "teeka_natural_key": "राजवार्तिक:टीका",
+            "publisher_id": "18",
+            "page_number": "95"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
           "key": "धवला:गाथा:1",
           "props": {
             "shastra_natural_key": "धवला",
@@ -12068,6 +12152,26 @@
             "teeka_natural_key": "सर्वार्थसिद्धि:टीका",
             "publisher_id": "18",
             "page_number": "141"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "राजवार्तिक:गाथा:4",
+          "props": {
+            "shastra_natural_key": "राजवार्तिक",
+            "gatha_number": "4"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:89",
+          "props": {
+            "shastra_natural_key": "राजवार्तिक",
+            "teeka_natural_key": "राजवार्तिक:टीका",
+            "publisher_id": "18",
+            "page_number": "89"
           },
           "lazy": true
         },
@@ -13326,6 +13430,44 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
+            "key": "राजवार्तिक:गाथा:1"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 6,
+            "block_index": 0,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ/0",
+            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:95"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 6,
+            "block_index": 0,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ/0",
+            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
             "key": "धवला:गाथा:1"
           },
           "to": {
@@ -13462,6 +13604,44 @@
             "pankti": 1,
             "block_index": 0,
             "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में/0",
+            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "राजवार्तिक:गाथा:4"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 4,
+            "block_index": 1,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में/1",
+            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:89"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 4,
+            "block_index": 1,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में/1",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में"
           }
         },

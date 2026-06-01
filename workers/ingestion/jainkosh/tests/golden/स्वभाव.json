@@ -361,12 +361,33 @@
                           {
                             "text": "राजवार्तिक/7/12/2/539/8",
                             "inline_reference": false,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "भाग",
+                                "value": 7
+                              },
+                              {
+                                "field": "अध्याय",
+                                "value": 12
+                              },
+                              {
+                                "field": "सूत्र",
+                                "value": 2
+                              },
+                              {
+                                "field": "पृष्ठ",
+                                "value": 539
+                              },
+                              {
+                                "field": "पंक्ति",
+                                "value": 8
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -1955,8 +1976,8 @@
       "prev": "/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AA%E0%A5%8D%E0%A4%A8%E0%A4%BE%E0%A4%A4%E0%A4%BF%E0%A4%9A%E0%A4%BE%E0%A4%B0",
       "next": "/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5_%E0%A4%A8%E0%A4%AF"
     },
-    "parser_version": "jainkosh.rules/1.11.7",
-    "parsed_at": "2026-05-31T21:02:36.903279",
+    "parser_version": "jainkosh.rules/1.11.11",
+    "parsed_at": "2026-06-01T16:43:50.580442",
     "warnings": []
   },
   "would_write": {
@@ -2695,12 +2716,33 @@
                 {
                   "text": "राजवार्तिक/7/12/2/539/8",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "भाग",
+                      "value": 7
+                    },
+                    {
+                      "field": "अध्याय",
+                      "value": 12
+                    },
+                    {
+                      "field": "सूत्र",
+                      "value": 2
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 539
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 8
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -4516,6 +4558,26 @@
           }
         },
         {
+          "label": "Gatha",
+          "key": "राजवार्तिक:गाथा:2",
+          "props": {
+            "shastra_natural_key": "राजवार्तिक",
+            "gatha_number": "2"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:539",
+          "props": {
+            "shastra_natural_key": "राजवार्तिक",
+            "teeka_natural_key": "राजवार्तिक:टीका",
+            "publisher_id": "18",
+            "page_number": "539"
+          },
+          "lazy": true
+        },
+        {
           "label": "GathaTeeka",
           "key": "समयसार:आत्मख्याति:गाथा:टीका:71",
           "props": {
@@ -5295,6 +5357,44 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "राजवार्तिक:गाथा:2"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 8,
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ/0",
+            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:539"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 8,
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ/0",
+            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ"
           }
         },
         {

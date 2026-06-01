@@ -384,6 +384,7 @@ class TestCaseBSplitNonAscendingOrder:
     """Case B split where verse markers appear in non-ascending order in text."""
 
     def _make_single_ref_block(self, src: str, tl: str | None, cfg: JainkoshConfig) -> Block:
+        # shastra_name set so that gatha field synthesis runs in Case B.
         return Block(
             kind="sanskrit_text",
             text_devanagari=src,
@@ -393,6 +394,7 @@ class TestCaseBSplitNonAscendingOrder:
                     text="shastra/गाथा",
                     inline_reference=False,
                     needs_manual_match=True,
+                    shastra_name="परीक्षाशास्त्र",
                     resolved_fields=[ResolvedField(field="गाथा", value=15)],
                 )
             ],
@@ -425,6 +427,54 @@ class TestCaseBSplitNonAscendingOrder:
             None,
         )
         assert first_gatha == 168, f"Expected 168, got {first_gatha}"
+
+
+class TestCaseBSplitUnregisteredShastra:
+    """Case B split with a shastra not in the registry (shastra_name=None).
+
+    Resolved fields must remain empty — fabricating a गाथा field for an
+    unregistered shastra produces misleading output (we don't know the schema).
+    """
+
+    def _make_unregistered_block(self, src: str, tl: str, cfg: JainkoshConfig) -> Block:
+        return Block(
+            kind="sanskrit_text",
+            text_devanagari=src,
+            hindi_translation=tl,
+            references=[
+                Reference(
+                    text="अज्ञातशास्त्र/1/7-8",
+                    inline_reference=False,
+                    needs_manual_match=True,
+                    shastra_name=None,
+                    resolved_fields=[],
+                )
+            ],
+        )
+
+    def test_split_still_produces_two_blocks(self, cfg: JainkoshConfig):
+        """Block should still be split even when the shastra is unregistered."""
+        src = "पहला भाग।7।दूसरा भाग।8।"
+        tl = "first part।7।second part।8।"
+        block = self._make_unregistered_block(src, tl, cfg)
+        result = _try_split_multi_verse(block, cfg)
+        assert len(result) == 2
+
+    def test_split_resolved_fields_empty_for_unregistered(self, cfg: JainkoshConfig):
+        """No गाथा field should be synthesized when shastra_name is None."""
+        src = "पहला भाग।7।दूसरा भाग।8।"
+        tl = "first part।7।second part।8।"
+        block = self._make_unregistered_block(src, tl, cfg)
+        result = _try_split_multi_verse(block, cfg)
+        assert len(result) == 2
+        for split_block in result:
+            assert split_block.references, "Each split block should have a reference"
+            ref = split_block.references[0]
+            assert ref.shastra_name is None
+            assert ref.needs_manual_match is True
+            assert ref.resolved_fields == [], (
+                f"Expected empty resolved_fields for unregistered shastra, got {ref.resolved_fields}"
+            )
 
 
 # ---------------------------------------------------------------------------

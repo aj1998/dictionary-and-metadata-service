@@ -617,7 +617,8 @@
     "shastra_name": "न्यायदीपिका",
     "short_form": "न्या.दी.",
     "format": [
-      "अधिकार/प्रकरण/पृष्ठ/पंक्ति"
+      "अधिकार/प्रकरण/पृष्ठ/पंक्ति",
+      "अधिकार/प्रकरण/पृष्ठ"
     ],
     "author": "",
     "date_format": "वि.सं.",
@@ -627,7 +628,7 @@
     "edition": "",
     "type": "publication",
     "alternate_name": "",
-    "public_url": ""
+    "public_url": "https://archive.org/details/kMOw_nyaya-dipika-by-abhinav-dharm-bhushan-yati-vir-seva-mandir-delhi/page/n1/mode/2up"
   },
   {
     "shastra_name": "न्यायबिन्दु",
@@ -811,7 +812,9 @@
     "shastra_name": "परमात्मप्रकाश",
     "short_form": "प.प्र./मू.",
     "format": [
-      "अधिकार/गाथा/पृष्ठ"
+      "अधिकार/गाथा/पृष्ठ/पंक्ति",
+      "अधिकार/गाथा/पृष्ठ",
+      "अधिकार/गाथा"
     ],
     "author": "",
     "date_format": "",
@@ -821,7 +824,7 @@
     "edition": "द्वितीय संस्करण",
     "type": "publication",
     "alternate_name": "",
-    "public_url": ""
+    "public_url": "https://archive.org/details/in.ernet.dli.2015.327220/page/n1/mode/2up"
   },
   {
     "shastra_name": "पाण्डवपुराण",
@@ -1149,6 +1152,7 @@
     "shastra_name": "राजवार्तिक",
     "short_form": "रा.वा.",
     "format": [
+      "भाग/अध्याय/सूत्र/पृष्ठ/पंक्ति",
       "अध्याय/सूत्र/पृष्ठ/पंक्ति"
     ],
     "author": "",
