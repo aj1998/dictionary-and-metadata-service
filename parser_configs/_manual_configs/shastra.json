@@ -1519,5 +1519,22 @@
     "type": "publication",
     "alternate_name": "",
     "public_url": ""
+  },
+  {
+    "shastra_name": "जैन सिद्धांत प्रवेशिका",
+    "short_form": "ज.स.प्र.",
+    "format": [
+      "प्रश्न"
+    ],
+    "author": "",
+    "date_format": "",
+    "date": "",
+    "publisher": "",
+    "notes": "",
+    "edition": "",
+    "type": "shastra",
+    "alternate_name": "",
+    "public_url": "",
+    "manually_added": true
   }
 ]

@@ -125,20 +125,13 @@ export function groupTopicExtractsByShastra(blocks: DefinitionBlock[]): ShastraG
   return order.map((k) => groups.get(k)!);
 }
 
-type RefBadgeVariant = 'teeka' | 'prakrit' | 'sanskrit' | 'shastra';
-
-const BADGE_VARIANT_CLASSES: Record<RefBadgeVariant, { pill: string; label: string }> = {
-  teeka:    { pill: 'bg-amber-50 text-amber-800 ring-amber-200',       label: 'text-amber-700' },
-  prakrit:  { pill: 'bg-emerald-50 text-emerald-800 ring-emerald-200', label: 'text-emerald-700' },
-  sanskrit: { pill: 'bg-sky-50 text-sky-800 ring-sky-200',             label: 'text-sky-700' },
-  shastra:  { pill: 'bg-sky-50 text-sky-800 ring-sky-200',             label: 'text-sky-700' },
-};
+const REF_BADGE_CLASSES = 'text-foreground-subtle';
 
 // Renders a single ref as a bulleted list row used inside the समान संदर्भ popover.
 function RefListItem({ ref }: { ref: DefinitionReference }) {
   const sourceLabel = formatRefSourceLabel(ref);
   return (
-    <li className="flex items-baseline gap-2 font-sans text-xs text-foreground">
+    <li className="flex items-baseline gap-2 font-serif-hindi text-xs text-foreground">
       <span className="mt-0.5 shrink-0 text-foreground-subtle">•</span>
       <span className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
         {sourceLabel && (
@@ -163,18 +156,15 @@ function RefListItem({ ref }: { ref: DefinitionReference }) {
   );
 }
 
-function RefBadge({ ref, variant, showShastra = false }: { ref: DefinitionReference; variant: RefBadgeVariant; showShastra?: boolean }) {
-  // In the inline ref bar, shastra is shown as the group heading so we suppress it.
-  // In the समान संदर्भ popover (showShastra=true) we show the full label.
+function RefBadge({ ref, showShastra = false }: { ref: DefinitionReference; showShastra?: boolean }) {
   const badgeLabel = showShastra
     ? formatRefSourceLabel(ref) || null
     : ref.is_teeka ? (ref.teeka_name || null) : null;
-  const { pill, label: labelClass } = BADGE_VARIANT_CLASSES[variant];
   return (
-    <span className={cn('inline-flex items-center gap-0 rounded-full px-2.5 py-0.5 text-xs ring-1', pill)}>
+    <span className={cn('inline-flex items-center gap-0 font-serif-hindi text-xs italic', REF_BADGE_CLASSES)}>
       {badgeLabel && (
         <>
-          <span className={cn('font-semibold', labelClass)}>{badgeLabel}</span>
+          <span className="font-semibold">{badgeLabel}</span>
           {ref.resolved_fields.length > 0 && (
             <span className="mx-1.5 opacity-30">|</span>
           )}
@@ -184,20 +174,19 @@ function RefBadge({ ref, variant, showShastra = false }: { ref: DefinitionRefere
         <span key={fi} className="flex items-center">
           {fi > 0 && <span className="mx-1 opacity-30">·</span>}
           <span className="opacity-60">{f.field}:</span>
-          <span className="ml-0.5 font-medium">{f.value}</span>
+          <span className="ml-0.5 text-[10px] font-medium not-italic">{f.value}</span>
         </span>
       ))}
     </span>
   );
 }
 
-function ShastraAccordion({ group, defaultOpen = true }: { group: ShastraGroup; defaultOpen?: boolean }) {
-  const [open, setOpen] = useState(defaultOpen);
+function ShastraAccordion({ group, open, onToggle }: { group: ShastraGroup; open: boolean; onToggle: () => void }) {
   return (
     <div>
       <button
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={onToggle}
         className="flex w-full items-center gap-1.5 py-1.5 text-left transition-colors hover:text-foreground"
         aria-expanded={open}
       >
@@ -213,10 +202,9 @@ function ShastraAccordion({ group, defaultOpen = true }: { group: ShastraGroup; 
         </span>
       </button>
       {open && (
-        <div className="mt-1 space-y-1 border-l-2 border-border pl-4">
+        <div className={cn('mt-1 space-y-3 pl-4', group.blocks.length > 1 && 'border-l-2 border-border')}>
           {group.blocks.map((block, i) => (
             <div key={i}>
-              {i > 0 && <hr className="mb-3 border-border" />}
               <ModalBlock block={block} />
             </div>
           ))}
@@ -233,15 +221,11 @@ function ModalBlock({ block }: { block: DefinitionBlock }) {
   const hiddenRefs = pickHiddenRefs(block);
   const borderClass = getBlockBorderClass(block, refsToShow);
 
-  // Variant drives badge bg tint; teeka refs always get amber regardless of block kind.
-  const blockVariant: Exclude<RefBadgeVariant, 'teeka'> =
-    isPrakrit ? 'prakrit' : block.kind === 'sanskrit_text' ? 'sanskrit' : 'shastra';
-
   const hasAnyRef = refsToShow.length > 0 || hiddenRefs.length > 0;
 
   return (
     <div>
-      <div className={`rounded border-l-4 ${borderClass} bg-surface-muted p-3`}>
+      <div className={`rounded border-l-[3px] ${borderClass} bg-surface-muted p-3`}>
         <p className={cn(
           'font-serif-hindi text-foreground',
           isSanskrit ? 'text-sm' : 'text-[length:var(--font-size-body)]',
@@ -258,7 +242,7 @@ function ModalBlock({ block }: { block: DefinitionBlock }) {
         <div className="mt-2 flex items-start gap-2">
           <div className="flex flex-wrap gap-1.5">
             {refsToShow.map((ref, ri) => (
-              <RefBadge key={ri} ref={ref} variant={ref.is_teeka ? 'teeka' : blockVariant} />
+              <RefBadge key={ri} ref={ref} />
             ))}
           </div>
           {hiddenRefs.length > 0 && (
@@ -274,7 +258,7 @@ function ModalBlock({ block }: { block: DefinitionBlock }) {
                 sideOffset={6}
                 className="w-[480px] max-w-[min(480px,calc(100vw-2rem))] rounded-[var(--radius-md)] border border-border bg-surface p-4 text-foreground"
               >
-                <p className="mb-2.5 font-sans text-xs font-semibold uppercase tracking-widest text-foreground-muted">
+                <p className="mb-2.5 font-serif-hindi text-xs font-semibold uppercase tracking-widest text-foreground-muted">
                   समान संदर्भ ({hiddenRefs.length})
                 </p>
                 <ul className="space-y-1.5">
@@ -287,6 +271,58 @@ function ModalBlock({ block }: { block: DefinitionBlock }) {
           )}
         </div>
       )}
+    </div>
+  );
+}
+
+function TopicExtractsSection({ blocks }: { blocks: DefinitionBlock[] }) {
+  const visibleCount = blocks.filter((b) => b.kind !== 'see_also').length;
+  const groups = groupTopicExtractsByShastra(blocks);
+
+  // One open-state entry per group; all start expanded.
+  const [openMap, setOpenMap] = useState<Record<number, boolean>>(() =>
+    Object.fromEntries(groups.map((_, i) => [i, true]))
+  );
+
+  const allOpen = groups.every((_, i) => openMap[i]);
+
+  const toggleAll = () => {
+    const next = !allOpen;
+    setOpenMap(Object.fromEntries(groups.map((_, i) => [i, next])));
+  };
+
+  const toggleOne = (i: number) =>
+    setOpenMap((prev) => ({ ...prev, [i]: !prev[i] }));
+
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={toggleAll}
+        className="flex w-full items-center gap-1.5 py-1 text-left transition-colors hover:text-foreground"
+        aria-expanded={allOpen}
+      >
+        <ChevronRight
+          strokeWidth={1.5}
+          className={cn('size-3.5 shrink-0 text-foreground-muted transition-transform duration-150', allOpen && 'rotate-90')}
+        />
+        <span className="text-xs font-medium uppercase tracking-wide text-foreground-muted">
+          विषय अंश
+        </span>
+        <span className="ml-1 font-sans text-xs text-foreground-subtle">({visibleCount})</span>
+      </button>
+      <div className="mt-1">
+        {groups.map((group, gi) => (
+          <Fragment key={group.groupKey || `__group_${gi}`}>
+            {gi > 0 && <hr className="my-2 border-border" />}
+            <ShastraAccordion
+              group={group}
+              open={openMap[gi] ?? true}
+              onToggle={() => toggleOne(gi)}
+            />
+          </Fragment>
+        ))}
+      </div>
     </div>
   );
 }
@@ -348,18 +384,7 @@ export function DefinitionModal({ open, onClose, title, definitionSections, topi
               </div>
             )}
 
-            {topicExtracts && (
-              <div className="space-y-2">
-                <p className="text-xs font-medium uppercase tracking-wide text-foreground-muted">
-                  विषय अंश ({topicExtracts.filter((b) => b.kind !== 'see_also').length})
-                </p>
-                <div className="space-y-2">
-                  {groupTopicExtractsByShastra(topicExtracts).map((group, gi) => (
-                    <ShastraAccordion key={group.groupKey || `__group_${gi}`} group={group} defaultOpen />
-                  ))}
-                </div>
-              </div>
-            )}
+            {topicExtracts && <TopicExtractsSection blocks={topicExtracts} />}
           </div>
         </Dialog.Popup>
       </Dialog.Portal>
