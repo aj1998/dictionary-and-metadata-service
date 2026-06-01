@@ -3181,11 +3181,16 @@
                         "text": "द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/पृष्ठ 79/8",
                         "inline_reference": false,
                         "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "द्रव्यसंग्रह",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 2
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -3324,11 +3329,16 @@
                         "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/76/8)",
                         "inline_reference": true,
                         "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "द्रव्यसंग्रह",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 2
+                          }
+                        ]
                       },
                       {
                         "text": "( न्यायदीपिका/3/79/122 )",
@@ -3561,11 +3571,16 @@
                         "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/2)",
                         "inline_reference": true,
                         "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "द्रव्यसंग्रह",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 2
+                          }
+                        ]
                       },
                       {
                         "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/56/18 )",
@@ -4030,11 +4045,16 @@
                         "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/6)",
                         "inline_reference": true,
                         "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "द्रव्यसंग्रह",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 2
+                          }
+                        ]
                       },
                       {
                         "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/6 )",
@@ -4172,12 +4192,25 @@
                       {
                         "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/76-7; 77-10)",
                         "inline_reference": true,
-                        "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "needs_manual_match": false,
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "द्रव्यसंग्रह",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 2
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 76
+                          },
+                          {
+                            "field": "अधिकार",
+                            "value": 2
+                          }
+                        ]
                       },
                       {
                         "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/9 )",
@@ -4254,11 +4287,16 @@
                         "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/4)",
                         "inline_reference": true,
                         "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "द्रव्यसंग्रह",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 2
+                          }
+                        ]
                       },
                       {
                         "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/4 )",
@@ -4373,11 +4411,16 @@
                         "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/7)",
                         "inline_reference": true,
                         "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "द्रव्यसंग्रह",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 2
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -4462,11 +4505,16 @@
                         "text": "द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/78/11",
                         "inline_reference": false,
                         "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "द्रव्यसंग्रह",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 2
+                          }
+                        ]
                       },
                       {
                         "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/21 )",
@@ -4559,11 +4607,16 @@
                         "text": "द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/78/6",
                         "inline_reference": false,
                         "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "द्रव्यसंग्रह",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 2
+                          }
+                        ]
                       },
                       {
                         "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/15 )",
@@ -10083,7 +10136,7 @@
       "next": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF_%E0%A4%86%E0%A4%B8%E0%A5%8D%E0%A4%B0%E0%A4%B5"
     },
     "parser_version": "jainkosh.rules/1.11.11",
-    "parsed_at": "2026-06-01T16:43:50.123037",
+    "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
   "would_write": {
@@ -14515,11 +14568,16 @@
                   "text": "द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/पृष्ठ 79/8",
                   "inline_reference": false,
                   "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "द्रव्यसंग्रह",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 2
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -14660,11 +14718,16 @@
                   "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/76/8)",
                   "inline_reference": true,
                   "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "द्रव्यसंग्रह",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 2
+                    }
+                  ]
                 },
                 {
                   "text": "( न्यायदीपिका/3/79/122 )",
@@ -14898,11 +14961,16 @@
                   "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/2)",
                   "inline_reference": true,
                   "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "द्रव्यसंग्रह",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 2
+                    }
+                  ]
                 },
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/56/18 )",
@@ -15369,11 +15437,16 @@
                   "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/6)",
                   "inline_reference": true,
                   "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "द्रव्यसंग्रह",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 2
+                    }
+                  ]
                 },
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/6 )",
@@ -15512,12 +15585,25 @@
                 {
                   "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/76-7; 77-10)",
                   "inline_reference": true,
-                  "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "द्रव्यसंग्रह",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 2
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 76
+                    },
+                    {
+                      "field": "अधिकार",
+                      "value": 2
+                    }
+                  ]
                 },
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/9 )",
@@ -15595,11 +15681,16 @@
                   "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/4)",
                   "inline_reference": true,
                   "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "द्रव्यसंग्रह",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 2
+                    }
+                  ]
                 },
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/4 )",
@@ -15715,11 +15806,16 @@
                   "text": "( द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/77/7)",
                   "inline_reference": true,
                   "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "द्रव्यसंग्रह",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 2
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -15805,11 +15901,16 @@
                   "text": "द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/78/11",
                   "inline_reference": false,
                   "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "द्रव्यसंग्रह",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 2
+                    }
+                  ]
                 },
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/21 )",
@@ -15903,11 +16004,16 @@
                   "text": "द्रव्यसंग्रह टीका/ अधिकार 2 की चूलिका/78/6",
                   "inline_reference": false,
                   "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "द्रव्यसंग्रह",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 2
+                    }
+                  ]
                 },
                 {
                   "text": "( पंचास्तिकाय / तात्पर्यवृत्ति/27/57/15 )",
@@ -26534,6 +26640,44 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:गाथा:टीका:भावार्थ:27"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:सर्वगत-व-असर्वगत-की-अपेक्षा-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 21,
+            "block_index": 1,
+            "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:सर्वगत-व-असर्वगत-की-अपेक्षा-विभाग/1",
+            "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:सर्वगत-व-असर्वगत-की-अपेक्षा-विभाग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:पृष्ठ:57"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:सर्वगत-व-असर्वगत-की-अपेक्षा-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 21,
+            "block_index": 1,
+            "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:सर्वगत-व-असर्वगत-की-अपेक्षा-विभाग/1",
+            "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:सर्वगत-व-असर्वगत-की-अपेक्षा-विभाग"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -26546,6 +26690,44 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:गाथा:टीका:भावार्थ:27"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:कर्ता-व-भोक्ता-की-अपेक्षा-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 15,
+            "block_index": 1,
+            "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:कर्ता-व-भोक्ता-की-अपेक्षा-विभाग/1",
+            "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:कर्ता-व-भोक्ता-की-अपेक्षा-विभाग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:पृष्ठ:57"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:कर्ता-व-भोक्ता-की-अपेक्षा-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 15,
+            "block_index": 1,
+            "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:कर्ता-व-भोक्ता-की-अपेक्षा-विभाग/1",
+            "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:कर्ता-व-भोक्ता-की-अपेक्षा-विभाग"
           }
         },
         {

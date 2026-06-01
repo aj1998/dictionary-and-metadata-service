@@ -525,12 +525,29 @@
                       {
                         "text": "परमात्मप्रकाश टीका/1/58/58/8",
                         "inline_reference": false,
-                        "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "needs_manual_match": false,
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "परमात्मप्रकाश",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 1
+                          },
+                          {
+                            "field": "गाथा",
+                            "value": 58
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 58
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 8
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -594,12 +611,29 @@
                       {
                         "text": "परमात्मप्रकाश टीका/1/58/58/10",
                         "inline_reference": false,
-                        "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "needs_manual_match": false,
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "परमात्मप्रकाश",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 1
+                          },
+                          {
+                            "field": "गाथा",
+                            "value": 58
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 58
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 10
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -689,12 +723,29 @@
                       {
                         "text": "परमात्मप्रकाश टीका/1/57/56/13",
                         "inline_reference": false,
-                        "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "needs_manual_match": false,
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "परमात्मप्रकाश",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 1
+                          },
+                          {
+                            "field": "गाथा",
+                            "value": 57
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 56
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 13
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2781,12 +2832,25 @@
                       {
                         "text": "( परमात्मप्रकाश टीका/1/57/56 )",
                         "inline_reference": true,
-                        "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "needs_manual_match": false,
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "परमात्मप्रकाश",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 1
+                          },
+                          {
+                            "field": "गाथा",
+                            "value": 57
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 56
+                          }
+                        ]
                       },
                       {
                         "text": "( प्रवचनसार / तात्पर्यवृत्ति/ 93/121/11)",
@@ -3451,12 +3515,29 @@
                       {
                         "text": "परमात्मप्रकाश टीका/1/58/58/8",
                         "inline_reference": false,
-                        "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "needs_manual_match": false,
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "परमात्मप्रकाश",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 1
+                          },
+                          {
+                            "field": "गाथा",
+                            "value": 58
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 58
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 8
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -3929,10 +4010,10 @@
                         "text": "द्रव्यसंग्रह टीका/14/43/6",
                         "inline_reference": false,
                         "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "द्रव्यसंग्रह",
+                        "match_method": "shastra_name",
                         "resolved_fields": []
                       }
                     ],
@@ -4154,7 +4235,7 @@
       "next": "/wiki/Aaaa"
     },
     "parser_version": "jainkosh.rules/1.11.11",
-    "parsed_at": "2026-06-01T16:43:49.940535",
+    "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
   "would_write": {
@@ -5301,12 +5382,29 @@
                 {
                   "text": "परमात्मप्रकाश टीका/1/58/58/8",
                   "inline_reference": false,
-                  "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "परमात्मप्रकाश",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 1
+                    },
+                    {
+                      "field": "गाथा",
+                      "value": 58
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 58
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 8
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -5371,12 +5469,29 @@
                 {
                   "text": "परमात्मप्रकाश टीका/1/58/58/10",
                   "inline_reference": false,
-                  "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "परमात्मप्रकाश",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 1
+                    },
+                    {
+                      "field": "गाथा",
+                      "value": 58
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 58
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 10
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -5467,12 +5582,29 @@
                 {
                   "text": "परमात्मप्रकाश टीका/1/57/56/13",
                   "inline_reference": false,
-                  "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "परमात्मप्रकाश",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 1
+                    },
+                    {
+                      "field": "गाथा",
+                      "value": 57
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 56
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 13
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -7576,12 +7708,25 @@
                 {
                   "text": "( परमात्मप्रकाश टीका/1/57/56 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "परमात्मप्रकाश",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 1
+                    },
+                    {
+                      "field": "गाथा",
+                      "value": 57
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 56
+                    }
+                  ]
                 },
                 {
                   "text": "( प्रवचनसार / तात्पर्यवृत्ति/ 93/121/11)",
@@ -8250,12 +8395,29 @@
                 {
                   "text": "परमात्मप्रकाश टीका/1/58/58/8",
                   "inline_reference": false,
-                  "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "परमात्मप्रकाश",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 1
+                    },
+                    {
+                      "field": "गाथा",
+                      "value": 58
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 58
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 8
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -8731,10 +8893,10 @@
                   "text": "द्रव्यसंग्रह टीका/14/43/6",
                   "inline_reference": false,
                   "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "द्रव्यसंग्रह",
+                  "match_method": "shastra_name",
                   "resolved_fields": []
                 }
               ],
@@ -9219,6 +9381,27 @@
           "lazy": true
         },
         {
+          "label": "GathaTeeka",
+          "key": "परमात्मप्रकाश:टीका:गाथा:टीका:58",
+          "props": {
+            "shastra_natural_key": "परमात्मप्रकाश",
+            "teeka_natural_key": "परमात्मप्रकाश:टीका",
+            "gatha_number": "58"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:58",
+          "props": {
+            "shastra_natural_key": "परमात्मप्रकाश",
+            "teeka_natural_key": "परमात्मप्रकाश:टीका",
+            "publisher_id": "23",
+            "page_number": "58"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "गुण:गुण-के-भेद-व-लक्षण:साधारण-व-असाधारण-या-सामान्य-व-विशेष-गुणों-के-लक्षण",
           "props": {
@@ -9239,6 +9422,27 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "परमात्मप्रकाश:टीका:गाथा:टीका:57",
+          "props": {
+            "shastra_natural_key": "परमात्मप्रकाश",
+            "teeka_natural_key": "परमात्मप्रकाश:टीका",
+            "gatha_number": "57"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:56",
+          "props": {
+            "shastra_natural_key": "परमात्मप्रकाश",
+            "teeka_natural_key": "परमात्मप्रकाश:टीका",
+            "publisher_id": "23",
+            "page_number": "56"
+          },
+          "lazy": true
         },
         {
           "label": "Topic",
@@ -9694,6 +9898,17 @@
             "teeka_natural_key": "सर्वार्थसिद्धि:टीका",
             "publisher_id": "18",
             "page_number": "309"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "परमात्मप्रकाश:टीका:23:गाथा:टीका:भावार्थ:57",
+          "props": {
+            "shastra_natural_key": "परमात्मप्रकाश",
+            "teeka_natural_key": "परमात्मप्रकाश:टीका",
+            "publisher_id": "23",
+            "gatha_number": "57"
           },
           "lazy": true
         },
@@ -10270,6 +10485,44 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "परमात्मप्रकाश:टीका:गाथा:टीका:58"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 8,
+            "block_index": 2,
+            "mention_path": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद/2",
+            "source_natural_key": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:58"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 8,
+            "block_index": 2,
+            "mention_path": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद/2",
+            "source_natural_key": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -10285,6 +10538,44 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "परमात्मप्रकाश:टीका:गाथा:टीका:58"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-के-भेद-व-लक्षण:साधारण-व-असाधारण-या-सामान्य-व-विशेष-गुणों-के-लक्षण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 10,
+            "block_index": 0,
+            "mention_path": "गुण:गुण-के-भेद-व-लक्षण:साधारण-व-असाधारण-या-सामान्य-व-विशेष-गुणों-के-लक्षण/0",
+            "source_natural_key": "गुण:गुण-के-भेद-व-लक्षण:साधारण-व-असाधारण-या-सामान्य-व-विशेष-गुणों-के-लक्षण"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:58"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-के-भेद-व-लक्षण:साधारण-व-असाधारण-या-सामान्य-व-विशेष-गुणों-के-लक्षण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 10,
+            "block_index": 0,
+            "mention_path": "गुण:गुण-के-भेद-व-लक्षण:साधारण-व-असाधारण-या-सामान्य-व-विशेष-गुणों-के-लक्षण/0",
+            "source_natural_key": "गुण:गुण-के-भेद-व-लक्षण:साधारण-व-असाधारण-या-सामान्य-व-विशेष-गुणों-के-लक्षण"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -10297,6 +10588,44 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "परमात्मप्रकाश:टीका:गाथा:टीका:57"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-के-भेद-व-लक्षण:स्वभाव-विभाव-गुणों-के-लक्षण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 13,
+            "block_index": 0,
+            "mention_path": "गुण:गुण-के-भेद-व-लक्षण:स्वभाव-विभाव-गुणों-के-लक्षण/0",
+            "source_natural_key": "गुण:गुण-के-भेद-व-लक्षण:स्वभाव-विभाव-गुणों-के-लक्षण"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:56"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-के-भेद-व-लक्षण:स्वभाव-विभाव-गुणों-के-लक्षण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 13,
+            "block_index": 0,
+            "mention_path": "गुण:गुण-के-भेद-व-लक्षण:स्वभाव-विभाव-गुणों-के-लक्षण/0",
+            "source_natural_key": "गुण:गुण-के-भेद-व-लक्षण:स्वभाव-विभाव-गुणों-के-लक्षण"
           }
         },
         {
@@ -11240,6 +11569,42 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeekaBhaavarth",
+            "key": "परमात्मप्रकाश:टीका:23:गाथा:टीका:भावार्थ:57"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-अन्वयी-विशेष-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-अन्वयी-विशेष-हैं/0",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-अन्वयी-विशेष-हैं"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:56"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-अन्वयी-विशेष-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-अन्वयी-विशेष-हैं/0",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-अन्वयी-विशेष-हैं"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
             "key": "प्रवचनसार:तात्पर्यवृत्ति:publisher_to_be_added:गाथा:टीका:भावार्थ:93"
           },
           "to": {
@@ -11422,6 +11787,44 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "परमात्मप्रकाश:टीका:गाथा:टीका:58"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-साधारणासाधारण-गुणों-के-नाम-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 8,
+            "block_index": 1,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-साधारणासाधारण-गुणों-के-नाम-निर्देश/1",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-साधारणासाधारण-गुणों-के-नाम-निर्देश"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:58"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-साधारणासाधारण-गुणों-के-नाम-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 8,
+            "block_index": 1,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-साधारणासाधारण-गुणों-के-नाम-निर्देश/1",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-साधारणासाधारण-गुणों-के-नाम-निर्देश"
           }
         },
         {

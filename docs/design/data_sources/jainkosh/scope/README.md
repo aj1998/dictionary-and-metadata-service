@@ -21,7 +21,7 @@ that wraps the parser:
 
 | Phase | Doc | Dep | What ships |
 |---|---|---|---|
-| 1 | [`phase_1_schema_and_apply.md`](./phase_1_schema_and_apply.md) | parser v1.2.0 | Migration `0010_topics_hierarchy`, Mongo `keyword_definitions`/`topic_extracts` shape rewrite + indexes, Neo4j `topic_path`/`is_leaf` + `topic_kw_path` index + `PART_OF` wiring, `apply_approved_keyword_payload(envelope)` function. Deterministic given an envelope; no HTTP. |
+| 1 | [`ingestion`](../ingestion) | parser v1.2.0 | Migration `0010_topics_hierarchy`, Mongo `keyword_definitions`/`topic_extracts` shape rewrite + indexes, Neo4j `topic_path`/`is_leaf` + `topic_kw_path` index + `PART_OF` wiring, `apply_approved_keyword_payload(envelope)` function. Deterministic given an envelope; no HTTP. |
 | 2 | [`phase_2_fetch_and_queue.md`](./phase_2_fetch_and_queue.md) | Phase 1 | `discover.py`, `fetch.py` (rate-limited httpx), `alias_mining.py`, `orchestrator.py` Celery task, snapshot writer, `ingestion_runs` row, queue-insert path. End-to-end ingest **up to** queue-with-pending. |
 | 3 | [`phase_3_approve_and_e2e.md`](./phase_3_approve_and_e2e.md) | Phases 1+2 | Approve action calls Phase-1 apply; reject path; CLI (`python -m workers.ingestion.jainkosh.orchestrator …`); idempotency e2e test (run twice → zero net DB diff after second approve); rate-limit honor test; alias-mining test; fixture-based golden run. |
 

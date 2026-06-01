@@ -453,6 +453,26 @@ def match_shastra(
         if entry:
             return entry, method, False, ""
 
+    # Step 2.6: teeka-keyword detection without "/" separator.
+    # Handles references like "परमात्मप्रकाश टीका/1/57" where the word "टीका" or
+    # phrase "की टीका" immediately follows the shastra name with only a space
+    # (no "/" separator).  We strip the suffix, look up the bare shastra name,
+    # and return is_teeka=True with teeka_name="टीका".
+    # Suffixes are tried longest-first so "की टीका" is checked before "टीका".
+    _TEEKA_SPACE_SUFFIXES = (" की टीका", " टीका")
+    for _sfx in _TEEKA_SPACE_SUFFIXES:
+        if name_raw.endswith(_sfx):
+            _base = name_raw[: -len(_sfx)].strip().rstrip("/").strip()
+            if _base:
+                entry, method = registry.lookup(norm(_base))
+                if not entry:
+                    _stripped = _strip_mool(_base, config.mool)
+                    if _stripped != _base:
+                        entry, method = registry.lookup(norm(_stripped))
+                if entry:
+                    return entry, method, True, "टीका"
+            break
+
     # Step 3: teeka detection — try all slash split points, longest prefix first.
     # This handles compound shastra names like "नयचक्र/श्रुतभवन" where the name
     # itself contains "/" and a trailing field keyword like "पृष्ठ" leaks into

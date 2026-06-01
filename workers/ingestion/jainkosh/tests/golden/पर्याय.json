@@ -1428,12 +1428,21 @@
                           {
                             "text": "( परमात्मप्रकाश टीका/1/57 )",
                             "inline_reference": true,
-                            "needs_manual_match": true,
-                            "is_teeka": false,
-                            "teeka_name": "",
-                            "shastra_name": null,
-                            "match_method": null,
-                            "resolved_fields": []
+                            "needs_manual_match": false,
+                            "is_teeka": true,
+                            "teeka_name": "टीका",
+                            "shastra_name": "परमात्मप्रकाश",
+                            "match_method": "shastra_name",
+                            "resolved_fields": [
+                              {
+                                "field": "अधिकार",
+                                "value": 1
+                              },
+                              {
+                                "field": "गाथा",
+                                "value": 57
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -2267,12 +2276,21 @@
                       {
                         "text": "( परमात्मप्रकाश टीका/1/57 )",
                         "inline_reference": true,
-                        "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "needs_manual_match": false,
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "परमात्मप्रकाश",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 1
+                          },
+                          {
+                            "field": "गाथा",
+                            "value": 57
+                          }
+                        ]
                       },
                       {
                         "text": "( पंचाध्यायी / पूर्वार्ध 165 )",
@@ -3558,10 +3576,10 @@
                         "text": "( कार्तिकेयानुप्रेक्षा टीका/220/154/6 )",
                         "inline_reference": true,
                         "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "कार्तिकेयानुप्रेक्षा",
+                        "match_method": "shastra_name",
                         "resolved_fields": []
                       }
                     ],
@@ -4287,10 +4305,10 @@
                         "text": "( द्रव्यसंग्रह टीका/24/69/11 )",
                         "inline_reference": true,
                         "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "द्रव्यसंग्रह",
+                        "match_method": "shastra_name",
                         "resolved_fields": []
                       }
                     ],
@@ -4477,10 +4495,10 @@
                         "text": "( परमात्मप्रकाश टीका/57 )",
                         "inline_reference": true,
                         "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "परमात्मप्रकाश",
+                        "match_method": "shastra_name",
                         "resolved_fields": []
                       },
                       {
@@ -4750,12 +4768,21 @@
                       {
                         "text": "( परमात्मप्रकाश टीका/1/57 )",
                         "inline_reference": true,
-                        "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "needs_manual_match": false,
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "परमात्मप्रकाश",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 1
+                          },
+                          {
+                            "field": "गाथा",
+                            "value": 57
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -5119,12 +5146,21 @@
                       {
                         "text": "( परमात्मप्रकाश टीका/1/57 )",
                         "inline_reference": true,
-                        "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "needs_manual_match": false,
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "परमात्मप्रकाश",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 1
+                          },
+                          {
+                            "field": "गाथा",
+                            "value": 57
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -5516,7 +5552,7 @@
       "next": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%B8%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8"
     },
     "parser_version": "jainkosh.rules/1.11.11",
-    "parsed_at": "2026-06-01T16:43:50.294620",
+    "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
   "would_write": {
@@ -7846,12 +7882,21 @@
                 {
                   "text": "( परमात्मप्रकाश टीका/1/57 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "परमात्मप्रकाश",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 1
+                    },
+                    {
+                      "field": "गाथा",
+                      "value": 57
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -8692,12 +8737,21 @@
                 {
                   "text": "( परमात्मप्रकाश टीका/1/57 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "परमात्मप्रकाश",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 1
+                    },
+                    {
+                      "field": "गाथा",
+                      "value": 57
+                    }
+                  ]
                 },
                 {
                   "text": "( पंचाध्यायी / पूर्वार्ध 165 )",
@@ -9994,10 +10048,10 @@
                   "text": "( कार्तिकेयानुप्रेक्षा टीका/220/154/6 )",
                   "inline_reference": true,
                   "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "कार्तिकेयानुप्रेक्षा",
+                  "match_method": "shastra_name",
                   "resolved_fields": []
                 }
               ],
@@ -10725,10 +10779,10 @@
                   "text": "( द्रव्यसंग्रह टीका/24/69/11 )",
                   "inline_reference": true,
                   "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "द्रव्यसंग्रह",
+                  "match_method": "shastra_name",
                   "resolved_fields": []
                 }
               ],
@@ -10916,10 +10970,10 @@
                   "text": "( परमात्मप्रकाश टीका/57 )",
                   "inline_reference": true,
                   "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "परमात्मप्रकाश",
+                  "match_method": "shastra_name",
                   "resolved_fields": []
                 },
                 {
@@ -11190,12 +11244,21 @@
                 {
                   "text": "( परमात्मप्रकाश टीका/1/57 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "परमात्मप्रकाश",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 1
+                    },
+                    {
+                      "field": "गाथा",
+                      "value": 57
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -11560,12 +11623,21 @@
                 {
                   "text": "( परमात्मप्रकाश टीका/1/57 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "परमात्मप्रकाश",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 1
+                    },
+                    {
+                      "field": "गाथा",
+                      "value": 57
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -12394,6 +12466,17 @@
           "props": {
             "shastra_natural_key": "आलापपद्धति",
             "gatha_number": "3"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "परमात्मप्रकाश:टीका:23:गाथा:टीका:भावार्थ:57",
+          "props": {
+            "shastra_natural_key": "परमात्मप्रकाश",
+            "teeka_natural_key": "परमात्मप्रकाश:टीका",
+            "publisher_id": "23",
+            "gatha_number": "57"
           },
           "lazy": true
         },
@@ -14066,6 +14149,24 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "परमात्मप्रकाश:टीका:23:गाथा:टीका:भावार्थ:57"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय/1",
+            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
             "label": "GathaTeeka",
             "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:93"
           },
@@ -14636,6 +14737,24 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 15,
+            "block_index": 0,
+            "mention_path": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-द्रव्य-के-व्यतिरेकी-अंश-हैं/0",
+            "source_natural_key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-द्रव्य-के-व्यतिरेकी-अंश-हैं"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "परमात्मप्रकाश:टीका:23:गाथा:टीका:भावार्थ:57"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-द्रव्य-के-व्यतिरेकी-अंश-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
             "block_index": 0,
             "mention_path": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-द्रव्य-के-व्यतिरेकी-अंश-हैं/0",
             "source_natural_key": "पर्याय:पर्याय-सामान्य-निर्देश:पर्याय-द्रव्य-के-व्यतिरेकी-अंश-हैं"

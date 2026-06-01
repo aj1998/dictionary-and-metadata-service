@@ -1150,3 +1150,115 @@ class TestCompoundShastraNameMatching:
         assert entry is not None
         assert is_teeka is True
         assert teeka_name == "तात्पर्यवृत्ति"
+
+
+# ---------------------------------------------------------------------------
+# Teeka-keyword detection without "/" separator (v1.11.12)
+# ---------------------------------------------------------------------------
+
+class TestTeekaSpaceSuffixDetection:
+    """'परमात्मप्रकाश टीका/1/57' — 'टीका' after shastra name with only a space
+    (no '/' separator) is recognised as a teeka reference.  teeka_name is set
+    to 'टीका'.  Both 'टीका' and 'की टीका' variants are covered.
+    """
+
+    def test_teeka_space_suffix_match_shastra(self, cfg: JainkoshConfig):
+        """match_shastra: 'परमात्मप्रकाश टीका' → is_teeka=True, teeka_name='टीका'."""
+        from workers.ingestion.jainkosh.parse_reference import match_shastra
+        if cfg.shastra_registry is None:
+            pytest.skip("shastra_registry not available in test config")
+        entry, method, is_teeka, teeka_name = match_shastra(
+            "परमात्मप्रकाश टीका",
+            cfg.shastra_registry,
+            cfg.reference,
+        )
+        assert entry is not None, "Should resolve to परमात्मप्रकाश shastra"
+        assert entry.shastra_name == "परमात्मप्रकाश"
+        assert is_teeka is True
+        assert teeka_name == "टीका"
+
+    def test_ki_teeka_space_suffix_match_shastra(self, cfg: JainkoshConfig):
+        """match_shastra: 'परमात्मप्रकाश की टीका' → is_teeka=True, teeka_name='टीका'."""
+        from workers.ingestion.jainkosh.parse_reference import match_shastra
+        if cfg.shastra_registry is None:
+            pytest.skip("shastra_registry not available in test config")
+        entry, method, is_teeka, teeka_name = match_shastra(
+            "परमात्मप्रकाश की टीका",
+            cfg.shastra_registry,
+            cfg.reference,
+        )
+        assert entry is not None, "Should resolve to परमात्मप्रकाश shastra"
+        assert entry.shastra_name == "परमात्मप्रकाश"
+        assert is_teeka is True
+        assert teeka_name == "टीका"
+
+    def test_full_reference_teeka_space_resolves(self, cfg: JainkoshConfig):
+        """parse_reference_text: '( परमात्मप्रकाश टीका/1/57 )' fully resolves."""
+        from workers.ingestion.jainkosh.parse_reference import parse_reference_text
+        if cfg.shastra_registry is None:
+            pytest.skip("shastra_registry not available in test config")
+        results = parse_reference_text(
+            "( परमात्मप्रकाश टीका/1/57 )",
+            cfg.shastra_registry,
+            cfg.reference,
+        )
+        assert len(results) == 1
+        r = results[0]
+        assert r.needs_manual_match is False
+        assert r.is_teeka is True
+        assert r.teeka_name == "टीका"
+        assert r.shastra_name == "परमात्मप्रकाश"
+        field_values = {rf.field: rf.value for rf in r.resolved_fields}
+        assert field_values.get("अधिकार") == 1
+        assert field_values.get("गाथा") == 57
+
+    def test_full_reference_teeka_space_single_num(self, cfg: JainkoshConfig):
+        """parse_reference_text: '( परमात्मप्रकाश टीका/57 )' — is_teeka set even
+        when numeric resolution fails (only one number, format needs two)."""
+        from workers.ingestion.jainkosh.parse_reference import parse_reference_text
+        if cfg.shastra_registry is None:
+            pytest.skip("shastra_registry not available in test config")
+        results = parse_reference_text(
+            "( परमात्मप्रकाश टीका/57 )",
+            cfg.shastra_registry,
+            cfg.reference,
+        )
+        assert len(results) == 1
+        r = results[0]
+        assert r.is_teeka is True
+        assert r.teeka_name == "टीका"
+        assert r.shastra_name == "परमात्मप्रकाश"
+
+    def test_slash_teeka_separator_still_works(self, cfg: JainkoshConfig):
+        """'( परमात्मप्रकाश / टीका/57)' (with '/') still resolves via step-3."""
+        from workers.ingestion.jainkosh.parse_reference import parse_reference_text
+        if cfg.shastra_registry is None:
+            pytest.skip("shastra_registry not available in test config")
+        results = parse_reference_text(
+            "( परमात्मप्रकाश / टीका/57)",
+            cfg.shastra_registry,
+            cfg.reference,
+        )
+        assert len(results) == 1
+        r = results[0]
+        assert r.is_teeka is True
+        assert r.teeka_name == "टीका"
+        assert r.shastra_name == "परमात्मप्रकाश"
+
+    def test_no_false_positive_for_teeka_in_compound_name(self, cfg: JainkoshConfig):
+        """A registered shastra whose name itself ends in 'टीका' must not be
+        mis-detected as a teeka reference (step-1 exact match wins first)."""
+        from workers.ingestion.jainkosh.parse_reference import match_shastra
+        if cfg.shastra_registry is None:
+            pytest.skip("shastra_registry not available in test config")
+        # If "परमात्मप्रकाश टीका" were itself registered, step-1 would match it
+        # and step-2.6 would never fire. We can't test that without a registry
+        # fixture, so we verify that a name WITHOUT a known base returns None
+        # rather than producing a false positive.
+        entry, method, is_teeka, teeka_name = match_shastra(
+            "अज्ञातग्रन्थ टीका",  # "अज्ञातग्रन्थ" is not in the registry
+            cfg.shastra_registry,
+            cfg.reference,
+        )
+        assert entry is None, "Unknown base shastra should not produce a match"
+        assert is_teeka is False
