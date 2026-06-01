@@ -863,11 +863,11 @@
                   },
                   {
                     "kind": "prakrit_text",
-                    "text_devanagari": "जेहि दु लक्खिज्जंते उदयादिसु संभवेहि भावेहि। जीवा ते गुणसण्णा णिद्दिट्ठा सव्वदरिसीहि।174।",
-                    "hindi_translation": null,
+                    "text_devanagari": "जेहि दु लक्खिज्जंते उदयादिसु संभवेहि भावेहि। जीवा ते गुणसण्णा णिद्दिट्ठा सव्वदरिसीहि।104।",
+                    "hindi_translation": "कर्मों के उदय उपशमादि से उत्पन्न जिन परिणामों से युक्त जो जीव देखे जाते हैं, वे उसी गुण संज्ञावाले कहे जाते हैं।104।",
                     "references": [
                       {
-                        "text": "धवला/1/1,1,8/ गाथा 104/161",
+                        "text": "धवला/1/1,1,8/ गाथा 104/162",
                         "inline_reference": false,
                         "needs_manual_match": false,
                         "is_teeka": false,
@@ -897,7 +897,26 @@
                           },
                           {
                             "field": "पृष्ठ",
-                            "value": 161
+                            "value": 162
+                          }
+                        ]
+                      },
+                      {
+                        "text": "( गोम्मटसार कर्मकांड/812/987)",
+                        "inline_reference": true,
+                        "needs_manual_match": false,
+                        "is_teeka": false,
+                        "teeka_name": "",
+                        "shastra_name": "गोम्मटसार कर्मकाण्ड",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "गाथा",
+                            "value": 812
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 987
                           }
                         ]
                       }
@@ -915,7 +934,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "सम्यग्दर्शनादयो गुणा:।",
-                    "hindi_translation": null,
+                    "hindi_translation": "सम्यग्दर्शनादि भी गुण हैं।",
                     "references": [
                       {
                         "text": "राजवार्तिक/7/11/6/438/25",
@@ -961,18 +980,31 @@
                   },
                   {
                     "kind": "prakrit_text",
-                    "text_devanagari": "को पुण गुणा ? संजमो संजमासंजमो वा।",
-                    "hindi_translation": null,
+                    "text_devanagari": "को पुण गुणा? संजमो संजमासंजमो वा।",
+                    "hindi_translation": "संजम व संजमासंजम भी गुण कहे जाते हैं।",
                     "references": [
                       {
                         "text": "धवला 15/174/1",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "धवला",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "पुस्तक",
+                            "value": 15
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 174
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 1
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -988,10 +1020,10 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "गुणसहचरित्वादात्मापि गुणसंज्ञां प्रतिलभते।",
-                    "hindi_translation": null,
+                    "hindi_translation": "गुणों के सहवर्ती होने से आत्मा भी गुण कह दिया जाता है।",
                     "references": [
                       {
-                        "text": "धवला 1/1,1,8/161/3",
+                        "text": "धवला 1/1,1,8/162/103",
                         "inline_reference": false,
                         "needs_manual_match": false,
                         "is_teeka": false,
@@ -1017,11 +1049,11 @@
                           },
                           {
                             "field": "पृष्ठ",
-                            "value": 161
+                            "value": 162
                           },
                           {
                             "field": "गाथा",
-                            "value": 3
+                            "value": 103
                           }
                         ]
                       }
@@ -1039,17 +1071,42 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "के गुणा:। औदयिकौपशमिकक्षायिकक्षायोपशमिकपारिणामिका इति गुणा:।",
-                    "hindi_translation": null,
+                    "hindi_translation": "औदयिक औपशमिक आदि पाँच भाव भी गुण कहे गये हैं।",
                     "references": [
                       {
-                        "text": "धवला 1/1,8/160/7",
+                        "text": "धवला 1/1,1,8/162/103",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "धवला",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "पुस्तक",
+                            "value": 1
+                          },
+                          {
+                            "field": "खण्ड",
+                            "value": 1
+                          },
+                          {
+                            "field": "भाग",
+                            "value": 1
+                          },
+                          {
+                            "field": "धवलासूत्र",
+                            "value": 8
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 162
+                          },
+                          {
+                            "field": "गाथा",
+                            "value": 103
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1065,7 +1122,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "गुणा विस्तारविशेषा:।95।",
-                    "hindi_translation": null,
+                    "hindi_translation": "गुण को विस्तार विशेष भी कहा जाता है।",
                     "references": [
                       {
                         "text": "प्रवचनसार / तत्त्वप्रदीपिका/95",
@@ -1096,7 +1153,7 @@
                   {
                     "kind": "prakrit_text",
                     "text_devanagari": "अणिमा महिमा लघिमा पागम्म वसित्त कामरूवित्तं। ईसत्त पावणं तह अट्ठगुणा वण्णिया समए।513।",
-                    "hindi_translation": "1. कर्मों के उदय उपशमादि से उत्पन्न जिन परिणामों से युक्त जो जीव देखे जाते हैं, वे उसी गुण संज्ञावाले कहे जाते हैं।104।",
+                    "hindi_translation": "अणिमा महिमा आदि ऋद्धियाँ भी गुण कहे जाते हैं।",
                     "references": [
                       {
                         "text": "वसुनंदी श्रावकाचार/513",
@@ -1112,42 +1169,8 @@
                             "value": 513
                           }
                         ]
-                      },
-                      {
-                        "text": "( गोम्मटसार कर्मकांड/812/987)",
-                        "inline_reference": true,
-                        "needs_manual_match": false,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": "गोम्मटसार कर्मकाण्ड",
-                        "match_method": "shastra_name",
-                        "resolved_fields": [
-                          {
-                            "field": "गाथा",
-                            "value": 812
-                          },
-                          {
-                            "field": "पृष्ठ",
-                            "value": 987
-                          }
-                        ]
                       }
                     ],
-                    "is_orphan_translation": false,
-                    "is_bullet_point": false,
-                    "raw_html": null,
-                    "table_rows": null,
-                    "target_keyword": null,
-                    "target_topic_path": null,
-                    "target_url": null,
-                    "is_self": false,
-                    "target_exists": true
-                  },
-                  {
-                    "kind": "hindi_text",
-                    "text_devanagari": "2.सम्यग्दर्शनादि भी गुण हैं। 3. संजम व संजमासंजम भी गुण कहे जाते हैं। 4. गुणों के सहवर्ती होने से आत्मा भी गुण कह दिया जाता है। 5. औदयिक औपशमिक आदि पाँच भाव भी गुण कहे गये हैं। 6. गुण को विस्तार विशेष भी कहा जाता है। 7. अणिमा महिमा आदि ऋद्धियाँ भी गुण कहे जाते हैं।",
-                    "hindi_translation": null,
-                    "references": [],
                     "is_orphan_translation": false,
                     "is_bullet_point": false,
                     "raw_html": null,
@@ -1178,7 +1201,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "स्निग्धरूक्षत्वाद् बंध:।33।",
-                    "hindi_translation": null,
+                    "hindi_translation": "स्निग्धत्व और रूक्षत्व से बंध होता है।33।",
                     "references": [
                       {
                         "text": "तत्त्वार्थसूत्र/5/33-36",
@@ -1213,7 +1236,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "न जघन्यगुणानां।34।",
-                    "hindi_translation": null,
+                    "hindi_translation": "जघन्य गुणवाले पुद्गलों का बंध नहीं होता है।34।",
                     "references": [
                       {
                         "text": "तत्त्वार्थसूत्र/5/33-36",
@@ -1248,7 +1271,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "गुणसाम्ये सदृशानाम्।35।",
-                    "hindi_translation": null,
+                    "hindi_translation": "समान गुण होने पर तुल्य जातिवालों का बंध नहीं होता है।35।",
                     "references": [
                       {
                         "text": "तत्त्वार्थसूत्र/5/33-36",
@@ -1283,7 +1306,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "द्वयधिकादि गुणानां तु।36।",
-                    "hindi_translation": null,
+                    "hindi_translation": "दो अधिक गुणवालों का बंध होता है।36।",
                     "references": [
                       {
                         "text": "तत्त्वार्थसूत्र/5/33-36",
@@ -1318,7 +1341,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "गुणसाम्यग्रहणं तुल्यभागसंप्रत्ययार्थम्।",
-                    "hindi_translation": null,
+                    "hindi_translation": "तुल्य शक्त्यंशों का ज्ञान कराने के लिए ‘गुणसाम्य ’पद का ग्रहण किया है।",
                     "references": [
                       {
                         "text": "सर्वार्थसिद्धि/5/35/305/10",
@@ -1361,7 +1384,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "तत्रेह भागे वर्तमान: परिगृह्यते। जघन्यो गुणो येषां ते जघन्यगुणास्तेषां जघन्यगुणानां नास्ति बंध:।",
-                    "hindi_translation": null,
+                    "hindi_translation": "यहाँ भाग अर्थ विवक्षित है। जिनके जघन्य (एक) गुण होते हैं वे जघन्य गुण कहलाते हैं। उनका बंध नहीं होता।",
                     "references": [
                       {
                         "text": "राजवार्तिक/5/34/2/498/21",
@@ -1408,7 +1431,7 @@
                   {
                     "kind": "prakrit_text",
                     "text_devanagari": "एयगुणं ति किं घेप्पदि। जहण्णगुणस्स गहणं। सो च जहण्णगुणो अणंतेहि अविभागपडिच्छेदेहि णिप्पण्णो।",
-                    "hindi_translation": null,
+                    "hindi_translation": "एक गुण से जघन्य गुण ग्रहण किया जाता है जो अनंत अविभागी प्रतिच्छेदों से निष्पन्न है।",
                     "references": [
                       {
                         "text": "धवला 14/5,6,539/450/5",
@@ -1459,7 +1482,7 @@
                   {
                     "kind": "prakrit_text",
                     "text_devanagari": "गुणस्स विदियअवत्थाविसेसो विदियगुणो णाम। तदियो अवत्थाविसेसो तदियगुणो णाम।",
-                    "hindi_translation": "1. स्निग्धत्व और रूक्षत्व से बंध होता है।33। जघन्य गुणवाले पुद्गलों का बंध नहीं होता है।34। समान गुण होने पर तुल्य जातिवालों का बंध नहीं होता है।35। दो अधिक गुणवालों का बंध होता है।36। 2. तुल्य शक्त्यंशों का ज्ञान कराने के लिए ‘गुणसाम्य ’पद का ग्रहण किया है। 3. यहाँ भाग अर्थ विवक्षित है। जिनके जघन्य (एक) गुण होते हैं वे जघन्य गुण कहलाते हैं। उनका बंध नहीं होता। 4. एक गुण से जघन्य गुण ग्रहण किया जाता है जो अनंत अविभागी प्रतिच्छेदों से निष्पन्न है। 5. उसके ऊपर एक आदि अविभागी प्रतिच्छेद की वृद्धि होने पर गुण की द्वितीयादि अवस्था विशेषों की द्वितीयगुण तृतीयगुण आदि संज्ञा होती है।ध.।",
+                    "hindi_translation": "उसके ऊपर एक आदि अविभागी प्रतिच्छेद की वृद्धि होने पर गुण की द्वितीयादि अवस्था विशेषों की द्वितीयगुण तृतीयगुण आदि संज्ञा होती है।",
                     "references": [
                       {
                         "text": "धवला 14/5,6,540/451/5",
@@ -4235,7 +4258,7 @@
       "next": "/wiki/Aaaa"
     },
     "parser_version": "jainkosh.rules/1.11.11",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parsed_at": "2026-06-01T18:44:03.919077",
     "warnings": []
   },
   "would_write": {
@@ -5724,11 +5747,11 @@
             },
             {
               "kind": "prakrit_text",
-              "text_devanagari": "जेहि दु लक्खिज्जंते उदयादिसु संभवेहि भावेहि। जीवा ते गुणसण्णा णिद्दिट्ठा सव्वदरिसीहि।174।",
-              "hindi_translation": null,
+              "text_devanagari": "जेहि दु लक्खिज्जंते उदयादिसु संभवेहि भावेहि। जीवा ते गुणसण्णा णिद्दिट्ठा सव्वदरिसीहि।104।",
+              "hindi_translation": "कर्मों के उदय उपशमादि से उत्पन्न जिन परिणामों से युक्त जो जीव देखे जाते हैं, वे उसी गुण संज्ञावाले कहे जाते हैं।104।",
               "references": [
                 {
-                  "text": "धवला/1/1,1,8/ गाथा 104/161",
+                  "text": "धवला/1/1,1,8/ गाथा 104/162",
                   "inline_reference": false,
                   "needs_manual_match": false,
                   "is_teeka": false,
@@ -5758,7 +5781,26 @@
                     },
                     {
                       "field": "पृष्ठ",
-                      "value": 161
+                      "value": 162
+                    }
+                  ]
+                },
+                {
+                  "text": "( गोम्मटसार कर्मकांड/812/987)",
+                  "inline_reference": true,
+                  "needs_manual_match": false,
+                  "is_teeka": false,
+                  "teeka_name": "",
+                  "shastra_name": "गोम्मटसार कर्मकाण्ड",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 812
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 987
                     }
                   ]
                 }
@@ -5776,7 +5818,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "सम्यग्दर्शनादयो गुणा:।",
-              "hindi_translation": null,
+              "hindi_translation": "सम्यग्दर्शनादि भी गुण हैं।",
               "references": [
                 {
                   "text": "राजवार्तिक/7/11/6/438/25",
@@ -5822,18 +5864,31 @@
             },
             {
               "kind": "prakrit_text",
-              "text_devanagari": "को पुण गुणा ? संजमो संजमासंजमो वा।",
-              "hindi_translation": null,
+              "text_devanagari": "को पुण गुणा? संजमो संजमासंजमो वा।",
+              "hindi_translation": "संजम व संजमासंजम भी गुण कहे जाते हैं।",
               "references": [
                 {
                   "text": "धवला 15/174/1",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "धवला",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "पुस्तक",
+                      "value": 15
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 174
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 1
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -5849,10 +5904,10 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "गुणसहचरित्वादात्मापि गुणसंज्ञां प्रतिलभते।",
-              "hindi_translation": null,
+              "hindi_translation": "गुणों के सहवर्ती होने से आत्मा भी गुण कह दिया जाता है।",
               "references": [
                 {
-                  "text": "धवला 1/1,1,8/161/3",
+                  "text": "धवला 1/1,1,8/162/103",
                   "inline_reference": false,
                   "needs_manual_match": false,
                   "is_teeka": false,
@@ -5878,11 +5933,11 @@
                     },
                     {
                       "field": "पृष्ठ",
-                      "value": 161
+                      "value": 162
                     },
                     {
                       "field": "गाथा",
-                      "value": 3
+                      "value": 103
                     }
                   ]
                 }
@@ -5900,17 +5955,42 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "के गुणा:। औदयिकौपशमिकक्षायिकक्षायोपशमिकपारिणामिका इति गुणा:।",
-              "hindi_translation": null,
+              "hindi_translation": "औदयिक औपशमिक आदि पाँच भाव भी गुण कहे गये हैं।",
               "references": [
                 {
-                  "text": "धवला 1/1,8/160/7",
+                  "text": "धवला 1/1,1,8/162/103",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "धवला",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "पुस्तक",
+                      "value": 1
+                    },
+                    {
+                      "field": "खण्ड",
+                      "value": 1
+                    },
+                    {
+                      "field": "भाग",
+                      "value": 1
+                    },
+                    {
+                      "field": "धवलासूत्र",
+                      "value": 8
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 162
+                    },
+                    {
+                      "field": "गाथा",
+                      "value": 103
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -5926,7 +6006,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "गुणा विस्तारविशेषा:।95।",
-              "hindi_translation": null,
+              "hindi_translation": "गुण को विस्तार विशेष भी कहा जाता है।",
               "references": [
                 {
                   "text": "प्रवचनसार / तत्त्वप्रदीपिका/95",
@@ -5957,7 +6037,7 @@
             {
               "kind": "prakrit_text",
               "text_devanagari": "अणिमा महिमा लघिमा पागम्म वसित्त कामरूवित्तं। ईसत्त पावणं तह अट्ठगुणा वण्णिया समए।513।",
-              "hindi_translation": "1. कर्मों के उदय उपशमादि से उत्पन्न जिन परिणामों से युक्त जो जीव देखे जाते हैं, वे उसी गुण संज्ञावाले कहे जाते हैं।104।",
+              "hindi_translation": "अणिमा महिमा आदि ऋद्धियाँ भी गुण कहे जाते हैं।",
               "references": [
                 {
                   "text": "वसुनंदी श्रावकाचार/513",
@@ -5973,42 +6053,8 @@
                       "value": 513
                     }
                   ]
-                },
-                {
-                  "text": "( गोम्मटसार कर्मकांड/812/987)",
-                  "inline_reference": true,
-                  "needs_manual_match": false,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": "गोम्मटसार कर्मकाण्ड",
-                  "match_method": "shastra_name",
-                  "resolved_fields": [
-                    {
-                      "field": "गाथा",
-                      "value": 812
-                    },
-                    {
-                      "field": "पृष्ठ",
-                      "value": 987
-                    }
-                  ]
                 }
               ],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "hindi_text",
-              "text_devanagari": "2.सम्यग्दर्शनादि भी गुण हैं। 3. संजम व संजमासंजम भी गुण कहे जाते हैं। 4. गुणों के सहवर्ती होने से आत्मा भी गुण कह दिया जाता है। 5. औदयिक औपशमिक आदि पाँच भाव भी गुण कहे गये हैं। 6. गुण को विस्तार विशेष भी कहा जाता है। 7. अणिमा महिमा आदि ऋद्धियाँ भी गुण कहे जाते हैं।",
-              "hindi_translation": null,
-              "references": [],
               "is_orphan_translation": false,
               "is_bullet_point": false,
               "raw_html": null,
@@ -6040,7 +6086,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "स्निग्धरूक्षत्वाद् बंध:।33।",
-              "hindi_translation": null,
+              "hindi_translation": "स्निग्धत्व और रूक्षत्व से बंध होता है।33।",
               "references": [
                 {
                   "text": "तत्त्वार्थसूत्र/5/33-36",
@@ -6075,7 +6121,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "न जघन्यगुणानां।34।",
-              "hindi_translation": null,
+              "hindi_translation": "जघन्य गुणवाले पुद्गलों का बंध नहीं होता है।34।",
               "references": [
                 {
                   "text": "तत्त्वार्थसूत्र/5/33-36",
@@ -6110,7 +6156,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "गुणसाम्ये सदृशानाम्।35।",
-              "hindi_translation": null,
+              "hindi_translation": "समान गुण होने पर तुल्य जातिवालों का बंध नहीं होता है।35।",
               "references": [
                 {
                   "text": "तत्त्वार्थसूत्र/5/33-36",
@@ -6145,7 +6191,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "द्वयधिकादि गुणानां तु।36।",
-              "hindi_translation": null,
+              "hindi_translation": "दो अधिक गुणवालों का बंध होता है।36।",
               "references": [
                 {
                   "text": "तत्त्वार्थसूत्र/5/33-36",
@@ -6180,7 +6226,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "गुणसाम्यग्रहणं तुल्यभागसंप्रत्ययार्थम्।",
-              "hindi_translation": null,
+              "hindi_translation": "तुल्य शक्त्यंशों का ज्ञान कराने के लिए ‘गुणसाम्य ’पद का ग्रहण किया है।",
               "references": [
                 {
                   "text": "सर्वार्थसिद्धि/5/35/305/10",
@@ -6223,7 +6269,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "तत्रेह भागे वर्तमान: परिगृह्यते। जघन्यो गुणो येषां ते जघन्यगुणास्तेषां जघन्यगुणानां नास्ति बंध:।",
-              "hindi_translation": null,
+              "hindi_translation": "यहाँ भाग अर्थ विवक्षित है। जिनके जघन्य (एक) गुण होते हैं वे जघन्य गुण कहलाते हैं। उनका बंध नहीं होता।",
               "references": [
                 {
                   "text": "राजवार्तिक/5/34/2/498/21",
@@ -6270,7 +6316,7 @@
             {
               "kind": "prakrit_text",
               "text_devanagari": "एयगुणं ति किं घेप्पदि। जहण्णगुणस्स गहणं। सो च जहण्णगुणो अणंतेहि अविभागपडिच्छेदेहि णिप्पण्णो।",
-              "hindi_translation": null,
+              "hindi_translation": "एक गुण से जघन्य गुण ग्रहण किया जाता है जो अनंत अविभागी प्रतिच्छेदों से निष्पन्न है।",
               "references": [
                 {
                   "text": "धवला 14/5,6,539/450/5",
@@ -6321,7 +6367,7 @@
             {
               "kind": "prakrit_text",
               "text_devanagari": "गुणस्स विदियअवत्थाविसेसो विदियगुणो णाम। तदियो अवत्थाविसेसो तदियगुणो णाम।",
-              "hindi_translation": "1. स्निग्धत्व और रूक्षत्व से बंध होता है।33। जघन्य गुणवाले पुद्गलों का बंध नहीं होता है।34। समान गुण होने पर तुल्य जातिवालों का बंध नहीं होता है।35। दो अधिक गुणवालों का बंध होता है।36। 2. तुल्य शक्त्यंशों का ज्ञान कराने के लिए ‘गुणसाम्य ’पद का ग्रहण किया है। 3. यहाँ भाग अर्थ विवक्षित है। जिनके जघन्य (एक) गुण होते हैं वे जघन्य गुण कहलाते हैं। उनका बंध नहीं होता। 4. एक गुण से जघन्य गुण ग्रहण किया जाता है जो अनंत अविभागी प्रतिच्छेदों से निष्पन्न है। 5. उसके ऊपर एक आदि अविभागी प्रतिच्छेद की वृद्धि होने पर गुण की द्वितीयादि अवस्था विशेषों की द्वितीयगुण तृतीयगुण आदि संज्ञा होती है।ध.।",
+              "hindi_translation": "उसके ऊपर एक आदि अविभागी प्रतिच्छेद की वृद्धि होने पर गुण की द्वितीयादि अवस्था विशेषों की द्वितीयगुण तृतीयगुण आदि संज्ञा होती है।",
               "references": [
                 {
                   "text": "धवला 14/5,6,540/451/5",
@@ -9497,12 +9543,12 @@
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:161",
+          "key": "धवला:टीका:8:पृष्ठ:162",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
-            "page_number": "161"
+            "publisher_id": "8",
+            "page_number": "162"
           },
           "lazy": true
         },
@@ -9527,11 +9573,22 @@
           "lazy": true
         },
         {
-          "label": "Gatha",
-          "key": "धवला:गाथा:3",
+          "label": "Page",
+          "key": "धवला:टीका:8:पृष्ठ:174",
           "props": {
             "shastra_natural_key": "धवला",
-            "gatha_number": "3"
+            "teeka_natural_key": "धवला:टीका",
+            "publisher_id": "8",
+            "page_number": "174"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "धवला:गाथा:103",
+          "props": {
+            "shastra_natural_key": "धवला",
+            "gatha_number": "103"
           },
           "lazy": true
         },
@@ -9577,22 +9634,22 @@
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:450",
+          "key": "धवला:टीका:8:पृष्ठ:450",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
+            "publisher_id": "8",
             "page_number": "450"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:451",
+          "key": "धवला:टीका:8:पृष्ठ:451",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
+            "publisher_id": "8",
             "page_number": "451"
           },
           "lazy": true
@@ -10065,11 +10122,11 @@
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:27",
+          "key": "धवला:टीका:8:पृष्ठ:27",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
+            "publisher_id": "8",
             "page_number": "27"
           },
           "lazy": true
@@ -10718,7 +10775,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:161"
+            "key": "धवला:टीका:8:पृष्ठ:162"
           },
           "to": {
             "label": "Topic",
@@ -10773,8 +10830,27 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
+            "label": "Page",
+            "key": "धवला:टीका:8:पृष्ठ:174"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 1,
+            "block_index": 3,
+            "mention_path": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग/3",
+            "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
             "label": "Gatha",
-            "key": "धवला:गाथा:3"
+            "key": "धवला:गाथा:103"
           },
           "to": {
             "label": "Topic",
@@ -10792,7 +10868,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:161"
+            "key": "धवला:टीका:8:पृष्ठ:162"
           },
           "to": {
             "label": "Topic",
@@ -10803,6 +10879,42 @@
             "source": "jainkosh",
             "block_index": 4,
             "mention_path": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग/4",
+            "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "धवला:गाथा:103"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 5,
+            "mention_path": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग/5",
+            "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "धवला:टीका:8:पृष्ठ:162"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 5,
+            "mention_path": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग/5",
             "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
           }
         },
@@ -10937,7 +11049,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:450"
+            "key": "धवला:टीका:8:पृष्ठ:450"
           },
           "to": {
             "label": "Topic",
@@ -10973,7 +11085,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:451"
+            "key": "धवला:टीका:8:पृष्ठ:451"
           },
           "to": {
             "label": "Topic",
@@ -11024,7 +11136,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:450"
+            "key": "धवला:टीका:8:पृष्ठ:450"
           },
           "to": {
             "label": "Topic",
@@ -11075,7 +11187,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:450"
+            "key": "धवला:टीका:8:पृष्ठ:450"
           },
           "to": {
             "label": "Topic",
@@ -11933,7 +12045,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:27"
+            "key": "धवला:टीका:8:पृष्ठ:27"
           },
           "to": {
             "label": "Topic",

@@ -763,12 +763,25 @@
                       {
                         "text": "( धवला 15/33/9 )",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "धवला",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "पुस्तक",
+                            "value": 15
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 33
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 9
+                          }
+                        ]
                       },
                       {
                         "text": "( कषायपाहुड़ 1/1,14/177/211/4 )",
@@ -3624,12 +3637,71 @@
                       {
                         "text": "धवला 3/1,2,1/2/",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "धवला",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "पुस्तक",
+                            "value": 3
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 1
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 2
+                          }
+                        ]
+                      },
+                      {
+                        "text": "धवला 3/1,2,1/2/",
+                        "inline_reference": false,
+                        "needs_manual_match": false,
+                        "is_teeka": false,
+                        "teeka_name": "",
+                        "shastra_name": "धवला",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "पुस्तक",
+                            "value": 3
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 2
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 2
+                          }
+                        ]
+                      },
+                      {
+                        "text": "धवला 3/1,2,1/2/",
+                        "inline_reference": false,
+                        "needs_manual_match": false,
+                        "is_teeka": false,
+                        "teeka_name": "",
+                        "shastra_name": "धवला",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "पुस्तक",
+                            "value": 3
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 1
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 2
+                          }
+                        ]
                       },
                       {
                         "text": "( गोम्मटसार जीवकांड/563-564/1008 )",
@@ -10136,7 +10208,7 @@
       "next": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF_%E0%A4%86%E0%A4%B8%E0%A5%8D%E0%A4%B0%E0%A4%B5"
     },
     "parser_version": "jainkosh.rules/1.11.11",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parsed_at": "2026-06-01T18:44:04.104559",
     "warnings": []
   },
   "would_write": {
@@ -12136,12 +12208,25 @@
                 {
                   "text": "( धवला 15/33/9 )",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "धवला",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "पुस्तक",
+                      "value": 15
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 33
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 9
+                    }
+                  ]
                 },
                 {
                   "text": "( कषायपाहुड़ 1/1,14/177/211/4 )",
@@ -15014,12 +15099,71 @@
                 {
                   "text": "धवला 3/1,2,1/2/",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "धवला",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "पुस्तक",
+                      "value": 3
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 1
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 2
+                    }
+                  ]
+                },
+                {
+                  "text": "धवला 3/1,2,1/2/",
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": false,
+                  "teeka_name": "",
+                  "shastra_name": "धवला",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "पुस्तक",
+                      "value": 3
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 2
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 2
+                    }
+                  ]
+                },
+                {
+                  "text": "धवला 3/1,2,1/2/",
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": false,
+                  "teeka_name": "",
+                  "shastra_name": "धवला",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "पुस्तक",
+                      "value": 3
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 1
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 2
+                    }
+                  ]
                 },
                 {
                   "text": "( गोम्मटसार जीवकांड/563-564/1008 )",
@@ -22017,11 +22161,11 @@
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:183",
+          "key": "धवला:टीका:8:पृष्ठ:183",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
+            "publisher_id": "8",
             "page_number": "183"
           },
           "lazy": true
@@ -22037,11 +22181,11 @@
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:2",
+          "key": "धवला:टीका:8:पृष्ठ:2",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
+            "publisher_id": "8",
             "page_number": "2"
           },
           "lazy": true
@@ -22057,12 +22201,23 @@
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:167",
+          "key": "धवला:टीका:8:पृष्ठ:167",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
+            "publisher_id": "8",
             "page_number": "167"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "धवला:टीका:8:पृष्ठ:33",
+          "props": {
+            "shastra_natural_key": "धवला",
+            "teeka_natural_key": "धवला:टीका",
+            "publisher_id": "8",
+            "page_number": "33"
           },
           "lazy": true
         },
@@ -22257,11 +22412,11 @@
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:388",
+          "key": "धवला:टीका:8:पृष्ठ:388",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
+            "publisher_id": "8",
             "page_number": "388"
           },
           "lazy": true
@@ -22277,11 +22432,11 @@
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:6",
+          "key": "धवला:टीका:8:पृष्ठ:6",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
+            "publisher_id": "8",
             "page_number": "6"
           },
           "lazy": true
@@ -22378,11 +22533,11 @@
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:17",
+          "key": "धवला:टीका:8:पृष्ठ:17",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
+            "publisher_id": "8",
             "page_number": "17"
           },
           "lazy": true
@@ -22516,11 +22671,11 @@
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:370",
+          "key": "धवला:टीका:8:पृष्ठ:370",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
+            "publisher_id": "8",
             "page_number": "370"
           },
           "lazy": true
@@ -22707,6 +22862,17 @@
             "teeka_natural_key": "पंचास्तिकाय:तात्पर्यवृत्ति",
             "publisher_id": "17",
             "page_number": "56"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "धवला:टीका:8:पृष्ठ:1",
+          "props": {
+            "shastra_natural_key": "धवला",
+            "teeka_natural_key": "धवला:टीका",
+            "publisher_id": "8",
+            "page_number": "1"
           },
           "lazy": true
         },
@@ -23367,33 +23533,33 @@
         },
         {
           "label": "GathaTeekaBhaavarth",
-          "key": "धवला:2:गाथा:टीका:भावार्थ:5",
+          "key": "धवला:8:गाथा:टीका:भावार्थ:5",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला",
-            "publisher_id": "2",
+            "publisher_id": "8",
             "gatha_number": "5"
           },
           "lazy": true
         },
         {
           "label": "GathaTeekaBhaavarth",
-          "key": "धवला:2:गाथा:टीका:भावार्थ:3",
+          "key": "धवला:8:गाथा:टीका:भावार्थ:3",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला",
-            "publisher_id": "2",
+            "publisher_id": "8",
             "gatha_number": "3"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:5",
+          "key": "धवला:टीका:8:पृष्ठ:5",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
+            "publisher_id": "8",
             "page_number": "5"
           },
           "lazy": true
@@ -23508,11 +23674,11 @@
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:40",
+          "key": "धवला:टीका:8:पृष्ठ:40",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
+            "publisher_id": "8",
             "page_number": "40"
           },
           "lazy": true
@@ -24930,7 +25096,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:183"
+            "key": "धवला:टीका:8:पृष्ठ:183"
           },
           "to": {
             "label": "Topic",
@@ -24966,7 +25132,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:2"
+            "key": "धवला:टीका:8:पृष्ठ:2"
           },
           "to": {
             "label": "Topic",
@@ -25002,7 +25168,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:167"
+            "key": "धवला:टीका:8:पृष्ठ:167"
           },
           "to": {
             "label": "Topic",
@@ -25011,6 +25177,25 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-निरुक्त्यर्थ/2",
+            "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-निरुक्त्यर्थ"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "धवला:टीका:8:पृष्ठ:33"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-निरुक्त्यर्थ"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 9,
             "block_index": 2,
             "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-निरुक्त्यर्थ/2",
             "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-निरुक्त्यर्थ"
@@ -25420,7 +25605,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:388"
+            "key": "धवला:टीका:8:पृष्ठ:388"
           },
           "to": {
             "label": "Topic",
@@ -25456,7 +25641,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:6"
+            "key": "धवला:टीका:8:पृष्ठ:6"
           },
           "to": {
             "label": "Topic",
@@ -25492,7 +25677,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:183"
+            "key": "धवला:टीका:8:पृष्ठ:183"
           },
           "to": {
             "label": "Topic",
@@ -25647,7 +25832,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:17"
+            "key": "धवला:टीका:8:पृष्ठ:17"
           },
           "to": {
             "label": "Topic",
@@ -25698,7 +25883,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:17"
+            "key": "धवला:टीका:8:पृष्ठ:17"
           },
           "to": {
             "label": "Topic",
@@ -25936,7 +26121,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:370"
+            "key": "धवला:टीका:8:पृष्ठ:370"
           },
           "to": {
             "label": "Topic",
@@ -26139,7 +26324,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:2"
+            "key": "धवला:टीका:8:पृष्ठ:2"
           },
           "to": {
             "label": "Topic",
@@ -26293,6 +26478,44 @@
             "pankti": 18,
             "block_index": 0,
             "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग/0",
+            "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "धवला:टीका:8:पृष्ठ:1"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 2,
+            "block_index": 1,
+            "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग/1",
+            "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "धवला:टीका:8:पृष्ठ:2"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 2,
+            "block_index": 1,
+            "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग/1",
             "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग"
           }
         },
@@ -27907,7 +28130,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeekaBhaavarth",
-            "key": "धवला:2:गाथा:टीका:भावार्थ:5"
+            "key": "धवला:8:गाथा:टीका:भावार्थ:5"
           },
           "to": {
             "label": "Topic",
@@ -27925,7 +28148,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:6"
+            "key": "धवला:टीका:8:पृष्ठ:6"
           },
           "to": {
             "label": "Topic",
@@ -27943,7 +28166,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeekaBhaavarth",
-            "key": "धवला:2:गाथा:टीका:भावार्थ:3"
+            "key": "धवला:8:गाथा:टीका:भावार्थ:3"
           },
           "to": {
             "label": "Topic",
@@ -27961,7 +28184,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:5"
+            "key": "धवला:टीका:8:पृष्ठ:5"
           },
           "to": {
             "label": "Topic",
@@ -27997,7 +28220,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:183"
+            "key": "धवला:टीका:8:पृष्ठ:183"
           },
           "to": {
             "label": "Topic",
@@ -28247,7 +28470,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:40"
+            "key": "धवला:टीका:8:पृष्ठ:40"
           },
           "to": {
             "label": "Topic",
@@ -28429,7 +28652,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeekaBhaavarth",
-            "key": "धवला:2:गाथा:टीका:भावार्थ:3"
+            "key": "धवला:8:गाथा:टीका:भावार्थ:3"
           },
           "to": {
             "label": "Topic",
@@ -28447,7 +28670,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:6"
+            "key": "धवला:टीका:8:पृष्ठ:6"
           },
           "to": {
             "label": "Topic",

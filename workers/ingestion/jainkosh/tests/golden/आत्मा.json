@@ -749,7 +749,7 @@
       "next": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%81%E0%A4%B2"
     },
     "parser_version": "jainkosh.rules/1.11.11",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parsed_at": "2026-06-01T18:44:03.740187",
     "warnings": []
   },
   "would_write": {
@@ -1844,11 +1844,11 @@
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:282",
+          "key": "धवला:टीका:8:पृष्ठ:282",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
+            "publisher_id": "8",
             "page_number": "282"
           },
           "lazy": true
@@ -2349,7 +2349,7 @@
           "type": "CONTAINS_DEFINITION",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:282"
+            "key": "धवला:टीका:8:पृष्ठ:282"
           },
           "to": {
             "label": "Keyword",

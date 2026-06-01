@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getBlockBorderClass, formatRefSourceLabel, parseMarkdownSegments, pickRefsToShow, pickHiddenRefs } from '@/components/DefinitionModal';
+import { getBlockBorderClass, formatRefSourceLabel, parseMarkdownSegments, pickRefsToShow, pickHiddenRefs, groupTopicExtractsByShastra } from '@/components/DefinitionModal';
 import type { DefinitionBlock, DefinitionReference } from '@/lib/types';
 
 function makeRef(overrides: Partial<DefinitionReference> = {}): DefinitionReference {
@@ -290,5 +290,96 @@ describe('pickHiddenRefs', () => {
     const hidden = pickHiddenRefs(block);
     const allWithFields = block.references.filter((r) => r.resolved_fields.length > 0);
     expect([...shown, ...hidden].sort()).toEqual(allWithFields.sort());
+  });
+});
+
+describe('groupTopicExtractsByShastra', () => {
+  it('returns empty array for empty input', () => {
+    expect(groupTopicExtractsByShastra([])).toEqual([]);
+  });
+
+  it('skips see_also blocks', () => {
+    const seeAlso = makeBlock({ kind: 'see_also' });
+    expect(groupTopicExtractsByShastra([seeAlso])).toEqual([]);
+  });
+
+  it('puts blocks with no resolvable ref into अन्य group (key: empty string)', () => {
+    const block = makeBlock({ references: [] });
+    const groups = groupTopicExtractsByShastra([block]);
+    expect(groups).toHaveLength(1);
+    expect(groups[0].groupKey).toBe('');
+    expect(groups[0].label).toBe('अन्य');
+    expect(groups[0].blocks).toEqual([block]);
+  });
+
+  it('groups blocks by shastra_name from primary ref', () => {
+    const refA = makeRef({ shastra_name: 'समयसार', inline_reference: false });
+    const refB = makeRef({ shastra_name: 'नियमसार', inline_reference: false });
+    const blockA1 = makeBlock({ references: [refA] });
+    const blockA2 = makeBlock({ references: [refA] });
+    const blockB = makeBlock({ references: [refB] });
+
+    const groups = groupTopicExtractsByShastra([blockA1, blockA2, blockB]);
+    expect(groups).toHaveLength(2);
+    const samayaGroup = groups.find((g) => g.groupKey === 'समयसार')!;
+    const niyamaGroup = groups.find((g) => g.groupKey === 'नियमसार')!;
+    expect(samayaGroup.label).toBe('समयसार');
+    expect(samayaGroup.blocks).toHaveLength(2);
+    expect(niyamaGroup.blocks).toHaveLength(1);
+  });
+
+  it('sorts groups alphabetically by label (Hindi locale)', () => {
+    const refB = makeRef({ shastra_name: 'समयसार', inline_reference: false });
+    const refA = makeRef({ shastra_name: 'नियमसार', inline_reference: false });
+    const blockB = makeBlock({ references: [refB] });
+    const blockA = makeBlock({ references: [refA] });
+
+    const groups = groupTopicExtractsByShastra([blockB, blockA]);
+    // 'न' comes before 'स' in Hindi alphabet
+    expect(groups[0].groupKey).toBe('नियमसार');
+    expect(groups[1].groupKey).toBe('समयसार');
+  });
+
+  it('places अन्य group (empty key) last regardless of insertion order', () => {
+    const refA = makeRef({ shastra_name: 'समयसार', inline_reference: false });
+    const noRef = makeBlock({ references: [] });   // → अन्य
+    const blockA = makeBlock({ references: [refA] });
+
+    const groups = groupTopicExtractsByShastra([noRef, blockA]);
+    expect(groups[0].groupKey).toBe('समयसार');
+    expect(groups[1].groupKey).toBe('');
+    expect(groups[1].label).toBe('अन्य');
+  });
+
+  it('uses shastra_name null as empty-string key → अन्य', () => {
+    const ref = makeRef({ shastra_name: null, inline_reference: false });
+    const block = makeBlock({ references: [ref] });
+    const groups = groupTopicExtractsByShastra([block]);
+    expect(groups[0].groupKey).toBe('');
+    expect(groups[0].label).toBe('अन्य');
+  });
+
+  it('uses first shown ref to determine the group, not first raw ref', () => {
+    // Two refs: first is inline (→ not preferred), second is non-inline (→ preferred).
+    const inlineRef = makeRef({ inline_reference: true, shastra_name: 'ब' });
+    const nonInlineRef = makeRef({ inline_reference: false, shastra_name: 'अ' });
+    const block = makeBlock({ references: [inlineRef, nonInlineRef] });
+    const groups = groupTopicExtractsByShastra([block]);
+    // pickRefsToShow returns [nonInlineRef] → shastra_name 'अ'
+    expect(groups[0].groupKey).toBe('अ');
+  });
+
+  it('all blocks (excluding see_also) are present across all groups', () => {
+    const refA = makeRef({ shastra_name: 'समयसार', inline_reference: false });
+    const refB = makeRef({ shastra_name: 'नियमसार', inline_reference: false });
+    const blocks = [
+      makeBlock({ references: [refA] }),
+      makeBlock({ references: [refB] }),
+      makeBlock({ kind: 'see_also' }),
+      makeBlock({ references: [] }),
+    ];
+    const groups = groupTopicExtractsByShastra(blocks);
+    const allGroupedBlocks = groups.flatMap((g) => g.blocks);
+    expect(allGroupedBlocks).toHaveLength(3); // see_also excluded
   });
 });

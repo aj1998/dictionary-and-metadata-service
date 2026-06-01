@@ -1,8 +1,8 @@
 'use client';
 
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { Dialog } from '@base-ui/react/dialog';
-import { X } from 'lucide-react';
+import { X, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import type { DefinitionBlock, DefinitionReference, KeywordPageSection } from '@/lib/types';
@@ -89,25 +89,92 @@ export function pickHiddenRefs(block: DefinitionBlock): DefinitionReference[] {
   return block.references.filter((r) => r.resolved_fields.length > 0 && !shownSet.has(r));
 }
 
-function RefBadge({ ref, isPrakrit }: { ref: DefinitionReference; isPrakrit: boolean }) {
+export type ShastraGroup = {
+  groupKey: string;   // shastra_name, or '' for blocks with no resolved refs
+  label: string;      // display label for the heading
+  blocks: DefinitionBlock[];
+};
+
+// Groups topic-extract blocks by shastra name (derived from the primary shown ref).
+// Blocks with no resolvable ref are grouped under '' / 'अन्य'.
+// Preserves the original order of first occurrence of each group.
+export function groupTopicExtractsByShastra(blocks: DefinitionBlock[]): ShastraGroup[] {
+  const groups = new Map<string, ShastraGroup>();
+  const order: string[] = [];
+
+  for (const block of blocks) {
+    if (block.kind === 'see_also') continue;
+    const refs = pickRefsToShow(block);
+    const key = refs.length > 0 ? (refs[0].shastra_name ?? '') : '';
+    const label = key !== '' ? key : 'अन्य';
+
+    if (!groups.has(key)) {
+      groups.set(key, { groupKey: key, label, blocks: [] });
+      order.push(key);
+    }
+    groups.get(key)!.blocks.push(block);
+  }
+
+  // Sort alphabetically by label using Hindi locale; अन्य (empty key) goes last.
+  order.sort((a, b) => {
+    if (a === '' && b !== '') return 1;
+    if (b === '' && a !== '') return -1;
+    return (groups.get(a)!.label).localeCompare(groups.get(b)!.label, 'hi');
+  });
+
+  return order.map((k) => groups.get(k)!);
+}
+
+type RefBadgeVariant = 'teeka' | 'prakrit' | 'sanskrit' | 'shastra';
+
+const BADGE_VARIANT_CLASSES: Record<RefBadgeVariant, { pill: string; label: string }> = {
+  teeka:    { pill: 'bg-amber-50 text-amber-800 ring-amber-200',       label: 'text-amber-700' },
+  prakrit:  { pill: 'bg-emerald-50 text-emerald-800 ring-emerald-200', label: 'text-emerald-700' },
+  sanskrit: { pill: 'bg-sky-50 text-sky-800 ring-sky-200',             label: 'text-sky-700' },
+  shastra:  { pill: 'bg-sky-50 text-sky-800 ring-sky-200',             label: 'text-sky-700' },
+};
+
+// Renders a single ref as a bulleted list row used inside the समान संदर्भ popover.
+function RefListItem({ ref }: { ref: DefinitionReference }) {
   const sourceLabel = formatRefSourceLabel(ref);
   return (
-    <span
-      className={cn(
-        'inline-flex items-center gap-0 rounded-full px-2.5 py-0.5 text-xs ring-1',
-        ref.is_teeka
-          ? 'bg-amber-50 text-amber-800 ring-amber-200'
-          : 'bg-surface-muted text-foreground-muted ring-border',
-      )}
-    >
-      {sourceLabel && (
-        <>
-          <span className={cn(
-            'font-semibold',
-            ref.is_teeka ? 'text-amber-700' : isPrakrit ? 'text-emerald-700' : 'text-sky-700',
-          )}>
-            {sourceLabel}
+    <li className="flex items-baseline gap-2 font-sans text-xs text-foreground">
+      <span className="mt-0.5 shrink-0 text-foreground-subtle">•</span>
+      <span className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+        {sourceLabel && (
+          <>
+            <span className={cn('font-semibold', ref.is_teeka ? 'text-amber-700' : 'text-foreground-muted')}>
+              {sourceLabel}
+            </span>
+            {ref.resolved_fields.length > 0 && (
+              <span className="opacity-30">|</span>
+            )}
+          </>
+        )}
+        {ref.resolved_fields.map((f, fi) => (
+          <span key={fi} className="flex items-center gap-0.5">
+            {fi > 0 && <span className="opacity-30">·</span>}
+            <span className="text-foreground-muted">{f.field}:</span>
+            <span className="font-medium">{f.value}</span>
           </span>
+        ))}
+      </span>
+    </li>
+  );
+}
+
+function RefBadge({ ref, variant, showShastra = false }: { ref: DefinitionReference; variant: RefBadgeVariant; showShastra?: boolean }) {
+  // In the inline ref bar, shastra is shown as the group heading so we suppress it.
+  // In the समान संदर्भ popover (showShastra=true) we show the full label.
+  const badgeLabel = showShastra
+    ? formatRefSourceLabel(ref) || null
+    : ref.is_teeka ? (ref.teeka_name || null) : null;
+  const { pill, label: labelClass } = BADGE_VARIANT_CLASSES[variant];
+  return (
+    <span className={cn('inline-flex items-center gap-0 rounded-full px-2.5 py-0.5 text-xs ring-1', pill)}>
+      {badgeLabel && (
+        <>
+          <span className={cn('font-semibold', labelClass)}>{badgeLabel}</span>
           {ref.resolved_fields.length > 0 && (
             <span className="mx-1.5 opacity-30">|</span>
           )}
@@ -124,12 +191,51 @@ function RefBadge({ ref, isPrakrit }: { ref: DefinitionReference; isPrakrit: boo
   );
 }
 
+function ShastraAccordion({ group, defaultOpen = true }: { group: ShastraGroup; defaultOpen?: boolean }) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="flex w-full items-center gap-1.5 py-1.5 text-left transition-colors hover:text-foreground"
+        aria-expanded={open}
+      >
+        <ChevronRight
+          strokeWidth={1.5}
+          className={cn('size-3.5 shrink-0 text-foreground-muted transition-transform duration-150', open && 'rotate-90')}
+        />
+        <span className="font-serif-hindi text-sm font-semibold text-foreground">
+          {group.label}
+        </span>
+        <span className="ml-1 font-sans text-xs text-foreground-subtle">
+          ({group.blocks.length})
+        </span>
+      </button>
+      {open && (
+        <div className="mt-1 space-y-1 border-l-2 border-border pl-4">
+          {group.blocks.map((block, i) => (
+            <div key={i}>
+              {i > 0 && <hr className="mb-3 border-border" />}
+              <ModalBlock block={block} />
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ModalBlock({ block }: { block: DefinitionBlock }) {
   const isPrakrit = block.kind === 'prakrit_text' || block.kind === 'prakrit_gatha';
   const isSanskrit = block.kind === 'sanskrit_text' || isPrakrit;
   const refsToShow = pickRefsToShow(block);
   const hiddenRefs = pickHiddenRefs(block);
   const borderClass = getBlockBorderClass(block, refsToShow);
+
+  // Variant drives badge bg tint; teeka refs always get amber regardless of block kind.
+  const blockVariant: Exclude<RefBadgeVariant, 'teeka'> =
+    isPrakrit ? 'prakrit' : block.kind === 'sanskrit_text' ? 'sanskrit' : 'shastra';
 
   const hasAnyRef = refsToShow.length > 0 || hiddenRefs.length > 0;
 
@@ -150,9 +256,9 @@ function ModalBlock({ block }: { block: DefinitionBlock }) {
       </div>
       {hasAnyRef && (
         <div className="mt-2 flex items-start gap-2">
-          <div className="flex flex-1 flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-1.5">
             {refsToShow.map((ref, ri) => (
-              <RefBadge key={ri} ref={ref} isPrakrit={isPrakrit} />
+              <RefBadge key={ri} ref={ref} variant={ref.is_teeka ? 'teeka' : blockVariant} />
             ))}
           </div>
           {hiddenRefs.length > 0 && (
@@ -171,11 +277,11 @@ function ModalBlock({ block }: { block: DefinitionBlock }) {
                 <p className="mb-2.5 font-sans text-xs font-semibold uppercase tracking-widest text-foreground-muted">
                   समान संदर्भ ({hiddenRefs.length})
                 </p>
-                <div className="flex flex-col gap-1.5 overflow-x-auto">
+                <ul className="space-y-1.5">
                   {hiddenRefs.map((ref, ri) => (
-                    <RefBadge key={ri} ref={ref} isPrakrit={isPrakrit} />
+                    <RefListItem key={ri} ref={ref} />
                   ))}
-                </div>
+                </ul>
               </PopoverContent>
             </Popover>
           )}
@@ -243,16 +349,15 @@ export function DefinitionModal({ open, onClose, title, definitionSections, topi
             )}
 
             {topicExtracts && (
-              <div className="space-y-3">
+              <div className="space-y-2">
                 <p className="text-xs font-medium uppercase tracking-wide text-foreground-muted">
                   विषय अंश ({topicExtracts.filter((b) => b.kind !== 'see_also').length})
                 </p>
-                {topicExtracts.filter((b) => b.kind !== 'see_also').map((block, i) => (
-                  <div key={i}>
-                    {i > 0 && <hr className="mb-3 border-border" />}
-                    <ModalBlock block={block} />
-                  </div>
-                ))}
+                <div className="space-y-2">
+                  {groupTopicExtractsByShastra(topicExtracts).map((group, gi) => (
+                    <ShastraAccordion key={group.groupKey || `__group_${gi}`} group={group} defaultOpen />
+                  ))}
+                </div>
               </div>
             )}
           </div>

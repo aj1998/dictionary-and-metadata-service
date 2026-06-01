@@ -1977,7 +1977,7 @@
       "next": "/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5_%E0%A4%A8%E0%A4%AF"
     },
     "parser_version": "jainkosh.rules/1.11.11",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parsed_at": "2026-06-01T18:44:04.559415",
     "warnings": []
   },
   "would_write": {
@@ -4627,11 +4627,11 @@
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:238",
+          "key": "धवला:टीका:8:पृष्ठ:238",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
+            "publisher_id": "8",
             "page_number": "238"
           },
           "lazy": true
@@ -4912,33 +4912,33 @@
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:199",
+          "key": "धवला:टीका:8:पृष्ठ:199",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
+            "publisher_id": "8",
             "page_number": "199"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:121",
+          "key": "धवला:टीका:8:पृष्ठ:121",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
+            "publisher_id": "8",
             "page_number": "121"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:2:पृष्ठ:56",
+          "key": "धवला:टीका:8:पृष्ठ:56",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "2",
+            "publisher_id": "8",
             "page_number": "56"
           },
           "lazy": true
@@ -5488,7 +5488,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:238"
+            "key": "धवला:टीका:8:पृष्ठ:238"
           },
           "to": {
             "label": "Topic",
@@ -5982,7 +5982,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:199"
+            "key": "धवला:टीका:8:पृष्ठ:199"
           },
           "to": {
             "label": "Topic",
@@ -6000,7 +6000,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:121"
+            "key": "धवला:टीका:8:पृष्ठ:121"
           },
           "to": {
             "label": "Topic",
@@ -6036,7 +6036,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:2:पृष्ठ:56"
+            "key": "धवला:टीका:8:पृष्ठ:56"
           },
           "to": {
             "label": "Topic",
