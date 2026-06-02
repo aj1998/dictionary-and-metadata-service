@@ -219,26 +219,10 @@
                         "value": 4
                       }
                     ]
-                  }
-                ],
-                "is_orphan_translation": false,
-                "is_bullet_point": false,
-                "raw_html": null,
-                "table_rows": null,
-                "target_keyword": null,
-                "target_topic_path": null,
-                "target_url": null,
-                "is_self": false,
-                "target_exists": true
-              },
-              {
-                "kind": "prakrit_text",
-                "text_devanagari": "जीवा हवंति तिविहा बहिरप्पा तह य अंतरप्पा य परमप्पा वि य दुविहा अरहंता तह य सिद्धा य॥192॥",
-                "hindi_translation": "जीव तीन प्रकार के हैं-बहिरात्मा, अंतरात्मा तथा परमात्मा। परमात्मा के भी दो भेद हैं-अरहंत और सिद्ध।",
-                "references": [
+                  },
                   {
                     "text": "( समाधिशतक / मूल या टीका गाथा 4)",
-                    "inline_reference": false,
+                    "inline_reference": true,
                     "needs_manual_match": true,
                     "is_teeka": false,
                     "teeka_name": "",
@@ -253,7 +237,7 @@
                   },
                   {
                     "text": "( ज्ञानार्णव अधिकार 32/5/317)",
-                    "inline_reference": false,
+                    "inline_reference": true,
                     "needs_manual_match": false,
                     "is_teeka": false,
                     "teeka_name": "",
@@ -276,7 +260,7 @@
                   },
                   {
                     "text": "( ज्ञानसार श्लोक 29)",
-                    "inline_reference": false,
+                    "inline_reference": true,
                     "needs_manual_match": false,
                     "is_teeka": false,
                     "teeka_name": "",
@@ -291,7 +275,7 @@
                   },
                   {
                     "text": "(परमात्मप्रकाश / मूल या टीका अधिकार 1/11)",
-                    "inline_reference": false,
+                    "inline_reference": true,
                     "needs_manual_match": false,
                     "is_teeka": false,
                     "teeka_name": "",
@@ -310,7 +294,7 @@
                   },
                   {
                     "text": "(द्रव्यसंग्रह / मूल या टीका गाथा 14/46)",
-                    "inline_reference": false,
+                    "inline_reference": true,
                     "needs_manual_match": false,
                     "is_teeka": false,
                     "teeka_name": "",
@@ -326,7 +310,23 @@
                         "value": 46
                       }
                     ]
-                  },
+                  }
+                ],
+                "is_orphan_translation": false,
+                "is_bullet_point": false,
+                "raw_html": null,
+                "table_rows": null,
+                "target_keyword": null,
+                "target_topic_path": null,
+                "target_url": null,
+                "is_self": false,
+                "target_exists": true
+              },
+              {
+                "kind": "prakrit_text",
+                "text_devanagari": "जीवा हवंति तिविहा बहिरप्पा तह य अंतरप्पा य परमप्पा वि य दुविहा अरहंता तह य सिद्धा य॥192॥",
+                "hindi_translation": "जीव तीन प्रकार के हैं-बहिरात्मा, अंतरात्मा तथा परमात्मा। परमात्मा के भी दो भेद हैं-अरहंत और सिद्ध।",
+                "references": [
                   {
                     "text": "कार्तिकेयानुप्रेक्षा/मूल/192",
                     "inline_reference": false,
@@ -757,7 +757,7 @@
       "next": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%81%E0%A4%B2"
     },
     "parser_version": "jainkosh.rules/1.11.16",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parsed_at": "2026-06-02T21:37:00.999691",
     "warnings": []
   },
   "would_write": {
@@ -1214,26 +1214,10 @@
                       "value": 4
                     }
                   ]
-                }
-              ],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true
-            },
-            {
-              "kind": "prakrit_text",
-              "text_devanagari": "जीवा हवंति तिविहा बहिरप्पा तह य अंतरप्पा य परमप्पा वि य दुविहा अरहंता तह य सिद्धा य॥192॥",
-              "hindi_translation": "जीव तीन प्रकार के हैं-बहिरात्मा, अंतरात्मा तथा परमात्मा। परमात्मा के भी दो भेद हैं-अरहंत और सिद्ध।",
-              "references": [
+                },
                 {
                   "text": "( समाधिशतक / मूल या टीका गाथा 4)",
-                  "inline_reference": false,
+                  "inline_reference": true,
                   "needs_manual_match": true,
                   "is_teeka": false,
                   "teeka_name": "",
@@ -1248,7 +1232,7 @@
                 },
                 {
                   "text": "( ज्ञानार्णव अधिकार 32/5/317)",
-                  "inline_reference": false,
+                  "inline_reference": true,
                   "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
@@ -1271,7 +1255,7 @@
                 },
                 {
                   "text": "( ज्ञानसार श्लोक 29)",
-                  "inline_reference": false,
+                  "inline_reference": true,
                   "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
@@ -1286,7 +1270,7 @@
                 },
                 {
                   "text": "(परमात्मप्रकाश / मूल या टीका अधिकार 1/11)",
-                  "inline_reference": false,
+                  "inline_reference": true,
                   "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
@@ -1305,7 +1289,7 @@
                 },
                 {
                   "text": "(द्रव्यसंग्रह / मूल या टीका गाथा 14/46)",
-                  "inline_reference": false,
+                  "inline_reference": true,
                   "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
@@ -1321,7 +1305,23 @@
                       "value": 46
                     }
                   ]
-                },
+                }
+              ],
+              "is_orphan_translation": false,
+              "is_bullet_point": false,
+              "raw_html": null,
+              "table_rows": null,
+              "target_keyword": null,
+              "target_topic_path": null,
+              "target_url": null,
+              "is_self": false,
+              "target_exists": true
+            },
+            {
+              "kind": "prakrit_text",
+              "text_devanagari": "जीवा हवंति तिविहा बहिरप्पा तह य अंतरप्पा य परमप्पा वि य दुविहा अरहंता तह य सिद्धा य॥192॥",
+              "hindi_translation": "जीव तीन प्रकार के हैं-बहिरात्मा, अंतरात्मा तथा परमात्मा। परमात्मा के भी दो भेद हैं-अरहंत और सिद्ध।",
+              "references": [
                 {
                   "text": "कार्तिकेयानुप्रेक्षा/मूल/192",
                   "inline_reference": false,
@@ -1689,73 +1689,6 @@
         },
         {
           "label": "Gatha",
-          "key": "समाधिशतक:गाथा:4",
-          "props": {
-            "shastra_natural_key": "समाधिशतक",
-            "gatha_number": "4"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Gatha",
-          "key": "ज्ञानार्णव:गाथा:5",
-          "props": {
-            "shastra_natural_key": "ज्ञानार्णव",
-            "gatha_number": "5"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Page",
-          "key": "ज्ञानार्णव:टीका:23:पृष्ठ:317",
-          "props": {
-            "shastra_natural_key": "ज्ञानार्णव",
-            "teeka_natural_key": "ज्ञानार्णव:टीका",
-            "publisher_id": "23",
-            "page_number": "317"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Gatha",
-          "key": "ज्ञानसार:गाथा:29",
-          "props": {
-            "shastra_natural_key": "ज्ञानसार",
-            "gatha_number": "29"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Gatha",
-          "key": "परमात्मप्रकाश:गाथा:11",
-          "props": {
-            "shastra_natural_key": "परमात्मप्रकाश",
-            "gatha_number": "11"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Gatha",
-          "key": "द्रव्यसंग्रह:गाथा:14",
-          "props": {
-            "shastra_natural_key": "द्रव्यसंग्रह",
-            "gatha_number": "14"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Page",
-          "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:46",
-          "props": {
-            "shastra_natural_key": "द्रव्यसंग्रह",
-            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
-            "publisher_id": "14",
-            "page_number": "46"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Gatha",
           "key": "कार्तिकेयानुप्रेक्षा:गाथा:192",
           "props": {
             "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
@@ -1773,6 +1706,15 @@
             "source": "jainkosh",
             "is_leaf": false
           }
+        },
+        {
+          "label": "Gatha",
+          "key": "द्रव्यसंग्रह:गाथा:14",
+          "props": {
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "gatha_number": "14"
+          },
+          "lazy": true
         },
         {
           "label": "Page",
@@ -1809,6 +1751,15 @@
         },
         {
           "label": "Gatha",
+          "key": "समाधिशतक:गाथा:4",
+          "props": {
+            "shastra_natural_key": "समाधिशतक",
+            "gatha_number": "4"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
           "key": "परमात्मप्रकाश:गाथा:12",
           "props": {
             "shastra_natural_key": "परमात्मप्रकाश",
@@ -1824,6 +1775,17 @@
             "teeka_natural_key": "परमात्मप्रकाश:टीका",
             "publisher_id": "23",
             "page_number": "19"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:46",
+          "props": {
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+            "publisher_id": "14",
+            "page_number": "46"
           },
           "lazy": true
         },
@@ -1963,132 +1925,6 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Gatha",
-            "key": "समाधिशतक:गाथा:4"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 1,
-            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/1",
-            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Gatha",
-            "key": "ज्ञानार्णव:गाथा:5"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 1,
-            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/1",
-            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Page",
-            "key": "ज्ञानार्णव:टीका:23:पृष्ठ:317"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 1,
-            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/1",
-            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Gatha",
-            "key": "ज्ञानसार:गाथा:29"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 1,
-            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/1",
-            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Gatha",
-            "key": "परमात्मप्रकाश:गाथा:11"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 1,
-            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/1",
-            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Gatha",
-            "key": "द्रव्यसंग्रह:गाथा:14"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 1,
-            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/1",
-            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Page",
-            "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:46"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 1,
-            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/1",
-            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
           }
         },
         {

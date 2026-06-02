@@ -293,6 +293,49 @@ describe('pickHiddenRefs', () => {
   });
 });
 
+// groupTopicExtractsByShastra is reused by KeywordDefinitionBlocks (keyword path)
+// and TopicExtractsSection (topic path). These tests cover both call sites.
+describe('groupTopicExtractsByShastra — keyword-path scenarios', () => {
+  it('groups keyword blocks by shastra the same way as topic extracts', () => {
+    const ref1 = makeRef({ shastra_name: 'सिद्धांतकोष', inline_reference: false });
+    const ref2 = makeRef({ shastra_name: 'आत्मख्याति', inline_reference: false });
+    const block1 = makeBlock({ references: [ref1] });
+    const block2 = makeBlock({ references: [ref1] });
+    const block3 = makeBlock({ references: [ref2] });
+
+    const groups = groupTopicExtractsByShastra([block1, block2, block3]);
+    expect(groups).toHaveLength(2);
+    const g1 = groups.find((g) => g.groupKey === 'सिद्धांतकोष')!;
+    const g2 = groups.find((g) => g.groupKey === 'आत्मख्याति')!;
+    expect(g1.blocks).toHaveLength(2);
+    expect(g2.blocks).toHaveLength(1);
+  });
+
+  it('filters see_also blocks so they never appear in keyword groups', () => {
+    const ref = makeRef({ shastra_name: 'समयसार', inline_reference: false });
+    const normalBlock = makeBlock({ references: [ref] });
+    const seeAlsoBlock = makeBlock({ kind: 'see_also' });
+
+    const groups = groupTopicExtractsByShastra([normalBlock, seeAlsoBlock]);
+    expect(groups).toHaveLength(1);
+    expect(groups[0].blocks).toHaveLength(1);
+    expect(groups[0].blocks[0]).toBe(normalBlock);
+  });
+
+  it('returns empty array when all blocks are see_also (no visible keyword blocks)', () => {
+    const block = makeBlock({ kind: 'see_also' });
+    expect(groupTopicExtractsByShastra([block])).toEqual([]);
+  });
+
+  it('groups blocks with teeka refs under the shastra key (shastra_name from teeka ref)', () => {
+    const teekaRef = makeRef({ is_teeka: true, shastra_name: 'समयसार', teeka_name: 'टीका', inline_reference: false });
+    const block = makeBlock({ references: [teekaRef] });
+    const groups = groupTopicExtractsByShastra([block]);
+    expect(groups).toHaveLength(1);
+    expect(groups[0].groupKey).toBe('समयसार');
+  });
+});
+
 describe('groupTopicExtractsByShastra', () => {
   it('returns empty array for empty input', () => {
     expect(groupTopicExtractsByShastra([])).toEqual([]);

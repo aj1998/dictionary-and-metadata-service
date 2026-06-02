@@ -125,7 +125,7 @@ export function groupTopicExtractsByShastra(blocks: DefinitionBlock[]): ShastraG
   return order.map((k) => groups.get(k)!);
 }
 
-const REF_BADGE_CLASSES = 'text-foreground-subtle';
+const REF_BADGE_CLASSES = 'text-foreground-muted';
 
 // Renders a single ref as a bulleted list row used inside the समान संदर्भ popover.
 function RefListItem({ ref }: { ref: DefinitionReference }) {
@@ -172,8 +172,8 @@ function RefBadge({ ref, showShastra = false }: { ref: DefinitionReference; show
       )}
       {ref.resolved_fields.map((f, fi) => (
         <span key={fi} className="flex items-center">
-          {fi > 0 && <span className="mx-1 opacity-30">·</span>}
-          <span className="opacity-60">{f.field}:</span>
+          {fi > 0 && <span className="mx-1 opacity-50">·</span>}
+          <span className="opacity-80">{f.field}:</span>
           <span className="ml-0.5 text-[10px] font-medium not-italic">{f.value}</span>
         </span>
       ))}
@@ -275,6 +275,68 @@ function ModalBlock({ block }: { block: DefinitionBlock }) {
   );
 }
 
+// Top-level collapsible wrapper for a keyword section (e.g. "सिद्धांतकोष से").
+// Mirrors the TopicExtractsSection collapse pattern so both paths look consistent.
+function KeywordSectionAccordion({ h2Text, blocks }: { h2Text: string; blocks: DefinitionBlock[] }) {
+  const [open, setOpen] = useState(true);
+  const visibleCount = blocks.filter((b) => b.kind !== 'see_also').length;
+
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="flex w-full items-center gap-1.5 py-1 text-left transition-colors hover:text-foreground"
+        aria-expanded={open}
+      >
+        <ChevronRight
+          strokeWidth={1.5}
+          className={cn('size-3.5 shrink-0 text-foreground-muted transition-transform duration-150', open && 'rotate-90')}
+        />
+        <span className="text-xs font-medium uppercase tracking-wide text-foreground-muted">
+          {h2Text}
+        </span>
+        <span className="ml-1 font-sans text-xs text-foreground-subtle">({visibleCount})</span>
+      </button>
+      {open && (
+        <div className="mt-1 pl-2">
+          <KeywordDefinitionBlocks blocks={blocks} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Renders keyword definition blocks grouped by shastra via ShastraAccordion.
+// Mirrors the topic-extracts grouping pattern so both paths look consistent.
+function KeywordDefinitionBlocks({ blocks }: { blocks: DefinitionBlock[] }) {
+  const groups = groupTopicExtractsByShastra(blocks);
+
+  const [openMap, setOpenMap] = useState<Record<number, boolean>>(() =>
+    Object.fromEntries(groups.map((_, i) => [i, true]))
+  );
+
+  const toggleOne = (i: number) =>
+    setOpenMap((prev) => ({ ...prev, [i]: !prev[i] }));
+
+  if (groups.length === 0) return null;
+
+  return (
+    <div className="space-y-1">
+      {groups.map((group, gi) => (
+        <Fragment key={group.groupKey || `__group_${gi}`}>
+          {gi > 0 && <hr className="my-2 border-border" />}
+          <ShastraAccordion
+            group={group}
+            open={openMap[gi] ?? true}
+            onToggle={() => toggleOne(gi)}
+          />
+        </Fragment>
+      ))}
+    </div>
+  );
+}
+
 function TopicExtractsSection({ blocks }: { blocks: DefinitionBlock[] }) {
   const visibleCount = blocks.filter((b) => b.kind !== 'see_also').length;
   const groups = groupTopicExtractsByShastra(blocks);
@@ -347,39 +409,15 @@ export function DefinitionModal({ open, onClose, title, definitionSections, topi
 
           <div className="flex-1 overflow-y-auto px-5 py-4">
             {definitionSections && (
-              <div>
+              <div className="space-y-2">
                 {definitionSections.map((section, si) => (
-                  <div key={section.section_index} className={si > 0 ? 'mt-8' : ''}>
-                    {si > 0 && (
-                      <div className="mb-4 space-y-1">
-                        <div className="h-px bg-border-strong" />
-                        <div className="h-px bg-border" />
-                      </div>
-                    )}
-                    <div className="mb-4">
-                      <span className="text-xs font-semibold uppercase tracking-widest text-foreground-muted">
-                        {section.h2_text}
-                      </span>
-                    </div>
-                    <div className="space-y-1">
-                      {section.definitions.map((def, di) => {
-                        const visibleBlocks = def.blocks.filter((b) => b.kind !== 'see_also');
-                        return (
-                          <div key={def.definition_index}>
-                            {di > 0 && <hr className="my-3 border-border" />}
-                            <div className="space-y-3">
-                              {visibleBlocks.map((block, bi) => (
-                                <div key={bi}>
-                                  {bi > 0 && <hr className="mb-3 border-border" />}
-                                  <ModalBlock block={block} />
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
+                  <Fragment key={section.section_index}>
+                    {si > 0 && <hr className="my-2 border-border" />}
+                    <KeywordSectionAccordion
+                      h2Text={section.h2_text}
+                      blocks={section.definitions.flatMap((def) => def.blocks)}
+                    />
+                  </Fragment>
                 ))}
               </div>
             )}
