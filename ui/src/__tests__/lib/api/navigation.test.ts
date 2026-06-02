@@ -39,7 +39,7 @@ describe('navigation API', () => {
     it('calls correct URL and returns graph payload', async () => {
       mockSuccess(emptyGraph);
       const result = await getNavLanding();
-      expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(`${BASE}/v1/landing`);
+      expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(`${BASE}/v1/landing?exclude_stubs=false`);
       expect(result).toEqual(emptyGraph);
     });
 
@@ -63,7 +63,7 @@ describe('navigation API', () => {
       mockSuccess(emptyGraph);
       await getNavLandingRandom(3);
       expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(
-        `${BASE}/v1/landing/random?depth=3`
+        `${BASE}/v1/landing/random?depth=3&exclude_stubs=false`
       );
     });
 
@@ -85,7 +85,7 @@ describe('navigation API', () => {
       mockSuccess(emptyGraph);
       await expandNode('dharma', 2);
       expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(
-        `${BASE}/v1/expand/dharma?depth=2`
+        `${BASE}/v1/expand/dharma?depth=2&exclude_stubs=false`
       );
     });
 
@@ -93,14 +93,14 @@ describe('navigation API', () => {
       mockSuccess(emptyGraph);
       await expandNode('atma', 1);
       const url = (fetch as ReturnType<typeof vi.fn>).mock.calls[0][0] as string;
-      expect(url).toBe(`${BASE}/v1/expand/atma?depth=1`);
+      expect(url).toBe(`${BASE}/v1/expand/atma?depth=1&exclude_stubs=false`);
     });
 
     it('includes depth=4 correctly', async () => {
       mockSuccess(emptyGraph);
       await expandNode('karma', 4);
       const url = (fetch as ReturnType<typeof vi.fn>).mock.calls[0][0] as string;
-      expect(url).toBe(`${BASE}/v1/expand/karma?depth=4`);
+      expect(url).toBe(`${BASE}/v1/expand/karma?depth=4&exclude_stubs=false`);
     });
 
     it('throws ApiError on error', async () => {
@@ -115,7 +115,7 @@ describe('navigation API', () => {
       mockSuccess(emptyGraph);
       await getPreview('dharma');
       expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(
-        `${BASE}/v1/preview/dharma`
+        `${BASE}/v1/preview/dharma?exclude_stubs=false`
       );
     });
 
@@ -123,7 +123,7 @@ describe('navigation API', () => {
       mockSuccess(emptyGraph);
       await getPreview('dharma', 2);
       expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(
-        `${BASE}/v1/preview/dharma?hops=2`
+        `${BASE}/v1/preview/dharma?hops=2&exclude_stubs=false`
       );
     });
 
@@ -131,7 +131,7 @@ describe('navigation API', () => {
       mockSuccess(emptyGraph);
       await getPreview('atma', 1);
       const url = (fetch as ReturnType<typeof vi.fn>).mock.calls[0][0] as string;
-      expect(url).toBe(`${BASE}/v1/preview/atma?hops=1`);
+      expect(url).toBe(`${BASE}/v1/preview/atma?hops=1&exclude_stubs=false`);
     });
 
     it('throws ApiError on error', async () => {

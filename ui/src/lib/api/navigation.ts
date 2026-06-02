@@ -4,9 +4,10 @@ import { DEFAULT_GRAPH_DEPTH } from '@/lib/config';
 
 const BASE_URL = process.env.NAV_SVC_URL ?? '/api/navigation';
 
-// Set NEXT_PUBLIC_GRAPH_EXCLUDE_STUBS=false to show stub (cross-reference placeholder) nodes in the graph.
-// Defaults to true (stubs hidden) to keep the graph uncluttered.
-const EXCLUDE_STUBS = process.env.NEXT_PUBLIC_GRAPH_EXCLUDE_STUBS !== 'false';
+// Set NEXT_PUBLIC_GRAPH_EXCLUDE_STUBS=true to hide stub (cross-reference placeholder) nodes.
+// Defaults to false so stub Gatha/GathaTeeka/GathaTeekaBhaavarth/Kalash/KalashBhaavarth
+// nodes (seeded by JainKosh ingestion and later filled in by NJ ingestion) are visible.
+const EXCLUDE_STUBS = process.env.NEXT_PUBLIC_GRAPH_EXCLUDE_STUBS === 'true';
 
 // deprecated: replaced by /v1/landing/random
 export async function getNavLanding(): Promise<GraphPayload> {

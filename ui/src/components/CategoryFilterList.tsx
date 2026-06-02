@@ -13,6 +13,10 @@ export const CATEGORY_DATA: Array<{
 }> = [
   { kind: 'shastra', labelHi: 'शास्त्र', labelEn: 'Shastra', catVar: 'var(--cat-shastra)' },
   { kind: 'gatha', labelHi: 'गाथा', labelEn: 'Gatha', catVar: 'var(--cat-gatha)' },
+  { kind: 'teeka', labelHi: 'टीका', labelEn: 'Teeka', catVar: 'var(--cat-teeka)' },
+  { kind: 'bhaavarth', labelHi: 'भावार्थ', labelEn: 'Bhaavarth', catVar: 'var(--cat-bhaavarth)' },
+  { kind: 'kalash', labelHi: 'कलश', labelEn: 'Kalash', catVar: 'var(--cat-kalash)' },
+  { kind: 'page', labelHi: 'पृष्ठ', labelEn: 'Page', catVar: 'var(--cat-page)' },
   { kind: 'topic', labelHi: 'विषय', labelEn: 'Topic', catVar: 'var(--cat-topic)' },
   { kind: 'keyword', labelHi: 'कीवर्ड', labelEn: 'Keyword', catVar: 'var(--cat-keyword)' },
 ];

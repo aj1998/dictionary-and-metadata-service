@@ -6,6 +6,7 @@ import * as navigationApi from '@/lib/api/navigation';
 import { useGraphStore } from '@/lib/store/graphStore';
 import { buildGraphQuery, parseGraphQuery } from '@/lib/store/graphUrlState';
 import { buildCanvasNodes, buildCanvasEdges } from './graphViewHelpers';
+import type { EntityKind } from '@/lib/types';
 
 export default function GraphPage() {
   const nodes = useGraphStore((s) => s.nodes);
@@ -63,7 +64,7 @@ export default function GraphPage() {
 
   useEffect(() => {
     const handle = window.setTimeout(() => {
-      const hiddenCats = (Object.entries(categoryVisibility).filter(([, v]) => !v).map(([k]) => k)) as Array<'shastra' | 'gatha' | 'topic' | 'keyword'>;
+      const hiddenCats = (Object.entries(categoryVisibility).filter(([, v]) => !v).map(([k]) => k)) as Array<EntityKind>;
       // Preserve the seed node in the URL even when nothing is explicitly selected,
       // so that page refresh loads the same graph instead of picking a new random seed.
       const nodeForUrl = (selected?.kind === 'node' ? selected.id : null) ?? seedNk;

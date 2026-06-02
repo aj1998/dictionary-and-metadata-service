@@ -3,9 +3,9 @@ import { NODE_KIND_META, EXPAND_ARIA_LABEL, DETAILS_ARIA_LABEL } from "@/compone
 import type { EntityKind } from "@/lib/types";
 
 describe("NODE_KIND_META", () => {
-  test("covers all 4 entity kinds", () => {
+  test("covers all entity kinds", () => {
     const keys = Object.keys(NODE_KIND_META).sort();
-    const expected: EntityKind[] = ["gatha", "keyword", "shastra", "topic"];
+    const expected: EntityKind[] = ["bhaavarth", "gatha", "kalash", "keyword", "page", "shastra", "teeka", "topic"];
     expect(keys).toEqual(expected);
   });
 

@@ -230,6 +230,10 @@ All components must consume CSS variables. Never hardcode hex values.
 |---|---|---|
 | `--cat-shastra` | `#E63946` | शास्त्र |
 | `--cat-gatha` | `#F4A261` | गाथा |
+| `--cat-teeka` | `#E8B931` | टीका |
+| `--cat-bhaavarth` | `#7C5CB8` | भावार्थ |
+| `--cat-kalash` | `#5E8A4A` | कलश |
+| `--cat-page` | `#B5645A` | पृष्ठ |
 | `--cat-topic` | `#2A9D8F` | विषय |
 | `--cat-keyword` | `#264653` | शब्द |
 
@@ -418,10 +422,24 @@ The navigation service expand/preview queries traverse these Neo4j relationship 
 | `IS_A` / `PART_OF` / `RELATED_TO` | any | Topic ↔ Topic |
 | `HAS_TOPIC` | Keyword → Topic | Keyword to its sub-topics |
 | `MENTIONS_KEYWORD` | Topic → Keyword | Topic to keywords it mentions |
-| `MENTIONS_TOPIC` | Gatha → Topic | **Gatha to topics it discusses** |
+| `MENTIONS_TOPIC` | Gatha/GathaTeeka/GathaTeekaBhaavarth/Kalash/KalashBhaavarth/Page → Topic | Source node cites a topic |
+| `CONTAINS_DEFINITION` | Gatha/GathaTeeka/GathaTeekaBhaavarth/Kalash/KalashBhaavarth/Page → Keyword | Source node appears inside a keyword's JainKosh definition body |
 | `IN_SHASTRA` | Gatha → Shastra | **Gatha to its parent Shastra** |
 
-`MENTIONS_TOPIC` and `IN_SHASTRA` are required for gatha and shastra nodes to appear in the graph. Without them, expanding from a topic yields only topic/keyword nodes.
+`MENTIONS_TOPIC`, `CONTAINS_DEFINITION` and `IN_SHASTRA` are required for gatha-family stub nodes (Gatha, GathaTeeka, GathaTeekaBhaavarth, Kalash, KalashBhaavarth, Page) to appear in the graph. Each Neo4j label maps to its own UI `EntityKind` with its own filter swatch, node colour, and icon:
+
+| Neo4j label | UI `EntityKind` | Hindi label | Colour token | Icon |
+|---|---|---|---|---|
+| `Shastra` | `shastra` | शास्त्र | `--cat-shastra` | `BookOpen` |
+| `Gatha` | `gatha` | गाथा | `--cat-gatha` | `ScrollText` |
+| `GathaTeeka` | `teeka` | टीका | `--cat-teeka` | `BookText` |
+| `GathaTeekaBhaavarth`, `KalashBhaavarth` | `bhaavarth` | भावार्थ | `--cat-bhaavarth` | `NotebookText` |
+| `Kalash` | `kalash` | कलश | `--cat-kalash` | `Flower2` |
+| `Page` | `page` | पृष्ठ | `--cat-page` | `FileText` |
+| `Topic` | `topic` | विषय | `--cat-topic` | `Tag` |
+| `Keyword` | `keyword` | कीवर्ड | `--cat-keyword` | `Sparkles` |
+
+Stub nodes (placeholders seeded by JainKosh ingestion before NJ ingestion fills them in) are **included by default**; set `NEXT_PUBLIC_GRAPH_EXCLUDE_STUBS=true` to hide them. All eight kinds appear as toggles in the left filter panel and are persisted via the `?cat=` URL param.
 
 ### Canvas (`GraphCanvas.tsx`)
 - Full-size `<svg>` with a dotted 24×24px tile grid (dot radius clamped `[0.75, 1.5]`).

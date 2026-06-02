@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { BADGE_DEFAULT_LABELS, BADGE_CAT_CLASSES } from "@/components/BadgeChip";
 import type { EntityKind } from "@/lib/types";
 
-const KINDS: EntityKind[] = ["shastra", "gatha", "topic", "keyword"];
+const KINDS: EntityKind[] = ["shastra", "gatha", "teeka", "bhaavarth", "kalash", "page", "topic", "keyword"];
 
 describe("BADGE_DEFAULT_LABELS", () => {
   it("covers every EntityKind", () => {

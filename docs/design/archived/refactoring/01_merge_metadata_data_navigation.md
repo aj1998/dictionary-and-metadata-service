@@ -8,7 +8,7 @@
 
 ## 1. Motivation
 
-The three services ([`metadata`](../metadata/01_spec.md), [`data`](../data/01_spec.md), [`navigation`](../navigation/01_spec.md)) share business domain (the same Postgres schema, the same admin auth, the same `/v1` API contract) but currently run as three independent FastAPI processes on ports 8001 / 8002 / 8003. Running three uvicorns on a single laptop wastes RAM and heats the system without any isolation benefit — they all read/write the same DBs and there is no per-service scaling story.
+The three services ([`metadata`](../../api/metadata/01_spec.md), [`data`](../../api/data/01_spec.md), [`navigation`](../../api/navigation/01_spec.md)) share business domain (the same Postgres schema, the same admin auth, the same `/v1` API contract) but currently run as three independent FastAPI processes on ports 8001 / 8002 / 8003. Running three uvicorns on a single laptop wastes RAM and heats the system without any isolation benefit — they all read/write the same DBs and there is no per-service scaling story.
 
 `query-service` (port 8004, [`docs/design/query_engine/00_overview.md`](../../query_engine/00_overview.md)) **stays separate**: it implements distinct GraphRAG orchestration logic, has its own pipeline, and is the public seam for `cataloguesearch-chat`. Merging it in would couple a public contract to internal CRUD churn.
 

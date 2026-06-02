@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { ChevronRight, Maximize2, Pin, BookOpen, ScrollText, Tag, Sparkles } from '@/lib/icons';
+import { ChevronRight, Maximize2, Pin, BookOpen, ScrollText, BookText, NotebookText, Flower2, FileText, Tag, Sparkles } from '@/lib/icons';
 import type { EntityKind } from '@/lib/types';
 
 export const EXPAND_ARIA_LABEL = 'इस नोड से ग्राफ़ का विस्तार करें';
@@ -18,10 +18,14 @@ export const NODE_KIND_META: Record<
     bandIconBoxBg: string;
   }
 > = {
-  shastra: { labelHi: 'शास्त्र', labelEn: 'Shastra', Icon: BookOpen,   catVar: 'var(--cat-shastra)', bandFg: 'var(--cat-shastra-fg)', bandIconBoxBg: 'rgba(255,255,255,0.18)' },
-  gatha:   { labelHi: 'गाथा',   labelEn: 'Gatha',   Icon: ScrollText, catVar: 'var(--cat-gatha)',   bandFg: 'var(--cat-gatha-fg)',   bandIconBoxBg: 'rgba(0,0,0,0.10)'       },
-  topic:   { labelHi: 'विषय',   labelEn: 'Topic',   Icon: Tag,        catVar: 'var(--cat-topic)',   bandFg: 'var(--cat-topic-fg)',   bandIconBoxBg: 'rgba(0,0,0,0.10)' },
-  keyword: { labelHi: 'कीवर्ड',  labelEn: 'Keyword', Icon: Sparkles,   catVar: 'var(--cat-keyword)', bandFg: 'var(--cat-keyword-fg)', bandIconBoxBg: 'rgba(0,0,0,0.10)' },
+  shastra:   { labelHi: 'शास्त्र', labelEn: 'Shastra',   Icon: BookOpen,     catVar: 'var(--cat-shastra)',   bandFg: 'var(--cat-shastra-fg)',   bandIconBoxBg: 'rgba(255,255,255,0.18)' },
+  gatha:     { labelHi: 'गाथा',   labelEn: 'Gatha',     Icon: ScrollText,   catVar: 'var(--cat-gatha)',     bandFg: 'var(--cat-gatha-fg)',     bandIconBoxBg: 'rgba(0,0,0,0.10)' },
+  teeka:     { labelHi: 'टीका',   labelEn: 'Teeka',     Icon: BookText,     catVar: 'var(--cat-teeka)',     bandFg: 'var(--cat-teeka-fg)',     bandIconBoxBg: 'rgba(0,0,0,0.10)' },
+  bhaavarth: { labelHi: 'भावार्थ', labelEn: 'Bhaavarth', Icon: NotebookText, catVar: 'var(--cat-bhaavarth)', bandFg: 'var(--cat-bhaavarth-fg)', bandIconBoxBg: 'rgba(255,255,255,0.18)' },
+  kalash:    { labelHi: 'कलश',    labelEn: 'Kalash',    Icon: Flower2,      catVar: 'var(--cat-kalash)',    bandFg: 'var(--cat-kalash-fg)',    bandIconBoxBg: 'rgba(255,255,255,0.18)' },
+  page:      { labelHi: 'पृष्ठ',   labelEn: 'Page',      Icon: FileText,     catVar: 'var(--cat-page)',      bandFg: 'var(--cat-page-fg)',      bandIconBoxBg: 'rgba(255,255,255,0.18)' },
+  topic:     { labelHi: 'विषय',   labelEn: 'Topic',     Icon: Tag,          catVar: 'var(--cat-topic)',     bandFg: 'var(--cat-topic-fg)',     bandIconBoxBg: 'rgba(0,0,0,0.10)' },
+  keyword:   { labelHi: 'कीवर्ड',  labelEn: 'Keyword',   Icon: Sparkles,     catVar: 'var(--cat-keyword)',   bandFg: 'var(--cat-keyword-fg)',   bandIconBoxBg: 'rgba(0,0,0,0.10)' },
 };
 
 export interface NodeCardProps {

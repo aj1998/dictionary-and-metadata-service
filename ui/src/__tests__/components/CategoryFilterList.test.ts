@@ -3,8 +3,8 @@ import { CATEGORY_DATA } from "@/components/CategoryFilterList";
 import type { EntityKind } from "@/lib/types";
 
 describe("CATEGORY_DATA", () => {
-  test("has exactly 4 items", () => {
-    expect(CATEGORY_DATA).toHaveLength(4);
+  test("has exactly 8 items", () => {
+    expect(CATEGORY_DATA).toHaveLength(8);
   });
 
   test("each item has required fields and category var prefix", () => {
@@ -16,12 +16,12 @@ describe("CATEGORY_DATA", () => {
     }
   });
 
-  test("covers all 4 EntityKinds with no duplicates", () => {
+  test("covers all 8 EntityKinds with no duplicates", () => {
     const kinds = CATEGORY_DATA.map(item => item.kind);
     const uniqueKinds = new Set(kinds);
-    expect(uniqueKinds.size).toBe(4);
+    expect(uniqueKinds.size).toBe(8);
 
-    const expectedKinds: EntityKind[] = ["gatha", "keyword", "shastra", "topic"];
+    const expectedKinds: EntityKind[] = ["bhaavarth", "gatha", "kalash", "keyword", "page", "shastra", "teeka", "topic"];
     expect(Array.from(uniqueKinds).sort()).toEqual(expectedKinds);
   });
 });

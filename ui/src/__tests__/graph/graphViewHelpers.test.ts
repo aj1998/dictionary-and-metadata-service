@@ -20,6 +20,10 @@ import type { GraphNode, GraphEdge, EntityKind } from '@/lib/types';
 const ALL_VISIBLE: Record<EntityKind, boolean> = {
   shastra: true,
   gatha: true,
+  teeka: true,
+  bhaavarth: true,
+  kalash: true,
+  page: true,
   topic: true,
   keyword: true,
 };

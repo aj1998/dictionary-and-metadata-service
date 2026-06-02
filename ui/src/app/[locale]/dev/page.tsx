@@ -10,7 +10,7 @@ import { PrimaryCTA } from "@/components/PrimaryCTA";
 import { KeywordCard, TopicCard, GathaTile } from "@/components/ListCards";
 import type { EntityKind } from "@/lib/types";
 
-const KINDS: EntityKind[] = ["shastra", "gatha", "topic", "keyword"];
+const KINDS: EntityKind[] = ["shastra", "gatha", "teeka", "bhaavarth", "kalash", "page", "topic", "keyword"];
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (

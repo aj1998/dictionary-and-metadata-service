@@ -1,6 +1,6 @@
 # Navigation API Spec (Core Service)
 
-> This domain is now served by [`core-service`](../refactoring/01_merge_metadata_data_navigation.md) from `services/core_service/`.
+> This domain is now served by [`core-service`](../../archived/refactoring/01_merge_metadata_data_navigation.md) from `services/core_service/`.
 > Legacy pre-merge spec is archived at [archived/01_spec.md](./archived/01_spec.md).
 
 ## Runtime

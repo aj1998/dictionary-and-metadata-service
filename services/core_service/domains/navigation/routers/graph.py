@@ -42,7 +42,19 @@ class GraphPayload(BaseModel):
 
 def _label_to_kind(label: str | None) -> str:
     normalized = (label or "Topic").lower()
-    mapping = {"topic": "topic", "keyword": "keyword", "shastra": "shastra", "gatha": "gatha"}
+    mapping = {
+        "topic": "topic",
+        "keyword": "keyword",
+        "shastra": "shastra",
+        "gatha": "gatha",
+        # Gatha-family stub labels emitted by JainKosh ingestion via CONTAINS_DEFINITION /
+        # MENTIONS_TOPIC. Each gets its own UI category (separate filter swatch + node colour).
+        "gathateeka": "teeka",
+        "gathateekabhaavarth": "bhaavarth",
+        "kalashbhaavarth": "bhaavarth",
+        "kalash": "kalash",
+        "page": "page",
+    }
     return mapping.get(normalized, "topic")
 
 
@@ -132,14 +144,14 @@ async def shortest_path(
 
 @router.get("/landing", response_model=GraphPayload)
 async def landing(
-    exclude_stubs: bool = Query(True),
+    exclude_stubs: bool = Query(False),
     driver: AsyncDriver = Depends(get_neo4j_driver),
 ) -> GraphPayload:
     stub_clause = "AND NOT (coalesce(s.is_stub, false) OR coalesce(t.is_stub, false))" if exclude_stubs else ""
     cypher = f"""
-    MATCH (s)-[r:IS_A|PART_OF|RELATED_TO|HAS_TOPIC|MENTIONS_KEYWORD|MENTIONS_TOPIC|IN_SHASTRA]-(t)
-    WHERE (s:Topic OR s:Keyword OR s:Shastra OR s:Gatha)
-      AND (t:Topic OR t:Keyword OR t:Shastra OR t:Gatha)
+    MATCH (s)-[r:IS_A|PART_OF|RELATED_TO|HAS_TOPIC|MENTIONS_KEYWORD|MENTIONS_TOPIC|CONTAINS_DEFINITION|IN_SHASTRA]-(t)
+    WHERE (s:Topic OR s:Keyword OR s:Shastra OR s:Gatha OR s:GathaTeeka OR s:GathaTeekaBhaavarth OR s:Kalash OR s:KalashBhaavarth OR s:Page)
+      AND (t:Topic OR t:Keyword OR t:Shastra OR t:Gatha OR t:GathaTeeka OR t:GathaTeekaBhaavarth OR t:Kalash OR t:KalashBhaavarth OR t:Page)
       {stub_clause}
     RETURN coalesce(s.natural_key, '') AS src_nk,
            labels(s)[0] AS src_label,
@@ -161,7 +173,7 @@ async def landing(
 @router.get("/landing/random", response_model=GraphPayload)
 async def landing_random(
     depth: int = Query(2, ge=1, le=4),
-    exclude_stubs: bool = Query(True),
+    exclude_stubs: bool = Query(False),
     driver: AsyncDriver = Depends(get_neo4j_driver),
 ) -> GraphPayload:
     seeds = list(LANDING_SEED_KEYWORDS)
@@ -185,13 +197,13 @@ async def landing_random(
 async def expand(
     natural_key: str,
     depth: int = Query(2, ge=1, le=4),
-    exclude_stubs: bool = Query(True),
+    exclude_stubs: bool = Query(False),
     driver: AsyncDriver = Depends(get_neo4j_driver),
 ) -> GraphPayload:
     stub_clause = "AND NOT (coalesce(s.is_stub, false) OR coalesce(t.is_stub, false))" if exclude_stubs else ""
     cypher = f"""
     MATCH (focus {{natural_key: $nk}})
-    OPTIONAL MATCH p=(focus)-[r:IS_A|PART_OF|RELATED_TO|HAS_TOPIC|MENTIONS_KEYWORD|MENTIONS_TOPIC|IN_SHASTRA*1..4]-(n)
+    OPTIONAL MATCH p=(focus)-[r:IS_A|PART_OF|RELATED_TO|HAS_TOPIC|MENTIONS_KEYWORD|MENTIONS_TOPIC|CONTAINS_DEFINITION|IN_SHASTRA*1..4]-(n)
     WITH focus, p, n, relationships(p) AS rels, labels(focus)[0] AS focus_label
     WHERE p IS NULL OR length(p) <= $depth
     UNWIND CASE WHEN p IS NULL THEN [] ELSE rels END AS rel
@@ -219,7 +231,7 @@ async def expand(
 async def preview(
     natural_key: str,
     hops: int = Query(1, ge=1, le=2),
-    exclude_stubs: bool = Query(True),
+    exclude_stubs: bool = Query(False),
     driver: AsyncDriver = Depends(get_neo4j_driver),
 ) -> GraphPayload:
     payload = await expand(natural_key=natural_key, depth=hops, exclude_stubs=exclude_stubs, driver=driver)

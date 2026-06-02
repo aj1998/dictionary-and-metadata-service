@@ -44,12 +44,20 @@
   /* Entity category colors */
   --cat-shastra: #E63946;
   --cat-gatha: #F4A261;
+  --cat-teeka: #E8B931;
+  --cat-bhaavarth: #7C5CB8;
+  --cat-kalash: #5E8A4A;
+  --cat-page: #B5645A;
   --cat-topic: #6bc7be;
   --cat-keyword: #3382ab;
 
   /* Category band foreground colors (text on the header band) */
   --cat-shastra-fg: #FFFFFF;
   --cat-gatha-fg:   #1A1A1A;
+  --cat-teeka-fg:   #1A1A1A;
+  --cat-bhaavarth-fg: #FFFFFF;
+  --cat-kalash-fg:  #FFFFFF;
+  --cat-page-fg:    #FFFFFF;
   --cat-topic-fg:   #1A1A1A;
   --cat-keyword-fg: #1A1A1A;
 

@@ -4,6 +4,10 @@ import type { EntityKind } from "@/lib/types";
 export const BADGE_DEFAULT_LABELS: Record<EntityKind, { hi: string; en: string }> = {
   shastra: { hi: "शास्त्र", en: "Shastra" },
   gatha: { hi: "गाथा", en: "Gatha" },
+  teeka: { hi: "टीका", en: "Teeka" },
+  bhaavarth: { hi: "भावार्थ", en: "Bhaavarth" },
+  kalash: { hi: "कलश", en: "Kalash" },
+  page: { hi: "पृष्ठ", en: "Page" },
   topic: { hi: "विषय", en: "Topic" },
   keyword: { hi: "शब्द", en: "Keyword" },
 };
@@ -11,6 +15,10 @@ export const BADGE_DEFAULT_LABELS: Record<EntityKind, { hi: string; en: string }
 export const BADGE_CAT_CLASSES: Record<EntityKind, string> = {
   shastra: "bg-cat-shastra",
   gatha: "bg-cat-gatha",
+  teeka: "bg-cat-teeka",
+  bhaavarth: "bg-cat-bhaavarth",
+  kalash: "bg-cat-kalash",
+  page: "bg-cat-page",
   topic: "bg-cat-topic",
   keyword: "bg-cat-keyword",
 };
