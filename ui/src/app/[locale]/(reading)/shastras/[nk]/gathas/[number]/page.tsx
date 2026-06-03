@@ -55,10 +55,13 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   const { match: matchNk } = await searchParams;
   const nk = decodeURIComponent(rawNk);
   const number = decodeURIComponent(rawNumber);
+  // `number` may be a plain gatha number ("8") or a full natural key ("समयसार:गाथा:8").
+  // Normalize to the gatha natural key the API expects.
+  const gathaNk = number.includes(':गाथा:') ? number : `${nk}:गाथा:${number}`;
 
   const [gatha, topicsResult, extractMatch] = await Promise.all([
-    getGatha(number, { include: ['teeka_mapping', 'teeka_bhaavarth', 'teeka_sanskrit', 'kalashas'] }),
-    getKeywordTopics(number).catch(() => ({ keyword_natural_key: number, topics: [] })),
+    getGatha(gathaNk, { include: ['teeka_mapping', 'teeka_bhaavarth', 'teeka_sanskrit', 'kalashas'] }),
+    getKeywordTopics(gathaNk).catch(() => ({ keyword_natural_key: gathaNk, topics: [] })),
     matchNk
       ? getExtractMatch(matchNk).catch(() => null)
       : Promise.resolve(null),
@@ -76,14 +79,19 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   const prevNk = gathaNum > 1 ? `${shastraNk}:गाथा:${gathaNum - 1}` : null;
   const nextNk = `${shastraNk}:गाथा:${gathaNum + 1}`;
 
-  // टीका sidebar — tabs of sanskrit teeka text
-  const teekaItems: TeekaPanelItem[] = teekaSanskrit.map((ts) => ({
-    key: ts.natural_key,
-    label: ts.teeka_natural_key ?? ts.natural_key,
-    content: joinedLangText(ts.text),
-  }));
-
   const match = extractMatch as ExtractMatch | null;
+
+  // टीका sidebar — tabs of sanskrit teeka text
+  const teekaItems: TeekaPanelItem[] = teekaSanskrit.map((ts) => {
+    const content = joinedLangText(ts.text);
+    return {
+      key: ts.natural_key,
+      label: ts.teeka_natural_key ?? ts.natural_key,
+      content,
+      naturalKey: ts.natural_key,
+      highlight: highlightFor(match, ts.natural_key, content),
+    };
+  });
 
   // Bhaavarth tabs — render in right sidebar as a tabbed window
   const bhaavarthItems: TabbedPanelItem[] = teekaBhaavarth.map((bh) => {

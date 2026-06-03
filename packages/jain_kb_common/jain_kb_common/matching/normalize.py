@@ -41,6 +41,11 @@ def _is_strip_char(ch: str) -> bool:
     if cp == 0x093D:
         return True
 
+    # Rule 8: Devanagari visarga (U+0903) — corpus frequently substitutes
+    # ASCII ':' for visarga, so strip both to make the two forms equivalent.
+    if cp == 0x0903:
+        return True
+
     return False
 
 

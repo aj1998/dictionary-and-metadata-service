@@ -1,96 +1,129 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ExternalLink } from '@/lib/icons';
+import { cn } from '@/lib/utils';
 import { getExtractMatch } from '@/lib/api/data';
 import { buildGathaHref } from '@/lib/gatha-content';
-import type { ExtractMatch } from '@/lib/types';
+import type { DefinitionReference, ExtractMatch } from '@/lib/types';
 
-interface ViewInShastraButtonProps {
-  match_natural_keys: string[];
-}
-
-interface MatchEntry {
+export interface MatchEntry {
   natural_key: string;
+  shastra_nk: string;
+  gatha_nk: string;
+  status: ExtractMatch['match']['status'];
   href: string;
   label: string;
 }
 
 function buildLabel(match: ExtractMatch): string {
   const parts = match.target.natural_key.split(':');
-  const shastra = parts[0] ?? '';
+  const shastra = match.target.shastra_natural_key ?? parts[0] ?? '';
   const gathaIdx = parts.indexOf('गाथा');
   const gatha = gathaIdx !== -1 ? parts[gathaIdx + 1] : '';
   return gatha ? `${shastra} गाथा ${gatha}` : shastra;
 }
 
-export function ViewInShastraButton({ match_natural_keys }: ViewInShastraButtonProps) {
+function shastraNkOf(match: ExtractMatch): string {
+  return match.target.shastra_natural_key ?? match.target.natural_key.split(':')[0] ?? '';
+}
+
+function gathaNkOf(match: ExtractMatch): string {
+  return match.target.gatha_natural_key ?? '';
+}
+
+// Returns the entry that corresponds to this ref. We correlate primarily by
+// shastra (Devanagari natural_key === ref.shastra_name) and, when the ref has
+// a gatha number, further narrow to the entry whose gatha matches.
+//
+// Entries with status === 'target_missing' are filtered out — we only surface
+// links for targets that actually exist in the DB (matched OR unmatched).
+export function findMatchForRef(
+  ref: DefinitionReference,
+  entries: MatchEntry[] | null,
+): MatchEntry | undefined {
+  if (!entries || !ref.shastra_name) return undefined;
+  const candidates = entries.filter(
+    (e) => e.status !== 'target_missing' && e.shastra_nk === ref.shastra_name,
+  );
+  if (candidates.length === 0) return undefined;
+  const refGatha = ref.resolved_fields.find((f) => f.field === 'गाथा')?.value;
+  if (refGatha) {
+    const byGatha = candidates.find((e) => e.gatha_nk.endsWith(`:${refGatha}`) || e.gatha_nk === refGatha);
+    if (byGatha) return byGatha;
+  }
+  return candidates[0];
+}
+
+interface UseMatchEntriesResult {
+  entries: MatchEntry[] | null;
+  loading: boolean;
+  error: boolean;
+}
+
+// Auto-loads extract-match entries for the given natural keys. Returns null
+// while loading or on error so callers can render nothing in those states.
+export function useMatchEntries(match_natural_keys: string[] | undefined): UseMatchEntriesResult {
+  const [entries, setEntries] = useState<MatchEntry[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [entries, setEntries] = useState<MatchEntry[] | null>(null);
 
-  const handleClick = async () => {
-    if (loading) return;
+  const key = match_natural_keys?.join('|') ?? '';
+  useEffect(() => {
+    if (!match_natural_keys || match_natural_keys.length === 0) return;
+    let cancelled = false;
     setLoading(true);
     setError(false);
-    try {
-      const matches = await Promise.all(match_natural_keys.map((nk) => getExtractMatch(nk)));
-      const valid = matches.filter((m) => m.match.status === 'matched');
-      if (valid.length === 0) {
-        showError();
-        return;
+    (async () => {
+      try {
+        const matches = await Promise.all(match_natural_keys.map((nk) => getExtractMatch(nk)));
+        if (cancelled) return;
+        setEntries(
+          matches.map((m) => ({
+            natural_key: m.natural_key,
+            shastra_nk: shastraNkOf(m),
+            gatha_nk: gathaNkOf(m),
+            status: m.match.status,
+            href: buildGathaHref(m),
+            label: buildLabel(m),
+          })),
+        );
+      } catch {
+        if (!cancelled) setError(true);
+      } finally {
+        if (!cancelled) setLoading(false);
       }
-      if (valid.length === 1) {
-        window.open(buildGathaHref(valid[0]), '_blank', 'noopener,noreferrer');
-        return;
-      }
-      setEntries(valid.map((m) => ({ natural_key: m.natural_key, href: buildGathaHref(m), label: buildLabel(m) })));
-    } catch {
-      showError();
-    } finally {
-      setLoading(false);
-    }
-  };
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
 
-  const showError = () => {
-    setError(true);
-    setTimeout(() => setError(false), 2000);
-  };
+  return { entries, loading, error };
+}
 
-  if (entries) {
-    return (
-      <div className="mt-2 flex flex-wrap gap-1.5">
-        {entries.map((e) => (
-          <a
-            key={e.natural_key}
-            href={e.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 rounded-[var(--radius-sm)] bg-accent px-2.5 py-0.5 font-serif-hindi text-xs font-semibold text-white transition-colors hover:bg-accent-hover"
-          >
-            <ExternalLink className="size-3 shrink-0" />
-            {e.label}
-          </a>
-        ))}
-      </div>
-    );
-  }
+interface MatchLinkProps {
+  entry: MatchEntry;
+}
 
+export function MatchLink({ entry }: MatchLinkProps) {
+  const matched = entry.status === 'matched';
   return (
-    <div className="mt-2">
-      {error ? (
-        <span className="font-serif-hindi text-xs text-rose-500">शास्त्र में नहीं मिला</span>
-      ) : (
-        <button
-          type="button"
-          disabled={loading}
-          onClick={handleClick}
-          className="inline-flex items-center gap-1 rounded-[var(--radius-sm)] bg-accent px-2.5 py-0.5 font-serif-hindi text-xs font-semibold text-white transition-colors hover:bg-accent-hover disabled:opacity-60"
-        >
-          <ExternalLink className="size-3 shrink-0" />
-          {loading ? '…' : 'शास्त्र में देखें'}
-        </button>
+    <a
+      href={entry.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={cn(
+        'inline-flex items-center transition-colors',
+        matched
+          ? 'text-blue-600 hover:text-blue-700'
+          : 'text-foreground-subtle hover:text-foreground-muted',
       )}
-    </div>
+      aria-label={`शास्त्र में देखें — ${entry.label}${matched ? '' : ' (मिलान नहीं)'}`}
+      title={matched ? entry.label : `${entry.label} — मिलान नहीं`}
+    >
+      <ExternalLink className="size-4 shrink-0" />
+    </a>
   );
 }

@@ -7,7 +7,7 @@ from motor.motor_asyncio import AsyncIOMotorDatabase
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from jain_kb_common.db.mongo.collections import TOPIC_EXTRACTS
+from jain_kb_common.db.mongo.collections import EXTRACT_MATCHES, TOPIC_EXTRACTS
 from jain_kb_common.db.postgres.keywords import Keyword
 from jain_kb_common.db.postgres.topics import Topic
 
@@ -64,11 +64,36 @@ async def list_topics(
     return list(rows.scalars()), int(total or 0)
 
 
+async def _hydrate_topic_extract_matches(
+    mongo: AsyncIOMotorDatabase, natural_key: str, docs: list[dict]
+) -> None:
+    """Inject match_natural_keys into each block of topic_extracts docs (in-place).
+
+    Includes matched + unmatched + target_missing so the UI can render grey
+    links for refs whose target gatha is known but whose text didn't match.
+    """
+    cursor = mongo[EXTRACT_MATCHES].find(
+        {
+            "source.parent_natural_key": natural_key,
+            "source.kind": "topic_extract",
+        },
+        {"natural_key": 1, "source.block_index": 1},
+    )
+    async for match in cursor:
+        b_idx = match["source"]["block_index"]
+        for doc in docs:
+            blocks = doc.get("blocks", [])
+            if b_idx < len(blocks):
+                block = blocks[b_idx]
+                block.setdefault("match_natural_keys", []).append(match["natural_key"])
+
+
 async def get_extracts(mongo: AsyncIOMotorDatabase, topic: Topic) -> list[dict]:
     cursor = mongo[TOPIC_EXTRACTS].find({"natural_key": topic.natural_key})
     docs = await cursor.to_list(None)
     for d in docs:
         d.pop("_id", None)
+    await _hydrate_topic_extract_matches(mongo, topic.natural_key, docs)
     return docs
 
 

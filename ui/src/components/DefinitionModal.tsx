@@ -5,7 +5,12 @@ import { Dialog } from '@base-ui/react/dialog';
 import { X, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { ViewInShastraButton } from '@/components/ViewInShastraButton';
+import {
+  MatchLink,
+  findMatchForRef,
+  useMatchEntries,
+  type MatchEntry,
+} from '@/components/ViewInShastraButton';
 import type { DefinitionBlock, DefinitionReference, KeywordPageSection } from '@/lib/types';
 
 export type MarkdownSegment = { kind: 'text'; text: string } | { kind: 'bold'; text: string } | { kind: 'italic'; text: string };
@@ -129,7 +134,7 @@ export function groupTopicExtractsByShastra(blocks: DefinitionBlock[]): ShastraG
 const REF_BADGE_CLASSES = 'text-foreground-muted';
 
 // Renders a single ref as a bulleted list row used inside the समान संदर्भ popover.
-function RefListItem({ ref }: { ref: DefinitionReference }) {
+function RefListItem({ ref, matchEntry }: { ref: DefinitionReference; matchEntry?: MatchEntry }) {
   const sourceLabel = formatRefSourceLabel(ref);
   return (
     <li className="flex items-baseline gap-2 font-serif-hindi text-xs text-foreground">
@@ -152,12 +157,13 @@ function RefListItem({ ref }: { ref: DefinitionReference }) {
             <span className="font-medium">{f.value}</span>
           </span>
         ))}
+        {matchEntry && <MatchLink entry={matchEntry} />}
       </span>
     </li>
   );
 }
 
-function RefBadge({ ref, showShastra = false }: { ref: DefinitionReference; showShastra?: boolean }) {
+function RefBadge({ ref, showShastra = false, matchEntry }: { ref: DefinitionReference; showShastra?: boolean; matchEntry?: MatchEntry }) {
   const badgeLabel = showShastra
     ? formatRefSourceLabel(ref) || null
     : ref.is_teeka ? (ref.teeka_name || null) : null;
@@ -178,6 +184,7 @@ function RefBadge({ ref, showShastra = false }: { ref: DefinitionReference; show
           <span className="ml-0.5 text-[10px] font-medium not-italic">{f.value}</span>
         </span>
       ))}
+      {matchEntry && <span className="ml-1"><MatchLink entry={matchEntry} /></span>}
     </span>
   );
 }
@@ -223,6 +230,7 @@ function ModalBlock({ block }: { block: DefinitionBlock }) {
   const borderClass = getBlockBorderClass(block, refsToShow);
 
   const hasAnyRef = refsToShow.length > 0 || hiddenRefs.length > 0;
+  const { entries } = useMatchEntries(block.match_natural_keys);
 
   return (
     <div>
@@ -241,9 +249,9 @@ function ModalBlock({ block }: { block: DefinitionBlock }) {
       </div>
       {hasAnyRef && (
         <div className="mt-2 flex items-start gap-2">
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap items-center gap-1.5">
             {refsToShow.map((ref, ri) => (
-              <RefBadge key={ri} ref={ref} />
+              <RefBadge key={ri} ref={ref} matchEntry={findMatchForRef(ref, entries)} />
             ))}
           </div>
           {hiddenRefs.length > 0 && (
@@ -264,16 +272,13 @@ function ModalBlock({ block }: { block: DefinitionBlock }) {
                 </p>
                 <ul className="space-y-1.5">
                   {hiddenRefs.map((ref, ri) => (
-                    <RefListItem key={ri} ref={ref} />
+                    <RefListItem key={ri} ref={ref} matchEntry={findMatchForRef(ref, entries)} />
                   ))}
                 </ul>
               </PopoverContent>
             </Popover>
           )}
         </div>
-      )}
-      {block.match_natural_keys && block.match_natural_keys.length > 0 && (
-        <ViewInShastraButton match_natural_keys={block.match_natural_keys} />
       )}
     </div>
   );

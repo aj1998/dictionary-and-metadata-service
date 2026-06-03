@@ -203,6 +203,22 @@ def test_avagraha_stripped():
     assert "ऽ" not in r.normalized
 
 
+# ── rule 8: visarga ≡ ASCII colon ────────────────────────────────────────────
+
+def test_visarga_stripped():
+    r = normalize("स्वभावः")
+    assert "ः" not in r.normalized
+    assert r.normalized == "स्वभाव"
+
+
+def test_visarga_and_ascii_colon_match():
+    # Corpus typo: ASCII ':' typed in place of visarga (U+0903). Both forms
+    # must normalize to the same string so the matcher finds the quote.
+    a = normalize("स्वस्य भवनं तु स्वभाव:।")
+    b = normalize("स्वस्य भवनं तु स्वभावः ।")
+    assert a.normalized == b.normalized
+
+
 # ── NFC normalization ────────────────────────────────────────────────────────
 
 def test_nfc_applied():

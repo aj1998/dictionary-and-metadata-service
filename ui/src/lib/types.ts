@@ -296,6 +296,8 @@ export interface ExtractMatch {
   target: {
     collection: ExtractMatchTargetCollection;
     natural_key: string;
+    shastra_natural_key?: string;
+    gatha_natural_key?: string;
     lang: 'pra' | 'san' | 'hin';
   };
   match: {

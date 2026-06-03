@@ -3,11 +3,16 @@
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { teekaMarkdownToHtml } from '@/lib/format/teeka-markdown';
+import { splitHighlight } from '@/lib/highlight';
+import type { HighlightRange } from '@/lib/highlight';
+import { normalizeNFC } from '@/lib/format/devanagari';
 
 export interface TeekaPanelItem {
   key: string;
   label: string;
   content: string;
+  naturalKey?: string;
+  highlight?: HighlightRange;
 }
 
 interface TeekaPanelProps {
@@ -16,7 +21,8 @@ interface TeekaPanelProps {
 
 
 export function TeekaPanel({ items }: TeekaPanelProps) {
-  const [active, setActive] = useState(0);
+  const initialActive = items.findIndex((item) => item.highlight != null);
+  const [active, setActive] = useState(initialActive >= 0 ? initialActive : 0);
 
   if (items.length === 0) {
     return (
@@ -27,7 +33,7 @@ export function TeekaPanel({ items }: TeekaPanelProps) {
     );
   }
 
-  const current = items[active];
+  const current = items[active] ?? items[0];
 
   return (
     <section className="rounded-[var(--radius-md)] border border-border bg-surface shadow-node overflow-hidden">
@@ -59,9 +65,21 @@ export function TeekaPanel({ items }: TeekaPanelProps) {
       )}
 
       <div
+        data-match-target={current.naturalKey}
         className="px-5 py-4 overflow-y-auto max-h-[55vh] font-serif-hindi text-sm leading-8 text-foreground teeka-content"
         /* content is from internal DB, not user input */
-        dangerouslySetInnerHTML={{ __html: teekaMarkdownToHtml(current.content) }}
+        dangerouslySetInnerHTML={{
+          __html: (() => {
+            const nfc = normalizeNFC(current.content);
+            const split = current.highlight ? splitHighlight(nfc, current.highlight) : null;
+            if (!split) return teekaMarkdownToHtml(nfc);
+            return (
+              teekaMarkdownToHtml(split.before) +
+              `<mark class="rounded bg-[var(--accent-soft)] text-[var(--accent)]">${split.matched}</mark>` +
+              teekaMarkdownToHtml(split.after)
+            );
+          })(),
+        }}
       />
     </section>
   );
