@@ -198,4 +198,10 @@ Manually verify:
 
 ## Implementation Notes / Diversions
 
-_To be filled in by the implementing agent._
+- **Backend `GET /v1/extract-matches/{nk}`**: Implemented as a new router/service pair. The `natural_key:path` path type is used to handle colons in keys.
+- **Kalashas include**: Added `kalashas` to the `_ALL_INCLUDE` set in the gathas router. The service queries `Kalash` rows by `gatha_id`, then concurrently fetches `kalash_sanskrit`, `kalash_hindi`, and `kalash_bhaavarth_hindi` Mongo docs.
+- **GathaPanel extended**: Added `'sanskrit-teeka'` lang variant (violet border), `naturalKey` / `highlight` / `label` props, NFC normalization + `splitHighlight` inline, and `data-match-target` attribute on the section root.
+- **BhaavarthPanel**: New component mirroring `GathaPanel` but without the left-border stripe. Used for Hindi bhaavarth, kalash sections.
+- **HighlightScrollIntoView**: Minimal client component — uses `useEffect` + `CSS.escape` + `scrollIntoView`. Renders `null`.
+- **Page restructure**: The gatha page now accepts `searchParams` with `?match=` param and fetches `getExtractMatch` server-side. `highlightFor()` pure helper resolves which panel gets the mark. Sections: prakrit, Sanskrit chhaya, harigeet, shabdaarth, Sanskrit teeka (new), Hindi bhaavarth (new, separate), kalash blocks (new).
+- **conftest fix**: Added `import jain_kb_common.db.postgres.teeka_chapters` to `tests/services/data/conftest.py` — this was a pre-existing teardown bug where `drop_all` failed because `teeka_chapters` FK constraints on `gathas` were unknown to the metadata registry. Adding the import fixes teardown for all data service tests.

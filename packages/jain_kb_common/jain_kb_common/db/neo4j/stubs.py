@@ -66,12 +66,14 @@ async def sync_reference_edge(
     src_nk: str,
     tgt_label: str,
     tgt_nk: str,
+    edge_props: dict | None = None,
     database: str = "jainkb",
 ) -> None:
     """MERGE both endpoints (stub safety net) then MERGE the edge.
 
     Label and edge_type are validated against allowlists before interpolation
-    into the Cypher string.
+    into the Cypher string. edge_props (e.g. block_index, section_index,
+    definition_index) are written onto the relationship via SET r += $rel_props.
     """
     if edge_type not in _VALID_EDGE_TYPES:
         raise ValueError(f"Unknown edge type: {edge_type!r}")
@@ -79,6 +81,9 @@ async def sync_reference_edge(
         raise ValueError(f"Unknown src_label: {src_label!r}")
     if tgt_label not in _VALID_LABELS:
         raise ValueError(f"Unknown tgt_label: {tgt_label!r}")
+    rel_props: dict = {"weight": 1.0, "source": "jainkosh"}
+    if edge_props:
+        rel_props.update(edge_props)
     async with driver.session(database=database) as session:
         await session.run(
             f"""
@@ -91,8 +96,9 @@ MERGE (tgt:{tgt_label} {{natural_key: $t}})
       tgt.stub_source = CASE WHEN tgt.is_stub = false THEN tgt.stub_source ELSE coalesce(tgt.stub_source, 'jainkosh_ingestion') END,
       tgt.created_at = coalesce(tgt.created_at, datetime())
 MERGE (src)-[r:{edge_type}]->(tgt)
-SET r.weight = coalesce(r.weight, 1.0), r.source = 'jainkosh'
+SET r += $rel_props
 """,
             s=src_nk,
             t=tgt_nk,
+            rel_props=rel_props,
         )

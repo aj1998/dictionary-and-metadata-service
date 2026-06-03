@@ -155,4 +155,8 @@ cd ui && pnpm dev
 
 ## Implementation Notes / Diversions
 
-_To be filled in by the implementing agent._
+- **`match_natural_keys` on DefinitionBlock**: Added as `match_natural_keys?: string[]` to the TS type. Backend hydration (Phase 4 spec §1.1 for keywords/topics endpoints) is deferred — the field is passed through when present in the API response.
+- **`buildGathaHref` / `extractGathaNumberFromTargetNk`**: Implemented in `gatha-content.ts`. `extractGathaNumberFromTargetNk` looks for `:गाथा:` segment first, then falls back to the last pure-numeric segment.
+- **`ViewInShastraButton`**: Client component. Single match → `window.open` directly on click. Multiple matches → inline popover rendered as a row of `<a>` tags (not a Radix Popover, for simplicity). Error state shows "शास्त्र में नहीं मिला" for 2s then reverts.
+- **`ExternalLink`** icon added to `src/lib/icons.ts` (and the reserved-set test updated accordingly).
+- **DefinitionModal wire-up**: `ViewInShastraButton` is rendered at the bottom of `ModalBlock` when `block.match_natural_keys?.length > 0`. Works for both keyword and topic paths.

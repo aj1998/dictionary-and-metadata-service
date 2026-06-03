@@ -23,4 +23,5 @@ export {
   Pin,
   Menu,
   Loader2,
+  ExternalLink,
 } from 'lucide-react';

@@ -5,6 +5,7 @@ import { Dialog } from '@base-ui/react/dialog';
 import { X, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { ViewInShastraButton } from '@/components/ViewInShastraButton';
 import type { DefinitionBlock, DefinitionReference, KeywordPageSection } from '@/lib/types';
 
 export type MarkdownSegment = { kind: 'text'; text: string } | { kind: 'bold'; text: string } | { kind: 'italic'; text: string };
@@ -270,6 +271,9 @@ function ModalBlock({ block }: { block: DefinitionBlock }) {
             </Popover>
           )}
         </div>
+      )}
+      {block.match_natural_keys && block.match_natural_keys.length > 0 && (
+        <ViewInShastraButton match_natural_keys={block.match_natural_keys} />
       )}
     </div>
   );

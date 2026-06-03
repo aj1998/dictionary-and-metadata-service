@@ -13,7 +13,7 @@ router = APIRouter(prefix="/v1", tags=["gathas"])
 
 _CACHE_CONTROL = "public, max-age=60"
 
-_ALL_INCLUDE = {"teeka_mapping", "teeka_sanskrit", "teeka_hindi", "teeka_bhaavarth"}
+_ALL_INCLUDE = {"teeka_mapping", "teeka_sanskrit", "teeka_hindi", "teeka_bhaavarth", "kalashas"}
 
 
 def _parse_include(include: str | None) -> set[str]:
@@ -98,5 +98,7 @@ async def get_gatha(
         out["teeka_hindi"] = detail.get("teeka_hindi", [])
     if "teeka_bhaavarth" in inc:
         out["teeka_bhaavarth"] = detail.get("teeka_bhaavarth", [])
+    if "kalashas" in inc:
+        out["kalashas"] = detail.get("kalashas", [])
 
     return out

@@ -27,6 +27,7 @@ from .domains.metadata.routers import (
 )
 from .domains.data.routers import (
     browse,
+    extract_matches,
     gathas,
     kalashas,
     keywords as data_keywords,
@@ -129,6 +130,7 @@ for r in (
     data_topics.router,
     gathas.router,
     kalashas.router,
+    extract_matches.router,
     browse.router,
     search.router,
     stats.router,

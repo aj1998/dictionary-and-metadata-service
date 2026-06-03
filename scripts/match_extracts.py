@@ -58,7 +58,7 @@ async def _run(args: argparse.Namespace) -> int:
     neo4j_url = _load_env("NEO4J_URL")
     neo4j_user = _load_env("NEO4J_USER", "neo4j")
     neo4j_password = _load_env("NEO4J_PASSWORD")
-    neo4j_database = os.environ.get("NEO4J_DATABASE", "jainkb")
+    neo4j_database = os.environ.get("NEO4J_DATABASE", "neo4j")
 
     run_id = uuid4()
     logger.info("starting match run_id=%s mode=%s", run_id, args.mode)

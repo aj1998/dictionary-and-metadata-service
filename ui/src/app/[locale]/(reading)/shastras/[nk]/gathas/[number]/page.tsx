@@ -1,35 +1,72 @@
 import { BreadcrumbBar } from '@/components/BreadcrumbBar';
+import { BhaavarthPanel } from '@/components/BhaavarthPanel';
 import { GathaPanel } from '@/components/GathaPanel';
+import { HighlightScrollIntoView } from '@/components/HighlightScrollIntoView';
 import { TaggedTermPopover } from '@/components/TaggedTermPopover';
 import { TeekaPanel } from '@/components/TeekaPanel';
 import type { TeekaPanelItem } from '@/components/TeekaPanel';
 import { Link } from '@/i18n/navigation';
-import { getGatha } from '@/lib/api/data';
+import { getExtractMatch, getGatha } from '@/lib/api/data';
 import { getKeywordTopics } from '@/lib/api/navigation';
 import { getHindiText } from '@/lib/content-listing';
+import { normalizeNFC } from '@/lib/format/devanagari';
+import type { HighlightRange } from '@/lib/highlight';
+import type { ExtractMatch, GathaKalash } from '@/lib/types';
 
 export const revalidate = 60;
 
-type PageProps = { params: Promise<{ nk: string; number: string }> };
+type PageProps = { params: Promise<{ nk: string; number: string }>; searchParams: Promise<{ match?: string }> };
 
 function joinedLangText(rows: Array<{ lang: string; text: string }> | undefined): string {
   if (!rows || rows.length === 0) return '';
   return rows.map((row) => row.text).join('\n');
 }
 
-export default async function GathaDetailPage({ params }: PageProps) {
+function highlightFor(
+  match: ExtractMatch | null,
+  targetNk: string,
+  text: string
+): HighlightRange | undefined {
+  if (
+    !match ||
+    match.match.status !== 'matched' ||
+    match.target.natural_key !== targetNk ||
+    match.match.char_start == null ||
+    match.match.char_end == null
+  ) {
+    return undefined;
+  }
+  const nfcLen = normalizeNFC(text).length;
+  if (match.match.char_end > nfcLen) {
+    console.warn('[GathaPage] highlight char_end out of bounds', {
+      targetNk,
+      char_end: match.match.char_end,
+      textLen: nfcLen,
+    });
+    return undefined;
+  }
+  return { start: match.match.char_start, end: match.match.char_end };
+}
+
+export default async function GathaDetailPage({ params, searchParams }: PageProps) {
   const { nk: rawNk, number: rawNumber } = await params;
+  const { match: matchNk } = await searchParams;
   const nk = decodeURIComponent(rawNk);
   const number = decodeURIComponent(rawNumber);
 
-  const [gatha, topicsResult] = await Promise.all([
-    getGatha(number, { include: ['teeka_mapping', 'teeka_bhaavarth'] }),
+  const [gatha, topicsResult, extractMatch] = await Promise.all([
+    getGatha(number, { include: ['teeka_mapping', 'teeka_bhaavarth', 'teeka_sanskrit', 'kalashas'] }),
     getKeywordTopics(number).catch(() => ({ keyword_natural_key: number, topics: [] })),
+    matchNk
+      ? getExtractMatch(matchNk).catch(() => null)
+      : Promise.resolve(null),
   ]);
 
   const teekaMapping = Array.isArray(gatha.teeka_mapping) ? gatha.teeka_mapping : [];
   const primaryMapping = teekaMapping[0] ?? null;
   const teekaBhaavarth = Array.isArray(gatha.teeka_bhaavarth) ? gatha.teeka_bhaavarth : [];
+  const teekaSanskrit = Array.isArray(gatha.teeka_sanskrit) ? gatha.teeka_sanskrit : [];
+  const kalashas: GathaKalash[] = Array.isArray(gatha.kalashas) ? gatha.kalashas : [];
   const topics = topicsResult.topics;
 
   const gathaNum = parseInt(gatha.gatha_number, 10);
@@ -37,23 +74,26 @@ export default async function GathaDetailPage({ params }: PageProps) {
   const prevNk = gathaNum > 1 ? `${shastraNk}:गाथा:${gathaNum - 1}` : null;
   const nextNk = `${shastraNk}:गाथा:${gathaNum + 1}`;
 
-  // Build teeka items for the side panel
-  const teekaItems: TeekaPanelItem[] = teekaBhaavarth.length > 0
-    ? teekaBhaavarth.map((bh) => ({
-        key: bh.natural_key,
-        label: bh.publication_natural_key ?? bh.natural_key,
-        content: getHindiText(bh.text, bh.natural_key),
-      }))
-    : primaryMapping
-      ? [{
-          key: primaryMapping.natural_key,
-          label: primaryMapping.teeka_natural_key,
-          content: primaryMapping.full_anyavaarth || joinedLangText(primaryMapping.anvayartha),
-        }]
-      : [];
+  // Build teeka items for the side panel (anvayartha only — bhaavarth now rendered inline)
+  const teekaItems: TeekaPanelItem[] = primaryMapping
+    ? [{
+        key: primaryMapping.natural_key,
+        label: primaryMapping.teeka_natural_key,
+        content: primaryMapping.full_anyavaarth || joinedLangText(primaryMapping.anvayartha),
+      }]
+    : [];
+
+  const match = extractMatch as ExtractMatch | null;
+
+  // Determine scroll target natural key if we have a matched highlight
+  const scrollTargetNk =
+    match?.match.status === 'matched' ? match.target.natural_key : null;
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_400px]">
+      {/* Client scroll-into-view — runs once on mount */}
+      {scrollTargetNk && <HighlightScrollIntoView naturalKey={scrollTargetNk} />}
+
       {/* ── Main column ── */}
       <div className="space-y-4">
         <section className="rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-node">
@@ -66,9 +106,31 @@ export default async function GathaDetailPage({ params }: PageProps) {
           />
         </section>
 
-        <GathaPanel lang="prakrit" text={joinedLangText(gatha.prakrit?.text) || '—'} />
+        {/* 1. प्राकृत गाथा */}
+        {gatha.prakrit && (
+          <GathaPanel
+            lang="prakrit"
+            text={joinedLangText(gatha.prakrit.text) || '—'}
+            naturalKey={gatha.prakrit.natural_key}
+            highlight={highlightFor(match, gatha.prakrit.natural_key, joinedLangText(gatha.prakrit.text))}
+          />
+        )}
+        {!gatha.prakrit && <GathaPanel lang="prakrit" text="—" />}
 
-        {/* शब्दार्थ — word-by-word meanings + full anvayarth */}
+        {/* 2. संस्कृत छाया */}
+        {gatha.sanskrit && (
+          <GathaPanel
+            lang="sanskrit"
+            text={joinedLangText(gatha.sanskrit.text)}
+            naturalKey={gatha.sanskrit.natural_key}
+            highlight={highlightFor(match, gatha.sanskrit.natural_key, joinedLangText(gatha.sanskrit.text))}
+          />
+        )}
+
+        {/* 3. हिन्दी हरिगीत */}
+        <GathaPanel lang="hindi-harigeet" text={joinedLangText(gatha.hindi_chhand[0]?.text) || '—'} />
+
+        {/* 4. शब्दार्थ — word-by-word meanings + full anvayarth */}
         <section className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
           <h2 className="mb-3 font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">शब्दार्थ</h2>
           {primaryMapping?.tagged_terms.length ? (
@@ -95,8 +157,81 @@ export default async function GathaDetailPage({ params }: PageProps) {
           )}
         </section>
 
-        {gatha.sanskrit && <GathaPanel lang="sanskrit" text={joinedLangText(gatha.sanskrit.text)} />}
-        <GathaPanel lang="hindi-harigeet" text={joinedLangText(gatha.hindi_chhand[0]?.text) || '—'} />
+        {/* 5. संस्कृत टीका (NEW) */}
+        {teekaSanskrit.map((ts) => (
+          <GathaPanel
+            key={ts.natural_key}
+            lang="sanskrit-teeka"
+            text={joinedLangText(ts.text)}
+            naturalKey={ts.natural_key}
+            highlight={highlightFor(match, ts.natural_key, joinedLangText(ts.text))}
+          />
+        ))}
+
+        {/* 6. हिन्दी भावार्थ (NEW — moved out of TeekaPanel) */}
+        {teekaBhaavarth.length > 0 && (
+          <section className="space-y-3">
+            <h2 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold text-foreground">
+              हिन्दी भावार्थ
+            </h2>
+            {teekaBhaavarth.map((bh) => {
+              const bText = getHindiText(bh.text, bh.natural_key);
+              return (
+                <BhaavarthPanel
+                  key={bh.natural_key}
+                  label={bh.publication_natural_key ?? bh.natural_key}
+                  text={bText}
+                  naturalKey={bh.natural_key}
+                  highlight={highlightFor(match, bh.natural_key, bText)}
+                />
+              );
+            })}
+          </section>
+        )}
+
+        {/* 7. कलश sections (NEW) */}
+        {kalashas.map((kalash) => (
+          <section
+            key={kalash.natural_key}
+            className="rounded-[var(--radius-md)] border border-border bg-surface shadow-node overflow-hidden"
+          >
+            <div className="bg-[var(--cat-kalash,theme(colors.rose.50))] px-5 py-3">
+              <h3 className="font-serif-hindi text-sm font-semibold text-foreground">
+                कलश {kalash.kalash_number}
+              </h3>
+            </div>
+            <div className="space-y-3 p-4">
+              {kalash.sanskrit && (
+                <BhaavarthPanel
+                  label="कलश संस्कृत"
+                  text={joinedLangText(kalash.sanskrit.text)}
+                  naturalKey={kalash.sanskrit.natural_key}
+                  highlight={highlightFor(match, kalash.sanskrit.natural_key, joinedLangText(kalash.sanskrit.text))}
+                />
+              )}
+              {kalash.hindi && (
+                <BhaavarthPanel
+                  label="कलश हिन्दी"
+                  text={joinedLangText(kalash.hindi.text)}
+                  naturalKey={kalash.hindi.natural_key}
+                  highlight={highlightFor(match, kalash.hindi.natural_key, joinedLangText(kalash.hindi.text))}
+                />
+              )}
+              {kalash.bhaavarth.map((bh) => {
+                const bText = joinedLangText(bh.text);
+                return (
+                  <BhaavarthPanel
+                    key={bh.natural_key}
+                    label="कलश भावार्थ"
+                    text={bText}
+                    naturalKey={bh.natural_key}
+                    highlight={highlightFor(match, bh.natural_key, bText)}
+                  />
+                );
+              })}
+            </div>
+          </section>
+        ))}
 
         {/* Prev / Next navigation */}
         <div className="flex items-center justify-between gap-3 pt-1">
@@ -119,7 +254,7 @@ export default async function GathaDetailPage({ params }: PageProps) {
 
       {/* ── Sidebar ── */}
       <aside className="space-y-4 lg:sticky lg:top-[90px] lg:self-start lg:max-h-[calc(100vh-110px)] lg:overflow-y-auto">
-        {/* टीका — moved here for side-by-side comparison */}
+        {/* टीका — anvayartha */}
         <TeekaPanel items={teekaItems} />
 
         {topics.length > 0 && (

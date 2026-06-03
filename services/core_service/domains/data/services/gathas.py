@@ -15,9 +15,13 @@ from jain_kb_common.db.mongo.collections import (
     GATHA_TEEKA_HINDI,
     GATHA_TEEKA_SANSKRIT,
     GATHA_WORD_MEANINGS,
+    KALASH_BHAAVARTH_HINDI,
+    KALASH_HINDI,
+    KALASH_SANSKRIT,
     TEEKA_GATHA_MAPPING,
 )
 from jain_kb_common.db.postgres.gathas import Gatha
+from jain_kb_common.db.postgres.kalashas import Kalash
 from jain_kb_common.db.postgres.shastras import Shastra
 
 
@@ -154,4 +158,37 @@ async def get_detail(
     for key, result in zip(include_keys, extra_results):
         out[key] = [_strip_id(d) for d in (result or [])]
 
+    if "kalashas" in include:
+        out["kalashas"] = await _get_kalashas_for_gatha(session, mongo, gatha)
+
     return out
+
+
+async def _get_kalashas_for_gatha(
+    session: AsyncSession,
+    mongo: AsyncIOMotorDatabase,
+    gatha: Gatha,
+) -> list[dict]:
+    kalash_rows_result = await session.execute(
+        select(Kalash).where(Kalash.gatha_id == gatha.id)
+    )
+    kalash_rows = list(kalash_rows_result.scalars())
+    if not kalash_rows:
+        return []
+
+    async def _fetch_kalash_docs(kalash: Kalash) -> dict:
+        san_task = mongo[KALASH_SANSKRIT].find_one({"natural_key": f"{kalash.natural_key}:sanskrit"})
+        hin_task = mongo[KALASH_HINDI].find_one({"natural_key": f"{kalash.natural_key}:hindi"})
+        bh_task = mongo[KALASH_BHAAVARTH_HINDI].find(
+            {"kalash_natural_key": kalash.natural_key}
+        ).to_list(None)
+        sanskrit_doc, hindi_doc, bhaavarth_docs = await asyncio.gather(san_task, hin_task, bh_task)
+        return {
+            "natural_key": kalash.natural_key,
+            "kalash_number": kalash.kalash_number,
+            "sanskrit": _strip_id(sanskrit_doc),
+            "hindi": _strip_id(hindi_doc),
+            "bhaavarth": [_strip_id(d) for d in (bhaavarth_docs or [])],
+        }
+
+    return list(await asyncio.gather(*[_fetch_kalash_docs(k) for k in kalash_rows]))

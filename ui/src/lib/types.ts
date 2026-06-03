@@ -147,6 +147,7 @@ export interface DefinitionBlock {
   target_url: string | null;
   is_self: boolean;
   target_exists: boolean;
+  match_natural_keys?: string[];
 }
 
 export interface DefinitionEntry {
@@ -248,6 +249,28 @@ export interface TeekaBhaavarth {
   text: LangText[];
 }
 
+export interface GathaTeekaSanskrit {
+  natural_key: string;
+  gatha_natural_key: string;
+  teeka_natural_key?: string;
+  text: LangText[];
+}
+
+export interface GataHindiBhaavarth {
+  natural_key: string;
+  gatha_teeka_natural_key?: string;
+  publication_natural_key?: string;
+  text: LangText[];
+}
+
+export interface GathaKalash {
+  natural_key: string;
+  kalash_number: string;
+  sanskrit: { natural_key: string; text: LangText[] } | null;
+  hindi: { natural_key: string; text: LangText[] } | null;
+  bhaavarth: Array<{ natural_key: string; text: LangText[] }>;
+}
+
 export interface GathaDetail extends GathaSummary {
   prakrit: { natural_key: string; text: LangText[]; is_kalash: boolean } | null;
   sanskrit: { natural_key: string; text: LangText[] } | null;
@@ -255,6 +278,31 @@ export interface GathaDetail extends GathaSummary {
   word_meanings: { prakrit: GathaWordMeanings | null; sanskrit: GathaWordMeanings | null } | null;
   teeka_mapping?: TeekaGathaMapping[];
   teeka_bhaavarth?: TeekaBhaavarth[];
+  teeka_sanskrit?: GathaTeekaSanskrit[];
+  kalashas?: GathaKalash[];
+}
+
+export type ExtractMatchTargetCollection =
+  | 'gatha_prakrit'
+  | 'gatha_sanskrit'
+  | 'gatha_teeka_sanskrit'
+  | 'gatha_teeka_bhaavarth_hindi'
+  | 'kalash_sanskrit'
+  | 'kalash_hindi'
+  | 'kalash_bhaavarth_hindi';
+
+export interface ExtractMatch {
+  natural_key: string;
+  target: {
+    collection: ExtractMatchTargetCollection;
+    natural_key: string;
+    lang: 'pra' | 'san' | 'hin';
+  };
+  match: {
+    status: 'matched' | 'unmatched' | 'target_missing';
+    char_start: number | null;
+    char_end: number | null;
+  };
 }
 
 // Kalash (data service)

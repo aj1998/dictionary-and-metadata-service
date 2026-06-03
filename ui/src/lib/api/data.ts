@@ -5,6 +5,7 @@ import type {
   EntityCounts,
   EntityDetail,
   EntityKind,
+  ExtractMatch,
   KeywordSummary,
   KeywordDetail,
   KeywordPageSection,
@@ -217,4 +218,8 @@ export async function getGathaRelatedTopics(nk: string): Promise<TopicSummary[]>
 
 export async function getGathaRelatedKeywords(nk: string): Promise<KeywordSummary[]> {
   return apiFetch<KeywordSummary[]>(BASE_URL, `/v1/gathas/${nk}/related-keywords`);
+}
+
+export async function getExtractMatch(naturalKey: string): Promise<ExtractMatch> {
+  return apiFetch<ExtractMatch>(BASE_URL, `/v1/extract-matches/${naturalKey}`);
 }

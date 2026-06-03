@@ -4,6 +4,7 @@ import {
   getActivityRecent,
   getStatsCounts,
   getEntityDetail,
+  getExtractMatch,
   getKeywordsLetters,
   getKeywordsRecent,
   getKeywords,
@@ -533,6 +534,34 @@ describe('data API', () => {
     it('throws ApiError on 404', async () => {
       mockError(404);
       await expect(getKalash('missing')).rejects.toThrow(ApiError);
+    });
+  });
+
+  describe('getExtractMatch', () => {
+    const fixture = {
+      natural_key: 'match:samaysaar:001:block:0',
+      target: { collection: 'gatha_teeka_sanskrit', natural_key: 'samaysaar:amritchandra:1:sanskrit', lang: 'san' },
+      match: { status: 'matched', char_start: 42, char_end: 89 },
+    };
+
+    it('calls correct URL and returns data', async () => {
+      mockSuccess(fixture);
+      const result = await getExtractMatch('match:samaysaar:001:block:0');
+      expect((fetch as ReturnType<typeof vi.fn>).mock.calls[0][0]).toBe(
+        `${BASE}/v1/extract-matches/match%3Asamaysaar%3A001%3Ablock%3A0`
+      );
+      expect(result).toEqual(fixture);
+    });
+
+    it('throws ApiError on 404', async () => {
+      mockError(404);
+      await expect(getExtractMatch('missing')).rejects.toThrow(ApiError);
+      await expect(getExtractMatch('missing')).rejects.toMatchObject({ status: 404 });
+    });
+
+    it('throws ApiError on server error', async () => {
+      mockError(500);
+      await expect(getExtractMatch('nk')).rejects.toThrow(ApiError);
     });
   });
 

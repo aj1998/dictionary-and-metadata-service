@@ -368,5 +368,6 @@ async def apply_approved_keyword_payload(
                     src_nk=frm_key,
                     tgt_label=tgt_label,
                     tgt_nk=to_key,
+                    edge_props=edge.get("props") or {},
                     database=neo4j_database,
                 )

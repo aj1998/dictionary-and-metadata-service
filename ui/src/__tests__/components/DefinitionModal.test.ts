@@ -426,3 +426,42 @@ describe('groupTopicExtractsByShastra', () => {
     expect(allGroupedBlocks).toHaveLength(3); // see_also excluded
   });
 });
+
+// Phase 4: match_natural_keys field on DefinitionBlock
+describe('DefinitionBlock match_natural_keys field', () => {
+  it('block without match_natural_keys should have undefined field', () => {
+    const block = makeBlock({});
+    expect(block.match_natural_keys).toBeUndefined();
+  });
+
+  it('block with empty match_natural_keys returns empty array', () => {
+    const block = makeBlock({ match_natural_keys: [] });
+    expect(block.match_natural_keys).toEqual([]);
+  });
+
+  it('block with match_natural_keys returns the array', () => {
+    const nks = ['match:samaysaar:001:block:0', 'match:samaysaar:001:block:1'];
+    const block = makeBlock({ match_natural_keys: nks });
+    expect(block.match_natural_keys).toEqual(nks);
+    expect(block.match_natural_keys).toHaveLength(2);
+  });
+
+  it('ViewInShastraButton should be shown when match_natural_keys has entries', () => {
+    // Pure logic test: the condition block.match_natural_keys?.length > 0
+    const block = makeBlock({ match_natural_keys: ['some:match:nk'] });
+    const shouldShow = (block.match_natural_keys?.length ?? 0) > 0;
+    expect(shouldShow).toBe(true);
+  });
+
+  it('ViewInShastraButton should not be shown when match_natural_keys is empty', () => {
+    const block = makeBlock({ match_natural_keys: [] });
+    const shouldShow = (block.match_natural_keys?.length ?? 0) > 0;
+    expect(shouldShow).toBe(false);
+  });
+
+  it('ViewInShastraButton should not be shown when match_natural_keys is absent', () => {
+    const block = makeBlock({});
+    const shouldShow = (block.match_natural_keys?.length ?? 0) > 0;
+    expect(shouldShow).toBe(false);
+  });
+});
