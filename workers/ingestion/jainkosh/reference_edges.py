@@ -95,10 +95,10 @@ def _emit_gatha(
         return []
 
     if shastra_type == "publication":
-        if block_kind in {"sanskrit_gatha", "prakrit_gatha", "hindi_gatha"}:
+        if block_kind in {"sanskrit_gatha", "prakrit_gatha", "hindi_gatha", "prakrit_text"}:
             key = f"{sn}:गाथा:{g}"
             return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
-        if block_kind in {"sanskrit_text", "prakrit_text"}:
+        if block_kind == "sanskrit_text":
             key = f"{sn}:{tn or 'टीका'}:गाथा:टीका:{g}"
             return [_make_edge(edge_type, "GathaTeeka", key, target, pankti_props, extra_props)]
         if block_kind == "hindi_text":

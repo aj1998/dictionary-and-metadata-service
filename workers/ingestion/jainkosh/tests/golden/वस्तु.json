@@ -716,11 +716,10 @@
           }
         },
         {
-          "label": "GathaTeeka",
-          "key": "कार्तिकेयानुप्रेक्षा:टीका:गाथा:टीका:225",
+          "label": "Gatha",
+          "key": "कार्तिकेयानुप्रेक्षा:गाथा:225",
           "props": {
             "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
-            "teeka_natural_key": "कार्तिकेयानुप्रेक्षा:टीका",
             "gatha_number": "225"
           },
           "lazy": true
@@ -780,8 +779,8 @@
         {
           "type": "CONTAINS_DEFINITION",
           "from": {
-            "label": "GathaTeeka",
-            "key": "कार्तिकेयानुप्रेक्षा:टीका:गाथा:टीका:225"
+            "label": "Gatha",
+            "key": "कार्तिकेयानुप्रेक्षा:गाथा:225"
           },
           "to": {
             "label": "Keyword",

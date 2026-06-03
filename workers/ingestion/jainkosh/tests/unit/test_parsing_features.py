@@ -1941,16 +1941,16 @@ class TestPublicationTextBlockEmitsGathaTeeka:
         gatha_teeka_key = next(e["from"]["key"] for e in edges if e["from"]["label"] == "GathaTeeka")
         assert gatha_teeka_key == "तत्त्वानुशासन:टीका:गाथा:टीका:53"
 
-    def test_publication_prakrit_text_no_teeka_emits_gatha_teeka(self, cfg: JainkoshConfig):
-        """publication + prakrit_text without teeka_name → GathaTeeka with default 'टीका'."""
+    def test_publication_prakrit_text_emits_gatha(self, cfg: JainkoshConfig):
+        """publication + prakrit_text → Gatha (Prakrit is original source, same as prakrit_gatha)."""
         ref = _make_ref("कार्तिकेयानुप्रेक्षा/478", shastra_name="कार्तिकेयानुप्रेक्षा", inline=False, gatha=478)
         block = _block_with_refs([ref], kind="prakrit_text")
         edges = build_reference_edges(block, target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
         labels = {e["from"]["label"] for e in edges}
-        assert "Gatha" not in labels
-        assert "GathaTeeka" in labels
-        key = next(e["from"]["key"] for e in edges if e["from"]["label"] == "GathaTeeka")
-        assert key == "कार्तिकेयानुप्रेक्षा:टीका:गाथा:टीका:478"
+        assert "Gatha" in labels, "prakrit_text must emit Gatha, not GathaTeeka"
+        assert "GathaTeeka" not in labels
+        key = next(e["from"]["key"] for e in edges if e["from"]["label"] == "Gatha")
+        assert key == "कार्तिकेयानुप्रेक्षा:गाथा:478"
 
     def test_publication_sanskrit_text_with_teeka_emits_gatha_teeka_named(self, cfg: JainkoshConfig):
         """publication + sanskrit_text with explicit teeka_name → key uses that teeka_name."""
@@ -1970,13 +1970,14 @@ class TestPublicationTextBlockEmitsGathaTeeka:
         assert key == "समयसार:आत्मख्याति:गाथा:टीका:1"
 
     def test_publication_gatha_kind_still_emits_gatha(self, cfg: JainkoshConfig):
-        """publication + sanskrit_gatha must still emit Gatha (only text kinds change)."""
-        ref = _make_ref("तत्त्वानुशासन/53", shastra_name="तत्त्वानुशासन", inline=False, shlok=53)
-        block = _block_with_refs([ref], kind="sanskrit_gatha")
-        edges = build_reference_edges(block, target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
-        labels = {e["from"]["label"] for e in edges}
-        assert "Gatha" in labels
-        assert "GathaTeeka" not in labels
+        """publication + *_gatha and prakrit_text must emit Gatha, not GathaTeeka."""
+        for kind in ("sanskrit_gatha", "prakrit_gatha", "hindi_gatha", "prakrit_text"):
+            ref = _make_ref("तत्त्वानुशासन/53", shastra_name="तत्त्वानुशासन", inline=False, shlok=53)
+            block = _block_with_refs([ref], kind=kind)
+            edges = build_reference_edges(block, target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+            labels = {e["from"]["label"] for e in edges}
+            assert "Gatha" in labels, f"Gatha must be emitted for publication + {kind}"
+            assert "GathaTeeka" not in labels, f"GathaTeeka must NOT be emitted for publication + {kind}"
 
     def test_svabhav_golden_tattvanushan_is_gatha_teeka(self):
         """Golden regression: तत्त्वानुशासन:53 node in स्वभाव must be GathaTeeka."""

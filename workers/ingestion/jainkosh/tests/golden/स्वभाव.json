@@ -4569,11 +4569,10 @@
           "lazy": true
         },
         {
-          "label": "GathaTeeka",
-          "key": "कार्तिकेयानुप्रेक्षा:टीका:गाथा:टीका:478",
+          "label": "Gatha",
+          "key": "कार्तिकेयानुप्रेक्षा:गाथा:478",
           "props": {
             "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
-            "teeka_natural_key": "कार्तिकेयानुप्रेक्षा:टीका",
             "gatha_number": "478"
           },
           "lazy": true
@@ -4609,11 +4608,10 @@
           }
         },
         {
-          "label": "GathaTeeka",
-          "key": "धवला:टीका:गाथा:टीका:7",
+          "label": "Gatha",
+          "key": "धवला:गाथा:7",
           "props": {
             "shastra_natural_key": "धवला",
-            "teeka_natural_key": "धवला:टीका",
             "gatha_number": "7"
           },
           "lazy": true
@@ -4757,6 +4755,15 @@
         },
         {
           "label": "Gatha",
+          "key": "नयचक्र बृहद्:गाथा:59",
+          "props": {
+            "shastra_natural_key": "नयचक्र बृहद्",
+            "gatha_number": "59"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
           "key": "नयचक्र बृहद्:गाथा:70",
           "props": {
             "shastra_natural_key": "नयचक्र बृहद्",
@@ -4785,11 +4792,10 @@
           "lazy": true
         },
         {
-          "label": "GathaTeeka",
-          "key": "नयचक्र बृहद्:टीका:गाथा:टीका:60",
+          "label": "Gatha",
+          "key": "नयचक्र बृहद्:गाथा:60",
           "props": {
             "shastra_natural_key": "नयचक्र बृहद्",
-            "teeka_natural_key": "नयचक्र बृहद्:टीका",
             "gatha_number": "60"
           },
           "lazy": true
@@ -4847,16 +4853,6 @@
             "source": "jainkosh",
             "is_leaf": true
           }
-        },
-        {
-          "label": "GathaTeeka",
-          "key": "नयचक्र बृहद्:टीका:गाथा:टीका:70",
-          "props": {
-            "shastra_natural_key": "नयचक्र बृहद्",
-            "teeka_natural_key": "नयचक्र बृहद्:टीका",
-            "gatha_number": "70"
-          },
-          "lazy": true
         },
         {
           "label": "GathaTeeka",
@@ -5142,11 +5138,10 @@
           }
         },
         {
-          "label": "GathaTeeka",
-          "key": "नयचक्र बृहद्:टीका:गाथा:टीका:74",
+          "label": "Gatha",
+          "key": "नयचक्र बृहद्:गाथा:74",
           "props": {
             "shastra_natural_key": "नयचक्र बृहद्",
-            "teeka_natural_key": "नयचक्र बृहद्:टीका",
             "gatha_number": "74"
           },
           "lazy": true
@@ -5541,8 +5536,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "कार्तिकेयानुप्रेक्षा:टीका:गाथा:टीका:478"
+            "label": "Gatha",
+            "key": "कार्तिकेयानुप्रेक्षा:गाथा:478"
           },
           "to": {
             "label": "Topic",
@@ -5610,8 +5605,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "धवला:टीका:गाथा:टीका:7"
+            "label": "Gatha",
+            "key": "धवला:गाथा:7"
           },
           "to": {
             "label": "Topic",
@@ -5876,8 +5871,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "नयचक्र बृहद्:टीका:गाथा:टीका:59"
+            "label": "Gatha",
+            "key": "नयचक्र बृहद्:गाथा:59"
           },
           "to": {
             "label": "Topic",
@@ -5948,8 +5943,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "नयचक्र बृहद्:टीका:गाथा:टीका:60"
+            "label": "Gatha",
+            "key": "नयचक्र बृहद्:गाथा:60"
           },
           "to": {
             "label": "Topic",
@@ -6062,8 +6057,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "नयचक्र बृहद्:टीका:गाथा:टीका:70"
+            "label": "Gatha",
+            "key": "नयचक्र बृहद्:गाथा:70"
           },
           "to": {
             "label": "Topic",
@@ -6320,8 +6315,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "धवला:टीका:गाथा:टीका:7"
+            "label": "Gatha",
+            "key": "धवला:गाथा:7"
           },
           "to": {
             "label": "Topic",
@@ -6606,8 +6601,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "नयचक्र बृहद्:टीका:गाथा:टीका:74"
+            "label": "Gatha",
+            "key": "नयचक्र बृहद्:गाथा:74"
           },
           "to": {
             "label": "Topic",

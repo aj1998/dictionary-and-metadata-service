@@ -227,8 +227,9 @@ gatha edges. The block-kind constraints below MUST hold.
 - block_kind ∈ {sanskrit_text, prakrit_text, hindi_text}: src = `GathaTeeka("<shastra>:<teeka>:गाथा:टीका:<g>")`.
 
 **`type == "publication"`**:
-- block_kind ∈ {sanskrit_gatha, prakrit_gatha, hindi_gatha}: src = `Gatha("<shastra>:गाथा:<g>")`.
-- block_kind ∈ {sanskrit_text, prakrit_text}: src = `GathaTeeka("<shastra>:<teeka>:गाथा:टीका:<g>")`.
+- block_kind ∈ {sanskrit_gatha, prakrit_gatha, hindi_gatha, **prakrit_text**}: src = `Gatha("<shastra>:गाथा:<g>")`.
+  (`prakrit_text` is original Prakrit source content, treated the same as `prakrit_gatha`.)
+- block_kind == **sanskrit_text**: src = `GathaTeeka("<shastra>:<teeka>:गाथा:टीका:<g>")`.
   When `teeka_name` is absent, `<teeka>` defaults to `"टीका"` (e.g. `"तत्त्वानुशासन:टीका:गाथा:टीका:53"`).
 - block_kind == hindi_text: emit **two edges**:
   - src1 = `GathaTeeka("<shastra>:<teeka>:गाथा:टीका:<g>")`

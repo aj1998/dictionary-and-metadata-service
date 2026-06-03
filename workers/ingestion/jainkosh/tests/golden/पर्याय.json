@@ -12460,11 +12460,10 @@
           }
         },
         {
-          "label": "GathaTeeka",
-          "key": "गोम्मटसार जीवकाण्ड:टीका:गाथा:टीका:572",
+          "label": "Gatha",
+          "key": "गोम्मटसार जीवकाण्ड:गाथा:572",
           "props": {
             "shastra_natural_key": "गोम्मटसार जीवकाण्ड",
-            "teeka_natural_key": "गोम्मटसार जीवकाण्ड:टीका",
             "gatha_number": "572"
           },
           "lazy": true
@@ -12651,6 +12650,15 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "Gatha",
+          "key": "नयचक्र बृहद्:गाथा:17",
+          "props": {
+            "shastra_natural_key": "नयचक्र बृहद्",
+            "gatha_number": "17"
+          },
+          "lazy": true
         },
         {
           "label": "Gatha",
@@ -13092,11 +13100,10 @@
           }
         },
         {
-          "label": "GathaTeeka",
-          "key": "धवला:टीका:गाथा:टीका:8",
+          "label": "Gatha",
+          "key": "धवला:गाथा:8",
           "props": {
             "shastra_natural_key": "धवला",
-            "teeka_natural_key": "धवला:टीका",
             "gatha_number": "8"
           },
           "lazy": true
@@ -13185,11 +13192,10 @@
           }
         },
         {
-          "label": "GathaTeeka",
-          "key": "धवला:टीका:गाथा:टीका:6",
+          "label": "Gatha",
+          "key": "धवला:गाथा:6",
           "props": {
             "shastra_natural_key": "धवला",
-            "teeka_natural_key": "धवला:टीका",
             "gatha_number": "6"
           },
           "lazy": true
@@ -13307,11 +13313,10 @@
           }
         },
         {
-          "label": "GathaTeeka",
-          "key": "धवला:टीका:गाथा:टीका:3",
+          "label": "Gatha",
+          "key": "धवला:गाथा:3",
           "props": {
             "shastra_natural_key": "धवला",
-            "teeka_natural_key": "धवला:टीका",
             "gatha_number": "3"
           },
           "lazy": true
@@ -13350,11 +13355,10 @@
           }
         },
         {
-          "label": "GathaTeeka",
-          "key": "धवला:टीका:गाथा:टीका:9",
+          "label": "Gatha",
+          "key": "धवला:गाथा:9",
           "props": {
             "shastra_natural_key": "धवला",
-            "teeka_natural_key": "धवला:टीका",
             "gatha_number": "9"
           },
           "lazy": true
@@ -13367,15 +13371,6 @@
             "teeka_natural_key": "धवला:टीका",
             "publisher_id": "8",
             "page_number": "242"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Gatha",
-          "key": "धवला:गाथा:9",
-          "props": {
-            "shastra_natural_key": "धवला",
-            "gatha_number": "9"
           },
           "lazy": true
         },
@@ -13398,16 +13393,6 @@
             "teeka_natural_key": "धवला:टीका",
             "publisher_id": "8",
             "page_number": "244"
-          },
-          "lazy": true
-        },
-        {
-          "label": "GathaTeeka",
-          "key": "वसुनन्दि श्रावकाचार:टीका:गाथा:टीका:25",
-          "props": {
-            "shastra_natural_key": "वसुनन्दि श्रावकाचार",
-            "teeka_natural_key": "वसुनन्दि श्रावकाचार:टीका",
-            "gatha_number": "25"
           },
           "lazy": true
         },
@@ -14473,8 +14458,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "गोम्मटसार जीवकाण्ड:टीका:गाथा:टीका:572"
+            "label": "Gatha",
+            "key": "गोम्मटसार जीवकाण्ड:गाथा:572"
           },
           "to": {
             "label": "Topic",
@@ -14824,8 +14809,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "नयचक्र बृहद्:टीका:गाथा:टीका:17"
+            "label": "Gatha",
+            "key": "नयचक्र बृहद्:गाथा:17"
           },
           "to": {
             "label": "Topic",
@@ -15986,8 +15971,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "धवला:टीका:गाथा:टीका:8"
+            "label": "Gatha",
+            "key": "धवला:गाथा:8"
           },
           "to": {
             "label": "Topic",
@@ -16236,8 +16221,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "धवला:टीका:गाथा:टीका:6"
+            "label": "Gatha",
+            "key": "धवला:गाथा:6"
           },
           "to": {
             "label": "Topic",
@@ -16554,8 +16539,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "धवला:टीका:गाथा:टीका:3"
+            "label": "Gatha",
+            "key": "धवला:गाथा:3"
           },
           "to": {
             "label": "Topic",
@@ -16620,8 +16605,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "धवला:टीका:गाथा:टीका:9"
+            "label": "Gatha",
+            "key": "धवला:गाथा:9"
           },
           "to": {
             "label": "Topic",
@@ -16640,24 +16625,6 @@
           "from": {
             "label": "Page",
             "key": "धवला:टीका:8:पृष्ठ:242"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल/0",
-            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:9"
           },
           "to": {
             "label": "Topic",
@@ -16710,8 +16677,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "वसुनन्दि श्रावकाचार:टीका:गाथा:टीका:25"
+            "label": "Gatha",
+            "key": "वसुनन्दि श्रावकाचार:गाथा:25"
           },
           "to": {
             "label": "Topic",
