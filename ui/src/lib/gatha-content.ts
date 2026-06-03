@@ -1,4 +1,35 @@
-import type { ExtractMatch } from '@/lib/types';
+import type { DefinitionReference, ExtractMatch } from '@/lib/types';
+
+// Mirrors `reference.entity_keywords.gatha` in parser_configs/jainkosh.yaml.
+// Refs whose resolved fields name any of these keywords describe a gatha-like
+// target inside a shastra and therefore qualify for a fallback shastra link
+// when the matcher has not produced a response.
+export const GATHA_ENTITY_KEYWORDS = ['गाथा', 'श्लोक', 'सूत्र', 'दोहक', 'वार्तिक'] as const;
+
+export type GathaEntityField = { field: string; value: string };
+
+// Returns the first resolved field whose name is a gatha entity keyword.
+export function getRefGathaEntity(ref: DefinitionReference): GathaEntityField | null {
+  for (const f of ref.resolved_fields) {
+    if ((GATHA_ENTITY_KEYWORDS as readonly string[]).includes(f.field) && f.value) {
+      return { field: f.field, value: f.value };
+    }
+  }
+  return null;
+}
+
+// Builds a shastra/gatha deep-link URL without a match natural key. Used by
+// the grey fallback link when the matcher returned no response for a ref that
+// names a gatha entity in a known shastra.
+//
+// The gatha segment is the gatha's natural key, formatted as
+// `<shastra>:<field>:<value>` (e.g. `समयसार:गाथा:1`). Both segments are
+// URL-encoded for safe transport of Devanagari characters and the `:`
+// separator.
+export function buildShastraGathaHref(shastraNk: string, field: string, value: string): string {
+  const gathaNk = `${shastraNk}:${field}:${value}`;
+  return `/shastras/${encodeURIComponent(shastraNk)}/gathas/${encodeURIComponent(gathaNk)}`;
+}
 
 export type TeekaPart = { type: 'text' | 'term'; value: string };
 

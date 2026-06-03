@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { ExternalLink } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 import { getExtractMatch } from '@/lib/api/data';
-import { buildGathaHref } from '@/lib/gatha-content';
+import { buildGathaHref, buildShastraGathaHref, getRefGathaEntity } from '@/lib/gatha-content';
 import type { DefinitionReference, ExtractMatch } from '@/lib/types';
 
 export interface MatchEntry {
@@ -105,6 +105,91 @@ export function useMatchEntries(match_natural_keys: string[] | undefined): UseMa
 
 interface MatchLinkProps {
   entry: MatchEntry;
+}
+
+// Describes whether/how to surface a link for a given (ref, matchEntry) pair.
+// `matched`     → blue link using the resolved match entry.
+// `unmatched`   → grey link using the resolved match entry (status === 'unmatched').
+// `fallback`    → grey link synthesised from the ref itself when no match entry exists
+//                  but the ref names a gatha-entity in a known shastra.
+// `none`        → render nothing.
+export type RefLinkPlan =
+  | { kind: 'matched' | 'unmatched'; href: string; label: string }
+  | { kind: 'fallback'; href: string; label: string }
+  | { kind: 'none' };
+
+// Decides which link (if any) to render for a ref given the matcher's response.
+//
+// `ingestedShastras` is the set of shastra natural keys that have actually
+// been ingested into the DB (i.e. `/shastras/<nk>` resolves to a real page).
+// The fallback grey link is only emitted when the ref's `shastra_name` is in
+// this set — otherwise the link would land on a 404. Pass `null` while the
+// registry is still loading (or unavailable); the fallback is then suppressed.
+export function planRefLink(
+  ref: DefinitionReference,
+  matchEntry: MatchEntry | undefined,
+  ingestedShastras: Set<string> | null = null,
+): RefLinkPlan {
+  if (matchEntry) {
+    return {
+      kind: matchEntry.status === 'matched' ? 'matched' : 'unmatched',
+      href: matchEntry.href,
+      label: matchEntry.label,
+    };
+  }
+  if (!ref.shastra_name) return { kind: 'none' };
+  if (!ingestedShastras) return { kind: 'none' };
+  // Normalize on lookup so a parsed `ref.shastra_name` with combining-mark
+  // variance still matches an NFC-normalized registry entry.
+  const shastraNkNFC = ref.shastra_name.normalize('NFC');
+  if (!ingestedShastras.has(shastraNkNFC)) return { kind: 'none' };
+  const entity = getRefGathaEntity(ref);
+  if (!entity) return { kind: 'none' };
+  return {
+    kind: 'fallback',
+    href: buildShastraGathaHref(shastraNkNFC, entity.field, entity.value),
+    label: `${shastraNkNFC} ${entity.field} ${entity.value}`,
+  };
+}
+
+interface RefMatchLinkProps {
+  ref: DefinitionReference;
+  matchEntry: MatchEntry | undefined;
+  // When true, the matcher response is still loading for this block; the
+  // grey fallback link is suppressed so it doesn't briefly appear before the
+  // real (blue/grey) link replaces it.
+  loading?: boolean;
+  // Set of shastra natural keys that are actually ingested into the DB. The
+  // fallback grey link is only rendered when `ref.shastra_name` is in this
+  // set — see `planRefLink`.
+  ingestedShastras?: Set<string> | null;
+}
+
+// Unified link renderer for a ref. Picks blue / grey / grey-fallback / nothing
+// based on planRefLink.
+export function RefMatchLink({ ref, matchEntry, loading = false, ingestedShastras = null }: RefMatchLinkProps) {
+  const plan = planRefLink(ref, matchEntry, ingestedShastras);
+  if (plan.kind === 'fallback' && loading) return null;
+  if (plan.kind === 'none') return null;
+  const matched = plan.kind === 'matched';
+  const suffix = plan.kind === 'matched' ? '' : plan.kind === 'fallback' ? ' (शास्त्र में देखें)' : ' (मिलान नहीं)';
+  return (
+    <a
+      href={plan.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={cn(
+        'inline-flex items-center transition-colors',
+        matched
+          ? 'text-blue-600 hover:text-blue-700'
+          : 'text-foreground-subtle hover:text-foreground-muted',
+      )}
+      aria-label={`शास्त्र में देखें — ${plan.label}${suffix}`}
+      title={`${plan.label}${suffix}`}
+    >
+      <ExternalLink className="size-4 shrink-0" />
+    </a>
+  );
 }
 
 export function MatchLink({ entry }: MatchLinkProps) {
