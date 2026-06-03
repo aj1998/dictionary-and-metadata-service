@@ -197,4 +197,16 @@ python -c "from jain_kb_common.matching import normalize, locate; \
 
 ## Implementation Notes / Diversions
 
-_To be filled in by the implementing agent._
+- All files placed at `packages/jain_kb_common/jain_kb_common/matching/` (importable as `jain_kb_common.matching`). The spec path `packages/jain_kb_common/matching/` was a shorthand; the full path preserves the package hierarchy.
+
+- **`locate` signature**: added an optional `threshold: float = DEFAULT_THRESHOLD` parameter so Phase 2 can pass per-`BlockKind` thresholds without a separate call site. Not in original spec but required for the function to set `matched` correctly.
+
+- **Digit rule (rule 6)**: implemented as a two-pass approach — first pass marks whitespace/punctuation/etc., second pass finds digit runs and checks if both left and right neighbors (or string edge) are already marked as stripped. This correctly handles multi-digit runs like `।39।`.
+
+- **Shingle guard**: when `len(target) > 50 × len(source)`, falls back to strided window sampling (every `n_windows / (50×5)` positions). Rolling-hash replacement documented as a TODO in `locate.py`.
+
+- **`score.py` env override**: reads `os.environ` on each `threshold_for()` call (not cached at import time). Makes the env override testable without import-order constraints, with negligible perf cost.
+
+- **`ref_selection.py`**: uses `id(r)` for identity comparison, mirroring JS `Set` reference semantics. The `pick_refs_to_show` fallback to inline occurs only when zero non-inline refs exist (even unresolved ones), exactly matching the TS `if (nonInline.length > 0)` branch.
+
+- **Tests**: 87 tests, all pass. Run with `pytest packages/jain_kb_common/jain_kb_common/matching/tests/ -v`.
