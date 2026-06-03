@@ -356,7 +356,7 @@
                                 "value": 12
                               },
                               {
-                                "field": "सूत्र",
+                                "field": "राजवार्तिकसूत्र",
                                 "value": 2
                               },
                               {
@@ -434,12 +434,17 @@
                           {
                             "text": "(भाव संग्रह/373)",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
-                            "shastra_name": null,
-                            "match_method": null,
-                            "resolved_fields": []
+                            "shastra_name": "भाव संग्रह",
+                            "match_method": "shastra_name",
+                            "resolved_fields": [
+                              {
+                                "field": "गाथा",
+                                "value": 373
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -1956,8 +1961,8 @@
       "prev": "/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AA%E0%A5%8D%E0%A4%A8%E0%A4%BE%E0%A4%A4%E0%A4%BF%E0%A4%9A%E0%A4%BE%E0%A4%B0",
       "next": "/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5_%E0%A4%A8%E0%A4%AF"
     },
-    "parser_version": "jainkosh.rules/1.11.16",
-    "parsed_at": "2026-06-03T18:43:47.606963",
+    "parser_version": "jainkosh.rules/1.11.19",
+    "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
   "would_write": {
@@ -2711,7 +2716,7 @@
                       "value": 12
                     },
                     {
-                      "field": "सूत्र",
+                      "field": "राजवार्तिकसूत्र",
                       "value": 2
                     },
                     {
@@ -2789,12 +2794,17 @@
                 {
                   "text": "(भाव संग्रह/373)",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "shastra_name": "भाव संग्रह",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "गाथा",
+                      "value": 373
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -4538,15 +4548,6 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "राजवार्तिक:गाथा:2",
-          "props": {
-            "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "2"
-          },
-          "lazy": true
-        },
-        {
           "label": "Page",
           "key": "राजवार्तिक:टीका:18:पृष्ठ:539",
           "props": {
@@ -4568,19 +4569,30 @@
           "lazy": true
         },
         {
-          "label": "Gatha",
-          "key": "कार्तिकेयानुप्रेक्षा:गाथा:478",
+          "label": "GathaTeeka",
+          "key": "कार्तिकेयानुप्रेक्षा:टीका:गाथा:टीका:478",
           "props": {
             "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
+            "teeka_natural_key": "कार्तिकेयानुप्रेक्षा:टीका",
             "gatha_number": "478"
           },
           "lazy": true
         },
         {
           "label": "Gatha",
-          "key": "तत्त्वानुशासन:गाथा:53",
+          "key": "भाव संग्रह:गाथा:373",
+          "props": {
+            "shastra_natural_key": "भाव संग्रह",
+            "gatha_number": "373"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "तत्त्वानुशासन:टीका:गाथा:टीका:53",
           "props": {
             "shastra_natural_key": "तत्त्वानुशासन",
+            "teeka_natural_key": "तत्त्वानुशासन:टीका",
             "gatha_number": "53"
           },
           "lazy": true
@@ -4597,10 +4609,11 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "धवला:गाथा:7",
+          "label": "GathaTeeka",
+          "key": "धवला:टीका:गाथा:टीका:7",
           "props": {
             "shastra_natural_key": "धवला",
+            "teeka_natural_key": "धवला:टीका",
             "gatha_number": "7"
           },
           "lazy": true
@@ -4713,6 +4726,25 @@
           }
         },
         {
+          "label": "GathaTeeka",
+          "key": "नयचक्र बृहद्:टीका:गाथा:टीका:59",
+          "props": {
+            "shastra_natural_key": "नयचक्र बृहद्",
+            "teeka_natural_key": "नयचक्र बृहद्:टीका",
+            "gatha_number": "59"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "पंचाध्यायी/पूर्वार्ध:गाथा:280",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/पूर्वार्ध",
+            "gatha_number": "280"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:सामान्य-व-विशेष-स्वभावों-के-भेद",
           "props": {
@@ -4722,6 +4754,45 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "Gatha",
+          "key": "नयचक्र बृहद्:गाथा:70",
+          "props": {
+            "shastra_natural_key": "नयचक्र बृहद्",
+            "gatha_number": "70"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "आलापपद्धति:गाथा:4",
+          "props": {
+            "shastra_natural_key": "आलापपद्धति",
+            "gatha_number": "4"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "नयचक्र/श्रुतभवन:टीका:28:पृष्ठ:61",
+          "props": {
+            "shastra_natural_key": "नयचक्र/श्रुतभवन",
+            "teeka_natural_key": "नयचक्र/श्रुतभवन:टीका",
+            "publisher_id": "28",
+            "page_number": "61"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "नयचक्र बृहद्:टीका:गाथा:टीका:60",
+          "props": {
+            "shastra_natural_key": "नयचक्र बृहद्",
+            "teeka_natural_key": "नयचक्र बृहद्:टीका",
+            "gatha_number": "60"
+          },
+          "lazy": true
         },
         {
           "label": "GathaTeekaBhaavarth",
@@ -4746,10 +4817,11 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "आलापपद्धति:गाथा:6",
+          "label": "GathaTeeka",
+          "key": "आलापपद्धति:टीका:गाथा:टीका:6",
           "props": {
             "shastra_natural_key": "आलापपद्धति",
+            "teeka_natural_key": "आलापपद्धति:टीका",
             "gatha_number": "6"
           },
           "lazy": true
@@ -4775,6 +4847,16 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "नयचक्र बृहद्:टीका:गाथा:टीका:70",
+          "props": {
+            "shastra_natural_key": "नयचक्र बृहद्",
+            "teeka_natural_key": "नयचक्र बृहद्:टीका",
+            "gatha_number": "70"
+          },
+          "lazy": true
         },
         {
           "label": "GathaTeeka",
@@ -4882,10 +4964,11 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "धवला:गाथा:2",
+          "label": "GathaTeeka",
+          "key": "धवला:टीका:गाथा:टीका:2",
           "props": {
             "shastra_natural_key": "धवला",
+            "teeka_natural_key": "धवला:टीका",
             "gatha_number": "2"
           },
           "lazy": true
@@ -4898,6 +4981,15 @@
             "teeka_natural_key": "धवला:टीका",
             "publisher_id": "8",
             "page_number": "199"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "धवला:गाथा:2",
+          "props": {
+            "shastra_natural_key": "धवला",
+            "gatha_number": "2"
           },
           "lazy": true
         },
@@ -4920,6 +5012,45 @@
             "teeka_natural_key": "धवला:टीका",
             "publisher_id": "8",
             "page_number": "56"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "गोम्मटसार जीवकाण्ड:जीवतत्त्व प्रदीपिका:गाथा:टीका:184",
+          "props": {
+            "shastra_natural_key": "गोम्मटसार जीवकाण्ड",
+            "teeka_natural_key": "गोम्मटसार जीवकाण्ड:जीवतत्त्व प्रदीपिका",
+            "gatha_number": "184"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "गोम्मटसार जीवकाण्ड:जीवतत्त्व प्रदीपिका:publisher_to_be_added:पृष्ठ:419",
+          "props": {
+            "shastra_natural_key": "गोम्मटसार जीवकाण्ड",
+            "teeka_natural_key": "गोम्मटसार जीवकाण्ड:जीवतत्त्व प्रदीपिका",
+            "publisher_id": "publisher_to_be_added",
+            "page_number": "419"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "पंचाध्यायी/उत्तरार्ध:गाथा:53",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/उत्तरार्ध",
+            "gatha_number": "53"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "पंचाध्यायी/उत्तरार्ध:गाथा:488",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/उत्तरार्ध",
+            "gatha_number": "488"
           },
           "lazy": true
         },
@@ -4957,6 +5088,27 @@
           }
         },
         {
+          "label": "GathaTeeka",
+          "key": "स्याद्वादमञ्जरी:टीका:गाथा:टीका:24",
+          "props": {
+            "shastra_natural_key": "स्याद्वादमञ्जरी",
+            "teeka_natural_key": "स्याद्वादमञ्जरी:टीका",
+            "gatha_number": "24"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "स्याद्वादमञ्जरी:टीका:publisher_to_be_added:पृष्ठ:289",
+          "props": {
+            "shastra_natural_key": "स्याद्वादमञ्जरी",
+            "teeka_natural_key": "स्याद्वादमञ्जरी:टीका",
+            "publisher_id": "publisher_to_be_added",
+            "page_number": "289"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं:सप्तभंगी-के-विषयभूत-अस्तित्व-नास्तित्व-आदि-धर्म-वस्तु-में-कल्पित-हैं",
           "props": {
@@ -4988,6 +5140,16 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "नयचक्र बृहद्:टीका:गाथा:टीका:74",
+          "props": {
+            "shastra_natural_key": "नयचक्र बृहद्",
+            "teeka_natural_key": "नयचक्र बृहद्:टीका",
+            "gatha_number": "74"
+          },
+          "lazy": true
         },
         {
           "label": "Topic",
@@ -5342,25 +5504,6 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "राजवार्तिक:गाथा:2"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "pankti": 8,
-            "block_index": 0,
-            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ/0",
-            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
             "label": "Page",
             "key": "राजवार्तिक:टीका:18:पृष्ठ:539"
           },
@@ -5398,8 +5541,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "कार्तिकेयानुप्रेक्षा:गाथा:478"
+            "label": "GathaTeeka",
+            "key": "कार्तिकेयानुप्रेक्षा:टीका:गाथा:टीका:478"
           },
           "to": {
             "label": "Topic",
@@ -5417,7 +5560,25 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "तत्त्वानुशासन:गाथा:53"
+            "key": "भाव संग्रह:गाथा:373"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ/2",
+            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "तत्त्वानुशासन:टीका:गाथा:टीका:53"
           },
           "to": {
             "label": "Topic",
@@ -5449,8 +5610,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:7"
+            "label": "GathaTeeka",
+            "key": "धवला:टीका:गाथा:टीका:7"
           },
           "to": {
             "label": "Topic",
@@ -5662,6 +5823,42 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "नयचक्र बृहद्:टीका:गाथा:टीका:59"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-के-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-के-भेद/0",
+            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-के-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "पंचाध्यायी/पूर्वार्ध:गाथा:280"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-के-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-के-भेद/0",
+            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-के-भेद"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -5674,6 +5871,96 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "नयचक्र बृहद्:टीका:गाथा:टीका:59"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:सामान्य-व-विशेष-स्वभावों-के-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:सामान्य-व-विशेष-स्वभावों-के-भेद/0",
+            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:सामान्य-व-विशेष-स्वभावों-के-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "नयचक्र बृहद्:गाथा:70"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:सामान्य-व-विशेष-स्वभावों-के-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:सामान्य-व-विशेष-स्वभावों-के-भेद/0",
+            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:सामान्य-व-विशेष-स्वभावों-के-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "आलापपद्धति:गाथा:4"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:सामान्य-व-विशेष-स्वभावों-के-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:सामान्य-व-विशेष-स्वभावों-के-भेद/0",
+            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:सामान्य-व-विशेष-स्वभावों-के-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "नयचक्र/श्रुतभवन:टीका:28:पृष्ठ:61"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:सामान्य-व-विशेष-स्वभावों-के-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:सामान्य-व-विशेष-स्वभावों-के-भेद/0",
+            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:सामान्य-व-विशेष-स्वभावों-के-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "नयचक्र बृहद्:टीका:गाथा:टीका:60"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:सामान्य-व-विशेष-स्वभावों-के-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:सामान्य-व-विशेष-स्वभावों-के-भेद/1",
+            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:सामान्य-व-विशेष-स्वभावों-के-भेद"
           }
         },
         {
@@ -5712,8 +5999,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "आलापपद्धति:गाथा:6"
+            "label": "GathaTeeka",
+            "key": "आलापपद्धति:टीका:गाथा:टीका:6"
           },
           "to": {
             "label": "Topic",
@@ -5770,6 +6057,24 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "नयचक्र बृहद्:टीका:गाथा:टीका:70"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:प्रत्येक-द्रव्य-में-स्वभावों-का-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:प्रत्येक-द्रव्य-में-स्वभावों-का-निर्देश/0",
+            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:प्रत्येक-द्रव्य-में-स्वभावों-का-निर्देश"
           }
         },
         {
@@ -5943,8 +6248,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:2"
+            "label": "GathaTeeka",
+            "key": "धवला:टीका:गाथा:टीका:2"
           },
           "to": {
             "label": "Topic",
@@ -5979,6 +6284,24 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
+            "label": "Gatha",
+            "key": "धवला:गाथा:2"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-में-तर्क-नहीं-चलता"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-में-तर्क-नहीं-चलता/0",
+            "source_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-में-तर्क-नहीं-चलता"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
             "label": "Page",
             "key": "धवला:टीका:8:पृष्ठ:121"
           },
@@ -5997,8 +6320,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:7"
+            "label": "GathaTeeka",
+            "key": "धवला:टीका:गाथा:टीका:7"
           },
           "to": {
             "label": "Topic",
@@ -6027,6 +6350,80 @@
             "source": "jainkosh",
             "block_index": 1,
             "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-में-तर्क-नहीं-चलता/1",
+            "source_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-में-तर्क-नहीं-चलता"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "गोम्मटसार जीवकाण्ड:जीवतत्त्व प्रदीपिका:गाथा:टीका:184"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-में-तर्क-नहीं-चलता"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 20,
+            "block_index": 2,
+            "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-में-तर्क-नहीं-चलता/2",
+            "source_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-में-तर्क-नहीं-चलता"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "गोम्मटसार जीवकाण्ड:जीवतत्त्व प्रदीपिका:publisher_to_be_added:पृष्ठ:419"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-में-तर्क-नहीं-चलता"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 20,
+            "block_index": 2,
+            "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-में-तर्क-नहीं-चलता/2",
+            "source_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-में-तर्क-नहीं-चलता"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "पंचाध्यायी/उत्तरार्ध:गाथा:53"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-में-तर्क-नहीं-चलता"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-में-तर्क-नहीं-चलता/2",
+            "source_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-में-तर्क-नहीं-चलता"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "पंचाध्यायी/उत्तरार्ध:गाथा:488"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-में-तर्क-नहीं-चलता"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-में-तर्क-नहीं-चलता/2",
             "source_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-में-तर्क-नहीं-चलता"
           }
         },
@@ -6091,6 +6488,44 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "स्याद्वादमञ्जरी:टीका:गाथा:टीका:24"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 21,
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं/0",
+            "source_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "स्याद्वादमञ्जरी:टीका:publisher_to_be_added:पृष्ठ:289"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 21,
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं/0",
+            "source_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-या-धर्म-अपेक्षा-कृत-होते-हैं"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -6138,8 +6573,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "आलापपद्धति:गाथा:6"
+            "label": "GathaTeeka",
+            "key": "आलापपद्धति:टीका:गाथा:टीका:6"
           },
           "to": {
             "label": "Topic",
@@ -6166,6 +6601,24 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "नयचक्र बृहद्:टीका:गाथा:टीका:74"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:धर्मों-की-सापेक्षता-को-न-माने-सो-अज्ञानी"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:धर्मों-की-सापेक्षता-को-न-माने-सो-अज्ञानी/0",
+            "source_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:धर्मों-की-सापेक्षता-को-न-माने-सो-अज्ञानी"
           }
         },
         {

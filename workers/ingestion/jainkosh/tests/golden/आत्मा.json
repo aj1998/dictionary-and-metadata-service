@@ -756,8 +756,8 @@
       "prev": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%B9%E0%A4%A4%E0%A5%8D%E0%A4%AF%E0%A4%BE",
       "next": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%81%E0%A4%B2"
     },
-    "parser_version": "jainkosh.rules/1.11.16",
-    "parsed_at": "2026-06-03T18:43:46.795264",
+    "parser_version": "jainkosh.rules/1.11.19",
+    "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
   "would_write": {
@@ -1688,10 +1688,88 @@
           }
         },
         {
+          "label": "GathaTeeka",
+          "key": "मोक्ष पाहुड़:टीका:गाथा:टीका:4",
+          "props": {
+            "shastra_natural_key": "मोक्ष पाहुड़",
+            "teeka_natural_key": "मोक्ष पाहुड़:टीका",
+            "gatha_number": "4"
+          },
+          "lazy": true
+        },
+        {
           "label": "Gatha",
-          "key": "कार्तिकेयानुप्रेक्षा:गाथा:192",
+          "key": "समाधिशतक:गाथा:4",
+          "props": {
+            "shastra_natural_key": "समाधिशतक",
+            "gatha_number": "4"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "ज्ञानार्णव:गाथा:5",
+          "props": {
+            "shastra_natural_key": "ज्ञानार्णव",
+            "gatha_number": "5"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "ज्ञानार्णव:टीका:23:पृष्ठ:317",
+          "props": {
+            "shastra_natural_key": "ज्ञानार्णव",
+            "teeka_natural_key": "ज्ञानार्णव:टीका",
+            "publisher_id": "23",
+            "page_number": "317"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "ज्ञानसार:गाथा:29",
+          "props": {
+            "shastra_natural_key": "ज्ञानसार",
+            "gatha_number": "29"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "परमात्मप्रकाश:गाथा:11",
+          "props": {
+            "shastra_natural_key": "परमात्मप्रकाश",
+            "gatha_number": "11"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "द्रव्यसंग्रह:गाथा:14",
+          "props": {
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "gatha_number": "14"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:46",
+          "props": {
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+            "publisher_id": "14",
+            "page_number": "46"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "कार्तिकेयानुप्रेक्षा:टीका:गाथा:टीका:192",
           "props": {
             "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
+            "teeka_natural_key": "कार्तिकेयानुप्रेक्षा:टीका",
             "gatha_number": "192"
           },
           "lazy": true
@@ -1708,10 +1786,11 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "द्रव्यसंग्रह:गाथा:14",
+          "label": "GathaTeeka",
+          "key": "द्रव्यसंग्रह:टीका:गाथा:टीका:14",
           "props": {
             "shastra_natural_key": "द्रव्यसंग्रह",
+            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
             "gatha_number": "14"
           },
           "lazy": true
@@ -1750,19 +1829,21 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "समाधिशतक:गाथा:4",
+          "label": "GathaTeeka",
+          "key": "समाधिशतक:टीका:गाथा:टीका:4",
           "props": {
             "shastra_natural_key": "समाधिशतक",
+            "teeka_natural_key": "समाधिशतक:टीका",
             "gatha_number": "4"
           },
           "lazy": true
         },
         {
-          "label": "Gatha",
-          "key": "परमात्मप्रकाश:गाथा:12",
+          "label": "GathaTeeka",
+          "key": "परमात्मप्रकाश:टीका:गाथा:टीका:12",
           "props": {
             "shastra_natural_key": "परमात्मप्रकाश",
+            "teeka_natural_key": "परमात्मप्रकाश:टीका",
             "gatha_number": "12"
           },
           "lazy": true
@@ -1775,17 +1856,6 @@
             "teeka_natural_key": "परमात्मप्रकाश:टीका",
             "publisher_id": "23",
             "page_number": "19"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Page",
-          "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:46",
-          "props": {
-            "shastra_natural_key": "द्रव्यसंग्रह",
-            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
-            "publisher_id": "14",
-            "page_number": "46"
           },
           "lazy": true
         },
@@ -1823,10 +1893,11 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "धवला:गाथा:9",
+          "label": "GathaTeeka",
+          "key": "धवला:टीका:गाथा:टीका:9",
           "props": {
             "shastra_natural_key": "धवला",
+            "teeka_natural_key": "धवला:टीका",
             "gatha_number": "9"
           },
           "lazy": true
@@ -1854,19 +1925,10 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "द्रव्यसंग्रह:टीका:गाथा:टीका:14",
+          "key": "द्रव्यसंग्रह:टीका:गाथा:टीका:57",
           "props": {
             "shastra_natural_key": "द्रव्यसंग्रह",
             "teeka_natural_key": "द्रव्यसंग्रह:टीका",
-            "gatha_number": "14"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Gatha",
-          "key": "द्रव्यसंग्रह:गाथा:57",
-          "props": {
-            "shastra_natural_key": "द्रव्यसंग्रह",
             "gatha_number": "57"
           },
           "lazy": true
@@ -1930,8 +1992,152 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
+            "label": "GathaTeeka",
+            "key": "मोक्ष पाहुड़:टीका:गाथा:टीका:4"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/0",
+            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
             "label": "Gatha",
-            "key": "कार्तिकेयानुप्रेक्षा:गाथा:192"
+            "key": "समाधिशतक:गाथा:4"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/0",
+            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "ज्ञानार्णव:गाथा:5"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/0",
+            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "ज्ञानार्णव:टीका:23:पृष्ठ:317"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/0",
+            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "ज्ञानसार:गाथा:29"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/0",
+            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "परमात्मप्रकाश:गाथा:11"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/0",
+            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "द्रव्यसंग्रह:गाथा:14"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/0",
+            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "द्रव्यसंग्रह:टीका:14:पृष्ठ:46"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/0",
+            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "कार्तिकेयानुप्रेक्षा:टीका:गाथा:टीका:192"
           },
           "to": {
             "label": "Topic",
@@ -1963,8 +2169,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "द्रव्यसंग्रह:गाथा:14"
+            "label": "GathaTeeka",
+            "key": "द्रव्यसंग्रह:टीका:गाथा:टीका:14"
           },
           "to": {
             "label": "Topic",
@@ -2031,8 +2237,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "समाधिशतक:गाथा:4"
+            "label": "GathaTeeka",
+            "key": "समाधिशतक:टीका:गाथा:टीका:4"
           },
           "to": {
             "label": "Topic",
@@ -2049,8 +2255,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "परमात्मप्रकाश:गाथा:12"
+            "label": "GathaTeeka",
+            "key": "परमात्मप्रकाश:टीका:गाथा:टीका:12"
           },
           "to": {
             "label": "Topic",
@@ -2085,8 +2291,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "द्रव्यसंग्रह:गाथा:14"
+            "label": "GathaTeeka",
+            "key": "द्रव्यसंग्रह:टीका:गाथा:टीका:14"
           },
           "to": {
             "label": "Topic",
@@ -2211,8 +2417,8 @@
         {
           "type": "CONTAINS_DEFINITION",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:9"
+            "label": "GathaTeeka",
+            "key": "धवला:टीका:गाथा:टीका:9"
           },
           "to": {
             "label": "Keyword",
@@ -2311,8 +2517,8 @@
         {
           "type": "CONTAINS_DEFINITION",
           "from": {
-            "label": "Gatha",
-            "key": "द्रव्यसंग्रह:गाथा:57"
+            "label": "GathaTeeka",
+            "key": "द्रव्यसंग्रह:टीका:गाथा:टीका:57"
           },
           "to": {
             "label": "Keyword",

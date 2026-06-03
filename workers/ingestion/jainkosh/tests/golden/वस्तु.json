@@ -343,8 +343,8 @@
       "prev": "/wiki/%E0%A4%B5%E0%A4%B8%E0%A5%81%E0%A4%B8%E0%A5%87%E0%A4%A8",
       "next": "/wiki/%E0%A4%B5%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%81_%E0%A4%B5%E0%A4%BF%E0%A4%A6%E0%A5%8D%E0%A4%AF%E0%A4%BE"
     },
-    "parser_version": "jainkosh.rules/1.11.16",
-    "parsed_at": "2026-06-03T18:43:47.467468",
+    "parser_version": "jainkosh.rules/1.11.19",
+    "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
   "would_write": {
@@ -716,11 +716,54 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "कार्तिकेयानुप्रेक्षा:गाथा:225",
+          "label": "GathaTeeka",
+          "key": "कार्तिकेयानुप्रेक्षा:टीका:गाथा:टीका:225",
           "props": {
             "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
+            "teeka_natural_key": "कार्तिकेयानुप्रेक्षा:टीका",
             "gatha_number": "225"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "स्याद्वादमञ्जरी:टीका:गाथा:टीका:5",
+          "props": {
+            "shastra_natural_key": "स्याद्वादमञ्जरी",
+            "teeka_natural_key": "स्याद्वादमञ्जरी:टीका",
+            "gatha_number": "5"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "स्याद्वादमञ्जरी:टीका:publisher_to_be_added:पृष्ठ:30",
+          "props": {
+            "shastra_natural_key": "स्याद्वादमञ्जरी",
+            "teeka_natural_key": "स्याद्वादमञ्जरी:टीका",
+            "publisher_id": "publisher_to_be_added",
+            "page_number": "30"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "स्याद्वादमञ्जरी:टीका:गाथा:टीका:23",
+          "props": {
+            "shastra_natural_key": "स्याद्वादमञ्जरी",
+            "teeka_natural_key": "स्याद्वादमञ्जरी:टीका",
+            "gatha_number": "23"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "स्याद्वादमञ्जरी:टीका:publisher_to_be_added:पृष्ठ:272",
+          "props": {
+            "shastra_natural_key": "स्याद्वादमञ्जरी",
+            "teeka_natural_key": "स्याद्वादमञ्जरी:टीका",
+            "publisher_id": "publisher_to_be_added",
+            "page_number": "272"
           },
           "lazy": true
         },
@@ -737,8 +780,8 @@
         {
           "type": "CONTAINS_DEFINITION",
           "from": {
-            "label": "Gatha",
-            "key": "कार्तिकेयानुप्रेक्षा:गाथा:225"
+            "label": "GathaTeeka",
+            "key": "कार्तिकेयानुप्रेक्षा:टीका:गाथा:टीका:225"
           },
           "to": {
             "label": "Keyword",
@@ -767,6 +810,90 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "CONTAINS_DEFINITION",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "स्याद्वादमञ्जरी:टीका:गाथा:टीका:5"
+          },
+          "to": {
+            "label": "Keyword",
+            "key": "वस्तु"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 6,
+            "block_index": 3,
+            "mention_path": "0/1/3",
+            "source_natural_key": "वस्तु",
+            "section_index": 0,
+            "definition_index": 1
+          }
+        },
+        {
+          "type": "CONTAINS_DEFINITION",
+          "from": {
+            "label": "Page",
+            "key": "स्याद्वादमञ्जरी:टीका:publisher_to_be_added:पृष्ठ:30"
+          },
+          "to": {
+            "label": "Keyword",
+            "key": "वस्तु"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 6,
+            "block_index": 3,
+            "mention_path": "0/1/3",
+            "source_natural_key": "वस्तु",
+            "section_index": 0,
+            "definition_index": 1
+          }
+        },
+        {
+          "type": "CONTAINS_DEFINITION",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "स्याद्वादमञ्जरी:टीका:गाथा:टीका:23"
+          },
+          "to": {
+            "label": "Keyword",
+            "key": "वस्तु"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 6,
+            "block_index": 4,
+            "mention_path": "0/1/4",
+            "source_natural_key": "वस्तु",
+            "section_index": 0,
+            "definition_index": 1
+          }
+        },
+        {
+          "type": "CONTAINS_DEFINITION",
+          "from": {
+            "label": "Page",
+            "key": "स्याद्वादमञ्जरी:टीका:publisher_to_be_added:पृष्ठ:272"
+          },
+          "to": {
+            "label": "Keyword",
+            "key": "वस्तु"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 6,
+            "block_index": 4,
+            "mention_path": "0/1/4",
+            "source_natural_key": "वस्तु",
+            "section_index": 0,
+            "definition_index": 1
           }
         }
       ]

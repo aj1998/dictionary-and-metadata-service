@@ -93,6 +93,7 @@ class ShastraRegistry:
         self._by_primary: dict[str, ShastraEntry] = {}
         self._by_alternate: dict[str, ShastraEntry] = {}
         self._by_short_form: dict[str, ShastraEntry] = {}
+        self._by_exact_name: dict[str, ShastraEntry] = {}  # original shastra_name, no normalization
 
     @classmethod
     def load(
@@ -127,6 +128,7 @@ class ShastraRegistry:
             )
             registry.entries.append(entry)
             registry._by_primary[_normalise(entry.shastra_name, norm_config)] = entry
+            registry._by_exact_name[entry.shastra_name] = entry
             for alt in entry.alternate_names:
                 key = _normalise(alt, norm_config)
                 if key in registry._by_alternate:
@@ -141,8 +143,14 @@ class ShastraRegistry:
         return registry
 
     def get_type(self, shastra_name: str) -> Optional[str]:
-        """Return raw 'type' field of registry entry; None if missing."""
-        entry = self._by_primary.get(shastra_name)
+        """Return raw 'type' field of registry entry; None if missing.
+
+        Looks up by exact shastra_name first (for multi-word names with spaces
+        that _by_primary normalises away), then by normalised key.
+        """
+        entry = self._by_exact_name.get(shastra_name)
+        if entry is None:
+            entry = self._by_primary.get(shastra_name)
         if entry is None:
             return None
         return entry.type if entry.type else None

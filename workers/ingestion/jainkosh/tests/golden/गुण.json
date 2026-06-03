@@ -814,7 +814,7 @@
                             "value": 34
                           },
                           {
-                            "field": "सूत्र",
+                            "field": "राजवार्तिकसूत्र",
                             "value": 2
                           },
                           {
@@ -954,7 +954,7 @@
                             "value": 11
                           },
                           {
-                            "field": "सूत्र",
+                            "field": "राजवार्तिकसूत्र",
                             "value": 6
                           },
                           {
@@ -1404,7 +1404,7 @@
                             "value": 34
                           },
                           {
-                            "field": "सूत्र",
+                            "field": "राजवार्तिकसूत्र",
                             "value": 2
                           },
                           {
@@ -2028,7 +2028,7 @@
                             "value": 24
                           },
                           {
-                            "field": "सूत्र",
+                            "field": "राजवार्तिकसूत्र",
                             "value": 25
                           },
                           {
@@ -4282,8 +4282,8 @@
       "prev": "/wiki/%E0%A4%97%E0%A5%80%E0%A4%A4%E0%A4%97%E0%A5%8B%E0%A4%B7%E0%A5%8D%E0%A4%A0%E0%A5%80",
       "next": "/wiki/Aaaa"
     },
-    "parser_version": "jainkosh.rules/1.11.16",
-    "parsed_at": "2026-06-03T18:43:46.963362",
+    "parser_version": "jainkosh.rules/1.11.19",
+    "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
   "would_write": {
@@ -5723,7 +5723,7 @@
                       "value": 34
                     },
                     {
-                      "field": "सूत्र",
+                      "field": "राजवार्तिकसूत्र",
                       "value": 2
                     },
                     {
@@ -5863,7 +5863,7 @@
                       "value": 11
                     },
                     {
-                      "field": "सूत्र",
+                      "field": "राजवार्तिकसूत्र",
                       "value": 6
                     },
                     {
@@ -6314,7 +6314,7 @@
                       "value": 34
                     },
                     {
-                      "field": "सूत्र",
+                      "field": "राजवार्तिकसूत्र",
                       "value": 2
                     },
                     {
@@ -6943,7 +6943,7 @@
                       "value": 24
                     },
                     {
-                      "field": "सूत्र",
+                      "field": "राजवार्तिकसूत्र",
                       "value": 25
                     },
                     {
@@ -9427,10 +9427,11 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "सर्वार्थसिद्धि:गाथा:38",
+          "label": "GathaTeeka",
+          "key": "सर्वार्थसिद्धि:टीका:गाथा:टीका:38",
           "props": {
             "shastra_natural_key": "सर्वार्थसिद्धि",
+            "teeka_natural_key": "सर्वार्थसिद्धि:टीका",
             "gatha_number": "38"
           },
           "lazy": true
@@ -9447,11 +9448,43 @@
           "lazy": true
         },
         {
-          "label": "Gatha",
-          "key": "आलापपद्धति:गाथा:6",
+          "label": "GathaTeeka",
+          "key": "आलापपद्धति:टीका:गाथा:टीका:6",
           "props": {
             "shastra_natural_key": "आलापपद्धति",
+            "teeka_natural_key": "आलापपद्धति:टीका",
             "gatha_number": "6"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "न्यायदीपिका:टीका:publisher_to_be_added:पृष्ठ:121",
+          "props": {
+            "shastra_natural_key": "न्यायदीपिका",
+            "teeka_natural_key": "न्यायदीपिका:टीका",
+            "publisher_id": "publisher_to_be_added",
+            "page_number": "121"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "पंचाध्यायी/पूर्वार्ध:टीका:गाथा:टीका:48",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/पूर्वार्ध",
+            "teeka_natural_key": "पंचाध्यायी/पूर्वार्ध:टीका",
+            "gatha_number": "48"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "पंचाध्यायी/उत्तरार्ध:टीका:गाथा:टीका:478",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/उत्तरार्ध",
+            "teeka_natural_key": "पंचाध्यायी/उत्तरार्ध:टीका",
+            "gatha_number": "478"
           },
           "lazy": true
         },
@@ -9468,11 +9501,39 @@
         },
         {
           "label": "GathaTeeka",
+          "key": "नयचक्र बृहद्:टीका:गाथा:टीका:11",
+          "props": {
+            "shastra_natural_key": "नयचक्र बृहद्",
+            "teeka_natural_key": "नयचक्र बृहद्:टीका",
+            "gatha_number": "11"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
           "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:95",
           "props": {
             "shastra_natural_key": "प्रवचनसार",
             "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
             "gatha_number": "95"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "पंचाध्यायी/पूर्वार्ध:गाथा:160",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/पूर्वार्ध",
+            "gatha_number": "160"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "पंचाध्यायी/पूर्वार्ध:गाथा:161",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/पूर्वार्ध",
+            "gatha_number": "161"
           },
           "lazy": true
         },
@@ -9563,15 +9624,6 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "राजवार्तिक:गाथा:2",
-          "props": {
-            "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "2"
-          },
-          "lazy": true
-        },
-        {
           "label": "Page",
           "key": "राजवार्तिक:टीका:18:पृष्ठ:498",
           "props": {
@@ -9584,9 +9636,30 @@
         },
         {
           "label": "Gatha",
-          "key": "धवला:गाथा:104",
+          "key": "भगवती आराधना:गाथा:7",
+          "props": {
+            "shastra_natural_key": "भगवती आराधना",
+            "gatha_number": "7"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "भगवती आराधना:विजयोदया टीका:publisher_to_be_added:पृष्ठ:37",
+          "props": {
+            "shastra_natural_key": "भगवती आराधना",
+            "teeka_natural_key": "भगवती आराधना:विजयोदया टीका",
+            "publisher_id": "publisher_to_be_added",
+            "page_number": "37"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "धवला:टीका:गाथा:टीका:104",
           "props": {
             "shastra_natural_key": "धवला",
+            "teeka_natural_key": "धवला:टीका",
             "gatha_number": "104"
           },
           "lazy": true
@@ -9604,10 +9677,21 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:गाथा:6",
+          "key": "गोम्मटसार कर्मकाण्ड:गाथा:812",
           "props": {
-            "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "6"
+            "shastra_natural_key": "गोम्मटसार कर्मकाण्ड",
+            "gatha_number": "812"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "गोम्मटसार कर्मकाण्ड:टीका:publisher_to_be_added:पृष्ठ:987",
+          "props": {
+            "shastra_natural_key": "गोम्मटसार कर्मकाण्ड",
+            "teeka_natural_key": "गोम्मटसार कर्मकाण्ड:टीका",
+            "publisher_id": "publisher_to_be_added",
+            "page_number": "987"
           },
           "lazy": true
         },
@@ -9634,11 +9718,22 @@
           "lazy": true
         },
         {
-          "label": "Gatha",
-          "key": "धवला:गाथा:103",
+          "label": "GathaTeeka",
+          "key": "धवला:टीका:गाथा:टीका:103",
           "props": {
             "shastra_natural_key": "धवला",
+            "teeka_natural_key": "धवला:टीका",
             "gatha_number": "103"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "वसुनन्दि श्रावकाचार:टीका:गाथा:टीका:513",
+          "props": {
+            "shastra_natural_key": "वसुनन्दि श्रावकाचार",
+            "teeka_natural_key": "वसुनन्दि श्रावकाचार:टीका",
+            "gatha_number": "513"
           },
           "lazy": true
         },
@@ -9655,9 +9750,46 @@
         },
         {
           "label": "Gatha",
-          "key": "सर्वार्थसिद्धि:गाथा:35",
+          "key": "तत्त्वार्थ सूत्र:गाथा:33",
+          "props": {
+            "shastra_natural_key": "तत्त्वार्थ सूत्र",
+            "gatha_number": "33"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "तत्त्वार्थ सूत्र:गाथा:34",
+          "props": {
+            "shastra_natural_key": "तत्त्वार्थ सूत्र",
+            "gatha_number": "34"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "तत्त्वार्थ सूत्र:गाथा:35",
+          "props": {
+            "shastra_natural_key": "तत्त्वार्थ सूत्र",
+            "gatha_number": "35"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "तत्त्वार्थ सूत्र:गाथा:36",
+          "props": {
+            "shastra_natural_key": "तत्त्वार्थ सूत्र",
+            "gatha_number": "36"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "सर्वार्थसिद्धि:टीका:गाथा:टीका:35",
           "props": {
             "shastra_natural_key": "सर्वार्थसिद्धि",
+            "teeka_natural_key": "सर्वार्थसिद्धि:टीका",
             "gatha_number": "35"
           },
           "lazy": true
@@ -9674,10 +9806,11 @@
           "lazy": true
         },
         {
-          "label": "Gatha",
-          "key": "धवला:गाथा:5",
+          "label": "GathaTeeka",
+          "key": "धवला:टीका:गाथा:टीका:5",
           "props": {
             "shastra_natural_key": "धवला",
+            "teeka_natural_key": "धवला:टीका",
             "gatha_number": "5"
           },
           "lazy": true
@@ -9716,10 +9849,11 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "धवला:गाथा:6",
+          "label": "GathaTeeka",
+          "key": "धवला:टीका:गाथा:टीका:6",
           "props": {
             "shastra_natural_key": "धवला",
+            "teeka_natural_key": "धवला:टीका",
             "gatha_number": "6"
           },
           "lazy": true
@@ -9736,11 +9870,32 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "धवला:गाथा:7",
+          "label": "GathaTeeka",
+          "key": "धवला:टीका:गाथा:टीका:7",
           "props": {
             "shastra_natural_key": "धवला",
+            "teeka_natural_key": "धवला:टीका",
             "gatha_number": "7"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "पंचाध्यायी/पूर्वार्ध:टीका:गाथा:टीका:56",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/पूर्वार्ध",
+            "teeka_natural_key": "पंचाध्यायी/पूर्वार्ध:टीका",
+            "gatha_number": "56"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "पंचाध्यायी/पूर्वार्ध:टीका:गाथा:टीका:59",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/पूर्वार्ध",
+            "teeka_natural_key": "पंचाध्यायी/पूर्वार्ध:टीका",
+            "gatha_number": "59"
           },
           "lazy": true
         },
@@ -9778,15 +9933,6 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "राजवार्तिक:गाथा:25",
-          "props": {
-            "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "25"
-          },
-          "lazy": true
-        },
-        {
           "label": "Page",
           "key": "राजवार्तिक:टीका:18:पृष्ठ:490",
           "props": {
@@ -9809,6 +9955,26 @@
           }
         },
         {
+          "label": "GathaTeeka",
+          "key": "पंचाध्यायी/उत्तरार्ध:टीका:गाथा:टीका:1012",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/उत्तरार्ध",
+            "teeka_natural_key": "पंचाध्यायी/उत्तरार्ध:टीका",
+            "gatha_number": "1012"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "पंचाध्यायी/उत्तरार्ध:टीका:गाथा:टीका:1013",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/उत्तरार्ध",
+            "teeka_natural_key": "पंचाध्यायी/उत्तरार्ध:टीका",
+            "gatha_number": "1013"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "गुण:गुण-निर्देश:गुणों-में-परस्पर-कथंचित्-भेदाभेद",
           "props": {
@@ -9818,6 +9984,26 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "पंचाध्यायी/पूर्वार्ध:टीका:गाथा:टीका:51",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/पूर्वार्ध",
+            "teeka_natural_key": "पंचाध्यायी/पूर्वार्ध:टीका",
+            "gatha_number": "51"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "पंचाध्यायी/पूर्वार्ध:टीका:गाथा:टीका:52",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/पूर्वार्ध",
+            "teeka_natural_key": "पंचाध्यायी/पूर्वार्ध:टीका",
+            "gatha_number": "52"
+          },
+          "lazy": true
         },
         {
           "label": "Topic",
@@ -9831,6 +10017,26 @@
           }
         },
         {
+          "label": "GathaTeeka",
+          "key": "पंचाध्यायी/उत्तरार्ध:टीका:गाथा:टीका:392",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/उत्तरार्ध",
+            "teeka_natural_key": "पंचाध्यायी/उत्तरार्ध:टीका",
+            "gatha_number": "392"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "पंचाध्यायी/उत्तरार्ध:टीका:गाथा:टीका:395",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/उत्तरार्ध",
+            "teeka_natural_key": "पंचाध्यायी/उत्तरार्ध:टीका",
+            "gatha_number": "395"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "गुण:गुण-निर्देश:सामान्य-गुण-द्रव्य-के-पारिणामिक-भाव-हैं",
           "props": {
@@ -9842,10 +10048,11 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "सर्वार्थसिद्धि:गाथा:7",
+          "label": "GathaTeeka",
+          "key": "सर्वार्थसिद्धि:टीका:गाथा:टीका:7",
           "props": {
             "shastra_natural_key": "सर्वार्थसिद्धि",
+            "teeka_natural_key": "सर्वार्थसिद्धि:टीका",
             "gatha_number": "7"
           },
           "lazy": true
@@ -9883,6 +10090,16 @@
           "lazy": true
         },
         {
+          "label": "GathaTeeka",
+          "key": "पंचाध्यायी/पूर्वार्ध:टीका:गाथा:टीका:162",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/पूर्वार्ध",
+            "teeka_natural_key": "पंचाध्यायी/पूर्वार्ध:टीका",
+            "gatha_number": "162"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "गुण:द्रव्य-गुण-संबंध",
           "props": {
@@ -9905,6 +10122,16 @@
           }
         },
         {
+          "label": "GathaTeeka",
+          "key": "पंचाध्यायी/पूर्वार्ध:टीका:गाथा:टीका:38",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/पूर्वार्ध",
+            "teeka_natural_key": "पंचाध्यायी/पूर्वार्ध:टीका",
+            "gatha_number": "38"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-सहभावी-विशेष-हैं",
           "props": {
@@ -9917,31 +10144,18 @@
         },
         {
           "label": "Gatha",
-          "key": "परमात्मप्रकाश:गाथा:57",
-          "props": {
-            "shastra_natural_key": "परमात्मप्रकाश",
-            "gatha_number": "57"
-          },
-          "lazy": true
-        },
-        {
-          "label": "GathaTeekaBhaavarth",
-          "key": "पंचास्तिकाय:तत्त्वप्रदीपिका:17:गाथा:टीका:भावार्थ:6",
+          "key": "पंचास्तिकाय:गाथा:6",
           "props": {
             "shastra_natural_key": "पंचास्तिकाय",
-            "teeka_natural_key": "पंचास्तिकाय:तत्त्वप्रदीपिका",
-            "publisher_id": "17",
             "gatha_number": "6"
           },
           "lazy": true
         },
         {
-          "label": "GathaTeekaBhaavarth",
-          "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:गाथा:टीका:भावार्थ:5",
+          "label": "Gatha",
+          "key": "पंचास्तिकाय:गाथा:5",
           "props": {
             "shastra_natural_key": "पंचास्तिकाय",
-            "teeka_natural_key": "पंचास्तिकाय:तात्पर्यवृत्ति",
-            "publisher_id": "17",
             "gatha_number": "5"
           },
           "lazy": true
@@ -9958,12 +10172,10 @@
           "lazy": true
         },
         {
-          "label": "GathaTeekaBhaavarth",
-          "key": "प्रवचनसार:तात्पर्यवृत्ति:publisher_to_be_added:गाथा:टीका:भावार्थ:93",
+          "label": "Gatha",
+          "key": "प्रवचनसार:गाथा:93",
           "props": {
             "shastra_natural_key": "प्रवचनसार",
-            "teeka_natural_key": "प्रवचनसार:तात्पर्यवृत्ति",
-            "publisher_id": "publisher_to_be_added",
             "gatha_number": "93"
           },
           "lazy": true
@@ -9980,11 +10192,10 @@
           "lazy": true
         },
         {
-          "label": "GathaTeeka",
-          "key": "नियमसार:तात्पर्यवृत्ति:गाथा:टीका:107",
+          "label": "Gatha",
+          "key": "नियमसार:गाथा:107",
           "props": {
             "shastra_natural_key": "नियमसार",
-            "teeka_natural_key": "नियमसार:तात्पर्यवृत्ति",
             "gatha_number": "107"
           },
           "lazy": true
@@ -9995,6 +10206,15 @@
           "props": {
             "shastra_natural_key": "तत्त्वानुशासन",
             "gatha_number": "114"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "पंचाध्यायी/पूर्वार्ध:गाथा:138",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/पूर्वार्ध",
+            "gatha_number": "138"
           },
           "lazy": true
         },
@@ -10031,12 +10251,10 @@
           "lazy": true
         },
         {
-          "label": "GathaTeekaBhaavarth",
-          "key": "परमात्मप्रकाश:टीका:23:गाथा:टीका:भावार्थ:57",
+          "label": "Gatha",
+          "key": "परमात्मप्रकाश:गाथा:57",
           "props": {
             "shastra_natural_key": "परमात्मप्रकाश",
-            "teeka_natural_key": "परमात्मप्रकाश:टीका",
-            "publisher_id": "23",
             "gatha_number": "57"
           },
           "lazy": true
@@ -10063,6 +10281,15 @@
           }
         },
         {
+          "label": "Gatha",
+          "key": "तत्त्वार्थ सूत्र:गाथा:41",
+          "props": {
+            "shastra_natural_key": "तत्त्वार्थ सूत्र",
+            "gatha_number": "41"
+          },
+          "lazy": true
+        },
+        {
           "label": "GathaTeeka",
           "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:130",
           "props": {
@@ -10073,12 +10300,10 @@
           "lazy": true
         },
         {
-          "label": "GathaTeekaBhaavarth",
-          "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:87",
+          "label": "Gatha",
+          "key": "प्रवचनसार:गाथा:87",
           "props": {
             "shastra_natural_key": "प्रवचनसार",
-            "teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका",
-            "publisher_id": "publisher_to_be_added",
             "gatha_number": "87"
           },
           "lazy": true
@@ -10095,6 +10320,79 @@
           }
         },
         {
+          "label": "Gatha",
+          "key": "नयचक्र बृहद्:गाथा:12",
+          "props": {
+            "shastra_natural_key": "नयचक्र बृहद्",
+            "gatha_number": "12"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "नयचक्र बृहद्:गाथा:13",
+          "props": {
+            "shastra_natural_key": "नयचक्र बृहद्",
+            "gatha_number": "13"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "नयचक्र बृहद्:गाथा:14",
+          "props": {
+            "shastra_natural_key": "नयचक्र बृहद्",
+            "gatha_number": "14"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "नयचक्र बृहद्:गाथा:15",
+          "props": {
+            "shastra_natural_key": "नयचक्र बृहद्",
+            "gatha_number": "15"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "नयचक्र बृहद्:गाथा:16",
+          "props": {
+            "shastra_natural_key": "नयचक्र बृहद्",
+            "gatha_number": "16"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "नयचक्र बृहद्:टीका:गाथा:टीका:16",
+          "props": {
+            "shastra_natural_key": "नयचक्र बृहद्",
+            "teeka_natural_key": "नयचक्र बृहद्:टीका",
+            "gatha_number": "16"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "आलापपद्धति:गाथा:2",
+          "props": {
+            "shastra_natural_key": "आलापपद्धति",
+            "gatha_number": "2"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "परमात्मप्रकाश:गाथा:58",
+          "props": {
+            "shastra_natural_key": "परमात्मप्रकाश",
+            "gatha_number": "58"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-विशेष-गुणों-के-नाम-निर्देश",
           "props": {
@@ -10104,6 +10402,26 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "नयचक्र बृहद्:टीका:गाथा:टीका:13",
+          "props": {
+            "shastra_natural_key": "नयचक्र बृहद्",
+            "teeka_natural_key": "नयचक्र बृहद्:टीका",
+            "gatha_number": "13"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "नयचक्र बृहद्:टीका:गाथा:टीका:15",
+          "props": {
+            "shastra_natural_key": "नयचक्र बृहद्",
+            "teeka_natural_key": "नयचक्र बृहद्:टीका",
+            "gatha_number": "15"
+          },
+          "lazy": true
         },
         {
           "label": "Topic",
@@ -10126,6 +10444,26 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "पंचाध्यायी/उत्तरार्ध:टीका:गाथा:टीका:74",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/उत्तरार्ध",
+            "teeka_natural_key": "पंचाध्यायी/उत्तरार्ध:टीका",
+            "gatha_number": "74"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "पंचाध्यायी/उत्तरार्ध:टीका:गाथा:टीका:379",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/उत्तरार्ध",
+            "teeka_natural_key": "पंचाध्यायी/उत्तरार्ध:टीका",
+            "gatha_number": "379"
+          },
+          "lazy": true
         },
         {
           "label": "GathaTeeka",
@@ -10182,10 +10520,21 @@
           "lazy": true
         },
         {
-          "label": "Gatha",
-          "key": "लब्धिसार:गाथा:1",
+          "label": "GathaTeeka",
+          "key": "नयचक्र बृहद्:टीका:गाथा:टीका:69",
+          "props": {
+            "shastra_natural_key": "नयचक्र बृहद्",
+            "teeka_natural_key": "नयचक्र बृहद्:टीका",
+            "gatha_number": "69"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "लब्धिसार:टीका:गाथा:टीका:1",
           "props": {
             "shastra_natural_key": "लब्धिसार",
+            "teeka_natural_key": "लब्धिसार:टीका",
             "gatha_number": "1"
           },
           "lazy": true
@@ -10219,6 +10568,35 @@
             "teeka_natural_key": "कार्तिकेयानुप्रेक्षा:टीका",
             "publisher_id": "23",
             "page_number": "156"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "पंचाध्यायी/पूर्वार्ध:टीका:गाथा:टीका:49",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/पूर्वार्ध",
+            "teeka_natural_key": "पंचाध्यायी/पूर्वार्ध:टीका",
+            "gatha_number": "49"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "पंचाध्यायी/पूर्वार्ध:गाथा:52",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/पूर्वार्ध",
+            "gatha_number": "52"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "पंचाध्यायी/उत्तरार्ध:टीका:गाथा:टीका:1014",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/उत्तरार्ध",
+            "teeka_natural_key": "पंचाध्यायी/उत्तरार्ध:टीका",
+            "gatha_number": "1014"
           },
           "lazy": true
         },
@@ -10264,6 +10642,16 @@
           "lazy": true
         },
         {
+          "label": "GathaTeeka",
+          "key": "पंचाध्यायी/उत्तरार्ध:टीका:गाथा:टीका:943",
+          "props": {
+            "shastra_natural_key": "पंचाध्यायी/उत्तरार्ध",
+            "teeka_natural_key": "पंचाध्यायी/उत्तरार्ध:टीका",
+            "gatha_number": "943"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "गुण:द्रव्य-गुण-संबंध:गुणों-के-अनंतत्व-विषयक-शंका-व-समन्वय",
           "props": {
@@ -10297,10 +10685,11 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "प्रवचनसार:गाथा:131",
+          "label": "GathaTeeka",
+          "key": "प्रवचनसार:टीका:गाथा:टीका:131",
           "props": {
             "shastra_natural_key": "प्रवचनसार",
+            "teeka_natural_key": "प्रवचनसार:टीका",
             "gatha_number": "131"
           },
           "lazy": true
@@ -10537,8 +10926,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "सर्वार्थसिद्धि:गाथा:38"
+            "label": "GathaTeeka",
+            "key": "सर्वार्थसिद्धि:टीका:गाथा:टीका:38"
           },
           "to": {
             "label": "Topic",
@@ -10573,8 +10962,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "आलापपद्धति:गाथा:6"
+            "label": "GathaTeeka",
+            "key": "आलापपद्धति:टीका:गाथा:टीका:6"
           },
           "to": {
             "label": "Topic",
@@ -10585,6 +10974,60 @@
             "source": "jainkosh",
             "block_index": 1,
             "mention_path": "गुण:गुण-के-भेद-व-लक्षण:गुण-सामान्य-का-लक्षण/1",
+            "source_natural_key": "गुण:गुण-के-भेद-व-लक्षण:गुण-सामान्य-का-लक्षण"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "न्यायदीपिका:टीका:publisher_to_be_added:पृष्ठ:121"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-के-भेद-व-लक्षण:गुण-सामान्य-का-लक्षण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "गुण:गुण-के-भेद-व-लक्षण:गुण-सामान्य-का-लक्षण/2",
+            "source_natural_key": "गुण:गुण-के-भेद-व-लक्षण:गुण-सामान्य-का-लक्षण"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचाध्यायी/पूर्वार्ध:टीका:गाथा:टीका:48"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-के-भेद-व-लक्षण:गुण-सामान्य-का-लक्षण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 3,
+            "mention_path": "गुण:गुण-के-भेद-व-लक्षण:गुण-सामान्य-का-लक्षण/3",
+            "source_natural_key": "गुण:गुण-के-भेद-व-लक्षण:गुण-सामान्य-का-लक्षण"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचाध्यायी/उत्तरार्ध:टीका:गाथा:टीका:478"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-के-भेद-व-लक्षण:गुण-सामान्य-का-लक्षण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 4,
+            "mention_path": "गुण:गुण-के-भेद-व-लक्षण:गुण-सामान्य-का-लक्षण/4",
             "source_natural_key": "गुण:गुण-के-भेद-व-लक्षण:गुण-सामान्य-का-लक्षण"
           }
         },
@@ -10607,7 +11050,61 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
+            "key": "नयचक्र बृहद्:टीका:गाथा:टीका:11"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद/0",
+            "source_natural_key": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
             "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:95"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद/1",
+            "source_natural_key": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "पंचाध्यायी/पूर्वार्ध:गाथा:160"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद/1",
+            "source_natural_key": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "पंचाध्यायी/पूर्वार्ध:गाथा:161"
           },
           "to": {
             "label": "Topic",
@@ -10798,25 +11295,6 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "राजवार्तिक:गाथा:2"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "pankti": 17,
-            "block_index": 0,
-            "mention_path": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग/0",
-            "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
             "label": "Page",
             "key": "राजवार्तिक:टीका:18:पृष्ठ:498"
           },
@@ -10837,7 +11315,45 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "धवला:गाथा:104"
+            "key": "भगवती आराधना:गाथा:7"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 4,
+            "block_index": 0,
+            "mention_path": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग/0",
+            "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "भगवती आराधना:विजयोदया टीका:publisher_to_be_added:पृष्ठ:37"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 4,
+            "block_index": 0,
+            "mention_path": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग/0",
+            "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "धवला:टीका:गाथा:टीका:104"
           },
           "to": {
             "label": "Topic",
@@ -10873,7 +11389,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:गाथा:6"
+            "key": "गोम्मटसार कर्मकाण्ड:गाथा:812"
           },
           "to": {
             "label": "Topic",
@@ -10882,9 +11398,26 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "pankti": 25,
-            "block_index": 2,
-            "mention_path": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग/2",
+            "block_index": 1,
+            "mention_path": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग/1",
+            "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "गोम्मटसार कर्मकाण्ड:टीका:publisher_to_be_added:पृष्ठ:987"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग/1",
             "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
           }
         },
@@ -10929,8 +11462,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:103"
+            "label": "GathaTeeka",
+            "key": "धवला:टीका:गाथा:टीका:103"
           },
           "to": {
             "label": "Topic",
@@ -10965,8 +11498,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:103"
+            "label": "GathaTeeka",
+            "key": "धवला:टीका:गाथा:टीका:103"
           },
           "to": {
             "label": "Topic",
@@ -11017,6 +11550,24 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "वसुनन्दि श्रावकाचार:टीका:गाथा:टीका:513"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 7,
+            "mention_path": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग/7",
+            "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -11035,7 +11586,79 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "सर्वार्थसिद्धि:गाथा:35"
+            "key": "तत्त्वार्थ सूत्र:गाथा:33"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग/0",
+            "source_natural_key": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "तत्त्वार्थ सूत्र:गाथा:34"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग/1",
+            "source_natural_key": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "तत्त्वार्थ सूत्र:गाथा:35"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग/2",
+            "source_natural_key": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "तत्त्वार्थ सूत्र:गाथा:36"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 3,
+            "mention_path": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग/3",
+            "source_natural_key": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "सर्वार्थसिद्धि:टीका:गाथा:टीका:35"
           },
           "to": {
             "label": "Topic",
@@ -11072,25 +11695,6 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "राजवार्तिक:गाथा:2"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "pankti": 21,
-            "block_index": 5,
-            "mention_path": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग/5",
-            "source_natural_key": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
             "label": "Page",
             "key": "राजवार्तिक:टीका:18:पृष्ठ:498"
           },
@@ -11110,8 +11714,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:5"
+            "label": "GathaTeeka",
+            "key": "धवला:टीका:गाथा:टीका:5"
           },
           "to": {
             "label": "Topic",
@@ -11146,8 +11750,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:5"
+            "label": "GathaTeeka",
+            "key": "धवला:टीका:गाथा:टीका:5"
           },
           "to": {
             "label": "Topic",
@@ -11197,8 +11801,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:6"
+            "label": "GathaTeeka",
+            "key": "धवला:टीका:गाथा:टीका:6"
           },
           "to": {
             "label": "Topic",
@@ -11248,8 +11852,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:7"
+            "label": "GathaTeeka",
+            "key": "धवला:टीका:गाथा:टीका:7"
           },
           "to": {
             "label": "Topic",
@@ -11278,6 +11882,60 @@
             "source": "jainkosh",
             "block_index": 0,
             "mention_path": "गुण:गुण-निर्देश:उपरोक्त-खंड-कल्पना-में-हेतु-तथा-भेदअभेद-समन्वय/0",
+            "source_natural_key": "गुण:गुण-निर्देश:उपरोक्त-खंड-कल्पना-में-हेतु-तथा-भेदअभेद-समन्वय"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "तत्त्वार्थ सूत्र:गाथा:34"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:उपरोक्त-खंड-कल्पना-में-हेतु-तथा-भेदअभेद-समन्वय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:गुण-निर्देश:उपरोक्त-खंड-कल्पना-में-हेतु-तथा-भेदअभेद-समन्वय/0",
+            "source_natural_key": "गुण:गुण-निर्देश:उपरोक्त-खंड-कल्पना-में-हेतु-तथा-भेदअभेद-समन्वय"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचाध्यायी/पूर्वार्ध:टीका:गाथा:टीका:56"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:उपरोक्त-खंड-कल्पना-में-हेतु-तथा-भेदअभेद-समन्वय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "गुण:गुण-निर्देश:उपरोक्त-खंड-कल्पना-में-हेतु-तथा-भेदअभेद-समन्वय/1",
+            "source_natural_key": "गुण:गुण-निर्देश:उपरोक्त-खंड-कल्पना-में-हेतु-तथा-भेदअभेद-समन्वय"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचाध्यायी/पूर्वार्ध:टीका:गाथा:टीका:59"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:उपरोक्त-खंड-कल्पना-में-हेतु-तथा-भेदअभेद-समन्वय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "गुण:गुण-निर्देश:उपरोक्त-खंड-कल्पना-में-हेतु-तथा-भेदअभेद-समन्वय/2",
             "source_natural_key": "गुण:गुण-निर्देश:उपरोक्त-खंड-कल्पना-में-हेतु-तथा-भेदअभेद-समन्वय"
           }
         },
@@ -11347,25 +12005,6 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "राजवार्तिक:गाथा:25"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "गुण:गुण-निर्देश:परिणमन-करे-पर-गुणांतर-रूप-नहीं-हो-सकता"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "pankti": 28,
-            "block_index": 0,
-            "mention_path": "गुण:गुण-निर्देश:परिणमन-करे-पर-गुणांतर-रूप-नहीं-हो-सकता/0",
-            "source_natural_key": "गुण:गुण-निर्देश:परिणमन-करे-पर-गुणांतर-रूप-नहीं-हो-सकता"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
             "label": "Page",
             "key": "राजवार्तिक:टीका:18:पृष्ठ:490"
           },
@@ -11398,6 +12037,42 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचाध्यायी/उत्तरार्ध:टीका:गाथा:टीका:1012"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:प्रत्येक-गुण-अपनेअपने-रूप-से-पूर्ण-स्वतंत्र-है"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:गुण-निर्देश:प्रत्येक-गुण-अपनेअपने-रूप-से-पूर्ण-स्वतंत्र-है/0",
+            "source_natural_key": "गुण:गुण-निर्देश:प्रत्येक-गुण-अपनेअपने-रूप-से-पूर्ण-स्वतंत्र-है"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचाध्यायी/उत्तरार्ध:टीका:गाथा:टीका:1013"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:प्रत्येक-गुण-अपनेअपने-रूप-से-पूर्ण-स्वतंत्र-है"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "गुण:गुण-निर्देश:प्रत्येक-गुण-अपनेअपने-रूप-से-पूर्ण-स्वतंत्र-है/1",
+            "source_natural_key": "गुण:गुण-निर्देश:प्रत्येक-गुण-अपनेअपने-रूप-से-पूर्ण-स्वतंत्र-है"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -11413,6 +12088,42 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचाध्यायी/पूर्वार्ध:टीका:गाथा:टीका:51"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:गुणों-में-परस्पर-कथंचित्-भेदाभेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:गुण-निर्देश:गुणों-में-परस्पर-कथंचित्-भेदाभेद/0",
+            "source_natural_key": "गुण:गुण-निर्देश:गुणों-में-परस्पर-कथंचित्-भेदाभेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचाध्यायी/पूर्वार्ध:टीका:गाथा:टीका:52"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:गुणों-में-परस्पर-कथंचित्-भेदाभेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "गुण:गुण-निर्देश:गुणों-में-परस्पर-कथंचित्-भेदाभेद/1",
+            "source_natural_key": "गुण:गुण-निर्देश:गुणों-में-परस्पर-कथंचित्-भेदाभेद"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -11425,6 +12136,42 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचाध्यायी/उत्तरार्ध:टीका:गाथा:टीका:392"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:ज्ञान-के-अतिरिक्त-सर्व-गुण-निर्विकल्प-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:गुण-निर्देश:ज्ञान-के-अतिरिक्त-सर्व-गुण-निर्विकल्प-हैं/0",
+            "source_natural_key": "गुण:गुण-निर्देश:ज्ञान-के-अतिरिक्त-सर्व-गुण-निर्विकल्प-हैं"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचाध्यायी/उत्तरार्ध:टीका:गाथा:टीका:395"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:ज्ञान-के-अतिरिक्त-सर्व-गुण-निर्विकल्प-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "गुण:गुण-निर्देश:ज्ञान-के-अतिरिक्त-सर्व-गुण-निर्विकल्प-हैं/1",
+            "source_natural_key": "गुण:गुण-निर्देश:ज्ञान-के-अतिरिक्त-सर्व-गुण-निर्विकल्प-हैं"
           }
         },
         {
@@ -11445,8 +12192,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "सर्वार्थसिद्धि:गाथा:7"
+            "label": "GathaTeeka",
+            "key": "सर्वार्थसिद्धि:टीका:गाथा:टीका:7"
           },
           "to": {
             "label": "Topic",
@@ -11514,6 +12261,24 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचाध्यायी/पूर्वार्ध:टीका:गाथा:टीका:162"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:सामान्य-व-विशेष-गुणों-का-प्रयोजन"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "गुण:गुण-निर्देश:सामान्य-व-विशेष-गुणों-का-प्रयोजन/1",
+            "source_natural_key": "गुण:गुण-निर्देश:सामान्य-व-विशेष-गुणों-का-प्रयोजन"
+          }
+        },
+        {
           "type": "HAS_TOPIC",
           "from": {
             "label": "Keyword",
@@ -11544,6 +12309,24 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचाध्यायी/पूर्वार्ध:टीका:गाथा:टीका:38"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:गुण-वस्तु-के-विशेष-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:गुण-वस्तु-के-विशेष-हैं/0",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:गुण-वस्तु-के-विशेष-हैं"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -11561,8 +12344,26 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
+            "label": "GathaTeeka",
+            "key": "परमात्मप्रकाश:टीका:गाथा:टीका:57"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-सहभावी-विशेष-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-सहभावी-विशेष-हैं/0",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-सहभावी-विशेष-हैं"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
             "label": "Gatha",
-            "key": "परमात्मप्रकाश:गाथा:57"
+            "key": "पंचास्तिकाय:गाथा:6"
           },
           "to": {
             "label": "Topic",
@@ -11579,26 +12380,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeekaBhaavarth",
-            "key": "पंचास्तिकाय:तत्त्वप्रदीपिका:17:गाथा:टीका:भावार्थ:6"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-सहभावी-विशेष-हैं"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-सहभावी-विशेष-हैं/0",
-            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-सहभावी-विशेष-हैं"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "GathaTeekaBhaavarth",
-            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:गाथा:टीका:भावार्थ:5"
+            "label": "Gatha",
+            "key": "पंचास्तिकाय:गाथा:5"
           },
           "to": {
             "label": "Topic",
@@ -11635,8 +12418,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeekaBhaavarth",
-            "key": "प्रवचनसार:तात्पर्यवृत्ति:publisher_to_be_added:गाथा:टीका:भावार्थ:93"
+            "label": "Gatha",
+            "key": "प्रवचनसार:गाथा:93"
           },
           "to": {
             "label": "Topic",
@@ -11673,8 +12456,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "नियमसार:तात्पर्यवृत्ति:गाथा:टीका:107"
+            "label": "Gatha",
+            "key": "नियमसार:गाथा:107"
           },
           "to": {
             "label": "Topic",
@@ -11709,6 +12492,24 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
+            "label": "Gatha",
+            "key": "पंचाध्यायी/पूर्वार्ध:गाथा:138"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-सहभावी-विशेष-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-सहभावी-विशेष-हैं/0",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-सहभावी-विशेष-हैं"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
             "label": "GathaTeeka",
             "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:235"
           },
@@ -11727,8 +12528,26 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "आलापपद्धति:गाथा:6"
+            "label": "GathaTeeka",
+            "key": "नयचक्र बृहद्:टीका:गाथा:टीका:11"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-सहभावी-विशेष-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-सहभावी-विशेष-हैं/2",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-सहभावी-विशेष-हैं"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "आलापपद्धति:टीका:गाथा:टीका:6"
           },
           "to": {
             "label": "Topic",
@@ -11760,8 +12579,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "सर्वार्थसिद्धि:गाथा:38"
+            "label": "GathaTeeka",
+            "key": "सर्वार्थसिद्धि:टीका:गाथा:टीका:38"
           },
           "to": {
             "label": "Topic",
@@ -11798,8 +12617,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeekaBhaavarth",
-            "key": "परमात्मप्रकाश:टीका:23:गाथा:टीका:भावार्थ:57"
+            "label": "Gatha",
+            "key": "परमात्मप्रकाश:गाथा:57"
           },
           "to": {
             "label": "Topic",
@@ -11834,8 +12653,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeekaBhaavarth",
-            "key": "प्रवचनसार:तात्पर्यवृत्ति:publisher_to_be_added:गाथा:टीका:भावार्थ:93"
+            "label": "Gatha",
+            "key": "प्रवचनसार:गाथा:93"
           },
           "to": {
             "label": "Topic",
@@ -11864,6 +12683,24 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 11,
+            "block_index": 0,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-अन्वयी-विशेष-हैं/0",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-अन्वयी-विशेष-हैं"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "पंचाध्यायी/पूर्वार्ध:गाथा:138"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-अन्वयी-विशेष-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
             "block_index": 0,
             "mention_path": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-अन्वयी-विशेष-हैं/0",
             "source_natural_key": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-अन्वयी-विशेष-हैं"
@@ -11905,6 +12742,24 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
+            "label": "Gatha",
+            "key": "तत्त्वार्थ सूत्र:गाथा:41"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्य-के-आश्रय-गुण-रहते-हैं-पर-गुण-के-आश्रय-अन्य-गुण-नहीं-रहते"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्य-के-आश्रय-गुण-रहते-हैं-पर-गुण-के-आश्रय-अन्य-गुण-नहीं-रहते/1",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्य-के-आश्रय-गुण-रहते-हैं-पर-गुण-के-आश्रय-अन्य-गुण-नहीं-रहते"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
             "label": "GathaTeeka",
             "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:130"
           },
@@ -11923,8 +12778,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeekaBhaavarth",
-            "key": "प्रवचनसार:तत्त्वप्रदीपिका:publisher_to_be_added:गाथा:टीका:भावार्थ:87"
+            "label": "Gatha",
+            "key": "प्रवचनसार:गाथा:87"
           },
           "to": {
             "label": "Topic",
@@ -11951,6 +12806,188 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "नयचक्र बृहद्:टीका:गाथा:टीका:11"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश/0",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "नयचक्र बृहद्:गाथा:12"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश/0",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "नयचक्र बृहद्:गाथा:13"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश/0",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "नयचक्र बृहद्:गाथा:14"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश/0",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "नयचक्र बृहद्:गाथा:15"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश/0",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "नयचक्र बृहद्:गाथा:16"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश/0",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "नयचक्र बृहद्:टीका:गाथा:टीका:16"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश/1",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "आलापपद्धति:गाथा:2"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश/1",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "परमात्मप्रकाश:गाथा:58"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 8,
+            "block_index": 1,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश/1",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:58"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 8,
+            "block_index": 1,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश/1",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-सामान्य-गुणों-के-नाम-निर्देश"
           }
         },
         {
@@ -11990,6 +13027,78 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
+            "key": "नयचक्र बृहद्:टीका:गाथा:टीका:11"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-विशेष-गुणों-के-नाम-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-विशेष-गुणों-के-नाम-निर्देश/0",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-विशेष-गुणों-के-नाम-निर्देश"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "नयचक्र बृहद्:टीका:गाथा:टीका:13"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-विशेष-गुणों-के-नाम-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-विशेष-गुणों-के-नाम-निर्देश/1",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-विशेष-गुणों-के-नाम-निर्देश"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "आलापपद्धति:गाथा:2"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-विशेष-गुणों-के-नाम-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-विशेष-गुणों-के-नाम-निर्देश/1",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-विशेष-गुणों-के-नाम-निर्देश"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "नयचक्र बृहद्:टीका:गाथा:टीका:15"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-विशेष-गुणों-के-नाम-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-विशेष-गुणों-के-नाम-निर्देश/2",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-विशेष-गुणों-के-नाम-निर्देश"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
             "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:95"
           },
           "to": {
@@ -12017,6 +13126,24 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "नयचक्र बृहद्:टीका:गाथा:टीका:16"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-साधारणासाधारण-गुणों-के-नाम-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-साधारणासाधारण-गुणों-के-नाम-निर्देश/0",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-साधारणासाधारण-गुणों-के-नाम-निर्देश"
           }
         },
         {
@@ -12070,6 +13197,42 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचाध्यायी/उत्तरार्ध:टीका:गाथा:टीका:74"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-अनुजीवी-और-प्रतिजीवी-गुणों-के-नाम-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-अनुजीवी-और-प्रतिजीवी-गुणों-के-नाम-निर्देश/0",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-अनुजीवी-और-प्रतिजीवी-गुणों-के-नाम-निर्देश"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचाध्यायी/उत्तरार्ध:टीका:गाथा:टीका:379"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-अनुजीवी-और-प्रतिजीवी-गुणों-के-नाम-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-अनुजीवी-और-प्रतिजीवी-गुणों-के-नाम-निर्देश/1",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्यों-में-अनुजीवी-और-प्रतिजीवी-गुणों-के-नाम-निर्देश"
           }
         },
         {
@@ -12144,8 +13307,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:6"
+            "label": "GathaTeeka",
+            "key": "धवला:टीका:गाथा:टीका:6"
           },
           "to": {
             "label": "Topic",
@@ -12180,8 +13343,26 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "लब्धिसार:गाथा:1"
+            "label": "GathaTeeka",
+            "key": "नयचक्र बृहद्:टीका:गाथा:टीका:69"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं/1",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "लब्धिसार:टीका:गाथा:टीका:1"
           },
           "to": {
             "label": "Topic",
@@ -12248,6 +13429,60 @@
             "pankti": 11,
             "block_index": 3,
             "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं/3",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचाध्यायी/पूर्वार्ध:टीका:गाथा:टीका:49"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 4,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं/4",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "पंचाध्यायी/पूर्वार्ध:गाथा:52"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 4,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं/4",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचाध्यायी/उत्तरार्ध:टीका:गाथा:टीका:1014"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 5,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं/5",
             "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं"
           }
         },
@@ -12323,6 +13558,24 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "पंचाध्यायी/उत्तरार्ध:टीका:गाथा:टीका:943"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:द्रव्य-गुण-संबंध:जीव-द्रव्य-में-अनंतगुणों-का-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 3,
+            "mention_path": "गुण:द्रव्य-गुण-संबंध:जीव-द्रव्य-में-अनंतगुणों-का-निर्देश/3",
+            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:जीव-द्रव्य-में-अनंतगुणों-का-निर्देश"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -12373,8 +13626,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "प्रवचनसार:गाथा:131"
+            "label": "GathaTeeka",
+            "key": "प्रवचनसार:टीका:गाथा:टीका:131"
           },
           "to": {
             "label": "Topic",

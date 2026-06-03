@@ -8,6 +8,7 @@ Covers:
 - Cross-page topic stub resolve_key (Feature)
 - Kalash keyword-trigger format priority (v1.11.14)
 - Parishisht keyword-trigger format priority (v1.11.15)
+- Inline ref edge emission: Gatha/Kalash/Page only (v1.11.18)
 """
 from __future__ import annotations
 
@@ -28,6 +29,10 @@ from workers.ingestion.jainkosh.parse_blocks import (
 from workers.ingestion.jainkosh.refs import strip_refs_from_text
 from workers.ingestion.jainkosh.models import Block, Reference, ResolvedField
 from workers.ingestion.jainkosh.config import JainkoshConfig, load_config
+from workers.ingestion.jainkosh.reference_edges import (
+    build_reference_edges,
+    _emit_inline_only_edges,
+)
 
 
 @pytest.fixture(scope="module")
@@ -1700,3 +1705,330 @@ class TestIndexSourceChainUlInsideHeadingLi:
             f"Found {len(buggy)} relation(s) with erroneous chain ['1','1.1']: "
             + ", ".join(r.label_text for r in buggy)
         )
+
+
+# ---------------------------------------------------------------------------
+# Inline ref edge emission: Gatha/Kalash/Page only (v1.11.18)
+# ---------------------------------------------------------------------------
+
+def _make_ref(
+    text: str,
+    *,
+    shastra_name: str | None,
+    inline: bool,
+    gatha: int | None = None,
+    shlok: int | None = None,
+    kalash: int | None = None,
+    page: int | None = None,
+) -> Reference:
+    rf = []
+    if gatha is not None:
+        rf.append(ResolvedField(field="गाथा", value=gatha))
+    if shlok is not None:
+        rf.append(ResolvedField(field="श्लोक", value=shlok))
+    if kalash is not None:
+        rf.append(ResolvedField(field="कलश", value=kalash))
+    if page is not None:
+        rf.append(ResolvedField(field="पृष्ठ", value=page))
+    return Reference(
+        text=text,
+        inline_reference=inline,
+        needs_manual_match=shastra_name is None,
+        shastra_name=shastra_name,
+        resolved_fields=rf,
+    )
+
+
+def _block_with_refs(refs: list, kind: str = "sanskrit_text") -> Block:
+    return Block(kind=kind, text_devanagari="test", references=refs)
+
+
+TARGET = {"label": "Topic", "key": "kw:topic"}
+
+
+class TestInlineOnlyEdges:
+    """_emit_inline_only_edges: simplified Gatha/Kalash/Page for inline refs."""
+
+    def test_gatha_field_emits_gatha_node(self, cfg: JainkoshConfig):
+        # कार्तिकेयानुप्रेक्षा is type "publication" in shastra.json
+        ref = _make_ref("(कार्तिकेयानुप्रेक्षा/42)", shastra_name="कार्तिकेयानुप्रेक्षा", inline=True, gatha=42)
+        edges = _emit_inline_only_edges(ref, "MENTIONS_TOPIC", TARGET, cfg)
+        assert len(edges) == 1
+        assert edges[0]["from"]["label"] == "Gatha"
+        assert edges[0]["from"]["key"] == "कार्तिकेयानुप्रेक्षा:गाथा:42"
+
+    def test_shlok_field_also_emits_gatha_node(self, cfg: JainkoshConfig):
+        # श्लोक is in ek.gatha list → still emits a Gatha node
+        ref = _make_ref("(कार्तिकेयानुप्रेक्षा/10)", shastra_name="कार्तिकेयानुप्रेक्षा", inline=True, shlok=10)
+        edges = _emit_inline_only_edges(ref, "MENTIONS_TOPIC", TARGET, cfg)
+        assert len(edges) == 1
+        assert edges[0]["from"]["label"] == "Gatha"
+        assert edges[0]["from"]["key"] == "कार्तिकेयानुप्रेक्षा:गाथा:10"
+
+    def test_teeka_type_inline_emits_plain_gatha_not_gatha_teeka(self, cfg: JainkoshConfig):
+        # नियमसार/तात्पर्यवृत्ति is type "teeka" — inline path must emit Gatha, not GathaTeeka
+        ref = _make_ref("(नियमसार / तात्पर्यवृत्ति 14)", shastra_name="नियमसार", inline=True, gatha=14)
+        ref.teeka_name = "तात्पर्यवृत्ति"
+        edges = _emit_inline_only_edges(ref, "MENTIONS_TOPIC", TARGET, cfg)
+        gatha_edges = [e for e in edges if e["from"]["label"] == "Gatha"]
+        teeka_edges = [e for e in edges if e["from"]["label"] == "GathaTeeka"]
+        assert len(gatha_edges) == 1, "Expected exactly one Gatha edge for teeka inline ref"
+        assert teeka_edges == [], "GathaTeeka must NOT be emitted for inline refs"
+        assert gatha_edges[0]["from"]["key"] == "नियमसार:गाथा:14"
+
+    def test_kalash_field_emits_kalash_node_for_publication(self, cfg: JainkoshConfig):
+        # समयसार/आत्मख्याति is a publication type — kalash field → Kalash node
+        ref = _make_ref("(समयसार / आत्मख्याति/कलश 5)", shastra_name="समयसार", inline=True, kalash=5)
+        ref.teeka_name = "आत्मख्याति"
+        edges = _emit_inline_only_edges(ref, "MENTIONS_TOPIC", TARGET, cfg)
+        kalash_edges = [e for e in edges if e["from"]["label"] == "Kalash"]
+        assert len(kalash_edges) == 1
+        assert kalash_edges[0]["from"]["key"] == "समयसार:आत्मख्याति:कलश:5"
+
+    def test_page_field_emits_page_node_for_publication(self, cfg: JainkoshConfig):
+        ref = _make_ref("(कार्तिकेयानुप्रेक्षा/पृष्ठ 80)", shastra_name="कार्तिकेयानुप्रेक्षा", inline=True, page=80)
+        edges = _emit_inline_only_edges(ref, "MENTIONS_TOPIC", TARGET, cfg)
+        page_edges = [e for e in edges if e["from"]["label"] == "Page"]
+        assert len(page_edges) == 1, "Page node must be emitted for publication inline ref"
+
+    def test_no_edges_for_unregistered_shastra(self, cfg: JainkoshConfig):
+        ref = _make_ref("(अज्ञात/1)", shastra_name="अज्ञात_अज्ञात", inline=True, gatha=1)
+        edges = _emit_inline_only_edges(ref, "MENTIONS_TOPIC", TARGET, cfg)
+        assert edges == []
+
+    def test_no_edges_when_shastra_name_none(self, cfg: JainkoshConfig):
+        ref = _make_ref("(unknown)", shastra_name=None, inline=True, gatha=1)
+        edges = _emit_inline_only_edges(ref, "MENTIONS_TOPIC", TARGET, cfg)
+        assert edges == []
+
+
+class TestBuildReferenceEdgesInlineLogic:
+    """build_reference_edges: inline refs always use simplified path."""
+
+    def test_inline_only_block_all_refs_get_gatha_edges(self, cfg: JainkoshConfig):
+        """When all refs are inline, ALL (not just the first) emit Gatha edges."""
+        refs = [
+            _make_ref("(कार्तिकेयानुप्रेक्षा/5)", shastra_name="कार्तिकेयानुप्रेक्षा", inline=True, gatha=5),
+            _make_ref("(कार्तिकेयानुप्रेक्षा/6)", shastra_name="कार्तिकेयानुप्रेक्षा", inline=True, gatha=6),
+            _make_ref("(कार्तिकेयानुप्रेक्षा/7)", shastra_name="कार्तिकेयानुप्रेक्षा", inline=True, gatha=7),
+        ]
+        block = _block_with_refs(refs, kind="hindi_text")
+        edges = build_reference_edges(block, target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+        gatha_keys = sorted(e["from"]["key"] for e in edges if e["from"]["label"] == "Gatha")
+        assert gatha_keys == [
+            "कार्तिकेयानुप्रेक्षा:गाथा:5",
+            "कार्तिकेयानुप्रेक्षा:गाथा:6",
+            "कार्तिकेयानुप्रेक्षा:गाथा:7",
+        ], "All inline refs must emit Gatha edges, not just the first"
+
+    def test_inline_only_block_no_gatha_teeka_emitted(self, cfg: JainkoshConfig):
+        """When all refs are inline, no GathaTeeka or GathaTeekaBhaavarth is emitted."""
+        refs = [
+            _make_ref("(नियमसार / तात्पर्यवृत्ति 14)", shastra_name="नियमसार", inline=True, gatha=14),
+        ]
+        refs[0].teeka_name = "तात्पर्यवृत्ति"
+        block = _block_with_refs(refs, kind="hindi_text")
+        edges = build_reference_edges(block, target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+        bad_labels = {e["from"]["label"] for e in edges if e["from"]["label"] in ("GathaTeeka", "GathaTeekaBhaavarth")}
+        assert bad_labels == set(), "GathaTeeka/GathaTeekaBhaavarth must not be emitted for all-inline blocks"
+        gatha_edges = [e for e in edges if e["from"]["label"] == "Gatha"]
+        assert len(gatha_edges) == 1
+        assert gatha_edges[0]["from"]["key"] == "नियमसार:गाथा:14"
+
+    def test_non_inline_main_gets_full_logic_inline_gets_simplified(self, cfg: JainkoshConfig):
+        """Non-inline main uses block-kind-aware logic; inline ref gets simplified Gatha."""
+        non_inline = _make_ref(
+            "कार्तिकेयानुप्रेक्षा/20", shastra_name="कार्तिकेयानुप्रेक्षा", inline=False, gatha=20,
+        )
+        inline_ref = _make_ref(
+            "(कार्तिकेयानुप्रेक्षा/30)", shastra_name="कार्तिकेयानुप्रेक्षा", inline=True, gatha=30,
+        )
+        block = _block_with_refs([non_inline, inline_ref], kind="sanskrit_gatha")
+        edges = build_reference_edges(block, target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+        gatha_keys = sorted(e["from"]["key"] for e in edges if e["from"]["label"] == "Gatha")
+        # non_inline: publication + gatha block → Gatha:कार्तिकेयानुप्रेक्षा:गाथा:20
+        # inline:     simplified → Gatha:कार्तिकेयानुप्रेक्षा:गाथा:30
+        assert "कार्तिकेयानुप्रेक्षा:गाथा:20" in gatha_keys
+        assert "कार्तिकेयानुप्रेक्षा:गाथा:30" in gatha_keys
+
+    def test_inline_refs_emit_when_non_inline_main_has_valid_shastra(self, cfg: JainkoshConfig):
+        """Inline refs get edges even when a non-inline main ref is present."""
+        non_inline = _make_ref(
+            "कार्तिकेयानुप्रेक्षा/1", shastra_name="कार्तिकेयानुप्रेक्षा", inline=False, gatha=1,
+        )
+        inline1 = _make_ref("(कार्तिकेयानुप्रेक्षा/2)", shastra_name="कार्तिकेयानुप्रेक्षा", inline=True, gatha=2)
+        inline2 = _make_ref("(कार्तिकेयानुप्रेक्षा/3)", shastra_name="कार्तिकेयानुप्रेक्षा", inline=True, gatha=3)
+        block = _block_with_refs([non_inline, inline1, inline2], kind="sanskrit_text")
+        edges = build_reference_edges(block, target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+        gatha_keys = {e["from"]["key"] for e in edges if e["from"]["label"] == "Gatha"}
+        assert "कार्तिकेयानुप्रेक्षा:गाथा:2" in gatha_keys, "First inline must get Gatha edge"
+        assert "कार्तिकेयानुप्रेक्षा:गाथा:3" in gatha_keys, "Second inline must get Gatha edge"
+
+    def test_empty_refs_returns_empty(self, cfg: JainkoshConfig):
+        block = _block_with_refs([])
+        edges = build_reference_edges(block, target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+        assert edges == []
+
+    def test_inline_ref_with_page_emits_page_node(self, cfg: JainkoshConfig):
+        """Inline refs with page field emit Page nodes."""
+        inline_ref = _make_ref(
+            "(कार्तिकेयानुप्रेक्षा/पृष्ठ 50)", shastra_name="कार्तिकेयानुप्रेक्षा", inline=True, page=50,
+        )
+        block = _block_with_refs([inline_ref], kind="hindi_text")
+        edges = build_reference_edges(block, target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+        page_edges = [e for e in edges if e["from"]["label"] == "Page"]
+        assert len(page_edges) == 1
+
+
+class TestInlineRefEdgesInGoldens:
+    """Integration: verify inline ref edge counts in regenerated goldens."""
+
+    def test_dravya_all_inline_block_emits_gatha_for_each_ref(self, cfg: JainkoshConfig):
+        """द्रव्य: block with 4 inline refs (2×प्रवचनसार + आप्त + कार्तिकेय) → 3 Gatha edges
+        (आप्तमीमांसा/आप्त मीमांसा has a registry name mismatch so emits 0)."""
+        import json
+        with open("workers/ingestion/jainkosh/tests/golden/द्रव्य.json") as f:
+            data = json.load(f)
+
+        topic_key = "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:सत्-या-द्रव्य-की-अपेक्षा-द्वैतअद्वैत:कथंचित्-द्वैत-व-अद्वैत-का-समन्वय"
+        neo4j = data["would_write"]["neo4j"]
+        edges_to_topic = [
+            e for e in neo4j["edges"]
+            if e.get("to", {}).get("key") == topic_key
+        ]
+        gatha_edges = [e for e in edges_to_topic if e["from"]["label"] == "Gatha"]
+        bad_labels = {e["from"]["label"] for e in edges_to_topic if e["from"]["label"] in ("GathaTeeka", "GathaTeekaBhaavarth")}
+
+        assert bad_labels == set(), "No GathaTeeka/GathaTeekaBhaavarth expected for all-inline block"
+        gatha_keys = {e["from"]["key"] for e in gatha_edges}
+        assert "प्रवचनसार:गाथा:97" in gatha_keys
+        assert "प्रवचनसार:गाथा:98" in gatha_keys
+        assert "कार्तिकेयानुप्रेक्षा:गाथा:236" in gatha_keys
+
+    def test_paryay_inline_refs_alongside_non_inline_emit_gatha(self, cfg: JainkoshConfig):
+        """पर्याय: block with non-inline + inline refs — inline ones must emit Gatha edges."""
+        import json
+        with open("workers/ingestion/jainkosh/tests/golden/पर्याय.json") as f:
+            data = json.load(f)
+
+        # Topic: निरुक्ति-अर्थ — has non-inline राजवार्तिक + inline धवला/नियमसार
+        topic_key = "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ"
+        neo4j = data["would_write"]["neo4j"]
+        edges_to_topic = [
+            e for e in neo4j["edges"]
+            if e.get("to", {}).get("key") == topic_key
+        ]
+        gatha_keys = {e["from"]["key"] for e in edges_to_topic if e["from"]["label"] == "Gatha"}
+        # धवला/1 is a publication inline ref with गाथा=1 → Gatha:धवला:गाथा:1
+        assert "धवला:गाथा:1" in gatha_keys, "Inline धवला ref must emit Gatha edge"
+
+
+# ---------------------------------------------------------------------------
+# Bug fix: publication + text block kind must emit GathaTeeka, not Gatha
+# ---------------------------------------------------------------------------
+
+class TestPublicationTextBlockEmitsGathaTeeka:
+    """§12.2: publication + {sanskrit_text, prakrit_text} → GathaTeeka, never Gatha."""
+
+    def test_publication_sanskrit_text_no_teeka_emits_gatha_teeka(self, cfg: JainkoshConfig):
+        """तत्त्वानुशासन/53 in a sanskrit_text block must emit GathaTeeka, not Gatha."""
+        ref = _make_ref("तत्त्वानुशासन/53", shastra_name="तत्त्वानुशासन", inline=False, shlok=53)
+        block = _block_with_refs([ref], kind="sanskrit_text")
+        edges = build_reference_edges(block, target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+        labels = {e["from"]["label"] for e in edges}
+        assert "Gatha" not in labels, "Gatha must not be emitted for publication + sanskrit_text"
+        assert "GathaTeeka" in labels, "GathaTeeka must be emitted for publication + sanskrit_text"
+        gatha_teeka_key = next(e["from"]["key"] for e in edges if e["from"]["label"] == "GathaTeeka")
+        assert gatha_teeka_key == "तत्त्वानुशासन:टीका:गाथा:टीका:53"
+
+    def test_publication_prakrit_text_no_teeka_emits_gatha_teeka(self, cfg: JainkoshConfig):
+        """publication + prakrit_text without teeka_name → GathaTeeka with default 'टीका'."""
+        ref = _make_ref("कार्तिकेयानुप्रेक्षा/478", shastra_name="कार्तिकेयानुप्रेक्षा", inline=False, gatha=478)
+        block = _block_with_refs([ref], kind="prakrit_text")
+        edges = build_reference_edges(block, target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+        labels = {e["from"]["label"] for e in edges}
+        assert "Gatha" not in labels
+        assert "GathaTeeka" in labels
+        key = next(e["from"]["key"] for e in edges if e["from"]["label"] == "GathaTeeka")
+        assert key == "कार्तिकेयानुप्रेक्षा:टीका:गाथा:टीका:478"
+
+    def test_publication_sanskrit_text_with_teeka_emits_gatha_teeka_named(self, cfg: JainkoshConfig):
+        """publication + sanskrit_text with explicit teeka_name → key uses that teeka_name."""
+        ref = Reference(
+            text="समयसार/आत्मख्याति/1",
+            inline_reference=False,
+            needs_manual_match=False,
+            shastra_name="समयसार",
+            teeka_name="आत्मख्याति",
+            resolved_fields=[ResolvedField(field="गाथा", value=1)],
+        )
+        block = _block_with_refs([ref], kind="sanskrit_text")
+        edges = build_reference_edges(block, target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+        labels = {e["from"]["label"] for e in edges}
+        assert "GathaTeeka" in labels
+        key = next(e["from"]["key"] for e in edges if e["from"]["label"] == "GathaTeeka")
+        assert key == "समयसार:आत्मख्याति:गाथा:टीका:1"
+
+    def test_publication_gatha_kind_still_emits_gatha(self, cfg: JainkoshConfig):
+        """publication + sanskrit_gatha must still emit Gatha (only text kinds change)."""
+        ref = _make_ref("तत्त्वानुशासन/53", shastra_name="तत्त्वानुशासन", inline=False, shlok=53)
+        block = _block_with_refs([ref], kind="sanskrit_gatha")
+        edges = build_reference_edges(block, target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+        labels = {e["from"]["label"] for e in edges}
+        assert "Gatha" in labels
+        assert "GathaTeeka" not in labels
+
+    def test_svabhav_golden_tattvanushan_is_gatha_teeka(self):
+        """Golden regression: तत्त्वानुशासन:53 node in स्वभाव must be GathaTeeka."""
+        import json
+        with open("workers/ingestion/jainkosh/tests/golden/स्वभाव.json") as f:
+            data = json.load(f)
+        nodes = data["would_write"]["neo4j"]["nodes"]
+        tatva_nodes = [n for n in nodes if "तत्त्वानुशासन" in n.get("key", "")]
+        assert tatva_nodes, "Expected तत्त्वानुशासन node in स्वभाव golden"
+        assert all(n["label"] == "GathaTeeka" for n in tatva_nodes), (
+            f"All तत्त्वानुशासन nodes must be GathaTeeka, got: {[n['label'] for n in tatva_nodes]}"
+        )
+
+
+# ---------------------------------------------------------------------------
+# Bug fix: ShastraRegistry.get_type fails for multi-word shastras with spaces
+# ---------------------------------------------------------------------------
+
+class TestGetTypeSpaceNormalization:
+    """get_type must work for shastra names that _normalise() strips spaces from."""
+
+    def test_get_type_multiword_name_with_space(self, cfg: JainkoshConfig):
+        """'मोक्ष पाहुड़' has a space — old get_type returned None, new returns 'publication'."""
+        shastra_type = cfg.shastra_registry.get_type("मोक्ष पाहुड़")
+        assert shastra_type == "publication", (
+            f"Expected 'publication' for 'मोक्ष पाहुड़', got {shastra_type!r}"
+        )
+
+    def test_get_type_bhav_sangrah(self, cfg: JainkoshConfig):
+        """'भाव संग्रह' is type 'shastra' — must be resolvable despite space in name."""
+        shastra_type = cfg.shastra_registry.get_type("भाव संग्रह")
+        assert shastra_type == "shastra", (
+            f"Expected 'shastra' for 'भाव संग्रह', got {shastra_type!r}"
+        )
+
+    def test_bhav_sangrah_inline_emits_gatha_node(self, cfg: JainkoshConfig):
+        """'भाव संग्रह/373' inline ref must emit a Gatha node (type='shastra', inline path)."""
+        ref = _make_ref("(भाव संग्रह/373)", shastra_name="भाव संग्रह", inline=True, gatha=373)
+        block = _block_with_refs([ref], kind="prakrit_text")
+        edges = build_reference_edges(block, target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+        gatha_keys = [e["from"]["key"] for e in edges if e["from"]["label"] == "Gatha"]
+        assert "भाव संग्रह:गाथा:373" in gatha_keys, (
+            "Inline भाव संग्रह ref must emit Gatha node"
+        )
+
+    def test_svabhav_golden_bhav_sangrah_emits_gatha(self):
+        """Golden regression: भाव संग्रह:गाथा:373 node must exist in स्वभाव golden."""
+        import json
+        with open("workers/ingestion/jainkosh/tests/golden/स्वभाव.json") as f:
+            data = json.load(f)
+        nodes = data["would_write"]["neo4j"]["nodes"]
+        bhav_nodes = [n for n in nodes if "भाव संग्रह" in n.get("key", "")]
+        assert bhav_nodes, "Expected भाव संग्रह Gatha node in स्वभाव golden"
+        assert bhav_nodes[0]["label"] == "Gatha"
+        assert bhav_nodes[0]["key"] == "भाव संग्रह:गाथा:373"

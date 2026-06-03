@@ -29,29 +29,20 @@
 
 ## 1. Inputs
 
-### 1.1 Per-block reference selection
+### 1.1 Per-block reference selection (v1.11.18)
 
-For a block with `references: list[Reference]`:
+References in a block are split by `inline_reference` flag:
 
-```python
-def _pick_reference(refs: list[Reference]) -> Optional[Reference]:
-    if not refs:
-        return None
-    for r in refs:
-        if not r.inline_reference:
-            return r           # first non-inline wins
-    return refs[0]             # else first inline
-```
+- **Non-inline refs** (`inline_reference=False`): the **first** non-inline ref
+  is the "main" reference, processed with full block-kind-aware rules (§4.1–§4.3).
+  Remaining non-inline refs use the simplified rules (§4.5).
+- **Inline refs** (`inline_reference=True`): **all** inline refs are processed
+  with the simplified inline-only rules (§4.5b), regardless of whether any
+  non-inline ref is present. No block-kind check.
 
-The picked reference is the **main reference** and is processed using the full
-block-kind-aware rules (§4.1–§4.3). Skip the block entirely if the main
-reference has `shastra_name is None` (unresolved).
-
-All remaining references (every reference in the list except the one picked as
-main) are **inline references** and are processed after the main reference
-using the simplified rules in §4.5. Each inline reference is processed
-independently; those with `shastra_name is None` or an unknown type are
-silently skipped.
+If there are no non-inline refs, the main path (§4.1–§4.3) is skipped
+entirely — all refs use §4.5b. Non-inline refs with `shastra_name is None`
+are skipped silently.
 
 ### 1.2 Block-context classification
 
@@ -238,6 +229,7 @@ gatha edges. The block-kind constraints below MUST hold.
 **`type == "publication"`**:
 - block_kind ∈ {sanskrit_gatha, prakrit_gatha, hindi_gatha}: src = `Gatha("<shastra>:गाथा:<g>")`.
 - block_kind ∈ {sanskrit_text, prakrit_text}: src = `GathaTeeka("<shastra>:<teeka>:गाथा:टीका:<g>")`.
+  When `teeka_name` is absent, `<teeka>` defaults to `"टीका"` (e.g. `"तत्त्वानुशासन:टीका:गाथा:टीका:53"`).
 - block_kind == hindi_text: emit **two edges**:
   - src1 = `GathaTeeka("<shastra>:<teeka>:गाथा:टीका:<g>")`
   - src2 = `GathaTeekaBhaavarth("<shastra>:<teeka>:<publisher_id>:गाथा:टीका:भावार्थ:<g>")`
@@ -277,12 +269,14 @@ prop if present.
 
 ### 4.5 Inline (non-main) reference edges
 
-After emitting edges for the main reference, every remaining reference in
-`block.references` is processed with **simplified rules that ignore block
-kind**. The target and edge type are the same as for the main reference.
-Per-entity rules:
+After emitting edges for the main non-inline reference, every remaining
+**non-inline** reference is processed with **simplified rules that ignore block
+kind** (same as the old §4.5 for the main path). The target and edge type are
+the same as for the main reference.
 
-#### Gatha — inline
+Per-entity rules (remaining non-inline refs):
+
+#### Gatha — remaining non-inline
 
 | Shastra type | Emits |
 |---|---|
@@ -290,7 +284,7 @@ Per-entity rules:
 | `teeka` | `GathaTeeka("<shastra>:<teeka>:गाथा:टीका:<g>")` (guard: teeka_name non-empty) |
 | `publication` | `GathaTeekaBhaavarth("<shastra>:<teeka>:<publisher_id>:गाथा:टीका:भावार्थ:<g>")` (guard: teeka_name non-empty) |
 
-#### Kalash — inline
+#### Kalash — remaining non-inline
 
 | Shastra type | Emits |
 |---|---|
@@ -298,12 +292,45 @@ Per-entity rules:
 | `teeka` | `Kalash("<shastra>:<teeka>:कलश:<k>")` (guard: teeka_name non-empty) |
 | `publication` | `KalashBhaavarth("<shastra>:<teeka>:<publisher_id>:कलश:भावार्थ:<k>")` (guard: teeka_name non-empty) |
 
-#### Page — inline
+#### Page — remaining non-inline
 
 Same rule as main (§4.3): `publication` only, any block kind, emits
 `Page("<shastra>:<teeka>:<publisher_id>:पृष्ठ:<p>")`.
 
-Guard rules (§5.4) apply identically to inline refs.
+Guard rules (§5.4) apply identically.
+
+---
+
+## 4.5b Inline reference rules (v1.11.18)
+
+All `inline_reference=True` refs use a **further-simplified path** that always
+emits plain `Gatha`/`Kalash`/`Page` — no `GathaTeeka`, `GathaTeekaBhaavarth`,
+or `KalashBhaavarth`.
+
+#### Gatha — inline
+
+| Condition | Emits |
+|---|---|
+| gatha field present, any shastra type | `Gatha("<shastra>:गाथा:<g>")` |
+
+Gatha field names: `गाथा`, `श्लोक`, `सूत्र`, `दोहक`, `वार्तिक` (same matcher list as §2.1).
+
+#### Kalash — inline
+
+| Shastra type | Emits |
+|---|---|
+| `shastra` | nothing |
+| `teeka` or `publication` | `Kalash("<shastra>:<teeka>:कलश:<k>")` |
+
+#### Page — inline
+
+| Shastra type | Emits |
+|---|---|
+| `publication` only | `Page("<shastra>:<teeka>:<publisher_id>:पृष्ठ:<p>")` |
+
+Guards: `shastra_name=None` or `type=None` → skip (same as §5.4).
+
+Implemented in `_emit_inline_only_edges`.
 
 ---
 
@@ -332,15 +359,16 @@ def build_reference_edges(
 
 Internal helpers:
 
-- `_pick_reference(refs)` — §1.1
+- `_pick_reference(refs)` — (internal, kept for reference; no longer drives `build_reference_edges`)
 - `_first_value(rf, names)` — §2.1
 - `_pankti_props(rf, cfg)` — returns `{"pankti": int}` or `{}`
 - `_resolve_publisher_id(ref, config)` — §1.4
 - `_make_edge(edge_type, src_label, src_key, target, pankti_props, *, block_index, mention_path, source_natural_key, section_index=None, definition_index=None)` — assembles dict
-- `_emit_gatha(...)`, `_emit_kalash(...)`, `_emit_page(...)` — implement §4.1–§4.3 (main ref, block-kind-aware)
-- `_emit_gatha_inline(...)`, `_emit_kalash_inline(...)` — implement §4.5 (no block-kind check)
-- `_emit_inline_ref_edges(ref, block_kind, ...)` — dispatches §4.5 for a single remaining ref
-- Top-level `build_reference_edges` dispatches main ref then loops remaining refs.
+- `_emit_gatha(...)`, `_emit_kalash(...)`, `_emit_page(...)` — implement §4.1–§4.3 (main non-inline ref, block-kind-aware)
+- `_emit_gatha_inline(...)`, `_emit_kalash_inline(...)` — implement §4.5 for remaining non-inline refs
+- `_emit_inline_ref_edges(ref, block_kind, ...)` — dispatches §4.5 for a single remaining non-inline ref
+- `_emit_inline_only_edges(ref, ...)` — dispatches §4.5b for inline refs (Gatha/Kalash/Page only, no block-kind check)
+- Top-level `build_reference_edges` separates non-inline and inline refs, dispatches each to the appropriate path.
 
 ### 5.2 `envelope.py` changes
 
@@ -469,10 +497,12 @@ assert the emitted edge list matches the expected set. Cover:
 - publication/hindi_text + कलश=3 → `KalashBhaavarth` edge.
 - गाथा-keyword aliasing: `श्लोक=29` resolves to `Gatha(...:गाथा:29)`.
 - पंक्ति=5 + गाथा=6 → edge has `props.pankti == 5`.
-- Block with multiple references — only first non-inline picked.
-- Block with all-inline references — first inline picked.
+- Block with multiple non-inline references — first picks full path, rest simplified.
+- Block with all-inline references — all use §4.5b (plain Gatha/Kalash/Page only).
+- Block with non-inline + inline: non-inline uses §4.1–§4.3; all inline use §4.5b.
 - `shastra_name=None` → no edges.
 - `type=teeka` text block missing teeka_name → no edge + warning.
+- Inline teeka ref with गाथा field → `Gatha` (not `GathaTeeka`).
 
 ### 6.2 Integration
 

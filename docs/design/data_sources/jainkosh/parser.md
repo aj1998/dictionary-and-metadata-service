@@ -4,7 +4,7 @@
 > Covers HTML structure rules, parser implementation, configuration, models,
 > algorithms, CLI, tests, and edge-emission specs.
 >
-> **Current version**: `jainkosh.rules/1.11.17`
+> **Current version**: `jainkosh.rules/1.11.19`
 >
 > Archived source specs (pre-v1.7 detail):
 > `detailed_docs/parsing_rules.md`, `parser_spec.md`,
@@ -717,7 +717,9 @@ for full block-context classification, guard rules, and node-key formats.
 
 `extra_blocks` and `label_topic_seeds[*].blocks` → no edges.
 
-### 12.2 Gatha edge rules by shastra type + block kind
+### 12.2 Gatha edge rules (non-inline refs) by shastra type + block kind
+
+These rules apply to the **first non-inline reference** in a block (the "main" ref).
 
 | Type | Block kind | Condition | Target node |
 |---|---|---|---|
@@ -734,6 +736,25 @@ for full block-context classification, guard rules, and node-key formats.
 
 **Kalash**: `teeka`/`publication` gatha → `Kalash`; `publication` `hindi_text` → `KalashBhaavarth`.
 **Page**: `publication` only → `Page`. **Guard**: skip when `shastra_name=None`, type=None, required field absent.
+
+### 12.2b Inline reference edge rules (v1.11.18)
+
+Inline (parenthetical) references — `Reference.inline_reference=True` — always use a **simplified emission path**, regardless of block kind or whether a non-inline ref is also present.
+
+| Field present | Condition | Target node |
+|---|---|---|
+| gatha matcher (`गाथा`/`श्लोक`/`सूत्र`/`दोहक`/`वार्तिक`) | any shastra type | `Gatha("<shastra>:गाथा:<g>")` |
+| `कलश` | `teeka` or `publication` type | `Kalash("<shastra>:<teeka>:कलश:<k>")` |
+| `पृष्ठ` | `publication` type only | `Page("<shastra>:<teeka>:<pub_id>:पृष्ठ:<p>")` |
+
+Rules:
+- All inline refs in a block emit edges — **not just the first one**.
+- `GathaTeeka` and `GathaTeekaBhaavarth` are **never** emitted for inline refs.
+- When a block has **no non-inline refs** (all refs are inline), the full block-kind-aware main path is skipped entirely; all refs use these simplified rules.
+- When a block has non-inline + inline refs: the first non-inline ref uses §12.2 rules; **all** inline refs use these simplified rules.
+- Unregistered shastras (`shastra_type=None`) and `shastra_name=None` → no edges (same guard as §12.2).
+
+Implemented in `_emit_inline_only_edges` (called from `build_reference_edges`).
 
 ### 12.3 `see_also` edge target resolution
 
@@ -905,6 +926,8 @@ DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence an
 | `1.11.14` | **Kalash keyword-trigger format priority**: references of the form `समयसार / आत्मख्याति/ कलश 2` now correctly resolve to only `[कलश=2]` instead of `[गाथा=2, कलश=2]`. Root cause: `split_name_and_numeric` absorbed "कलश" into the name portion (since it precedes the first digit), leaving `numeric_clean_with_kw = "2"` so the `{कलश}कलश` keyword-trigger format could never fire — the parser fell back to the plain `गाथा` format. Fix: a new helper `split_name_and_numeric_kw(text, section_keywords)` also splits at `/keyword` boundaries that precede the first digit, so "कलश 2" lands in the numeric portion and `{कलश}कलश` matches first. The `consumed_keyword_triggers` mechanism already suppresses Level-2 re-extraction of the matched keyword. गुण golden updated. |
 | `1.11.16` | **Kalash edge emission for `*_text` block kinds**: `_emit_kalash` now emits `Kalash` edges for `sanskrit_text` and `prakrit_text` blocks in addition to `*_gatha` blocks, for both `teeka` and `publication` shastra types. Root cause: `समयसार` is registered as a "publication" in `shastra.json`, and its kalash verses (e.g. `समयसार / आत्मख्याति/ कलश 2`) appear as `sanskrit_text` blocks (HTML class `SanskritText`) rather than `SanskritGatha`. The old condition gated emission strictly on `*_gatha` kind, so `sanskrit_text` blocks returned `[]`. Fix: added `"sanskrit_text", "prakrit_text"` to the allowed set in both the `teeka` and `publication` branches. The emitted `Kalash` node key is `f"{sn}:{tn}:कलश:{k}"` — same format as `*_gatha`. गुण golden updated. |
 | `1.11.17` | **Index source chain child-path guard**: `_ancestor_li_ids` now discards a contextual path derived from the previous-sibling/container walk when it is a child of a path already captured from an ancestor `<li id="…">`. Root cause: index-entry `<li>` nodes (e.g. `<li id="1.1">`) inside a sibling `<ol>` had no `<strong>` direct child but did have an inner `<ol>`; `li_path_from_inner_ol_fallback` returned `"1.1"` from `<a href="#1.1.1">`, extending the chain to `["1","1.1"]` even though the `<ul>` is a direct child of `<li id="1">`. The guard checks `contextual_path.startswith(ids[-1] + ".")` and discards matching paths, yielding the correct `["1"]`. স्वभाव golden updated. |
+| `1.11.19` | **(1) publication + text block kinds always emit `GathaTeeka`**: fixed `_emit_gatha` in `reference_edges.py` — for `type=publication` with `block_kind ∈ {sanskrit_text, prakrit_text}`, the edge was incorrectly emitted as `Gatha` when `teeka_name` was absent. Now always emits `GathaTeeka` with key `"<shastra>:<teeka or 'टीका'>:गाथा:टीका:<g>"`. **(2) `ShastraRegistry.get_type` space-normalization fix**: `_by_primary` uses `_normalise()` which strips spaces from keys (e.g. `"भाव संग्रह"` → `"भावसंग्रह"`), but `get_type` looked up the raw `shastra_name` directly in `_by_primary` — always returning `None` for multi-word shastras. Fixed by adding `_by_exact_name` dict (raw `entry.shastra_name` → entry) and trying it first in `get_type`. Affected shastras: `"भाव संग्रह"`, `"मोक्ष पाहुड़"`, `"पंचाध्यायी/पूर्वार्ध"` and others with spaces. Goldens updated for all keywords. |
+| `1.11.18` | **Inline reference edge emission (simplified path)**: all `inline_reference=True` refs in a block now emit `Gatha`/`Kalash`/`Page` edges via a new simplified path (`_emit_inline_only_edges`), regardless of block kind or whether a non-inline ref is also present. Previously, when a non-inline ref was the main ref, inline refs went through `_emit_inline_ref_edges` (which could emit `GathaTeeka`/`GathaTeekaBhaavarth`); when all refs were inline, only refs[0] got the full block-kind-aware treatment while remaining refs used the simplified path. Now: `GathaTeeka`/`GathaTeekaBhaavarth` are never emitted for inline refs; all inline refs in any block emit plain `Gatha` when gatha-matcher fields are present (`गाथा`/`श्लोक`/`सूत्र`/`दोहक`/`वार्तिक`). Goldens updated for all keywords. |
 | `1.11.15` | **परिशिष्ठ keyword-trigger format priority**: references of the form `समयसार / आत्मख्याति/ परिशिष्ठ 1` now correctly resolve to `teeka_name="आत्मख्याति"` and `[परिशिष्ठ=1]` instead of `teeka_name="आत्मख्याति/परिशिष्ठ"` and `[गाथा=1]`. Root cause: "परिशिष्ठ" was absent from `section_keywords`, so (1) `split_name_and_numeric_kw` did not split at `/परिशिष्ठ` (leaving numeric as just "1") and (2) `match_shastra` step 3 could not strip "परिशिष्ठ" from the teeka candidate. Fix: added "परिशिष्ठ" to `section_keywords.keywords` in `jainkosh.yaml`; `{परिशिष्ठ}परिशिष्ठ` format was already in समयसार's format list in `shastra.json`. गुण golden updated. |
 | `1.11.7` | **Inline-ref distribution by position in split blocks**: `_do_split` no longer assigns all inline refs to the last split block. A new `_assign_inline_refs_to_segments` helper uses the pre-strip translation text (stored as `Block._hindi_translation_pre_strip` via `PrivateAttr`, set during sibling-`=` absorption and `_emit` translation absorption) to find each inline ref's position relative to verse markers. A ref that appears immediately after `।N।` is assigned to the gatha-N split block rather than the final block. Fixes `नयचक्र बृहद्/22,25,30` where `( परमात्मप्रकाश टीका/1/57 )` appears right after `। 25।` in the HindiText — it is now placed in the gatha-25 block instead of the gatha-30 block. Falls back to last-segment assignment when pre-strip text is unavailable or the ref text is not found. |
 
@@ -943,6 +966,8 @@ DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence an
 | गुण | `समयसार / आत्मख्याति/ कलश 2` — "कलश" precedes the first digit and was absorbed by `split_name_and_numeric` into the name portion | `split_name_and_numeric_kw` splits at `/कलश` boundary (v1.11.14); `{कलश}कलश` trigger format fires → only `[कलश=2]` in resolved_fields. |
 | गुण | `समयसार / आत्मख्याति/ कलश 2` in a `sanskrit_text` block — no `Kalash` Neo4j edge was emitted even though resolved_fields had `कलश=2` | `_emit_kalash` extended to accept `sanskrit_text`/`prakrit_text` for both `teeka` and `publication` shastra types (v1.11.16). समयसार is "publication"; its kalash verses appear as `SanskritText` HTML class → `sanskrit_text` block. |
 | गुण | `समयसार / आत्मख्याति/ परिशिष्ठ 1` — "परिशिष्ठ" not in `section_keywords`; leaked into `teeka_name` and plain "गाथा" format fired | Added "परिशिष्ठ" to `section_keywords` (v1.11.15); `split_name_and_numeric_kw` now splits at `/परिशिष्ठ` boundary; `{परिशिष्ठ}परिशिष्ठ` trigger fires → `teeka_name="आत्मख्याति"`, `[परिशिष्ठ=1]`. |
+| स्वभाव | `तत्त्वानुशासन/53` in a `sanskrit_text` block — type=publication, no `teeka_name` → was emitting `Gatha`, now emits `GathaTeeka("तत्त्वानुशासन:टीका:गाथा:टीका:53")` | `publication` + text-kind rule (§12.2, v1.11.19): `<teeka>` defaults to `"टीका"` when absent. |
+| स्वभाव | `(भाव संग्रह/373)` inline ref — type=`shastra`, `get_type` was returning `None` due to space in name → no Gatha node was emitted | `ShastraRegistry._by_exact_name` fallback (§11, v1.11.19): multi-word shastra names with spaces now look up correctly. |
 | any | Self-link `<a class="mw-selflink-fragment" href="#3">` | `is_self=true` (§4.3). |
 | any | Cross-page `देखें <a href="/wiki/स्वभाव#2">` (target on different keyword page) | Stub node emitted with `resolve_key: "स्वभाव:2"` (no `key`). Ingestion layer resolves to heading-based natural_key via Postgres lookup (§12.4). |
 | स्वभाव | `<ul>` देखें items inside `<li id="1">`, where sibling `<ol>` contains `<li id="1.1">` (index entries without `<strong>`) — chain was `["1","1.1"]` instead of `["1"]` | Child-path guard in `_ancestor_li_ids` (§4.7): contextual path starting with `ids[-1]+"."` is discarded (v1.11.17). |

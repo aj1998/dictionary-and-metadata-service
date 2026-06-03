@@ -99,10 +99,7 @@ def _emit_gatha(
             key = f"{sn}:गाथा:{g}"
             return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
         if block_kind in {"sanskrit_text", "prakrit_text"}:
-            if not tn:
-                key = f"{sn}:गाथा:{g}"
-                return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
-            key = f"{sn}:{tn}:गाथा:टीका:{g}"
+            key = f"{sn}:{tn or 'टीका'}:गाथा:टीका:{g}"
             return [_make_edge(edge_type, "GathaTeeka", key, target, pankti_props, extra_props)]
         if block_kind == "hindi_text":
             if not tn:
@@ -257,7 +254,7 @@ def _emit_inline_ref_edges(
     config: "JainkoshConfig",
     extra_props: Optional[dict] = None,
 ) -> list[dict]:
-    """Emit edges for a single non-main (remaining) reference using simplified rules."""
+    """Emit edges for a remaining non-inline reference using simplified rules."""
     if ref.shastra_name is None:
         return []
     if config.shastra_registry is None:
@@ -295,6 +292,56 @@ def _emit_inline_ref_edges(
     return edges
 
 
+def _emit_inline_only_edges(
+    ref,
+    edge_type: str,
+    target: dict,
+    config: "JainkoshConfig",
+    extra_props: Optional[dict] = None,
+) -> list[dict]:
+    """Emit simplified Gatha/Kalash/Page edges for inline (parenthetical) references.
+
+    Inline refs emit a plain Gatha node for any shastra type when gatha-matcher
+    fields (गाथा/श्लोक/सूत्र/दोहक/वार्तिक) are present — no GathaTeeka or
+    GathaTeekaBhaavarth.  Kalash and Page follow the same shastra-type guards as
+    the non-inline paths.
+    """
+    if ref.shastra_name is None:
+        return []
+    if config.shastra_registry is None:
+        return []
+
+    shastra_type = config.shastra_registry.get_type(ref.shastra_name)
+    if shastra_type is None:
+        return []
+
+    ek = config.reference.entity_keywords
+    rf = ref.resolved_fields
+    publisher_id = _resolve_publisher_id(ref, config)
+    pankti_props = _pankti_props(rf, config)
+    sn = ref.shastra_name
+    tn = ref.teeka_name or "टीका"
+
+    edges: list[dict] = []
+
+    g = _first_value(rf, ek.gatha)
+    if g is not None:
+        key = f"{sn}:गाथा:{g}"
+        edges.append(_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props))
+
+    k = _first_value(rf, ek.kalash)
+    if k is not None and shastra_type in ("teeka", "publication"):
+        key = f"{sn}:{tn}:कलश:{k}"
+        edges.append(_make_edge(edge_type, "Kalash", key, target, pankti_props, extra_props))
+
+    p = _first_value(rf, ek.page)
+    if p is not None and shastra_type == "publication":
+        key = f"{sn}:{tn}:{publisher_id}:पृष्ठ:{p}"
+        edges.append(_make_edge(edge_type, "Page", key, target, pankti_props, extra_props))
+
+    return edges
+
+
 def build_reference_edges(
     block,
     *,
@@ -307,28 +354,22 @@ def build_reference_edges(
     section_index: Optional[int] = None,
     definition_index: Optional[int] = None,
 ) -> list[dict]:
-    """Return edge dicts for this block. May return [] if no eligible ref or
-    the ref doesn't carry the required keyword fields."""
+    """Return edge dicts for this block.
+
+    Non-inline refs: the first (main) ref uses full block-kind-aware emission;
+    remaining non-inline refs use the simplified inline rules.
+
+    Inline (parenthetical) refs: always use the simplified Gatha/Kalash/Page
+    path regardless of whether a non-inline ref is present.
+    """
     refs = block.references
-    ref = _pick_reference(refs)
-    if ref is None or ref.shastra_name is None:
+    if not refs:
         return []
 
     if config.shastra_registry is None:
         return []
 
-    shastra_type = config.shastra_registry.get_type(ref.shastra_name)
-    if shastra_type is None:
-        return []
-
-    cfg = config
-    ek = cfg.reference.entity_keywords
-    rf = ref.resolved_fields
     block_kind = block.kind
-
-    publisher_id = _resolve_publisher_id(ref, config)
-    pankti_props = _pankti_props(rf, cfg)
-
     extra_props: dict = {"block_index": block_index}
     if mention_path:
         extra_props["mention_path"] = mention_path
@@ -339,41 +380,54 @@ def build_reference_edges(
     if definition_index is not None:
         extra_props["definition_index"] = definition_index
 
-    is_bhaavarth = (
-        block_kind == "hindi_text"
-        and getattr(block, "hindi_translation", None) is None
-    )
+    non_inline_refs = [r for r in refs if not r.inline_reference]
+    inline_refs = [r for r in refs if r.inline_reference]
 
     edges: list[dict] = []
 
-    g = _first_value(rf, ek.gatha)
-    if g is not None:
-        edges.extend(_emit_gatha(
-            ref, shastra_type, block_kind, g, publisher_id,
-            edge_type, target, pankti_props, config, extra_props,
-            is_bhaavarth=is_bhaavarth,
-        ))
+    # --- Non-inline refs: first is "main" (full block-kind-aware logic) ---
+    if non_inline_refs:
+        main_ref = non_inline_refs[0]
+        if main_ref.shastra_name is not None:
+            shastra_type = config.shastra_registry.get_type(main_ref.shastra_name)
+            if shastra_type is not None:
+                ek = config.reference.entity_keywords
+                rf = main_ref.resolved_fields
+                publisher_id = _resolve_publisher_id(main_ref, config)
+                pankti_props = _pankti_props(rf, config)
+                is_bhaavarth = (
+                    block_kind == "hindi_text"
+                    and getattr(block, "hindi_translation", None) is None
+                )
 
-    k = _first_value(rf, ek.kalash)
-    if k is not None:
-        edges.extend(_emit_kalash(
-            ref, shastra_type, block_kind, k, publisher_id,
-            edge_type, target, pankti_props, extra_props,
-        ))
+                g = _first_value(rf, ek.gatha)
+                if g is not None:
+                    edges.extend(_emit_gatha(
+                        main_ref, shastra_type, block_kind, g, publisher_id,
+                        edge_type, target, pankti_props, config, extra_props,
+                        is_bhaavarth=is_bhaavarth,
+                    ))
 
-    p = _first_value(rf, ek.page)
-    if p is not None:
-        edges.extend(_emit_page(
-            ref, shastra_type, block_kind, p, publisher_id,
-            edge_type, target, pankti_props, extra_props,
-        ))
+                k = _first_value(rf, ek.kalash)
+                if k is not None:
+                    edges.extend(_emit_kalash(
+                        main_ref, shastra_type, block_kind, k, publisher_id,
+                        edge_type, target, pankti_props, extra_props,
+                    ))
 
-    # Process remaining (non-main) references with simplified inline rules
-    seen_main = False
-    for r in refs:
-        if r is ref and not seen_main:
-            seen_main = True
-            continue
-        edges.extend(_emit_inline_ref_edges(r, block_kind, edge_type, target, config, extra_props))
+                p = _first_value(rf, ek.page)
+                if p is not None:
+                    edges.extend(_emit_page(
+                        main_ref, shastra_type, block_kind, p, publisher_id,
+                        edge_type, target, pankti_props, extra_props,
+                    ))
+
+        # Remaining non-inline refs use simplified rules
+        for r in non_inline_refs[1:]:
+            edges.extend(_emit_inline_ref_edges(r, block_kind, edge_type, target, config, extra_props))
+
+    # --- All inline refs: simplified Gatha/Kalash/Page only ---
+    for r in inline_refs:
+        edges.extend(_emit_inline_only_edges(r, edge_type, target, config, extra_props))
 
     return edges

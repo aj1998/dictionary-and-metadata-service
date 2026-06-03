@@ -1155,8 +1155,8 @@
     "shastra_name": "राजवार्तिक",
     "short_form": "रा.वा.",
     "format": [
-      "भाग/अध्याय/सूत्र/पृष्ठ/पंक्ति",
-      "अध्याय/सूत्र/पृष्ठ/पंक्ति"
+      "भाग/अध्याय/राजवार्तिकसूत्र/पृष्ठ/पंक्ति",
+      "अध्याय/राजवार्तिकसूत्र/पृष्ठ/पंक्ति"
     ],
     "author": "",
     "date_format": "वि.सं.",
@@ -1529,6 +1529,23 @@
     "short_form": "ज.स.प्र.",
     "format": [
       "प्रश्न"
+    ],
+    "author": "",
+    "date_format": "",
+    "date": "",
+    "publisher": "",
+    "notes": "",
+    "edition": "",
+    "type": "shastra",
+    "alternate_name": "",
+    "public_url": "",
+    "manually_added": true
+  },
+  {
+    "shastra_name": "भाव संग्रह",
+    "short_form": "भा.सं.",
+    "format": [
+      "गाथा"
     ],
     "author": "",
     "date_format": "",
