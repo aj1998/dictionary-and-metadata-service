@@ -2,6 +2,8 @@ import { BreadcrumbBar } from '@/components/BreadcrumbBar';
 import { BhaavarthPanel } from '@/components/BhaavarthPanel';
 import { GathaPanel } from '@/components/GathaPanel';
 import { HighlightScrollIntoView } from '@/components/HighlightScrollIntoView';
+import { TabbedPanel } from '@/components/TabbedPanel';
+import type { TabbedPanelItem } from '@/components/TabbedPanel';
 import { TaggedTermPopover } from '@/components/TaggedTermPopover';
 import { TeekaPanel } from '@/components/TeekaPanel';
 import type { TeekaPanelItem } from '@/components/TeekaPanel';
@@ -74,16 +76,69 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   const prevNk = gathaNum > 1 ? `${shastraNk}:गाथा:${gathaNum - 1}` : null;
   const nextNk = `${shastraNk}:गाथा:${gathaNum + 1}`;
 
-  // Build teeka items for the side panel (anvayartha only — bhaavarth now rendered inline)
-  const teekaItems: TeekaPanelItem[] = primaryMapping
-    ? [{
-        key: primaryMapping.natural_key,
-        label: primaryMapping.teeka_natural_key,
-        content: primaryMapping.full_anyavaarth || joinedLangText(primaryMapping.anvayartha),
-      }]
-    : [];
+  // टीका sidebar — tabs of sanskrit teeka text
+  const teekaItems: TeekaPanelItem[] = teekaSanskrit.map((ts) => ({
+    key: ts.natural_key,
+    label: ts.teeka_natural_key ?? ts.natural_key,
+    content: joinedLangText(ts.text),
+  }));
 
   const match = extractMatch as ExtractMatch | null;
+
+  // Bhaavarth tabs — render in right sidebar as a tabbed window
+  const bhaavarthItems: TabbedPanelItem[] = teekaBhaavarth.map((bh) => {
+    const bText = getHindiText(bh.text, bh.natural_key);
+    return {
+      key: bh.natural_key,
+      label: bh.publication_natural_key ?? bh.natural_key,
+      content: (
+        <BhaavarthPanel
+          text={bText}
+          naturalKey={bh.natural_key}
+          highlight={highlightFor(match, bh.natural_key, bText)}
+          className="border-0 p-0 shadow-none"
+        />
+      ),
+    };
+  });
+
+  // Kalash tabs — render in left column as a tabbed window
+  const kalashItems: TabbedPanelItem[] = kalashas.map((kalash) => ({
+    key: kalash.natural_key,
+    label: `कलश ${kalash.kalash_number}`,
+    content: (
+      <div className="space-y-3">
+        {kalash.sanskrit && (
+          <BhaavarthPanel
+            label="कलश संस्कृत"
+            text={joinedLangText(kalash.sanskrit.text)}
+            naturalKey={kalash.sanskrit.natural_key}
+            highlight={highlightFor(match, kalash.sanskrit.natural_key, joinedLangText(kalash.sanskrit.text))}
+          />
+        )}
+        {kalash.hindi && (
+          <BhaavarthPanel
+            label="कलश हिन्दी"
+            text={joinedLangText(kalash.hindi.text)}
+            naturalKey={kalash.hindi.natural_key}
+            highlight={highlightFor(match, kalash.hindi.natural_key, joinedLangText(kalash.hindi.text))}
+          />
+        )}
+        {kalash.bhaavarth.map((bh) => {
+          const bText = joinedLangText(bh.text);
+          return (
+            <BhaavarthPanel
+              key={bh.natural_key}
+              label="कलश भावार्थ"
+              text={bText}
+              naturalKey={bh.natural_key}
+              highlight={highlightFor(match, bh.natural_key, bText)}
+            />
+          );
+        })}
+      </div>
+    ),
+  }));
 
   // Determine scroll target natural key if we have a matched highlight
   const scrollTargetNk =
@@ -157,81 +212,10 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
           )}
         </section>
 
-        {/* 5. संस्कृत टीका (NEW) */}
-        {teekaSanskrit.map((ts) => (
-          <GathaPanel
-            key={ts.natural_key}
-            lang="sanskrit-teeka"
-            text={joinedLangText(ts.text)}
-            naturalKey={ts.natural_key}
-            highlight={highlightFor(match, ts.natural_key, joinedLangText(ts.text))}
-          />
-        ))}
-
-        {/* 6. हिन्दी भावार्थ (NEW — moved out of TeekaPanel) */}
-        {teekaBhaavarth.length > 0 && (
-          <section className="space-y-3">
-            <h2 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold text-foreground">
-              हिन्दी भावार्थ
-            </h2>
-            {teekaBhaavarth.map((bh) => {
-              const bText = getHindiText(bh.text, bh.natural_key);
-              return (
-                <BhaavarthPanel
-                  key={bh.natural_key}
-                  label={bh.publication_natural_key ?? bh.natural_key}
-                  text={bText}
-                  naturalKey={bh.natural_key}
-                  highlight={highlightFor(match, bh.natural_key, bText)}
-                />
-              );
-            })}
-          </section>
+        {/* कलश — tabbed panel in left column */}
+        {kalashItems.length > 0 && (
+          <TabbedPanel title="कलश" items={kalashItems} />
         )}
-
-        {/* 7. कलश sections (NEW) */}
-        {kalashas.map((kalash) => (
-          <section
-            key={kalash.natural_key}
-            className="rounded-[var(--radius-md)] border border-border bg-surface shadow-node overflow-hidden"
-          >
-            <div className="bg-[var(--cat-kalash,theme(colors.rose.50))] px-5 py-3">
-              <h3 className="font-serif-hindi text-sm font-semibold text-foreground">
-                कलश {kalash.kalash_number}
-              </h3>
-            </div>
-            <div className="space-y-3 p-4">
-              {kalash.sanskrit && (
-                <BhaavarthPanel
-                  label="कलश संस्कृत"
-                  text={joinedLangText(kalash.sanskrit.text)}
-                  naturalKey={kalash.sanskrit.natural_key}
-                  highlight={highlightFor(match, kalash.sanskrit.natural_key, joinedLangText(kalash.sanskrit.text))}
-                />
-              )}
-              {kalash.hindi && (
-                <BhaavarthPanel
-                  label="कलश हिन्दी"
-                  text={joinedLangText(kalash.hindi.text)}
-                  naturalKey={kalash.hindi.natural_key}
-                  highlight={highlightFor(match, kalash.hindi.natural_key, joinedLangText(kalash.hindi.text))}
-                />
-              )}
-              {kalash.bhaavarth.map((bh) => {
-                const bText = joinedLangText(bh.text);
-                return (
-                  <BhaavarthPanel
-                    key={bh.natural_key}
-                    label="कलश भावार्थ"
-                    text={bText}
-                    naturalKey={bh.natural_key}
-                    highlight={highlightFor(match, bh.natural_key, bText)}
-                  />
-                );
-              })}
-            </div>
-          </section>
-        ))}
 
         {/* Prev / Next navigation */}
         <div className="flex items-center justify-between gap-3 pt-1">
@@ -254,8 +238,13 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
 
       {/* ── Sidebar ── */}
       <aside className="space-y-4 lg:sticky lg:top-[90px] lg:self-start lg:max-h-[calc(100vh-110px)] lg:overflow-y-auto">
-        {/* टीका — anvayartha */}
+        {/* टीका — sanskrit teeka tabs */}
         <TeekaPanel items={teekaItems} />
+
+        {/* हिन्दी भावार्थ — tabs */}
+        {bhaavarthItems.length > 0 && (
+          <TabbedPanel title="हिन्दी भावार्थ" items={bhaavarthItems} />
+        )}
 
         {topics.length > 0 && (
           <section className="rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-node">

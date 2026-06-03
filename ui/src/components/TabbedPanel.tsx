@@ -1,39 +1,43 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { cn } from '@/lib/utils';
-import { teekaMarkdownToHtml } from '@/lib/format/teeka-markdown';
 
-export interface TeekaPanelItem {
+export interface TabbedPanelItem {
   key: string;
   label: string;
-  content: string;
+  content: ReactNode;
 }
 
-interface TeekaPanelProps {
-  items: TeekaPanelItem[];
+interface TabbedPanelProps {
+  title?: string;
+  items: TabbedPanelItem[];
+  emptyMessage?: string;
+  bodyClassName?: string;
 }
 
-
-export function TeekaPanel({ items }: TeekaPanelProps) {
+export function TabbedPanel({ title, items, emptyMessage, bodyClassName }: TabbedPanelProps) {
   const [active, setActive] = useState(0);
 
   if (items.length === 0) {
+    if (!emptyMessage) return null;
     return (
       <section className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
-        <h3 className="mb-3 font-serif-hindi text-base font-semibold">टीका</h3>
-        <p className="text-sm text-foreground-muted">टीका उपलब्ध नहीं है।</p>
+        {title && <h3 className="mb-3 font-serif-hindi text-base font-semibold">{title}</h3>}
+        <p className="text-sm text-foreground-muted">{emptyMessage}</p>
       </section>
     );
   }
 
-  const current = items[active];
+  const current = items[Math.min(active, items.length - 1)];
 
   return (
     <section className="rounded-[var(--radius-md)] border border-border bg-surface shadow-node overflow-hidden">
-      <div className="px-5 pt-5 pb-3">
-        <h3 className="font-serif-hindi text-base font-semibold text-foreground">टीका</h3>
-      </div>
+      {title && (
+        <div className="px-5 pt-5 pb-3">
+          <h3 className="font-serif-hindi text-base font-semibold text-foreground">{title}</h3>
+        </div>
+      )}
 
       {items.length > 1 && (
         <div className="flex overflow-x-auto border-b border-border px-5 gap-1">
@@ -54,15 +58,11 @@ export function TeekaPanel({ items }: TeekaPanelProps) {
         </div>
       )}
 
-      {items.length === 1 && (
+      {items.length === 1 && title && (
         <p className="px-5 pb-1 text-xs text-foreground-muted">{current.label}</p>
       )}
 
-      <div
-        className="px-5 py-4 overflow-y-auto max-h-[55vh] font-serif-hindi text-sm leading-8 text-foreground teeka-content"
-        /* content is from internal DB, not user input */
-        dangerouslySetInnerHTML={{ __html: teekaMarkdownToHtml(current.content) }}
-      />
+      <div className={cn('px-5 py-4', bodyClassName)}>{current.content}</div>
     </section>
   );
 }

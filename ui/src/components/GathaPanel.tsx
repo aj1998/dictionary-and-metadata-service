@@ -2,6 +2,7 @@ import { cn } from '@/lib/utils';
 import { normalizeNFC } from '@/lib/format/devanagari';
 import { splitHighlight } from '@/lib/highlight';
 import type { HighlightRange } from '@/lib/highlight';
+import { teekaMarkdownToHtml } from '@/lib/format/teeka-markdown';
 
 export interface GathaPanelProps {
   lang: 'prakrit' | 'sanskrit' | 'hindi-harigeet' | 'sanskrit-teeka';
@@ -56,17 +57,22 @@ export function GathaPanel({ lang, text, naturalKey, highlight, label, className
       <span className={cn('mb-3 inline-block rounded-full px-2 py-0.5 text-xs font-medium', cfg.badge)}>
         {label ?? cfg.label}
       </span>
-      <p className="whitespace-pre-wrap font-serif-hindi text-[length:var(--font-size-h2)] leading-[1.85] text-foreground">
-        {split ? (
-          <>
-            {split.before}
-            <mark className="rounded bg-[var(--accent-soft)] text-[var(--accent)]">{split.matched}</mark>
-            {split.after}
-          </>
-        ) : (
-          nfcText
-        )}
-      </p>
+      {split ? (
+        <p className="whitespace-pre-wrap font-serif-hindi text-[length:var(--font-size-h2)] leading-[1.85] text-foreground">
+          {split.before}
+          <mark className="rounded bg-[var(--accent-soft)] text-[var(--accent)]">{split.matched}</mark>
+          {split.after}
+        </p>
+      ) : lang === 'sanskrit-teeka' ? (
+        <div
+          className="font-serif-hindi text-[length:var(--font-size-body)] leading-[1.85] text-foreground teeka-content"
+          dangerouslySetInnerHTML={{ __html: teekaMarkdownToHtml(nfcText) }}
+        />
+      ) : (
+        <p className="whitespace-pre-wrap font-serif-hindi text-[length:var(--font-size-h2)] leading-[1.85] text-foreground">
+          {nfcText}
+        </p>
+      )}
     </section>
   );
 }
