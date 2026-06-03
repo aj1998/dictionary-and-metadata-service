@@ -40,6 +40,8 @@ const RADIAL_FAN_RADIUS = 280;  // base radius for new-child fan around the expa
 const MIN_ZOOM = 0.4;
 const MAX_ZOOM = 2.5;
 const FIT_DURATION_MS = 600;
+// Maximum pointer displacement (px) that is treated as a click rather than a drag.
+export const CANVAS_CLICK_THRESHOLD_PX = 5;
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -221,7 +223,9 @@ export function GraphCanvas({
   const [canvasSize, setCanvasSize] = useState({ w: 800, h: 600 });
   const [isDragging, setIsDragging] = useState(false);
 
-  const lastPosRef   = useRef({ x: 0, y: 0 });
+  const lastPosRef      = useRef({ x: 0, y: 0 });
+  // Tracks the mousedown position so we can distinguish a click from a drag.
+  const mouseDownPosRef = useRef({ x: 0, y: 0 });
   const cameraRef    = useRef(camera);
   cameraRef.current  = camera;
   const canvasSizeRef = useRef(canvasSize);
@@ -664,10 +668,10 @@ export function GraphCanvas({
 
   const handleMouseDown = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
     if ((e.target as Element).closest('.graph-node, .graph-edge')) return;
-    onCanvasClick?.();
     setIsDragging(true);
     lastPosRef.current = { x: e.clientX, y: e.clientY };
-  }, [onCanvasClick]);
+    mouseDownPosRef.current = { x: e.clientX, y: e.clientY };
+  }, []);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
     if (!isDragging) return;
@@ -677,7 +681,17 @@ export function GraphCanvas({
     setCamera(prev => ({ ...prev, x: prev.x + dx, y: prev.y + dy }));
   }, [isDragging]);
 
-  const stopDrag = useCallback(() => setIsDragging(false), []);
+  // Fire onCanvasClick only when the pointer hasn't moved significantly —
+  // prevents panning the graph from closing the side panel.
+  const stopDrag = useCallback((e?: React.MouseEvent<SVGSVGElement>) => {
+    if (e) {
+      const dx = e.clientX - mouseDownPosRef.current.x;
+      const dy = e.clientY - mouseDownPosRef.current.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < CANVAS_CLICK_THRESHOLD_PX) onCanvasClick?.();
+    }
+    setIsDragging(false);
+  }, [onCanvasClick]);
 
   // ── Grid pattern ─────────────────────────────────────────────────────────────
 
@@ -702,8 +716,8 @@ export function GraphCanvas({
         onWheel={handleWheel}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
-        onMouseUp={stopDrag}
-        onMouseLeave={stopDrag}
+        onMouseUp={(e) => stopDrag(e)}
+        onMouseLeave={() => stopDrag()}
         aria-label="ग्राफ कैनवास"
       >
         <defs>
