@@ -271,7 +271,7 @@
                                 "value": 84
                               },
                               {
-                                "field": "गाथा",
+                                "field": "धवलागाथा",
                                 "value": 1
                               }
                             ]
@@ -279,33 +279,12 @@
                           {
                             "text": "( कषायपाहुड़ 1/13-14/§181/217/1)",
                             "inline_reference": true,
-                            "needs_manual_match": false,
+                            "needs_manual_match": true,
                             "is_teeka": false,
                             "teeka_name": "",
                             "shastra_name": "कषायपाहुड़",
                             "match_method": "shastra_name",
-                            "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 1
-                              },
-                              {
-                                "field": "कषायपाहुड़-गाथा",
-                                "value": "13-14"
-                              },
-                              {
-                                "field": "प्रकरण",
-                                "value": 181
-                              },
-                              {
-                                "field": "पृष्ठ",
-                                "value": 217
-                              },
-                              {
-                                "field": "पंक्ति",
-                                "value": 1
-                              }
-                            ]
+                            "resolved_fields": []
                           },
                           {
                             "text": "( नियमसार / तात्पर्यवृत्ति 14 )",
@@ -522,7 +501,7 @@
                                 "value": 170
                               },
                               {
-                                "field": "गाथा",
+                                "field": "धवलागाथा",
                                 "value": 2
                               }
                             ]
@@ -2874,7 +2853,7 @@
                             "value": 337
                           },
                           {
-                            "field": "गाथा",
+                            "field": "धवलागाथा",
                             "value": 8
                           }
                         ]
@@ -3233,7 +3212,7 @@
                             "value": 337
                           },
                           {
-                            "field": "गाथा",
+                            "field": "धवलागाथा",
                             "value": 6
                           }
                         ]
@@ -3658,7 +3637,7 @@
                             "value": 178
                           },
                           {
-                            "field": "गाथा",
+                            "field": "धवलागाथा",
                             "value": 3
                           }
                         ]
@@ -3742,7 +3721,7 @@
                                 "value": 242
                               },
                               {
-                                "field": "गाथा",
+                                "field": "धवलागाथा",
                                 "value": 9
                               }
                             ]
@@ -3777,7 +3756,7 @@
                                 "value": 243
                               },
                               {
-                                "field": "गाथा",
+                                "field": "धवलागाथा",
                                 "value": 9
                               }
                             ]
@@ -3812,7 +3791,7 @@
                                 "value": 244
                               },
                               {
-                                "field": "गाथा",
+                                "field": "धवलागाथा",
                                 "value": 9
                               }
                             ]
@@ -5578,7 +5557,7 @@
       "next": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%B8%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8"
     },
     "parser_version": "jainkosh.rules/1.11.19",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parsed_at": "2026-06-03T21:46:19.001790",
     "warnings": []
   },
   "would_write": {
@@ -6751,7 +6730,7 @@
                       "value": 84
                     },
                     {
-                      "field": "गाथा",
+                      "field": "धवलागाथा",
                       "value": 1
                     }
                   ]
@@ -6759,33 +6738,12 @@
                 {
                   "text": "( कषायपाहुड़ 1/13-14/§181/217/1)",
                   "inline_reference": true,
-                  "needs_manual_match": false,
+                  "needs_manual_match": true,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "कषायपाहुड़",
                   "match_method": "shastra_name",
-                  "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 1
-                    },
-                    {
-                      "field": "कषायपाहुड़-गाथा",
-                      "value": "13-14"
-                    },
-                    {
-                      "field": "प्रकरण",
-                      "value": 181
-                    },
-                    {
-                      "field": "पृष्ठ",
-                      "value": 217
-                    },
-                    {
-                      "field": "पंक्ति",
-                      "value": 1
-                    }
-                  ]
+                  "resolved_fields": []
                 },
                 {
                   "text": "( नियमसार / तात्पर्यवृत्ति 14 )",
@@ -7002,7 +6960,7 @@
                       "value": 170
                     },
                     {
-                      "field": "गाथा",
+                      "field": "धवलागाथा",
                       "value": 2
                     }
                   ]
@@ -9367,7 +9325,7 @@
                       "value": 337
                     },
                     {
-                      "field": "गाथा",
+                      "field": "धवलागाथा",
                       "value": 8
                     }
                   ]
@@ -9728,7 +9686,7 @@
                       "value": 337
                     },
                     {
-                      "field": "गाथा",
+                      "field": "धवलागाथा",
                       "value": 6
                     }
                   ]
@@ -10157,7 +10115,7 @@
                       "value": 178
                     },
                     {
-                      "field": "गाथा",
+                      "field": "धवलागाथा",
                       "value": 3
                     }
                   ]
@@ -10243,7 +10201,7 @@
                       "value": 242
                     },
                     {
-                      "field": "गाथा",
+                      "field": "धवलागाथा",
                       "value": 9
                     }
                   ]
@@ -10278,7 +10236,7 @@
                       "value": 243
                     },
                     {
-                      "field": "गाथा",
+                      "field": "धवलागाथा",
                       "value": 9
                     }
                   ]
@@ -10313,7 +10271,7 @@
                       "value": 244
                     },
                     {
-                      "field": "गाथा",
+                      "field": "धवलागाथा",
                       "value": 9
                     }
                   ]
@@ -12190,15 +12148,6 @@
           "lazy": true
         },
         {
-          "label": "Gatha",
-          "key": "धवला:गाथा:1",
-          "props": {
-            "shastra_natural_key": "धवला",
-            "gatha_number": "1"
-          },
-          "lazy": true
-        },
-        {
           "label": "Page",
           "key": "धवला:टीका:8:पृष्ठ:84",
           "props": {
@@ -12206,17 +12155,6 @@
             "teeka_natural_key": "धवला:टीका",
             "publisher_id": "8",
             "page_number": "84"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Page",
-          "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:217",
-          "props": {
-            "shastra_natural_key": "कषायपाहुड़",
-            "teeka_natural_key": "कषायपाहुड़:टीका",
-            "publisher_id": "publisher_to_be_added",
-            "page_number": "217"
           },
           "lazy": true
         },
@@ -12290,16 +12228,6 @@
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
             "page_number": "89"
-          },
-          "lazy": true
-        },
-        {
-          "label": "GathaTeeka",
-          "key": "धवला:टीका:गाथा:टीका:2",
-          "props": {
-            "shastra_natural_key": "धवला",
-            "teeka_natural_key": "धवला:टीका",
-            "gatha_number": "2"
           },
           "lazy": true
         },
@@ -13100,15 +13028,6 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "धवला:गाथा:8",
-          "props": {
-            "shastra_natural_key": "धवला",
-            "gatha_number": "8"
-          },
-          "lazy": true
-        },
-        {
           "label": "Page",
           "key": "धवला:टीका:8:पृष्ठ:337",
           "props": {
@@ -13190,15 +13109,6 @@
             "source": "jainkosh",
             "is_leaf": true
           }
-        },
-        {
-          "label": "Gatha",
-          "key": "धवला:गाथा:6",
-          "props": {
-            "shastra_natural_key": "धवला",
-            "gatha_number": "6"
-          },
-          "lazy": true
         },
         {
           "label": "Topic",
@@ -13313,15 +13223,6 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "धवला:गाथा:3",
-          "props": {
-            "shastra_natural_key": "धवला",
-            "gatha_number": "3"
-          },
-          "lazy": true
-        },
-        {
           "label": "Page",
           "key": "धवला:टीका:8:पृष्ठ:178",
           "props": {
@@ -13353,15 +13254,6 @@
             "source": "jainkosh",
             "is_leaf": true
           }
-        },
-        {
-          "label": "Gatha",
-          "key": "धवला:गाथा:9",
-          "props": {
-            "shastra_natural_key": "धवला",
-            "gatha_number": "9"
-          },
-          "lazy": true
         },
         {
           "label": "Page",
@@ -13955,24 +13847,6 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:1"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ/0",
-            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
             "label": "Page",
             "key": "धवला:टीका:8:पृष्ठ:84"
           },
@@ -13983,25 +13857,6 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ/0",
-            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Page",
-            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:217"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "pankti": 1,
             "block_index": 0,
             "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ/0",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ"
@@ -14130,24 +13985,6 @@
             "pankti": 4,
             "block_index": 1,
             "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में/1",
-            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "GathaTeeka",
-            "key": "धवला:टीका:गाथा:टीका:2"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 2,
-            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में/2",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में"
           }
         },
@@ -15971,24 +15808,6 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:8"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-के-लक्षण-व-उदाहरण"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-के-लक्षण-व-उदाहरण/0",
-            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-के-लक्षण-व-उदाहरण"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
             "label": "Page",
             "key": "धवला:टीका:8:पृष्ठ:337"
           },
@@ -16216,24 +16035,6 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:6"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:व्यंजन-व-द्रव्य-पर्याय-एकार्थवाची-हैं"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:व्यंजन-व-द्रव्य-पर्याय-एकार्थवाची-हैं/0",
-            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:व्यंजन-व-द्रव्य-पर्याय-एकार्थवाची-हैं"
           }
         },
         {
@@ -16539,24 +16340,6 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:3"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:व्यंजन-पर्याय-के-अभाव-होने-का-नियम-नहीं-है"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:व्यंजन-पर्याय-के-अभाव-होने-का-नियम-नहीं-है/0",
-            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:व्यंजन-पर्याय-के-अभाव-होने-का-नियम-नहीं-है"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
             "label": "Page",
             "key": "धवला:टीका:8:पृष्ठ:178"
           },
@@ -16600,24 +16383,6 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:9"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल/0",
-            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्यायों-की-स्थूलता-सूक्ष्मता:दोनों-का-काल"
           }
         },
         {

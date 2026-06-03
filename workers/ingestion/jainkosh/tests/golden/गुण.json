@@ -892,7 +892,7 @@
                             "value": 8
                           },
                           {
-                            "field": "गाथा",
+                            "field": "धवलागाथा",
                             "value": 104
                           },
                           {
@@ -1052,7 +1052,7 @@
                             "value": 162
                           },
                           {
-                            "field": "गाथा",
+                            "field": "धवलागाथा",
                             "value": 103
                           }
                         ]
@@ -1103,7 +1103,7 @@
                             "value": 162
                           },
                           {
-                            "field": "गाथा",
+                            "field": "धवलागाथा",
                             "value": 103
                           }
                         ]
@@ -1463,7 +1463,7 @@
                             "value": 450
                           },
                           {
-                            "field": "गाथा",
+                            "field": "धवलागाथा",
                             "value": 5
                           }
                         ]
@@ -1514,7 +1514,7 @@
                             "value": 451
                           },
                           {
-                            "field": "गाथा",
+                            "field": "धवलागाथा",
                             "value": 5
                           }
                         ]
@@ -1582,7 +1582,7 @@
                             "value": 450
                           },
                           {
-                            "field": "गाथा",
+                            "field": "धवलागाथा",
                             "value": 6
                           }
                         ]
@@ -1686,7 +1686,7 @@
                             "value": 450
                           },
                           {
-                            "field": "गाथा",
+                            "field": "धवलागाथा",
                             "value": 7
                           }
                         ]
@@ -3763,7 +3763,7 @@
                             "value": 27
                           },
                           {
-                            "field": "गाथा",
+                            "field": "धवलागाथा",
                             "value": 6
                           }
                         ]
@@ -4283,7 +4283,7 @@
       "next": "/wiki/Aaaa"
     },
     "parser_version": "jainkosh.rules/1.11.19",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parsed_at": "2026-06-03T21:46:18.633137",
     "warnings": []
   },
   "would_write": {
@@ -5801,7 +5801,7 @@
                       "value": 8
                     },
                     {
-                      "field": "गाथा",
+                      "field": "धवलागाथा",
                       "value": 104
                     },
                     {
@@ -5961,7 +5961,7 @@
                       "value": 162
                     },
                     {
-                      "field": "गाथा",
+                      "field": "धवलागाथा",
                       "value": 103
                     }
                   ]
@@ -6012,7 +6012,7 @@
                       "value": 162
                     },
                     {
-                      "field": "गाथा",
+                      "field": "धवलागाथा",
                       "value": 103
                     }
                   ]
@@ -6373,7 +6373,7 @@
                       "value": 450
                     },
                     {
-                      "field": "गाथा",
+                      "field": "धवलागाथा",
                       "value": 5
                     }
                   ]
@@ -6424,7 +6424,7 @@
                       "value": 451
                     },
                     {
-                      "field": "गाथा",
+                      "field": "धवलागाथा",
                       "value": 5
                     }
                   ]
@@ -6493,7 +6493,7 @@
                       "value": 450
                     },
                     {
-                      "field": "गाथा",
+                      "field": "धवलागाथा",
                       "value": 6
                     }
                   ]
@@ -6598,7 +6598,7 @@
                       "value": 450
                     },
                     {
-                      "field": "गाथा",
+                      "field": "धवलागाथा",
                       "value": 7
                     }
                   ]
@@ -8693,7 +8693,7 @@
                       "value": 27
                     },
                     {
-                      "field": "गाथा",
+                      "field": "धवलागाथा",
                       "value": 6
                     }
                   ]
@@ -9653,15 +9653,6 @@
           "lazy": true
         },
         {
-          "label": "Gatha",
-          "key": "धवला:गाथा:104",
-          "props": {
-            "shastra_natural_key": "धवला",
-            "gatha_number": "104"
-          },
-          "lazy": true
-        },
-        {
           "label": "Page",
           "key": "धवला:टीका:8:पृष्ठ:162",
           "props": {
@@ -9711,16 +9702,6 @@
             "teeka_natural_key": "धवला:टीका",
             "publisher_id": "8",
             "page_number": "174"
-          },
-          "lazy": true
-        },
-        {
-          "label": "GathaTeeka",
-          "key": "धवला:टीका:गाथा:टीका:103",
-          "props": {
-            "shastra_natural_key": "धवला",
-            "teeka_natural_key": "धवला:टीका",
-            "gatha_number": "103"
           },
           "lazy": true
         },
@@ -9802,15 +9783,6 @@
           "lazy": true
         },
         {
-          "label": "Gatha",
-          "key": "धवला:गाथा:5",
-          "props": {
-            "shastra_natural_key": "धवला",
-            "gatha_number": "5"
-          },
-          "lazy": true
-        },
-        {
           "label": "Page",
           "key": "धवला:टीका:8:पृष्ठ:450",
           "props": {
@@ -9844,15 +9816,6 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "धवला:गाथा:6",
-          "props": {
-            "shastra_natural_key": "धवला",
-            "gatha_number": "6"
-          },
-          "lazy": true
-        },
-        {
           "label": "Topic",
           "key": "गुण:गुण-निर्देश:उपरोक्त-खंड-कल्पना-में-हेतु-तथा-भेदअभेद-समन्वय",
           "props": {
@@ -9862,15 +9825,6 @@
             "source": "jainkosh",
             "is_leaf": true
           }
-        },
-        {
-          "label": "Gatha",
-          "key": "धवला:गाथा:7",
-          "props": {
-            "shastra_natural_key": "धवला",
-            "gatha_number": "7"
-          },
-          "lazy": true
         },
         {
           "label": "GathaTeeka",
@@ -11333,24 +11287,6 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:104"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 1,
-            "mention_path": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग/1",
-            "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
             "label": "Page",
             "key": "धवला:टीका:8:पृष्ठ:162"
           },
@@ -11443,24 +11379,6 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "धवला:टीका:गाथा:टीका:103"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 4,
-            "mention_path": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग/4",
-            "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
             "label": "Page",
             "key": "धवला:टीका:8:पृष्ठ:162"
           },
@@ -11473,24 +11391,6 @@
             "source": "jainkosh",
             "block_index": 4,
             "mention_path": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग/4",
-            "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "GathaTeeka",
-            "key": "धवला:टीका:गाथा:टीका:103"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 5,
-            "mention_path": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग/5",
             "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
           }
         },
@@ -11695,24 +11595,6 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:5"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 6,
-            "mention_path": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग/6",
-            "source_natural_key": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
             "label": "Page",
             "key": "धवला:टीका:8:पृष्ठ:450"
           },
@@ -11725,24 +11607,6 @@
             "source": "jainkosh",
             "block_index": 6,
             "mention_path": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग/6",
-            "source_natural_key": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:5"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 7,
-            "mention_path": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग/7",
             "source_natural_key": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग"
           }
         },
@@ -11782,24 +11646,6 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:6"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "गुण:गुण-निर्देश:एक-अखंड-गुण-में-अविभागी-प्रतिच्छेदरूप-खंड-कल्पना"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "गुण:गुण-निर्देश:एक-अखंड-गुण-में-अविभागी-प्रतिच्छेदरूप-खंड-कल्पना/0",
-            "source_natural_key": "गुण:गुण-निर्देश:एक-अखंड-गुण-में-अविभागी-प्रतिच्छेदरूप-खंड-कल्पना"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
             "label": "Page",
             "key": "धवला:टीका:8:पृष्ठ:450"
           },
@@ -11828,24 +11674,6 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:7"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "गुण:गुण-निर्देश:उपरोक्त-खंड-कल्पना-में-हेतु-तथा-भेदअभेद-समन्वय"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "गुण:गुण-निर्देश:उपरोक्त-खंड-कल्पना-में-हेतु-तथा-भेदअभेद-समन्वय/0",
-            "source_natural_key": "गुण:गुण-निर्देश:उपरोक्त-खंड-कल्पना-में-हेतु-तथा-भेदअभेद-समन्वय"
           }
         },
         {
@@ -13283,24 +13111,6 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Gatha",
-            "key": "धवला:गाथा:6"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं/0",
-            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं"
           }
         },
         {
