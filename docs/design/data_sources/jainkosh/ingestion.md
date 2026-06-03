@@ -210,6 +210,22 @@ Per-label stub props:
 | `KalashBhaavarth` | `shastra_natural_key`, `teeka_natural_key`, `publisher_id`, `kalash_number` |
 | `Page` | `shastra_natural_key`, `teeka_natural_key`, `publisher_id`, `page_number` |
 
+### `delete_placeholder_stub`
+
+```python
+async def delete_placeholder_stub(
+    driver, *, label: str, natural_key: str,
+    database: str = "jainkb",
+) -> None
+```
+
+Cypher pattern:
+```cypher
+MATCH (n:Topic {natural_key: $nk}) WHERE n.is_stub = true DETACH DELETE n
+```
+
+The `WHERE n.is_stub = true` guard ensures that only fallback placeholder stubs are removed. A node that was real-synced (`is_stub = false`) is never deleted even if its `natural_key` happens to match a former placeholder.
+
 ### `sync_reference_edge`
 
 Handles `MENTIONS_TOPIC` and `CONTAINS_DEFINITION` edge types. MERGEs both endpoints with stub coalesce before MERGing the edge. Both `edge_type` and labels are validated against allow-lists.
@@ -262,6 +278,7 @@ async def apply_approved_keyword_payload(
    - `PART_OF` → `sync_part_of_edge`
    - `RELATED_TO` (only when `target_exists` is not false) → `sync_related_to_edge`
    - `MENTIONS_TOPIC` / `CONTAINS_DEFINITION` → `sync_reference_edge`
+5. For each `resolve_key` that was successfully resolved to a *different* actual key in step 2 of Postgres/resolve phase: `delete_placeholder_stub(label="Topic", natural_key=resolve_key)` — removes the numerical placeholder stub node and all its edges via `DETACH DELETE` (only when `is_stub = true`, so real nodes are never touched).
 
 ---
 
@@ -288,12 +305,14 @@ After the Postgres commit, `_resolve_topic_stubs` runs:
 
 1. Finds all stub nodes with `resolve_key` and `is_stub_seed: true`.
 2. For each, queries Postgres: `SELECT topics.natural_key FROM topics JOIN keywords ON topics.parent_keyword_id = keywords.id WHERE keywords.natural_key = $parent_kw AND topics.topic_path = $path`.
-3. If found → replace `resolve_key` with the actual heading-based `key` (e.g. `"स्वभाव:स्वभाव-व-शक्ति-निर्देश"`). The RELATED_TO edge target is updated to match.
-4. If not found (target keyword not yet ingested) → use `resolve_key` itself as the fallback `key`. A placeholder stub is written to Neo4j (same as before this feature).
+3. If found → replace `resolve_key` with the actual heading-based `key` (e.g. `"स्वभाव:स्वभाव-व-शक्ति-निर्देश"`). The RELATED_TO edge target is updated to match. The `resolve_key` is added to the **resolved_placeholders** set.
+4. If not found (target keyword not yet ingested) → use `resolve_key` itself as the fallback `key`. A placeholder stub is written to Neo4j (e.g. Topic with `natural_key = "स्वभाव:2"`).
+
+After all Neo4j writes, for every key in **resolved_placeholders**, `delete_placeholder_stub` is called — it `DETACH DELETE`s the old numerical stub Topic node and all its incident edges, but only when `is_stub = true` so real nodes are never touched.
 
 **Why a second ingestion pass may be needed:**
 
-When two keywords cross-reference each other (A → B and B → A), a single sequential pass resolves only the direction where the target was processed earlier. Use `--resolve-pass` in `ingest_goldens_apply.py` to run a second application of all envelopes; by then all keywords are in Postgres and all stubs resolve correctly. The second pass is fully idempotent (MERGE / ON CONFLICT DO NOTHING).
+When two keywords cross-reference each other (A → B and B → A), a single sequential pass resolves only the direction where the target was processed earlier. Use `--resolve-pass` in `ingest_goldens_apply.py` to run a second application of all envelopes; by then all keywords are in Postgres and all stubs resolve correctly. The second pass is fully idempotent (MERGE / ON CONFLICT DO NOTHING) and additionally cleans up any numerical placeholder stubs written in pass 1 by deleting them once their real targets are resolved.
 
 **No infinite loops:** `_resolve_topic_stubs` only issues `SELECT` queries to Postgres — it never triggers recursive ingestion calls. There is no risk of cycles or loops.
 

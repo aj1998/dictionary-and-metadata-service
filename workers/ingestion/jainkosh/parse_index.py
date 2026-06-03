@@ -109,7 +109,14 @@ def _ancestor_li_ids(a: Node, config: JainkoshConfig) -> list[str]:
 
     contextual_path = _nearest_previous_heading_path_in_same_list(row_li, config)
     if contextual_path and (not ids or ids[-1] != contextual_path):
-        ids.append(contextual_path)
+        # Skip contextual path that is a child of an already-captured ancestor path.
+        # Example: if ids=['1'] (from enclosing <li id="1">) and the sibling-search
+        # returns '1.1' (derived from a nested index <ol>), we must NOT extend the
+        # chain to ['1','1.1'] — the <ul> is directly inside <li id="1">, so '1' is
+        # the correct and final source path.
+        is_child_of_captured = ids and contextual_path.startswith(ids[-1] + ".")
+        if not is_child_of_captured:
+            ids.append(contextual_path)
     return ids
 
 

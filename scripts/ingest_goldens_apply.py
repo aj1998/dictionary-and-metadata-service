@@ -126,6 +126,11 @@ async def _run_apply(
     B references A), pass 1 resolves stubs whose target was processed earlier
     in the batch, and pass 2 resolves the remainder (at that point all
     keywords are in Postgres).  Both passes are fully idempotent.
+
+    Pass 2 also deletes any numerical placeholder stub Topic nodes that were
+    written in pass 1 as fallbacks (e.g. a Topic with natural_key "स्वभाव:2"
+    that could not be resolved yet).  Once resolved, those placeholder nodes
+    and all their edges are removed via DETACH DELETE (only when is_stub=true).
     """
     database_url = os.environ["DATABASE_URL"]
     mongo_url = os.environ.get("MONGO_URL", "mongodb://localhost:27017")

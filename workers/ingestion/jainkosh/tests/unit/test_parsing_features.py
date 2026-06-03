@@ -1581,3 +1581,122 @@ class TestParishishtKeywordTriggerPriority:
         field_map = {rf.field: rf.value for rf in r.resolved_fields}
         assert field_map.get("कलश") == 2
         assert "गाथा" not in field_map
+
+
+# ---------------------------------------------------------------------------
+# Bug fix: index source chain — <ul> देखें items inside a heading <li> must
+# resolve to that heading's path, not to a nested sub-section path.
+# Root cause: _topic_path_from_li_heading_anchor's li_path_from_inner_ol_fallback
+# was firing on index-entry <li> nodes (no <strong>) and returning the path of
+# the first sub-item (e.g. 1.1 from #1.1.1), erroneously extending the chain.
+# Fix: the fallback now only fires when a direct <strong> child was found.
+# ---------------------------------------------------------------------------
+
+class TestIndexSourceChainUlInsideHeadingLi:
+    """Index <ul> देखें items directly inside a top-level heading <li> must
+    resolve to that heading's path, not to a sub-topic path derived from
+    sibling <ol> index entries.
+
+    HTML structure (from स्वभाव):
+      <li id="1">
+        <strong><a href="#1">Section heading</a></strong>
+        <ol>
+          <li id="1.1"><a href="#1.1">...</a>
+            <ol>
+              <li id="1.1.1"><a href="#1.1.1">...</a></li>
+            </ol>
+          </li>
+        </ol>
+        <ul>
+          <li>label - देखें <a href="/wiki/X#1.3">X - 1.3</a></li>   ← bug was here
+        </ul>
+      </li>
+
+    Before the fix: source_topic_path='1.1', chain=['1','1.1']
+    After the fix:  source_topic_path='1',   chain=['1']
+    """
+
+    INDEX_HTML = """
+<div class="mw-parser-output">
+<h2><span class="mw-headline" id="सिद्धांतकोष_से">सिद्धांतकोष से</span></h2>
+<ol class="HindiText">
+  <li id="1">
+    <strong><a class="mw-selflink-fragment" href="#1">मुख्य अनुभाग</a></strong>
+    <ol>
+      <li id="1.1">
+        <a class="mw-selflink-fragment" href="#1.1">उप-अनुभाग एक।</a>
+        <ol>
+          <li id="1.1.1"><a class="mw-selflink-fragment" href="#1.1.1">उप-उप।</a></li>
+        </ol>
+      </li>
+      <li id="1.2"><a class="mw-selflink-fragment" href="#1.2">उप-अनुभाग दो।</a></li>
+    </ol>
+    <ul>
+      <li>संबंधित विषय - देखें <a href="/wiki/गति#1.3">गति - 1.3</a></li>
+      <li>अन्य विषय - देखें <a href="/wiki/द्रव्य">द्रव्य</a></li>
+    </ul>
+  </li>
+</ol>
+</div>
+"""
+
+    @pytest.fixture(scope="class")
+    def relations(self, cfg: JainkoshConfig):
+        from workers.ingestion.jainkosh.parse_keyword import parse_keyword_html
+        result = parse_keyword_html(
+            self.INDEX_HTML,
+            "https://www.jainkosh.org/wiki/परीक्षण",
+            cfg,
+        )
+        return result.page_sections[0].index_relations
+
+    def test_source_topic_path_is_1_not_1_1(self, relations):
+        """source_topic_path must be '1', not '1.1'."""
+        assert len(relations) >= 2
+        for rel in relations:
+            assert rel.source_topic_path == "1", (
+                f"Expected source_topic_path='1', got {rel.source_topic_path!r} "
+                f"for label {rel.label_text!r}"
+            )
+
+    def test_source_topic_path_chain_is_single_element(self, relations):
+        """source_topic_path_chain must be ['1'], not ['1','1.1']."""
+        for rel in relations:
+            assert rel.source_topic_path_chain == ["1"], (
+                f"Expected chain=['1'], got {rel.source_topic_path_chain!r} "
+                f"for label {rel.label_text!r}"
+            )
+
+    def test_source_topic_natural_key_chain_not_two_entries(self, relations):
+        """natural_key chain must NOT have two entries (that was the buggy behaviour)."""
+        for rel in relations:
+            assert len(rel.source_topic_natural_key_chain) <= 1, (
+                f"Expected at most 1 natural_key entry, got {rel.source_topic_natural_key_chain!r}"
+            )
+
+    def test_svabhav_fixture_relations_chain(self, cfg: JainkoshConfig):
+        """स्वभाव fixture: all <ul>-level देखें relations inside <li id='1'> have chain=['1']."""
+        from workers.ingestion.jainkosh.parse_keyword import parse_keyword_html
+        from pathlib import Path
+        from urllib.parse import quote
+
+        fixture = Path(__file__).parents[1] / "fixtures" / "स्वभाव.html"
+        if not fixture.exists():
+            pytest.skip("स्वभाव fixture not available")
+
+        html = fixture.read_text(encoding="utf-8")
+        keyword = "स्वभाव"
+        result = parse_keyword_html(
+            html,
+            f"https://www.jainkosh.org/wiki/{quote(keyword, safe='')}",
+            cfg,
+        )
+        buggy = [
+            rel for sec in result.page_sections
+            for rel in sec.index_relations
+            if rel.source_topic_path_chain == ["1", "1.1"]
+        ]
+        assert buggy == [], (
+            f"Found {len(buggy)} relation(s) with erroneous chain ['1','1.1']: "
+            + ", ".join(r.label_text for r in buggy)
+        )

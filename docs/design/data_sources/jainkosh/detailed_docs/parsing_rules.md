@@ -248,6 +248,19 @@ Controlled by:
 - `index.source_chain.li_path_from_inner_ol_fallback` (default `true`)
 - `index.source_chain.ancestor_strong_selectors` (existing)
 
+**Child-path guard (bugfix)**: after the contextual path is computed from
+the previous-sibling or container walk, if it is a child of a path already
+captured from ancestor `<li id="…">` nodes (i.e. `contextual_path` starts
+with `ids[-1] + "."`), it is discarded. This prevents index-entry `<li>`
+nodes inside a sibling `<ol>` from extending the chain with a sub-topic
+path when the enclosing `<li id="N">` already correctly anchors the source.
+
+Example (स्वभाव): the `<ul>` देखें items are direct children of
+`<li id="1">`. The ancestor walk captures `"1"`; the sibling-`<ol>` scan
+would otherwise derive `"1.1"` (from `<li id="1.1">`'s inner `<ol>`),
+producing the erroneous chain `["1","1.1"]`. The guard drops `"1.1"`,
+yielding the correct `["1"]`.
+
 ### 4.7 Range expansion for `देखें` links (v1.7.0)
 
 When a `देखें` link has `target_topic_path` like `X.M` and the text **immediately

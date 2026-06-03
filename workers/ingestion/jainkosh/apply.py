@@ -25,7 +25,7 @@ from jain_kb_common.db.postgres.upserts import (
     upsert_keyword_alias,
     upsert_topic,
 )
-from jain_kb_common.db.neo4j.stubs import sync_stub_node, sync_reference_edge
+from jain_kb_common.db.neo4j.stubs import sync_stub_node, sync_reference_edge, delete_placeholder_stub
 from jain_kb_common.db.neo4j.upserts import (
     sync_keyword,
     sync_topic,
@@ -53,7 +53,7 @@ async def _resolve_topic_stubs(
     pg_session: AsyncSession,
     neo4j_nodes: list[dict],
     neo4j_edges: list[dict],
-) -> tuple[list[dict], list[dict]]:
+) -> tuple[list[dict], list[dict], set[str]]:
     """Resolve cross-page Topic stubs that carry resolve_key to actual natural_keys.
 
     During parsing, cross-page Topic references are emitted as stub nodes with
@@ -64,6 +64,11 @@ async def _resolve_topic_stubs(
     and replaces the placeholder with it.  If the target keyword has not yet been
     ingested, the resolve_key itself is used as a fallback (preserving the previous
     behaviour).
+
+    Returns a 3-tuple: (resolved_nodes, resolved_edges, resolved_placeholders).
+    ``resolved_placeholders`` is the set of resolve_key strings that were successfully
+    mapped to a *different* actual key — callers should delete the old placeholder
+    stub nodes so they do not pollute the graph.
     """
     # Collect unique (parent_kw, topic_path) pairs from resolve_key stub nodes.
     rk_lookup: dict[str, tuple[str, str]] = {}
@@ -77,7 +82,7 @@ async def _resolve_topic_stubs(
                 rk_lookup[rk] = (parent_kw, tp)
 
     if not rk_lookup:
-        return neo4j_nodes, neo4j_edges
+        return neo4j_nodes, neo4j_edges, set()
 
     # Query Postgres for actual natural_keys.
     rk_to_actual: dict[str, str] = {}
@@ -94,6 +99,9 @@ async def _resolve_topic_stubs(
         else:
             _log.debug("resolve_key %s: target not in Postgres yet, using placeholder", rk)
             rk_to_actual[rk] = rk
+
+    # Track which placeholders were actually resolved to a different key.
+    resolved_placeholders: set[str] = {rk for rk, actual in rk_to_actual.items() if actual != rk}
 
     # Update nodes: replace resolve_key with the resolved (or fallback) key.
     resolved_nodes: list[dict] = []
@@ -120,7 +128,7 @@ async def _resolve_topic_stubs(
         else:
             resolved_edges.append(edge)
 
-    return resolved_nodes, resolved_edges
+    return resolved_nodes, resolved_edges, resolved_placeholders
 
 
 async def _resolve_keyword_id(session: AsyncSession, natural_key: str) -> uuid.UUID | None:
@@ -234,7 +242,7 @@ async def apply_approved_keyword_payload(
     # If the target keyword was already ingested (earlier in the same run or a
     # prior run), the actual heading-based natural_key is returned; otherwise
     # the placeholder resolve_key is used as a fallback.
-    neo4j_nodes, neo4j_edges = await _resolve_topic_stubs(
+    neo4j_nodes, neo4j_edges, resolved_placeholders = await _resolve_topic_stubs(
         pg_session, neo.get("nodes", []), neo.get("edges", [])
     )
 
@@ -371,3 +379,14 @@ async def apply_approved_keyword_payload(
                     edge_props=edge.get("props") or {},
                     database=neo4j_database,
                 )
+
+    # Delete numerical placeholder stub nodes that were resolved in this pass.
+    # In pass 1, unresolved cross-page stubs fall back to using their resolve_key
+    # (e.g. "स्वभाव:2") as the Neo4j natural_key.  In pass 2, these resolve to the
+    # actual heading-based key; the old placeholder node (and all its edges) must be
+    # removed or it persists as an orphaned stub in the graph.
+    for placeholder_nk in resolved_placeholders:
+        _log.debug("deleting resolved placeholder stub Topic %s", placeholder_nk)
+        await delete_placeholder_stub(
+            neo4j_driver, label="Topic", natural_key=placeholder_nk, database=neo4j_database
+        )

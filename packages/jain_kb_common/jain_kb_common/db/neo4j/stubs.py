@@ -58,6 +58,31 @@ SET {',\n    '.join(set_lines)}
         await session.run(cypher, **params)
 
 
+async def delete_placeholder_stub(
+    driver: AsyncDriver,
+    *,
+    label: str,
+    natural_key: str,
+    database: str = "jainkb",
+) -> None:
+    """Delete a placeholder stub node (and all its edges) if it is still marked is_stub=true.
+
+    Called during pass 2 when a numerical resolve_key placeholder (e.g. 'स्वभाव:2')
+    is resolved to an actual heading-based natural_key.  The placeholder node was written
+    in pass 1 as a fallback; it must be removed so the graph is not polluted with
+    orphaned numerical stubs.  DETACH DELETE removes the node and all incident edges.
+    If the node was upgraded to a real node by another process (is_stub=false), it is
+    left untouched.
+    """
+    if label not in _VALID_LABELS:
+        raise ValueError(f"Unknown label for stub deletion: {label!r}")
+    async with driver.session(database=database) as session:
+        await session.run(
+            f"MATCH (n:{label} {{natural_key: $nk}}) WHERE n.is_stub = true DETACH DELETE n",
+            nk=natural_key,
+        )
+
+
 async def sync_reference_edge(
     driver: AsyncDriver,
     *,
