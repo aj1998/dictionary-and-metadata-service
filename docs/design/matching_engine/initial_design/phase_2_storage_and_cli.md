@@ -1,6 +1,6 @@
 # Phase 2 — Storage, Orchestrator, and CLI
 
-Depends on [`phase_1_matcher_core_lib.md`](phase_1_matcher_core_lib.md).
+Depends on [`phase_1_matcher_core_lib.md`](../phase_1_matcher_core_lib.md).
 Adds the Mongo collection, the orchestrator that walks source blocks
 through Neo4j to NJ Mongo targets, and the `scripts/match_extracts.py`
 CLI.
@@ -162,7 +162,7 @@ For each `SourceBlock`:
 1. `targets = await resolve_targets(...)`.
 2. For each `target`:
    - fetch target text (extract the right field per collection — see
-     [`data_model_mongo.md`](../data_model/data_model_mongo.md):
+     [`data_model_mongo.md`](../../data_model/data_model_mongo.md):
      `text[0].text` for verse/translation collections, `anvayartha[0].text`
      for `teeka_gatha_mapping`).
    - `result = locate(normalize(source.text), normalize(target.text))`.

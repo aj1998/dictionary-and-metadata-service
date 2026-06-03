@@ -35,6 +35,7 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Complements
 - **Master Metadata** — authors, shastras, teekas, books, pravachans, anuyogas stored in PostgreSQL with stable UUIDs.
 - **Dictionary** — gathas, kalashas (Prakrit/Sanskrit/Hindi), keyword definitions, topic extracts stored in MongoDB (long-form text) with index rows in PostgreSQL.
 - **Knowledge Graph** — `keyword↔topic↔topic↔gathas↔teekas↔shastras↔pages` all kind of relations in Neo4j, enabling GraphRAG retrieval.
+- **Matching Engine** — resolves JainKosh extract blocks to exact NJ shastra spans, stores offsets in Mongo `extract_matches`, and powers "View in Shastra" deep-links plus reading-page highlights.
 - **Ingestion pipeline** — scrapers for JainKosh and nikkyjain.github.io; an enrichment loop that pulls topic candidates from `cataloguesearch-chat`.
 - **Admin + Public APIs** — FastAPI services for curating content and serving the public UI.
 
@@ -50,6 +51,20 @@ Two FastAPI apps: one consolidated core app plus an independent query app:
 |---|---|---|---|---|
 | `core-service` | 8001 | Metadata + data + navigation APIs: CRUD, browse/search, graph traversal/admin | Postgres + Mongo + Neo4j | Postgres + Mongo + Neo4j |
 | `query-service` | 8004 | GraphRAG endpoint for `cataloguesearch-chat`: tokenize → resolve → graph-traverse → rank | Postgres + Mongo + Neo4j | Postgres (query_logs) |
+
+### Matching Engine Surface
+
+The matching engine spans three implementation areas:
+
+- `workers/matching/` runs the extract-to-target resolution and writes Mongo `extract_matches`
+- `services/core_service/` hydrates `match_natural_keys` into keyword/topic payloads and serves `GET /v1/extract-matches/{natural_key}`
+- `ui/` uses those rows to render "View in Shastra" links and `?match=`-driven highlights on the reading page
+
+Primary docs:
+
+- [Matching Engine Wiki](docs/design/matching_engine/README.md)
+- [API Docs Index](docs/design/api/README.md)
+- [UI Developer Wiki](ui/README.md)
 
 ### Data Stores
 
@@ -71,7 +86,7 @@ Postgres is the **source of truth for IDs**. Every entity in Mongo or Neo4j has 
 - **Neo4j client**: official `neo4j` driver (async)
 - **Job queue**: Celery + Redis
 - **Scraping**: `httpx` + `selectolax` (HTML), `trafilatura` fallback
-- **Frontend**: Next.js 16 (App Router) + Tailwind 4 + `next-intl` (Hindi-first, Devanagari-forward); see [`docs/ui/README.md`](ui/README.md)
+- **Frontend**: Next.js 16 (App Router) + Tailwind 4 + `next-intl` (Hindi-first, Devanagari-forward); see [`ui/README.md`](ui/README.md)
 - **Deploy**: Docker Compose on a single VM
 
 ### Data Sources
@@ -136,6 +151,7 @@ See [`IMPLEMENTATION_NOTES.md`](IMPLEMENTATION_NOTES.md) for full details on eac
 | Core Service API (port 8001, merged metadata+data+navigation) | ✅ |
 | Query Service API (port 8004, GraphRAG — 6 phases, 91 tests) | ✅ |
 | NikkYJain ingestion pipeline (`workers/ingestion/nj/`, 72 tests) | ✅ |
+| Matching engine (`workers/matching/` + `extract_matches` API + UI deep-links/highlights) | ✅ |
 | Ingestion workers (vyakaran OCR) | 🔜 |
 | Public UI — Next.js 16 (8 phases: shells, graph, content pages, a11y) | ✅ |
 | Deployment (Docker Compose) | 🔜 |

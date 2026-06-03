@@ -133,7 +133,7 @@ once at import time.
 
 ## 4. `ref_selection.py`
 
-Port of UI [`pickRefsToShow` / `pickHiddenRefs`](../../ui/src/components/DefinitionModal.tsx).
+Port of UI [`pickRefsToShow` / `pickHiddenRefs`](../../../ui/src/components/DefinitionModal.tsx).
 
 ```python
 def pick_refs_to_show(block_references: list[dict]) -> list[dict]: ...
@@ -155,7 +155,7 @@ truth (e.g. via codegen or by keeping the JS as the spec and porting
 only here) — but **do not change the TS helpers in this phase**.
 
 Unit tests: feed identical fixtures used by
-[`DefinitionModal.test.ts`](../../ui/src/__tests__/components/DefinitionModal.test.ts);
+[`DefinitionModal.test.ts`](../../../ui/src/__tests__/components/DefinitionModal.test.ts);
 assert identical outputs.
 
 ## 5. Public surface

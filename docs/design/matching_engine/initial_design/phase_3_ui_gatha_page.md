@@ -1,12 +1,12 @@
 # Phase 3 — UI Gatha Reading Page: Sanskrit Teeka + Bhaavarth split + Highlight
 
-Depends on [`phase_2_storage_and_cli.md`](phase_2_storage_and_cli.md)
+Depends on [`phase_2_storage_and_cli.md`](../phase_2_storage_and_cli.md)
 (needs the `extract_matches` collection populated for highlights, but
 the layout changes can land first and degrade gracefully when no
 match is present).
 
 Targets the page at `ui/src/app/[locale]/(reading)/shastras/[nk]/gathas/[number]/page.tsx`
-(see [`ui/README.md` §12](../../ui/README.md#12-content-pages)).
+(see [`ui/README.md` §12](../../../ui/README.md#12-content-pages)).
 
 ## Goals
 
@@ -93,7 +93,7 @@ New API client: `ui/src/lib/api/data.ts` → `getExtractMatch(naturalKey)`.
 
 File: `ui/src/app/[locale]/(reading)/shastras/[nk]/gathas/[number]/page.tsx`.
 
-Current sections (from [`ui/README.md`](../../ui/README.md)):
+Current sections (from [`ui/README.md`](../../../ui/README.md)):
 1. Prakrit gatha
 2. Sanskrit chhaya
 3. Hindi harigeet/chhand
@@ -120,7 +120,7 @@ attribute on the card root so the highlight effect (below) can target it.
 
 ### 2.1 Component changes
 
-- Reuse [`GathaPanel`](../../ui/src/components/GathaPanel.tsx) for new
+- Reuse [`GathaPanel`](../../../ui/src/components/GathaPanel.tsx) for new
   Sanskrit teeka section (`lang="sanskrit"`).
 - New component `BhaavarthPanel.tsx` (mirrors `GathaPanel` but neutral
   left border) — used for the bhaavarth window and kalash bhaavarth.
@@ -142,7 +142,7 @@ Behavior: when the URL has `?match=<natural_key>`:
    `behavior: 'smooth', block: 'center'`.
 5. Use NFC-normalize the panel input once at the boundary
    (`normalizeNFC` from
-   [`lib/format/devanagari.ts`](../../ui/src/lib/format/devanagari.ts))
+   [`lib/format/devanagari.ts`](../../../ui/src/lib/format/devanagari.ts))
    so offsets stay aligned with the matcher's writes.
 
 Edge cases:

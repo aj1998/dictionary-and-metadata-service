@@ -18,9 +18,10 @@ Comprehensive reference for the `ui/` Next.js application. Read this before touc
 10. [Graph Page — Deep Dive](#10-graph-page--deep-dive)
 11. [State Management](#11-state-management)
 12. [Content Pages](#12-content-pages)
-13. [Testing](#13-testing)
-14. [Implementation Phase Log](#14-implementation-phase-log)
-15. [Design Docs Index](#15-design-docs-index)
+13. [Matching Engine Integration](#13-matching-engine-integration)
+14. [Testing](#14-testing)
+15. [Implementation Phase Log](#15-implementation-phase-log)
+16. [Design Docs Index](#16-design-docs-index)
 
 ---
 
@@ -112,9 +113,9 @@ ui/
 │   │   │   └── devanagari.ts   # toDevanagariNumerals, normalizeNFC, minGraphemeLength
 │   │   ├── api/
 │   │   │   ├── _fetch.ts       # apiFetch<T> base wrapper + ApiError
-│   │   │   ├── metadata.ts     # metadata-service client (port 8001)
-│   │   │   ├── data.ts         # data-service client (port 8002)
-│   │   │   ├── navigation.ts   # navigation-service client (port 8003)
+│   │   │   ├── metadata.ts     # metadata-domain client via core-service (port 8001)
+│   │   │   ├── data.ts         # data-domain client via core-service (port 8001)
+│   │   │   ├── navigation.ts   # navigation-domain client via core-service (port 8001)
 │   │   │   └── query.ts        # query-service client (port 8004)
 │   │   └── store/
 │   │       ├── graphStore.ts   # Zustand store for graph state
@@ -167,8 +168,8 @@ pnpm test:watch   # vitest interactive
 | Proxy path | Backend | Env var override |
 |---|---|---|
 | `/api/metadata/*` | `http://localhost:8001` | `METADATA_SVC_URL` |
-| `/api/data/*` | `http://localhost:8002` | `DATA_SVC_URL` |
-| `/api/navigation/*` | `http://localhost:8003` | `NAV_SVC_URL` |
+| `/api/data/*` | `http://localhost:8001` | `DATA_SVC_URL` |
+| `/api/navigation/*` | `http://localhost:8001` | `NAV_SVC_URL` |
 | `/api/query/*` | `http://localhost:8004` | `QUERY_SVC_URL` |
 
 The UI never calls backend ports directly from the browser — always through these same-origin proxy paths. (Direct port calls caused CORS failures; fixed in Phase 5 bug fix.)
@@ -371,9 +372,9 @@ apiFetch<T>(baseUrl: string, path: string, init?: RequestInit): Promise<T>
 
 | File | Service | Base path | Key functions |
 |---|---|---|---|
-| `api/metadata.ts` | metadata-service | `/api/metadata` | `getShastras`, `getShastra`, `getShastraTeekas`, `getShastraGathas` |
-| `api/data.ts` | data-service | `/api/data` | `getStatsCounts`, `getActivityRecent`, `getKeywordsLetters`, `getKeywordsRecent`, `getKeywords`, `getKeyword`, `getTopics`, `getTopic`, `getGatha`, `getGathaRelatedTopics`, `getGathaRelatedKeywords`, `getEntityDetail` |
-| `api/navigation.ts` | navigation-service | `/api/navigation` | `getNavLanding`, `expandNode`, `getPreview`, `getTopicNeighbors` |
+| `api/metadata.ts` | core-service metadata domain | `/api/metadata` | `getShastras`, `getShastra`, `getShastraTeekas`, `getShastraGathas` |
+| `api/data.ts` | core-service data domain | `/api/data` | `getStatsCounts`, `getActivityRecent`, `getKeywordsLetters`, `getKeywordsRecent`, `getKeywords`, `getKeyword`, `getTopics`, `getTopic`, `getGatha`, `getExtractMatch`, `getGathaRelatedTopics`, `getGathaRelatedKeywords`, `getEntityDetail` |
+| `api/navigation.ts` | core-service navigation domain | `/api/navigation` | `getNavLanding`, `expandNode`, `getPreview`, `getTopicNeighbors` |
 | `api/query.ts` | query-service | `/api/query` | `searchTopics` (POST, `caller: 'public-ui'`) |
 
 ### `getEntityDetail` — per-kind routing
@@ -537,7 +538,7 @@ All content pages are server components (ISR unless noted).
 | `/` | B | 60s | `getStatsCounts`, `getActivityRecent` |
 | `/shastras` | B | 60s | `getShastras` |
 | `/shastras/[nk]` | B | 60s | `getShastra`, `getShastraTeekas`, `getPreview` |
-| `/shastras/[nk]/gathas/[number]` | C | 60s | `getGatha`, `getGathaRelatedTopics`, `getGathaRelatedKeywords` |
+| `/shastras/[nk]/gathas/[number]` | C | 60s | `getGatha`, `getKeywordTopics`, optional `getExtractMatch` |
 | `/dictionary` | B | 60s | `getKeywordsLetters`, `getKeywordsRecent` |
 | `/dictionary/letters/[letter]` | B | 60s | `getKeywords` |
 | `/dictionary/[nk]` | B | 60s | `getKeyword`, `getPreview` |
@@ -558,7 +559,70 @@ All content pages are server components (ISR unless noted).
 
 ---
 
-## 13. Testing
+## 13. Matching Engine Integration
+
+The UI consumes matching-engine output from `services/core_service` and turns it into shastra deep-links plus in-page highlights.
+
+### Block hydration
+
+Keyword-definition blocks and topic-extract blocks may include:
+
+```ts
+match_natural_keys?: string[];
+```
+
+Those keys are injected by the backend and point to `GET /v1/extract-matches/{natural_key}`. They are block-level identifiers, not guaranteed one-to-one with visible references.
+
+### Definition modal flow
+
+Relevant files:
+
+- `src/components/DefinitionModal.tsx`
+- `src/components/ViewInShastraButton.tsx`
+
+Flow:
+
+1. `DefinitionModal` renders blocks and references.
+2. For each block, `useMatchEntries(match_natural_keys)` fetches full extract-match docs.
+3. `findMatchForRef` correlates a visible ref to a fetched match entry primarily by `ref.shastra_name`, then by resolved `गाथा` field when present.
+4. Matching links render as:
+   - blue when `match.status === 'matched'`
+   - muted grey when `match.status === 'unmatched'`
+   - hidden when `match.status === 'target_missing'`
+
+Important invariant:
+
+- UI `pickRefsToShow` behavior must stay aligned with the Python port in `jain_kb_common.matching.ref_selection`, because worker eligibility uses the same logic.
+
+### Reading-page highlight flow
+
+Relevant files:
+
+- `src/lib/gatha-content.ts`
+- `src/app/[locale]/(reading)/shastras/[nk]/gathas/[number]/page.tsx`
+
+Flow:
+
+1. `buildGathaHref` creates `/shastras/<shastra>/gathas/<number>?match=<match_natural_key>`.
+2. The reading page fetches the extract-match doc when `searchParams.match` is present.
+3. Highlighting is applied only when:
+   - `match.status === 'matched'`
+   - the current panel `naturalKey` equals `match.target.natural_key`
+   - `char_start` and `char_end` are valid in NFC-normalized text
+
+Supported highlighted targets today:
+
+- prakrit gatha
+- sanskrit gatha
+- sanskrit teeka
+- hindi bhaavarth
+- kalash sanskrit
+- kalash hindi
+- kalash bhaavarth
+
+---
+
+## 14. Testing
 
 Run: `pnpm test` (single pass) or `pnpm test:watch` (interactive) from `ui/`.
 
@@ -617,7 +681,7 @@ The vitest config (`vitest.config.ts`) targets `src/__tests__/**/*.test.ts` and 
 
 ---
 
-## 14. Implementation Phase Log
+## 15. Implementation Phase Log
 
 | Phase | Status | What was built |
 |---|---|---|
@@ -645,7 +709,7 @@ The vitest config (`vitest.config.ts`) targets `src/__tests__/**/*.test.ts` and 
 
 ---
 
-## 15. Design Docs Index
+## 16. Design Docs Index
 
 All design documents are in `docs/design/ui/`. Read them for pixel-level specifications.
 

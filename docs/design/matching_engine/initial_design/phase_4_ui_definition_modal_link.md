@@ -1,8 +1,8 @@
 # Phase 4 — DefinitionModal: "View in Shastra" link
 
-Depends on [`phase_2_storage_and_cli.md`](phase_2_storage_and_cli.md)
+Depends on [`phase_2_storage_and_cli.md`](../phase_2_storage_and_cli.md)
 (populates `extract_matches`) and
-[`phase_3_ui_gatha_page.md`](phase_3_ui_gatha_page.md) (renders the
+[`phase_3_ui_gatha_page.md`](../phase_3_ui_gatha_page.md) (renders the
 highlight when the gatha page is opened with `?match=`).
 
 Wires the matcher's output into the place users discover it: each
@@ -37,7 +37,7 @@ Owning code paths:
 
 ### 1.2 UI types
 
-Add to [`ui/src/lib/types.ts`](../../ui/src/lib/types.ts):
+Add to [`ui/src/lib/types.ts`](../../../ui/src/lib/types.ts):
 
 ```ts
 export interface DefinitionBlock {
