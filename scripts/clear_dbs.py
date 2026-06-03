@@ -58,6 +58,8 @@ _MONGO_COLLECTIONS = (
     "kalash_sanskrit",
     "kalash_word_meanings",
     "teeka_gatha_mapping",
+    # matching
+    "extract_matches",
 )
 
 

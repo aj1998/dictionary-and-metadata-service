@@ -268,4 +268,27 @@ mongosh jain_kb --eval 'db.extract_matches.findOne({"match.status": "matched"})'
 
 ## Implementation Notes / Diversions
 
-_To be filled in by the implementing agent._
+### Files created
+- `workers/matching/__init__.py` — module init
+- `workers/matching/source_iter.py` — `SourceBlock` dataclass + `iter_keyword_blocks` / `iter_topic_extract_blocks` async generators
+- `workers/matching/target_resolver.py` — `Target` dataclass, `_ROUTING` table, `resolve_targets`, `resolve_targets_for_shastra`
+- `workers/matching/apply_match.py` — `apply_match` upsert helper
+- `workers/matching/orchestrator.py` — `Stats` dataclass, `match_all` / `match_for_jainkosh_keyword` / `match_for_jainkosh_topic` / `match_for_nj_shastra`
+- `workers/matching/tests/__init__.py`, `tests/workers/matching/__init__.py` — empty inits
+- `tests/workers/matching/test_target_resolver.py` — 6 mocked-Neo4j unit tests
+- `tests/workers/matching/test_orchestrator.py` — 2 integration tests (requires MONGO_URL)
+- `tests/db/mongo/test_extract_matches.py` — 6 tests: stable_id, idempotency, index presence
+- `scripts/match_extracts.py` — CLI with `--mode`, `--nk`, `--dry-run`, `--limit`
+
+### Files modified
+- `packages/jain_kb_common/jain_kb_common/db/mongo/collections.py` — added `EXTRACT_MATCHES`
+- `packages/jain_kb_common/jain_kb_common/db/mongo/indexes.py` — added 6 `extract_matches` indexes
+- `packages/jain_kb_common/jain_kb_common/db/mongo/upserts.py` — added `upsert_extract_match`
+- `scripts/clear_dbs.py` — added `"extract_matches"` to `_MONGO_COLLECTIONS`
+
+### Key design decisions
+- **Mongo natural_key derivation**: Derived directly from Neo4j stub properties rather than re-parsing. `Gatha` stub nk is identical to the `gatha_natural_key` field stored in `gatha_prakrit`/`gatha_sanskrit` docs, so Mongo nk = `{stub_nk}:prakrit` / `{stub_nk}:sanskrit`. For `GathaTeeka`, `gatha_teeka_sanskrit` nk = `{teeka_natural_key}:{gnum}:टीका:san` where `gnum` comes from `gatha_natural_key.split(":")[-1]`.
+- **Edge type disambiguation**: `keyword_definition` blocks → `CONTAINS_DEFINITION`; `topic_extract` blocks → `MENTIONS_TOPIC` (as emitted by the JainKosh envelope).
+- **`_ALL_STUB_LABELS`** frozenset guards against unknown labels reaching the routing lookup (the `in _ROUTING` check on tuples was a bug caught in test run and fixed).
+- **`kalash_bhaavarth_hindi`**: routing is implemented but the NJ ingestor does not yet write these docs; results in `target_missing` in practice.
+- **`match_for_nj_shastra`**: queries Neo4j for stubs by shastra, then does per-block Mongo lookups. May be slow for large shastras; acceptable for Phase 2 (manual CLI, no Celery).

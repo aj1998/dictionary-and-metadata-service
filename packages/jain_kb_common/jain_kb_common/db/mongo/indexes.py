@@ -108,3 +108,17 @@ async def ensure_indexes(db: AsyncIOMotorDatabase) -> None:
     await db.kalash_word_meanings.create_index(
         [("teeka_natural_key", pymongo.ASCENDING)]
     )
+
+    # extract_matches
+    await db.extract_matches.create_index([("natural_key", pymongo.ASCENDING)], unique=True)
+    await db.extract_matches.create_index([
+        ("source.parent_natural_key", pymongo.ASCENDING),
+        ("source.block_index", pymongo.ASCENDING),
+    ])
+    await db.extract_matches.create_index([("target.natural_key", pymongo.ASCENDING)])
+    await db.extract_matches.create_index([
+        ("target.shastra_natural_key", pymongo.ASCENDING),
+        ("target.gatha_natural_key", pymongo.ASCENDING),
+    ])
+    await db.extract_matches.create_index([("match.status", pymongo.ASCENDING)])
+    await db.extract_matches.create_index([("ingestion_run_id", pymongo.ASCENDING)])
