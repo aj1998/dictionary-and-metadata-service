@@ -9,7 +9,7 @@ Features -
 
 ## Usecases/Objectives
 
-- **Structured (knowledge retented) search engine** for Jain Texts expanded/enhanced on top of `JainKosh` authored by - _Kshullak Jinendra Varni Ji_ and the works done by scholars for creating its digital infrastructure at [jainkosh.org](https://jainkosh.org) by linking keywords with definitions/topics/shastras/references. Also, uses various shastras' parsed/OCRed data fed systematically and categorically from various sources ([nikkyjain.github.io](https://nikkyjain.github.io)[swalakshya](https://swalakshya.me)).
+- **Structured (knowledge retented) search engine** for Jain Texts expanded/enhanced on top of `JainKosh` authored by - _Kshullak Jinendra Varni Ji_ and the works done by scholars for creating its digital infrastructure at [jainkosh.org](https://jainkosh.org) by linking keywords with definitions/topics/shastras/references. Also, uses various shastras' parsed/OCRed data fed systematically and categorically from various sources ([nikkyjain.github.io](https://nikkyjain.github.io), [swalakshya](https://swalakshya.me)).
 
 - **Graph traversal** of Jain Knowledge Base in an interactive UI.
 
