@@ -65,12 +65,15 @@ export async function getEntityDetail(kind: EntityKind, nk: string): Promise<Ent
     const keyword = await apiFetch<KeywordDetail>(BASE_URL, `/v1/keywords/${nk}`);
     const sections: KeywordPageSection[] = keyword.definition?.page_sections ?? [];
     const firstText = sections[0]?.definitions[0]?.blocks[0]?.text_devanagari ?? '';
+    const allKwBlocks = sections.flatMap((s) => s.definitions.flatMap((d) => d.blocks));
+    const totalBlocks = allKwBlocks.length;
+    const totalKwRefs = allKwBlocks.reduce((sum, b) => sum + (b.references?.length ?? 0), 0);
     return {
       nk: keyword.natural_key,
       kind: 'keyword',
       title_hi: keyword.display_text,
       description: firstText.slice(0, 250) || undefined,
-      stats: { aliases: keyword.aliases.length },
+      stats: { aliases: keyword.aliases.length, definitions: totalBlocks, references: totalKwRefs },
       connected: [],
       definitionSections: sections.length ? sections : undefined,
     };
@@ -80,13 +83,15 @@ export async function getEntityDetail(kind: EntityKind, nk: string): Promise<Ent
     const topic = await apiFetch<TopicDetail>(BASE_URL, `/v1/topics/${nk}`);
     const hi = topic.display_text.find((row) => row.lang === 'hi')?.text ?? topic.natural_key;
     const parent = topic.parent_keyword;
-    const allBlocks = topic.extracts.flatMap(extractBlocks);
+    const allBlocks = topic.extracts.flatMap(extractBlocks)
+      .filter((b) => b.text_devanagari?.trim() || b.hindi_translation?.trim());
+    const totalRefs = allBlocks.reduce((sum, b) => sum + (b.references?.length ?? 0), 0);
     return {
       nk: topic.natural_key,
       kind: 'topic',
       title_hi: hi,
-      description: topic.topic_path ?? undefined,
-      stats: { extracts: topic.extracts.length, is_leaf: topic.is_leaf ? 1 : 0 },
+      stats: { extracts: allBlocks.length, is_leaf: topic.is_leaf ? 1 : 0, references: totalRefs },
+      topicPath: topic.topic_path ?? undefined,
       connected: parent
         ? [{
             nk: parent.natural_key,

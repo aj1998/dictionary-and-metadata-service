@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { NODE_KIND_META, EXPAND_ARIA_LABEL, DETAILS_ARIA_LABEL } from "@/components/NodeCard";
+import { NODE_KIND_META, EXPAND_ARIA_LABEL, DETAILS_ARIA_LABEL, resolveNodeTitle } from "@/components/NodeCard";
 import type { EntityKind } from "@/lib/types";
 
 describe("NODE_KIND_META", () => {
@@ -34,6 +34,26 @@ describe("expand/collapse button constants", () => {
 
   test("DETAILS_ARIA_LABEL is the Hindi label for open details", () => {
     expect(DETAILS_ARIA_LABEL).toBe('विवरण देखें');
+  });
+});
+
+describe("resolveNodeTitle", () => {
+  test("returns nk for topic with pure-integer title_hi (stub)", () => {
+    expect(resolveNodeTitle('प्रकृति_बंध:1:1', 'topic', '1')).toBe('प्रकृति_बंध:1:1');
+    expect(resolveNodeTitle('स्वभाव:2', 'topic', '2')).toBe('स्वभाव:2');
+  });
+
+  test("returns title_hi unchanged for topic with real text title", () => {
+    expect(resolveNodeTitle('स्वभाव:भेद', 'topic', 'स्वभाव का भेद')).toBe('स्वभाव का भेद');
+  });
+
+  test("returns title_hi unchanged for non-topic kinds even if title looks numeric", () => {
+    expect(resolveNodeTitle('gatha:1', 'gatha', '1')).toBe('1');
+    expect(resolveNodeTitle('kw-1', 'keyword', '1')).toBe('1');
+  });
+
+  test("handles leading/trailing whitespace in title_hi", () => {
+    expect(resolveNodeTitle('स्वभाव:3', 'topic', ' 3 ')).toBe('स्वभाव:3');
   });
 });
 

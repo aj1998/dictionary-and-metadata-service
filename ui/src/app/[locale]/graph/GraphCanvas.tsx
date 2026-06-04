@@ -8,7 +8,7 @@ import {
   memo,
   type RefCallback,
 } from 'react';
-import { NodeCard } from '@/components/NodeCard';
+import { NodeCard, resolveNodeTitle } from '@/components/NodeCard';
 import { EDGE_LABELS } from '@/components/RelationConnector';
 import { ZoomControls } from './ZoomControls';
 import {
@@ -168,7 +168,7 @@ const EdgesAndNodes = memo(function EdgesAndNodes({
             <NodeCard
               id={node.nk}
               kind={node.kind}
-              titleHi={node.titleHi}
+              titleHi={resolveNodeTitle(node.nk, node.kind, node.titleHi)}
               titleEn={node.titleEn}
               selected={node.selected}
               faded={node.faded}

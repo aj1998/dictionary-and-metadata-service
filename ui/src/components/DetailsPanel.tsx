@@ -9,10 +9,31 @@ import { ConnectedItemRow } from '@/components/ConnectedItemRow';
 import { PrimaryCTA } from '@/components/PrimaryCTA';
 import { DefinitionModal, getBlockBorderClass, renderInlineMarkdown } from '@/components/DefinitionModal';
 import { EDGE_LABELS } from '@/components/RelationConnector';
+import { resolveNodeTitle } from '@/components/NodeCard';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import * as dataApi from '@/lib/api/data';
 import { ApiError } from '@/lib/api/_fetch';
-import type { DefinitionBlock, EdgeKind, EntityDetail, GraphEdge, GraphNode, KeywordPageSection } from '@/lib/types';
+import type { DefinitionBlock, EdgeKind, EntityDetail, GraphNode, KeywordPageSection } from '@/lib/types';
+
+// Stub-seed topics only exist in Neo4j (not Postgres), so /v1/topics/{nk}
+// returns 404 and detail stays null. Their nk is always "<keyword>:<path>",
+// so the parent keyword can be derived by splitting on the first ":".
+export function deriveStubTopicKeyword(
+  topicNk: string,
+  nodes: Record<string, GraphNode>,
+): EntityDetail['connected'] {
+  const colonIdx = topicNk.indexOf(':');
+  if (colonIdx < 0) return [];
+  const keywordNk = topicNk.slice(0, colonIdx);
+  const keywordNode = nodes[keywordNk];
+  return [{
+    nk: keywordNk,
+    kind: 'keyword',
+    title_hi: keywordNode?.title_hi ?? keywordNk,
+    title_en: keywordNode?.title_en,
+    edge_kind: 'HAS_TOPIC',
+  }];
+}
 
 const EDGE_DESCRIPTIONS: Partial<Record<EdgeKind, string>> = {
   RELATED_TO: 'These two entities are contextually related.',
@@ -128,6 +149,23 @@ export function DetailsPanel({ open, selected, nodes, edges, depth, onClose, onS
 
   const hasDefinitionContent = !!(detail?.definitionSections || detail?.topicExtracts);
 
+  // Fallback for stub-seed topics: API returns 404 so detail stays null.
+  // Derive the parent keyword from the topic nk (everything before first ":").
+  const stubKeywordConnected = useMemo(
+    () => selectedNode?.kind === 'topic' && !detail
+      ? deriveStubTopicKeyword(selectedNode.nk, nodes)
+      : null,
+    [selectedNode?.nk, selectedNode?.kind, detail, nodes],
+  );
+
+  // For stub topics, also derive the path from the nk (everything after first ":").
+  const stubTopicPath = useMemo(() => {
+    if (selectedNode?.kind !== 'topic' || detail) return null;
+    const colonIdx = selectedNode.nk.indexOf(':');
+    if (colonIdx < 0) return null;
+    return selectedNode.nk.slice(colonIdx + 1).replaceAll(':', '.');
+  }, [selectedNode?.nk, selectedNode?.kind, detail]);
+
   const vivaranSection = detail?.definitionSections ? (
     <KeywordDefinitionPreview sections={detail.definitionSections} />
   ) : detail?.topicExtracts?.length ? (
@@ -149,7 +187,7 @@ export function DetailsPanel({ open, selected, nodes, edges, depth, onClose, onS
     <div className="flex flex-1 min-h-0 flex-col">
       <div className="shrink-0 border-b border-border p-4">
         <BadgeChip kind={selectedNode.kind} />
-        <h2 className="mt-2 font-serif-hindi text-[length:var(--font-size-h1)] font-semibold text-foreground">{selectedNode.title_hi}</h2>
+        <h2 className="mt-2 font-serif-hindi text-[length:var(--font-size-h1)] font-semibold text-foreground">{resolveNodeTitle(selectedNode.nk, selectedNode.kind, selectedNode.title_hi)}</h2>
         {selectedNode.title_en && <p className="text-[length:var(--font-size-sm)] text-foreground-muted">{selectedNode.title_en}</p>}
       </div>
       <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-4">
@@ -159,11 +197,17 @@ export function DetailsPanel({ open, selected, nodes, edges, depth, onClose, onS
           {vivaranSection}
         </section>
         <section>
-          <h3 className="mb-2 text-[length:var(--font-size-h3)] font-semibold">संबंधित</h3>
+          {selectedNode.kind !== 'keyword' && <h3 className="mb-2 text-[length:var(--font-size-h3)] font-semibold">संबंधित</h3>}
           <div className="space-y-2">
-            {(detail?.connected ?? []).slice(0, 5).map((row) => (
+            {(detail?.connected ?? stubKeywordConnected ?? []).slice(0, 5).map((row) => (
               <ConnectedItemRow key={row.nk} kind={row.kind} titleHi={row.title_hi} titleEn={row.title_en} onClick={() => onSelectNode(row.nk)} />
             ))}
+            {(detail?.topicPath ?? stubTopicPath) && (
+              <div className="flex items-center justify-between rounded-[var(--radius-md)] border border-border px-3 py-2">
+                <span className="text-xs font-medium uppercase tracking-wide text-foreground-muted">पथ</span>
+                <span className="font-serif-hindi text-[length:var(--font-size-body)] text-foreground">{detail?.topicPath ?? stubTopicPath}</span>
+              </div>
+            )}
           </div>
           <button
             type="button"

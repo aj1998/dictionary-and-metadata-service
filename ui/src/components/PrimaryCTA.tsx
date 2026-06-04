@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Bookmark, type LucideIcon } from "lucide-react";
+import { BookOpen, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface PrimaryCTAProps {
@@ -15,7 +15,7 @@ export interface PrimaryCTAProps {
 export function PrimaryCTA({
   labelHi,
   labelEn,
-  icon: Icon = Bookmark,
+  icon: Icon = BookOpen,
   href,
   onClick,
   className,

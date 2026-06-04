@@ -7,6 +7,13 @@ import type { EntityKind } from '@/lib/types';
 export const EXPAND_ARIA_LABEL = 'इस नोड से ग्राफ़ का विस्तार करें';
 export const DETAILS_ARIA_LABEL = 'विवरण देखें';
 
+// Stub-seed topics have a pure-numeric title_hi (their resolve_key number).
+// Show the full natural key instead so the card is identifiable.
+export function resolveNodeTitle(nk: string, kind: EntityKind, titleHi: string): string {
+  if (kind === 'topic' && /^\d+$/.test(titleHi.trim())) return nk;
+  return titleHi;
+}
+
 export const NODE_KIND_META: Record<
   EntityKind,
   {

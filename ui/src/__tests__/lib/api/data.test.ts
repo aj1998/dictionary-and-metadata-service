@@ -231,6 +231,63 @@ describe('data API', () => {
         const result = await getEntityDetail('keyword', 'dravya');
         expect(result.definitionSections).toBeUndefined();
       });
+
+      it('counts total definition blocks as definitions stat', async () => {
+        mockSuccess({
+          id: 'kw-1',
+          natural_key: 'dravya',
+          display_text: 'द्रव्य',
+          aliases: [],
+          definition: makeDefinition('block one'),
+        });
+        const result = await getEntityDetail('keyword', 'dravya');
+        expect(result.stats.definitions).toBe(1);
+      });
+
+      it('sums blocks across multiple sections and definitions', async () => {
+        const block = { kind: 'hindi_text', text_devanagari: 'text', hindi_translation: null, references: [], is_orphan_translation: false, is_bullet_point: false, raw_html: null, table_rows: null, target_keyword: null, target_topic_path: null, target_url: null, is_self: false, target_exists: true };
+        mockSuccess({
+          id: 'kw-1',
+          natural_key: 'dravya',
+          display_text: 'द्रव्य',
+          aliases: [],
+          definition: {
+            ...makeDefinition(''),
+            page_sections: [
+              { section_index: 0, section_kind: 'a', h2_text: 'A', definitions: [{ definition_index: 0, blocks: [block, block], raw_html: null }], label_topic_seeds: [], extra_blocks: [] },
+              { section_index: 1, section_kind: 'b', h2_text: 'B', definitions: [{ definition_index: 0, blocks: [block], raw_html: null }], label_topic_seeds: [], extra_blocks: [] },
+            ],
+          },
+        });
+        const result = await getEntityDetail('keyword', 'dravya');
+        expect(result.stats.definitions).toBe(3);
+      });
+
+      it('sets definitions to 0 when definition is null', async () => {
+        mockSuccess({ id: 'kw-1', natural_key: 'dravya', display_text: 'द्रव्य', aliases: [], definition: null });
+        const result = await getEntityDetail('keyword', 'dravya');
+        expect(result.stats.definitions).toBe(0);
+      });
+
+      it('counts total references across all definition blocks', async () => {
+        const ref = { text: 'ref', inline_reference: false, needs_manual_match: false, is_teeka: false, teeka_name: '', shastra_name: null, match_method: null, resolved_fields: [] };
+        const blockWithRefs = { kind: 'hindi_text', text_devanagari: 'text', hindi_translation: null, references: [ref, ref], is_orphan_translation: false, is_bullet_point: false, raw_html: null, table_rows: null, target_keyword: null, target_topic_path: null, target_url: null, is_self: false, target_exists: true };
+        const blockNoRefs = { ...blockWithRefs, references: [] };
+        mockSuccess({
+          id: 'kw-1', natural_key: 'dravya', display_text: 'द्रव्य', aliases: [],
+          definition: { ...makeDefinition(''), page_sections: [
+            { section_index: 0, section_kind: 'a', h2_text: 'A', definitions: [{ definition_index: 0, blocks: [blockWithRefs, blockNoRefs], raw_html: null }], label_topic_seeds: [], extra_blocks: [] },
+          ]},
+        });
+        const result = await getEntityDetail('keyword', 'dravya');
+        expect(result.stats.references).toBe(2);
+      });
+
+      it('sets references to 0 when definition is null', async () => {
+        mockSuccess({ id: 'kw-1', natural_key: 'dravya', display_text: 'द्रव्य', aliases: [], definition: null });
+        const result = await getEntityDetail('keyword', 'dravya');
+        expect(result.stats.references).toBe(0);
+      });
     });
 
     describe('topic branch — extracts normalisation', () => {
@@ -278,16 +335,48 @@ describe('data API', () => {
         expect(result.topicExtracts).toBeUndefined();
       });
 
-      it('sets description to topic_path', async () => {
-        mockSuccess({ ...baseTopic, extracts: [] });
+      it('sets extracts stat to total block count across all extract documents', async () => {
+        const block = { kind: 'hindi_text', text_devanagari: 'text', hindi_translation: null, references: [] };
+        mockSuccess({ ...baseTopic, extracts: [
+          { blocks: [block, block], heading: [] },
+          { blocks: [block], heading: [] },
+        ]});
         const result = await getEntityDetail('topic', 'dharma');
-        expect(result.description).toBe('1.2');
+        expect(result.stats.extracts).toBe(3);
       });
 
-      it('sets description to undefined when topic_path is null', async () => {
+      it('sets extracts stat to 0 when extracts array is empty', async () => {
+        mockSuccess({ ...baseTopic, extracts: [] });
+        const result = await getEntityDetail('topic', 'dharma');
+        expect(result.stats.extracts).toBe(0);
+      });
+
+      it('counts total references across all extract blocks', async () => {
+        const ref = { text: 'r', inline_reference: false, needs_manual_match: false, is_teeka: false, teeka_name: '', shastra_name: null, match_method: null, resolved_fields: [] };
+        const b1 = { kind: 'hindi_text', text_devanagari: 'a', hindi_translation: null, references: [ref, ref] };
+        const b2 = { kind: 'hindi_text', text_devanagari: 'b', hindi_translation: null, references: [ref] };
+        mockSuccess({ ...baseTopic, extracts: [{ blocks: [b1, b2], heading: [] }] });
+        const result = await getEntityDetail('topic', 'dharma');
+        expect(result.stats.references).toBe(3);
+      });
+
+      it('sets references stat to 0 when extracts array is empty', async () => {
+        mockSuccess({ ...baseTopic, extracts: [] });
+        const result = await getEntityDetail('topic', 'dharma');
+        expect(result.stats.references).toBe(0);
+      });
+
+      it('sets topicPath from topic_path', async () => {
+        mockSuccess({ ...baseTopic, extracts: [] });
+        const result = await getEntityDetail('topic', 'dharma');
+        expect(result.topicPath).toBe('1.2');
+        expect(result.description).toBeUndefined();
+      });
+
+      it('sets topicPath to undefined when topic_path is null', async () => {
         mockSuccess({ ...baseTopic, topic_path: null, extracts: [] });
         const result = await getEntityDetail('topic', 'dharma');
-        expect(result.description).toBeUndefined();
+        expect(result.topicPath).toBeUndefined();
       });
     });
 
