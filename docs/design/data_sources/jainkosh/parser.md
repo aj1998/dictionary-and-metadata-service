@@ -4,7 +4,7 @@
 > Covers HTML structure rules, parser implementation, configuration, models,
 > algorithms, CLI, tests, and edge-emission specs.
 >
-> **Current version**: `jainkosh.rules/1.11.19`
+> **Current version**: `jainkosh.rules/1.11.20`
 >
 > Archived source specs (pre-v1.7 detail):
 > `detailed_docs/parsing_rules.md`, `parser_spec.md`,
@@ -730,7 +730,7 @@ These rules apply to the **first non-inline reference** in a block (the "main" r
 | `publication` | `sanskrit_text` | — | `GathaTeeka("<shastra>:<teeka or 'टीका'>:गाथा:टीका:<g>")` |
 | `publication` | `hindi_text` | teeka present | 2 edges: `GathaTeeka` + `GathaTeekaBhaavarth` |
 | `publication` | `hindi_text` | no teeka, `hindi_translation` present | `Gatha` |
-| `publication` | `hindi_text` | no teeka, `hindi_translation` is `null` | `GathaTeekaBhaavarth("<shastra>:<pub_id>:गाथा:टीका:भावार्थ:<g>")` |
+| `publication` | `hindi_text` | no teeka, `hindi_translation` is `null` | `GathaTeekaBhaavarth("<shastra>:टीका:<pub_id>:गाथा:टीका:भावार्थ:<g>")` |
 
 **`hindi_text` bhaavarth rule (v1.11.1)**: when a `hindi_text` block has `hindi_translation=null`, the block is standalone prose (not a verse translation) and is emitted as `GathaTeekaBhaavarth` rather than `Gatha`.
 
@@ -929,6 +929,7 @@ DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence an
 | `1.11.19` | **(1) publication + `sanskrit_text` emits `GathaTeeka`; `prakrit_text` emits `Gatha`**: fixed `_emit_gatha` in `reference_edges.py` — for `type=publication`, `sanskrit_text` blocks now always emit `GathaTeeka("<shastra>:<teeka or 'टीका'>:गाथा:टीका:<g>")` regardless of `teeka_name` presence (previously fell through to `Gatha` when `teeka_name` was absent). `prakrit_text` is original Prakrit source content and is treated the same as `prakrit_gatha` — always emits `Gatha`. **(2) `ShastraRegistry.get_type` space-normalization fix**: `_by_primary` uses `_normalise()` which strips spaces from keys (e.g. `"भाव संग्रह"` → `"भावसंग्रह"`), but `get_type` looked up the raw `shastra_name` directly in `_by_primary` — always returning `None` for multi-word shastras. Fixed by adding `_by_exact_name` dict (raw `entry.shastra_name` → entry) and trying it first in `get_type`. Affected shastras: `"भाव संग्रह"`, `"मोक्ष पाहुड़"`, `"पंचाध्यायी/पूर्वार्ध"` and others with spaces. Goldens updated for all keywords. |
 | `1.11.18` | **Inline reference edge emission (simplified path)**: all `inline_reference=True` refs in a block now emit `Gatha`/`Kalash`/`Page` edges via a new simplified path (`_emit_inline_only_edges`), regardless of block kind or whether a non-inline ref is also present. Previously, when a non-inline ref was the main ref, inline refs went through `_emit_inline_ref_edges` (which could emit `GathaTeeka`/`GathaTeekaBhaavarth`); when all refs were inline, only refs[0] got the full block-kind-aware treatment while remaining refs used the simplified path. Now: `GathaTeeka`/`GathaTeekaBhaavarth` are never emitted for inline refs; all inline refs in any block emit plain `Gatha` when gatha-matcher fields are present (`गाथा`/`श्लोक`/`सूत्र`/`दोहक`/`वार्तिक`). Goldens updated for all keywords. |
 | `1.11.15` | **परिशिष्ठ keyword-trigger format priority**: references of the form `समयसार / आत्मख्याति/ परिशिष्ठ 1` now correctly resolve to `teeka_name="आत्मख्याति"` and `[परिशिष्ठ=1]` instead of `teeka_name="आत्मख्याति/परिशिष्ठ"` and `[गाथा=1]`. Root cause: "परिशिष्ठ" was absent from `section_keywords`, so (1) `split_name_and_numeric_kw` did not split at `/परिशिष्ठ` (leaving numeric as just "1") and (2) `match_shastra` step 3 could not strip "परिशिष्ठ" from the teeka candidate. Fix: added "परिशिष्ठ" to `section_keywords.keywords` in `jainkosh.yaml`; `{परिशिष्ठ}परिशिष्ठ` format was already in समयसार's format list in `shastra.json`. गुण golden updated. |
+| `1.11.20` | **`GathaTeekaBhaavarth` key includes `'टीका'` literal when no `teeka_name`**: for `publication` + `hindi_text` + `hindi_translation=null` + `teeka_name=None`, the node key was `"{shastra}:{pub_id}:गाथा:टीका:भावार्थ:{g}"` — missing a teeka segment. Fixed to `"{shastra}:टीका:{pub_id}:गाथा:टीका:भावार्थ:{g}"`, consistent with how other no-teeka cases default to `'टीका'` (e.g. `GathaTeeka` for `sanskrit_text`). Affected: `कार्तिकेयानुप्रेक्षा` bhaavarth blocks in स्वभाव. All goldens updated. |
 | `1.11.7` | **Inline-ref distribution by position in split blocks**: `_do_split` no longer assigns all inline refs to the last split block. A new `_assign_inline_refs_to_segments` helper uses the pre-strip translation text (stored as `Block._hindi_translation_pre_strip` via `PrivateAttr`, set during sibling-`=` absorption and `_emit` translation absorption) to find each inline ref's position relative to verse markers. A ref that appears immediately after `।N।` is assigned to the gatha-N split block rather than the final block. Fixes `नयचक्र बृहद्/22,25,30` where `( परमात्मप्रकाश टीका/1/57 )` appears right after `। 25।` in the HindiText — it is now placed in the gatha-25 block instead of the gatha-30 block. Falls back to last-segment assignment when pre-strip text is unavailable or the ref text is not found. |
 
 ---
@@ -961,7 +962,7 @@ DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence an
 | स्वभाव | `(नयचक्र (श्रुतभवन)/61)` — paren-stripping gives `नयचक्र श्रुतभवन/61` | Space-to-slash matching (§11) resolves to `नयचक्र/श्रुतभवन`; format "पृष्ठ" → `पृष्ठ=61`. |
 | पर्याय | `( नयचक्र / श्रुतभवन/ पृष्ठ 57)` — "पृष्ठ" leaks into name portion | Compound-name longest-prefix matching (§11) tries "नयचक्र/श्रुतभवन" before "नयचक्र"; remaining "पृष्ठ" is a field keyword → `is_teeka=False`, `पृष्ठ=57`. |
 | स्वभाव | `देखें ... प्रकृति_बंध` href | Underscore preserved in `target_keyword` (§4.4). |
-| any | `hindi_text` block with `hindi_translation=null` + publication shastra | `GathaTeekaBhaavarth` edge (§12.2). |
+| any | `hindi_text` block with `hindi_translation=null` + publication shastra, no teeka | `GathaTeekaBhaavarth("<shastra>:टीका:<pub_id>:गाथा:टीका:भावार्थ:<g>")` edge (§12.2). Key includes literal `टीका` segment before publisher_id. |
 | गुण | No `<h2>` — entire page in single top-level `<ol>` containing both index `<p>` notes and body `<strong id="N">` headings nested 3 levels deep | Hybrid ol dual-processing (§4.5); DFS deep-heading recursion (§6.12). |
 | गुण | `समयसार / आत्मख्याति/ कलश 2` — "कलश" precedes the first digit and was absorbed by `split_name_and_numeric` into the name portion | `split_name_and_numeric_kw` splits at `/कलश` boundary (v1.11.14); `{कलश}कलश` trigger format fires → only `[कलश=2]` in resolved_fields. |
 | गुण | `समयसार / आत्मख्याति/ कलश 2` in a `sanskrit_text` block — no `Kalash` Neo4j edge was emitted even though resolved_fields had `कलश=2` | `_emit_kalash` extended to accept `sanskrit_text`/`prakrit_text` for both `teeka` and `publication` shastra types (v1.11.16). समयसार is "publication"; its kalash verses appear as `SanskritText` HTML class → `sanskrit_text` block. |

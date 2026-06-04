@@ -159,7 +159,7 @@ below (regardless of which keyword variant matched in `resolved_fields`).
 |--------------|--------|---------|
 | `Gatha` | `<shastra>:गाथा:<n>` | shastra-type rules |
 | `GathaTeeka` | `<shastra>:<teeka>:गाथा:टीका:<n>` | teeka/publication rules |
-| `GathaTeekaBhaavarth` | `<shastra>:<teeka>:<publisher_id>:गाथा:टीका:भावार्थ:<n>` | publication hindi_text |
+| `GathaTeekaBhaavarth` | `<shastra>:<teeka or 'टीका'>:<publisher_id>:गाथा:टीका:भावार्थ:<n>` | publication hindi_text |
 | `Kalash` | `<shastra>:<teeka>:कलश:<n>` | teeka/publication rules (kalash) |
 | `KalashBhaavarth` | `<shastra>:<teeka>:<publisher_id>:कलश:भावार्थ:<n>` | publication hindi_text (kalash) |
 | `Page` | `<shastra>:<teeka>:<publisher_id>:पृष्ठ:<n>` | publication page rule |
@@ -231,9 +231,13 @@ gatha edges. The block-kind constraints below MUST hold.
   (`prakrit_text` is original Prakrit source content, treated the same as `prakrit_gatha`.)
 - block_kind == **sanskrit_text**: src = `GathaTeeka("<shastra>:<teeka>:गाथा:टीका:<g>")`.
   When `teeka_name` is absent, `<teeka>` defaults to `"टीका"` (e.g. `"तत्त्वानुशासन:टीका:गाथा:टीका:53"`).
-- block_kind == hindi_text: emit **two edges**:
-  - src1 = `GathaTeeka("<shastra>:<teeka>:गाथा:टीका:<g>")`
-  - src2 = `GathaTeekaBhaavarth("<shastra>:<teeka>:<publisher_id>:गाथा:टीका:भावार्थ:<g>")`
+- block_kind == hindi_text:
+  - When `teeka_name` present: emit **two edges**:
+    - src1 = `GathaTeeka("<shastra>:<teeka>:गाथा:टीका:<g>")`
+    - src2 = `GathaTeekaBhaavarth("<shastra>:<teeka>:<publisher_id>:गाथा:टीका:भावार्थ:<g>")`
+  - When `teeka_name` absent + `hindi_translation` is `null` (bhaavarth block): emit one edge:
+    - src = `GathaTeekaBhaavarth("<shastra>:टीका:<publisher_id>:गाथा:टीका:भावार्थ:<g>")` (`<teeka>` defaults to `"टीका"`)
+  - When `teeka_name` absent + `hindi_translation` present: emit `Gatha` (verse translation, not bhaavarth)
 
 For other block kinds (`table`, `see_also`), emit nothing.
 

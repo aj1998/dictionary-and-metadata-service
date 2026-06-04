@@ -1,5 +1,5 @@
-version: "1.11.19"
-parser_rules_version: "jainkosh.rules/1.11.19"
+version: "1.11.20"
+parser_rules_version: "jainkosh.rules/1.11.20"
 
 normalization:
   nfc: true

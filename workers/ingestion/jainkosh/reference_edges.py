@@ -104,7 +104,7 @@ def _emit_gatha(
         if block_kind == "hindi_text":
             if not tn:
                 if is_bhaavarth:
-                    key = f"{sn}:{publisher_id}:गाथा:टीका:भावार्थ:{g}"
+                    key = f"{sn}:टीका:{publisher_id}:गाथा:टीका:भावार्थ:{g}"
                     return [_make_edge(edge_type, "GathaTeekaBhaavarth", key, target, pankti_props, extra_props)]
                 key = f"{sn}:गाथा:{g}"
                 return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]

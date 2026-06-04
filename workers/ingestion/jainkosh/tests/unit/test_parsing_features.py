@@ -1991,6 +1991,35 @@ class TestPublicationTextBlockEmitsGathaTeeka:
             f"All तत्त्वानुशासन nodes must be GathaTeeka, got: {[n['label'] for n in tatva_nodes]}"
         )
 
+    def test_publication_hindi_text_no_teeka_bhaavarth_key_has_teeka_literal(self, cfg: JainkoshConfig):
+        """§12.2: publication + hindi_text, no teeka_name, is_bhaavarth=True → key must include literal 'टीका' before publisher_id."""
+        ref = _make_ref("कार्तिकेयानुप्रेक्षा/312", shastra_name="कार्तिकेयानुप्रेक्षा", inline=False, gatha=312)
+        # hindi_text block with no hindi_translation triggers is_bhaavarth=True
+        block = Block(kind="hindi_text", text_devanagari="भावार्थ text", references=[ref], hindi_translation=None)
+        edges = build_reference_edges(block, target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+        labels = {e["from"]["label"] for e in edges}
+        assert "GathaTeekaBhaavarth" in labels, "GathaTeekaBhaavarth must be emitted for no-teeka bhaavarth block"
+        key = next(e["from"]["key"] for e in edges if e["from"]["label"] == "GathaTeekaBhaavarth")
+        # Key must have format: {shastra}:टीका:{publisher_id}:गाथा:टीका:भावार्थ:{gatha}
+        # (not {shastra}:{publisher_id}:गाथा:टीका:भावार्थ:{gatha})
+        assert key.startswith("कार्तिकेयानुप्रेक्षा:टीका:"), (
+            f"GathaTeekaBhaavarth key must have 'टीका' as teeka segment when teeka_name absent, got: {key!r}"
+        )
+        assert key.endswith(":गाथा:टीका:भावार्थ:312"), f"Unexpected key suffix: {key!r}"
+
+    def test_svabhav_golden_kartikeyaanupreksha_bhaavarth_key_format(self):
+        """Golden regression: कार्तिकेयानुप्रेक्षा GathaTeekaBhaavarth key in स्वभाव must include 'टीका' segment."""
+        import json
+        with open("workers/ingestion/jainkosh/tests/golden/स्वभाव.json") as f:
+            data = json.load(f)
+        nodes = data["would_write"]["neo4j"]["nodes"]
+        kartik_bhaavarth = [n for n in nodes if n.get("label") == "GathaTeekaBhaavarth" and "कार्तिकेयानुप्रेक्षा" in n.get("key", "")]
+        assert kartik_bhaavarth, "Expected कार्तिकेयानुप्रेक्षा GathaTeekaBhaavarth node in स्वभाव golden"
+        for n in kartik_bhaavarth:
+            assert ":टीका:" in n["key"], (
+                f"GathaTeekaBhaavarth key must contain ':टीका:' teeka segment, got: {n['key']!r}"
+            )
+
 
 # ---------------------------------------------------------------------------
 # Bug fix: ShastraRegistry.get_type fails for multi-word shastras with spaces

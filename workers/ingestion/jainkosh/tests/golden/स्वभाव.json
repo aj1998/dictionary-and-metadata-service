@@ -1250,11 +1250,11 @@
                     "hindi_translation": null,
                     "references": [
                       {
-                        "text": "समयसार/ पं.जयचंद/404",
+                        "text": "समयसार/आत्मख्याति/404",
                         "inline_reference": false,
                         "needs_manual_match": false,
                         "is_teeka": true,
-                        "teeka_name": "पं.जयचंद",
+                        "teeka_name": "आत्मख्याति",
                         "shastra_name": "समयसार",
                         "match_method": "shastra_name",
                         "resolved_fields": [
@@ -2011,8 +2011,8 @@
       "prev": "/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AA%E0%A5%8D%E0%A4%A8%E0%A4%BE%E0%A4%A4%E0%A4%BF%E0%A4%9A%E0%A4%BE%E0%A4%B0",
       "next": "/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5_%E0%A4%A8%E0%A4%AF"
     },
-    "parser_version": "jainkosh.rules/1.11.19",
-    "parsed_at": "2026-06-03T21:46:19.284189",
+    "parser_version": "jainkosh.rules/1.11.20",
+    "parsed_at": "2026-05-04T00:00:00",
     "warnings": []
   },
   "would_write": {
@@ -3658,11 +3658,11 @@
               "hindi_translation": null,
               "references": [
                 {
-                  "text": "समयसार/ पं.जयचंद/404",
+                  "text": "समयसार/आत्मख्याति/404",
                   "inline_reference": false,
                   "needs_manual_match": false,
                   "is_teeka": true,
-                  "teeka_name": "पं.जयचंद",
+                  "teeka_name": "आत्मख्याति",
                   "shastra_name": "समयसार",
                   "match_method": "shastra_name",
                   "resolved_fields": [
@@ -4925,10 +4925,10 @@
         },
         {
           "label": "GathaTeekaBhaavarth",
-          "key": "कार्तिकेयानुप्रेक्षा:23:गाथा:टीका:भावार्थ:312",
+          "key": "कार्तिकेयानुप्रेक्षा:टीका:23:गाथा:टीका:भावार्थ:312",
           "props": {
             "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
-            "teeka_natural_key": "कार्तिकेयानुप्रेक्षा",
+            "teeka_natural_key": "कार्तिकेयानुप्रेक्षा:टीका",
             "publisher_id": "23",
             "gatha_number": "312"
           },
@@ -4979,20 +4979,20 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "समयसार:पं.जयचंद:गाथा:टीका:404",
+          "key": "समयसार:आत्मख्याति:गाथा:टीका:404",
           "props": {
             "shastra_natural_key": "समयसार",
-            "teeka_natural_key": "समयसार:पं.जयचंद",
+            "teeka_natural_key": "समयसार:आत्मख्याति",
             "gatha_number": "404"
           },
           "lazy": true
         },
         {
           "label": "GathaTeekaBhaavarth",
-          "key": "समयसार:पं.जयचंद:3:गाथा:टीका:भावार्थ:404",
+          "key": "समयसार:आत्मख्याति:3:गाथा:टीका:भावार्थ:404",
           "props": {
             "shastra_natural_key": "समयसार",
-            "teeka_natural_key": "समयसार:पं.जयचंद",
+            "teeka_natural_key": "समयसार:आत्मख्याति",
             "publisher_id": "3",
             "gatha_number": "404"
           },
@@ -6105,7 +6105,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeekaBhaavarth",
-            "key": "कार्तिकेयानुप्रेक्षा:23:गाथा:टीका:भावार्थ:312"
+            "key": "कार्तिकेयानुप्रेक्षा:टीका:23:गाथा:टीका:भावार्थ:312"
           },
           "to": {
             "label": "Topic",
@@ -6219,7 +6219,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "समयसार:पं.जयचंद:गाथा:टीका:404"
+            "key": "समयसार:आत्मख्याति:गाथा:टीका:404"
           },
           "to": {
             "label": "Topic",
@@ -6237,7 +6237,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeekaBhaavarth",
-            "key": "समयसार:पं.जयचंद:3:गाथा:टीका:भावार्थ:404"
+            "key": "समयसार:आत्मख्याति:3:गाथा:टीका:भावार्थ:404"
           },
           "to": {
             "label": "Topic",
