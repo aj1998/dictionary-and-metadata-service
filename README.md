@@ -1,18 +1,30 @@
-# Jain Dictionary & Knowledge Base Service
+# Jain Knowledge Base Service
 
-A structured, knowledge-graph-backed retrieval layer for Jain texts. Complements `cataloguesearch` (vector/BM25) and `cataloguesearch-chat` (LLM chat). Uses GraphRAG.
+A structured, knowledge-graph-backed retrieval layer for Jain texts.
+
+Features -
+- Knowledge Base Graph for Jainism. (Keywords/Topics/Shastras/Gathas etc.)
+- Shastra Reader with various AI enhancements.
+- Complements `cataloguesearch` (vector/BM25) and `cataloguesearch-chat` (LLM chat) for GraphRAG.
 
 ## Usecases/Objectives
 
-- **Structured (knowledge retented) search engine** for Jain Texts expanded/enhanced on top of `JainKosh` authored by - _Kshullak Jinendra Varni Ji_ and the works done by scholars for creating its digital infrastructure at [jainkosh.org](www.jainkosh.org) by linking keywords with definitions/topics/shastras/references. Also, uses various shastras' OCRed data fed systematically and categorically.
+- **Structured (knowledge retented) search engine** for Jain Texts expanded/enhanced on top of `JainKosh` authored by - _Kshullak Jinendra Varni Ji_ and the works done by scholars for creating its digital infrastructure at [jainkosh.org](https://jainkosh.org) by linking keywords with definitions/topics/shastras/references. Also, uses various shastras' parsed/OCRed data fed systematically and categorically from various sources ([nikkyjain.github.io](https://nikkyjain.github.io)[swalakshya](https://swalakshya.me)).
 
 - **Graph traversal** of Jain Knowledge Base in an interactive UI.
 
 <p float="left">
-  <img src="images/website_graph.png" width="49%" />
-  <img src="images/website_node_expanded_details.png" width="49%" />
+  <img src="images/graph.png" width="49%" />
+  <img src="images/detail1.png" width="49%" />
+</p>
+<p float="left">
+  <img src="images/detail2.png" width="49%" />
+  <img src="images/reader.png" width="49%" />
 </p>
 
+- A digital preservation initiative for Jain Shastras including a **Shastra Reader** with various AI enhancements.
+
+Enhancing `cataloguesearch-chat` with - 
 - **Finding exact** sanskrit/prakrit/hindi gatha from shastras and understanding it word to word.
 
 - Acts as a **cache and pre-querying dictionary** layer (finding exact keywords) to the existing vector search at cataloguesearch.
@@ -26,8 +38,9 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Complements
   - समयसार की 6th गाथा में किन किन विषयों का वर्णन आया है?
   - द्रव्य की स्वतंत्रता का वर्णन कोन कोनसे शास्त्रों में आया है?
 
-[Current vector search only extracts excerpts of gatha mentions in texts but does not have context of the gatha itself, what does it explain at an high level etc. This will extract high-level content and specific topics which are relevant to it, feed it to chat service, and then final answer generation will utilize both vectored RAG and vectorless/graphRAG results.]
+[_Current vector search only extracts excerpts of gatha mentions in texts but does not have context of the gatha itself, what does it explain at an high level etc. This will extract high-level content and specific topics which are relevant to it, feed it to chat service, and then final answer generation will utilize both vectored RAG and vectorless/graphRAG results._]
 
+Future -
 - **Train a Jainism based AI model** in future with the help of Cataloguesearch OCRed data and this Knowledge Graph for the most accurate results.
 
 ## What this service does
@@ -121,20 +134,13 @@ Postgres is the **source of truth for IDs**. Every entity in Mongo or Neo4j has 
                    │Postgres │ │ Mongo  │ │ Neo4j   │
                    └────┬────┘ └───┬────┘ └────┬────┘
                         │          │           │
-                   ┌───────────────┐
-                   │  core-service │
-                   │  (port 8001)  │
-                   └───────┬───────┘
-                           │
-                           ▼
-                        Public UI
-                           │
-                           ▼
-                        query-svc
-                                 (port 8004 - public)
-                                        │
-                                        ▼
-                                cataloguesearch-chat
+                   ┌───────────────────────────────┐
+                   │  core-service                 │
+                   │  (port 8001)                  │
+                   └───────┬───────────────┬───────┘
+                           │               │         
+                           ▼               ▼
+                        Public UI    query_svc --> cataloguesearch_chat
 ```
 
 ### Implementation Status
