@@ -212,10 +212,10 @@ async def test_resolve_by_creates_topic_stub(pg_session, mongo_db, neo4j_driver)
     # Find the stub seed for द्रव्य:4 produced by the envelope
     stub_seeds = [
         n for n in neo["nodes"]
-        if n.get("is_stub_seed") and n["label"] == "Topic" and "द्रव्य" in n["key"]
+        if n.get("is_stub_seed") and n["label"] == "Topic" and "द्रव्य" in (n.get("key") or n.get("resolve_key", ""))
     ]
     assert stub_seeds, "Expected stub seed for a द्रव्य topic cross-reference"
-    stub_nk = next(n["key"] for n in stub_seeds if n["key"].startswith("द्रव्य:4"))
+    stub_nk = next((n.get("key") or n.get("resolve_key")) for n in stub_seeds if (n.get("key") or n.get("resolve_key", "")).startswith("द्रव्य:4"))
 
     await _apply(pg_session, mongo_db, neo4j_driver, env)
 
@@ -229,9 +229,12 @@ async def test_resolve_by_creates_topic_stub(pg_session, mongo_db, neo4j_driver)
     assert node.get("display_text_hi") == "4"
 
     # RELATED_TO edge from the index-relation topic to the stub exists
+    # Stub references use resolve_key instead of key in the edge "to" dict
     related_to_edges = [
         e for e in neo["edges"]
-        if e["type"] == "RELATED_TO" and e["to"].get("key") == stub_nk
+        if e["type"] == "RELATED_TO" and (
+            e["to"].get("key") == stub_nk or e["to"].get("resolve_key") == stub_nk
+        )
     ]
     assert related_to_edges, f"No RELATED_TO edge pointing to stub {stub_nk!r}"
     src_nk = related_to_edges[0]["from"]["key"]

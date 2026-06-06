@@ -117,8 +117,8 @@ def test_see_also_triggers(html, expected_trigger_count):
 @pytest.mark.parametrize("html, expected_count", [
     # देखें with no following <a> — no relation
     ('<p class="HindiText">देखें</p>', 0),
-    # Two anchors after one देखें — only the first is see_also
-    ('<p class="HindiText">देखें <a href="/wiki/X">X</a>, <a href="/wiki/Y">Y</a></p>', 1),
+    # Two anchors after one देखें — both are see_also (comma-separated list)
+    ('<p class="HindiText">देखें <a href="/wiki/X">X</a>, <a href="/wiki/Y">Y</a></p>', 2),
     # Trigger inside anchor text — not a relation
     ('<p class="HindiText">पाठ <a href="/wiki/X">देखें</a></p>', 0),
     # en-dash before देखें, no space — matches

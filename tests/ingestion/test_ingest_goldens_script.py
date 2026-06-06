@@ -30,7 +30,7 @@ def test_dry_run_summarizes_selected_goldens(capsys):
 def test_apply_runs_for_selected_keyword(monkeypatch):
     calls: list[str] = []
 
-    async def fake_apply(selected, *, neo4j_database, ingestion_run_id):
+    async def fake_apply(selected, *, neo4j_database, ingestion_run_id, shastra_hierarchy=False):
         calls.append("apply")
         assert len(selected) == 1
         assert neo4j_database == "neo4j"

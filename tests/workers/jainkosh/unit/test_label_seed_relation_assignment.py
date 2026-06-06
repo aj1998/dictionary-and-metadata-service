@@ -60,9 +60,11 @@ def test_redlink_row_seed_gets_see_also_block():
     assert parent is not None, "Parent section 'गुण स्थानों की अपेक्षा बहिरात्मा आदि भेद' not found"
 
     see_also_blocks = [b for b in seed.blocks if b.kind == "see_also"]
-    assert len(see_also_blocks) == 1, f"Expected 1 see_also in seed, got: {see_also_blocks}"
-    assert see_also_blocks[0].target_exists is False, (
-        f"Expected target_exists=False (redlink), got: {see_also_blocks[0].target_exists}"
+    # The देखें line has 3 comma-separated links (बहिरात्मा, अंतरात्मा, परमात्मा)
+    assert len(see_also_blocks) == 3, f"Expected 3 see_also in seed, got: {see_also_blocks}"
+    target_kws = {b.target_keyword for b in see_also_blocks}
+    assert target_kws == {"बहिरात्मा", "अंतरात्मा", "परमात्मा"}, (
+        f"Unexpected target keywords: {target_kws}"
     )
 
     parent_see_also = [b for b in parent.blocks if b.kind == "see_also"]

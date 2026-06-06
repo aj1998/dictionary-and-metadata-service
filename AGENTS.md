@@ -18,7 +18,7 @@ This file provides guidance to Agents like claude-code and codex when working wi
 5. **Strict Adherence**: Do not deviate from the architectural decisions in the plan. If you find a technical blocker, report it back rather than guessing and ask user for help/clarifications.
 6. **Verification**: After each major change, run the relevant full build/lint/test-suite commands to ensure stability.
 7. **Updating Relevant Docs**: Always update the given spec/design doc with Implementation Notes/Diversions after the implementation.
-8. **Testing**: Always add tests for new implementations.
+8. **Testing**: Always add tests for new implementations. Always run full test suite of the repo after any change to check any regressions.
 9. **Manual Testing Steps/Docs**: Provide the user a set of verification commands/steps so that the change can be manually tested.
 10. **Pausing the implementation**: Whenever you detect that the implementation will be a long one and you require a subagent to do this, stop there. Instead of the implementation, only create phase-wise plan docs for other agents to implement including all the steps along with testing and instructions which were given to you.
 

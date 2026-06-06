@@ -54,7 +54,7 @@ def test_index_relation_topics_in_mongo_topic_extracts():
 def test_index_relation_topics_in_neo4j_nodes():
     env = _envelope()
     nodes = env.would_write["neo4j"]["nodes"]
-    topic_nks = {n["key"] for n in nodes if n.get("label") == "Topic"}
+    topic_nks = {n.get("key") or n.get("resolve_key") for n in nodes if n.get("label") == "Topic"}
     matching = [k for k in topic_nks if "अर्थक्रियाकारित्व" in k]
     assert matching, "neo4j Topic node for अर्थक्रियाकारित्व must exist"
 

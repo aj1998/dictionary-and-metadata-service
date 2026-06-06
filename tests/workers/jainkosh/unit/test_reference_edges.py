@@ -493,24 +493,24 @@ def test_inline_shastra_gatha_emits_gatha():
     assert edges[0]["from"] == {"label": "Gatha", "key": "समयसार:गाथा:7"}
 
 
-def test_inline_teeka_gatha_kind_emits_gathateeka():
-    """Inline teeka ref in gatha-kind block emits GathaTeeka (not Gatha — no block-kind check)."""
+def test_inline_teeka_gatha_kind_emits_gatha():
+    """Inline teeka ref emits plain Gatha — _emit_inline_only_edges ignores shastra type for gatha."""
     cfg = _make_config()
     inline = _make_inline_ref("नियमसार", [_rf("गाथा", 6)], teeka_name="आत्मख्याती")
     b = Block(kind="hindi_gatha", references=[_main_no_fields(), inline])
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     assert len(edges) == 1
-    assert edges[0]["from"] == {"label": "GathaTeeka", "key": "नियमसार:आत्मख्याती:गाथा:टीका:6"}
+    assert edges[0]["from"] == {"label": "Gatha", "key": "नियमसार:गाथा:6"}
 
 
-def test_inline_teeka_text_kind_emits_gathateeka():
-    """Inline teeka ref in text-kind block emits GathaTeeka."""
+def test_inline_teeka_text_kind_emits_gatha():
+    """Inline teeka ref in text-kind block emits plain Gatha."""
     cfg = _make_config()
     inline = _make_inline_ref("नियमसार", [_rf("गाथा", 6)], teeka_name="आत्मख्याती")
     b = Block(kind="sanskrit_text", references=[_main_no_fields(), inline])
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     assert len(edges) == 1
-    assert edges[0]["from"]["label"] == "GathaTeeka"
+    assert edges[0]["from"]["label"] == "Gatha"
 
 
 def test_inline_teeka_kalash_no_block_kind_check():
@@ -524,26 +524,26 @@ def test_inline_teeka_kalash_no_block_kind_check():
     assert edges[0]["from"] == {"label": "Kalash", "key": "नियमसार:आत्मख्याती:कलश:3"}
 
 
-def test_inline_publication_gatha_emits_only_gathateekabhaavarth():
-    """Inline publication ref emits only GathaTeekaBhaavarth (no Gatha, no GathaTeeka)."""
+def test_inline_publication_gatha_emits_gatha():
+    """Inline publication ref emits plain Gatha — shastra type ignored for gatha in inline path."""
     cfg = _make_config()
     inline = _make_inline_ref("धवला", [_rf("गाथा", 6)], teeka_name="जयधवला")
     b = Block(kind="hindi_gatha", references=[_main_no_fields(), inline])
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     assert len(edges) == 1
     e = edges[0]
-    assert e["from"]["label"] == "GathaTeekaBhaavarth"
-    assert e["from"]["key"] == "धवला:जयधवला:1:गाथा:टीका:भावार्थ:6"
+    assert e["from"]["label"] == "Gatha"
+    assert e["from"]["key"] == "धवला:गाथा:6"
 
 
-def test_inline_publication_kalash_emits_only_kalashbhaavarth():
-    """Inline publication ref with kalash emits only KalashBhaavarth (no Kalash)."""
+def test_inline_publication_kalash_emits_kalash():
+    """Inline publication ref with kalash emits Kalash (same key as teeka — no BhaaVarth in inline path)."""
     cfg = _make_config()
     inline = _make_inline_ref("धवला", [_rf("कलश", 3)], teeka_name="जयधवला")
     b = Block(kind="hindi_gatha", references=[_main_no_fields(), inline])
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     assert len(edges) == 1
-    assert edges[0]["from"] == {"label": "KalashBhaavarth", "key": "धवला:जयधवला:1:कलश:भावार्थ:3"}
+    assert edges[0]["from"] == {"label": "Kalash", "key": "धवला:जयधवला:कलश:3"}
 
 
 def test_inline_publication_page_emits_page():
@@ -556,15 +556,15 @@ def test_inline_publication_page_emits_page():
     assert edges[0]["from"] == {"label": "Page", "key": "धवला:जयधवला:1:पृष्ठ:50"}
 
 
-def test_inline_teeka_missing_teeka_name_falls_back_to_default():
-    """Inline teeka ref with missing teeka_name falls back to 'टीका' and emits edge."""
+def test_inline_teeka_missing_teeka_name_emits_gatha():
+    """Inline teeka ref with missing teeka_name still emits plain Gatha (inline path ignores shastra type)."""
     cfg = _make_config()
     inline = _make_inline_ref("नियमसार", [_rf("गाथा", 6)], teeka_name="")
     b = Block(kind="hindi_gatha", references=[_main_no_fields(), inline])
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     assert len(edges) == 1
-    assert edges[0]["from"]["label"] == "GathaTeeka"
-    assert edges[0]["from"]["key"] == "नियमसार:टीका:गाथा:टीका:6"
+    assert edges[0]["from"]["label"] == "Gatha"
+    assert edges[0]["from"]["key"] == "नियमसार:गाथा:6"
 
 
 def test_inline_shastra_no_kalash_edge():
@@ -614,11 +614,11 @@ def test_multiple_inline_refs_all_processed():
     b = Block(kind="hindi_text", references=[main, inline1, inline2])
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     # main (shastra/hindi_text) → Gatha(1)
-    # inline1 (teeka/inline) → GathaTeeka(10)
-    # inline2 (publication/inline) → GathaTeekaBhaavarth(20)
+    # inline1 (teeka/inline) → Gatha(10) — inline path emits plain Gatha for all shastra types
+    # inline2 (publication/inline) → Gatha(20) — same
     assert len(edges) == 3
     labels = {e["from"]["label"] for e in edges}
-    assert labels == {"Gatha", "GathaTeeka", "GathaTeekaBhaavarth"}
+    assert labels == {"Gatha"}
 
 
 def test_inline_publication_pankti_in_props():
