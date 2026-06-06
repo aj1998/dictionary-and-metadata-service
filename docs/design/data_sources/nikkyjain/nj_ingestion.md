@@ -136,10 +136,10 @@ Migration `0019_teeka_chapters.py`. Chapters are groups of gathas within the sam
 | `HAS_PUBLICATION` | Teeka | Publication |
 | `HAS_PUBLICATION` | Shastra | Publication |
 | `MENTIONS_TOPIC` | Gatha | Topic |
-| `HAS_GATHA_TEEKA` | Teeka | GathaTeeka |
-| `HAS_BHAAVARTH` | Publication | GathaTeekaBhaavarth |
-| `HAS_KALASH` | Teeka | Kalash |
-| `HAS_BHAAVARTH` | Publication | KalashBhaavarth |
+| `IN_TEEKA` | GathaTeeka | Teeka |
+| `IN_TEEKA` | Kalash | Teeka |
+| `IN_PUBLICATION` | GathaTeekaBhaavarth | Publication |
+| `IN_PUBLICATION` | KalashBhaavarth | Publication |
 
 Topic nodes are **deduplicated** by `heading_hi` text. No `MENTIONS_TOPIC` edge is emitted for gathas with `heading_hi = None`.
 

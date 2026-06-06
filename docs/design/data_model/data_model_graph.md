@@ -43,8 +43,10 @@ All edges are directed unless noted. Edge type names are uppercase (Neo4j conven
 | `HAS_TOPIC` | directed | `Keyword → Topic` | `weight`, `source` | Keyword's JainKosh page yielded this topic |
 | `MENTIONS_TOPIC` | directed | `Gatha\|GathaTeeka → Topic` | `weight`, `source` | Gatha/teeka-mapping is associated with a topic |
 | `CONTAINS_DEFINITION` | directed | `Keyword → Topic` | `weight`, `source` | Keyword page contains a definition block for this topic |
+| `HAS_TEEKA` | directed | `Shastra → Teeka` | — | Structural: shastra owns this teeka |
+| `HAS_PUBLICATION` | directed | `Teeka → Publication` (also `Shastra → Publication` in NJ) | — | Structural: teeka owns this publication |
 | `IN_SHASTRA` | directed | `Gatha → Shastra` | — | Structural: gatha belongs to shastra |
-| `IN_TEEKA` | directed | `GathaTeeka\|Kalash → Teeka` | — | Structural: teeka node belongs to teeka |
+| `IN_TEEKA` | directed | `GathaTeeka\|Kalash → Teeka` | — | Structural: node belongs to teeka |
 | `IN_PUBLICATION` | directed | `GathaTeekaBhaavarth\|KalashBhaavarth\|Page → Publication` | — | Structural: bhaavarth/page belongs to publication |
 
 **Extending edge types:** add the new type name to `parser_configs/_meta/edge_types.yaml`. Validation on graph writes consults this file. Adding a type requires no migration.

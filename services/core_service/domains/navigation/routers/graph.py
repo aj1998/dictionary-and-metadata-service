@@ -47,9 +47,11 @@ def _label_to_kind(label: str | None) -> str:
         "keyword": "keyword",
         "shastra": "shastra",
         "gatha": "gatha",
+        "teeka": "teeka",
+        "publication": "publication",
         # Gatha-family stub labels emitted by JainKosh ingestion via CONTAINS_DEFINITION /
         # MENTIONS_TOPIC. Each gets its own UI category (separate filter swatch + node colour).
-        "gathateeka": "teeka",
+        "gathateeka": "gatha_teeka",
         "gathateekabhaavarth": "bhaavarth",
         "kalashbhaavarth": "bhaavarth",
         "kalash": "kalash",
@@ -149,16 +151,16 @@ async def landing(
 ) -> GraphPayload:
     stub_clause = "AND NOT (coalesce(s.is_stub, false) OR coalesce(t.is_stub, false))" if exclude_stubs else ""
     cypher = f"""
-    MATCH (s)-[r:IS_A|PART_OF|RELATED_TO|HAS_TOPIC|MENTIONS_KEYWORD|MENTIONS_TOPIC|CONTAINS_DEFINITION|IN_SHASTRA]-(t)
-    WHERE (s:Topic OR s:Keyword OR s:Shastra OR s:Gatha OR s:GathaTeeka OR s:GathaTeekaBhaavarth OR s:Kalash OR s:KalashBhaavarth OR s:Page)
-      AND (t:Topic OR t:Keyword OR t:Shastra OR t:Gatha OR t:GathaTeeka OR t:GathaTeekaBhaavarth OR t:Kalash OR t:KalashBhaavarth OR t:Page)
+    MATCH (s)-[r:IS_A|PART_OF|RELATED_TO|HAS_TOPIC|MENTIONS_KEYWORD|MENTIONS_TOPIC|CONTAINS_DEFINITION|IN_SHASTRA|HAS_TEEKA|HAS_PUBLICATION|IN_TEEKA|IN_PUBLICATION]-(t)
+    WHERE (s:Topic OR s:Keyword OR s:Shastra OR s:Teeka OR s:Publication OR s:Gatha OR s:GathaTeeka OR s:GathaTeekaBhaavarth OR s:Kalash OR s:KalashBhaavarth OR s:Page)
+      AND (t:Topic OR t:Keyword OR t:Shastra OR t:Teeka OR t:Publication OR t:Gatha OR t:GathaTeeka OR t:GathaTeekaBhaavarth OR t:Kalash OR t:KalashBhaavarth OR t:Page)
       {stub_clause}
     RETURN coalesce(s.natural_key, '') AS src_nk,
            labels(s)[0] AS src_label,
-           coalesce(s.display_text_hi, s.display_text, s.natural_key, '') AS src_hi,
+           coalesce(s.display_text_hi, s.display_text, s.title_hi, s.natural_key, '') AS src_hi,
            coalesce(t.natural_key, '') AS dst_nk,
            labels(t)[0] AS dst_label,
-           coalesce(t.display_text_hi, t.display_text, t.natural_key, '') AS dst_hi,
+           coalesce(t.display_text_hi, t.display_text, t.title_hi, t.natural_key, '') AS dst_hi,
            type(r) AS rel_type,
            coalesce(r.weight, 1.0) AS weight
     LIMIT 120
@@ -203,7 +205,7 @@ async def expand(
     stub_clause = "AND NOT (coalesce(s.is_stub, false) OR coalesce(t.is_stub, false))" if exclude_stubs else ""
     cypher = f"""
     MATCH (focus {{natural_key: $nk}})
-    OPTIONAL MATCH p=(focus)-[r:IS_A|PART_OF|RELATED_TO|HAS_TOPIC|MENTIONS_KEYWORD|MENTIONS_TOPIC|CONTAINS_DEFINITION|IN_SHASTRA*1..4]-(n)
+    OPTIONAL MATCH p=(focus)-[r:IS_A|PART_OF|RELATED_TO|HAS_TOPIC|MENTIONS_KEYWORD|MENTIONS_TOPIC|CONTAINS_DEFINITION|IN_SHASTRA|HAS_TEEKA|HAS_PUBLICATION|IN_TEEKA|IN_PUBLICATION*1..4]-(n)
     WITH focus, p, n, relationships(p) AS rels, labels(focus)[0] AS focus_label
     WHERE p IS NULL OR length(p) <= $depth
     UNWIND CASE WHEN p IS NULL THEN [] ELSE rels END AS rel
@@ -211,10 +213,10 @@ async def expand(
     WHERE true {stub_clause}
     RETURN coalesce(s.natural_key, '') AS src_nk,
            labels(s)[0] AS src_label,
-           coalesce(s.display_text_hi, s.display_text, s.natural_key, '') AS src_hi,
+           coalesce(s.display_text_hi, s.display_text, s.title_hi, s.natural_key, '') AS src_hi,
            coalesce(t.natural_key, '') AS dst_nk,
            labels(t)[0] AS dst_label,
-           coalesce(t.display_text_hi, t.display_text, t.natural_key, '') AS dst_hi,
+           coalesce(t.display_text_hi, t.display_text, t.title_hi, t.natural_key, '') AS dst_hi,
            type(rel) AS rel_type,
            coalesce(rel.weight, 1.0) AS weight,
            focus_label

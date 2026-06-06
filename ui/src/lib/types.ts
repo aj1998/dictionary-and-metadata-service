@@ -6,6 +6,8 @@ export type EdgeKind =
   | 'RELATED_TO'
   | 'ALIAS_OF'
   | 'HAS_TOPIC'
+  | 'HAS_TEEKA'
+  | 'HAS_PUBLICATION'
   | 'MENTIONS_KEYWORD'
   | 'MENTIONS_TOPIC'
   | 'IN_SHASTRA'

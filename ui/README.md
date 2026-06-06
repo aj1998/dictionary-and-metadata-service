@@ -428,8 +428,12 @@ The navigation service expand/preview queries traverse these Neo4j relationship 
 | `MENTIONS_TOPIC` | Gatha/GathaTeeka/GathaTeekaBhaavarth/Kalash/KalashBhaavarth/Page → Topic | Source node cites a topic |
 | `CONTAINS_DEFINITION` | Gatha/GathaTeeka/GathaTeekaBhaavarth/Kalash/KalashBhaavarth/Page → Keyword | Source node appears inside a keyword's JainKosh definition body |
 | `IN_SHASTRA` | Gatha → Shastra | **Gatha to its parent Shastra** |
+| `HAS_TEEKA` | Shastra → Teeka | **Shastra to its Teeka** |
+| `HAS_PUBLICATION` | Teeka → Publication | **Teeka to its Publication** |
+| `IN_TEEKA` | GathaTeeka/Kalash → Teeka | **GathaTeeka or Kalash to parent Teeka** |
+| `IN_PUBLICATION` | GathaTeekaBhaavarth/KalashBhaavarth/Page → Publication | **Bhaavarth/Page to parent Publication** |
 
-`MENTIONS_TOPIC`, `CONTAINS_DEFINITION` and `IN_SHASTRA` are required for gatha-family stub nodes (Gatha, GathaTeeka, GathaTeekaBhaavarth, Kalash, KalashBhaavarth, Page) to appear in the graph. Each Neo4j label maps to its own UI `EntityKind` with its own filter swatch, node colour, and icon:
+`MENTIONS_TOPIC`, `CONTAINS_DEFINITION`, `IN_SHASTRA`, `HAS_TEEKA`, `HAS_PUBLICATION`, `IN_TEEKA`, and `IN_PUBLICATION` are required for gatha-family stub nodes (Gatha, GathaTeeka, GathaTeekaBhaavarth, Kalash, KalashBhaavarth, Page) to appear in the graph. Each Neo4j label maps to its own UI `EntityKind` with its own filter swatch, node colour, and icon:
 
 | Neo4j label | UI `EntityKind` | Hindi label | Colour token | Icon |
 |---|---|---|---|---|

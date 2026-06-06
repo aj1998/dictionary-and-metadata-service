@@ -365,7 +365,7 @@ async def apply_approved_keyword_payload(
                     target_label=to.get("label", "Topic"),
                     database=neo4j_database,
                 )
-        elif etype in ("IN_SHASTRA", "IN_TEEKA", "IN_PUBLICATION"):
+        elif etype in ("HAS_TEEKA", "HAS_PUBLICATION", "IN_SHASTRA", "IN_TEEKA", "IN_PUBLICATION"):
             src_label = frm.get("label", "")
             tgt_label = to.get("label", "")
             if src_label and tgt_label:

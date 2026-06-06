@@ -161,7 +161,7 @@ async def sync_teeka(
                 t.created_at = coalesce(t.created_at, datetime())
             WITH t
             MATCH (s:Shastra {natural_key: $snk})
-            MERGE (t)-[:IN_SHASTRA]->(s)
+            MERGE (s)-[:HAS_TEEKA]->(t)
             """,
             nk=natural_key,
             pg_id=pg_id,
@@ -192,7 +192,7 @@ async def sync_publication(
                 p.created_at = coalesce(p.created_at, datetime())
             WITH p
             MATCH (t:Teeka {natural_key: $tnk})
-            MERGE (p)-[:IN_TEEKA]->(t)
+            MERGE (t)-[:HAS_PUBLICATION]->(p)
             """,
             nk=natural_key,
             pg_id=pg_id,
@@ -224,7 +224,6 @@ async def sync_kalash(
             WITH k
             MATCH (t:Teeka {natural_key: $tnk})
             MERGE (k)-[:IN_TEEKA]->(t)
-            MERGE (t)-[:HAS_KALASH]->(k)
             """,
             nk=natural_key,
             pg_id=pg_id,
@@ -253,7 +252,7 @@ async def sync_gatha_teeka(
                 gt.created_at = coalesce(gt.created_at, datetime())
             WITH gt
             MATCH (t:Teeka {natural_key: $tnk})
-            MERGE (t)-[:HAS_GATHA_TEEKA]->(gt)
+            MERGE (gt)-[:IN_TEEKA]->(t)
             """,
             nk=natural_key,
             tnk=teeka_natural_key,
@@ -281,7 +280,7 @@ async def sync_gatha_teeka_bhaavarth(
                 gtb.created_at = coalesce(gtb.created_at, datetime())
             WITH gtb
             MATCH (p:Publication {natural_key: $pnk})
-            MERGE (p)-[:HAS_BHAAVARTH]->(gtb)
+            MERGE (gtb)-[:IN_PUBLICATION]->(p)
             """,
             nk=natural_key,
             pnk=publication_natural_key,
@@ -309,7 +308,7 @@ async def sync_kalash_bhaavarth(
                 kb.created_at = coalesce(kb.created_at, datetime())
             WITH kb
             MATCH (p:Publication {natural_key: $pnk})
-            MERGE (p)-[:HAS_BHAAVARTH]->(kb)
+            MERGE (kb)-[:IN_PUBLICATION]->(p)
             """,
             nk=natural_key,
             pnk=publication_natural_key,

@@ -413,7 +413,7 @@ async def test_sync_teeka_idempotent(driver):
 
 
 @skip_no_neo4j
-async def test_sync_teeka_creates_in_shastra_edge(driver):
+async def test_sync_teeka_creates_has_teeka_edge(driver):
     s_pg_id = str(uuid.uuid4())
     t_pg_id = str(uuid.uuid4())
     await sync_shastra(driver, natural_key="ps-te", pg_id=s_pg_id, title_hi="प्रवचनसार", database=TEST_DB)
@@ -421,7 +421,7 @@ async def test_sync_teeka_creates_in_shastra_edge(driver):
 
     async with driver.session(database=TEST_DB) as session:
         result = await session.run(
-            "MATCH (t:Teeka {natural_key: $tnk})-[:IN_SHASTRA]->(s:Shastra {natural_key: $snk}) RETURN count(*) AS cnt",
+            "MATCH (s:Shastra {natural_key: $snk})-[:HAS_TEEKA]->(t:Teeka {natural_key: $tnk}) RETURN count(*) AS cnt",
             tnk="ps-te:ac", snk="ps-te",
         )
         record = await result.single()
@@ -453,7 +453,7 @@ async def test_sync_publication_idempotent(driver):
 
 
 @skip_no_neo4j
-async def test_sync_publication_creates_in_teeka_edge(driver):
+async def test_sync_publication_creates_has_publication_edge(driver):
     s_pg_id = str(uuid.uuid4())
     t_pg_id = str(uuid.uuid4())
     p_pg_id = str(uuid.uuid4())
@@ -463,7 +463,7 @@ async def test_sync_publication_creates_in_teeka_edge(driver):
 
     async with driver.session(database=TEST_DB) as session:
         result = await session.run(
-            "MATCH (p:Publication {natural_key: $pnk})-[:IN_TEEKA]->(t:Teeka {natural_key: $tnk}) RETURN count(*) AS cnt",
+            "MATCH (t:Teeka {natural_key: $tnk})-[:HAS_PUBLICATION]->(p:Publication {natural_key: $pnk}) RETURN count(*) AS cnt",
             pnk="ps-pe:ac:jzb", tnk="ps-pe:ac",
         )
         record = await result.single()

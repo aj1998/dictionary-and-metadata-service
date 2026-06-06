@@ -498,8 +498,8 @@ def _build_neo4j(
 
     Node types: Shastra, Teeka, Publication, Topic, Gatha, GathaTeeka,
                 GathaTeekaBhaavarth, Kalash, KalashBhaavarth.
-    Edge types: HAS_TEEKA, HAS_PUBLICATION, MENTIONS_TOPIC, HAS_GATHA_TEEKA,
-                HAS_KALASH, HAS_BHAAVARTH.
+    Edge types: HAS_TEEKA, HAS_PUBLICATION, MENTIONS_TOPIC, IN_TEEKA,
+                IN_PUBLICATION.
 
     Node shape: {label, key, props} — matches JK envelope format.
     Edge shape: {type, from: {label, key}, to: {label, key}, props}.
@@ -567,7 +567,7 @@ def _build_neo4j(
                 "teeka_natural_key": primary.natural_key,
                 "gatha_natural_key": gatha_nk,
             }))
-            edges.append(_neo4j_edge("HAS_GATHA_TEEKA", "Teeka", primary.natural_key, "GathaTeeka", gt_nk))
+            edges.append(_neo4j_edge("IN_TEEKA", "GathaTeeka", gt_nk, "Teeka", primary.natural_key))
 
             if g.primary_teeka.gatha_teeka_bhaavarth_md:
                 # GathaTeekaBhaavarth node: {pub_nk}:गाथा:टीका:भावार्थ:{gatha_num}
@@ -576,7 +576,7 @@ def _build_neo4j(
                     "publication_natural_key": primary.publication_natural_key,
                     "gatha_natural_key": gatha_nk,
                 }))
-                edges.append(_neo4j_edge("HAS_BHAAVARTH", "Publication", primary.publication_natural_key, "GathaTeekaBhaavarth", gtb_nk))
+                edges.append(_neo4j_edge("IN_PUBLICATION", "GathaTeekaBhaavarth", gtb_nk, "Publication", primary.publication_natural_key))
 
             # Kalash + KalashBhaavarth nodes for each primary kalash on this page
             for ksan in g.primary_teeka.kalash_san:
@@ -586,7 +586,7 @@ def _build_neo4j(
                     "teeka_natural_key": primary.natural_key,
                     "kalash_number": str(kidx),
                 }))
-                edges.append(_neo4j_edge("HAS_KALASH", "Teeka", primary.natural_key, "Kalash", kalash_nk))
+                edges.append(_neo4j_edge("IN_TEEKA", "Kalash", kalash_nk, "Teeka", primary.natural_key))
 
                 # KalashBhaavarth node: {pub_nk}:कलश:भावार्थ:{kalash_num}
                 kb_nk = f"{primary.publication_natural_key}:{_KALASH}:{_BHAAVARTH}:{kidx}"
@@ -594,7 +594,7 @@ def _build_neo4j(
                     "publication_natural_key": primary.publication_natural_key,
                     "kalash_number": str(kidx),
                 }))
-                edges.append(_neo4j_edge("HAS_BHAAVARTH", "Publication", primary.publication_natural_key, "KalashBhaavarth", kb_nk))
+                edges.append(_neo4j_edge("IN_PUBLICATION", "KalashBhaavarth", kb_nk, "Publication", primary.publication_natural_key))
 
         if secondary and g.secondary_teeka is not None:
             # GathaTeeka node (secondary)
@@ -603,7 +603,7 @@ def _build_neo4j(
                 "teeka_natural_key": secondary.natural_key,
                 "gatha_natural_key": gatha_nk,
             }))
-            edges.append(_neo4j_edge("HAS_GATHA_TEEKA", "Teeka", secondary.natural_key, "GathaTeeka", gt_j_nk))
+            edges.append(_neo4j_edge("IN_TEEKA", "GathaTeeka", gt_j_nk, "Teeka", secondary.natural_key))
 
             if g.secondary_teeka.gatha_teeka_bhaavarth_md:
                 gtb_j_nk = f"{secondary.publication_natural_key}:{_GATHA}:{_TEEKA}:{_BHAAVARTH}:{norm_gatha_num}"
@@ -611,7 +611,7 @@ def _build_neo4j(
                     "publication_natural_key": secondary.publication_natural_key,
                     "gatha_natural_key": gatha_nk,
                 }))
-                edges.append(_neo4j_edge("HAS_BHAAVARTH", "Publication", secondary.publication_natural_key, "GathaTeekaBhaavarth", gtb_j_nk))
+                edges.append(_neo4j_edge("IN_PUBLICATION", "GathaTeekaBhaavarth", gtb_j_nk, "Publication", secondary.publication_natural_key))
 
     # Secondary kalash nodes
     for k in result.secondary_kalashes:
@@ -622,7 +622,7 @@ def _build_neo4j(
                 "teeka_natural_key": secondary.natural_key,
                 "kalash_number": norm_kalash_num,
             }))
-            edges.append(_neo4j_edge("HAS_KALASH", "Teeka", secondary.natural_key, "Kalash", kalash_j_nk))
+            edges.append(_neo4j_edge("IN_TEEKA", "Kalash", kalash_j_nk, "Teeka", secondary.natural_key))
 
             if k.secondary_teeka and k.secondary_teeka.gatha_teeka_bhaavarth_md:
                 kb_j_nk = f"{secondary.publication_natural_key}:{_KALASH}:{_BHAAVARTH}:{norm_kalash_num}"
@@ -630,7 +630,7 @@ def _build_neo4j(
                     "publication_natural_key": secondary.publication_natural_key,
                     "kalash_number": norm_kalash_num,
                 }))
-                edges.append(_neo4j_edge("HAS_BHAAVARTH", "Publication", secondary.publication_natural_key, "KalashBhaavarth", kb_j_nk))
+                edges.append(_neo4j_edge("IN_PUBLICATION", "KalashBhaavarth", kb_j_nk, "Publication", secondary.publication_natural_key))
 
     return {"nodes": nodes, "edges": edges}
 

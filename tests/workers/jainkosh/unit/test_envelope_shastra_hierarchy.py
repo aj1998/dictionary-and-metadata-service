@@ -39,11 +39,11 @@ class TestDeriveHierarchyNodes:
         assert nodes[1]["props"]["shastra_natural_key"] == "समयसार"
         assert len(edges) == 2
         edge_types = [e["type"] for e in edges]
-        assert "IN_SHASTRA" in edge_types  # Teeka → Shastra
+        assert "HAS_TEEKA" in edge_types   # Shastra → Teeka
         assert "IN_TEEKA" in edge_types    # GathaTeeka → Teeka
-        in_shastra = next(e for e in edges if e["type"] == "IN_SHASTRA")
-        assert in_shastra["from"] == {"label": "Teeka", "key": "समयसार:आत्मख्याति"}
-        assert in_shastra["to"] == {"label": "Shastra", "key": "समयसार"}
+        has_teeka = next(e for e in edges if e["type"] == "HAS_TEEKA")
+        assert has_teeka["from"] == {"label": "Shastra", "key": "समयसार"}
+        assert has_teeka["to"] == {"label": "Teeka", "key": "समयसार:आत्मख्याति"}
 
     def test_gathateekabhaavarth_emits_full_hierarchy_and_both_edges(self):
         nodes, edges = _derive_hierarchy_nodes(
@@ -55,11 +55,11 @@ class TestDeriveHierarchyNodes:
         assert nodes[2]["key"] == "समयसार:आत्मख्याति:3"
         assert nodes[2]["props"]["publisher_id"] == "3"
         edge_types = [e["type"] for e in edges]
-        assert "IN_SHASTRA" in edge_types
-        assert "IN_TEEKA" in edge_types
-        in_teeka = next(e for e in edges if e["type"] == "IN_TEEKA")
-        assert in_teeka["from"] == {"label": "Publication", "key": "समयसार:आत्मख्याति:3"}
-        assert in_teeka["to"] == {"label": "Teeka", "key": "समयसार:आत्मख्याति"}
+        assert "HAS_TEEKA" in edge_types
+        assert "HAS_PUBLICATION" in edge_types
+        has_publication = next(e for e in edges if e["type"] == "HAS_PUBLICATION")
+        assert has_publication["from"] == {"label": "Teeka", "key": "समयसार:आत्मख्याति"}
+        assert has_publication["to"] == {"label": "Publication", "key": "समयसार:आत्मख्याति:3"}
 
     def test_kalash_derives_shastra_from_teeka(self):
         # Kalash props don't include shastra_natural_key — must be derived from teeka prefix
@@ -67,7 +67,7 @@ class TestDeriveHierarchyNodes:
         assert [n["label"] for n in nodes] == ["Shastra", "Teeka"]
         assert nodes[0]["key"] == "समयसार"
         assert nodes[1]["key"] == "समयसार:आत्मख्याति"
-        assert any(e["type"] == "IN_SHASTRA" for e in edges)
+        assert any(e["type"] == "HAS_TEEKA" for e in edges)
 
     def test_kalashbhaavarth_emits_full_hierarchy(self):
         nodes, edges = _derive_hierarchy_nodes(
@@ -75,8 +75,8 @@ class TestDeriveHierarchyNodes:
         )
         assert [n["label"] for n in nodes] == ["Shastra", "Teeka", "Publication"]
         assert nodes[2]["key"] == "समयसार:आत्मख्याति:3"
-        assert any(e["type"] == "IN_SHASTRA" for e in edges)
-        assert any(e["type"] == "IN_TEEKA" for e in edges)
+        assert any(e["type"] == "HAS_TEEKA" for e in edges)
+        assert any(e["type"] == "HAS_PUBLICATION" for e in edges)
 
     def test_page_emits_full_hierarchy(self):
         nodes, edges = _derive_hierarchy_nodes("Page", "राजवार्तिक:टीका:18:पृष्ठ:95")
@@ -85,9 +85,9 @@ class TestDeriveHierarchyNodes:
         assert nodes[1]["key"] == "राजवार्तिक:टीका"
         assert nodes[2]["key"] == "राजवार्तिक:टीका:18"
         assert nodes[2]["props"]["publisher_id"] == "18"
-        in_teeka = next(e for e in edges if e["type"] == "IN_TEEKA")
-        assert in_teeka["from"]["key"] == "राजवार्तिक:टीका:18"
-        assert in_teeka["to"]["key"] == "राजवार्तिक:टीका"
+        has_publication = next(e for e in edges if e["type"] == "HAS_PUBLICATION")
+        assert has_publication["from"]["key"] == "राजवार्तिक:टीका"
+        assert has_publication["to"]["key"] == "राजवार्तिक:टीका:18"
 
     def test_all_hierarchy_nodes_marked_lazy(self):
         for label, key in [
@@ -197,39 +197,37 @@ class TestShastraHierarchyFlag:
     def test_flag_disabled_no_hierarchy_edges(self):
         frag = _neo4j_fragment(_SWABHAV, _URL, shastra_hierarchy=False)
         hierarchy_edges = [
-            e for e in frag["edges"] if e.get("type") in ("IN_SHASTRA", "IN_TEEKA")
+            e for e in frag["edges"] if e.get("type") in ("HAS_TEEKA", "HAS_PUBLICATION", "IN_SHASTRA", "IN_TEEKA")
         ]
-        assert hierarchy_edges == [], "No IN_SHASTRA/IN_TEEKA edges when flag is off"
+        assert hierarchy_edges == [], "No hierarchy edges when flag is off"
 
-    def test_flag_enabled_in_shastra_edges_emitted(self):
+    def test_flag_enabled_has_teeka_edges_emitted(self):
         frag = _neo4j_fragment(_SWABHAV, _URL, shastra_hierarchy=True)
-        in_shastra = [e for e in frag["edges"] if e.get("type") == "IN_SHASTRA"]
-        assert in_shastra, "IN_SHASTRA edges must be emitted when flag is on"
-        # IN_SHASTRA is used for both Teeka→Shastra and Gatha→Shastra
-        valid_from_labels = {"Teeka", "Gatha"}
-        for e in in_shastra:
-            assert e["from"]["label"] in valid_from_labels
-            assert e["to"]["label"] == "Shastra"
+        has_teeka = [e for e in frag["edges"] if e.get("type") == "HAS_TEEKA"]
+        assert has_teeka, "HAS_TEEKA edges must be emitted when flag is on"
+        # HAS_TEEKA is Shastra → Teeka
+        for e in has_teeka:
+            assert e["from"]["label"] == "Shastra"
+            assert e["to"]["label"] == "Teeka"
 
-    def test_flag_enabled_in_teeka_edges_when_publication_present(self):
+    def test_flag_enabled_has_publication_edges_when_publication_present(self):
         frag = _neo4j_fragment(_SWABHAV, _URL, shastra_hierarchy=True)
         pub_nodes = [n for n in frag["nodes"] if n.get("label") == "Publication"]
         if pub_nodes:
-            in_teeka = [e for e in frag["edges"] if e.get("type") == "IN_TEEKA"]
-            assert in_teeka, "IN_TEEKA edges required when Publication nodes are emitted"
-            # IN_TEEKA is used for Publication→Teeka, GathaTeeka→Teeka, and Kalash→Teeka
-            valid_from_labels = {"Publication", "GathaTeeka", "Kalash"}
-            for e in in_teeka:
-                assert e["from"]["label"] in valid_from_labels
-                assert e["to"]["label"] == "Teeka"
+            has_pub = [e for e in frag["edges"] if e.get("type") == "HAS_PUBLICATION"]
+            assert has_pub, "HAS_PUBLICATION edges required when Publication nodes are emitted"
+            # HAS_PUBLICATION is Teeka → Publication
+            for e in has_pub:
+                assert e["from"]["label"] == "Teeka"
+                assert e["to"]["label"] == "Publication"
 
-    def test_flag_enabled_in_shastra_edges_deduplicated(self):
-        """Multiple Teeka nodes from the same Shastra produce only one IN_SHASTRA edge."""
+    def test_flag_enabled_has_teeka_edges_deduplicated(self):
+        """Multiple Teeka nodes from the same Shastra produce only one HAS_TEEKA edge."""
         frag = _neo4j_fragment(_SWABHAV, _URL, shastra_hierarchy=True)
-        in_shastra = [e for e in frag["edges"] if e.get("type") == "IN_SHASTRA"]
-        edge_keys = [(e["from"]["key"], e["to"]["key"]) for e in in_shastra]
+        has_teeka = [e for e in frag["edges"] if e.get("type") == "HAS_TEEKA"]
+        edge_keys = [(e["from"]["key"], e["to"]["key"]) for e in has_teeka]
         assert len(edge_keys) == len(set(edge_keys)), (
-            "IN_SHASTRA edges must be deduplicated"
+            "HAS_TEEKA edges must be deduplicated"
         )
 
 
@@ -273,6 +271,14 @@ class TestStubSystemAcceptsHierarchyLabels:
     def test_in_publication_edge_type_in_valid_set(self):
         from jain_kb_common.db.neo4j.stubs import _VALID_EDGE_TYPES
         assert "IN_PUBLICATION" in _VALID_EDGE_TYPES
+
+    def test_has_teeka_edge_type_in_valid_set(self):
+        from jain_kb_common.db.neo4j.stubs import _VALID_EDGE_TYPES
+        assert "HAS_TEEKA" in _VALID_EDGE_TYPES
+
+    def test_has_publication_edge_type_in_valid_set(self):
+        from jain_kb_common.db.neo4j.stubs import _VALID_EDGE_TYPES
+        assert "HAS_PUBLICATION" in _VALID_EDGE_TYPES
 
 
 # ---------------------------------------------------------------------------
@@ -340,12 +346,12 @@ class TestChildToParentEdges:
         assert len(edges) == 1
 
     def test_gathateeka_edge_count(self):
-        """GathaTeeka has 2 edges: Teeka→Shastra (IN_SHASTRA) + GathaTeeka→Teeka (IN_TEEKA)."""
+        """GathaTeeka has 2 edges: Shastra→Teeka (HAS_TEEKA) + GathaTeeka→Teeka (IN_TEEKA)."""
         _, edges = _derive_hierarchy_nodes("GathaTeeka", "समयसार:आत्मख्याति:गाथा:टीका:9")
         assert len(edges) == 2
 
     def test_gathateekabhaavarth_edge_count(self):
-        """GathaTeekaBhaavarth has 3 edges: IN_SHASTRA + IN_TEEKA + IN_PUBLICATION."""
+        """GathaTeekaBhaavarth has 3 edges: HAS_TEEKA + HAS_PUBLICATION + IN_PUBLICATION."""
         _, edges = _derive_hierarchy_nodes(
             "GathaTeekaBhaavarth", "समयसार:आत्मख्याति:3:गाथा:टीका:भावार्थ:9"
         )
@@ -367,7 +373,7 @@ class TestIntegrationChildToParentEdges:
 
     def test_child_to_parent_edges_absent_when_flag_disabled(self):
         frag = _neo4j_fragment(_SWABHAV, _URL, shastra_hierarchy=False)
-        child_parent_types = {"IN_SHASTRA", "IN_TEEKA", "IN_PUBLICATION"}
+        child_parent_types = {"HAS_TEEKA", "HAS_PUBLICATION", "IN_SHASTRA", "IN_TEEKA", "IN_PUBLICATION"}
         # When flag is off, no hierarchy edges should exist at all
         hierarchy_edges = [e for e in frag["edges"] if e.get("type") in child_parent_types]
         assert hierarchy_edges == [], "No hierarchy edges when flag is off"

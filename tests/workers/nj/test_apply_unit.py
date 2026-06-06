@@ -454,7 +454,7 @@ def test_teeka_chapter_nk_uses_primary_teeka_nk():
 # ---------------------------------------------------------------------------
 
 def test_envelope_neo4j_has_gatha_teeka_nodes_and_edges():
-    """GathaTeeka nodes and HAS_GATHA_TEEKA edges are emitted for gathas with primary teeka."""
+    """GathaTeeka nodes and IN_TEEKA edges (GathaTeeka→Teeka) are emitted for gathas with primary teeka."""
     cfg = _cfg()
     g = _make_gatha(
         gatha_number="001",
@@ -469,14 +469,15 @@ def test_envelope_neo4j_has_gatha_teeka_nodes_and_edges():
     assert gt_nodes[0]["props"]["teeka_natural_key"] == "समयसार:आत्मख्याति"
     assert gt_nodes[0]["props"]["gatha_natural_key"] == "समयसार:गाथा:1"
 
-    ht_edges = [e for e in neo["edges"] if e["type"] == "HAS_GATHA_TEEKA"]
-    assert len(ht_edges) >= 1
-    assert ht_edges[0]["from"] == {"label": "Teeka", "key": "समयसार:आत्मख्याति"}
-    assert ht_edges[0]["to"]["key"] == "समयसार:आत्मख्याति:गाथा:टीका:1"
+    it_edges = [e for e in neo["edges"] if e["type"] == "IN_TEEKA"
+                and e["from"]["label"] == "GathaTeeka"]
+    assert len(it_edges) >= 1
+    assert it_edges[0]["from"]["key"] == "समयसार:आत्मख्याति:गाथा:टीका:1"
+    assert it_edges[0]["to"] == {"label": "Teeka", "key": "समयसार:आत्मख्याति"}
 
 
 def test_envelope_neo4j_has_gatha_teeka_bhaavarth_nodes_and_edges():
-    """GathaTeekaBhaavarth nodes and HAS_BHAAVARTH edges are emitted when bhaavarth present."""
+    """GathaTeekaBhaavarth nodes and IN_PUBLICATION edges (GathaTeekaBhaavarth→Publication) are emitted when bhaavarth present."""
     cfg = _cfg()
     g = _make_gatha(
         gatha_number="001",
@@ -489,14 +490,14 @@ def test_envelope_neo4j_has_gatha_teeka_bhaavarth_nodes_and_edges():
     assert len(gtb_nodes) >= 1
     assert gtb_nodes[0]["props"]["publication_natural_key"] == "समयसार:आत्मख्याति:0"
 
-    hb_edges = [e for e in neo["edges"] if e["type"] == "HAS_BHAAVARTH"
-                and e["to"]["label"] == "GathaTeekaBhaavarth"]
-    assert len(hb_edges) >= 1
-    assert hb_edges[0]["from"]["label"] == "Publication"
+    ip_edges = [e for e in neo["edges"] if e["type"] == "IN_PUBLICATION"
+                and e["from"]["label"] == "GathaTeekaBhaavarth"]
+    assert len(ip_edges) >= 1
+    assert ip_edges[0]["to"]["label"] == "Publication"
 
 
-def test_envelope_neo4j_has_kalash_nodes_and_has_kalash_edges():
-    """Kalash nodes and HAS_KALASH edges are emitted for gathas with primary kalashes."""
+def test_envelope_neo4j_has_kalash_nodes_and_in_teeka_edges():
+    """Kalash nodes and IN_TEEKA edges (Kalash→Teeka) are emitted for gathas with primary kalashes."""
     cfg = _cfg()
     g = _make_gatha(
         gatha_number="001",
@@ -511,13 +512,14 @@ def test_envelope_neo4j_has_kalash_nodes_and_has_kalash_edges():
     k_nodes = [n for n in neo["nodes"] if n["label"] == "Kalash"]
     assert any(n["key"] == "समयसार:आत्मख्याति:कलश:3" for n in k_nodes)
 
-    hk_edges = [e for e in neo["edges"] if e["type"] == "HAS_KALASH"]
-    assert len(hk_edges) >= 1
-    assert hk_edges[0]["from"] == {"label": "Teeka", "key": "समयसार:आत्मख्याति"}
+    it_edges = [e for e in neo["edges"] if e["type"] == "IN_TEEKA"
+                and e["from"]["label"] == "Kalash"]
+    assert len(it_edges) >= 1
+    assert it_edges[0]["to"] == {"label": "Teeka", "key": "समयसार:आत्मख्याति"}
 
 
 def test_envelope_neo4j_has_kalash_bhaavarth_nodes_and_edges():
-    """KalashBhaavarth nodes and HAS_BHAAVARTH edges are emitted for primary kalashes."""
+    """KalashBhaavarth nodes and IN_PUBLICATION edges (KalashBhaavarth→Publication) are emitted for primary kalashes."""
     cfg = _cfg()
     g = _make_gatha(
         gatha_number="001",
@@ -532,10 +534,10 @@ def test_envelope_neo4j_has_kalash_bhaavarth_nodes_and_edges():
     kb_nodes = [n for n in neo["nodes"] if n["label"] == "KalashBhaavarth"]
     assert any(n["key"] == "समयसार:आत्मख्याति:0:कलश:भावार्थ:2" for n in kb_nodes)
 
-    hb_edges = [e for e in neo["edges"] if e["type"] == "HAS_BHAAVARTH"
-                and e["to"]["label"] == "KalashBhaavarth"]
-    assert len(hb_edges) >= 1
-    assert hb_edges[0]["from"]["label"] == "Publication"
+    ip_edges = [e for e in neo["edges"] if e["type"] == "IN_PUBLICATION"
+                and e["from"]["label"] == "KalashBhaavarth"]
+    assert len(ip_edges) >= 1
+    assert ip_edges[0]["to"]["label"] == "Publication"
 
 
 async def test_apply_calls_sync_for_gatha_teeka_and_kalash_bhaavarth_nodes():

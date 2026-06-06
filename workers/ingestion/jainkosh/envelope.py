@@ -486,7 +486,7 @@ def _derive_hierarchy_nodes(label: str, key: str) -> tuple[list[dict], list[dict
 
     Parses the structured key to extract the shastra, teeka, and publication
     components, emitting lazy stub nodes and the connecting structural edges
-    (IN_SHASTRA: Teeka→Shastra, IN_TEEKA: Publication→Teeka).
+    (HAS_TEEKA: Shastra→Teeka, HAS_PUBLICATION: Teeka→Publication).
     """
     props = _derive_props(label, key)
     nodes: list[dict] = []
@@ -517,9 +517,9 @@ def _derive_hierarchy_nodes(label: str, key: str) -> tuple[list[dict], list[dict
         })
         if shastra_nk:
             edges.append({
-                "type": "IN_SHASTRA",
-                "from": {"label": "Teeka", "key": teeka_nk},
-                "to": {"label": "Shastra", "key": shastra_nk},
+                "type": "HAS_TEEKA",
+                "from": {"label": "Shastra", "key": shastra_nk},
+                "to": {"label": "Teeka", "key": teeka_nk},
                 "props": {"source": "jainkosh"},
             })
 
@@ -533,9 +533,9 @@ def _derive_hierarchy_nodes(label: str, key: str) -> tuple[list[dict], list[dict
             "lazy": True,
         })
         edges.append({
-            "type": "IN_TEEKA",
-            "from": {"label": "Publication", "key": pub_nk},
-            "to": {"label": "Teeka", "key": teeka_nk},
+            "type": "HAS_PUBLICATION",
+            "from": {"label": "Teeka", "key": teeka_nk},
+            "to": {"label": "Publication", "key": pub_nk},
             "props": {"source": "jainkosh"},
         })
 

@@ -56,15 +56,27 @@ edge_types:
     #   mention_path ("<section_index>/<definition_index>/<block_index>"),
     #   source_natural_key (str — natural_key of the Mongo keyword_definitions doc)
 
+  - name: HAS_TEEKA
+    direction: directed
+    from: [Shastra]
+    to: [Teeka]
+    description: Structural — shastra owns this teeka
+
+  - name: HAS_PUBLICATION
+    direction: directed
+    from: [Teeka, Shastra]
+    to: [Publication]
+    description: Structural — teeka (or shastra) owns this publication
+
   - name: IN_SHASTRA
     direction: directed
-    from: [Gatha, Teeka]
+    from: [Gatha]
     to: [Shastra]
-    description: Structural membership — node belongs to this shastra
+    description: Structural membership — gatha belongs to this shastra
 
   - name: IN_TEEKA
     direction: directed
-    from: [GathaTeeka, Kalash, Publication]
+    from: [GathaTeeka, Kalash]
     to: [Teeka]
     description: Structural membership — node belongs to this teeka
 

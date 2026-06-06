@@ -3,6 +3,8 @@ import type { EdgeKind } from '@/lib/types';
 
 export const EDGE_LABELS: Record<EdgeKind, string> = {
   HAS_TOPIC:           'विषय',
+  HAS_TEEKA:           'टीका है',
+  HAS_PUBLICATION:     'प्रकाशन है',
   MENTIONS_KEYWORD:    'कीवर्ड',
   MENTIONS_TOPIC:      'विषय उल्लेख',
   IS_A:                'है का प्रकार',
@@ -11,12 +13,14 @@ export const EDGE_LABELS: Record<EdgeKind, string> = {
   ALIAS_OF:            'पर्याय',
   IN_SHASTRA:          'शास्त्र में',
   IN_TEEKA:            'टीका में',
-  IN_PUBLICATION:      'प्रकाशन',
+  IN_PUBLICATION:      'प्रकाशन में',
   CONTAINS_DEFINITION: 'परिभाषा',
 };
 
 export const EDGE_TOOLTIPS: Record<EdgeKind, string> = {
   HAS_TOPIC:           'Has topic',
+  HAS_TEEKA:           'Has teeka',
+  HAS_PUBLICATION:     'Has publication',
   MENTIONS_KEYWORD:    'Mentions keyword',
   MENTIONS_TOPIC:      'Mentions topic',
   IS_A:                'Is a',

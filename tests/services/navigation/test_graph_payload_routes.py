@@ -30,11 +30,15 @@ class TestLabelToKind:
         assert _label_to_kind("SomethingWeird") == "topic"
 
     def test_gatha_family_labels_map_to_separate_kinds(self):
-        assert _label_to_kind("GathaTeeka") == "teeka"
+        assert _label_to_kind("GathaTeeka") == "gatha_teeka"
         assert _label_to_kind("GathaTeekaBhaavarth") == "bhaavarth"
         assert _label_to_kind("KalashBhaavarth") == "bhaavarth"
         assert _label_to_kind("Kalash") == "kalash"
         assert _label_to_kind("Page") == "page"
+
+    def test_teeka_and_publication_labels(self):
+        assert _label_to_kind("Teeka") == "teeka"
+        assert _label_to_kind("Publication") == "publication"
 
     def test_lowercase_label(self):
         assert _label_to_kind("gatha") == "gatha"

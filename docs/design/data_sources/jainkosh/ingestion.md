@@ -140,13 +140,13 @@ All real-sync functions unconditionally set `is_stub = false, stub_source = null
 | `sync_part_of_edge` | `(Topic)-[:PART_OF]->(Topic)` |
 | `sync_related_to_edge` | `(src)-[:RELATED_TO]->(tgt)` (label-parameterised) |
 | `sync_shastra` | `Shastra` node |
-| `sync_teeka` | `Teeka` node + `IN_SHASTRA` edge |
-| `sync_publication` | `Publication` node + `IN_TEEKA` edge |
-| `sync_kalash` | `Kalash` node + `IN_TEEKA` / `HAS_KALASH` edges |
-| `sync_gatha` | `Gatha` node + `IN_SHASTRA` edge |
-| `sync_gatha_teeka` | `GathaTeeka` node + `HAS_GATHA_TEEKA` edge |
-| `sync_gatha_teeka_bhaavarth` | `GathaTeekaBhaavarth` node + `HAS_BHAAVARTH` edge |
-| `sync_kalash_bhaavarth` | `KalashBhaavarth` node + `HAS_BHAAVARTH` edge |
+| `sync_teeka` | `Teeka` node + `HAS_TEEKA` edge (Shastra→Teeka) |
+| `sync_publication` | `Publication` node + `HAS_PUBLICATION` edge (Teeka→Publication) |
+| `sync_kalash` | `Kalash` node + `IN_TEEKA` edge (Kalash→Teeka) |
+| `sync_gatha` | `Gatha` node + `IN_SHASTRA` edge (Gatha→Shastra) |
+| `sync_gatha_teeka` | `GathaTeeka` node + `IN_TEEKA` edge (GathaTeeka→Teeka) |
+| `sync_gatha_teeka_bhaavarth` | `GathaTeekaBhaavarth` node + `IN_PUBLICATION` edge (GathaTeekaBhaavarth→Publication) |
+| `sync_kalash_bhaavarth` | `KalashBhaavarth` node + `IN_PUBLICATION` edge (KalashBhaavarth→Publication) |
 
 All edge helpers (`sync_has_topic_edge`, `sync_part_of_edge`, `sync_related_to_edge`) use `MERGE` on both endpoints with a stub-coalesce safety net, so a missing endpoint never silently drops the edge.
 
@@ -183,16 +183,16 @@ In addition to the stub nodes, structural edges are emitted — both the inter-a
 
 | Edge type | From → To |
 |---|---|
-| `IN_SHASTRA` | `Teeka → Shastra` |
-| `IN_SHASTRA` | `Gatha → Shastra` |
-| `IN_TEEKA` | `Publication → Teeka` |
-| `IN_TEEKA` | `GathaTeeka → Teeka` |
-| `IN_TEEKA` | `Kalash → Teeka` |
-| `IN_PUBLICATION` | `GathaTeekaBhaavarth → Publication` |
-| `IN_PUBLICATION` | `KalashBhaavarth → Publication` |
-| `IN_PUBLICATION` | `Page → Publication` |
+| `HAS_TEEKA` | `Shastra -> Teeka` |
+| `HAS_PUBLICATION` | `Teeka -> Publication` |
+| `IN_SHASTRA` | `Gatha -> Shastra` |
+| `IN_TEEKA` | `GathaTeeka -> Teeka` |
+| `IN_TEEKA` | `Kalash -> Teeka` |
+| `IN_PUBLICATION` | `GathaTeekaBhaavarth -> Publication` |
+| `IN_PUBLICATION` | `KalashBhaavarth -> Publication` |
+| `IN_PUBLICATION` | `Page -> Publication` |
 
-These use the same `sync_reference_edge` MERGE pattern in `apply.py`, so endpoints are stub-coalesced before the edge is created. All three edge types (`IN_SHASTRA`, `IN_TEEKA`, `IN_PUBLICATION`) are in `_VALID_EDGE_TYPES` in `stubs.py`.
+These use the same `sync_reference_edge` MERGE pattern in `apply.py`, so endpoints are stub-coalesced before the edge is created. All five edge types (`HAS_TEEKA`, `HAS_PUBLICATION`, `IN_SHASTRA`, `IN_TEEKA`, `IN_PUBLICATION`) are in `_VALID_EDGE_TYPES` in `stubs.py`.
 
 Deduplication: when multiple lazy nodes share the same ancestor (e.g. many Gatha nodes from the same shastra), `_dedupe` collapses both nodes and edges to a single entry.
 
