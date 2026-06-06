@@ -12,6 +12,12 @@ from .config import JainkoshConfig
 from .models import Block, IndexRelation
 from .normalize import nfc, normalize_text
 
+# Text that may appear between consecutive anchors in a comma-separated link list
+# after a single देखें trigger: e.g. "देखें <a>X</a>, <a>Y</a>, <a>Z</a>".
+# Allows only commas, whitespace, dandas, and slashes — NOT Hindi words, so that
+# normal prose between two unrelated देखें anchors is never treated as a list.
+_LINK_LIST_SEP_RE = re.compile(r'^[\s,।/]+$')
+
 
 def _build_see_also_re(config: JainkoshConfig) -> re.Pattern:
     return re.compile(config.index.see_also_text_pattern)
@@ -93,11 +99,19 @@ def find_see_alsos_in_element(
     source_topic_path: Optional[str] = None,
     as_index_relation: bool = False,
 ) -> list[Block | IndexRelation]:
-    """Find देखें links in an element. Returns Block or IndexRelation depending on context."""
+    """Find देखें links in an element. Returns Block or IndexRelation depending on context.
+
+    Also detects comma-separated link lists after a single देखें trigger, e.g.:
+      देखें <a>X</a>, <a>Y</a>, <a>Z</a>
+    All three anchors are returned as separate see_also entries.
+    """
     see_also_re = _build_see_also_re(config)
     nth_tracking = config.index.anchor_dedup.nth_occurrence_tracking
     anchor_occurrence_count: dict[tuple[str, str], int] = {}
     results = []
+
+    el_html = el.html or ""
+    last_matched_end: int = -1  # end position of last matched anchor in el_html
 
     for a in el.css("a"):
         a_html = a.html or ""
@@ -109,9 +123,21 @@ def find_see_alsos_in_element(
             nth = anchor_occurrence_count.get(count_key, 0)
             anchor_occurrence_count[count_key] = nth + 1
 
-        prev_text = _preceding_inline_text(a, max_chars=config.index.see_also_window_chars, nth_occurrence=nth)
-        if not see_also_re.search(prev_text):
-            continue
+        # Check if this anchor is a list continuation (only separator chars between
+        # it and the previous matched anchor), allowing 'देखें X, Y, Z' patterns.
+        is_list_continuation = False
+        if last_matched_end >= 0 and a_html:
+            a_start = el_html.find(a_html, last_matched_end)
+            if a_start >= 0:
+                between = re.sub(r"<[^>]+>", "", el_html[last_matched_end:a_start])
+                if _LINK_LIST_SEP_RE.match(between):
+                    is_list_continuation = True
+
+        if not is_list_continuation:
+            prev_text = _preceding_inline_text(a, max_chars=config.index.see_also_window_chars, nth_occurrence=nth)
+            if not see_also_re.search(prev_text):
+                last_matched_end = -1
+                continue
 
         parsed = parse_anchor(a, config, current_keyword=current_keyword)
         label_text = _extract_label_before_anchor(a, nth_occurrence=nth)
@@ -131,6 +157,12 @@ def find_see_alsos_in_element(
                     kind="see_also",
                     **{k: v for k, v in p.items()},
                 ))
+
+        # Update tracking position for list-continuation detection
+        if a_html:
+            a_start = el_html.find(a_html, max(0, last_matched_end))
+            if a_start >= 0:
+                last_matched_end = a_start + len(a_html)
 
     return results
 
@@ -171,10 +203,19 @@ def find_see_also_candidates_in_element(
     *,
     current_keyword: str = "",
 ) -> list[dict]:
+    """Find देखें candidates in an element.
+
+    Also detects comma-separated link lists after a single देखें trigger, e.g.:
+      देखें <a>X</a>, <a>Y</a>, <a>Z</a>
+    All three anchors are returned as separate candidate dicts.
+    """
     see_also_re = _build_see_also_re(config)
     nth_tracking = config.index.anchor_dedup.nth_occurrence_tracking
     anchor_occurrence_count: dict[tuple[str, str], int] = {}
     results: list[dict] = []
+
+    el_html = el.html or ""
+    last_matched_end: int = -1  # end position of last matched anchor in el_html
 
     for a in el.css("a"):
         a_html = a.html or ""
@@ -186,15 +227,35 @@ def find_see_also_candidates_in_element(
             nth = anchor_occurrence_count.get(count_key, 0)
             anchor_occurrence_count[count_key] = nth + 1
 
-        prev_text = _preceding_inline_text(a, max_chars=config.index.see_also_window_chars, nth_occurrence=nth)
-        if not see_also_re.search(prev_text):
-            continue
+        # Check if this anchor is a list continuation (only separator chars between
+        # it and the previous matched anchor), allowing 'देखें X, Y, Z' patterns.
+        is_list_continuation = False
+        if last_matched_end >= 0 and a_html:
+            a_start = el_html.find(a_html, last_matched_end)
+            if a_start >= 0:
+                between = re.sub(r"<[^>]+>", "", el_html[last_matched_end:a_start])
+                if _LINK_LIST_SEP_RE.match(between):
+                    is_list_continuation = True
+
+        if not is_list_continuation:
+            prev_text = _preceding_inline_text(a, max_chars=config.index.see_also_window_chars, nth_occurrence=nth)
+            if not see_also_re.search(prev_text):
+                last_matched_end = -1
+                continue
+
         parsed = parse_anchor(a, config, current_keyword=current_keyword)
         results.append({
             "label_text": _extract_label_before_anchor(a, nth_occurrence=nth),
             "after_anchor_text": extract_text_after_anchor(a, nth_occurrence=nth),
             **parsed,
         })
+
+        # Update tracking position for list-continuation detection
+        if a_html:
+            a_start = el_html.find(a_html, max(0, last_matched_end))
+            if a_start >= 0:
+                last_matched_end = a_start + len(a_html)
+
     return results
 
 

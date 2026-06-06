@@ -4,7 +4,7 @@
 > Covers HTML structure rules, parser implementation, configuration, models,
 > algorithms, CLI, tests, and edge-emission specs.
 >
-> **Current version**: `jainkosh.rules/1.11.20`
+> **Current version**: `jainkosh.rules/1.11.21`
 >
 > Archived source specs (pre-v1.7 detail):
 > `detailed_docs/parsing_rules.md`, `parser_spec.md`,
@@ -871,6 +871,7 @@ Goldens are hand-reviewed before commit. Subsequent runs must produce byte-ident
 **आत्मा.json:** 2 sections (siddhantkosh, puraankosh). SiddhantKosh: 5 Definitions; first subsection
 `topic_path == "2"` (no `"1"` — don't synthesise it). PuranKosh: 2 Definitions (one per `<p id>`).
 `RELATED_TO` edges from child seed natural keys (not parent topic key).
+Subsection `"2"` has a child label-seed `"बहिरात्मा, अंतरात्मा व परमात्मा"` with **3 `see_also` blocks** (one each for बहिरात्मा, अंतरात्मा, परमात्मा).
 
 **द्रव्य.json:** SiddhantKosh: 1 Definition; many `index_relations`; multi-level subsection tree.
 1 `extra_block` of kind `table` at section level.
@@ -934,6 +935,7 @@ DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence an
 | `1.11.18` | **Inline reference edge emission (simplified path)**: all `inline_reference=True` refs in a block now emit `Gatha`/`Kalash`/`Page` edges via a new simplified path (`_emit_inline_only_edges`), regardless of block kind or whether a non-inline ref is also present. Previously, when a non-inline ref was the main ref, inline refs went through `_emit_inline_ref_edges` (which could emit `GathaTeeka`/`GathaTeekaBhaavarth`); when all refs were inline, only refs[0] got the full block-kind-aware treatment while remaining refs used the simplified path. Now: `GathaTeeka`/`GathaTeekaBhaavarth` are never emitted for inline refs; all inline refs in any block emit plain `Gatha` when gatha-matcher fields are present (`गाथा`/`श्लोक`/`सूत्र`/`दोहक`/`वार्तिक`). Goldens updated for all keywords. |
 | `1.11.15` | **परिशिष्ठ keyword-trigger format priority**: references of the form `समयसार / आत्मख्याति/ परिशिष्ठ 1` now correctly resolve to `teeka_name="आत्मख्याति"` and `[परिशिष्ठ=1]` instead of `teeka_name="आत्मख्याति/परिशिष्ठ"` and `[गाथा=1]`. Root cause: "परिशिष्ठ" was absent from `section_keywords`, so (1) `split_name_and_numeric_kw` did not split at `/परिशिष्ठ` (leaving numeric as just "1") and (2) `match_shastra` step 3 could not strip "परिशिष्ठ" from the teeka candidate. Fix: added "परिशिष्ठ" to `section_keywords.keywords` in `jainkosh.yaml`; `{परिशिष्ठ}परिशिष्ठ` format was already in समयसार's format list in `shastra.json`. गुण golden updated. |
 | `1.11.20` | **`GathaTeekaBhaavarth` key includes `'टीका'` literal when no `teeka_name`**: for `publication` + `hindi_text` + `hindi_translation=null` + `teeka_name=None`, the node key was `"{shastra}:{pub_id}:गाथा:टीका:भावार्थ:{g}"` — missing a teeka segment. Fixed to `"{shastra}:टीका:{pub_id}:गाथा:टीका:भावार्थ:{g}"`, consistent with how other no-teeka cases default to `'टीका'` (e.g. `GathaTeeka` for `sanskrit_text`). Affected: `कार्तिकेयानुप्रेक्षा` bhaavarth blocks in स्वभाव. All goldens updated. |
+| `1.11.21` | **Multiple see_also links after a single देखें trigger**: `'label -देखें X, Y, Z'` now produces a label-seed subsection with three separate `see_also` blocks (one per link) instead of only one. Root cause: `find_see_also_candidates_in_element` and `find_see_alsos_in_element` matched only the first anchor because anchors 2+ lacked the trigger immediately before them (the trigger was `N` chars away, beyond the window). Fix: both functions track the end position of the last matched anchor and include subsequent anchors that are separated only by comma/whitespace/danda/slash characters (`_LINK_LIST_SEP_RE = r'^[\s,।/]+$'`). `extract_label_seed_candidates_from_elements` now collects all candidates from an element when the label is derived from the element-level shared text (one `देखें` trigger); `extract_label_topic_seeds` registers all additional anchor keys in `candidate_target_to_seed` so all corresponding `see_also` blocks get relocated to the child seed. Affected: आत्मा `बहिरात्मा, अंतरात्मा व परमात्मा` seed. |
 | `1.11.7` | **Inline-ref distribution by position in split blocks**: `_do_split` no longer assigns all inline refs to the last split block. A new `_assign_inline_refs_to_segments` helper uses the pre-strip translation text (stored as `Block._hindi_translation_pre_strip` via `PrivateAttr`, set during sibling-`=` absorption and `_emit` translation absorption) to find each inline ref's position relative to verse markers. A ref that appears immediately after `।N।` is assigned to the gatha-N split block rather than the final block. Fixes `नयचक्र बृहद्/22,25,30` where `( परमात्मप्रकाश टीका/1/57 )` appears right after `। 25।` in the HindiText — it is now placed in the gatha-25 block instead of the gatha-30 block. Falls back to last-segment assignment when pre-strip text is unavailable or the ref text is not found. |
 
 ---
@@ -977,5 +979,6 @@ DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence an
 | any | Self-link `<a class="mw-selflink-fragment" href="#3">` | `is_self=true` (§4.3). |
 | any | Cross-page `देखें <a href="/wiki/स्वभाव#2">` (target on different keyword page) | Stub node emitted with `resolve_key: "स्वभाव:2"` (no `key`). Ingestion layer resolves to heading-based natural_key via Postgres lookup (§12.4). |
 | स्वभाव | `<ul>` देखें items inside `<li id="1">`, where sibling `<ol>` contains `<li id="1.1">` (index entries without `<strong>`) — chain was `["1","1.1"]` instead of `["1"]` | Child-path guard in `_ancestor_li_ids` (§4.7): contextual path starting with `ids[-1]+"."` is discarded (v1.11.17). |
+| आत्मा | `बहिरात्मा, अंतरात्मा व परमात्मा -देखें <a>X</a>, <a>Y</a>, <a>Z</a>` — three links after one `देखें` trigger; only X was captured | Comma-list continuation (§4.3, v1.11.21): subsequent anchors separated only by `,/।/\s` from the previous matched anchor are also captured → 3 `see_also` blocks in the seed. |
 | any | Redlink `/w/index.php?title=X&action=edit&redlink=1` | `target_exists=false`; no Neo4j edge. |
 | any | Trailing `<br/>` and stray `&#160;` | Whitespace-normalise (§6.11). |

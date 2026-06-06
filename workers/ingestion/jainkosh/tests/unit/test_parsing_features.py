@@ -2062,3 +2062,94 @@ class TestGetTypeSpaceNormalization:
         assert bhav_nodes, "Expected भाव संग्रह Gatha node in स्वभाव golden"
         assert bhav_nodes[0]["label"] == "Gatha"
         assert bhav_nodes[0]["key"] == "भाव संग्रह:गाथा:373"
+
+
+# ---------------------------------------------------------------------------
+# Bug fix: multiple see_also links after a single देखें trigger (v1.11.21)
+# ---------------------------------------------------------------------------
+
+class TestMultiLinkSeeAlsoBugFix:
+    """'label -देखें X, Y, Z' should produce a label-seed with 3 see_also blocks,
+    not just one.  Prior to the fix only the first link was collected."""
+
+    def _parse_html(self, html: str, url: str = "http://www.jainkosh.org/wiki/test"):
+        from workers.ingestion.jainkosh.parse_keyword import parse_keyword_html
+        from workers.ingestion.jainkosh.config import load_config
+        cfg = load_config()
+        return parse_keyword_html(html, url, cfg)
+
+    def _minimal_page(self, body_html: str) -> str:
+        return f"""<html><body><div class="mw-parser-output">
+<h2><span class="mw-headline" id="सिद्धांतकोष_से">सिद्धांतकोष से</span></h2>
+<p class="HindiText"><b>2. शीर्षक</b></p>
+{body_html}
+</div></body></html>"""
+
+    def test_three_links_after_one_trigger_all_captured(self):
+        """'label -देखें X, Y, Z' → seed with 3 see_also blocks."""
+        body = (
+            '<p class="HindiText">'
+            'अल्फा, बीटा व गामा -देखें '
+            '<a href="/wiki/अल्फा">अल्फा</a>, '
+            '<a href="/wiki/बीटा">बीटा</a>, '
+            '<a href="/wiki/गामा">गामा</a>'
+            '</p>'
+        )
+        result = self._parse_html(self._minimal_page(body))
+        section = result.page_sections[0]
+        # Find the subsection for topic_path "2"
+        sub = next((s for s in section.subsections if s.topic_path == "2"), None)
+        assert sub is not None, "Expected subsection with topic_path='2'"
+        # Expect exactly one child seed
+        assert len(sub.children) == 1, f"Expected 1 child seed, got {len(sub.children)}"
+        seed = sub.children[0]
+        assert seed.label_topic_seed is True
+        assert seed.heading_text == "अल्फा, बीटा व गामा"
+        # The seed must have 3 see_also blocks, one per link
+        sa_blocks = [b for b in seed.blocks if b.kind == "see_also"]
+        assert len(sa_blocks) == 3, (
+            f"Expected 3 see_also blocks, got {len(sa_blocks)}: "
+            f"{[b.target_keyword for b in sa_blocks]}"
+        )
+        target_keywords = {b.target_keyword for b in sa_blocks}
+        assert target_keywords == {"अल्फा", "बीटा", "गामा"}, (
+            f"Unexpected target keywords: {target_keywords}"
+        )
+
+    def test_single_link_unchanged(self):
+        """Single-link case is unaffected: seed still gets exactly 1 see_also block."""
+        body = (
+            '<p class="HindiText">'
+            'एकमात्र -देखें '
+            '<a href="/wiki/एकमात्र">एकमात्र</a>'
+            '</p>'
+        )
+        result = self._parse_html(self._minimal_page(body))
+        section = result.page_sections[0]
+        sub = next((s for s in section.subsections if s.topic_path == "2"), None)
+        assert sub is not None
+        assert len(sub.children) == 1
+        seed = sub.children[0]
+        sa_blocks = [b for b in seed.blocks if b.kind == "see_also"]
+        assert len(sa_blocks) == 1
+        assert sa_blocks[0].target_keyword == "एकमात्र"
+
+    def test_atma_golden_seed_has_three_see_also_blocks(self):
+        """Regression: आत्मा golden — बहिरात्मा,अंतरात्मा,परमात्मा seed must have 3 blocks."""
+        import json
+        with open("workers/ingestion/jainkosh/tests/golden/आत्मा.json") as f:
+            data = json.load(f)
+        sections = data["keyword_parse_result"]["page_sections"]
+        seed = None
+        for section in sections:
+            for sub in section.get("subsections", []):
+                for child in sub.get("children", []):
+                    if child.get("heading_text") == "बहिरात्मा, अंतरात्मा व परमात्मा":
+                        seed = child
+                        break
+        assert seed is not None, "Could not find बहिरात्मा,अंतरात्मा,परमात्मा seed in आत्मा golden"
+        sa_blocks = [b for b in seed["blocks"] if b["kind"] == "see_also"]
+        assert len(sa_blocks) == 3, (
+            f"Expected 3 see_also blocks in seed, got {len(sa_blocks)}: "
+            f"{[b['target_keyword'] for b in sa_blocks]}"
+        )

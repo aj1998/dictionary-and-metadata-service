@@ -710,9 +710,25 @@ def extract_label_topic_seeds(
     # candidate_target_keys: set of (target_keyword, target_topic_path, target_url, is_self) tuples
     # that were used to produce a label_seed_candidate, so we can find matching blocks later
     candidate_target_to_seed: dict[tuple, Subsection] = {}
+    seeds_by_label: dict[str, Subsection] = {}
 
     for label, candidate_info in label_seed_candidates:
-        if not label or label in emitted_labels:
+        if not label:
+            continue
+        if label in emitted_labels:
+            # Additional anchor for an already-created seed (e.g. 'label -देखें X, Y, Z'
+            # where X was processed first).  Register this anchor's key so its see_also
+            # block also gets relocated into the same child seed.
+            if config.label_to_topic.relocate_inline_see_also_to_child and candidate_info:
+                existing_seed = seeds_by_label.get(label)
+                if existing_seed is not None:
+                    tkey = (
+                        candidate_info.get("target_keyword"),
+                        candidate_info.get("target_topic_path"),
+                        candidate_info.get("target_url"),
+                        bool(candidate_info.get("is_self", False)),
+                    )
+                    candidate_target_to_seed[tkey] = existing_seed
             continue
         emitted_labels.add(label)
         seed = _make_label_seed_subsection(
@@ -723,6 +739,7 @@ def extract_label_topic_seeds(
             row_see_alsos=row_relations.get(label, []),
         )
         seeds.append(seed)
+        seeds_by_label[label] = seed
         if config.label_to_topic.relocate_inline_see_also_to_child and candidate_info:
             tkey = (
                 candidate_info.get("target_keyword"),
@@ -791,12 +808,22 @@ def extract_label_seed_candidates_from_elements(
     keyword: str,
     config: JainkoshConfig,
 ) -> list[tuple[str, dict]]:
-    """Return list of (label, see_also_info_dict) for each element that produces a label seed."""
+    """Return list of (label, see_also_info_dict) for each element that produces a label seed.
+
+    When an element has a shared element-level label (text before the देखें trigger) and
+    multiple anchor links after it — e.g. 'label -देखें X, Y, Z' — all three anchors are
+    returned as separate entries with the same label so the seed accumulates all see_also blocks.
+    When the label is per-anchor (after_anchor_text / label_text), only the first is returned
+    to avoid creating duplicate seeds.
+    """
     results: list[tuple[str, dict]] = []
     for el in elements:
         source_kind = block_class_kind(el, config)
         parent_text = normalize_text(el.text(strip=False) or "")
         inside_brackets = _trigger_inside_brackets(parent_text, config)
+        # Pre-compute the element-level shared label (non-empty when the label text
+        # appears before the देखें trigger in the element's full text).
+        el_label = extract_label_before_trigger(parent_text, config)
         for candidate in find_see_also_candidates_in_element(el, config, current_keyword=keyword):
             block = Block(
                 kind="see_also",
@@ -814,7 +841,7 @@ def extract_label_seed_candidates_from_elements(
                 and not _is_row_like_label_context(parent_text, config)
             ):
                 continue
-            label = extract_label_before_trigger(parent_text, config)
+            label = el_label
             if not label:
                 label = _normalize_label_seed_text((candidate.get("label_text") or ""), config)
             if not label and _is_after_dekhen_element(el, config):
@@ -822,7 +849,12 @@ def extract_label_seed_candidates_from_elements(
                 label = _normalize_label_seed_text(candidate.get("after_anchor_text") or "", config)
             if label:
                 results.append((label, candidate))
-                break
+                if not el_label:
+                    # Per-anchor label (label_text or after_anchor_text): keep original
+                    # one-per-element behaviour to avoid duplicate seeds.
+                    break
+                # Shared element-level label: collect all anchors (e.g. X, Y, Z after
+                # a single देखें trigger) so every link ends up in the same seed.
     return results
 
 
