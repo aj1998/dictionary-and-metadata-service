@@ -2144,3 +2144,142 @@ class TestMultiLinkSeeAlsoBugFix:
             f"Expected 3 see_also blocks in seed, got {len(sa_blocks)}: "
             f"{[b['target_keyword'] for b in sa_blocks]}"
         )
+
+
+# ---------------------------------------------------------------------------
+# label_topic_seeds envelope emission (bugfix v1.11.22)
+# ---------------------------------------------------------------------------
+
+class TestLabelTopicSeedsEnvelopeEmission:
+    """section.label_topic_seeds must be emitted as Topic nodes/rows in all stores.
+
+    Prior to v1.11.22, label_topic_seeds were silently skipped in build_pg_fragment,
+    build_mongo_fragment, and build_neo4j_fragment, so their Topic nodes and
+    RELATED_TO edges were never written to any store.
+    """
+
+    _VASTU_GOLDEN = "workers/ingestion/jainkosh/tests/golden/वस्तु.json"
+
+    @pytest.fixture(scope="class")
+    def golden(self):
+        import json
+        with open(self._VASTU_GOLDEN) as f:
+            return json.load(f)
+
+    def test_postgres_topics_has_label_seeds(self, golden):
+        topics = golden["would_write"]["postgres"]["topics"]
+        natural_keys = {t["natural_key"] for t in topics}
+        expected = {
+            "वस्तु:सत्त-सत्त्व-सत्-सामान्य-द्रव्य-अन्वय-वस्तु-अर्थ-विधि-ये-सब-एकार्थवाची-शब्द-हैं",
+            "वस्तु:वस्तु-गुणपर्यायात्मक-है",
+            "वस्तु:वस्तु-सामान्य-विशेषात्मक-है",
+            "वस्तु:वस्तु-श्रुतज्ञान-के-एक-भेद-का-नाम-है",
+        }
+        assert expected <= natural_keys, (
+            f"Missing label_topic_seed topic rows: {expected - natural_keys}"
+        )
+        for t in topics:
+            if t["natural_key"] in expected:
+                assert t["source_subkind"] == "label_seed"
+                assert t["is_synthetic"] is True
+                assert t["label_topic_seed"] is True
+
+    def test_mongo_topic_extracts_has_label_seeds(self, golden):
+        extracts = golden["would_write"]["mongo"]["topic_extracts"]
+        natural_keys = {t["natural_key"] for t in extracts}
+        expected = {
+            "वस्तु:सत्त-सत्त्व-सत्-सामान्य-द्रव्य-अन्वय-वस्तु-अर्थ-विधि-ये-सब-एकार्थवाची-शब्द-हैं",
+            "वस्तु:वस्तु-गुणपर्यायात्मक-है",
+            "वस्तु:वस्तु-सामान्य-विशेषात्मक-है",
+            "वस्तु:वस्तु-श्रुतज्ञान-के-एक-भेद-का-नाम-है",
+        }
+        assert expected <= natural_keys, (
+            f"Missing label_topic_seed mongo extracts: {expected - natural_keys}"
+        )
+
+    def test_neo4j_has_topic_nodes_for_label_seeds(self, golden):
+        nodes = golden["would_write"]["neo4j"]["nodes"]
+        topic_keys = {n["key"] for n in nodes if n.get("label") == "Topic" and "key" in n}
+        expected = {
+            "वस्तु:सत्त-सत्त्व-सत्-सामान्य-द्रव्य-अन्वय-वस्तु-अर्थ-विधि-ये-सब-एकार्थवाची-शब्द-हैं",
+            "वस्तु:वस्तु-गुणपर्यायात्मक-है",
+            "वस्तु:वस्तु-सामान्य-विशेषात्मक-है",
+            "वस्तु:वस्तु-श्रुतज्ञान-के-एक-भेद-का-नाम-है",
+        }
+        assert expected <= topic_keys, (
+            f"Missing Topic nodes for label_topic_seeds: {expected - topic_keys}"
+        )
+
+    def test_neo4j_has_topic_nodes_with_correct_props(self, golden):
+        nodes = golden["would_write"]["neo4j"]["nodes"]
+        seed_node = next(
+            (n for n in nodes if n.get("key") == "वस्तु:वस्तु-गुणपर्यायात्मक-है"),
+            None,
+        )
+        assert seed_node is not None
+        props = seed_node["props"]
+        assert props["display_text_hi"] == "वस्तु गुणपर्यायात्मक है"
+        assert props["topic_path"] is None
+        assert props["is_leaf"] is True
+        assert props["parent_keyword_natural_key"] == "वस्तु"
+
+    def test_neo4j_has_topic_edges_for_label_seeds(self, golden):
+        edges = golden["would_write"]["neo4j"]["edges"]
+        has_topic_edges = [
+            e for e in edges
+            if e["type"] == "HAS_TOPIC"
+            and e["from"] == {"label": "Keyword", "key": "वस्तु"}
+        ]
+        to_keys = {e["to"]["key"] for e in has_topic_edges}
+        expected = {
+            "वस्तु:सत्त-सत्त्व-सत्-सामान्य-द्रव्य-अन्वय-वस्तु-अर्थ-विधि-ये-सब-एकार्थवाची-शब्द-हैं",
+            "वस्तु:वस्तु-गुणपर्यायात्मक-है",
+            "वस्तु:वस्तु-सामान्य-विशेषात्मक-है",
+            "वस्तु:वस्तु-श्रुतज्ञान-के-एक-भेद-का-नाम-है",
+        }
+        assert expected <= to_keys, (
+            f"Missing HAS_TOPIC edges for label_topic_seeds: {expected - to_keys}"
+        )
+
+    def test_neo4j_related_to_edges_from_label_seeds(self, golden):
+        edges = golden["would_write"]["neo4j"]["edges"]
+        related_to_edges = [e for e in edges if e["type"] == "RELATED_TO"]
+        # Seed 1 → द्रव्य:1.7 (cross-page → resolve_key "द्रव्य:1:7")
+        seed1_nk = "वस्तु:सत्त-सत्त्व-सत्-सामान्य-द्रव्य-अन्वय-वस्तु-अर्थ-विधि-ये-सब-एकार्थवाची-शब्द-हैं"
+        edge1 = next(
+            (e for e in related_to_edges if e["from"].get("key") == seed1_nk),
+            None,
+        )
+        assert edge1 is not None, f"No RELATED_TO edge from {seed1_nk}"
+        assert edge1["to"].get("resolve_key") == "द्रव्य:1:7"
+
+        # Seed 3 → सामान्य keyword (no topic path)
+        seed3_nk = "वस्तु:वस्तु-सामान्य-विशेषात्मक-है"
+        edge3 = next(
+            (e for e in related_to_edges if e["from"].get("key") == seed3_nk),
+            None,
+        )
+        assert edge3 is not None, f"No RELATED_TO edge from {seed3_nk}"
+        assert edge3["to"] == {"label": "Keyword", "key": "सामान्य"}
+
+        # Seed 4 → श्रुतज्ञान:II (cross-page non-numeric path)
+        seed4_nk = "वस्तु:वस्तु-श्रुतज्ञान-के-एक-भेद-का-नाम-है"
+        edge4 = next(
+            (e for e in related_to_edges if e["from"].get("key") == seed4_nk),
+            None,
+        )
+        assert edge4 is not None, f"No RELATED_TO edge from {seed4_nk}"
+        assert edge4["to"].get("resolve_key") == "श्रुतज्ञान:II"
+
+    def test_mongo_topic_extract_has_see_also_blocks(self, golden):
+        extracts = golden["would_write"]["mongo"]["topic_extracts"]
+        seed1_extract = next(
+            (t for t in extracts
+             if t["natural_key"] == "वस्तु:सत्त-सत्त्व-सत्-सामान्य-द्रव्य-अन्वय-वस्तु-अर्थ-विधि-ये-सब-एकार्थवाची-शब्द-हैं"),
+            None,
+        )
+        assert seed1_extract is not None
+        sa_blocks = [b for b in seed1_extract["blocks"] if b["kind"] == "see_also"]
+        assert len(sa_blocks) == 1
+        assert sa_blocks[0]["target_keyword"] == "द्रव्य"
+        assert sa_blocks[0]["target_topic_path"] == "1.7"

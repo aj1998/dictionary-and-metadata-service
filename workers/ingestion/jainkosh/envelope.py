@@ -145,6 +145,21 @@ def build_pg_fragment(result: KeywordParseResult, config: Optional[JainkoshConfi
             })
     if config.envelope.index_relations_as_topics.enabled:
         topic_rows.extend(_build_index_relation_pg_rows(result, config))
+    for sec in result.page_sections:
+        for seed in sec.label_topic_seeds:
+            topic_rows.append({
+                "table": "topics",
+                "natural_key": seed.natural_key,
+                "topic_path": None,
+                "parent_topic_natural_key": seed.parent_natural_key,
+                "display_text": [{"lang": "hin", "script": "Deva", "text": seed.heading_text}],
+                "source": "jainkosh",
+                "parent_keyword_natural_key": result.keyword,
+                "is_leaf": True,
+                "is_synthetic": True,
+                "source_subkind": "label_seed",
+                "label_topic_seed": True,
+            })
     return {"keywords": [keyword_row], "topics": topic_rows, "keyword_aliases": []}
 
 
@@ -185,6 +200,19 @@ def build_mongo_fragment(result: KeywordParseResult, config: Optional[JainkoshCo
             })
     if config.envelope.index_relations_as_topics.enabled:
         topic_extracts.extend(_build_index_relation_mongo_extracts(result, config))
+    for sec in result.page_sections:
+        for seed in sec.label_topic_seeds:
+            topic_extracts.append({
+                "collection": "topic_extracts",
+                "natural_key": seed.natural_key,
+                "topic_path": None,
+                "parent_natural_key": seed.parent_natural_key,
+                "is_leaf": True,
+                "heading": [{"lang": "hin", "script": "Deva", "text": seed.heading_text}],
+                "blocks": [b.model_dump() for b in seed.blocks],
+                "source": "jainkosh",
+                "source_url": result.source_url,
+            })
     return {"keyword_definitions": [kdef], "topic_extracts": topic_extracts}
 
 
@@ -749,6 +777,33 @@ def build_neo4j_fragment(result: KeywordParseResult, config: JainkoshConfig) -> 
     nodes.extend(ir_nodes)
     _collect_lazy_nodes(ir_edges, nodes)
     edges.extend(ir_edges)
+
+    for sec in result.page_sections:
+        for seed in sec.label_topic_seeds:
+            nodes.append({
+                "label": "Topic",
+                "key": seed.natural_key,
+                "props": {
+                    "display_text_hi": seed.heading_text,
+                    "topic_path": None,
+                    "parent_keyword_natural_key": result.keyword,
+                    "source": "jainkosh",
+                    "is_leaf": True,
+                },
+            })
+            edges.append({
+                "type": "HAS_TOPIC",
+                "from": {"label": "Keyword", "key": result.keyword},
+                "to": {"label": "Topic", "key": seed.natural_key},
+                "props": {"weight": 1.0, "source": "jainkosh"},
+            })
+            for b in seed.blocks:
+                if b.kind == "see_also":
+                    edge = _see_also_edge(
+                        b, source_topic_key=seed.natural_key, keyword_node=result.keyword, config=config
+                    )
+                    if edge:
+                        edges.append(edge)
 
     # Build topic_path → natural_key map for same-keyword resolve_by lookup
     _path_to_nk: dict[str, str] = {}
