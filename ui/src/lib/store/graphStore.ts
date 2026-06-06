@@ -6,12 +6,14 @@ import { DEFAULT_GRAPH_DEPTH } from '@/lib/config';
 const DEFAULT_VISIBILITY: Record<EntityKind, boolean> = {
   shastra: true,
   gatha: true,
+  gatha_teeka: true,
   teeka: true,
   bhaavarth: true,
   kalash: true,
   page: true,
   topic: true,
   keyword: true,
+  publication: true,
 };
 
 type Selected =

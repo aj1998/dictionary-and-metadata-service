@@ -24,4 +24,5 @@ export {
   Menu,
   Loader2,
   ExternalLink,
+  Building2,
 } from 'lucide-react';

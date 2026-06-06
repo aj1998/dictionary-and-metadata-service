@@ -28,6 +28,7 @@ const RESERVED_ICONS = [
   "Menu",
   "Loader2",
   "ExternalLink",
+  "Building2",
 ] as const;
 
 describe("icons registry", () => {

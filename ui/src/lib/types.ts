@@ -1,4 +1,4 @@
-export type EntityKind = 'shastra' | 'gatha' | 'teeka' | 'bhaavarth' | 'kalash' | 'page' | 'topic' | 'keyword';
+export type EntityKind = 'shastra' | 'gatha' | 'teeka' | 'gatha_teeka' | 'bhaavarth' | 'kalash' | 'page' | 'topic' | 'keyword' | 'publication';
 
 export type EdgeKind =
   | 'IS_A'

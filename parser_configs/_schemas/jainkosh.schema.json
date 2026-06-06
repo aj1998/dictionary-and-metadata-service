@@ -869,6 +869,15 @@
               "type": "boolean"
             }
           }
+        },
+        "shastra_hierarchy": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          }
         }
       }
     },

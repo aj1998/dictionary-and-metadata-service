@@ -228,6 +228,8 @@ envelope:
   idempotency_mode: "envelope_root"
   index_relations_as_topics:
     enabled: true
+  shastra_hierarchy:
+    enabled: false
 
 reference_splitting:
   enabled: true

@@ -365,6 +365,20 @@ async def apply_approved_keyword_payload(
                     target_label=to.get("label", "Topic"),
                     database=neo4j_database,
                 )
+        elif etype in ("IN_SHASTRA", "IN_TEEKA", "IN_PUBLICATION"):
+            src_label = frm.get("label", "")
+            tgt_label = to.get("label", "")
+            if src_label and tgt_label:
+                await sync_reference_edge(
+                    neo4j_driver,
+                    edge_type=etype,
+                    src_label=src_label,
+                    src_nk=frm_key,
+                    tgt_label=tgt_label,
+                    tgt_nk=to_key,
+                    edge_props=edge.get("props") or {},
+                    database=neo4j_database,
+                )
         elif etype in ("MENTIONS_TOPIC", "CONTAINS_DEFINITION"):
             src_label = frm.get("label", "")
             tgt_label = to.get("label", "")

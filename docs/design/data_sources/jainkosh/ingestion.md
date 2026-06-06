@@ -161,6 +161,59 @@ MATCH (n {is_stub: true}) RETURN labels(n)[0] AS label, count(*) ORDER BY count(
 
 ---
 
+## Shastra hierarchy ingestion
+
+When `envelope.shastra_hierarchy.enabled = true` (config or CLI flag `--shastra-hierarchy`), the envelope builder also emits stub nodes for the **structural ancestors** of every lazy reference node:
+
+| Lazy node (parser-emitted) | Ancestors emitted |
+|---|---|
+| `Gatha` | `Shastra` |
+| `GathaTeeka` | `Shastra`, `Teeka` |
+| `GathaTeekaBhaavarth` | `Shastra`, `Teeka`, `Publication` |
+| `Kalash` | `Shastra`, `Teeka` (shastra derived from teeka prefix) |
+| `KalashBhaavarth` | `Shastra`, `Teeka`, `Publication` |
+| `Page` | `Shastra`, `Teeka`, `Publication` |
+
+Key formats:
+- `Shastra`: `{shastra_name}` — e.g. `पंचास्तिकाय`
+- `Teeka`: `{shastra}:{teeka}` — e.g. `समयसार:आत्मख्याति`
+- `Publication`: `{shastra}:{teeka}:{pub_id}` — e.g. `समयसार:आत्मख्याति:3`
+
+In addition to the stub nodes, structural edges are emitted — both the inter-ancestor edges and an edge from each child node to its own immediate parent:
+
+| Edge type | From → To |
+|---|---|
+| `IN_SHASTRA` | `Teeka → Shastra` |
+| `IN_SHASTRA` | `Gatha → Shastra` |
+| `IN_TEEKA` | `Publication → Teeka` |
+| `IN_TEEKA` | `GathaTeeka → Teeka` |
+| `IN_TEEKA` | `Kalash → Teeka` |
+| `IN_PUBLICATION` | `GathaTeekaBhaavarth → Publication` |
+| `IN_PUBLICATION` | `KalashBhaavarth → Publication` |
+| `IN_PUBLICATION` | `Page → Publication` |
+
+These use the same `sync_reference_edge` MERGE pattern in `apply.py`, so endpoints are stub-coalesced before the edge is created. All three edge types (`IN_SHASTRA`, `IN_TEEKA`, `IN_PUBLICATION`) are in `_VALID_EDGE_TYPES` in `stubs.py`.
+
+Deduplication: when multiple lazy nodes share the same ancestor (e.g. many Gatha nodes from the same shastra), `_dedupe` collapses both nodes and edges to a single entry.
+
+All hierarchy nodes are emitted as `lazy: true` stubs so the apply layer writes them via `sync_stub_node`. The `Shastra`, `Teeka`, and `Publication` labels are now in the `_STUB_PROPS_BY_LABEL` allowlist in `stubs.py`.
+
+**How to enable:**
+```yaml
+# parser_configs/jainkosh.yaml
+envelope:
+  shastra_hierarchy:
+    enabled: true
+```
+Or per-run:
+```bash
+python scripts/ingest_goldens_apply.py --shastra-hierarchy
+```
+
+**Implementation:** `_derive_hierarchy_nodes(label, key)` in `envelope.py` parses the structured node key via `_derive_props` to extract `shastra_natural_key`, `teeka_natural_key`, and `publisher_id`, then constructs the ancestor nodes.
+
+---
+
 ## Stub node pattern (`jain_kb_common/db/neo4j/stubs.py`)
 
 When `apply_approved_keyword_payload` encounters cross-page edge targets (topics or keywords not in the current envelope) or lazy reference nodes (Gatha, GathaTeeka, …), it creates **stub nodes** so edges always land. A later real ingestion upgrades the stub by setting `is_stub = false`.
@@ -209,6 +262,9 @@ Per-label stub props:
 | `Kalash` | `teeka_natural_key`, `kalash_number` |
 | `KalashBhaavarth` | `shastra_natural_key`, `teeka_natural_key`, `publisher_id`, `kalash_number` |
 | `Page` | `shastra_natural_key`, `teeka_natural_key`, `publisher_id`, `page_number` |
+| `Shastra` | *(no extra props — natural_key is the shastra name)* |
+| `Teeka` | `shastra_natural_key` |
+| `Publication` | `teeka_natural_key`, `publisher_id` |
 
 ### `delete_placeholder_stub`
 

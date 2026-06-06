@@ -481,6 +481,90 @@ def _build_index_relation_neo4j(
 LAZY_NODE_LABELS = {"Gatha", "GathaTeeka", "GathaTeekaBhaavarth", "Kalash", "KalashBhaavarth", "Page"}
 
 
+def _derive_hierarchy_nodes(label: str, key: str) -> tuple[list[dict], list[dict]]:
+    """Return (nodes, edges) for the parent Shastra/Teeka/Publication hierarchy.
+
+    Parses the structured key to extract the shastra, teeka, and publication
+    components, emitting lazy stub nodes and the connecting structural edges
+    (IN_SHASTRA: Teeka→Shastra, IN_TEEKA: Publication→Teeka).
+    """
+    props = _derive_props(label, key)
+    nodes: list[dict] = []
+    edges: list[dict] = []
+
+    teeka_nk: str | None = props.get("teeka_natural_key")
+    shastra_nk: str | None = props.get("shastra_natural_key")
+    pub_id: str | None = props.get("publisher_id")
+
+    # Kalash props don't include shastra_natural_key; derive from teeka_nk prefix
+    if teeka_nk and not shastra_nk:
+        shastra_nk = teeka_nk.split(":")[0]
+
+    if shastra_nk:
+        nodes.append({
+            "label": "Shastra",
+            "key": shastra_nk,
+            "props": {},
+            "lazy": True,
+        })
+
+    if teeka_nk:
+        nodes.append({
+            "label": "Teeka",
+            "key": teeka_nk,
+            "props": {"shastra_natural_key": shastra_nk} if shastra_nk else {},
+            "lazy": True,
+        })
+        if shastra_nk:
+            edges.append({
+                "type": "IN_SHASTRA",
+                "from": {"label": "Teeka", "key": teeka_nk},
+                "to": {"label": "Shastra", "key": shastra_nk},
+                "props": {"source": "jainkosh"},
+            })
+
+    pub_nk: str | None = None
+    if teeka_nk and pub_id:
+        pub_nk = f"{teeka_nk}:{pub_id}"
+        nodes.append({
+            "label": "Publication",
+            "key": pub_nk,
+            "props": {"teeka_natural_key": teeka_nk, "publisher_id": pub_id},
+            "lazy": True,
+        })
+        edges.append({
+            "type": "IN_TEEKA",
+            "from": {"label": "Publication", "key": pub_nk},
+            "to": {"label": "Teeka", "key": teeka_nk},
+            "props": {"source": "jainkosh"},
+        })
+
+    # Edge from the child node itself to its immediate structural parent
+    if label == "Gatha" and shastra_nk:
+        edges.append({
+            "type": "IN_SHASTRA",
+            "from": {"label": "Gatha", "key": key},
+            "to": {"label": "Shastra", "key": shastra_nk},
+            "props": {"source": "jainkosh"},
+        })
+    elif label in ("GathaTeeka", "Kalash") and teeka_nk:
+        edges.append({
+            "type": "IN_TEEKA",
+            "from": {"label": label, "key": key},
+            "to": {"label": "Teeka", "key": teeka_nk},
+            "props": {"source": "jainkosh"},
+        })
+    elif label in ("GathaTeekaBhaavarth", "KalashBhaavarth", "Page") and pub_nk:
+        edges.append({
+            "type": "IN_PUBLICATION",
+            "from": {"label": label, "key": key},
+            "to": {"label": "Publication", "key": pub_nk},
+            "props": {"source": "jainkosh"},
+        })
+
+    return nodes, edges
+
+
 def _last_segment_unhyphen(topic_path: str) -> str:
     """Return the last dot-separated segment with hyphens replaced by spaces."""
     seg = topic_path.split(".")[-1] if topic_path else ""
@@ -736,6 +820,21 @@ def build_neo4j_fragment(result: KeywordParseResult, config: JainkoshConfig) -> 
             resolved_edges.append(edge)
 
     nodes.extend(stub_seeds)
+
+    # When shastra_hierarchy is enabled, emit stub nodes for Shastra/Teeka/Publication
+    # ancestors of each lazy reference node (Gatha, GathaTeeka, etc.) so the full
+    # structural hierarchy is present in Neo4j even before dedicated shastra ingestion.
+    if config.envelope.shastra_hierarchy.enabled:
+        hierarchy_nodes: list[dict] = []
+        hierarchy_edges: list[dict] = []
+        for node in nodes:
+            if node.get("lazy") and node.get("label") in LAZY_NODE_LABELS:
+                h_nodes, h_edges = _derive_hierarchy_nodes(node["label"], node["key"])
+                hierarchy_nodes.extend(h_nodes)
+                hierarchy_edges.extend(h_edges)
+        nodes.extend(hierarchy_nodes)
+        resolved_edges.extend(hierarchy_edges)
+
     return {"nodes": _dedupe(nodes), "edges": _dedupe(resolved_edges)}
 
 

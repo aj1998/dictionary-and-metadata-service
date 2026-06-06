@@ -14,11 +14,15 @@ _STUB_PROPS_BY_LABEL: dict[str, list[str]] = {
     "Kalash": ["teeka_natural_key", "kalash_number"],
     "KalashBhaavarth": ["shastra_natural_key", "teeka_natural_key", "publisher_id", "kalash_number"],
     "Page": ["shastra_natural_key", "teeka_natural_key", "publisher_id", "page_number"],
+    "Shastra": [],
+    "Teeka": ["shastra_natural_key"],
+    "Publication": ["teeka_natural_key", "publisher_id"],
 }
 
 _VALID_LABELS = frozenset(_STUB_PROPS_BY_LABEL)
 _VALID_EDGE_TYPES = frozenset({
     "HAS_TOPIC", "PART_OF", "RELATED_TO", "MENTIONS_TOPIC", "CONTAINS_DEFINITION",
+    "IN_SHASTRA", "IN_TEEKA", "IN_PUBLICATION",
 })
 
 

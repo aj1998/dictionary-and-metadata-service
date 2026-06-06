@@ -5,7 +5,7 @@ import type { EntityKind } from "@/lib/types";
 describe("NODE_KIND_META", () => {
   test("covers all entity kinds", () => {
     const keys = Object.keys(NODE_KIND_META).sort();
-    const expected: EntityKind[] = ["bhaavarth", "gatha", "kalash", "keyword", "page", "shastra", "teeka", "topic"];
+    const expected: EntityKind[] = ["bhaavarth", "gatha", "gatha_teeka", "kalash", "keyword", "page", "publication", "shastra", "teeka", "topic"];
     expect(keys).toEqual(expected);
   });
 

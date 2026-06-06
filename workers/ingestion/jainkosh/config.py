@@ -359,11 +359,19 @@ class IndexRelationsAsTopicsConfig(BaseModel):
     enabled: bool = True
 
 
+class ShastraHierarchyConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    enabled: bool = False
+
+
 class EnvelopeConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
     idempotency_mode: Literal["per_row", "envelope_root"] = "envelope_root"
     index_relations_as_topics: IndexRelationsAsTopicsConfig = Field(
         default_factory=IndexRelationsAsTopicsConfig
+    )
+    shastra_hierarchy: ShastraHierarchyConfig = Field(
+        default_factory=ShastraHierarchyConfig
     )
 
 

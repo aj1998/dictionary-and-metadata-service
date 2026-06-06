@@ -797,6 +797,10 @@ When the parser encounters a `देखें` link to another keyword's topic (
 `envelope.py` builds the "would_write" output. See `detailed_docs/parser_spec.md §5`
 for full annotated JSON examples.
 
+**Config flags** (`envelope.*`):
+- `index_relations_as_topics.enabled` (default `true`) — emit index-relation label-seeds as Topic rows.
+- `shastra_hierarchy.enabled` (default `false`) — also emit `Shastra`/`Teeka`/`Publication` stub nodes for each lazy reference node (Gatha, GathaTeeka, GathaTeekaBhaavarth, Kalash, KalashBhaavarth, Page). See [ingestion doc](ingestion.md#shastra-hierarchy-ingestion).
+
 **Postgres**: `keywords` row + `topics` rows (one per non-synthetic subsection + synthetic label seeds).
 
 **Mongo**: `keyword_definitions` doc (sections with definitions + index_relations, no subsection_tree since v1.1.0)

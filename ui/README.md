@@ -231,12 +231,14 @@ All components must consume CSS variables. Never hardcode hex values.
 |---|---|---|
 | `--cat-shastra` | `#E63946` | शास्त्र |
 | `--cat-gatha` | `#F4A261` | गाथा |
-| `--cat-teeka` | `#E8B931` | टीका |
+| `--cat-gatha-teeka` | `#E8B931` | गाथा टीका |
+| `--cat-teeka` | `#C27B00` | टीका |
 | `--cat-bhaavarth` | `#7C5CB8` | भावार्थ |
 | `--cat-kalash` | `#5E8A4A` | कलश |
 | `--cat-page` | `#B5645A` | पृष्ठ |
 | `--cat-topic` | `#2A9D8F` | विषय |
 | `--cat-keyword` | `#264653` | शब्द |
+| `--cat-publication` | `#4A90A4` | प्रकाशन |
 
 ### Typography
 
@@ -433,14 +435,16 @@ The navigation service expand/preview queries traverse these Neo4j relationship 
 |---|---|---|---|---|
 | `Shastra` | `shastra` | शास्त्र | `--cat-shastra` | `BookOpen` |
 | `Gatha` | `gatha` | गाथा | `--cat-gatha` | `ScrollText` |
-| `GathaTeeka` | `teeka` | टीका | `--cat-teeka` | `BookText` |
+| `GathaTeeka` | `gatha_teeka` | गाथा टीका | `--cat-gatha-teeka` | `BookText` |
+| `Teeka` | `teeka` | टीका | `--cat-teeka` | `BookMarked` |
 | `GathaTeekaBhaavarth`, `KalashBhaavarth` | `bhaavarth` | भावार्थ | `--cat-bhaavarth` | `NotebookText` |
 | `Kalash` | `kalash` | कलश | `--cat-kalash` | `Flower2` |
 | `Page` | `page` | पृष्ठ | `--cat-page` | `FileText` |
 | `Topic` | `topic` | विषय | `--cat-topic` | `Tag` |
 | `Keyword` | `keyword` | कीवर्ड | `--cat-keyword` | `Sparkles` |
+| `Publication` | `publication` | प्रकाशन | `--cat-publication` | `Building2` |
 
-Stub nodes (placeholders seeded by JainKosh ingestion before NJ ingestion fills them in) are **included by default**; set `NEXT_PUBLIC_GRAPH_EXCLUDE_STUBS=true` to hide them. All eight kinds appear as toggles in the left filter panel and are persisted via the `?cat=` URL param.
+Stub nodes (placeholders seeded by JainKosh ingestion before NJ ingestion fills them in) are **included by default**; set `NEXT_PUBLIC_GRAPH_EXCLUDE_STUBS=true` to hide them. All ten kinds appear as toggles in the left filter panel and are persisted via the `?cat=` URL param.
 
 ### Canvas (`GraphCanvas.tsx`)
 - Full-size `<svg>` with a dotted 24×24px tile grid (dot radius clamped `[0.75, 1.5]`).

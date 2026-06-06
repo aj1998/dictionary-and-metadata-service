@@ -67,11 +67,13 @@ GOLDENS: tuple[GoldenSpec, ...] = (
 )
 
 
-def _load_envelope(spec: GoldenSpec) -> dict:
+def _load_envelope(spec: GoldenSpec, *, shastra_hierarchy: bool = False) -> dict:
     config = load_config()
+    if shastra_hierarchy:
+        config.envelope.shastra_hierarchy.enabled = True
     html = (FIXTURE_DIR / f"{spec.keyword}.html").read_text(encoding="utf-8")
     result = parse_keyword_html(html, spec.url, config)
-    return build_envelope(result).model_dump()
+    return build_envelope(result, config).model_dump()
 
 
 def _selected_goldens(keyword: str | None) -> tuple[GoldenSpec, ...]:
@@ -94,10 +96,11 @@ async def _apply_batch(
     ingestion_run_id: uuid.UUID | None,
     neo4j_database: str,
     pass_label: str = "pass 1",
+    shastra_hierarchy: bool = False,
 ) -> None:
     """Apply one batch of envelopes.  Safe to call multiple times (idempotent)."""
     for spec in selected:
-        envelope = _load_envelope(spec)
+        envelope = _load_envelope(spec, shastra_hierarchy=shastra_hierarchy)
         await apply_approved_keyword_payload(
             envelope=envelope,
             pg_session=pg_session,
@@ -115,6 +118,7 @@ async def _run_apply(
     neo4j_database: str,
     ingestion_run_id: uuid.UUID | None,
     resolve_pass: bool = True,
+    shastra_hierarchy: bool = False,
 ) -> None:
     """Ingest selected golden envelopes (two passes).
 
@@ -159,6 +163,7 @@ async def _run_apply(
                 ingestion_run_id=ingestion_run_id,
                 neo4j_database=neo4j_database,
                 pass_label="pass 1",
+                shastra_hierarchy=shastra_hierarchy,
             )
             if resolve_pass:
                 # Second pass: by now all target keywords are in Postgres, so
@@ -174,6 +179,7 @@ async def _run_apply(
                     ingestion_run_id=ingestion_run_id,
                     neo4j_database=neo4j_database,
                     pass_label="pass 2",
+                    shastra_hierarchy=shastra_hierarchy,
                 )
     finally:
         await close_driver()
@@ -187,6 +193,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--neo4j-database", default="neo4j")
     parser.add_argument("--ingestion-run-id", default=None, help="Optional UUID to stamp on Mongo documents")
     parser.add_argument("--dry-run", action="store_true", help="Load and summarize goldens without touching databases")
+    parser.add_argument("--shastra-hierarchy", action="store_true", help="Also ingest Shastra/Teeka/Publication stub nodes for each lazy reference node")
     args = parser.parse_args(argv)
 
     selected = _selected_goldens(args.keyword)
@@ -196,7 +203,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.dry_run:
         for spec in selected:
-            envelope = _load_envelope(spec)
+            envelope = _load_envelope(spec, shastra_hierarchy=args.shastra_hierarchy)
             ww = envelope["would_write"]
             print(
                 f"{spec.keyword}: "
@@ -218,6 +225,7 @@ def main(argv: list[str] | None = None) -> int:
             selected,
             neo4j_database=args.neo4j_database,
             ingestion_run_id=ingestion_run_id,
+            shastra_hierarchy=args.shastra_hierarchy,
         ))
     except KeyError as exc:
         print(f"Missing environment variable: {exc.args[0]}", file=sys.stderr)

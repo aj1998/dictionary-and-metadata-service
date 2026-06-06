@@ -1,7 +1,7 @@
 import type { EntityKind } from '@/lib/types';
 import { DEFAULT_GRAPH_DEPTH } from '@/lib/config';
 
-const VALID_CATS: EntityKind[] = ['shastra', 'gatha', 'teeka', 'bhaavarth', 'kalash', 'page', 'topic', 'keyword'];
+const VALID_CATS: EntityKind[] = ['shastra', 'gatha', 'gatha_teeka', 'teeka', 'bhaavarth', 'kalash', 'page', 'topic', 'keyword', 'publication'];
 
 export interface ParsedGraphQuery {
   node: string | null;
