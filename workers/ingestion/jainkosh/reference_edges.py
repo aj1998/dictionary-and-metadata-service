@@ -38,7 +38,11 @@ def _pankti_props(rfields: list, cfg) -> dict:
 def _resolve_publisher_id(ref, config: "JainkoshConfig") -> str:
     if config.shastra_registry is None or config.publisher_registry is None:
         return "publisher_to_be_added"
-    entry = config.shastra_registry._by_primary.get(ref.shastra_name)
+    # Try exact name first (handles multi-word names like "जैनेंद्र व्याकरण" whose
+    # spaces _by_primary normalises away, causing the lookup to miss the entry).
+    entry = config.shastra_registry._by_exact_name.get(ref.shastra_name)
+    if entry is None:
+        entry = config.shastra_registry._by_primary.get(ref.shastra_name)
     if entry is None:
         return "publisher_to_be_added"
     publisher_name = entry.publisher

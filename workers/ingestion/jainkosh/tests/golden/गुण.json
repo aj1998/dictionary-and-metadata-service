@@ -9636,11 +9636,11 @@
         },
         {
           "label": "Page",
-          "key": "न्यायदीपिका:टीका:publisher_to_be_added:पृष्ठ:121",
+          "key": "न्यायदीपिका:टीका:24:पृष्ठ:121",
           "props": {
             "shastra_natural_key": "न्यायदीपिका",
             "teeka_natural_key": "न्यायदीपिका:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "24",
             "page_number": "121"
           },
           "lazy": true
@@ -9821,11 +9821,11 @@
         },
         {
           "label": "Page",
-          "key": "भगवती आराधना:विजयोदया टीका:publisher_to_be_added:पृष्ठ:37",
+          "key": "भगवती आराधना:विजयोदया टीका:26:पृष्ठ:37",
           "props": {
             "shastra_natural_key": "भगवती आराधना",
             "teeka_natural_key": "भगवती आराधना:विजयोदया टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "26",
             "page_number": "37"
           },
           "lazy": true
@@ -9852,11 +9852,11 @@
         },
         {
           "label": "Page",
-          "key": "गोम्मटसार कर्मकाण्ड:टीका:publisher_to_be_added:पृष्ठ:987",
+          "key": "गोम्मटसार कर्मकाण्ड:टीका:11:पृष्ठ:987",
           "props": {
             "shastra_natural_key": "गोम्मटसार कर्मकाण्ड",
             "teeka_natural_key": "गोम्मटसार कर्मकाण्ड:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "11",
             "page_number": "987"
           },
           "lazy": true
@@ -11094,7 +11094,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "न्यायदीपिका:टीका:publisher_to_be_added:पृष्ठ:121"
+            "key": "न्यायदीपिका:टीका:24:पृष्ठ:121"
           },
           "to": {
             "label": "Topic",
@@ -11447,7 +11447,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "भगवती आराधना:विजयोदया टीका:publisher_to_be_added:पृष्ठ:37"
+            "key": "भगवती आराधना:विजयोदया टीका:26:पृष्ठ:37"
           },
           "to": {
             "label": "Topic",
@@ -11502,7 +11502,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "गोम्मटसार कर्मकाण्ड:टीका:publisher_to_be_added:पृष्ठ:987"
+            "key": "गोम्मटसार कर्मकाण्ड:टीका:11:पृष्ठ:987"
           },
           "to": {
             "label": "Topic",

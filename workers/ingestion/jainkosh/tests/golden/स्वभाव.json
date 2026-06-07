@@ -4838,11 +4838,11 @@
         },
         {
           "label": "Page",
-          "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:387",
+          "key": "कषायपाहुड़:टीका:13:पृष्ठ:387",
           "props": {
             "shastra_natural_key": "कषायपाहुड़",
             "teeka_natural_key": "कषायपाहुड़:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "13",
             "page_number": "387"
           },
           "lazy": true
@@ -5246,11 +5246,11 @@
         },
         {
           "label": "Page",
-          "key": "गोम्मटसार जीवकाण्ड:जीवतत्त्व प्रदीपिका:publisher_to_be_added:पृष्ठ:419",
+          "key": "गोम्मटसार जीवकाण्ड:जीवतत्त्व प्रदीपिका:11:पृष्ठ:419",
           "props": {
             "shastra_natural_key": "गोम्मटसार जीवकाण्ड",
             "teeka_natural_key": "गोम्मटसार जीवकाण्ड:जीवतत्त्व प्रदीपिका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "11",
             "page_number": "419"
           },
           "lazy": true
@@ -5318,11 +5318,11 @@
         },
         {
           "label": "Page",
-          "key": "स्याद्वादमञ्जरी:टीका:publisher_to_be_added:पृष्ठ:289",
+          "key": "स्याद्वादमञ्जरी:टीका:17:पृष्ठ:289",
           "props": {
             "shastra_natural_key": "स्याद्वादमञ्जरी",
             "teeka_natural_key": "स्याद्वादमञ्जरी:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "17",
             "page_number": "289"
           },
           "lazy": true
@@ -5867,7 +5867,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:387"
+            "key": "कषायपाहुड़:टीका:13:पृष्ठ:387"
           },
           "to": {
             "label": "Topic",
@@ -6597,7 +6597,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "गोम्मटसार जीवकाण्ड:जीवतत्त्व प्रदीपिका:publisher_to_be_added:पृष्ठ:419"
+            "key": "गोम्मटसार जीवकाण्ड:जीवतत्त्व प्रदीपिका:11:पृष्ठ:419"
           },
           "to": {
             "label": "Topic",
@@ -6731,7 +6731,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "स्याद्वादमञ्जरी:टीका:publisher_to_be_added:पृष्ठ:289"
+            "key": "स्याद्वादमञ्जरी:टीका:17:पृष्ठ:289"
           },
           "to": {
             "label": "Topic",

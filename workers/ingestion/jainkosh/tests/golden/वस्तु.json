@@ -970,11 +970,11 @@
         },
         {
           "label": "Page",
-          "key": "स्याद्वादमञ्जरी:टीका:publisher_to_be_added:पृष्ठ:30",
+          "key": "स्याद्वादमञ्जरी:टीका:17:पृष्ठ:30",
           "props": {
             "shastra_natural_key": "स्याद्वादमञ्जरी",
             "teeka_natural_key": "स्याद्वादमञ्जरी:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "17",
             "page_number": "30"
           },
           "lazy": true
@@ -991,11 +991,11 @@
         },
         {
           "label": "Page",
-          "key": "स्याद्वादमञ्जरी:टीका:publisher_to_be_added:पृष्ठ:272",
+          "key": "स्याद्वादमञ्जरी:टीका:17:पृष्ठ:272",
           "props": {
             "shastra_natural_key": "स्याद्वादमञ्जरी",
             "teeka_natural_key": "स्याद्वादमञ्जरी:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "17",
             "page_number": "272"
           },
           "lazy": true
@@ -1152,7 +1152,7 @@
           "type": "CONTAINS_DEFINITION",
           "from": {
             "label": "Page",
-            "key": "स्याद्वादमञ्जरी:टीका:publisher_to_be_added:पृष्ठ:30"
+            "key": "स्याद्वादमञ्जरी:टीका:17:पृष्ठ:30"
           },
           "to": {
             "label": "Keyword",
@@ -1194,7 +1194,7 @@
           "type": "CONTAINS_DEFINITION",
           "from": {
             "label": "Page",
-            "key": "स्याद्वादमञ्जरी:टीका:publisher_to_be_added:पृष्ठ:272"
+            "key": "स्याद्वादमञ्जरी:टीका:17:पृष्ठ:272"
           },
           "to": {
             "label": "Keyword",

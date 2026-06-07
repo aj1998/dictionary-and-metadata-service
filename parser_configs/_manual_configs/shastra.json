@@ -1563,5 +1563,23 @@
     "alternate_name": "",
     "public_url": "",
     "manually_added": true
+  },
+  {
+    "shastra_name": "जैनेंद्र व्याकरण",
+    "short_form": "ज.व्य.",
+    "format": [
+      "प्रकरण/पाठ/जैनेंद्रव्याकरणसूत्र/पृष्ठ",
+      "प्रकरण/पाठ/जैनेंद्रव्याकरणसूत्र"
+    ],
+    "author": "",
+    "date_format": "",
+    "date": "",
+    "publisher": "भारतीय ज्ञानपीठ, बनारस",
+    "notes": "",
+    "edition": "",
+    "type": "publication",
+    "alternate_name": "",
+    "public_url": "https://jainworld.jainworld.com/JWSanskrit/Jainendra+Mahavritti.pdf",
+    "manually_added": true
   }
 ]

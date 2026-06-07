@@ -880,8 +880,8 @@
                   },
                   {
                     "kind": "sanskrit_text",
-                    "text_devanagari": "अथवा द्रव्यं भव्ये",
-                    "hindi_translation": null,
+                    "text_devanagari": "अथवा द्रव्यं भव्ये इत्यनेन निपातितो द्रव्यशब्दो वेदितव्य:। द्रु इव भवतीति द्रव्यम्। क: उपमार्थ:। द्रु इति दारु नाम यथा अग्रंथि अजिह्मं दारु तक्ष्णोपकल्प्यमानं तेन तेन अभिलषितेनाकारेण आविर्भवति, तथा द्रव्यमपि आत्मपरिणामगमनसमर्थं पाषाणखननोदकवदविभक्तकर्तृकरणमुभयनिमित्तवशोपनीतात्मना तेन तेन पर्यायेण द्रु इव भवतीति द्रव्यमित्युपमीयते",
+                    "hindi_translation": "अथवा द्रव्य शब्द को इवार्थक निपात मानना चाहिए। ‘द्रव्यं भव्य‘ इस जैनेंद्र व्याकरण के सूत्रानुसार ‘द्रु’ की तरह जो हो वह ‘द्रव्य’ यह समझ लेना चाहिए। जिस प्रकार बिना गाँठ की सीधी द्रु अर्थात् लकड़ी बढ़ई आदि के निमित्त से टेबल कुर्सी आदि अनेक आकारों को प्राप्त होती है, उसी तरह द्रव्य भी उभय (बाह्य व आभ्यंतर) कारणों से उन-उन पर्यायों को प्राप्त होता रहता है। जैसे ‘पाषाण खोदने से पानी निकलता है’ यहाँ अविभक्त कर्तृकरण है उसी प्रकार द्रव्य और पर्याय में भी समझना चाहिए।",
                     "references": [
                       {
                         "text": "राजवार्तिक/5/2/2/436/26",
@@ -913,33 +913,33 @@
                             "value": 26
                           }
                         ]
-                      }
-                    ],
-                    "is_orphan_translation": false,
-                    "is_bullet_point": false,
-                    "raw_html": null,
-                    "table_rows": null,
-                    "target_keyword": null,
-                    "target_topic_path": null,
-                    "target_url": null,
-                    "is_self": false,
-                    "target_exists": true,
-                    "list_number": null
-                  },
-                  {
-                    "kind": "sanskrit_text",
-                    "text_devanagari": "इत्यनेन निपातितो द्रव्यशब्दो वेदितव्य:। द्रु इव भवतीति द्रव्यम्। क: उपमार्थ:। द्रु इति दारु नाम यथा अग्रंथि अजिह्मं दारु तक्ष्णोपकल्प्यमानं तेन तेन अभिलषितेनाकारेण आविर्भवति, तथा द्रव्यमपि आत्मपरिणामगमनसमर्थं पाषाणखननोदकवदविभक्तकर्तृकरणमुभयनिमित्तवशोपनीतात्मना तेन तेन पर्यायेण द्रु इव भवतीति द्रव्यमित्युपमीयते",
-                    "hindi_translation": "अथवा द्रव्य शब्द को इवार्थक निपात मानना चाहिए। ‘द्रव्यं भव्य‘ इस जैनेंद्र व्याकरण के सूत्रानुसार ‘द्रु’ की तरह जो हो वह ‘द्रव्य’ यह समझ लेना चाहिए। जिस प्रकार बिना गाँठ की सीधी द्रु अर्थात् लकड़ी बढ़ई आदि के निमित्त से टेबल कुर्सी आदि अनेक आकारों को प्राप्त होती है, उसी तरह द्रव्य भी उभय (बाह्य व आभ्यंतर) कारणों से उन-उन पर्यायों को प्राप्त होता रहता है। जैसे ‘पाषाण खोदने से पानी निकलता है’ यहाँ अविभक्त कर्तृकरण है उसी प्रकार द्रव्य और पर्याय में भी समझना चाहिए।",
-                    "references": [
+                      },
                       {
-                        "text": "जैनेंद्र व्याकरण/4/1/158",
-                        "inline_reference": false,
-                        "needs_manual_match": true,
+                        "text": "जैनेंद्र व्याकरण/4/1/158/266",
+                        "inline_reference": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
-                        "shastra_name": null,
-                        "match_method": null,
-                        "resolved_fields": []
+                        "shastra_name": "जैनेंद्र व्याकरण",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "प्रकरण",
+                            "value": 4
+                          },
+                          {
+                            "field": "पाठ",
+                            "value": 1
+                          },
+                          {
+                            "field": "जैनेंद्रव्याकरणसूत्र",
+                            "value": 158
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 266
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -12709,8 +12709,8 @@
             },
             {
               "kind": "sanskrit_text",
-              "text_devanagari": "अथवा द्रव्यं भव्ये",
-              "hindi_translation": null,
+              "text_devanagari": "अथवा द्रव्यं भव्ये इत्यनेन निपातितो द्रव्यशब्दो वेदितव्य:। द्रु इव भवतीति द्रव्यम्। क: उपमार्थ:। द्रु इति दारु नाम यथा अग्रंथि अजिह्मं दारु तक्ष्णोपकल्प्यमानं तेन तेन अभिलषितेनाकारेण आविर्भवति, तथा द्रव्यमपि आत्मपरिणामगमनसमर्थं पाषाणखननोदकवदविभक्तकर्तृकरणमुभयनिमित्तवशोपनीतात्मना तेन तेन पर्यायेण द्रु इव भवतीति द्रव्यमित्युपमीयते",
+              "hindi_translation": "अथवा द्रव्य शब्द को इवार्थक निपात मानना चाहिए। ‘द्रव्यं भव्य‘ इस जैनेंद्र व्याकरण के सूत्रानुसार ‘द्रु’ की तरह जो हो वह ‘द्रव्य’ यह समझ लेना चाहिए। जिस प्रकार बिना गाँठ की सीधी द्रु अर्थात् लकड़ी बढ़ई आदि के निमित्त से टेबल कुर्सी आदि अनेक आकारों को प्राप्त होती है, उसी तरह द्रव्य भी उभय (बाह्य व आभ्यंतर) कारणों से उन-उन पर्यायों को प्राप्त होता रहता है। जैसे ‘पाषाण खोदने से पानी निकलता है’ यहाँ अविभक्त कर्तृकरण है उसी प्रकार द्रव्य और पर्याय में भी समझना चाहिए।",
               "references": [
                 {
                   "text": "राजवार्तिक/5/2/2/436/26",
@@ -12742,33 +12742,33 @@
                       "value": 26
                     }
                   ]
-                }
-              ],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true,
-              "list_number": null
-            },
-            {
-              "kind": "sanskrit_text",
-              "text_devanagari": "इत्यनेन निपातितो द्रव्यशब्दो वेदितव्य:। द्रु इव भवतीति द्रव्यम्। क: उपमार्थ:। द्रु इति दारु नाम यथा अग्रंथि अजिह्मं दारु तक्ष्णोपकल्प्यमानं तेन तेन अभिलषितेनाकारेण आविर्भवति, तथा द्रव्यमपि आत्मपरिणामगमनसमर्थं पाषाणखननोदकवदविभक्तकर्तृकरणमुभयनिमित्तवशोपनीतात्मना तेन तेन पर्यायेण द्रु इव भवतीति द्रव्यमित्युपमीयते",
-              "hindi_translation": "अथवा द्रव्य शब्द को इवार्थक निपात मानना चाहिए। ‘द्रव्यं भव्य‘ इस जैनेंद्र व्याकरण के सूत्रानुसार ‘द्रु’ की तरह जो हो वह ‘द्रव्य’ यह समझ लेना चाहिए। जिस प्रकार बिना गाँठ की सीधी द्रु अर्थात् लकड़ी बढ़ई आदि के निमित्त से टेबल कुर्सी आदि अनेक आकारों को प्राप्त होती है, उसी तरह द्रव्य भी उभय (बाह्य व आभ्यंतर) कारणों से उन-उन पर्यायों को प्राप्त होता रहता है। जैसे ‘पाषाण खोदने से पानी निकलता है’ यहाँ अविभक्त कर्तृकरण है उसी प्रकार द्रव्य और पर्याय में भी समझना चाहिए।",
-              "references": [
+                },
                 {
-                  "text": "जैनेंद्र व्याकरण/4/1/158",
-                  "inline_reference": false,
-                  "needs_manual_match": true,
+                  "text": "जैनेंद्र व्याकरण/4/1/158/266",
+                  "inline_reference": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": null,
-                  "match_method": null,
-                  "resolved_fields": []
+                  "shastra_name": "जैनेंद्र व्याकरण",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "प्रकरण",
+                      "value": 4
+                    },
+                    {
+                      "field": "पाठ",
+                      "value": 1
+                    },
+                    {
+                      "field": "जैनेंद्रव्याकरणसूत्र",
+                      "value": 158
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 266
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -22953,11 +22953,11 @@
         },
         {
           "label": "Page",
-          "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:211",
+          "key": "कषायपाहुड़:टीका:13:पृष्ठ:211",
           "props": {
             "shastra_natural_key": "कषायपाहुड़",
             "teeka_natural_key": "कषायपाहुड़:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "13",
             "page_number": "211"
           },
           "lazy": true
@@ -22986,6 +22986,17 @@
           "props": {
             "shastra_natural_key": "योगसार अमितगति",
             "gatha_number": "5"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "जैनेंद्र व्याकरण:टीका:18:पृष्ठ:266",
+          "props": {
+            "shastra_natural_key": "जैनेंद्र व्याकरण",
+            "teeka_natural_key": "जैनेंद्र व्याकरण:टीका",
+            "publisher_id": "18",
+            "page_number": "266"
           },
           "lazy": true
         },
@@ -23304,11 +23315,11 @@
         },
         {
           "label": "Page",
-          "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:253",
+          "key": "कषायपाहुड़:टीका:13:पृष्ठ:253",
           "props": {
             "shastra_natural_key": "कषायपाहुड़",
             "teeka_natural_key": "कषायपाहुड़:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "13",
             "page_number": "253"
           },
           "lazy": true
@@ -23324,11 +23335,11 @@
         },
         {
           "label": "Page",
-          "key": "गोम्मटसार जीवकाण्ड:टीका:publisher_to_be_added:पृष्ठ:1023",
+          "key": "गोम्मटसार जीवकाण्ड:टीका:11:पृष्ठ:1023",
           "props": {
             "shastra_natural_key": "गोम्मटसार जीवकाण्ड",
             "teeka_natural_key": "गोम्मटसार जीवकाण्ड:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "11",
             "page_number": "1023"
           },
           "lazy": true
@@ -23684,11 +23695,11 @@
         },
         {
           "label": "Page",
-          "key": "गोम्मटसार जीवकाण्ड:टीका:publisher_to_be_added:पृष्ठ:1027",
+          "key": "गोम्मटसार जीवकाण्ड:टीका:11:पृष्ठ:1027",
           "props": {
             "shastra_natural_key": "गोम्मटसार जीवकाण्ड",
             "teeka_natural_key": "गोम्मटसार जीवकाण्ड:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "11",
             "page_number": "1027"
           },
           "lazy": true
@@ -23852,11 +23863,11 @@
         },
         {
           "label": "Page",
-          "key": "न्यायदीपिका:टीका:publisher_to_be_added:पृष्ठ:122",
+          "key": "न्यायदीपिका:टीका:24:पृष्ठ:122",
           "props": {
             "shastra_natural_key": "न्यायदीपिका",
             "teeka_natural_key": "न्यायदीपिका:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "24",
             "page_number": "122"
           },
           "lazy": true
@@ -23950,11 +23961,11 @@
         },
         {
           "label": "Page",
-          "key": "गोम्मटसार जीवकाण्ड:टीका:publisher_to_be_added:पृष्ठ:1008",
+          "key": "गोम्मटसार जीवकाण्ड:टीका:11:पृष्ठ:1008",
           "props": {
             "shastra_natural_key": "गोम्मटसार जीवकाण्ड",
             "teeka_natural_key": "गोम्मटसार जीवकाण्ड:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "11",
             "page_number": "1008"
           },
           "lazy": true
@@ -24059,11 +24070,11 @@
         },
         {
           "label": "Page",
-          "key": "गोम्मटसार जीवकाण्ड:टीका:publisher_to_be_added:पृष्ठ:1012",
+          "key": "गोम्मटसार जीवकाण्ड:टीका:11:पृष्ठ:1012",
           "props": {
             "shastra_natural_key": "गोम्मटसार जीवकाण्ड",
             "teeka_natural_key": "गोम्मटसार जीवकाण्ड:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "11",
             "page_number": "1012"
           },
           "lazy": true
@@ -24668,22 +24679,22 @@
         },
         {
           "label": "Page",
-          "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:288",
+          "key": "कषायपाहुड़:टीका:13:पृष्ठ:288",
           "props": {
             "shastra_natural_key": "कषायपाहुड़",
             "teeka_natural_key": "कषायपाहुड़:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "13",
             "page_number": "288"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:383",
+          "key": "कषायपाहुड़:टीका:13:पृष्ठ:383",
           "props": {
             "shastra_natural_key": "कषायपाहुड़",
             "teeka_natural_key": "कषायपाहुड़:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "13",
             "page_number": "383"
           },
           "lazy": true
@@ -24710,11 +24721,11 @@
         },
         {
           "label": "Page",
-          "key": "न्यायदीपिका:टीका:publisher_to_be_added:पृष्ठ:123",
+          "key": "न्यायदीपिका:टीका:24:पृष्ठ:123",
           "props": {
             "shastra_natural_key": "न्यायदीपिका",
             "teeka_natural_key": "न्यायदीपिका:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "24",
             "page_number": "123"
           },
           "lazy": true
@@ -24783,11 +24794,11 @@
         },
         {
           "label": "Page",
-          "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:354",
+          "key": "कषायपाहुड़:टीका:13:पृष्ठ:354",
           "props": {
             "shastra_natural_key": "कषायपाहुड़",
             "teeka_natural_key": "कषायपाहुड़:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "13",
             "page_number": "354"
           },
           "lazy": true
@@ -24912,11 +24923,11 @@
         },
         {
           "label": "Page",
-          "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:286",
+          "key": "कषायपाहुड़:टीका:13:पृष्ठ:286",
           "props": {
             "shastra_natural_key": "कषायपाहुड़",
             "teeka_natural_key": "कषायपाहुड़:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "13",
             "page_number": "286"
           },
           "lazy": true
@@ -25086,11 +25097,11 @@
         },
         {
           "label": "Page",
-          "key": "स्याद्वादमञ्जरी:टीका:publisher_to_be_added:पृष्ठ:17",
+          "key": "स्याद्वादमञ्जरी:टीका:17:पृष्ठ:17",
           "props": {
             "shastra_natural_key": "स्याद्वादमञ्जरी",
             "teeka_natural_key": "स्याद्वादमञ्जरी:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "17",
             "page_number": "17"
           },
           "lazy": true
@@ -25150,11 +25161,11 @@
         },
         {
           "label": "Page",
-          "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:353",
+          "key": "कषायपाहुड़:टीका:13:पृष्ठ:353",
           "props": {
             "shastra_natural_key": "कषायपाहुड़",
             "teeka_natural_key": "कषायपाहुड़:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "13",
             "page_number": "353"
           },
           "lazy": true
@@ -26027,44 +26038,44 @@
         },
         {
           "label": "Page",
-          "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:212",
+          "key": "कषायपाहुड़:टीका:13:पृष्ठ:212",
           "props": {
             "shastra_natural_key": "कषायपाहुड़",
             "teeka_natural_key": "कषायपाहुड़:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "13",
             "page_number": "212"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:213",
+          "key": "कषायपाहुड़:टीका:13:पृष्ठ:213",
           "props": {
             "shastra_natural_key": "कषायपाहुड़",
             "teeka_natural_key": "कषायपाहुड़:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "13",
             "page_number": "213"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:214",
+          "key": "कषायपाहुड़:टीका:13:पृष्ठ:214",
           "props": {
             "shastra_natural_key": "कषायपाहुड़",
             "teeka_natural_key": "कषायपाहुड़:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "13",
             "page_number": "214"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:215",
+          "key": "कषायपाहुड़:टीका:13:पृष्ठ:215",
           "props": {
             "shastra_natural_key": "कषायपाहुड़",
             "teeka_natural_key": "कषायपाहुड़:टीका",
-            "publisher_id": "publisher_to_be_added",
+            "publisher_id": "13",
             "page_number": "215"
           },
           "lazy": true
@@ -26332,7 +26343,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:211"
+            "key": "कषायपाहुड़:टीका:13:पृष्ठ:211"
           },
           "to": {
             "label": "Topic",
@@ -26415,6 +26426,24 @@
             "weight": 1.0,
             "source": "jainkosh",
             "pankti": 26,
+            "block_index": 3,
+            "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-निरुक्त्यर्थ/3",
+            "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-निरुक्त्यर्थ"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "जैनेंद्र व्याकरण:टीका:18:पृष्ठ:266"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-निरुक्त्यर्थ"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
             "block_index": 3,
             "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-निरुक्त्यर्थ/3",
             "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-निरुक्त्यर्थ"
@@ -27146,7 +27175,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:253"
+            "key": "कषायपाहुड़:टीका:13:पृष्ठ:253"
           },
           "to": {
             "label": "Topic",
@@ -27182,7 +27211,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "गोम्मटसार जीवकाण्ड:टीका:publisher_to_be_added:पृष्ठ:1023"
+            "key": "गोम्मटसार जीवकाण्ड:टीका:11:पृष्ठ:1023"
           },
           "to": {
             "label": "Topic",
@@ -27871,7 +27900,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "गोम्मटसार जीवकाण्ड:टीका:publisher_to_be_added:पृष्ठ:1027"
+            "key": "गोम्मटसार जीवकाण्ड:टीका:11:पृष्ठ:1027"
           },
           "to": {
             "label": "Topic",
@@ -28190,7 +28219,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "न्यायदीपिका:टीका:publisher_to_be_added:पृष्ठ:122"
+            "key": "न्यायदीपिका:टीका:24:पृष्ठ:122"
           },
           "to": {
             "label": "Topic",
@@ -28497,7 +28526,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "गोम्मटसार जीवकाण्ड:टीका:publisher_to_be_added:पृष्ठ:1008"
+            "key": "गोम्मटसार जीवकाण्ड:टीका:11:पृष्ठ:1008"
           },
           "to": {
             "label": "Topic",
@@ -28714,7 +28743,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "गोम्मटसार जीवकाण्ड:टीका:publisher_to_be_added:पृष्ठ:1012"
+            "key": "गोम्मटसार जीवकाण्ड:टीका:11:पृष्ठ:1012"
           },
           "to": {
             "label": "Topic",
@@ -30536,7 +30565,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:288"
+            "key": "कषायपाहुड़:टीका:13:पृष्ठ:288"
           },
           "to": {
             "label": "Topic",
@@ -30555,7 +30584,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:383"
+            "key": "कषायपाहुड़:टीका:13:पृष्ठ:383"
           },
           "to": {
             "label": "Topic",
@@ -30683,7 +30712,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "न्यायदीपिका:टीका:publisher_to_be_added:पृष्ठ:123"
+            "key": "न्यायदीपिका:टीका:24:पृष्ठ:123"
           },
           "to": {
             "label": "Topic",
@@ -30840,7 +30869,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:354"
+            "key": "कषायपाहुड़:टीका:13:पृष्ठ:354"
           },
           "to": {
             "label": "Topic",
@@ -31162,7 +31191,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:286"
+            "key": "कषायपाहुड़:टीका:13:पृष्ठ:286"
           },
           "to": {
             "label": "Topic",
@@ -31703,7 +31732,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "स्याद्वादमञ्जरी:टीका:publisher_to_be_added:पृष्ठ:17"
+            "key": "स्याद्वादमञ्जरी:टीका:17:पृष्ठ:17"
           },
           "to": {
             "label": "Topic",
@@ -32037,7 +32066,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:353"
+            "key": "कषायपाहुड़:टीका:13:पृष्ठ:353"
           },
           "to": {
             "label": "Topic",
@@ -33631,7 +33660,7 @@
           "type": "MENTIONS_TABLE",
           "from": {
             "label": "Page",
-            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:211"
+            "key": "कषायपाहुड़:टीका:13:पृष्ठ:211"
           },
           "to": {
             "label": "Table",
@@ -33648,7 +33677,7 @@
           "type": "MENTIONS_TABLE",
           "from": {
             "label": "Page",
-            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:212"
+            "key": "कषायपाहुड़:टीका:13:पृष्ठ:212"
           },
           "to": {
             "label": "Table",
@@ -33665,7 +33694,7 @@
           "type": "MENTIONS_TABLE",
           "from": {
             "label": "Page",
-            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:213"
+            "key": "कषायपाहुड़:टीका:13:पृष्ठ:213"
           },
           "to": {
             "label": "Table",
@@ -33682,7 +33711,7 @@
           "type": "MENTIONS_TABLE",
           "from": {
             "label": "Page",
-            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:214"
+            "key": "कषायपाहुड़:टीका:13:पृष्ठ:214"
           },
           "to": {
             "label": "Table",
@@ -33699,7 +33728,7 @@
           "type": "MENTIONS_TABLE",
           "from": {
             "label": "Page",
-            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:215"
+            "key": "कषायपाहुड़:टीका:13:पृष्ठ:215"
           },
           "to": {
             "label": "Table",
