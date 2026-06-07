@@ -257,7 +257,7 @@
                             "value": 5
                           },
                           {
-                            "field": "सूत्र",
+                            "field": "सर्वार्थसिद्धिसूत्र",
                             "value": 38
                           },
                           {
@@ -1383,7 +1383,7 @@
                             "value": 5
                           },
                           {
-                            "field": "सूत्र",
+                            "field": "सर्वार्थसिद्धिसूत्र",
                             "value": 35
                           },
                           {
@@ -2400,7 +2400,7 @@
                             "value": 2
                           },
                           {
-                            "field": "सूत्र",
+                            "field": "सर्वार्थसिद्धिसूत्र",
                             "value": 7
                           },
                           {
@@ -2862,7 +2862,7 @@
                             "value": 5
                           },
                           {
-                            "field": "सूत्र",
+                            "field": "सर्वार्थसिद्धिसूत्र",
                             "value": 38
                           },
                           {
@@ -4372,7 +4372,7 @@
       "next": "/wiki/Aaaa"
     },
     "parser_version": "jainkosh.rules/1.11.21",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parsed_at": "2026-06-07T22:22:38.147813",
     "warnings": []
   },
   "would_write": {
@@ -5250,7 +5250,7 @@
                       "value": 5
                     },
                     {
-                      "field": "सूत्र",
+                      "field": "सर्वार्थसिद्धिसूत्र",
                       "value": 38
                     },
                     {
@@ -6382,7 +6382,7 @@
                       "value": 5
                     },
                     {
-                      "field": "सूत्र",
+                      "field": "सर्वार्थसिद्धिसूत्र",
                       "value": 35
                     },
                     {
@@ -7408,7 +7408,7 @@
                       "value": 2
                     },
                     {
-                      "field": "सूत्र",
+                      "field": "सर्वार्थसिद्धिसूत्र",
                       "value": 7
                     },
                     {
@@ -7875,7 +7875,7 @@
                       "value": 5
                     },
                     {
-                      "field": "सूत्र",
+                      "field": "सर्वार्थसिद्धिसूत्र",
                       "value": 38
                     },
                     {
@@ -9605,15 +9605,6 @@
           }
         },
         {
-          "label": "Gatha",
-          "key": "सर्वार्थसिद्धि:गाथा:38",
-          "props": {
-            "shastra_natural_key": "सर्वार्थसिद्धि",
-            "gatha_number": "38"
-          },
-          "lazy": true
-        },
-        {
           "label": "Page",
           "key": "सर्वार्थसिद्धि:टीका:18:पृष्ठ:30",
           "props": {
@@ -9940,16 +9931,6 @@
           "lazy": true
         },
         {
-          "label": "GathaTeeka",
-          "key": "सर्वार्थसिद्धि:टीका:गाथा:टीका:35",
-          "props": {
-            "shastra_natural_key": "सर्वार्थसिद्धि",
-            "teeka_natural_key": "सर्वार्थसिद्धि:टीका",
-            "gatha_number": "35"
-          },
-          "lazy": true
-        },
-        {
           "label": "Page",
           "key": "सर्वार्थसिद्धि:टीका:18:पृष्ठ:305",
           "props": {
@@ -10173,16 +10154,6 @@
           }
         },
         {
-          "label": "GathaTeeka",
-          "key": "सर्वार्थसिद्धि:टीका:गाथा:टीका:7",
-          "props": {
-            "shastra_natural_key": "सर्वार्थसिद्धि",
-            "teeka_natural_key": "सर्वार्थसिद्धि:टीका",
-            "gatha_number": "7"
-          },
-          "lazy": true
-        },
-        {
           "label": "Page",
           "key": "सर्वार्थसिद्धि:टीका:18:पृष्ठ:161",
           "props": {
@@ -10372,16 +10343,6 @@
             "source": "jainkosh",
             "is_leaf": true
           }
-        },
-        {
-          "label": "GathaTeeka",
-          "key": "सर्वार्थसिद्धि:टीका:गाथा:टीका:38",
-          "props": {
-            "shastra_natural_key": "सर्वार्थसिद्धि",
-            "teeka_natural_key": "सर्वार्थसिद्धि:टीका",
-            "gatha_number": "38"
-          },
-          "lazy": true
         },
         {
           "label": "Page",
@@ -11034,24 +10995,6 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Gatha",
-            "key": "सर्वार्थसिद्धि:गाथा:38"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "गुण:गुण-के-भेद-व-लक्षण:गुण-सामान्य-का-लक्षण"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "गुण:गुण-के-भेद-व-लक्षण:गुण-सामान्य-का-लक्षण/0",
-            "source_natural_key": "गुण:गुण-के-भेद-व-लक्षण:गुण-सामान्य-का-लक्षण"
           }
         },
         {
@@ -11716,25 +11659,6 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "सर्वार्थसिद्धि:टीका:गाथा:टीका:35"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "pankti": 10,
-            "block_index": 4,
-            "mention_path": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग/4",
-            "source_natural_key": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
             "label": "Page",
             "key": "सर्वार्थसिद्धि:टीका:18:पृष्ठ:305"
           },
@@ -12179,25 +12103,6 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "सर्वार्थसिद्धि:टीका:गाथा:टीका:7"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "गुण:गुण-निर्देश:सामान्य-गुण-द्रव्य-के-पारिणामिक-भाव-हैं"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "pankti": 5,
-            "block_index": 0,
-            "mention_path": "गुण:गुण-निर्देश:सामान्य-गुण-द्रव्य-के-पारिणामिक-भाव-हैं/0",
-            "source_natural_key": "गुण:गुण-निर्देश:सामान्य-गुण-द्रव्य-के-पारिणामिक-भाव-हैं"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
             "label": "Page",
             "key": "सर्वार्थसिद्धि:टीका:18:पृष्ठ:161"
           },
@@ -12561,25 +12466,6 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "GathaTeeka",
-            "key": "सर्वार्थसिद्धि:टीका:गाथा:टीका:38"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-अन्वयी-विशेष-हैं"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "pankti": 5,
-            "block_index": 0,
-            "mention_path": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-अन्वयी-विशेष-हैं/0",
-            "source_natural_key": "गुण:द्रव्य-गुण-संबंध:गुण-द्रव्य-के-अन्वयी-विशेष-हैं"
           }
         },
         {

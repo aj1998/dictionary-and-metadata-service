@@ -1399,12 +1399,25 @@
                       {
                         "text": "न्यायविनिश्चय/ टीका/1/136/488 पर प्रमाण वार्तिक से उद्धृत",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "टीका",
                         "shastra_name": "न्यायविनिश्चय",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "भाग",
+                            "value": 1
+                          },
+                          {
+                            "field": "गाथा",
+                            "value": 136
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 488
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -1842,12 +1855,25 @@
                       {
                         "text": "न्यायविनिश्चय/ वृहद् /2/18/37 पर उद्धृत",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "वृहद्",
                         "shastra_name": "न्यायविनिश्चय",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "भाग",
+                            "value": 2
+                          },
+                          {
+                            "field": "गाथा",
+                            "value": 18
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 37
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2066,7 +2092,7 @@
       "next": "/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5_%E0%A4%A8%E0%A4%AF"
     },
     "parser_version": "jainkosh.rules/1.11.21",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parsed_at": "2026-06-07T22:22:38.836825",
     "warnings": []
   },
   "would_write": {
@@ -3864,12 +3890,25 @@
                 {
                   "text": "न्यायविनिश्चय/ टीका/1/136/488 पर प्रमाण वार्तिक से उद्धृत",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "टीका",
                   "shastra_name": "न्यायविनिश्चय",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "भाग",
+                      "value": 1
+                    },
+                    {
+                      "field": "गाथा",
+                      "value": 136
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 488
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -4308,12 +4347,25 @@
                 {
                   "text": "न्यायविनिश्चय/ वृहद् /2/18/37 पर उद्धृत",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "वृहद्",
                   "shastra_name": "न्यायविनिश्चय",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "भाग",
+                      "value": 2
+                    },
+                    {
+                      "field": "गाथा",
+                      "value": 18
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 37
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -5152,6 +5204,27 @@
         },
         {
           "label": "GathaTeeka",
+          "key": "न्यायविनिश्चय:टीका:गाथा:टीका:136",
+          "props": {
+            "shastra_natural_key": "न्यायविनिश्चय",
+            "teeka_natural_key": "न्यायविनिश्चय:टीका",
+            "gatha_number": "136"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "न्यायविनिश्चय:टीका:18:पृष्ठ:488",
+          "props": {
+            "shastra_natural_key": "न्यायविनिश्चय",
+            "teeka_natural_key": "न्यायविनिश्चय:टीका",
+            "publisher_id": "18",
+            "page_number": "488"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
           "key": "समयसार:आत्मख्याति:गाथा:टीका:119",
           "props": {
             "shastra_natural_key": "समयसार",
@@ -5294,6 +5367,27 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "न्यायविनिश्चय:वृहद्:गाथा:टीका:18",
+          "props": {
+            "shastra_natural_key": "न्यायविनिश्चय",
+            "teeka_natural_key": "न्यायविनिश्चय:वृहद्",
+            "gatha_number": "18"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "न्यायविनिश्चय:वृहद्:18:पृष्ठ:37",
+          "props": {
+            "shastra_natural_key": "न्यायविनिश्चय",
+            "teeka_natural_key": "न्यायविनिश्चय:वृहद्",
+            "publisher_id": "18",
+            "page_number": "37"
+          },
+          "lazy": true
         },
         {
           "label": "Topic",
@@ -6437,6 +6531,42 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
+            "key": "न्यायविनिश्चय:टीका:गाथा:टीका:136"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-पर-की-अपेक्षा-नहीं-रखता"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-पर-की-अपेक्षा-नहीं-रखता/0",
+            "source_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-पर-की-अपेक्षा-नहीं-रखता"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "न्यायविनिश्चय:टीका:18:पृष्ठ:488"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-पर-की-अपेक्षा-नहीं-रखता"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-पर-की-अपेक्षा-नहीं-रखता/0",
+            "source_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-पर-की-अपेक्षा-नहीं-रखता"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
             "key": "समयसार:आत्मख्याति:गाथा:टीका:119"
           },
           "to": {
@@ -6691,6 +6821,42 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "न्यायविनिश्चय:वृहद्:गाथा:टीका:18"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:शक्ति-व-व्यक्ति-की-परोक्षता-प्रत्यक्षता"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:शक्ति-व-व्यक्ति-की-परोक्षता-प्रत्यक्षता/0",
+            "source_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:शक्ति-व-व्यक्ति-की-परोक्षता-प्रत्यक्षता"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "न्यायविनिश्चय:वृहद्:18:पृष्ठ:37"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:शक्ति-व-व्यक्ति-की-परोक्षता-प्रत्यक्षता"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:शक्ति-व-व्यक्ति-की-परोक्षता-प्रत्यक्षता/0",
+            "source_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:शक्ति-व-व्यक्ति-की-परोक्षता-प्रत्यक्षता"
           }
         },
         {

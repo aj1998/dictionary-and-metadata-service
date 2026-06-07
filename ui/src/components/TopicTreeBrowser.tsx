@@ -59,6 +59,7 @@ export function TopicTreeBrowser({ initialItems, targetTopicNk, currentKeywordNk
   const [seedExpanded, setSeedExpanded] = useState<Set<string>>(new Set());
   const [seedRelated, setSeedRelated] = useState<Map<string, RelatedItem[]>>(new Map());
   const [seedLoading, setSeedLoading] = useState<Set<string>>(new Set());
+  const [hasRelated, setHasRelated] = useState<Set<string>>(new Set());
   // topicNk → ordered list of table NKs (from CONTAINS_TABLE edges in EntityDetail.connected)
   const [topicTableNks, setTopicTableNks] = useState<Map<string, string[]>>(new Map());
   const [tableModalNk, setTableModalNk] = useState<string | null>(null);
@@ -80,10 +81,62 @@ export function TopicTreeBrowser({ initialItems, targetTopicNk, currentKeywordNk
     void Promise.all(
       toFetch.map(async (nk) => {
         try {
-          const [detail, tables] = await Promise.all([
+          const [detail, tables, relatedRes, kwRes] = await Promise.all([
             getEntityDetail('topic', nk),
             listTablesForParent(nk).catch(() => []),
+            getTopicRelated(nk).catch(() => ({ related: [] as Array<{ natural_key: string; display_text: string | null; label: string }> })),
+            getTopicMentionedKeywords(nk).catch(() => ({ keywords: [] as Array<{ natural_key: string; display_text: string | null }> })),
           ]);
+          const seen = new Set<string>();
+          const merged: RelatedItem[] = [];
+          for (const r of relatedRes.related) {
+            if (r.natural_key === nk) continue; // skip self
+            const kind: 'topic' | 'keyword' = r.label === 'Keyword' ? 'keyword' : 'topic';
+            const key = `${kind}:${r.natural_key}`;
+            if (seen.has(key)) continue;
+            seen.add(key);
+            merged.push({ nk: r.natural_key, kind, title: r.display_text || r.natural_key });
+          }
+          for (const k of kwRes.keywords) {
+            if (k.natural_key === nk) continue; // skip self
+            const key = `keyword:${k.natural_key}`;
+            if (seen.has(key)) continue;
+            seen.add(key);
+            merged.push({ nk: k.natural_key, kind: 'keyword', title: k.display_text || k.natural_key });
+          }
+          // Pre-filter: drop topic targets that are themselves anya-vishay (no topicPath + no extracts).
+          const filtered: RelatedItem[] = [];
+          for (const r of merged) {
+            if (r.kind !== 'topic') {
+              filtered.push(r);
+              continue;
+            }
+            let targetDetail = detailCache.current.get(r.nk);
+            if (!targetDetail) {
+              try {
+                targetDetail = await getEntityDetail('topic', r.nk);
+                detailCache.current.set(r.nk, targetDetail);
+              } catch {
+                filtered.push(r);
+                continue;
+              }
+            }
+            const targetIsAnya = !targetDetail.topicPath && (!targetDetail.topicExtracts || targetDetail.topicExtracts.length === 0);
+            if (targetIsAnya) continue;
+            filtered.push(r);
+          }
+          if (filtered.length > 0) {
+            setHasRelated((prev) => {
+              const next = new Set(prev);
+              next.add(nk);
+              return next;
+            });
+            setSeedRelated((prev) => {
+              const next = new Map(prev);
+              next.set(nk, filtered);
+              return next;
+            });
+          }
           detailCache.current.set(nk, detail);
           if (detail.topicExtracts && detail.topicExtracts.length > 0) {
             setHasExtracts((prev) => {
@@ -270,37 +323,77 @@ export function TopicTreeBrowser({ initialItems, targetTopicNk, currentKeywordNk
       }
       return next;
     });
-    if (seedRelated.has(nk) || seedLoading.has(nk)) return;
+    if (seedLoading.has(nk)) return;
     setSeedLoading((prev) => {
       const next = new Set(prev);
       next.add(nk);
       return next;
     });
     try {
-      const [relatedRes, keywordsRes] = await Promise.all([
-        getTopicRelated(nk).catch(() => ({ related: [] as Array<{ natural_key: string; display_text: string | null; label: string }> })),
-        getTopicMentionedKeywords(nk).catch(() => ({ keywords: [] as Array<{ natural_key: string; display_text: string | null }> })),
-      ]);
-      const seen = new Set<string>();
-      const related: RelatedItem[] = [];
-      for (const r of relatedRes.related) {
-        const kind: 'topic' | 'keyword' = r.label === 'Keyword' ? 'keyword' : 'topic';
-        const key = `${kind}:${r.natural_key}`;
-        if (seen.has(key)) continue;
-        seen.add(key);
-        related.push({ nk: r.natural_key, kind, title: r.display_text || r.natural_key });
+      let related = seedRelated.get(nk);
+      if (!related) {
+        const [relatedRes, keywordsRes] = await Promise.all([
+          getTopicRelated(nk).catch(() => ({ related: [] as Array<{ natural_key: string; display_text: string | null; label: string }> })),
+          getTopicMentionedKeywords(nk).catch(() => ({ keywords: [] as Array<{ natural_key: string; display_text: string | null }> })),
+        ]);
+        const seen = new Set<string>();
+        related = [];
+        for (const r of relatedRes.related) {
+          if (r.natural_key === nk) continue;
+          const kind: 'topic' | 'keyword' = r.label === 'Keyword' ? 'keyword' : 'topic';
+          const key = `${kind}:${r.natural_key}`;
+          if (seen.has(key)) continue;
+          seen.add(key);
+          related.push({ nk: r.natural_key, kind, title: r.display_text || r.natural_key });
+        }
+        for (const k of keywordsRes.keywords) {
+          if (k.natural_key === nk) continue;
+          const key = `keyword:${k.natural_key}`;
+          if (seen.has(key)) continue;
+          seen.add(key);
+          related.push({ nk: k.natural_key, kind: 'keyword', title: k.display_text || k.natural_key });
+        }
       }
-      for (const k of keywordsRes.keywords) {
-        const key = `keyword:${k.natural_key}`;
-        if (seen.has(key)) continue;
-        seen.add(key);
-        related.push({ nk: k.natural_key, kind: 'keyword', title: k.display_text || k.natural_key });
+      // Filter out topic targets that are themselves anya-vishay (no topicPath + no extracts).
+      const filtered: RelatedItem[] = [];
+      for (const r of related) {
+        if (r.kind !== 'topic') {
+          filtered.push(r);
+          continue;
+        }
+        let detail = detailCache.current.get(r.nk);
+        if (!detail) {
+          try {
+            detail = await getEntityDetail('topic', r.nk);
+            detailCache.current.set(r.nk, detail);
+          } catch {
+            filtered.push(r);
+            continue;
+          }
+        }
+        const targetIsAnya = !detail.topicPath && (!detail.topicExtracts || detail.topicExtracts.length === 0);
+        if (targetIsAnya) continue;
+        filtered.push(r);
       }
       setSeedRelated((prev) => {
         const next = new Map(prev);
-        next.set(nk, related);
+        next.set(nk, filtered);
         return next;
       });
+      if (filtered.length === 0) {
+        setHasRelated((prev) => {
+          if (!prev.has(nk)) return prev;
+          const next = new Set(prev);
+          next.delete(nk);
+          return next;
+        });
+        setSeedExpanded((prev) => {
+          if (!prev.has(nk)) return prev;
+          const next = new Set(prev);
+          next.delete(nk);
+          return next;
+        });
+      }
     } catch (e) {
       console.error('Failed to load seed related', e);
     } finally {
@@ -339,12 +432,13 @@ export function TopicTreeBrowser({ initialItems, targetTopicNk, currentKeywordNk
         });
         return;
       }
-      const href = buildNavigateHref(detail, r.nk);
+      const parentKw = detail?.connected?.find((c) => c.kind === 'keyword' && c.edge_kind === 'HAS_TOPIC')?.nk;
+      const href = parentKw ? buildKeywordTopicHref(parentKw, r.nk) : undefined;
       if (href) {
         window.open(href, '_blank', 'noopener,noreferrer');
       }
     },
-    [localePrefix, buildNavigateHref]
+    [localePrefix, buildNavigateHref, buildKeywordTopicHref]
   );
 
   return (
@@ -381,9 +475,12 @@ export function TopicTreeBrowser({ initialItems, targetTopicNk, currentKeywordNk
                 {pathItems.map(({ item, path }) => {
                   const isSelected = col.selectedNk === item.natural_key;
                   const isLeaf = probed.has(item.natural_key) && !nonLeaf.has(item.natural_key);
+                  const expanded = seedExpanded.has(item.natural_key);
+                  const related = seedRelated.get(item.natural_key);
+                  const loading = seedLoading.has(item.natural_key);
                   return (
-                    <li
-                      key={item.natural_key}
+                    <li key={item.natural_key}>
+                    <div
                       className={`flex items-center gap-2 rounded px-2 py-1 text-sm ${
                         isSelected ? 'bg-accent-soft' : 'hover:bg-surface-muted'
                       }`}
@@ -400,6 +497,17 @@ export function TopicTreeBrowser({ initialItems, targetTopicNk, currentKeywordNk
                       >
                         {item.display_text}
                       </button>
+                      {hasRelated.has(item.natural_key) && (
+                        <button
+                          type="button"
+                          onClick={() => handleToggleSeed(item.natural_key)}
+                          className="shrink-0 inline-flex items-center justify-center rounded border border-[color:var(--cat-topic)] text-[color:var(--cat-topic)] hover:bg-surface-muted size-6"
+                          aria-label="संबंधित खोलें"
+                          title="संबंधित खोलें"
+                        >
+                          <Link2 className="size-3.5" strokeWidth={1.75} />
+                        </button>
+                      )}
                       {hasExtracts.has(item.natural_key) && (
                         <button
                           type="button"
@@ -429,7 +537,42 @@ export function TopicTreeBrowser({ initialItems, targetTopicNk, currentKeywordNk
                           aria-label="उप-विषय हैं"
                         />
                       )}
-                    </li>
+                    </div>
+                    {expanded && (
+                      <div className="ml-8 mt-1 mb-2 border-l border-border pl-2">
+                        {loading && !related && (
+                          <p className="px-2 py-1 text-xs text-foreground-muted">लोड हो रहा है…</p>
+                        )}
+                        {related && related.length === 0 && (
+                          <p className="px-2 py-1 text-xs text-foreground-muted">कोई संबंधित नहीं</p>
+                        )}
+                        {related && related.length > 0 && (
+                          <ul className="space-y-0.5">
+                            {related.map((r) => (
+                              <li key={`${r.kind}:${r.nk}`}>
+                                <button
+                                  type="button"
+                                  onClick={() => handleRelatedClick(r)}
+                                  className="flex w-full items-center gap-2 rounded px-2 py-1 text-left text-xs hover:bg-surface-muted"
+                                >
+                                  <span
+                                    className={`shrink-0 rounded px-1.5 py-0.5 font-sans text-[10px] uppercase ${
+                                      r.kind === 'keyword'
+                                        ? 'bg-[color:var(--cat-keyword)]/10 text-[color:var(--cat-keyword)]'
+                                        : 'bg-[color:var(--cat-topic)]/10 text-[color:var(--cat-topic)]'
+                                    }`}
+                                  >
+                                    {r.kind === 'keyword' ? 'शब्द' : 'विषय'}
+                                  </span>
+                                  <span className="flex-1 truncate font-serif-hindi">{r.title}</span>
+                                </button>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    )}
+                  </li>
                   );
                 })}
               </ul>
@@ -437,16 +580,17 @@ export function TopicTreeBrowser({ initialItems, targetTopicNk, currentKeywordNk
               {seedItems.length > 0 && (
                 <div className="mt-3 border-t border-border pt-2">
                   <p className="mb-1 px-2 text-xs font-medium uppercase tracking-wide text-foreground-muted">
-                    संबंधित विषय
+                    अन्य विषय
                   </p>
                   <ul className="space-y-1">
                     {seedItems.map((item) => {
                       const expanded = seedExpanded.has(item.natural_key);
                       const related = seedRelated.get(item.natural_key);
                       const loading = seedLoading.has(item.natural_key);
+                      const isSelected = col.selectedNk === item.natural_key;
                       return (
                         <li key={item.natural_key}>
-                          <div className="flex items-center gap-2 rounded px-2 py-1 text-sm hover:bg-surface-muted">
+                          <div className={`flex items-center gap-2 rounded px-2 py-1 text-sm ${isSelected ? 'bg-accent-soft' : 'hover:bg-surface-muted'}`}>
                             <button
                               type="button"
                               onClick={() => handleToggleSeed(item.natural_key)}

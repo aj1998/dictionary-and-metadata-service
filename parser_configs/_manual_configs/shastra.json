@@ -1389,8 +1389,8 @@
     "shastra_name": "सर्वार्थसिद्धि",
     "short_form": "स.सि.",
     "format": [
-      "अध्याय/सूत्र/पृष्ठ/पंक्ति",
-      "अध्याय/सूत्र/पृष्ठ"
+      "अध्याय/सर्वार्थसिद्धिसूत्र/पृष्ठ/पंक्ति",
+      "अध्याय/सर्वार्थसिद्धिसूत्र/पृष्ठ"
     ],
     "author": "",
     "date_format": "ई.",
@@ -1580,6 +1580,24 @@
     "type": "publication",
     "alternate_name": "",
     "public_url": "https://jainworld.jainworld.com/JWSanskrit/Jainendra+Mahavritti.pdf",
+    "manually_added": true
+  },
+  {
+    "shastra_name": "न्यायविनिश्चय",
+    "short_form": "न.वि.",
+    "format": [
+      "भाग/गाथा/पृष्ठ",
+      "भाग/गाथा"
+    ],
+    "author": "",
+    "date_format": "",
+    "date": "",
+    "publisher": "भारतीय ज्ञानपीठ, बनारस",
+    "notes": "",
+    "edition": "",
+    "type": "publication",
+    "alternate_name": "",
+    "public_url": "https://archive.org/details/XURk_nyaya-vinishchaya-vivarana-of-vadiraja-suri-vol.-3-by-mahendra-kumar-jaina-sansk/page/n1/mode/2up",
     "manually_added": true
   }
 ]
