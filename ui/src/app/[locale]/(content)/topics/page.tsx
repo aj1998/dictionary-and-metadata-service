@@ -4,6 +4,7 @@ import { topicsMatch } from '@/lib/api/query';
 import { getHindiText, paginatedMeta } from '@/lib/content-listing';
 import { toDevanagariNumerals } from '@/lib/format/devanagari';
 import { TopicNavAction } from '@/components/TopicNavAction';
+import { ExternalLink } from '@/lib/icons';
 import type { TopicMatchItem } from '@/lib/types';
 
 export const revalidate = 60;
@@ -141,13 +142,23 @@ export default async function TopicsPage({ searchParams }: PageProps) {
               <span className="rounded-full bg-accent-soft px-2 py-1 text-xs text-accent">{item.parent_keyword?.display_text ?? '—'}</span>
               <span className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold text-foreground-muted">{toDevanagariNumerals(item.is_leaf ? 1 : 0)}</span>
             </div>
-            <div className="mt-4">
+            <div className="mt-4 flex items-center gap-2">
               <TopicNavAction
                 topicNk={item.natural_key}
                 displayText={getHindiText(item.display_text, item.natural_key)}
                 isLeaf={item.is_leaf}
                 parentKeywordNk={item.parent_keyword?.natural_key}
               />
+              {item.is_leaf && item.parent_keyword?.natural_key && (
+                <Link
+                  href={`/dictionary/${encodeURIComponent(item.parent_keyword.natural_key)}?topic=${encodeURIComponent(item.natural_key)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded border border-accent px-3 py-1 text-sm font-medium text-accent hover:bg-accent-soft"
+                >
+                  <ExternalLink className="size-4" strokeWidth={1.75} />
+                </Link>
+              )}
             </div>
           </article>
         ))}

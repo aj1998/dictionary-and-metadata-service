@@ -83,7 +83,9 @@ export function TopicNavAction({
     variant === 'inline'
       ? className ?? 'inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline'
       : className ??
-        'inline-flex items-center gap-1.5 rounded border border-accent px-3 py-1 text-sm font-medium text-accent hover:bg-accent-soft';
+        (showReadIcon
+          ? 'inline-flex items-center gap-1.5 rounded border border-accent/40 bg-accent-soft px-3 py-1 text-sm font-medium text-accent hover:bg-accent/20'
+          : 'inline-flex items-center gap-1.5 rounded border border-accent px-3 py-1 text-sm font-medium text-accent hover:bg-accent-soft');
 
   return (
     <>

@@ -493,7 +493,7 @@ function ViewToggle({ mode, onChange }: { mode: ViewMode; onChange: (m: ViewMode
             'rounded-[2px] px-2 py-0.5 font-serif-hindi text-xs transition-colors',
             mode === m
               ? 'bg-accent font-semibold text-accent-foreground shadow-sm'
-              : 'text-accent/70 hover:text-accent',
+              : 'text-foreground hover:text-accent',
           )}
         >
           {m === 'sequential' ? 'क्रमानुसार' : 'शास्त्रानुसार'}
