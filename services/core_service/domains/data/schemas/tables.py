@@ -22,6 +22,7 @@ class TableResponse(BaseModel):
     source_url: str | None
     raw_html: str
     cells: list[list[str]]
+    cell_refs: list[list[list[dict]]] = []
     header_rows: int
     plaintext: str | None
     mentioned_keyword_natural_keys: list[str]

@@ -342,6 +342,38 @@ def _emit_inline_only_edges(
     return edges
 
 
+def build_cell_reference_edges(
+    refs: "list[Reference]",
+    *,
+    target: dict,
+    edge_type: str,
+    config: "JainkoshConfig",
+    mention_path: str = "",
+    source_natural_key: str = "",
+) -> list[dict]:
+    """Return edge dicts for a list of cell-level references from a table cell.
+
+    Table cells have no block_kind context (verse/prose/etc.), so all refs
+    use the simplified inline path — emitting only Gatha, Kalash, and Page
+    nodes.  This mirrors how inline (parenthetical) refs are handled elsewhere.
+    """
+    if not refs:
+        return []
+    if config.shastra_registry is None:
+        return []
+
+    extra_props: dict = {}
+    if mention_path:
+        extra_props["mention_path"] = mention_path
+    if source_natural_key:
+        extra_props["source_natural_key"] = source_natural_key
+
+    edges: list[dict] = []
+    for ref in refs:
+        edges.extend(_emit_inline_only_edges(ref, edge_type, target, config, extra_props))
+    return edges
+
+
 def build_reference_edges(
     block,
     *,

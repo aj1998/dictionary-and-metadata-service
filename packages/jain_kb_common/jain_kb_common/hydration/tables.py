@@ -34,6 +34,8 @@ class TableResponse(BaseModel):
     source_url: str | None
     raw_html: str
     cells: list[list[str]]
+    # 3-D list: rows × cols × resolved reference dicts per cell.
+    cell_refs: list[list[list[dict]]] = []
     header_rows: int
     plaintext: str | None
     mentioned_keyword_natural_keys: list[str]
@@ -101,6 +103,7 @@ async def hydrate_table_full(
         source_url=row.source_url,
         raw_html=mongo_doc.get("raw_html", "") if mongo_doc else "",
         cells=mongo_doc.get("cells", []) if mongo_doc else [],
+        cell_refs=mongo_doc.get("cell_refs", []) if mongo_doc else [],
         header_rows=mongo_doc.get("header_rows", 0) if mongo_doc else 0,
         plaintext=mongo_doc.get("plaintext") if mongo_doc else None,
         mentioned_keyword_natural_keys=(

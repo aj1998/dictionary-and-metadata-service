@@ -7,7 +7,9 @@ import { X, ExternalLink } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 import { getHindiText } from '@/lib/content-listing';
 import { getTable } from '@/lib/api/data';
-import type { TableFull } from '@/lib/types';
+import { useIngestedShastras } from '@/lib/shastra-registry';
+import { RefBadge } from '@/components/DefinitionModal';
+import type { DefinitionReference, TableFull } from '@/lib/types';
 
 export interface TableModalProps {
   naturalKey: string | null;
@@ -104,7 +106,28 @@ function TableShimmer() {
   );
 }
 
+function CellRefs({ refs }: { refs: DefinitionReference[] }) {
+  const { shastras: ingestedShastras } = useIngestedShastras();
+  if (!refs || refs.length === 0) return null;
+  return (
+    <div className="mt-1 flex flex-wrap gap-1">
+      {refs.map((ref, i) => (
+        <RefBadge
+          key={i}
+          ref={ref}
+          showShastra={true}
+          matchEntry={undefined}
+          loading={false}
+          ingestedShastras={ingestedShastras}
+        />
+      ))}
+    </div>
+  );
+}
+
 function TableBody({ table }: { table: TableFull }) {
+  const cellRefs = table.cell_refs;
+
   return (
     <div className="space-y-4">
       {table.sourceUrl && (
@@ -131,20 +154,27 @@ function TableBody({ table }: { table: TableFull }) {
                     !isHeader && ri % 2 === 1 && 'bg-[var(--cat-table-soft)]/40',
                   )}
                 >
-                  {row.map((cell, ci) =>
-                    isHeader ? (
+                  {row.map((cell, ci) => {
+                    const refs = cellRefs?.[ri]?.[ci] ?? [];
+                    const content = (
+                      <>
+                        {cell}
+                        <CellRefs refs={refs} />
+                      </>
+                    );
+                    return isHeader ? (
                       <th
                         key={ci}
                         className="border border-border bg-[var(--cat-table)]/15 px-3 py-1.5 text-left font-semibold"
                       >
-                        {cell}
+                        {content}
                       </th>
                     ) : (
                       <td key={ci} className="border border-border px-3 py-1.5 align-top">
-                        {cell}
+                        {content}
                       </td>
-                    ),
-                  )}
+                    );
+                  })}
                 </tr>
               );
             })}

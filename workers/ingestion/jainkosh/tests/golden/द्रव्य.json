@@ -1862,6 +1862,22 @@
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
+                            "field": "पुस्तक",
+                            "value": 1
+                          },
+                          {
+                            "field": "कषायपाहुड़-गाथा",
+                            "value": "1,14"
+                          },
+                          {
+                            "field": "प्रकरण",
+                            "value": 108
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 253
+                          },
+                          {
                             "field": "गाथा",
                             "value": 108
                           }
@@ -3677,57 +3693,19 @@
                             "value": 3
                           },
                           {
-                            "field": "पृष्ठ",
+                            "field": "खण्ड",
                             "value": 1
                           },
                           {
-                            "field": "पंक्ति",
-                            "value": 2
-                          }
-                        ]
-                      },
-                      {
-                        "text": "धवला 3/1,2,1/2/",
-                        "inline_reference": false,
-                        "needs_manual_match": false,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": "धवला",
-                        "match_method": "shastra_name",
-                        "resolved_fields": [
-                          {
-                            "field": "पुस्तक",
-                            "value": 3
-                          },
-                          {
-                            "field": "पृष्ठ",
+                            "field": "भाग",
                             "value": 2
                           },
                           {
-                            "field": "पंक्ति",
-                            "value": 2
-                          }
-                        ]
-                      },
-                      {
-                        "text": "धवला 3/1,2,1/2/",
-                        "inline_reference": false,
-                        "needs_manual_match": false,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": "धवला",
-                        "match_method": "shastra_name",
-                        "resolved_fields": [
-                          {
-                            "field": "पुस्तक",
-                            "value": 3
-                          },
-                          {
-                            "field": "पृष्ठ",
+                            "field": "धवलासूत्र",
                             "value": 1
                           },
                           {
-                            "field": "पंक्ति",
+                            "field": "पृष्ठ",
                             "value": 2
                           }
                         ]
@@ -13537,6 +13515,22 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
+                      "field": "पुस्तक",
+                      "value": 1
+                    },
+                    {
+                      "field": "कषायपाहुड़-गाथा",
+                      "value": "1,14"
+                    },
+                    {
+                      "field": "प्रकरण",
+                      "value": 108
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 253
+                    },
+                    {
                       "field": "गाथा",
                       "value": 108
                     }
@@ -15364,57 +15358,19 @@
                       "value": 3
                     },
                     {
-                      "field": "पृष्ठ",
+                      "field": "खण्ड",
                       "value": 1
                     },
                     {
-                      "field": "पंक्ति",
-                      "value": 2
-                    }
-                  ]
-                },
-                {
-                  "text": "धवला 3/1,2,1/2/",
-                  "inline_reference": false,
-                  "needs_manual_match": false,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": "धवला",
-                  "match_method": "shastra_name",
-                  "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 3
-                    },
-                    {
-                      "field": "पृष्ठ",
+                      "field": "भाग",
                       "value": 2
                     },
                     {
-                      "field": "पंक्ति",
-                      "value": 2
-                    }
-                  ]
-                },
-                {
-                  "text": "धवला 3/1,2,1/2/",
-                  "inline_reference": false,
-                  "needs_manual_match": false,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": "धवला",
-                  "match_method": "shastra_name",
-                  "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 3
-                    },
-                    {
-                      "field": "पृष्ठ",
+                      "field": "धवलासूत्र",
                       "value": 1
                     },
                     {
-                      "field": "पंक्ति",
+                      "field": "पृष्ठ",
                       "value": 2
                     }
                   ]
@@ -22989,6 +22945,17 @@
           "lazy": true
         },
         {
+          "label": "Page",
+          "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:253",
+          "props": {
+            "shastra_natural_key": "कषायपाहुड़",
+            "teeka_natural_key": "कषायपाहुड़:टीका",
+            "publisher_id": "publisher_to_be_added",
+            "page_number": "253"
+          },
+          "lazy": true
+        },
+        {
           "label": "Gatha",
           "key": "गोम्मटसार जीवकाण्ड:गाथा:582",
           "props": {
@@ -23611,17 +23578,6 @@
             "teeka_natural_key": "पंचास्तिकाय:तात्पर्यवृत्ति",
             "publisher_id": "17",
             "page_number": "56"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Page",
-          "key": "धवला:टीका:8:पृष्ठ:1",
-          "props": {
-            "shastra_natural_key": "धवला",
-            "teeka_natural_key": "धवला:टीका",
-            "publisher_id": "8",
-            "page_number": "1"
           },
           "lazy": true
         },
@@ -25710,6 +25666,72 @@
             "topic_path": "II",
             "parent_keyword_natural_key": "कारण"
           }
+        },
+        {
+          "label": "Page",
+          "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:212",
+          "props": {
+            "shastra_natural_key": "कषायपाहुड़",
+            "teeka_natural_key": "कषायपाहुड़:टीका",
+            "publisher_id": "publisher_to_be_added",
+            "page_number": "212"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:213",
+          "props": {
+            "shastra_natural_key": "कषायपाहुड़",
+            "teeka_natural_key": "कषायपाहुड़:टीका",
+            "publisher_id": "publisher_to_be_added",
+            "page_number": "213"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:214",
+          "props": {
+            "shastra_natural_key": "कषायपाहुड़",
+            "teeka_natural_key": "कषायपाहुड़:टीका",
+            "publisher_id": "publisher_to_be_added",
+            "page_number": "214"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:215",
+          "props": {
+            "shastra_natural_key": "कषायपाहुड़",
+            "teeka_natural_key": "कषायपाहुड़:टीका",
+            "publisher_id": "publisher_to_be_added",
+            "page_number": "215"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "धवला:टीका:8:पृष्ठ:168",
+          "props": {
+            "shastra_natural_key": "धवला",
+            "teeka_natural_key": "धवला:टीका",
+            "publisher_id": "8",
+            "page_number": "168"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "धवला:टीका:8:पृष्ठ:169",
+          "props": {
+            "shastra_natural_key": "धवला",
+            "teeka_natural_key": "धवला:टीका",
+            "publisher_id": "8",
+            "page_number": "169"
+          },
+          "lazy": true
         }
       ],
       "edges": [
@@ -26749,6 +26771,24 @@
           "from": {
             "label": "Gatha",
             "key": "कषायपाहुड़:गाथा:108"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-त्रिकाली-पर्यायों-का-पिंड"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-त्रिकाली-पर्यायों-का-पिंड/0",
+            "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-त्रिकाली-पर्यायों-का-पिंड"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:253"
           },
           "to": {
             "label": "Topic",
@@ -28063,25 +28103,6 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:8:पृष्ठ:1"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "pankti": 2,
-            "block_index": 1,
-            "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग/1",
-            "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Page",
             "key": "धवला:टीका:8:पृष्ठ:2"
           },
           "to": {
@@ -28091,7 +28112,6 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
-            "pankti": 2,
             "block_index": 1,
             "mention_path": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग/1",
             "source_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:मूर्तामूर्त-विभाग"
@@ -33248,6 +33268,125 @@
             "source": "jainkosh",
             "target_exists": true
           }
+        },
+        {
+          "type": "MENTIONS_TABLE",
+          "from": {
+            "label": "Page",
+            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:211"
+          },
+          "to": {
+            "label": "Table",
+            "key": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "mention_path": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01/0/1",
+            "source_natural_key": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01"
+          }
+        },
+        {
+          "type": "MENTIONS_TABLE",
+          "from": {
+            "label": "Page",
+            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:212"
+          },
+          "to": {
+            "label": "Table",
+            "key": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "mention_path": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01/0/1",
+            "source_natural_key": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01"
+          }
+        },
+        {
+          "type": "MENTIONS_TABLE",
+          "from": {
+            "label": "Page",
+            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:213"
+          },
+          "to": {
+            "label": "Table",
+            "key": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "mention_path": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01/0/1",
+            "source_natural_key": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01"
+          }
+        },
+        {
+          "type": "MENTIONS_TABLE",
+          "from": {
+            "label": "Page",
+            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:214"
+          },
+          "to": {
+            "label": "Table",
+            "key": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "mention_path": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01/0/1",
+            "source_natural_key": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01"
+          }
+        },
+        {
+          "type": "MENTIONS_TABLE",
+          "from": {
+            "label": "Page",
+            "key": "कषायपाहुड़:टीका:publisher_to_be_added:पृष्ठ:215"
+          },
+          "to": {
+            "label": "Table",
+            "key": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "mention_path": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01/0/1",
+            "source_natural_key": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01"
+          }
+        },
+        {
+          "type": "MENTIONS_TABLE",
+          "from": {
+            "label": "Page",
+            "key": "धवला:टीका:8:पृष्ठ:168"
+          },
+          "to": {
+            "label": "Table",
+            "key": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "mention_path": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01/0/2",
+            "source_natural_key": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01"
+          }
+        },
+        {
+          "type": "MENTIONS_TABLE",
+          "from": {
+            "label": "Page",
+            "key": "धवला:टीका:8:पृष्ठ:169"
+          },
+          "to": {
+            "label": "Table",
+            "key": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "mention_path": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01/0/2",
+            "source_natural_key": "table:jainkosh:द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग:01"
+          }
         }
       ]
     },
@@ -33441,8 +33580,8 @@
       "cells": [
         [
           "विकल्प",
-          "द्रव्य की अपेक्षा( कषायपाहुड़ 1/1-14/177/211-215 )",
-          "वस्तु की अपेक्षा( धवला 9/4,1,45/168-169 )"
+          "द्रव्य की अपेक्षा",
+          "वस्तु की अपेक्षा"
         ],
         [
           "1",
@@ -33510,8 +33649,279 @@
           "――"
         ]
       ],
+      "cell_refs": [
+        [
+          [],
+          [
+            {
+              "text": "( कषायपाहुड़ 1/1-14/177/211-215 )",
+              "inline_reference": false,
+              "needs_manual_match": false,
+              "is_teeka": false,
+              "teeka_name": "",
+              "shastra_name": "कषायपाहुड़",
+              "match_method": "shastra_name",
+              "resolved_fields": [
+                {
+                  "field": "पुस्तक",
+                  "value": 1
+                },
+                {
+                  "field": "कषायपाहुड़-गाथा",
+                  "value": "1-14"
+                },
+                {
+                  "field": "प्रकरण",
+                  "value": 177
+                },
+                {
+                  "field": "पृष्ठ",
+                  "value": 211
+                }
+              ]
+            },
+            {
+              "text": "( कषायपाहुड़ 1/1-14/177/211-215 )",
+              "inline_reference": false,
+              "needs_manual_match": false,
+              "is_teeka": false,
+              "teeka_name": "",
+              "shastra_name": "कषायपाहुड़",
+              "match_method": "shastra_name",
+              "resolved_fields": [
+                {
+                  "field": "पुस्तक",
+                  "value": 1
+                },
+                {
+                  "field": "कषायपाहुड़-गाथा",
+                  "value": "1-14"
+                },
+                {
+                  "field": "प्रकरण",
+                  "value": 177
+                },
+                {
+                  "field": "पृष्ठ",
+                  "value": 212
+                }
+              ]
+            },
+            {
+              "text": "( कषायपाहुड़ 1/1-14/177/211-215 )",
+              "inline_reference": false,
+              "needs_manual_match": false,
+              "is_teeka": false,
+              "teeka_name": "",
+              "shastra_name": "कषायपाहुड़",
+              "match_method": "shastra_name",
+              "resolved_fields": [
+                {
+                  "field": "पुस्तक",
+                  "value": 1
+                },
+                {
+                  "field": "कषायपाहुड़-गाथा",
+                  "value": "1-14"
+                },
+                {
+                  "field": "प्रकरण",
+                  "value": 177
+                },
+                {
+                  "field": "पृष्ठ",
+                  "value": 213
+                }
+              ]
+            },
+            {
+              "text": "( कषायपाहुड़ 1/1-14/177/211-215 )",
+              "inline_reference": false,
+              "needs_manual_match": false,
+              "is_teeka": false,
+              "teeka_name": "",
+              "shastra_name": "कषायपाहुड़",
+              "match_method": "shastra_name",
+              "resolved_fields": [
+                {
+                  "field": "पुस्तक",
+                  "value": 1
+                },
+                {
+                  "field": "कषायपाहुड़-गाथा",
+                  "value": "1-14"
+                },
+                {
+                  "field": "प्रकरण",
+                  "value": 177
+                },
+                {
+                  "field": "पृष्ठ",
+                  "value": 214
+                }
+              ]
+            },
+            {
+              "text": "( कषायपाहुड़ 1/1-14/177/211-215 )",
+              "inline_reference": false,
+              "needs_manual_match": false,
+              "is_teeka": false,
+              "teeka_name": "",
+              "shastra_name": "कषायपाहुड़",
+              "match_method": "shastra_name",
+              "resolved_fields": [
+                {
+                  "field": "पुस्तक",
+                  "value": 1
+                },
+                {
+                  "field": "कषायपाहुड़-गाथा",
+                  "value": "1-14"
+                },
+                {
+                  "field": "प्रकरण",
+                  "value": 177
+                },
+                {
+                  "field": "पृष्ठ",
+                  "value": 215
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "text": "( धवला 9/4,1,45/168-169 )",
+              "inline_reference": false,
+              "needs_manual_match": false,
+              "is_teeka": false,
+              "teeka_name": "",
+              "shastra_name": "धवला",
+              "match_method": "shastra_name",
+              "resolved_fields": [
+                {
+                  "field": "पुस्तक",
+                  "value": 9
+                },
+                {
+                  "field": "खण्ड",
+                  "value": 4
+                },
+                {
+                  "field": "भाग",
+                  "value": 1
+                },
+                {
+                  "field": "धवलासूत्र",
+                  "value": 45
+                },
+                {
+                  "field": "पृष्ठ",
+                  "value": 168
+                }
+              ]
+            },
+            {
+              "text": "( धवला 9/4,1,45/168-169 )",
+              "inline_reference": false,
+              "needs_manual_match": false,
+              "is_teeka": false,
+              "teeka_name": "",
+              "shastra_name": "धवला",
+              "match_method": "shastra_name",
+              "resolved_fields": [
+                {
+                  "field": "पुस्तक",
+                  "value": 9
+                },
+                {
+                  "field": "खण्ड",
+                  "value": 4
+                },
+                {
+                  "field": "भाग",
+                  "value": 1
+                },
+                {
+                  "field": "धवलासूत्र",
+                  "value": 45
+                },
+                {
+                  "field": "पृष्ठ",
+                  "value": 169
+                }
+              ]
+            }
+          ]
+        ],
+        [
+          [],
+          [],
+          []
+        ],
+        [
+          [],
+          [],
+          []
+        ],
+        [
+          [],
+          [],
+          []
+        ],
+        [
+          [],
+          [],
+          []
+        ],
+        [
+          [],
+          [],
+          []
+        ],
+        [
+          [],
+          [],
+          []
+        ],
+        [
+          [],
+          [],
+          []
+        ],
+        [
+          [],
+          [],
+          []
+        ],
+        [
+          [],
+          [],
+          []
+        ],
+        [
+          [],
+          [],
+          []
+        ],
+        [
+          [],
+          [],
+          []
+        ],
+        [
+          [],
+          [],
+          []
+        ],
+        [
+          [],
+          [],
+          []
+        ]
+      ],
       "header_rows": 0,
-      "plaintext": "विकल्प द्रव्य की अपेक्षा( कषायपाहुड़ 1/1-14/177/211-215 ) वस्तु की अपेक्षा( धवला 9/4,1,45/168-169 ) 1 सत्ता सत् 2 जीव, अजीव जीवभाव-अजीवभाव। विधिनिषेध। मूर्त-अमूर्त। अस्तिकाय-अनस्तिकाय। 3 भव्य, अभव्य, अनुभय द्रव्य, गुण, पर्याय 4 (जीव)=संसारी, असंसारी (अजीव)=पुद्गल, अपुद्गल बद्ध, मुक्त, बंधकारण, मोक्षकारण 5 (जीव)=भव्य, अभव्य, अनुभय (अजीव)=मूर्त, अमूर्त औदयिक, औपशमिक, क्षायिक, क्षायोपशमिक, पारिणामिक 6 जीव, पुद्गल, धर्म, अधर्म, काल व आकाश द्रव्यवत् 7 जीव, अजीव, आस्रव, बंध, संवर, निर्जरा, मोक्ष बद्ध, मुक्त, पुद्गल, धर्म, अधर्म, काल व आकाश 8 जीवास्रव, अजीवास्रव, जीवसंवर, अजीवसंवर\n, जीवनिर्जरा, अजीवनिर्जरा, जीवमोक्ष, अजीवमोक्ष भव्य संसारी, अभव्य संसारी, मुक्त जीव, पुद्गल, धर्म, अधर्म, आकाश, काल 9 जीव, अजीव, पुण्य, पाप, आस्रव, संवर, निर्जरा, बंध, मोक्ष द्रव्यवत् 10 (जीव)=एकेंद्रिय, द्वींद्रिय, त्रींद्रिय, चतुरिंद्रिय, पंचेंद्रिय (अजीव)=पुद्गल, धर्म, अधर्म, आकाश, काल द्रव्यवत् 11 (जीव)=पृथिवी, अप, तेज, वायु, वनस्पति व त्रस तथा (अजीव)=पुद्गल, धर्म, अधर्म, आकाश व काल द्रव्यवत् 12 (जीव)=पृथिवी, अप, तेज, वायु, वनस्पति, संज्ञी, असंज्ञी; तथा (अजीव)=पुद्गल, धर्म, अधर्म, आकाश व काल ―― 13 (जीव)=भव्य, अभव्य, अनुभय; (पुद्गल)=बादरबादर, बादर, बादरसूक्ष्म, सूक्ष्मबादर, सूक्ष्म, सूक्ष्मसूक्ष्म; (अमूर्त अजीव)=धर्म, अधर्म, आकाश, काल ――",
+      "plaintext": "विकल्प द्रव्य की अपेक्षा वस्तु की अपेक्षा 1 सत्ता सत् 2 जीव, अजीव जीवभाव-अजीवभाव। विधिनिषेध। मूर्त-अमूर्त। अस्तिकाय-अनस्तिकाय। 3 भव्य, अभव्य, अनुभय द्रव्य, गुण, पर्याय 4 (जीव)=संसारी, असंसारी (अजीव)=पुद्गल, अपुद्गल बद्ध, मुक्त, बंधकारण, मोक्षकारण 5 (जीव)=भव्य, अभव्य, अनुभय (अजीव)=मूर्त, अमूर्त औदयिक, औपशमिक, क्षायिक, क्षायोपशमिक, पारिणामिक 6 जीव, पुद्गल, धर्म, अधर्म, काल व आकाश द्रव्यवत् 7 जीव, अजीव, आस्रव, बंध, संवर, निर्जरा, मोक्ष बद्ध, मुक्त, पुद्गल, धर्म, अधर्म, काल व आकाश 8 जीवास्रव, अजीवास्रव, जीवसंवर, अजीवसंवर\n, जीवनिर्जरा, अजीवनिर्जरा, जीवमोक्ष, अजीवमोक्ष भव्य संसारी, अभव्य संसारी, मुक्त जीव, पुद्गल, धर्म, अधर्म, आकाश, काल 9 जीव, अजीव, पुण्य, पाप, आस्रव, संवर, निर्जरा, बंध, मोक्ष द्रव्यवत् 10 (जीव)=एकेंद्रिय, द्वींद्रिय, त्रींद्रिय, चतुरिंद्रिय, पंचेंद्रिय (अजीव)=पुद्गल, धर्म, अधर्म, आकाश, काल द्रव्यवत् 11 (जीव)=पृथिवी, अप, तेज, वायु, वनस्पति व त्रस तथा (अजीव)=पुद्गल, धर्म, अधर्म, आकाश व काल द्रव्यवत् 12 (जीव)=पृथिवी, अप, तेज, वायु, वनस्पति, संज्ञी, असंज्ञी; तथा (अजीव)=पुद्गल, धर्म, अधर्म, आकाश व काल ―― 13 (जीव)=भव्य, अभव्य, अनुभय; (पुद्गल)=बादरबादर, बादर, बादरसूक्ष्म, सूक्ष्मबादर, सूक्ष्म, सूक्ष्मसूक्ष्म; (अमूर्त अजीव)=धर्म, अधर्म, आकाश, काल ――",
       "mentioned_keyword_natural_keys": [],
       "mentioned_topic_natural_keys": []
     }

@@ -15,6 +15,7 @@ Authoritative for: keyword↔topic relationships used by the GraphRAG query path
 | `Keyword` | `natural_key` (NFC Devanagari, e.g. `आत्मा`) | `pg_id` (uuid string), `display_text`, `source_url`, `is_stub`, `created_at`, `updated_at` | Postgres `keywords` |
 | `Topic` | `natural_key` (e.g. `आत्मा:बहिरात्मादि-3-भेद`) | `pg_id`, `display_text_hi`, `source` (enum), `parent_keyword_natural_key`, `topic_path`, `is_stub`, `created_at`, `updated_at` | Postgres `topics` |
 | `Alias` | `alias_text` (NFC Devanagari) | `pg_id`, `source` (`jainkosh_redirect` \| `admin` \| `manual_seed`), `created_at` | Postgres `keyword_aliases` |
+| `Table` | `natural_key` (e.g. `table:jainkosh:द्रव्य:षट्द्रव्य:01`) | `pg_id`, `source`, `parent_natural_key`, `parent_kind`, `seq`, `caption_hi`, `is_stub`, `created_at`, `updated_at` | Postgres `tables` |
 | `Gatha` | `natural_key` (e.g. `pravachansaar:039`) | `pg_id`, `shastra_natural_key`, `gatha_number`, `heading_hi`, `is_stub` | Postgres `gathas` |
 | `Shastra` | `natural_key` | `pg_id`, `title_hi`, `author_natural_key` | Postgres `shastras` |
 | `Teeka` | `natural_key` (e.g. `pravachansaar:amritchandra`) | `pg_id`, `shastra_natural_key`, `teekakar_natural_key` | Postgres `teekas` |
@@ -48,6 +49,8 @@ All edges are directed unless noted. Edge type names are uppercase (Neo4j conven
 | `IN_SHASTRA` | directed | `Gatha → Shastra` | — | Structural: gatha belongs to shastra |
 | `IN_TEEKA` | directed | `GathaTeeka\|Kalash → Teeka` | — | Structural: node belongs to teeka |
 | `IN_PUBLICATION` | directed | `GathaTeekaBhaavarth\|KalashBhaavarth\|Page → Publication` | — | Structural: bhaavarth/page belongs to publication |
+| `CONTAINS_TABLE` | directed | `Keyword\|Topic → Table` | `source` | Keyword or Topic page contains this table |
+| `MENTIONS_TABLE` | directed | `Gatha\|Kalash\|Page → Table` | `weight`, `source`, `mention_path`, `source_natural_key` | Citation node (resolved from a table cell GRef) is cited within this table |
 
 **Extending edge types:** add the new type name to `parser_configs/_meta/edge_types.yaml`. Validation on graph writes consults this file. Adding a type requires no migration.
 

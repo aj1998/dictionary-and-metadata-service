@@ -35,6 +35,8 @@ export interface TableFull {
   sourceUrl: string | null;
   rawHtml: string;
   cells: string[][];
+  // 3-D list: rows × cols × resolved references per cell (snake_case to match API response).
+  cell_refs?: DefinitionReference[][][];
   headerRows: number;
   plaintext: string | null;
   mentionedKeywordNaturalKeys: string[];

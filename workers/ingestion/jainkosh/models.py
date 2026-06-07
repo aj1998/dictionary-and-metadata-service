@@ -170,6 +170,7 @@ class ParsedTable(BaseModel):
     caption: list[Multilingual] = Field(default_factory=list)
     raw_html: str
     cells: list[list[str]] = Field(default_factory=list)
+    cell_refs: list[list[list[Reference]]] = Field(default_factory=list)
     header_rows: int = 0
     plaintext: str = ""
     mentioned_keyword_natural_keys: list[str] = Field(default_factory=list)

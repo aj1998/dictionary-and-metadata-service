@@ -118,6 +118,7 @@ class TableDoc(BaseModel):
     caption: list[LangText] = []
     raw_html: str
     cells: list[list[str]] = []    # parsed 2D matrix, NFC-normalized, '' for missing cells
+    cell_refs: list[list[list[dict]]] = []  # rows × cols × resolved Reference dicts from GRef spans
     header_rows: int = 0           # number of leading <th>-header rows
     mentioned_keyword_natural_keys: list[str] = []
     mentioned_topic_natural_keys: list[str] = []
@@ -227,6 +228,7 @@ class ParsedTable(BaseModel):
     caption: list[LangText] = []
     raw_html: str
     cells: list[list[str]] = []
+    cell_refs: list[list[list[Reference]]] = []  # rows × cols × refs from GRef spans in cells
     header_rows: int = 0
     plaintext: str = ""
     mentioned_keyword_natural_keys: list[str] = []
@@ -342,7 +344,9 @@ cypher-shell -u neo4j -p jainkb_password \
 
 Returns `TableResponse` (full payload). 404 if not found.
 
-Response includes `raw_html`, `cells`, `header_rows`, `plaintext`, `mentioned_keyword_natural_keys`, `mentioned_topic_natural_keys`.
+Response includes `raw_html`, `cells`, `cell_refs`, `header_rows`, `plaintext`, `mentioned_keyword_natural_keys`, `mentioned_topic_natural_keys`.
+
+`cell_refs` is a 3-D array (`rows × cols × refs`) where each ref is a resolved `Reference` dict (same fields as `DefinitionReference` in the UI). GRef spans in cells are stripped from `cells` text and stored here instead.
 
 ### `GET /v1/tables?parent_natural_key=<nk>`
 
@@ -401,6 +405,7 @@ export interface TableFull {
   sourceUrl: string | null;
   rawHtml: string;
   cells: string[][];
+  cell_refs?: DefinitionReference[][][];  // rows × cols × refs per cell (snake_case = API key)
   headerRows: number;
   plaintext: string | null;
   mentionedKeywordNaturalKeys: string[];
@@ -438,9 +443,11 @@ Behaviour:
 Body sections (in order):
 1. **Caption** — `getHindiText(table.caption)` as `<h2>`. Falls back to "तालिका".
 2. **Source link** — link to `table.sourceUrl` in new tab (only when present).
-3. **Rendered table** — from `cells` (NOT `rawHtml`). First `headerRows` rows → `<th>`. Alternating row bg using `--color-kind-table-soft/40`. Horizontally scrollable.
+3. **Rendered table** — from `cells` (NOT `rawHtml`). First `headerRows` rows → `<th>`. Alternating row bg using `--color-kind-table-soft/40`. Horizontally scrollable. Each cell renders its text followed by inline `RefBadge` components for any resolved `cell_refs` (same badge format as the definition modal).
 4. **Mentions** — badge rows for keywords + topics, each a locale-aware `Link`. Rendered only when non-empty.
 5. **Raw HTML toggle (dev only)** — collapsible `<details>` with `<iframe srcDoc>` for debugging.
+
+**Cell reference rendering**: `<CellRefs>` is a sub-component that accepts a `refs: DefinitionReference[]` array and renders each reference as a `RefBadge` (exported from `DefinitionModal.tsx`) with `showShastra=true`. This ensures GRef citations embedded in table header/data cells display identically to references in keyword/topic definition modals.
 
 **Why cells, not rawHtml**: Source HTML may carry inline styles, classes, JS, or external `<a>` tags — security risk and visual clash. Parsed `cells` is clean NFC text.
 
@@ -503,6 +510,9 @@ Actions added:
 - `test_table_parser.py::test_parses_cell_matrix_from_fixture`
 - `test_table_parser.py::test_collects_mentioned_keywords_and_topics`
 - `test_table_parser.py::test_natural_key_and_seq`
+- `test_table_parser.py::test_cell_refs_extracted_from_gref_spans`
+- `test_table_parser.py::test_cell_text_stripped_of_gref_content`
+- `test_table_parser.py::test_dravya_fixture_cell_refs_and_clean_text`
 - `test_envelope_includes_tables`
 - `tests/workers/jainkosh/test_golden_envelope.py` — snapshots against regenerated goldens.
 

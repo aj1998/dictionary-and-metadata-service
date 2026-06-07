@@ -328,6 +328,7 @@ async def apply_approved_keyword_payload(
             "seq": t["seq"],
             "raw_html": t.get("raw_html", ""),
             "cells": t.get("cells", []),
+            "cell_refs": t.get("cell_refs", []),
             "header_rows": t.get("header_rows", 0),
             "plaintext": t.get("plaintext", ""),
             "caption": t.get("caption", []),
@@ -436,7 +437,7 @@ async def apply_approved_keyword_payload(
                     edge_props=edge.get("props") or {},
                     database=neo4j_database,
                 )
-        elif etype in ("MENTIONS_TOPIC", "CONTAINS_DEFINITION"):
+        elif etype in ("MENTIONS_TOPIC", "CONTAINS_DEFINITION", "MENTIONS_TABLE"):
             src_label = frm.get("label", "")
             tgt_label = to.get("label", "")
             if src_label and tgt_label:

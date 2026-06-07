@@ -960,18 +960,67 @@ def _collect_parsed_tables(
     return tables
 
 
+def _build_table_cell_ref_neo4j(
+    tables: list,
+    config: JainkoshConfig,
+) -> tuple[list[dict], list[dict]]:
+    """Return (nodes, edges) for GRef citations found in table cell_refs.
+
+    For each non-empty cell in each table's cell_refs matrix, emit MENTIONS_TABLE
+    edges from the resolved reference nodes (Gatha/Kalash/Page) to the Table node.
+    Lazy nodes (Gatha etc.) are collected so apply.py can write them as stubs.
+    """
+    from .reference_edges import build_cell_reference_edges
+
+    nodes: list[dict] = []
+    edges: list[dict] = []
+
+    for table in tables:
+        table_nk = table.natural_key
+        table_target = {"label": "Table", "key": table_nk}
+
+        for row_idx, row in enumerate(table.cell_refs):
+            for col_idx, cell_refs in enumerate(row):
+                if not cell_refs:
+                    continue
+                mention_path = f"{table_nk}/{row_idx}/{col_idx}"
+                cell_edges = build_cell_reference_edges(
+                    cell_refs,
+                    target=table_target,
+                    edge_type="MENTIONS_TABLE",
+                    config=config,
+                    mention_path=mention_path,
+                    source_natural_key=table_nk,
+                )
+                _collect_lazy_nodes(cell_edges, nodes)
+                edges.extend(cell_edges)
+
+    return nodes, edges
+
+
 def build_envelope(result: KeywordParseResult, config: Optional[JainkoshConfig] = None) -> WouldWriteEnvelope:
     if config is None:
         config = load_config()
+
+    tables = _collect_parsed_tables(result, config)
+    neo4j_frag = build_neo4j_fragment(result, config)
+
+    # Merge table cell-ref edges into the main neo4j fragment
+    table_nodes, table_edges = _build_table_cell_ref_neo4j(tables, config)
+    if table_nodes or table_edges:
+        merged_nodes = _dedupe(neo4j_frag["nodes"] + table_nodes)
+        merged_edges = _dedupe(neo4j_frag["edges"] + table_edges)
+        neo4j_frag = {"nodes": merged_nodes, "edges": merged_edges}
+
     return WouldWriteEnvelope(
         keyword_parse_result=result,
         would_write={
             "postgres": build_pg_fragment(result, config),
             "mongo": build_mongo_fragment(result, config),
-            "neo4j": build_neo4j_fragment(result, config),
+            "neo4j": neo4j_frag,
             "idempotency_contracts": _build_contracts(result),
         },
-        tables=_collect_parsed_tables(result, config),
+        tables=tables,
     )
 
 

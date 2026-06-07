@@ -164,7 +164,7 @@ function RefListItem({ ref, matchEntry, loading, ingestedShastras }: { ref: Defi
   );
 }
 
-function RefBadge({ ref, showShastra = false, matchEntry, loading, ingestedShastras }: { ref: DefinitionReference; showShastra?: boolean; matchEntry?: MatchEntry; loading?: boolean; ingestedShastras: Set<string> | null }) {
+export function RefBadge({ ref, showShastra = false, matchEntry, loading, ingestedShastras }: { ref: DefinitionReference; showShastra?: boolean; matchEntry?: MatchEntry; loading?: boolean; ingestedShastras: Set<string> | null }) {
   const badgeLabel = showShastra
     ? formatRefSourceLabel(ref) || null
     : ref.is_teeka ? (ref.teeka_name || null) : null;

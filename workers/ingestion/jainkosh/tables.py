@@ -10,12 +10,17 @@ from urllib.parse import unquote
 from selectolax.parser import HTMLParser, Node
 
 from .config import JainkoshConfig
-from .models import Block, Multilingual, ParsedTable
+from .models import Block, Multilingual, ParsedTable, Reference
 
 
 _RAW_HTML_TEXT_RUN_RE = re.compile(r"(>)([^<]*)(<)")
 _WS_RE = re.compile(r"[\t\n\r\f\v ]+")
 _MULTI_SPACE_RE = re.compile(r" {2,}")
+# Matches <span class="GRef">…</span> (non-nested), used to strip GRef text from cell text.
+_GREF_SPAN_RE = re.compile(
+    r'<span\b[^>]*\bclass="[^"]*GRef[^"]*"[^>]*>.*?</span>',
+    re.DOTALL | re.IGNORECASE,
+)
 
 
 def _clean_raw_html(html: str, config: JainkoshConfig) -> str:
@@ -51,9 +56,15 @@ def _extract_rows(table: Node) -> list[list[str]]:
     return []
 
 
-def _cell_text(cell: Node) -> str:
-    """Extract plain text from a <td> or <th> cell; <br> becomes \\n, NFC-normalized."""
+def _cell_text(cell: Node, *, strip_grefs: bool = False) -> str:
+    """Extract plain text from a <td> or <th> cell; <br> becomes \\n, NFC-normalized.
+
+    When strip_grefs=True, removes <span class="GRef">…</span> blocks before extraction
+    so that reference text does not appear inline in the cell string.
+    """
     html = cell.html or ""
+    if strip_grefs:
+        html = _GREF_SPAN_RE.sub("", html)
     html = re.sub(r"<br\s*/?>", "\n", html, flags=re.IGNORECASE)
     text = re.sub(r"<[^>]+>", "", html)
     text = text.replace("&nbsp;", " ").replace("&#160;", " ").replace("&#xA0;", " ")
@@ -63,20 +74,42 @@ def _cell_text(cell: Node) -> str:
     return "\n".join(line for line in lines if line)
 
 
-def _parse_cells(table: Node) -> tuple[list[list[str]], int]:
-    """Return (cells_matrix, header_rows) from a <table> node."""
+def _parse_cells(
+    table: Node,
+    config: Optional["JainkoshConfig"] = None,
+) -> tuple[list[list[str]], int, list[list[list[Reference]]]]:
+    """Return (cells_matrix, header_rows, cell_refs_matrix) from a <table> node.
+
+    When config is provided, <span class="GRef"> nodes are extracted as resolved
+    Reference objects per cell and stripped from the cell text so they don't appear
+    inline.  When config is None (legacy callers), cell_refs is an empty 3-D list.
+    """
+    from .refs import extract_refs_from_node
+
     rows: list[list[str]] = []
+    cell_refs_matrix: list[list[list[Reference]]] = []
     header_row_count = 0
     in_header_section = True
+    extract_refs = config is not None and config.table.parse_mentions
 
     for tr in table.css("tr"):
         cells = tr.css("td, th")
         if not cells:
             continue
-        row_texts = [_cell_text(c) for c in cells]
+        row_texts: list[str] = []
+        row_refs: list[list[Reference]] = []
+        for c in cells:
+            if extract_refs:
+                refs = extract_refs_from_node(c, config)  # type: ignore[arg-type]
+                row_refs.append(refs)
+                row_texts.append(_cell_text(c, strip_grefs=True))
+            else:
+                row_refs.append([])
+                row_texts.append(_cell_text(c))
         all_th = all(c.tag == "th" or "header" in (c.attributes.get("class") or "").split()
                      for c in cells)
         rows.append(row_texts)
+        cell_refs_matrix.append(row_refs)
         if in_header_section and all_th:
             header_row_count += 1
         else:
@@ -86,8 +119,9 @@ def _parse_cells(table: Node) -> tuple[list[list[str]], int]:
     if rows:
         max_cols = max(len(r) for r in rows)
         rows = [r + [""] * (max_cols - len(r)) for r in rows]
+        cell_refs_matrix = [r + [[]] * (max_cols - len(r)) for r in cell_refs_matrix]
 
-    return rows, header_row_count
+    return rows, header_row_count, cell_refs_matrix
 
 
 def _extract_inline_caption(table: Node) -> Optional[str]:
@@ -157,9 +191,10 @@ def parse_table_block(
             caption = [Multilingual(lang="hin", script="Deva", text=caption_text)]
 
     cells: list[list[str]] = []
+    cell_refs: list[list[list[Reference]]] = []
     header_rows = 0
     if config.table.parse_cells:
-        cells, header_rows = _parse_cells(table_node)
+        cells, header_rows, cell_refs = _parse_cells(table_node, config)
 
     plaintext = ""
     if cells:
@@ -182,6 +217,7 @@ def parse_table_block(
         caption=caption,
         raw_html=raw_html,
         cells=cells,
+        cell_refs=cell_refs,
         header_rows=header_rows,
         plaintext=plaintext,
         mentioned_keyword_natural_keys=mentioned_kw_nks,
@@ -221,9 +257,10 @@ def parse_table_block_from_html(
             caption = [Multilingual(lang="hin", script="Deva", text=caption_text)]
 
     cells: list[list[str]] = []
+    cell_refs: list[list[list[Reference]]] = []
     header_rows = 0
     if config.table.parse_cells and table_node is not None:
-        cells, header_rows = _parse_cells(table_node)
+        cells, header_rows, cell_refs = _parse_cells(table_node, config)
 
     plaintext = ""
     if cells:
@@ -246,6 +283,7 @@ def parse_table_block_from_html(
         caption=caption,
         raw_html=raw_html,
         cells=cells,
+        cell_refs=cell_refs,
         header_rows=header_rows,
         plaintext=plaintext,
         mentioned_keyword_natural_keys=mentioned_kw_nks,

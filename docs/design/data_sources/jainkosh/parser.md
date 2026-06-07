@@ -485,7 +485,8 @@ Attachment (`table.attach_to`, default `current_subsection`):
 | `source_url` | URL of the parent node (with `#topic_path` fragment for topics) |
 | `caption` | `[{lang:"hin", script:"Deva", text:…}]` — inline `<caption>` preferred; falls back to parent subsection `heading_text` |
 | `raw_html` | Same as the inline `Block.raw_html` |
-| `cells` | 2-D matrix of plain-text cell values (NFC; `<br>` → `\n`; rows padded to uniform width) |
+| `cells` | 2-D matrix of plain-text cell values (NFC; `<br>` → `\n`; `<span class="GRef">` content stripped; rows padded to uniform width) |
+| `cell_refs` | 3-D list (rows × cols × resolved `Reference` objects) — GRef spans extracted from each cell and resolved via the standard reference parser |
 | `header_rows` | Count of leading rows where every cell is `<th>` or has `class="header"` |
 | `plaintext` | Space-joined non-empty cell strings |
 | `mentioned_keyword_natural_keys` | Keyword NKs from `/wiki/<keyword>` `<a>` hrefs inside the table |
@@ -497,7 +498,7 @@ Attachment (`table.attach_to`, default `current_subsection`):
 |------|---------|-------------|
 | `emit_first_class_node` | `true` | Gate for Phase 2 emission; when `false`, `WouldWriteEnvelope.tables` stays empty |
 | `parse_cells` | `true` | Extract cell matrix, header_rows, and caption |
-| `parse_mentions` | `true` | Extract mentioned keyword/topic natural keys from `<a>` hrefs |
+| `parse_mentions` | `true` | Extract mentioned keyword/topic natural keys from `<a>` hrefs AND resolve GRef spans into `cell_refs` |
 | `extraction_strategy` | `"raw_html_plus_rows"` | `raw_html_only` skips `block.table_rows`; `raw_html_plus_rows` populates it (currently empty list, full parsing goes into `ParsedTable.cells`) |
 
 ### 6.6 Adjacent-page navigation
@@ -745,8 +746,11 @@ for full block-context classification, guard rules, and node-key formats.
 | subsection block | `Topic` keyed by `subsection.natural_key` | `MENTIONS_TOPIC` |
 | definition block | `Keyword` keyed by `result.keyword` | `CONTAINS_DEFINITION` |
 | label_topic_seed block | `Topic` keyed by `seed.natural_key` | `RELATED_TO` (via see_also) |
+| table cell (cell_refs) | `Table` keyed by `table.natural_key` | `MENTIONS_TABLE` |
 
 `extra_blocks` → no edges. `label_topic_seeds[*].blocks` — `see_also` blocks emit `RELATED_TO` edges; reference blocks are not processed (label seeds carry no GRef blocks in practice).
+
+**`MENTIONS_TABLE` emission** (cell_refs): for each non-empty `cell_refs[row][col]` in a `ParsedTable`, `build_cell_reference_edges` is called with `edge_type="MENTIONS_TABLE"` and `target={"label":"Table","key":table.natural_key}`. Because cells have no block-kind context (verse/prose/commentary), the **simplified inline path** (`_emit_inline_only_edges`) is used for all refs — emitting only `Gatha`, `Kalash`, and `Page` nodes. These edges and their lazy nodes are merged into `would_write.neo4j` by `_build_table_cell_ref_neo4j` in `envelope.py`. The `apply.py` edge dispatch handles `MENTIONS_TABLE` alongside `MENTIONS_TOPIC` and `CONTAINS_DEFINITION`.
 
 ### 12.2 Gatha edge rules (non-inline refs) by shastra type + block kind
 

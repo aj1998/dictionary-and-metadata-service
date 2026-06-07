@@ -419,6 +419,8 @@ for parsed_table in envelope.tables:
     7. MENTIONS_TOPIC edges for each tp in mentioned_topic_natural_keys
 ```
 
+**Cell reference edges (MENTIONS_TABLE)**: GRef citations inside table cells are resolved to `Reference` objects in `cell_refs` at parse time. During `build_envelope`, `_build_table_cell_ref_neo4j` iterates over every non-empty `cell_refs[row][col]` cell and emits `MENTIONS_TABLE` edges from the resolved reference nodes (Gatha, Kalash, Page) to the `Table` node. These edges — and the corresponding lazy stub nodes — are merged into `would_write.neo4j` alongside keyword/topic edges, so they are applied by the same edge-dispatch loop in `apply.py`. The `MENTIONS_TABLE` edge type is validated in `_VALID_EDGE_TYPES` in `stubs.py`.
+
 ### Parent-label lookup
 
 ```python

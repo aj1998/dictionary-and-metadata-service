@@ -311,6 +311,9 @@ class TableDoc(BaseModel):
     caption: list[LangText] = []
     raw_html: str
     cells: list[list[str]] = []
+    # 3-D list: rows × cols × list of resolved Reference dicts per cell.
+    # Empty list for tables with no GRef spans inside cells.
+    cell_refs: list[list[list[dict]]] = []
     header_rows: int = 0
     mentioned_keyword_natural_keys: list[str] = []
     mentioned_topic_natural_keys: list[str] = []
