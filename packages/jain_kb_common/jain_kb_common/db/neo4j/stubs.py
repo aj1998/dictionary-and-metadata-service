@@ -17,6 +17,7 @@ _STUB_PROPS_BY_LABEL: dict[str, list[str]] = {
     "Shastra": [],
     "Teeka": ["shastra_natural_key"],
     "Publication": ["teeka_natural_key", "publisher_id"],
+    "Table": ["parent_natural_key", "parent_kind", "seq", "source"],
 }
 
 _VALID_LABELS = frozenset(_STUB_PROPS_BY_LABEL)
@@ -24,6 +25,7 @@ _VALID_EDGE_TYPES = frozenset({
     "HAS_TOPIC", "PART_OF", "RELATED_TO", "MENTIONS_TOPIC", "CONTAINS_DEFINITION",
     "HAS_TEEKA", "HAS_PUBLICATION",
     "IN_SHASTRA", "IN_TEEKA", "IN_PUBLICATION",
+    "CONTAINS_TABLE",
 })
 
 

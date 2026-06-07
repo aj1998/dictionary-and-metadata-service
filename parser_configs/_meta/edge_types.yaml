@@ -29,9 +29,9 @@ edge_types:
 
   - name: MENTIONS_KEYWORD
     direction: directed
-    from: [Topic]
+    from: [Topic, Table]
     to: [Keyword]
-    description: Topic body mentions this keyword (used to seed queries)
+    description: Topic/Table body mentions this keyword (used to seed queries)
 
   - name: HAS_TOPIC
     direction: directed
@@ -41,7 +41,7 @@ edge_types:
 
   - name: MENTIONS_TOPIC
     direction: directed
-    from: [Gatha, GathaTeeka, GathaTeekaBhaavarth, Kalash, KalashBhaavarth, Page]
+    from: [Gatha, GathaTeeka, GathaTeekaBhaavarth, Kalash, KalashBhaavarth, Page, Table]
     to: [Topic]
     description: Source node cites a topic (heading or extracted reference)
     # optional props: block_index (int), mention_path ("<topic_nk>/<block_index>"),
@@ -85,3 +85,10 @@ edge_types:
     from: [GathaTeekaBhaavarth, KalashBhaavarth, Page]
     to: [Publication]
     description: Structural membership — node belongs to this publication
+
+  - name: CONTAINS_TABLE
+    direction: directed
+    from: [Topic, Keyword, Gatha, GathaTeeka, GathaTeekaBhaavarth, Kalash, KalashBhaavarth, Page]
+    to: [Table]
+    properties: [weight, source]
+    description: Parent node contains this embedded table

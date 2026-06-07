@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from bson import ObjectId
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
-from .collections import EXTRACT_MATCHES, KALASH_WORD_MEANINGS
+from .collections import EXTRACT_MATCHES, KALASH_WORD_MEANINGS, TABLES
 
 
 def stable_id(natural_key: str) -> ObjectId:
@@ -124,6 +124,10 @@ async def upsert_kalash_word_meanings(
         "ingestion_run_id": ingestion_run_id,
     }
     return await _upsert(db, KALASH_WORD_MEANINGS, natural_key, doc)
+
+
+async def upsert_table(db: AsyncIOMotorDatabase, *, natural_key: str, doc: dict) -> ObjectId:
+    return await _upsert(db, TABLES, natural_key, doc)
 
 
 async def upsert_extract_match(

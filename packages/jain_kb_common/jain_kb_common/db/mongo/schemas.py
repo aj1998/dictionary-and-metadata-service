@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import unicodedata
+from datetime import datetime
 from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, Field, field_validator
@@ -297,3 +298,24 @@ class KalashWordMeanings(BaseModel):
     kalash_number: str
     entries: list[KalashWMEntry]
     ingestion_run_id: Optional[str] = None
+
+
+class TableDoc(BaseModel):
+    natural_key: str
+    table_id: Optional[str] = None
+    source: str
+    parent_natural_key: str
+    parent_kind: str
+    seq: int
+    source_url: Optional[str] = None
+    caption: list[LangText] = []
+    raw_html: str
+    cells: list[list[str]] = []
+    header_rows: int = 0
+    mentioned_keyword_natural_keys: list[str] = []
+    mentioned_topic_natural_keys: list[str] = []
+    plaintext: Optional[str] = None
+    ingestion_run_id: Optional[str] = None
+    parser_version: Optional[str] = None
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None

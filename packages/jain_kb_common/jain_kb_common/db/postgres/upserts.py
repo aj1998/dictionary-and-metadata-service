@@ -14,6 +14,7 @@ from .keywords import Keyword
 from .pravachans import Pravachan
 from .publications import Publication
 from .shastras import Shastra
+from .tables import Table
 from .teeka_chapters import TeekaChapter
 from .teekas import Teeka
 from .topics import Topic
@@ -427,6 +428,55 @@ async def upsert_teeka_chapter(
             },
         )
         .returning(TeekaChapter.id)
+    )
+    res = await session.execute(stmt)
+    return res.scalar_one()
+
+
+async def upsert_table(
+    session: AsyncSession,
+    *,
+    natural_key: str,
+    source: IngestionSource,
+    parent_natural_key: str,
+    parent_kind: str,
+    seq: int,
+    raw_html_doc_id: str,
+    caption: Any = None,
+    source_url: str | None = None,
+    graph_node_id: str | None = None,
+    ingestion_run_id: uuid.UUID | None = None,
+) -> uuid.UUID:
+    stmt = (
+        pg_insert(Table)
+        .values(
+            natural_key=natural_key,
+            source=source,
+            parent_natural_key=parent_natural_key,
+            parent_kind=parent_kind,
+            seq=seq,
+            raw_html_doc_id=raw_html_doc_id,
+            caption=caption,
+            source_url=source_url,
+            graph_node_id=graph_node_id,
+            ingestion_run_id=ingestion_run_id,
+        )
+        .on_conflict_do_update(
+            index_elements=[Table.natural_key],
+            set_={
+                "source": source,
+                "parent_natural_key": parent_natural_key,
+                "parent_kind": parent_kind,
+                "seq": seq,
+                "raw_html_doc_id": raw_html_doc_id,
+                "caption": caption,
+                "source_url": source_url,
+                "graph_node_id": graph_node_id,
+                "ingestion_run_id": ingestion_run_id,
+                "updated_at": func.now(),
+            },
+        )
+        .returning(Table.id)
     )
     res = await session.execute(stmt)
     return res.scalar_one()

@@ -109,6 +109,19 @@ async def ensure_indexes(db: AsyncIOMotorDatabase) -> None:
         [("teeka_natural_key", pymongo.ASCENDING)]
     )
 
+    # tables
+    await db.tables.create_index([("natural_key", pymongo.ASCENDING)], unique=True)
+    await db.tables.create_index([
+        ("parent_natural_key", pymongo.ASCENDING),
+        ("seq", pymongo.ASCENDING),
+    ])
+    await db.tables.create_index([("ingestion_run_id", pymongo.ASCENDING)])
+    await db.tables.create_index(
+        [("plaintext", pymongo.TEXT), ("caption.text", pymongo.TEXT)],
+        default_language="none",
+        name="tables_text_search",
+    )
+
     # extract_matches
     await db.extract_matches.create_index([("natural_key", pymongo.ASCENDING)], unique=True)
     await db.extract_matches.create_index([

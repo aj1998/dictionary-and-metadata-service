@@ -25,6 +25,7 @@ import jain_kb_common.db.postgres.gathas  # noqa: F401
 import jain_kb_common.db.postgres.topics  # noqa: F401
 import jain_kb_common.db.postgres.publications  # noqa: F401
 import jain_kb_common.db.postgres.kalashas  # noqa: F401
+import jain_kb_common.db.postgres.tables  # noqa: F401
 import jain_kb_common.db.postgres.ingestion  # noqa: F401
 import jain_kb_common.db.postgres.enrichment  # noqa: F401
 import jain_kb_common.db.postgres.query_logs  # noqa: F401

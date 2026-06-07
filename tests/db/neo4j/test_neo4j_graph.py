@@ -17,11 +17,13 @@ from jain_kb_common.db.neo4j.constraints import ensure_constraints
 from jain_kb_common.db.neo4j.schema_check import validate_edge_type, UnknownEdgeTypeError
 from jain_kb_common.db.neo4j.upserts import (
     ensure_lazy_node,
+    sync_contains_table_edge,
     sync_has_topic_edge,
     sync_kalash,
     sync_keyword,
     sync_publication,
     sync_shastra,
+    sync_table,
     sync_teeka,
     sync_topic,
     sync_gatha,
@@ -50,6 +52,7 @@ def test_validate_known_edge_types():
         "IS_A", "PART_OF", "RELATED_TO", "ALIAS_OF",
         "MENTIONS_KEYWORD", "HAS_TOPIC", "MENTIONS_TOPIC",
         "IN_SHASTRA", "IN_TEEKA", "IN_PUBLICATION", "CONTAINS_DEFINITION",
+        "CONTAINS_TABLE",
     ]:
         validate_edge_type(t)  # must not raise
 
@@ -563,3 +566,61 @@ async def test_ensure_lazy_node_idempotent(driver):
         )
         record = await result.single()
     assert record["cnt"] == 1
+
+
+# ---------------------------------------------------------------------------
+# Table node + CONTAINS_TABLE edge
+# ---------------------------------------------------------------------------
+
+@skip_no_neo4j
+async def test_table_constraints_and_contains_edge(driver):
+    kw_pg_id = str(uuid.uuid4())
+    table_pg_id = str(uuid.uuid4())
+    topic_nk = "table-test:आत्मा"
+    table_nk = "table:jainkosh:table-test:आत्मा:01"
+
+    await sync_keyword(driver, natural_key=topic_nk, pg_id=kw_pg_id, display_text="आत्मा", database=TEST_DB)
+    await sync_table(
+        driver,
+        natural_key=table_nk,
+        pg_id=table_pg_id,
+        source="jainkosh",
+        parent_natural_key=topic_nk,
+        parent_kind="keyword",
+        seq=1,
+        caption_hi="भेद",
+        database=TEST_DB,
+    )
+    await sync_contains_table_edge(
+        driver,
+        parent_label="Keyword",
+        parent_nk=topic_nk,
+        table_nk=table_nk,
+        source="jainkosh",
+        database=TEST_DB,
+    )
+
+    # Re-run to assert idempotency
+    await sync_contains_table_edge(
+        driver,
+        parent_label="Keyword",
+        parent_nk=topic_nk,
+        table_nk=table_nk,
+        source="jainkosh",
+        database=TEST_DB,
+    )
+
+    async with driver.session(database=TEST_DB) as session:
+        result = await session.run(
+            """
+            MATCH (kw:Keyword {natural_key: $knk})-[r:CONTAINS_TABLE]->(t:Table {natural_key: $tnk})
+            RETURN count(r) AS cnt, t.pg_id AS pg_id, t.seq AS seq
+            """,
+            knk=topic_nk,
+            tnk=table_nk,
+        )
+        record = await result.single()
+    assert record is not None
+    assert record["cnt"] == 1
+    assert record["pg_id"] == table_pg_id
+    assert record["seq"] == 1

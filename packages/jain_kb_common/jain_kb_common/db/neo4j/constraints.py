@@ -13,6 +13,7 @@ _CONSTRAINTS = [
     "CREATE CONSTRAINT kalash_natural_key IF NOT EXISTS FOR (n:Kalash) REQUIRE n.natural_key IS UNIQUE",
     "CREATE CONSTRAINT kalash_bhaavarth_natural_key IF NOT EXISTS FOR (n:KalashBhaavarth) REQUIRE n.natural_key IS UNIQUE",
     "CREATE CONSTRAINT page_natural_key IF NOT EXISTS FOR (n:Page) REQUIRE n.natural_key IS UNIQUE",
+    "CREATE CONSTRAINT table_natural_key IF NOT EXISTS FOR (n:Table) REQUIRE n.natural_key IS UNIQUE",
 ]
 
 _INDEXES = [
@@ -30,6 +31,9 @@ _INDEXES = [
     "CREATE INDEX kalash_is_stub IF NOT EXISTS FOR (n:Kalash) ON (n.is_stub)",
     "CREATE INDEX kalash_bhaavarth_is_stub IF NOT EXISTS FOR (n:KalashBhaavarth) ON (n.is_stub)",
     "CREATE INDEX page_is_stub IF NOT EXISTS FOR (n:Page) ON (n.is_stub)",
+    "CREATE INDEX table_pg_id IF NOT EXISTS FOR (n:Table) ON (n.pg_id)",
+    "CREATE INDEX table_is_stub IF NOT EXISTS FOR (n:Table) ON (n.is_stub)",
+    "CREATE INDEX table_parent IF NOT EXISTS FOR (n:Table) ON (n.parent_natural_key)",
 ]
 
 

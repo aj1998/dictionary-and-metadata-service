@@ -6,7 +6,7 @@ from neo4j import AsyncDriver
 
 _VALID_LABELS = frozenset({
     "Keyword", "Topic", "Gatha", "GathaTeeka", "GathaTeekaBhaavarth",
-    "Kalash", "KalashBhaavarth", "Page", "Shastra", "Teeka", "Publication", "Alias",
+    "Kalash", "KalashBhaavarth", "Page", "Shastra", "Teeka", "Publication", "Alias", "Table",
 })
 
 
@@ -313,6 +313,72 @@ async def sync_kalash_bhaavarth(
             nk=natural_key,
             pnk=publication_natural_key,
             num=kalash_number,
+        )
+
+
+async def sync_table(
+    driver: AsyncDriver,
+    *,
+    natural_key: str,
+    pg_id: str,
+    source: str,
+    parent_natural_key: str,
+    parent_kind: str,
+    seq: int,
+    caption_hi: str | None = None,
+    database: str = "jainkb",
+) -> None:
+    async with driver.session(database=database) as session:
+        await session.run(
+            """
+            MERGE (t:Table {natural_key: $nk})
+            SET t.pg_id = $pg_id,
+                t.source = $source,
+                t.parent_natural_key = $parent_nk,
+                t.parent_kind = $parent_kind,
+                t.seq = $seq,
+                t.caption_hi = $caption_hi,
+                t.is_stub = false,
+                t.stub_source = null,
+                t.updated_at = datetime(),
+                t.created_at = coalesce(t.created_at, datetime())
+            """,
+            nk=natural_key,
+            pg_id=pg_id,
+            source=source,
+            parent_nk=parent_natural_key,
+            parent_kind=parent_kind,
+            seq=seq,
+            caption_hi=caption_hi,
+        )
+
+
+async def sync_contains_table_edge(
+    driver: AsyncDriver,
+    *,
+    parent_label: str,
+    parent_nk: str,
+    table_nk: str,
+    source: str,
+    database: str = "jainkb",
+) -> None:
+    if parent_label not in _VALID_LABELS:
+        raise ValueError(f"Unknown parent_label: {parent_label!r}")
+    async with driver.session(database=database) as session:
+        await session.run(
+            f"""
+            MERGE (parent:{parent_label} {{natural_key: $pnk}})
+              SET parent.is_stub = coalesce(parent.is_stub, true),
+                  parent.created_at = coalesce(parent.created_at, datetime())
+            MERGE (t:Table {{natural_key: $tnk}})
+              SET t.is_stub = coalesce(t.is_stub, true),
+                  t.created_at = coalesce(t.created_at, datetime())
+            MERGE (parent)-[r:CONTAINS_TABLE]->(t)
+            SET r.weight = coalesce(r.weight, 1.0), r.source = $source
+            """,
+            pnk=parent_nk,
+            tnk=table_nk,
+            source=source,
         )
 
 

@@ -30,6 +30,7 @@ from jain_kb_common.db.mongo.schemas import (
     TeekaGathaMapping,
     TopicExtract,
 )
+from jain_kb_common.db.mongo.schemas import TableDoc
 from jain_kb_common.db.mongo.upserts import (
     stable_id,
     upsert_gatha_hindi_chhand,
@@ -44,6 +45,7 @@ from jain_kb_common.db.mongo.upserts import (
     upsert_kalash_sanskrit,
     upsert_kalash_word_meanings,
     upsert_keyword_definition,
+    upsert_table,
     upsert_teeka_gatha_mapping,
     upsert_topic_extract,
 )
@@ -500,3 +502,48 @@ async def test_upsert_kalash_bhaavarth_hindi_idempotent(db):
     assert count == 1
     stored = await db.kalash_bhaavarth_hindi.find_one({"_id": id1})
     assert stored["text"][0]["text"] == "कलश भावार्थ v2"
+
+
+# ---------------------------------------------------------------------------
+# tables collection
+# ---------------------------------------------------------------------------
+
+@skip_no_mongo
+@pytest.mark.asyncio
+async def test_upsert_table_doc_idempotent(db):
+    nk = "table:jainkosh:आत्मा:01"
+    doc = {
+        "source": "jainkosh",
+        "parent_natural_key": "आत्मा",
+        "parent_kind": "keyword",
+        "seq": 1,
+        "raw_html": "<table><tr><th>भेद</th></tr><tr><td>बहिरात्मा</td></tr></table>",
+        "cells": [["भेद"], ["बहिरात्मा"]],
+        "header_rows": 1,
+        "caption": [{"lang": "hi", "script": "devanagari", "text": "भेद"}],
+        "plaintext": "भेद बहिरात्मा",
+    }
+    id1 = await upsert_table(db, natural_key=nk, doc=doc)
+    id2 = await upsert_table(db, natural_key=nk, doc={**doc, "plaintext": "updated plaintext"})
+
+    assert id1 == id2
+    assert id1 == stable_id(nk)
+    count = await db.tables.count_documents({"natural_key": nk})
+    assert count == 1
+    stored = await db.tables.find_one({"_id": id1})
+    assert stored["plaintext"] == "updated plaintext"
+    assert stored["parent_natural_key"] == "आत्मा"
+
+
+def test_table_doc_schema():
+    doc = TableDoc(
+        natural_key="table:jainkosh:आत्मा:01",
+        source="jainkosh",
+        parent_natural_key="आत्मा",
+        parent_kind="keyword",
+        seq=1,
+        raw_html="<table></table>",
+    )
+    assert doc.cells == []
+    assert doc.header_rows == 0
+    assert doc.mentioned_keyword_natural_keys == []

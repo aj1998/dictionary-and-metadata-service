@@ -17,6 +17,7 @@ from jain_kb_common.db.postgres.gathas import Gatha
 from jain_kb_common.db.postgres.keywords import Keyword
 from jain_kb_common.db.postgres.pravachans import Pravachan
 from jain_kb_common.db.postgres.shastras import Shastra
+from jain_kb_common.db.postgres.tables import Table
 from jain_kb_common.db.postgres.teekas import Teeka
 from jain_kb_common.db.postgres.topics import Topic
 from jain_kb_common.db.postgres.kalashas import Kalash
@@ -30,6 +31,7 @@ from jain_kb_common.db.postgres.upserts import (
     upsert_pravachan,
     upsert_publication,
     upsert_shastra,
+    upsert_table,
     upsert_teeka,
     upsert_topic,
 )
@@ -400,3 +402,43 @@ async def test_upsert_kalash_idempotent(async_session):
     assert row.sanskrit_doc_id == "san-doc-2"
     assert row.hindi_doc_id == "hin-doc-1"
     assert row.bhaavarth_doc_ids == ["bh-doc-1"]
+
+
+@skip_no_db
+async def test_upsert_table_idempotent(async_session):
+    nk = "table:jainkosh:आत्मा:01"
+    id1 = await upsert_table(
+        async_session,
+        natural_key=nk,
+        source=IngestionSource.jainkosh,
+        parent_natural_key="आत्मा",
+        parent_kind="keyword",
+        seq=1,
+        raw_html_doc_id="mongo-table-doc-1",
+        caption=[{"lang": "hi", "script": "devanagari", "text": "भेद"}],
+        source_url="https://jainkosh.org/wiki/आत्मा#table-1",
+    )
+    id2 = await upsert_table(
+        async_session,
+        natural_key=nk,
+        source=IngestionSource.jainkosh,
+        parent_natural_key="आत्मा",
+        parent_kind="keyword",
+        seq=1,
+        raw_html_doc_id="mongo-table-doc-2",
+        caption=[{"lang": "hi", "script": "devanagari", "text": "भेद-updated"}],
+        source_url="https://jainkosh.org/wiki/आत्मा#table-1",
+        graph_node_id=nk,
+    )
+    await async_session.commit()
+
+    count = await async_session.scalar(
+        select(func.count()).where(Table.natural_key == nk)
+    )
+    assert count == 1
+    assert id1 == id2
+
+    row = await async_session.scalar(select(Table).where(Table.natural_key == nk))
+    assert row is not None
+    assert row.raw_html_doc_id == "mongo-table-doc-2"
+    assert row.graph_node_id == nk
