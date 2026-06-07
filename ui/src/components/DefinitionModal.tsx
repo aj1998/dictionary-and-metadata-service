@@ -433,7 +433,11 @@ export function DefinitionModal({ open, onClose, title, definitionSections, topi
               </div>
             )}
 
-            {topicExtracts && <TopicExtractsSection blocks={topicExtracts} />}
+            {topicExtracts && topicExtracts.length > 0 && <TopicExtractsSection blocks={topicExtracts} />}
+
+            {!definitionSections && (!topicExtracts || topicExtracts.length === 0) && (
+              <p className="text-sm text-foreground-muted">कोई परिभाषा/अंश उपलब्ध नहीं</p>
+            )}
           </div>
         </Dialog.Popup>
       </Dialog.Portal>

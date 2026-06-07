@@ -1,7 +1,9 @@
 import { BreadcrumbBar } from '@/components/BreadcrumbBar';
 import { MiniGraphPreview } from '@/components/MiniGraphPreview';
+import { TopicTreeBrowser, type TopicTreeItem } from '@/components/TopicTreeBrowser';
 import { Link } from '@/i18n/navigation';
 import { getKeyword } from '@/lib/api/data';
+import { getKeywordTopics } from '@/lib/api/navigation';
 
 export const revalidate = 60;
 
@@ -13,6 +15,15 @@ export default async function KeywordDetailPage({ params }: PageProps) {
   const keyword = await getKeyword(nk);
 
   const aliases = keyword.aliases.map((alias) => alias.alias_text).filter(Boolean);
+
+  const topicsResponse = await getKeywordTopics(keyword.natural_key).catch((error) => {
+    console.error('Failed to fetch keyword topics', { nk: keyword.natural_key, error });
+    return { keyword_natural_key: keyword.natural_key, topics: [] };
+  });
+  const initialItems: TopicTreeItem[] = topicsResponse.topics.map((t) => ({
+    natural_key: t.natural_key,
+    display_text: t.display_text_hi || t.natural_key,
+  }));
 
   return (
     <div className="space-y-5">
@@ -29,19 +40,23 @@ export default async function KeywordDetailPage({ params }: PageProps) {
       </section>
 
       <section className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
-        <h2 className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold">सिद्धांतकोष से</h2>
-        <pre className="mt-3 whitespace-pre-wrap rounded bg-background p-4 text-sm">{JSON.stringify(keyword.definition, null, 2) || 'परिभाषा उपलब्ध नहीं है।'}</pre>
+        <h2 className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold">विषय</h2>
+        <div className="mt-3">
+          {initialItems.length > 0 ? (
+            <TopicTreeBrowser initialItems={initialItems} />
+          ) : (
+            <p className="text-sm text-foreground-muted">कोई विषय उपलब्ध नहीं</p>
+          )}
+        </div>
       </section>
 
       <section className="grid grid-cols-1 gap-5 xl:grid-cols-[1fr_320px]">
         <div className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
           <h2 className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold">ग्राफ संबंध</h2>
           <div className="mt-3 space-y-2 text-sm">
-            {['IS_A', 'PART_OF', 'RELATED_TO'].map((kind) => (
-              <Link key={kind} href={`/graph?node=${encodeURIComponent(keyword.natural_key)}`} className="block rounded border border-border px-3 py-2 hover:bg-surface-muted">
-                {kind} →
-              </Link>
-            ))}
+            <Link href={`/graph?node=${encodeURIComponent(keyword.natural_key)}`} className="block rounded border border-border px-3 py-2 hover:bg-surface-muted">
+              RELATED_TO →
+            </Link>
           </div>
         </div>
         <MiniGraphPreview nk={keyword.natural_key} />
