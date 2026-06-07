@@ -27,6 +27,7 @@ from jain_kb_common.db.neo4j.constraints import ensure_constraints
 from jain_kb_common.db.postgres.base import Base
 from jain_kb_common.db.postgres.keywords import Keyword, KeywordAlias
 from jain_kb_common.db.postgres.topics import Topic
+from jain_kb_common.db.postgres.tables import Table
 
 import jain_kb_common.db.postgres.authors  # noqa: F401
 import jain_kb_common.db.postgres.shastras  # noqa: F401
@@ -42,6 +43,7 @@ import jain_kb_common.db.postgres.kalashas  # noqa: F401
 import jain_kb_common.db.postgres.ingestion  # noqa: F401
 import jain_kb_common.db.postgres.enrichment  # noqa: F401
 import jain_kb_common.db.postgres.query_logs  # noqa: F401
+import jain_kb_common.db.postgres.tables  # noqa: F401
 
 from workers.ingestion.jainkosh.parse_keyword import parse_keyword_html
 from workers.ingestion.jainkosh.envelope import build_envelope
@@ -156,7 +158,7 @@ async def mongo_db():
     client = AsyncIOMotorClient(MONGO_URL)
     db = client[MONGO_DB_NAME]
     yield db
-    for coll in ["keyword_definitions", "topic_extracts", "raw_html_snapshots"]:
+    for coll in ["keyword_definitions", "topic_extracts", "raw_html_snapshots", "tables"]:
         await db[coll].drop()
     client.close()
 
@@ -295,3 +297,172 @@ async def test_apply_alias_dedup(keyword, url, pg_session, mongo_db, neo4j_drive
     assert count_1 == len(aliases_in_envelope), (
         f"[{keyword}] expected {len(aliases_in_envelope)} aliases from envelope, got {count_1}"
     )
+
+
+# ---------------------------------------------------------------------------
+# Table test helpers
+# ---------------------------------------------------------------------------
+
+def _minimal_envelope(keyword_nk: str, tables: list | None = None) -> dict:
+    return {
+        "would_write": {
+            "postgres": {
+                "keywords": [{"natural_key": keyword_nk, "source_url": None}],
+                "topics": [],
+                "keyword_aliases": [],
+            },
+            "mongo": {
+                "keyword_definitions": [{
+                    "natural_key": keyword_nk,
+                    "page_sections": [],
+                    "redirect_aliases": [],
+                    "source_url": None,
+                }],
+                "topic_extracts": [],
+            },
+            "neo4j": {
+                "nodes": [{"label": "Keyword", "key": keyword_nk, "props": {"display_text": keyword_nk}}],
+                "edges": [],
+            },
+        },
+        "tables": tables or [],
+    }
+
+
+def _make_table(parent_nk: str, parent_kind: str, seq: int = 1, **kwargs) -> dict:
+    base: dict = {
+        "natural_key": f"table:jainkosh:{parent_nk}:{seq:02d}",
+        "seq": seq,
+        "parent_natural_key": parent_nk,
+        "parent_kind": parent_kind,
+        "source_url": None,
+        "caption": [],
+        "raw_html": "<table><tr><td>X</td></tr></table>",
+        "cells": [["X"]],
+        "header_rows": 0,
+        "plaintext": "X",
+        "mentioned_keyword_natural_keys": [],
+        "mentioned_topic_natural_keys": [],
+    }
+    base.update(kwargs)
+    return base
+
+
+# ---------------------------------------------------------------------------
+# Test 4: table persisted to Postgres
+# ---------------------------------------------------------------------------
+
+@skip_no_dbs
+async def test_apply_persists_table_to_postgres(pg_session, mongo_db, neo4j_driver):
+    kw_nk = "test_table_pg_kw"
+    table = _make_table(kw_nk, "keyword")
+    table_nk = table["natural_key"]
+    envelope = _minimal_envelope(kw_nk, tables=[table])
+
+    await _apply(pg_session, mongo_db, neo4j_driver, envelope)
+
+    result = await pg_session.execute(select(Table).where(Table.natural_key == table_nk))
+    row = result.scalar_one_or_none()
+    assert row is not None, f"Expected Table row with natural_key={table_nk!r}"
+    assert row.parent_natural_key == kw_nk
+    assert row.raw_html_doc_id is not None and row.raw_html_doc_id != ""
+
+
+# ---------------------------------------------------------------------------
+# Test 5: table persisted to Mongo with table_id and cells round-trip
+# ---------------------------------------------------------------------------
+
+@skip_no_dbs
+async def test_apply_persists_table_to_mongo(pg_session, mongo_db, neo4j_driver):
+    kw_nk = "test_table_mongo_kw"
+    cells = [["A", "B"], ["C", "D"]]
+    table = _make_table(kw_nk, "keyword", cells=cells)
+    table_nk = table["natural_key"]
+    envelope = _minimal_envelope(kw_nk, tables=[table])
+
+    await _apply(pg_session, mongo_db, neo4j_driver, envelope)
+
+    doc = await mongo_db.tables.find_one({"natural_key": table_nk})
+    assert doc is not None, f"Expected Mongo doc with natural_key={table_nk!r}"
+    assert doc.get("table_id") is not None and doc["table_id"] != ""
+    assert doc.get("cells") == cells
+
+
+# ---------------------------------------------------------------------------
+# Test 6: Neo4j Table node + CONTAINS_TABLE edge created
+# ---------------------------------------------------------------------------
+
+@skip_no_dbs
+async def test_apply_creates_table_node_and_contains_edge_in_neo4j(pg_session, mongo_db, neo4j_driver):
+    kw_nk = "test_table_neo4j_kw"
+    table = _make_table(kw_nk, "keyword")
+    table_nk = table["natural_key"]
+    envelope = _minimal_envelope(kw_nk, tables=[table])
+
+    await _apply(pg_session, mongo_db, neo4j_driver, envelope)
+
+    async with neo4j_driver.session(database=TEST_DB) as session:
+        result = await session.run(
+            "MATCH (p:Keyword {natural_key: $pnk})-[:CONTAINS_TABLE]->(t:Table {natural_key: $tnk}) RETURN t",
+            pnk=kw_nk, tnk=table_nk,
+        )
+        records = [r async for r in result]
+    assert len(records) == 1, "Expected exactly 1 CONTAINS_TABLE edge from Keyword to Table"
+
+
+# ---------------------------------------------------------------------------
+# Test 7: MENTIONS_KEYWORD + MENTIONS_TOPIC stub edges created
+# ---------------------------------------------------------------------------
+
+@skip_no_dbs
+async def test_apply_table_mention_edges(pg_session, mongo_db, neo4j_driver):
+    kw_nk = "test_table_mentions_kw"
+    table = _make_table(
+        kw_nk, "keyword",
+        mentioned_keyword_natural_keys=["other_kw_stub"],
+        mentioned_topic_natural_keys=["some_topic_stub"],
+    )
+    table_nk = table["natural_key"]
+    envelope = _minimal_envelope(kw_nk, tables=[table])
+
+    await _apply(pg_session, mongo_db, neo4j_driver, envelope)
+
+    async with neo4j_driver.session(database=TEST_DB) as session:
+        r1 = await session.run(
+            "MATCH (t:Table {natural_key: $tnk})-[:MENTIONS_KEYWORD]->(k:Keyword {natural_key: $kw}) RETURN k",
+            tnk=table_nk, kw="other_kw_stub",
+        )
+        kw_records = [r async for r in r1]
+
+        r2 = await session.run(
+            "MATCH (t:Table {natural_key: $tnk})-[:MENTIONS_TOPIC]->(tp:Topic {natural_key: $tp}) RETURN tp",
+            tnk=table_nk, tp="some_topic_stub",
+        )
+        tp_records = [r async for r in r2]
+
+    assert len(kw_records) == 1, "Expected MENTIONS_KEYWORD edge from Table to Keyword stub"
+    assert len(tp_records) == 1, "Expected MENTIONS_TOPIC edge from Table to Topic stub"
+
+
+# ---------------------------------------------------------------------------
+# Test 8: table apply is idempotent (double apply → no growth)
+# ---------------------------------------------------------------------------
+
+@skip_no_dbs
+async def test_apply_table_idempotent(pg_session, mongo_db, neo4j_driver):
+    kw_nk = "test_table_idem_kw"
+    table = _make_table(kw_nk, "keyword")
+    envelope = _minimal_envelope(kw_nk, tables=[table])
+
+    await _apply(pg_session, mongo_db, neo4j_driver, envelope)
+
+    pg_count_1 = (await pg_session.execute(select(sqlfunc.count()).select_from(Table))).scalar()
+    mongo_count_1 = await mongo_db.tables.count_documents({})
+
+    await _apply(pg_session, mongo_db, neo4j_driver, envelope)
+
+    pg_count_2 = (await pg_session.execute(select(sqlfunc.count()).select_from(Table))).scalar()
+    mongo_count_2 = await mongo_db.tables.count_documents({})
+
+    assert pg_count_2 == pg_count_1, f"Table PG rows grew from {pg_count_1} to {pg_count_2} on second apply"
+    assert mongo_count_2 == mongo_count_1, f"Mongo tables grew from {mongo_count_1} to {mongo_count_2} on second apply"

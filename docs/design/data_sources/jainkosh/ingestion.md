@@ -14,10 +14,10 @@ Parser (HTML → WouldWriteEnvelope JSON)
          ▼
 apply_approved_keyword_payload(envelope, pg_session, mongo_db, neo4j_driver)
          │
-         ├── Postgres (single transaction) ─── keywords, topics, keyword_aliases
+         ├── Postgres (single transaction) ─── keywords, topics, keyword_aliases, tables
          │         commit
-         ├── Mongo ────────────────────────── keyword_definitions, topic_extracts, raw_html_snapshots
-         └── Neo4j ────────────────────────── Keyword, Topic nodes; stub nodes; edges
+         ├── Mongo ────────────────────────── keyword_definitions, topic_extracts, raw_html_snapshots, tables
+         └── Neo4j ────────────────────────── Keyword, Topic nodes; Table nodes; stub nodes; edges
 ```
 
 Postgres commits before Mongo/Neo4j writes. If a downstream write fails, the queue row stays in `approved` and retrying `apply_approved_keyword_payload` with the same envelope heals it — every write is `ON CONFLICT DO NOTHING` or `MERGE`.
@@ -398,5 +398,50 @@ Integration tests for `apply_approved_keyword_payload` live under `tests/ingesti
 - Stub creation and upgrade for cross-page references
 - Lazy node writes (GathaTeeka etc. with `is_stub = true`)
 - Redlink suppression
+- Table persistence to Postgres, Mongo, Neo4j (5 dedicated tests, see § Tables below)
 
 Test fixtures: HTML files in `workers/ingestion/jainkosh/tests/fixtures/`. Goldens: JSON files in `workers/ingestion/jainkosh/tests/golden/`.
+
+---
+
+## Tables
+
+`WouldWriteEnvelope.tables` is a list of `ParsedTable` objects emitted by the parser (Phase 2). The apply layer persists each table to all three stores in order:
+
+```
+for parsed_table in envelope.tables:
+    1. upsert_table (Postgres)                  pre-compute raw_html_doc_id = str(stable_id(nk))
+    2. commit                                    (same transaction as keyword/topics)
+    3. upsert_table (Mongo) with table_id       injects pg UUID into doc
+    4. sync_table (Neo4j MERGE Table)
+    5. sync_contains_table_edge parent → table
+    6. MENTIONS_KEYWORD edges for each kw in mentioned_keyword_natural_keys
+    7. MENTIONS_TOPIC edges for each tp in mentioned_topic_natural_keys
+```
+
+### Parent-label lookup
+
+```python
+_PARENT_KIND_TO_LABEL = {
+    "topic": "Topic",
+    "keyword": "Keyword",
+    "gatha": "Gatha",
+    "gatha_teeka": "GathaTeeka",
+    "gatha_teeka_bhaavarth": "GathaTeekaBhaavarth",
+    "kalash": "Kalash",
+    "kalash_bhaavarth": "KalashBhaavarth",
+    "page": "Page",
+}
+```
+
+If `parent_kind` is not in the map the `CONTAINS_TABLE` edge is skipped with a warning log.
+
+### Idempotency guarantees
+
+- **Postgres**: `ON CONFLICT (natural_key) DO UPDATE` — re-running with the same envelope is a no-op in terms of row count.
+- **Mongo**: `_id = stable_id(natural_key)` is deterministic; `$set` / `$setOnInsert` ensures idempotency.
+- **Neo4j**: all writes use `MERGE`; running twice produces identical graph state.
+
+### `raw_html_doc_id`
+
+The Postgres `tables.raw_html_doc_id` column is set to `str(stable_id(natural_key))` at insert time (pre-computed from the deterministic SHA-1 hash). This matches the Mongo `_id` exactly so the two stores can cross-reference without a round-trip UPDATE.

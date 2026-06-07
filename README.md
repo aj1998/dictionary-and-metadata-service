@@ -150,7 +150,7 @@ See [`IMPLEMENTATION_NOTES.md`](IMPLEMENTATION_NOTES.md) for full details on eac
 | Component | Status |
 |---|---|
 | Postgres data model + Alembic migrations (17 versions) | ✅ |
-| MongoDB data model (15 collections, Motor async) | ✅ |
+| MongoDB data model (16 collections, Motor async) | ✅ |
 | Neo4j graph data model (constraints, upserts, queries) | ✅ |
 | JainKosh HTML parser (`workers/ingestion/jainkosh/`) | ✅ |
 | Phase 1 ingestion apply layer (`apply_approved_keyword_payload`) | ✅ |
@@ -325,7 +325,7 @@ python scripts/clear_dbs.py
 python scripts/clear_dbs.py --neo4j-database neo4j
 ```
 
-Mongo collections cleared: `keyword_definitions`, `topic_extracts`, `raw_html_snapshots` (JainKosh) + `gatha_hindi_chhand`, `gatha_prakrit`, `gatha_sanskrit`, `gatha_teeka_bhaavarth_hindi`, `gatha_teeka_sanskrit`, `kalash_hindi`, `kalash_sanskrit`, `kalash_word_meanings`, `teeka_gatha_mapping` (NJ).
+Mongo collections cleared: `keyword_definitions`, `topic_extracts`, `raw_html_snapshots`, `tables` (JainKosh) + `gatha_hindi_chhand`, `gatha_prakrit`, `gatha_sanskrit`, `gatha_teeka_bhaavarth_hindi`, `gatha_teeka_sanskrit`, `kalash_hindi`, `kalash_sanskrit`, `kalash_word_meanings`, `teeka_gatha_mapping` (NJ).
 
 ### `ingest_goldens_apply.py` — apply JainKosh golden envelopes
 
@@ -403,7 +403,7 @@ dictionary-and-metadata-service/
 │       └── jain_kb_common/
 │           ├── db/
 │           │   ├── postgres/  # SQLAlchemy models + upserts (incl. publications.py, kalashas.py)
-│           │   ├── mongo/     # Motor client, Pydantic schemas, upserts, indexes (15 collections)
+│           │   ├── mongo/     # Motor client, Pydantic schemas, upserts, indexes (16 collections)
 │           │   └── neo4j/     # AsyncDriver factory, constraints, upserts, queries, schema_check
 │           └── hydration/     # hydrate_definitions_hi, hydrate_topic_extracts_hi, extract_references
 ├── migrations/                # Alembic (17 versions, 0001–0017 incl. trgm indexes for query engine)

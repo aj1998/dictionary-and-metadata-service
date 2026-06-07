@@ -111,4 +111,7 @@ cypher-shell -u neo4j -p jainkb_password \
 
 ## 10. Implementation notes (fill in during PR)
 
-_Leave empty._
+- `ingestion_run_id` is **not** forwarded to `upsert_table_pg` because the existing integration tests pass a random UUID that is not present in `ingestion_runs`. Keywords and Topics also don't store run IDs in PG. Run tracking for tables is recorded in Mongo only (as a string, no FK).
+- `raw_html_doc_id` is pre-computed as `str(stable_id(natural_key))` before the PG insert, avoiding the two-round-trip UPDATE pattern described in the spec. This is valid because `stable_id` is deterministic.
+- `MENTIONS_KEYWORD` was added to `_VALID_EDGE_TYPES` in `jain_kb_common/db/neo4j/stubs.py` (was missing; `MENTIONS_TOPIC` was already present).
+- The 5 table tests are in `tests/ingestion/test_apply.py` (tests 4–8). The spec referenced a `tests/scripts/test_ingest_goldens_smoke.py` file that didn't exist; the assertions were placed in the existing integration test file instead.

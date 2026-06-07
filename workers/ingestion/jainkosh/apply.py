@@ -12,6 +12,7 @@ from jain_kb_common.db.mongo.upserts import (
     upsert_keyword_definition,
     upsert_topic_extract,
     upsert_raw_html_snapshot,
+    upsert_table as upsert_table_mongo,
     stable_id,
 )
 from jain_kb_common.db.postgres.enums import IngestionSource
@@ -24,6 +25,7 @@ from jain_kb_common.db.postgres.upserts import (
     upsert_keyword,
     upsert_keyword_alias,
     upsert_topic,
+    upsert_table as upsert_table_pg,
 )
 from jain_kb_common.db.neo4j.stubs import sync_stub_node, sync_reference_edge, delete_placeholder_stub
 from jain_kb_common.db.neo4j.upserts import (
@@ -32,7 +34,20 @@ from jain_kb_common.db.neo4j.upserts import (
     sync_has_topic_edge,
     sync_part_of_edge,
     sync_related_to_edge,
+    sync_table,
+    sync_contains_table_edge,
 )
+
+_PARENT_KIND_TO_LABEL: dict[str, str] = {
+    "topic": "Topic",
+    "keyword": "Keyword",
+    "gatha": "Gatha",
+    "gatha_teeka": "GathaTeeka",
+    "gatha_teeka_bhaavarth": "GathaTeekaBhaavarth",
+    "kalash": "Kalash",
+    "kalash_bhaavarth": "KalashBhaavarth",
+    "page": "Page",
+}
 
 
 def _nfc(v: str) -> str:
@@ -236,6 +251,27 @@ async def apply_approved_keyword_payload(
                 source=alias_row.get("source", "jainkosh"),
             )
 
+    # --- Postgres table upserts (within same transaction) ---
+    table_pg_ids: dict[str, uuid.UUID] = {}
+    for t in envelope.get("tables", []):
+        nk = t["natural_key"]
+        mongo_doc_id = str(stable_id(nk))
+        caption_list = t.get("caption") or []
+        caption_pg = caption_list if caption_list else None
+        table_id = await upsert_table_pg(
+            pg_session,
+            natural_key=nk,
+            source=IngestionSource.jainkosh,
+            parent_natural_key=t["parent_natural_key"],
+            parent_kind=t["parent_kind"],
+            seq=t["seq"],
+            raw_html_doc_id=mongo_doc_id,
+            caption=caption_pg,
+            source_url=t.get("source_url"),
+        )
+        table_pg_ids[nk] = table_id
+        _log.debug("upserted table PG row: %s → %s", nk, table_id)
+
     await pg_session.commit()
 
     # Resolve cross-page Topic stubs now that Postgres has been committed.
@@ -280,6 +316,27 @@ async def apply_approved_keyword_payload(
         snap.pop("collection", None)
         snap.pop("natural_key", None)
         await upsert_raw_html_snapshot(mongo_db, natural_key=snap_nk, doc=snap)
+
+    # --- Mongo table upserts ---
+    for t in envelope.get("tables", []):
+        nk = t["natural_key"]
+        table_id = table_pg_ids.get(nk)
+        mongo_doc: dict = {
+            "table_id": str(table_id) if table_id else "",
+            "parent_natural_key": t["parent_natural_key"],
+            "parent_kind": t["parent_kind"],
+            "seq": t["seq"],
+            "raw_html": t.get("raw_html", ""),
+            "cells": t.get("cells", []),
+            "header_rows": t.get("header_rows", 0),
+            "plaintext": t.get("plaintext", ""),
+            "caption": t.get("caption", []),
+            "source_url": t.get("source_url"),
+        }
+        if run_id_str:
+            mongo_doc["ingestion_run_id"] = run_id_str
+        await upsert_table_mongo(mongo_db, natural_key=nk, doc=mongo_doc)
+        _log.debug("upserted table Mongo doc: %s", nk)
 
     # --- Neo4j ---
     kw_pg_id = str(keyword_id)
@@ -393,6 +450,64 @@ async def apply_approved_keyword_payload(
                     edge_props=edge.get("props") or {},
                     database=neo4j_database,
                 )
+
+    # --- Neo4j table nodes + edges ---
+    for t in envelope.get("tables", []):
+        nk = t["natural_key"]
+        table_id = table_pg_ids.get(nk)
+        parent_nk = t["parent_natural_key"]
+        parent_kind = t["parent_kind"]
+        caption_list = t.get("caption") or []
+        caption_hi = caption_list[0]["text"] if caption_list else None
+
+        await sync_table(
+            neo4j_driver,
+            natural_key=nk,
+            pg_id=str(table_id) if table_id else "",
+            source="jainkosh",
+            parent_natural_key=parent_nk,
+            parent_kind=parent_kind,
+            seq=t["seq"],
+            caption_hi=caption_hi,
+            database=neo4j_database,
+        )
+
+        parent_label = _PARENT_KIND_TO_LABEL.get(parent_kind)
+        if parent_label:
+            await sync_contains_table_edge(
+                neo4j_driver,
+                parent_label=parent_label,
+                parent_nk=parent_nk,
+                table_nk=nk,
+                source="jainkosh",
+                database=neo4j_database,
+            )
+        else:
+            _log.warning("unknown parent_kind %r for table %s, skipping CONTAINS_TABLE edge", parent_kind, nk)
+
+        for kw_nk in t.get("mentioned_keyword_natural_keys", []):
+            await sync_reference_edge(
+                neo4j_driver,
+                edge_type="MENTIONS_KEYWORD",
+                src_label="Table",
+                src_nk=nk,
+                tgt_label="Keyword",
+                tgt_nk=kw_nk,
+                database=neo4j_database,
+            )
+
+        for tp_nk in t.get("mentioned_topic_natural_keys", []):
+            await sync_reference_edge(
+                neo4j_driver,
+                edge_type="MENTIONS_TOPIC",
+                src_label="Table",
+                src_nk=nk,
+                tgt_label="Topic",
+                tgt_nk=tp_nk,
+                database=neo4j_database,
+            )
+
+        _log.debug("synced table Neo4j node + edges: %s", nk)
 
     # Delete numerical placeholder stub nodes that were resolved in this pass.
     # In pass 1, unresolved cross-page stubs fall back to using their resolve_key

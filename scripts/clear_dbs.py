@@ -60,6 +60,8 @@ _MONGO_COLLECTIONS = (
     "teeka_gatha_mapping",
     # matching
     "extract_matches",
+    # tables (jainkosh table first-class nodes)
+    "tables",
 )
 
 
