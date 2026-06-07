@@ -110,6 +110,12 @@ python -m pytest tests/services/ tests/common/ -v
 - [ ] All new tests pass; full `tests/services/` + `tests/common/` suite green.
 - [ ] Docs updated.
 
-## 8. Implementation notes (fill in during PR)
+## 8. Implementation notes
 
-_Leave empty._
+- **Hydration module** (`packages/jain_kb_common/jain_kb_common/hydration/tables.py`): Defines shared `TableSummary` and `TableResponse` Pydantic models. `hydrate_tables_for_parent` queries PG by `parent_natural_key` ordered by `seq`. `hydrate_table_full` fetches the PG row then the Mongo doc by `natural_key`; if Mongo doc is absent it returns an empty-cells response (logs warning, does not 500). `hydration/__init__.py` updated to re-export these.
+- **API schemas** (`domains/data/schemas/tables.py`): Re-exports the same field shape as the hydration models. Thin wrappers used for FastAPI response typing.
+- **Router** (`domains/data/routers/tables.py`): `GET /v1/tables/{natural_key}` → 200 or 404; `GET /v1/tables?parent_natural_key=...` → list ordered by seq; `parent_natural_key` is required (missing → 422). Both set `Cache-Control: public, max-age=60`.
+- **Graph traversal** (`domains/navigation/routers/graph.py`): Added `Table` to `_label_to_kind` mapping → `"table"`. Added `CONTAINS_TABLE` to the edge-type union in both `landing` and `expand` Cypher strings. Added `OR s:Table / OR t:Table` to the node label filters in `landing`.
+- **Mongo lookup strategy**: Fetches by `natural_key` field (not by `_id` ObjectId) for simplicity. Both PG and Mongo store `natural_key` as a unique index.
+- **Query service** (§4): Deferred — not implemented in this phase.
+- **Tests**: All 354 pre-existing tests still pass; 16 new tests added across `test_tables.py`, `test_graph_includes_tables.py`, and `test_hydration.py`.

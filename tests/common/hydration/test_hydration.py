@@ -441,3 +441,154 @@ def test_extract_references_no_references_key() -> None:
 def test_extract_references_empty_blocks() -> None:
     """Empty block list returns empty list."""
     assert extract_references([]) == []
+
+
+# ============================================================
+# hydrate_tables_for_parent / hydrate_table_full tests
+# ============================================================
+
+from jain_kb_common.hydration.tables import (  # noqa: E402
+    hydrate_tables_for_parent,
+    hydrate_table_full,
+)
+from unittest.mock import AsyncMock, MagicMock  # noqa: E402
+
+
+def _make_pg_with_rows(rows: list) -> object:
+    """Minimal async SQLAlchemy session mock."""
+
+    class FakeResult:
+        def __init__(self, data):
+            self._data = data
+
+        def scalars(self):
+            return self
+
+        def scalar_one_or_none(self):
+            return self._data[0] if self._data else None
+
+        def __iter__(self):
+            return iter(self._data)
+
+    class FakeSession:
+        async def execute(self, stmt):
+            return FakeResult(rows)
+
+    return FakeSession()
+
+
+def _make_mongo_tables(docs: list[dict]) -> object:
+    class FakeCollection:
+        def __init__(self, data):
+            self._data = data
+
+        async def find_one(self, query):
+            nk = query.get("natural_key")
+            for d in self._data:
+                if d.get("natural_key") == nk:
+                    return dict(d)
+            return None
+
+    class FakeDB:
+        def __init__(self, data):
+            self._data = data
+
+        def __getitem__(self, _name):
+            return FakeCollection(self._data)
+
+    return FakeDB(docs)
+
+
+class FakeTableRow:
+    """Minimal PG Table row substitute for hydration tests."""
+
+    def __init__(self, natural_key, seq, parent_natural_key="parent:topic",
+                 parent_kind="Topic", source="jainkosh", source_url=None,
+                 caption=None, row_id="00000000-0000-0000-0000-000000000001"):
+        self.natural_key = natural_key
+        self.seq = seq
+        self.parent_natural_key = parent_natural_key
+        self.parent_kind = parent_kind
+        self.source = source
+        self.source_url = source_url
+        self.caption = caption or []
+        self.id = row_id
+
+    @property
+    def source(self):
+        return self._source
+
+    @source.setter
+    def source(self, v):
+        self._source = v
+
+
+_PARENT_NK = "द्रव्य:षट्द्रव्य"
+_TABLE_NK = "table:jainkosh:द्रव्य:षट्द्रव्य:01"
+
+_MONGO_DOC = {
+    "natural_key": _TABLE_NK,
+    "raw_html": "<table></table>",
+    "cells": [["a", "b"]],
+    "header_rows": 1,
+    "plaintext": "a b",
+    "mentioned_keyword_natural_keys": ["द्रव्य"],
+    "mentioned_topic_natural_keys": [],
+}
+
+
+@pytest.mark.asyncio
+async def test_hydrate_tables_for_parent_returns_summaries() -> None:
+    rows = [
+        FakeTableRow(_TABLE_NK, seq=1, parent_natural_key=_PARENT_NK),
+        FakeTableRow("table:jainkosh:द्रव्य:षट्द्रव्य:02", seq=2, parent_natural_key=_PARENT_NK),
+    ]
+    pg = _make_pg_with_rows(rows)
+    mongo = _make_mongo_tables([])
+    result = await hydrate_tables_for_parent(pg, mongo, parent_natural_key=_PARENT_NK)
+    assert len(result) == 2
+    assert result[0].natural_key == _TABLE_NK
+    assert result[0].seq == 1
+    assert result[1].seq == 2
+
+
+@pytest.mark.asyncio
+async def test_hydrate_tables_for_parent_empty() -> None:
+    pg = _make_pg_with_rows([])
+    mongo = _make_mongo_tables([])
+    result = await hydrate_tables_for_parent(pg, mongo, parent_natural_key="nonexistent")
+    assert result == []
+
+
+@pytest.mark.asyncio
+async def test_hydrate_table_full_merges_pg_and_mongo() -> None:
+    row = FakeTableRow(_TABLE_NK, seq=1, parent_natural_key=_PARENT_NK)
+    pg = _make_pg_with_rows([row])
+    mongo = _make_mongo_tables([_MONGO_DOC])
+    result = await hydrate_table_full(pg, mongo, natural_key=_TABLE_NK)
+    assert result is not None
+    assert result.natural_key == _TABLE_NK
+    assert result.raw_html == "<table></table>"
+    assert result.cells == [["a", "b"]]
+    assert result.header_rows == 1
+    assert result.plaintext == "a b"
+    assert result.mentioned_keyword_natural_keys == ["द्रव्य"]
+
+
+@pytest.mark.asyncio
+async def test_hydrate_table_full_returns_none_when_pg_missing() -> None:
+    pg = _make_pg_with_rows([])
+    mongo = _make_mongo_tables([_MONGO_DOC])
+    result = await hydrate_table_full(pg, mongo, natural_key="nonexistent")
+    assert result is None
+
+
+@pytest.mark.asyncio
+async def test_hydrate_table_full_empty_cells_when_mongo_missing() -> None:
+    row = FakeTableRow(_TABLE_NK, seq=1, parent_natural_key=_PARENT_NK)
+    pg = _make_pg_with_rows([row])
+    mongo = _make_mongo_tables([])
+    result = await hydrate_table_full(pg, mongo, natural_key=_TABLE_NK)
+    assert result is not None
+    assert result.cells == []
+    assert result.raw_html == ""

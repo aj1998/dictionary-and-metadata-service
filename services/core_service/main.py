@@ -33,6 +33,7 @@ from .domains.data.routers import (
     keywords as data_keywords,
     search,
     stats,
+    tables as data_tables,
     topics as data_topics,
 )
 from .domains.navigation.routers import (
@@ -130,6 +131,7 @@ for r in (
     data_topics.router,
     gathas.router,
     kalashas.router,
+    data_tables.router,
     extract_matches.router,
     browse.router,
     search.router,

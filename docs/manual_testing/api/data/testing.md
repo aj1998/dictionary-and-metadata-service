@@ -685,7 +685,109 @@ curl -s "http://localhost:8002/v1/gathas?limit=50&offset=100" | python -m json.t
 
 ---
 
-## 10. Automated test suite
+## 10. Tables
+
+Seed a table PG row and Mongo document, then test both endpoints.
+
+### 10a. Seed table data
+
+```bash
+# PG row
+psql "postgresql://$(whoami)@localhost/jain_kb_dev" <<'SQL'
+INSERT INTO tables (id, natural_key, source, parent_natural_key, parent_kind, seq, caption, source_url, raw_html_doc_id)
+VALUES (
+  gen_random_uuid(),
+  'table:jainkosh:द्रव्य:षट्द्रव्य:01',
+  'jainkosh',
+  'आत्मा:आत्मा-के-भेद',
+  'Topic',
+  1,
+  '[{"lang":"hi","script":"devanagari","text":"षट् द्रव्य"}]',
+  'https://www.jainkosh.org/wiki/द्रव्य',
+  'placeholder'
+) ON CONFLICT (natural_key) DO NOTHING;
+SQL
+```
+
+```python
+# python seed_mongo_table.py
+from motor.motor_asyncio import AsyncIOMotorClient
+import asyncio
+
+async def seed():
+    db = AsyncIOMotorClient("mongodb://localhost:27017")["jain_kb"]
+    await db.tables.update_one(
+        {"natural_key": "table:jainkosh:द्रव्य:षट्द्रव्य:01"},
+        {"$set": {
+            "natural_key": "table:jainkosh:द्रव्य:षट्द्रव्य:01",
+            "source": "jainkosh",
+            "parent_natural_key": "आत्मा:आत्मा-के-भेद",
+            "parent_kind": "Topic",
+            "seq": 1,
+            "caption": [{"lang": "hi", "script": "devanagari", "text": "षट् द्रव्य"}],
+            "raw_html": "<table><tr><th>द्रव्य</th></tr><tr><td>जीव</td></tr></table>",
+            "cells": [["द्रव्य"], ["जीव"]],
+            "header_rows": 1,
+            "plaintext": "द्रव्य\nजीव",
+            "mentioned_keyword_natural_keys": ["द्रव्य"],
+            "mentioned_topic_natural_keys": [],
+        }},
+        upsert=True,
+    )
+    print("Table Mongo seed done.")
+
+asyncio.run(seed())
+```
+
+### 10b. Get table by natural_key
+
+```bash
+curl -s "http://localhost:8002/v1/tables/table:jainkosh:द्रव्य:षट्द्रव्य:01" | python -m json.tool
+# natural_key, pg_id, source: "jainkosh"
+# raw_html: "<table>..."
+# cells: [["द्रव्य"], ["जीव"]]
+# header_rows: 1
+# mentioned_keyword_natural_keys: ["द्रव्य"]
+```
+
+Check Cache-Control:
+
+```bash
+curl -sI "http://localhost:8002/v1/tables/table:jainkosh:द्रव्य:षट्द्रव्य:01" | grep Cache-Control
+# Cache-Control: public, max-age=60
+```
+
+### 10c. 404 for unknown table
+
+```bash
+curl -s -o /dev/null -w "%{http_code}" "http://localhost:8002/v1/tables/table:jainkosh:nonexistent:99"
+# 404
+```
+
+### 10d. List tables for a parent
+
+```bash
+curl -s "http://localhost:8002/v1/tables?parent_natural_key=आत्मा:आत्मा-के-भेद" | python -m json.tool
+# [{natural_key, seq: 1, caption: [...]}]
+```
+
+Missing parent → empty list (not 404):
+
+```bash
+curl -s "http://localhost:8002/v1/tables?parent_natural_key=nonexistent:topic"
+# []
+```
+
+Missing query param → 422:
+
+```bash
+curl -s -o /dev/null -w "%{http_code}" "http://localhost:8002/v1/tables"
+# 422
+```
+
+---
+
+## 11. Automated test suite
 
 ```bash
 export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
