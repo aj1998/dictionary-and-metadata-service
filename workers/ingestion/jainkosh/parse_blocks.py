@@ -56,12 +56,37 @@ def _render_inline(node: Node, config: JainkoshConfig) -> str:
     return result
 
 
+def _get_ol_list_number(li_node: Node) -> Optional[int]:
+    """Return the rendered list number for a <li> element within an <ol>.
+
+    Respects the <ol start="N"> attribute (defaults to 1 when absent).
+    Returns None if the element's parent is not an <ol>.
+    """
+    parent = li_node.parent
+    if parent is None or parent.tag != "ol":
+        return None
+    try:
+        start = int(parent.attributes.get("start") or 1)
+    except (ValueError, TypeError):
+        start = 1
+    pos = 0
+    child = parent.child
+    while child is not None:
+        if child.tag == "li":
+            pos += 1
+            if child == li_node:
+                return start + pos - 1
+        child = child.next
+    return None
+
+
 def make_block(
     node: Node,
     config: JainkoshConfig,
     *,
     current_keyword: str = "",
     section_kind: SectionKind = "siddhantkosh",
+    list_number: Optional[int] = None,
 ) -> Optional[Block]:
     """Convert a single DOM element into a Block, or None if it should be dropped."""
     tag = node.tag
@@ -116,8 +141,12 @@ def make_block(
         references=refs,
     )
     block._pre_strip_text = pre_strip
-    if config.blocks.is_bullet_point_for_li and tag == "li":
-        block.is_bullet_point = True
+    if tag == "li":
+        if config.blocks.is_bullet_point_for_li:
+            block.is_bullet_point = True
+        # Use the caller-supplied list_number when available (the original element may have
+        # been replaced by a synthetic node detached from the DOM by split_element_at_inline_refs).
+        block.list_number = list_number if list_number is not None else _get_ol_list_number(node)
 
     return block, see_alsos  # type: ignore[return-value]
 
@@ -302,8 +331,12 @@ def parse_block_stream(
         else:
             sub_els = [el]
 
+        # Capture list_number from the original element before any splitting, since
+        # split_element_at_inline_refs creates synthetic nodes detached from the DOM.
+        el_list_number = _get_ol_list_number(el) if el.tag == "li" else None
+
         for sub_el in sub_els:
-            result = make_block(sub_el, config, current_keyword=current_keyword, section_kind=section_kind)
+            result = make_block(sub_el, config, current_keyword=current_keyword, section_kind=section_kind, list_number=el_list_number)
             if result is None:
                 # When a transparent inline wrapper (strong/b) sits directly after the "="
                 # sibling marker and produces no block, carry the marker forward to the

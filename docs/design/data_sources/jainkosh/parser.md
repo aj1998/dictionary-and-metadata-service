@@ -993,6 +993,43 @@ DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence an
 
 ---
 
+## 18. `list_number` — Rendered `<ol>/<li>` Sequence Number (v1.11.22+)
+
+### 18.1 What it captures
+
+When a content block comes from a `<li>` element inside an `<ol>`, the parser records the **rendered list number** — the number that a browser would display next to that list item. This is stored as `Block.list_number: Optional[int]`.
+
+The effective number is computed as:
+
+```
+list_number = (ol.start attribute, defaulting to 1) + (0-based position of this <li> within the <ol>)
+```
+
+This correctly handles `<ol start="N">` elements, which jainkosh uses to continue interrupted ordered lists (e.g. `<ol start="7">` for items 7–9 of a list split across multiple `<ol>` elements).
+
+`list_number` is `None` when the block does not originate from a `<li>` inside an `<ol>` (e.g. inline `<p>` or `<span>` content blocks).
+
+**Implemented in:** `parse_blocks._get_ol_list_number(li_node)` called from `make_block` when `node.tag == "li"`.
+
+### 18.2 Storage and API
+
+`list_number` is serialised into every `Block` in the `would_write.mongo.topic_extracts` documents (value `null` when absent). It flows through to the topic API response and is available in `DefinitionBlock` in the UI (`ui/src/lib/types.ts`).
+
+### 18.3 UI: Definition Modal View Modes
+
+The `DefinitionModal` component (keyword and topic definition popups) supports two display modes toggled via a pill in the modal header top-right.
+
+| Mode | Label | Behaviour |
+|---|---|---|
+| **क्रमानुसार** (sequential) | **Default** | Blocks shown flat in original document order; when `list_number` is present, a leading number badge (e.g. `1.`, `7.`) is shown per group |
+| **शास्त्रानुसार** (by shastra) | Opt-in | Existing accordion grouping by shastra name |
+
+For **topic extracts**: consecutive blocks with the same `list_number` are grouped under one badge. Blocks without `list_number` are shown without a badge.
+
+For **keyword definitions** (`definitionSections`): section headers (`h2_text`) are preserved; within each section each `DefinitionEntry` is numbered by its parser-assigned `definition_index` (1-based per section — see §3.3). No shastra accordion grouping in sequential mode.
+
+---
+
 ## Edge Cases Reference
 
 | Page | Phenomenon | Rule |

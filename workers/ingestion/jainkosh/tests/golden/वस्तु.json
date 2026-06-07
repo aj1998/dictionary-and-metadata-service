@@ -35,7 +35,8 @@
                 "target_topic_path": null,
                 "target_url": null,
                 "is_self": false,
-                "target_exists": true
+                "target_exists": true,
+                "list_number": null
               },
               {
                 "kind": "prakrit_text",
@@ -66,7 +67,8 @@
                 "target_topic_path": null,
                 "target_url": null,
                 "is_self": false,
-                "target_exists": true
+                "target_exists": true,
+                "list_number": null
               },
               {
                 "kind": "see_also",
@@ -81,7 +83,8 @@
                 "target_topic_path": null,
                 "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF",
                 "is_self": false,
-                "target_exists": true
+                "target_exists": true,
+                "list_number": null
               },
               {
                 "kind": "sanskrit_text",
@@ -120,7 +123,8 @@
                 "target_topic_path": null,
                 "target_url": null,
                 "is_self": false,
-                "target_exists": true
+                "target_exists": true,
+                "list_number": null
               },
               {
                 "kind": "sanskrit_text",
@@ -159,7 +163,8 @@
                 "target_topic_path": null,
                 "target_url": null,
                 "is_self": false,
-                "target_exists": true
+                "target_exists": true,
+                "list_number": null
               }
             ],
             "raw_html": null
@@ -194,7 +199,8 @@
                 "target_topic_path": "1.7",
                 "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#1.7",
                 "is_self": false,
-                "target_exists": true
+                "target_exists": true,
+                "list_number": null
               }
             ],
             "children": []
@@ -225,7 +231,8 @@
                 "target_topic_path": "1.4",
                 "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#1.4",
                 "is_self": false,
-                "target_exists": true
+                "target_exists": true,
+                "list_number": null
               }
             ],
             "children": []
@@ -256,7 +263,8 @@
                 "target_topic_path": null,
                 "target_url": "/wiki/%E0%A4%B8%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%A8%E0%A5%8D%E0%A4%AF",
                 "is_self": false,
-                "target_exists": true
+                "target_exists": true,
+                "list_number": null
               }
             ],
             "children": []
@@ -287,7 +295,8 @@
                 "target_topic_path": "II",
                 "target_url": "/wiki/%E0%A4%B6%E0%A5%8D%E0%A4%B0%E0%A5%81%E0%A4%A4%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8#II",
                 "is_self": false,
-                "target_exists": true
+                "target_exists": true,
+                "list_number": null
               }
             ],
             "children": []
@@ -327,7 +336,8 @@
                 "target_topic_path": null,
                 "target_url": null,
                 "is_self": false,
-                "target_exists": true
+                "target_exists": true,
+                "list_number": null
               }
             ],
             "raw_html": null
@@ -477,7 +487,8 @@
                       "target_topic_path": null,
                       "target_url": null,
                       "is_self": false,
-                      "target_exists": true
+                      "target_exists": true,
+                      "list_number": null
                     },
                     {
                       "kind": "prakrit_text",
@@ -508,7 +519,8 @@
                       "target_topic_path": null,
                       "target_url": null,
                       "is_self": false,
-                      "target_exists": true
+                      "target_exists": true,
+                      "list_number": null
                     },
                     {
                       "kind": "see_also",
@@ -523,7 +535,8 @@
                       "target_topic_path": null,
                       "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF",
                       "is_self": false,
-                      "target_exists": true
+                      "target_exists": true,
+                      "list_number": null
                     },
                     {
                       "kind": "sanskrit_text",
@@ -562,7 +575,8 @@
                       "target_topic_path": null,
                       "target_url": null,
                       "is_self": false,
-                      "target_exists": true
+                      "target_exists": true,
+                      "list_number": null
                     },
                     {
                       "kind": "sanskrit_text",
@@ -601,7 +615,8 @@
                       "target_topic_path": null,
                       "target_url": null,
                       "is_self": false,
-                      "target_exists": true
+                      "target_exists": true,
+                      "list_number": null
                     }
                   ],
                   "raw_html": null
@@ -634,7 +649,8 @@
                       "target_topic_path": "1.7",
                       "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#1.7",
                       "is_self": false,
-                      "target_exists": true
+                      "target_exists": true,
+                      "list_number": null
                     }
                   ],
                   "children": []
@@ -665,7 +681,8 @@
                       "target_topic_path": "1.4",
                       "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#1.4",
                       "is_self": false,
-                      "target_exists": true
+                      "target_exists": true,
+                      "list_number": null
                     }
                   ],
                   "children": []
@@ -696,7 +713,8 @@
                       "target_topic_path": null,
                       "target_url": "/wiki/%E0%A4%B8%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%A8%E0%A5%8D%E0%A4%AF",
                       "is_self": false,
-                      "target_exists": true
+                      "target_exists": true,
+                      "list_number": null
                     }
                   ],
                   "children": []
@@ -727,7 +745,8 @@
                       "target_topic_path": "II",
                       "target_url": "/wiki/%E0%A4%B6%E0%A5%8D%E0%A4%B0%E0%A5%81%E0%A4%A4%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8#II",
                       "is_self": false,
-                      "target_exists": true
+                      "target_exists": true,
+                      "list_number": null
                     }
                   ],
                   "children": []
@@ -767,7 +786,8 @@
                       "target_topic_path": null,
                       "target_url": null,
                       "is_self": false,
-                      "target_exists": true
+                      "target_exists": true,
+                      "list_number": null
                     }
                   ],
                   "raw_html": null
@@ -808,7 +828,8 @@
               "target_topic_path": "1.7",
               "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#1.7",
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -841,7 +862,8 @@
               "target_topic_path": "1.4",
               "target_url": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#1.4",
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -874,7 +896,8 @@
               "target_topic_path": null,
               "target_url": "/wiki/%E0%A4%B8%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%A8%E0%A5%8D%E0%A4%AF",
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -907,7 +930,8 @@
               "target_topic_path": "II",
               "target_url": "/wiki/%E0%A4%B6%E0%A5%8D%E0%A4%B0%E0%A5%81%E0%A4%A4%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8#II",
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",

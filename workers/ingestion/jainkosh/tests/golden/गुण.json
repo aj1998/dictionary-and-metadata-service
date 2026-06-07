@@ -24,7 +24,8 @@
                 "target_topic_path": null,
                 "target_url": null,
                 "is_self": false,
-                "target_exists": true
+                "target_exists": true,
+                "list_number": null
               }
             ],
             "raw_html": null
@@ -274,7 +275,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -305,7 +307,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -344,7 +347,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -375,7 +379,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -406,7 +411,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -454,7 +460,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -515,7 +522,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -558,7 +566,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "hindi_text",
@@ -584,7 +593,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -644,7 +654,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -670,7 +681,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -696,7 +708,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -756,7 +769,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -859,7 +873,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "prakrit_text",
@@ -929,7 +944,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -976,7 +992,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "prakrit_text",
@@ -1015,7 +1032,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -1066,7 +1084,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -1117,7 +1136,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -1148,7 +1168,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "prakrit_text",
@@ -1179,7 +1200,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -1231,7 +1253,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -1266,7 +1289,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -1301,7 +1325,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -1336,7 +1361,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -1379,7 +1405,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -1426,7 +1453,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "prakrit_text",
@@ -1477,7 +1505,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "prakrit_text",
@@ -1528,7 +1557,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -1596,7 +1626,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -1632,7 +1663,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -1729,7 +1761,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -1760,7 +1793,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -1791,7 +1825,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -1834,7 +1869,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -1860,7 +1896,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -1886,7 +1923,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -1912,7 +1950,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -1960,7 +1999,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "hindi_text",
@@ -1986,7 +2026,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -2050,7 +2091,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -2098,7 +2140,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -2129,7 +2172,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "hindi_text",
@@ -2155,7 +2199,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -2203,7 +2248,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -2234,7 +2280,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -2282,7 +2329,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -2313,7 +2361,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -2373,7 +2422,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -2421,7 +2471,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -2452,7 +2503,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -2516,7 +2568,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -2674,7 +2727,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -2705,7 +2759,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "prakrit_text",
@@ -2736,7 +2791,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -2767,7 +2823,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -2898,7 +2955,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -2929,7 +2987,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -2972,7 +3031,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -3017,7 +3077,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -3063,7 +3124,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -3186,7 +3248,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -3259,7 +3322,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -3290,7 +3354,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -3338,7 +3403,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "prakrit_text",
@@ -3384,7 +3450,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "prakrit_text",
@@ -3415,7 +3482,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -3446,7 +3514,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -3494,7 +3563,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -3537,7 +3607,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -3585,7 +3656,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -3616,7 +3688,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "hindi_text",
@@ -3662,7 +3735,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "hindi_text",
@@ -3709,7 +3783,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -3777,7 +3852,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "prakrit_text",
@@ -3808,7 +3884,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -3843,7 +3920,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -3882,7 +3960,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -3928,7 +4007,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -3959,7 +4039,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -4007,7 +4088,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -4038,7 +4120,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -4077,7 +4160,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -4108,7 +4192,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -4156,7 +4241,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -4204,7 +4290,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -4235,7 +4322,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   },
                   {
                     "kind": "sanskrit_text",
@@ -4266,7 +4354,8 @@
                     "target_topic_path": null,
                     "target_url": null,
                     "is_self": false,
-                    "target_exists": true
+                    "target_exists": true,
+                    "list_number": null
                   }
                 ],
                 "children": []
@@ -5096,7 +5185,8 @@
                       "target_topic_path": null,
                       "target_url": null,
                       "is_self": false,
-                      "target_exists": true
+                      "target_exists": true,
+                      "list_number": null
                     }
                   ],
                   "raw_html": null
@@ -5178,7 +5268,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -5209,7 +5300,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -5248,7 +5340,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -5279,7 +5372,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -5310,7 +5404,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -5359,7 +5454,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -5420,7 +5516,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -5463,7 +5560,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "hindi_text",
@@ -5489,7 +5587,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -5550,7 +5649,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -5576,7 +5676,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -5602,7 +5703,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -5663,7 +5765,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -5768,7 +5871,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "prakrit_text",
@@ -5838,7 +5942,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -5885,7 +5990,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "prakrit_text",
@@ -5924,7 +6030,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -5975,7 +6082,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -6026,7 +6134,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -6057,7 +6166,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "prakrit_text",
@@ -6088,7 +6198,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -6141,7 +6252,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -6176,7 +6288,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -6211,7 +6324,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -6246,7 +6360,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -6289,7 +6404,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -6336,7 +6452,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "prakrit_text",
@@ -6387,7 +6504,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "prakrit_text",
@@ -6438,7 +6556,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -6507,7 +6626,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -6543,7 +6663,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -6641,7 +6762,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -6672,7 +6794,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -6703,7 +6826,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -6747,7 +6871,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -6773,7 +6898,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -6799,7 +6925,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -6825,7 +6952,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -6874,7 +7002,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "hindi_text",
@@ -6900,7 +7029,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -6965,7 +7095,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -7014,7 +7145,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -7045,7 +7177,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "hindi_text",
@@ -7071,7 +7204,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -7120,7 +7254,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -7151,7 +7286,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -7200,7 +7336,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -7231,7 +7368,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -7292,7 +7430,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -7341,7 +7480,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -7372,7 +7512,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -7438,7 +7579,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -7597,7 +7739,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -7628,7 +7771,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "prakrit_text",
@@ -7659,7 +7803,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -7690,7 +7835,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -7822,7 +7968,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -7853,7 +8000,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -7897,7 +8045,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -7942,7 +8091,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -7988,7 +8138,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -8112,7 +8263,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -8185,7 +8337,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -8216,7 +8369,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -8265,7 +8419,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "prakrit_text",
@@ -8311,7 +8466,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "prakrit_text",
@@ -8342,7 +8498,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -8373,7 +8530,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -8422,7 +8580,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -8465,7 +8624,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -8514,7 +8674,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -8545,7 +8706,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "hindi_text",
@@ -8591,7 +8753,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "hindi_text",
@@ -8638,7 +8801,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -8707,7 +8871,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "prakrit_text",
@@ -8738,7 +8903,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -8773,7 +8939,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -8812,7 +8979,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -8858,7 +9026,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -8889,7 +9058,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -8938,7 +9108,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -8969,7 +9140,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -9008,7 +9180,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -9039,7 +9212,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -9088,7 +9262,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",
@@ -9137,7 +9312,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -9168,7 +9344,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             },
             {
               "kind": "sanskrit_text",
@@ -9199,7 +9376,8 @@
               "target_topic_path": null,
               "target_url": null,
               "is_self": false,
-              "target_exists": true
+              "target_exists": true,
+              "list_number": null
             }
           ],
           "source": "jainkosh",

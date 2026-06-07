@@ -179,6 +179,10 @@ export interface DefinitionBlock {
   is_self: boolean;
   target_exists: boolean;
   match_natural_keys?: string[];
+  // Rendered <ol>/<li> list number captured by the parser from the HTML source.
+  // Present only when the block originates from a <li> inside an <ol>. Reflects
+  // the effective browser-rendered number (respects <ol start="N">). Null otherwise.
+  list_number?: number | null;
 }
 
 export interface DefinitionEntry {

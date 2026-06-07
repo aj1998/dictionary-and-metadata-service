@@ -63,6 +63,11 @@ class Block(BaseModel):
     is_self: bool = False
     target_exists: bool = True
 
+    # Rendered <ol>/<li> list number when this block originates from a <li> in an <ol>.
+    # Reflects the effective number as rendered by the browser (respects <ol start="N">).
+    # None when the block does not come from a list item.
+    list_number: Optional[int] = None
+
     # Internal-only: not serialized; set during stream processing for inline-ref
     # position detection in _do_split. Stores rendered text of the source block
     # (text_devanagari before strip_refs_from_text) and the pre-strip translation.

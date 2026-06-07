@@ -225,7 +225,7 @@ function ShastraAccordion({ group, open, onToggle }: { group: ShastraGroup; open
   );
 }
 
-function ModalBlock({ block }: { block: DefinitionBlock }) {
+function ModalBlock({ block, showShastra = false }: { block: DefinitionBlock; showShastra?: boolean }) {
   const isPrakrit = block.kind === 'prakrit_text' || block.kind === 'prakrit_gatha';
   const isSanskrit = block.kind === 'sanskrit_text' || isPrakrit;
   const refsToShow = pickRefsToShow(block);
@@ -255,7 +255,7 @@ function ModalBlock({ block }: { block: DefinitionBlock }) {
         <div className="mt-2 flex items-start gap-2">
           <div className="flex flex-wrap items-center gap-1.5">
             {refsToShow.map((ref, ri) => (
-              <RefBadge key={ri} ref={ref} matchEntry={findMatchForRef(ref, entries)} loading={loading} ingestedShastras={ingestedShastras} />
+              <RefBadge key={ri} ref={ref} showShastra={showShastra} matchEntry={findMatchForRef(ref, entries)} loading={loading} ingestedShastras={ingestedShastras} />
             ))}
           </div>
           {hiddenRefs.length > 0 && (
@@ -350,7 +350,80 @@ function KeywordDefinitionBlocks({ blocks }: { blocks: DefinitionBlock[] }) {
   );
 }
 
-function TopicExtractsSection({ blocks }: { blocks: DefinitionBlock[] }) {
+// Groups consecutive blocks by list_number for the sequential view.
+// Blocks without list_number are kept inline without a number badge.
+function groupByListNumber(blocks: DefinitionBlock[]): Array<{ listNumber: number | null; blocks: DefinitionBlock[] }> {
+  const groups: Array<{ listNumber: number | null; blocks: DefinitionBlock[] }> = [];
+  for (const block of blocks) {
+    if (block.kind === 'see_also') continue;
+    const ln = block.list_number ?? null;
+    const last = groups[groups.length - 1];
+    if (last && last.listNumber === ln) {
+      last.blocks.push(block);
+    } else {
+      groups.push({ listNumber: ln, blocks: [block] });
+    }
+  }
+  return groups;
+}
+
+// Renders topic-extract blocks in original document order, showing list_number badges when present.
+function SequentialTopicExtracts({ blocks }: { blocks: DefinitionBlock[] }) {
+  const groups = groupByListNumber(blocks);
+  const hasAnyNumber = groups.some((g) => g.listNumber !== null);
+  return (
+    <div className="space-y-4">
+      {groups.map((group, gi) => (
+        <div key={gi} className={cn('flex gap-3', !hasAnyNumber && 'flex-col gap-0')}>
+          {hasAnyNumber && (
+            <span className="mt-[3px] shrink-0 font-sans text-xs font-semibold tabular-nums text-foreground-muted">
+              {group.listNumber !== null ? `${group.listNumber}.` : ''}
+            </span>
+          )}
+          <div className="min-w-0 flex-1 space-y-3">
+            {group.blocks.map((block, bi) => (
+              <ModalBlock key={bi} block={block} showShastra />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Renders keyword definition entries numbered by definition_index (sequential view).
+function SequentialKeywordDefinitions({ sections }: { sections: KeywordPageSection[] }) {
+  return (
+    <div className="space-y-4">
+      {sections.map((section, si) => (
+        <Fragment key={section.section_index}>
+          {si > 0 && <hr className="my-2 border-border" />}
+          <div>
+            <p className="mb-2 text-xs font-medium uppercase tracking-wide text-foreground-muted">
+              {section.h2_text}
+            </p>
+            <div className="space-y-4">
+              {section.definitions.map((def) => (
+                <div key={def.definition_index} className="flex gap-3">
+                  <span className="mt-[3px] shrink-0 font-sans text-xs font-semibold tabular-nums text-foreground-muted">
+                    {def.definition_index}.
+                  </span>
+                  <div className="min-w-0 flex-1 space-y-3">
+                    {def.blocks.filter((b) => b.kind !== 'see_also').map((block, bi) => (
+                      <ModalBlock key={bi} block={block} showShastra />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Fragment>
+      ))}
+    </div>
+  );
+}
+
+function TopicExtractsSection({ blocks, viewMode }: { blocks: DefinitionBlock[]; viewMode: 'sequential' | 'shastra' }) {
   const visibleCount = blocks.filter((b) => b.kind !== 'see_also').length;
   const groups = groupTopicExtractsByShastra(blocks);
 
@@ -368,6 +441,10 @@ function TopicExtractsSection({ blocks }: { blocks: DefinitionBlock[] }) {
 
   const toggleOne = (i: number) =>
     setOpenMap((prev) => ({ ...prev, [i]: !prev[i] }));
+
+  if (viewMode === 'sequential') {
+    return <SequentialTopicExtracts blocks={blocks} />;
+  }
 
   return (
     <div>
@@ -402,22 +479,51 @@ function TopicExtractsSection({ blocks }: { blocks: DefinitionBlock[] }) {
   );
 }
 
+type ViewMode = 'sequential' | 'shastra';
+
+function ViewToggle({ mode, onChange }: { mode: ViewMode; onChange: (m: ViewMode) => void }) {
+  return (
+    <div className="flex shrink-0 items-center rounded-[var(--radius-sm)] border border-accent/30 bg-accent-soft p-0.5">
+      {(['sequential', 'shastra'] as ViewMode[]).map((m) => (
+        <button
+          key={m}
+          type="button"
+          onClick={() => onChange(m)}
+          className={cn(
+            'rounded-[2px] px-2 py-0.5 font-serif-hindi text-xs transition-colors',
+            mode === m
+              ? 'bg-accent font-semibold text-accent-foreground shadow-sm'
+              : 'text-accent/70 hover:text-accent',
+          )}
+        >
+          {m === 'sequential' ? 'क्रमानुसार' : 'शास्त्रानुसार'}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export function DefinitionModal({ open, onClose, title, definitionSections, topicExtracts, navigateHref, navigateLabel }: DefinitionModalProps) {
+  const [viewMode, setViewMode] = useState<ViewMode>('sequential');
+
   return (
     <Dialog.Root open={open} onOpenChange={(v) => { if (!v) onClose(); }}>
       <Dialog.Portal>
         <Dialog.Backdrop className="fixed inset-0 z-50 bg-black/40 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 supports-backdrop-filter:backdrop-blur-sm" />
         <Dialog.Popup className="fixed left-1/2 top-1/2 z-50 flex max-h-[85vh] w-full max-w-2xl -translate-x-1/2 -translate-y-1/2 flex-col rounded-[var(--radius-lg)] bg-surface shadow-xl transition duration-150 data-ending-style:opacity-0 data-ending-style:scale-95 data-starting-style:opacity-0 data-starting-style:scale-95">
-          <div className="flex shrink-0 items-start justify-between border-b border-border px-5 py-4">
+          <div className="flex shrink-0 items-start justify-between gap-3 border-b border-border px-5 py-4">
             <Dialog.Title className="font-serif-hindi text-[length:var(--font-size-h1)] font-semibold text-foreground">
               {title}
             </Dialog.Title>
-            <Dialog.Close
-              className="ml-4 mt-0.5 shrink-0 rounded-[var(--radius-sm)] p-1 text-foreground-muted transition-colors hover:bg-surface-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30"
-              aria-label="बंद करें"
-            >
-              <X className="size-4" />
-            </Dialog.Close>
+            <div className="ml-auto flex shrink-0 items-center gap-2">
+              <ViewToggle mode={viewMode} onChange={setViewMode} />
+              <Dialog.Close
+                className="mt-0.5 shrink-0 rounded-[var(--radius-sm)] p-1 text-foreground-muted transition-colors hover:bg-surface-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30"
+                aria-label="बंद करें"
+              >
+                <X className="size-4" />
+              </Dialog.Close>
+            </div>
           </div>
 
           {navigateHref && (
@@ -436,20 +542,26 @@ export function DefinitionModal({ open, onClose, title, definitionSections, topi
 
           <div className="flex-1 overflow-y-auto px-5 py-4">
             {definitionSections && (
-              <div className="space-y-2">
-                {definitionSections.map((section, si) => (
-                  <Fragment key={section.section_index}>
-                    {si > 0 && <hr className="my-2 border-border" />}
-                    <KeywordSectionAccordion
-                      h2Text={section.h2_text}
-                      blocks={section.definitions.flatMap((def) => def.blocks)}
-                    />
-                  </Fragment>
-                ))}
-              </div>
+              viewMode === 'sequential'
+                ? <SequentialKeywordDefinitions sections={definitionSections} />
+                : (
+                  <div className="space-y-2">
+                    {definitionSections.map((section, si) => (
+                      <Fragment key={section.section_index}>
+                        {si > 0 && <hr className="my-2 border-border" />}
+                        <KeywordSectionAccordion
+                          h2Text={section.h2_text}
+                          blocks={section.definitions.flatMap((def) => def.blocks)}
+                        />
+                      </Fragment>
+                    ))}
+                  </div>
+                )
             )}
 
-            {topicExtracts && topicExtracts.length > 0 && <TopicExtractsSection blocks={topicExtracts} />}
+            {topicExtracts && topicExtracts.length > 0 && (
+              <TopicExtractsSection blocks={topicExtracts} viewMode={viewMode} />
+            )}
 
             {!definitionSections && (!topicExtracts || topicExtracts.length === 0) && (
               <p className="text-sm text-foreground-muted">कोई परिभाषा/अंश उपलब्ध नहीं</p>
