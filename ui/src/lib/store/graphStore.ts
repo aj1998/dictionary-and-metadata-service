@@ -14,6 +14,7 @@ const DEFAULT_VISIBILITY: Record<EntityKind, boolean> = {
   topic: true,
   keyword: true,
   publication: true,
+  table: true,
 };
 
 type Selected =
@@ -40,6 +41,9 @@ type GraphState = {
    *  hierarchical/radial incremental layout has the original positions to
    *  anchor against instead of falling back to a full BFS re-centering. */
   positions: Record<string, { x: number; y: number }>;
+  tableModalNk: string | null;
+  openTableModal: (nk: string) => void;
+  closeTableModal: () => void;
   setPositions: (positions: Record<string, { x: number; y: number }>) => void;
   selectNode: (id: string) => void;
   selectEdge: (id: string) => void;
@@ -83,12 +87,15 @@ const initialState = {
   seedNk: null as string | null,
   nodeOrigins: {} as Record<string, Set<string>>,
   positions: {} as Record<string, { x: number; y: number }>,
+  tableModalNk: null as string | null,
 };
 
 export const useGraphStore = create<GraphState>((set, get) => ({
   ...initialState,
 
   setPositions: (positions) => set({ positions }),
+  openTableModal: (nk) => set({ tableModalNk: nk }),
+  closeTableModal: () => set({ tableModalNk: null }),
   selectNode: (id) => set({ selected: { kind: 'node', id } }),
   selectEdge: (id) => set({ selected: { kind: 'edge', id } }),
   clearSelection: () => set({ selected: null }),

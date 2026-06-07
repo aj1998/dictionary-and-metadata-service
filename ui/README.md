@@ -239,6 +239,9 @@ All components must consume CSS variables. Never hardcode hex values.
 | `--cat-topic` | `#2A9D8F` | विषय |
 | `--cat-keyword` | `#264653` | शब्द |
 | `--cat-publication` | `#4A90A4` | प्रकाशन |
+| `--cat-table` | `#6B7280` | तालिका (node stripe + filter swatch) |
+| `--cat-table-soft` | `#E5E7EB` | तालिका background / alternating table rows |
+| `--cat-table-fg` | `#374151` | तालिका foreground text |
 
 ### Typography
 
@@ -265,6 +268,7 @@ All icons from `lucide-react`, stroke `1.5`. Import only from `src/lib/icons.ts`
 | Keyword | `Sparkles` |
 | Filter | `LayoutList` |
 | Zoom in/out/reset | `Plus`, `Minus`, `Maximize2` |
+| Table | `Table` (`IconTable`) |
 
 ---
 
@@ -344,6 +348,7 @@ Exports `isNavActive(pathname, route)`, `truncateLabel(label, max?)`, and the th
 | `RelationConnector` | `components/RelationConnector.tsx` | Static cubic Bézier SVG connector. Endpoint circles + midpoint pill label. Pill rotates with path tangent clamped ±20°. Exports `EDGE_LABELS`, `EDGE_TOOLTIPS`. |
 | `CategoryFilterList` | `components/CategoryFilterList.tsx` | 4 category toggles, layout radio (Force, Radial, and Hierarchical all functional), depth stepper 1–4. Fully controlled; wired to graph store. Exports `CATEGORY_DATA`. |
 | `DetailsPanel` | `components/DetailsPanel.tsx` | Right panel (380px desktop, 75vh bottom sheet mobile). Node mode: badge + title + stats + vivaran + connected rows + CTA ("पूरा वर्णन पढ़ें"). The node body div uses `flex flex-1 min-h-0 flex-col` so the inner content area scrolls independently while the CTA stays pinned at the bottom. Edge mode: relation pill + src→dst + description. Fetches entity detail on selection via `getEntityDetail`. **Stub-topic fallback:** stub-seed topics only exist in Neo4j (not Postgres), so the API returns 404 and `detail` stays `null`. In this case the exported `deriveStubTopicKeyword(topicNk, nodes)` utility extracts the parent keyword nk from the topic's natural key (everything before the first `:`), looks it up in the graph nodes map for its display title, and synthesises a single `HAS_TOPIC` connected row so the parent keyword badge always appears in the "संबंधित" section. |
+| `TableModal` | `components/TableModal.tsx` | Full-screen `@base-ui/react` dialog. Props: `naturalKey: string \| null` (null = closed), `onClose`. Fetches via `getTable()` with an in-memory per-nk `useRef<Map>` cache; shows shimmer skeleton while loading and a retry button on error. Body: caption (`<h2>`, falls back to "तालिका"), optional source link, cells-rendered table (first `headerRows` rows as `<th>`, alternating-row bg, horizontally scrollable wrapper), mentioned-keyword and mentioned-topic badge chips as locale-aware `Link`s. Dev-only: collapsible `<details>` with `rawHtml` in a sandboxed `<iframe srcDoc>`. Opened by graph node click when `kind === 'table'`; state lives in `graphStore.tableModalNk`. |
 | `DefinitionModal` | `components/DefinitionModal.tsx` | Full-screen `@base-ui/react` dialog. **Both keyword and topic paths** group blocks by shastra via `groupTopicExtractsByShastra` → each group rendered as a collapsible `ShastraAccordion`. Keyword path: 3-level hierarchy — `KeywordSectionAccordion` per section (h2_text + total count, collapses entire section) → `KeywordDefinitionBlocks` (groups all blocks from all definitions in the section) → `ShastraAccordion` per shastra group. Topic path: flat extracts → `TopicExtractsSection` with top-level collapse-all toggle → `ShastraAccordion` per group. **Reference display per block:** all non-inline refs (`inline_reference: false`) with resolved fields shown as badges; inline fallback = first qualifying only. Hidden refs surfaced via **`समान संदर्भ`** button (accent red, bold) → 480px `Popover`. Left border: teal for Sanskrit/Prakrit, amber for teeka, sky-blue for shastra refs. Teeka badge = `shastra_name, teeka_name`. Exports `getBlockBorderClass`, `formatRefSourceLabel`, `pickRefsToShow`, `pickHiddenRefs`, `groupTopicExtractsByShastra`, `ShastraGroup` (all pure / typed, tested). Closes on node selection change. |
 | `MiniGraphPreview` | `components/MiniGraphPreview.tsx` | Server component. Static SVG of 1-hop neighborhood. Hover overlay links to `/graph?node={nk}`. |
 
@@ -375,7 +380,7 @@ apiFetch<T>(baseUrl: string, path: string, init?: RequestInit): Promise<T>
 | File | Service | Base path | Key functions |
 |---|---|---|---|
 | `api/metadata.ts` | core-service metadata domain | `/api/metadata` | `getShastras`, `getShastra`, `getShastraTeekas`, `getShastraGathas` |
-| `api/data.ts` | core-service data domain | `/api/data` | `getStatsCounts`, `getActivityRecent`, `getKeywordsLetters`, `getKeywordsRecent`, `getKeywords`, `getKeyword`, `getTopics`, `getTopic`, `getGatha`, `getExtractMatch`, `getGathaRelatedTopics`, `getGathaRelatedKeywords`, `getEntityDetail` |
+| `api/data.ts` | core-service data domain | `/api/data` | `getStatsCounts`, `getActivityRecent`, `getKeywordsLetters`, `getKeywordsRecent`, `getKeywords`, `getKeyword`, `getTopics`, `getTopic`, `getGatha`, `getExtractMatch`, `getGathaRelatedTopics`, `getGathaRelatedKeywords`, `getEntityDetail`, `getTable`, `listTablesForParent` |
 | `api/navigation.ts` | core-service navigation domain | `/api/navigation` | `getNavLanding`, `expandNode`, `getPreview`, `getTopicNeighbors` |
 | `api/query.ts` | query-service | `/api/query` | `searchTopics` (POST, `caller: 'public-ui'`) |
 
@@ -395,8 +400,8 @@ Response is normalised into the `EntityDetail` shape consumed by `DetailsPanel`.
 ### Shared types (`src/lib/types.ts`)
 
 Key interfaces:
-- `EntityKind` — `'shastra' | 'gatha' | 'topic' | 'keyword'`
-- `EdgeKind` — 11 variants (e.g. `'HAS_TOPIC'`, `'MENTIONS_KEYWORD'`, `'IS_A'`, `'PART_OF'`, `'RELATED_TO'`, ...)
+- `EntityKind` — `'shastra' | 'gatha' | 'gatha_teeka' | 'teeka' | 'bhaavarth' | 'kalash' | 'page' | 'topic' | 'keyword' | 'publication' | 'table'`
+- `EdgeKind` — 12 variants (e.g. `'HAS_TOPIC'`, `'MENTIONS_KEYWORD'`, `'IS_A'`, `'PART_OF'`, `'RELATED_TO'`, `'CONTAINS_TABLE'`, ...)
 - `GraphNode` — `{ nk, kind, title_hi, title_en?, meta?, degree }`
 - `GraphEdge` — `{ id, src, dst, kind, weight }`
 - `GraphPayload` — `{ nodes, edges, focus_nk, depth }`
@@ -427,6 +432,7 @@ The navigation service expand/preview queries traverse these Neo4j relationship 
 | `MENTIONS_KEYWORD` | Topic → Keyword | Topic to keywords it mentions |
 | `MENTIONS_TOPIC` | Gatha/GathaTeeka/GathaTeekaBhaavarth/Kalash/KalashBhaavarth/Page → Topic | Source node cites a topic |
 | `CONTAINS_DEFINITION` | Gatha/GathaTeeka/GathaTeekaBhaavarth/Kalash/KalashBhaavarth/Page → Keyword | Source node appears inside a keyword's JainKosh definition body |
+| `CONTAINS_TABLE` | Topic/Keyword/Gatha/GathaTeeka/GathaTeekaBhaavarth/Kalash/KalashBhaavarth/Page → Table | Source node contains an embedded table |
 | `IN_SHASTRA` | Gatha → Shastra | **Gatha to its parent Shastra** |
 | `HAS_TEEKA` | Shastra → Teeka | **Shastra to its Teeka** |
 | `HAS_PUBLICATION` | Teeka → Publication | **Teeka to its Publication** |
@@ -447,8 +453,9 @@ The navigation service expand/preview queries traverse these Neo4j relationship 
 | `Topic` | `topic` | विषय | `--cat-topic` | `Tag` |
 | `Keyword` | `keyword` | कीवर्ड | `--cat-keyword` | `Sparkles` |
 | `Publication` | `publication` | प्रकाशन | `--cat-publication` | `Building2` |
+| `Table` | `table` | तालिकाएँ | `--cat-table` | `Table` (`IconTable`) |
 
-Stub nodes (placeholders seeded by JainKosh ingestion before NJ ingestion fills them in) are **included by default**; set `NEXT_PUBLIC_GRAPH_EXCLUDE_STUBS=true` to hide them. All ten kinds appear as toggles in the left filter panel and are persisted via the `?cat=` URL param.
+Stub nodes (placeholders seeded by JainKosh ingestion before NJ ingestion fills them in) are **included by default**; set `NEXT_PUBLIC_GRAPH_EXCLUDE_STUBS=true` to hide them. All eleven kinds (including `table`) appear as toggles in the left filter panel and are persisted via the `?cat=` URL param. `table` nodes are leaf nodes with a smaller visual diameter; clicking one opens `TableModal` via `openTableModal(nk)` rather than selecting it for the DetailsPanel.
 
 ### Canvas (`GraphCanvas.tsx`)
 - Full-size `<svg>` with a dotted 24×24px tile grid (dot radius clamped `[0.75, 1.5]`).
@@ -528,10 +535,11 @@ type GraphState = {
   camera: { x: number; y: number; k: number };
   loading: boolean;
   lastError: string | null;
+  tableModalNk: string | null;   // nk of the table whose modal is open; null = closed
 };
 ```
 
-Actions: `selectNode`, `selectEdge`, `clearSelection`, `togglePin`, `expandFromNode`, `setCategoryVisibility`, `setDepth`, `setLayout`, `setCamera`, `reset`, `seedFromPayload`.
+Actions: `selectNode`, `selectEdge`, `clearSelection`, `togglePin`, `expandFromNode`, `setCategoryVisibility`, `setDepth`, `setLayout`, `setCamera`, `reset`, `seedFromPayload`, `openTableModal(nk)`, `closeTableModal()`.
 
 `expandFromNode` de-dupes by `nk`/`id` on merge; seeds new node positions at focus node's position.
 
@@ -720,6 +728,7 @@ The vitest config (`vitest.config.ts`) targets `src/__tests__/**/*.test.ts` and 
 | Expand/collapse UX pass | ✅ | Connected-component fallback in `computeHierarchicalPositions` / `computeRadialPositions` (was flattening unreachable nodes into one row); radial incremental expand rewritten Neo4j-style (expander pushed outward, children placed in a 360° ring); hierarchical incremental expand keeps existing nodes pinned and drops new children in a single row at `HIER_LEVEL_HEIGHT` below the parent, centred on `expanderPos.x`; **snapshot-restore on collapse** via `expandSnapshotsRef`; **pure-collapse fallback** preserves surviving positions when no snapshot exists; **external addition** path keeps existing tree pinned and places new subtree to the right via bbox math; `handleNodeExpand` now captures expander for hierarchical too |
 | Samaan sandarbh grey fallback link | ✅ | Refs whose `shastra_name` is present in the ingested-shastras registry (from `GET /v1/shastras` — meaning `/shastras/<nk>` resolves to a real page) AND whose `resolved_fields` include an entry whose field is in `GATHA_ENTITY_KEYWORDS` (`गाथा`, `श्लोक`, `सूत्र`, `दोहक`, `वार्तिक` — mirrors `parser_configs/jainkosh.yaml` `reference.entity_keywords.gatha`) now render a muted-grey fallback link in the समान संदर्भ popover (and the inline `RefBadge`) when the matcher produced no response. Href format: `/shastras/<shastra>/gathas/<shastra>:<field>:<value>` (e.g. `/shastras/समयसार/gathas/समयसार:गाथा:1`). Decision lives in `planRefLink` (`src/components/ViewInShastraButton.tsx`); ingested set comes from `useIngestedShastras` (`src/lib/shastra-registry.ts`, module-cached single-flight). Fallback is suppressed both while the matcher request is in-flight and while the registry is loading. |
 | Keyword modal shastra grouping | ✅ | `KeywordDefinitionBlocks` groups all blocks across definitions in a section by shastra via `groupTopicExtractsByShastra`, rendered as `ShastraAccordion`. `KeywordSectionAccordion` wraps each section (h2_text) in a top-level collapsible matching the विषय अंश pattern — giving keywords a 3-level hierarchy: section → shastra → block. |
+| Phase 9 — Tables modal + graph integration | ✅ | Added `table` to `EntityKind`, `CONTAINS_TABLE` to `EdgeKind`, `TableSummary`/`TableFull` types. New `--cat-table*` design tokens. `IconTable` reserved. `NodeCard`, `CategoryFilterList` (filter chip "तालिकाएँ", default ON), `BadgeChip`, `RelationConnector` updated for table kind. `getTable()`/`listTablesForParent()` API fetchers. `TableModal` component (cells-rendered table, caption, source link, mentioned-keyword/topic chips, dev-only raw HTML pane, per-nk cache). `graphStore` extended with `tableModalNk`, `openTableModal`, `closeTableModal`. Graph page intercepts table node clicks to open modal. i18n `tables.*` keys in both locales. All 467 tests pass. **Deferred**: "तालिकाएँ" sections on topic/keyword/gatha detail pages, reader-page chips, dedicated `TableModal.test.tsx` rendering test. |
 
 ---
 

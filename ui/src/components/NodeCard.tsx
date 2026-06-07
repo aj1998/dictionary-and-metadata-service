@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { ChevronRight, Maximize2, Pin, BookOpen, ScrollText, BookMarked, BookText, NotebookText, Flower2, FileText, Tag, Sparkles, Building2 } from '@/lib/icons';
+import { ChevronRight, Maximize2, Pin, BookOpen, ScrollText, BookMarked, BookText, NotebookText, Flower2, FileText, Tag, Sparkles, Building2, IconTable } from '@/lib/icons';
 import type { EntityKind } from '@/lib/types';
 
 export const EXPAND_ARIA_LABEL = 'इस नोड से ग्राफ़ का विस्तार करें';
@@ -35,6 +35,7 @@ export const NODE_KIND_META: Record<
   topic:       { labelHi: 'विषय',      labelEn: 'Topic',       Icon: Tag,          catVar: 'var(--cat-topic)',       bandFg: 'var(--cat-topic-fg)',       bandIconBoxBg: 'rgba(0,0,0,0.10)' },
   keyword:     { labelHi: 'कीवर्ड',    labelEn: 'Keyword',     Icon: Sparkles,     catVar: 'var(--cat-keyword)',     bandFg: 'var(--cat-keyword-fg)',     bandIconBoxBg: 'rgba(0,0,0,0.10)' },
   publication: { labelHi: 'प्रकाशन',   labelEn: 'Publication', Icon: Building2,    catVar: 'var(--cat-publication)', bandFg: 'var(--cat-publication-fg)', bandIconBoxBg: 'rgba(255,255,255,0.18)' },
+  table:       { labelHi: 'तालिका',    labelEn: 'Table',       Icon: IconTable,    catVar: 'var(--cat-table)',       bandFg: 'var(--cat-table-fg)',       bandIconBoxBg: 'rgba(255,255,255,0.18)' },
 };
 
 export interface NodeCardProps {

@@ -3,11 +3,12 @@ import { EDGE_LABELS, EDGE_TOOLTIPS } from "@/components/RelationConnector";
 import type { EdgeKind } from "@/lib/types";
 
 describe("RelationConnector edge metadata", () => {
-  test("EDGE_LABELS has exactly all 13 EdgeKind keys", () => {
+  test("EDGE_LABELS has exactly all 14 EdgeKind keys", () => {
     const keys = Object.keys(EDGE_LABELS).sort();
     const expected: EdgeKind[] = [
       "ALIAS_OF",
       "CONTAINS_DEFINITION",
+      "CONTAINS_TABLE",
       "HAS_PUBLICATION",
       "HAS_TEEKA",
       "HAS_TOPIC",

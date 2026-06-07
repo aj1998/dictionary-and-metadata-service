@@ -29,6 +29,7 @@ const RESERVED_ICONS = [
   "Loader2",
   "ExternalLink",
   "Building2",
+  "IconTable",
 ] as const;
 
 describe("icons registry", () => {

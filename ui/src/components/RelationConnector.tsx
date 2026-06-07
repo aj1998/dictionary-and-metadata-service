@@ -15,6 +15,7 @@ export const EDGE_LABELS: Record<EdgeKind, string> = {
   IN_TEEKA:            'टीका में',
   IN_PUBLICATION:      'प्रकाशन में',
   CONTAINS_DEFINITION: 'परिभाषा',
+  CONTAINS_TABLE:      'तालिका',
 };
 
 export const EDGE_TOOLTIPS: Record<EdgeKind, string> = {
@@ -31,6 +32,7 @@ export const EDGE_TOOLTIPS: Record<EdgeKind, string> = {
   IN_TEEKA:            'In teeka',
   IN_PUBLICATION:      'In publication',
   CONTAINS_DEFINITION: 'Contains definition',
+  CONTAINS_TABLE:      'Contains table',
 };
 
 type Side = 'top' | 'right' | 'bottom' | 'left';

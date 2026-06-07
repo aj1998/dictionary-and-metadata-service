@@ -21,6 +21,7 @@ export const CATEGORY_DATA: Array<{
   { kind: 'topic',       labelHi: 'विषय',       labelEn: 'Topic',       catVar: 'var(--cat-topic)' },
   { kind: 'keyword',     labelHi: 'कीवर्ड',     labelEn: 'Keyword',     catVar: 'var(--cat-keyword)' },
   { kind: 'publication', labelHi: 'प्रकाशन',    labelEn: 'Publication', catVar: 'var(--cat-publication)' },
+  { kind: 'table',       labelHi: 'तालिकाएँ',   labelEn: 'Table',       catVar: 'var(--cat-table)' },
 ];
 
 const LAYOUT_OPTIONS = [

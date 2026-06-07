@@ -12,6 +12,7 @@ export const BADGE_DEFAULT_LABELS: Record<EntityKind, { hi: string; en: string }
   topic:       { hi: "विषय",   en: "Topic" },
   keyword:     { hi: "शब्द",   en: "Keyword" },
   publication: { hi: "प्रकाशन", en: "Publication" },
+  table:       { hi: "तालिका",  en: "Table" },
 };
 
 export const BADGE_CAT_CLASSES: Record<EntityKind, string> = {
@@ -25,6 +26,7 @@ export const BADGE_CAT_CLASSES: Record<EntityKind, string> = {
   topic:       "bg-cat-topic",
   keyword:     "bg-cat-keyword",
   publication: "bg-cat-publication",
+  table:       "bg-cat-table",
 };
 
 export interface BadgeChipProps {

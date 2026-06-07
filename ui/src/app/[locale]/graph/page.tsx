@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef } from 'react';
 import { GraphCanvas, type CanvasEdge, type CanvasNode } from './GraphCanvas';
+import { TableModal } from '@/components/TableModal';
 import * as navigationApi from '@/lib/api/navigation';
 import { useGraphStore } from '@/lib/store/graphStore';
 import { buildGraphQuery, parseGraphQuery } from '@/lib/store/graphUrlState';
@@ -18,6 +19,9 @@ export default function GraphPage() {
   const depth = useGraphStore((s) => s.depth);
   const layout = useGraphStore((s) => s.layout);
   const categoryVisibility = useGraphStore((s) => s.categoryVisibility);
+  const tableModalNk = useGraphStore((s) => s.tableModalNk);
+  const openTableModal = useGraphStore((s) => s.openTableModal);
+  const closeTableModal = useGraphStore((s) => s.closeTableModal);
 
   const selectNode = useGraphStore((s) => s.selectNode);
   const selectEdge = useGraphStore((s) => s.selectEdge);
@@ -119,7 +123,14 @@ export default function GraphPage() {
         edges={canvasEdges}
         layout={layout}
         focusNk={focusNk}
-        onNodeClick={(nk) => selectNode(nk)}
+        onNodeClick={(nk) => {
+          const node = nodes[nk];
+          if (node?.kind === 'table') {
+            openTableModal(nk);
+            return;
+          }
+          selectNode(nk);
+        }}
         onNodeDoubleClick={(nk) => selectNode(nk)}
         onNodePinToggle={togglePin}
         onNodeExpand={(nk) => {
@@ -132,6 +143,8 @@ export default function GraphPage() {
         onEdgeClick={selectEdge}
         onCanvasClick={clearSelection}
       />
+
+      <TableModal naturalKey={tableModalNk} onClose={closeTableModal} />
 
       <nav className="sr-only" aria-label="ग्राफ लीनियर दृश्य">
         <ul>

@@ -1,4 +1,13 @@
 {
+  "tables": {
+    "section_title": "तालिकाएँ",
+    "modal_title_fallback": "तालिका",
+    "mentioned_keywords": "उल्लिखित कीवर्ड",
+    "mentioned_topics": "उल्लिखित विषय",
+    "open_source": "जैनकोश पर देखें",
+    "loading": "लोड हो रहा है…",
+    "error": "तालिका लोड नहीं हो सकी"
+  },
   "nav": {
     "home": "होम",
     "graph": "ज्ञान ग्राफ",

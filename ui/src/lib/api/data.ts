@@ -18,6 +18,8 @@ import type {
   KalashDetail,
   KalashWordMeanings,
   ShastraDetail,
+  TableFull,
+  TableSummary,
 } from '@/lib/types';
 
 const BASE_URL = process.env.DATA_SVC_URL ?? '/api/data';
@@ -227,4 +229,15 @@ export async function getGathaRelatedKeywords(nk: string): Promise<KeywordSummar
 
 export async function getExtractMatch(naturalKey: string): Promise<ExtractMatch> {
   return apiFetch<ExtractMatch>(BASE_URL, `/v1/extract-matches/${naturalKey}`);
+}
+
+export async function getTable(naturalKey: string): Promise<TableFull> {
+  return apiFetch<TableFull>(BASE_URL, `/v1/tables/${naturalKey}`);
+}
+
+export async function listTablesForParent(parentNaturalKey: string): Promise<TableSummary[]> {
+  return apiFetch<TableSummary[]>(
+    BASE_URL,
+    `/v1/tables?parent_natural_key=${encodeURIComponent(parentNaturalKey)}`,
+  );
 }

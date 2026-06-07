@@ -152,4 +152,18 @@ describe('useGraphStore', () => {
     expect(Object.keys(state.edges)).toHaveLength(0);
     expect(state.expanded.has('n1')).toBe(false);
   });
+
+  it('openTableModal / closeTableModal toggles tableModalNk without touching other state', () => {
+    useGraphStore.getState().reset();
+    useGraphStore.getState().selectNode('n1');
+    expect(useGraphStore.getState().tableModalNk).toBeNull();
+
+    useGraphStore.getState().openTableModal('table:jainkosh:foo:01');
+    expect(useGraphStore.getState().tableModalNk).toBe('table:jainkosh:foo:01');
+    expect(useGraphStore.getState().selected).toEqual({ kind: 'node', id: 'n1' });
+
+    useGraphStore.getState().closeTableModal();
+    expect(useGraphStore.getState().tableModalNk).toBeNull();
+    expect(useGraphStore.getState().selected).toEqual({ kind: 'node', id: 'n1' });
+  });
 });

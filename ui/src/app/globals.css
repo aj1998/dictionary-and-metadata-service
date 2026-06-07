@@ -56,6 +56,8 @@
   --color-cat-topic: var(--cat-topic);
   --color-cat-keyword: var(--cat-keyword);
   --color-cat-publication: var(--cat-publication);
+  --color-cat-table: var(--cat-table);
+  --color-cat-table-soft: var(--cat-table-soft);
 
   /* Category band foregrounds */
   --color-cat-shastra-fg: var(--cat-shastra-fg);
@@ -68,6 +70,7 @@
   --color-cat-topic-fg: var(--cat-topic-fg);
   --color-cat-keyword-fg: var(--cat-keyword-fg);
   --color-cat-publication-fg: var(--cat-publication-fg);
+  --color-cat-table-fg: var(--cat-table-fg);
 
   /* Radii */
   --radius-sm: var(--radius-sm);

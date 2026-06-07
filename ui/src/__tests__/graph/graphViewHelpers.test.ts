@@ -26,6 +26,9 @@ const ALL_VISIBLE: Record<EntityKind, boolean> = {
   page: true,
   topic: true,
   keyword: true,
+  gatha_teeka: true,
+  publication: true,
+  table: true,
 };
 
 function makeNode(nk: string, kind: EntityKind = 'topic'): GraphNode {

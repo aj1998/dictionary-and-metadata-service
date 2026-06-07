@@ -1,4 +1,13 @@
 {
+  "tables": {
+    "section_title": "Tables",
+    "modal_title_fallback": "Table",
+    "mentioned_keywords": "Mentioned keywords",
+    "mentioned_topics": "Mentioned topics",
+    "open_source": "View on JainKosh",
+    "loading": "Loading…",
+    "error": "Could not load table"
+  },
   "nav": {
     "home": "Home",
     "graph": "Knowledge Graph",

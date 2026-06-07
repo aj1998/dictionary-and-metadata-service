@@ -1,4 +1,4 @@
-export type EntityKind = 'shastra' | 'gatha' | 'teeka' | 'gatha_teeka' | 'bhaavarth' | 'kalash' | 'page' | 'topic' | 'keyword' | 'publication';
+export type EntityKind = 'shastra' | 'gatha' | 'teeka' | 'gatha_teeka' | 'bhaavarth' | 'kalash' | 'page' | 'topic' | 'keyword' | 'publication' | 'table';
 
 export type EdgeKind =
   | 'IS_A'
@@ -13,7 +13,33 @@ export type EdgeKind =
   | 'IN_SHASTRA'
   | 'IN_TEEKA'
   | 'IN_PUBLICATION'
-  | 'CONTAINS_DEFINITION';
+  | 'CONTAINS_DEFINITION'
+  | 'CONTAINS_TABLE';
+
+export interface TableSummary {
+  naturalKey: string;
+  seq: number;
+  caption: LangText[];
+}
+
+export interface TableFull {
+  naturalKey: string;
+  pgId: string;
+  source: string;
+  parentNaturalKey: string;
+  parentKind:
+    | 'topic' | 'keyword' | 'gatha' | 'gatha_teeka'
+    | 'gatha_teeka_bhaavarth' | 'kalash' | 'kalash_bhaavarth' | 'page';
+  seq: number;
+  caption: LangText[];
+  sourceUrl: string | null;
+  rawHtml: string;
+  cells: string[][];
+  headerRows: number;
+  plaintext: string | null;
+  mentionedKeywordNaturalKeys: string[];
+  mentionedTopicNaturalKeys: string[];
+}
 
 export interface GraphNode {
   nk: string;

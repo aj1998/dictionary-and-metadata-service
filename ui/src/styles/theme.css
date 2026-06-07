@@ -52,6 +52,8 @@
   --cat-topic: #6bc7be;
   --cat-keyword: #3382ab;
   --cat-publication: #4A90A4;
+  --cat-table: #6B7280;
+  --cat-table-soft: #E5E7EB;
 
   /* Category band foreground colors (text on the header band) */
   --cat-shastra-fg: #FFFFFF;
@@ -64,6 +66,7 @@
   --cat-topic-fg:   #1A1A1A;
   --cat-keyword-fg: #1A1A1A;
   --cat-publication-fg: #FFFFFF;
+  --cat-table-fg:   #FFFFFF;
 
   /* Radii */
   --radius-sm: 6px;
