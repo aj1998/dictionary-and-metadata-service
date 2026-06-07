@@ -9,6 +9,7 @@ import { getHindiText } from '@/lib/content-listing';
 import { getTable } from '@/lib/api/data';
 import { useIngestedShastras } from '@/lib/shastra-registry';
 import { RefBadge } from '@/components/DefinitionModal';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import type { DefinitionReference, TableFull } from '@/lib/types';
 
 export interface TableModalProps {
@@ -110,29 +111,47 @@ function CellRefs({ refs }: { refs: DefinitionReference[] }) {
   const { shastras: ingestedShastras } = useIngestedShastras();
   if (!refs || refs.length === 0) return null;
   return (
-    <div className="mt-1 flex flex-wrap gap-1">
-      {refs.map((ref, i) => (
-        <RefBadge
-          key={i}
-          ref={ref}
-          showShastra={true}
-          matchEntry={undefined}
-          loading={false}
-          ingestedShastras={ingestedShastras}
-        />
-      ))}
-    </div>
+    <Popover>
+      <PopoverTrigger className="inline-flex shrink-0 items-center rounded-[var(--radius-sm)] bg-[var(--cat-table)]/15 px-1.5 py-0.5 font-serif-hindi text-xs font-semibold text-[var(--cat-table)] transition-colors hover:bg-[var(--cat-table)]/25">
+        संदर्भ {refs.length > 1 ? `(${refs.length})` : ''}
+      </PopoverTrigger>
+      <PopoverContent
+        align="start"
+        sideOffset={6}
+        className="w-[440px] max-w-[min(440px,calc(100vw-2rem))] rounded-[var(--radius-md)] border border-border bg-surface p-4 text-foreground"
+      >
+        <p className="mb-3 font-serif-hindi text-xs font-semibold uppercase tracking-widest text-foreground-muted">
+          संदर्भ ({refs.length})
+        </p>
+        <div className="flex flex-wrap gap-1.5">
+          {refs.map((ref, i) => (
+            <RefBadge
+              key={i}
+              ref={ref}
+              showShastra={true}
+              matchEntry={undefined}
+              loading={false}
+              ingestedShastras={ingestedShastras}
+            />
+          ))}
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 }
 
 function TableBody({ table }: { table: TableFull }) {
-  const cellRefs = table.cell_refs;
+  // API returns snake_case; fall back to snake_case fields for fields with camelCase type mismatch
+  const raw = table as unknown as Record<string, unknown>;
+  const headerRows = (raw.header_rows as number | undefined) ?? table.headerRows ?? 0;
+  const sourceUrl = (raw.source_url as string | null | undefined) ?? table.sourceUrl;
+  const cellRefs = table.cell_refs ?? (raw.cell_refs as typeof table.cell_refs | undefined);
 
   return (
     <div className="space-y-4">
-      {table.sourceUrl && (
+      {sourceUrl && (
         <a
-          href={table.sourceUrl}
+          href={sourceUrl}
           target="_blank"
           rel="noreferrer noopener"
           className="inline-flex items-center gap-1 text-sm text-accent hover:underline"
@@ -146,7 +165,7 @@ function TableBody({ table }: { table: TableFull }) {
         <table className="border-collapse text-sm font-serif-hindi">
           <tbody>
             {table.cells.map((row, ri) => {
-              const isHeader = ri < table.headerRows;
+              const isHeader = ri < headerRows;
               return (
                 <tr
                   key={ri}
@@ -156,16 +175,18 @@ function TableBody({ table }: { table: TableFull }) {
                 >
                   {row.map((cell, ci) => {
                     const refs = cellRefs?.[ri]?.[ci] ?? [];
-                    const content = (
-                      <>
-                        {cell}
+                    const hasRefs = refs.length > 0;
+                    const content = hasRefs ? (
+                      <div className="flex items-center justify-between gap-2">
+                        <span>{cell}</span>
                         <CellRefs refs={refs} />
-                      </>
-                    );
+                      </div>
+                    ) : cell;
                     return isHeader ? (
                       <th
                         key={ci}
-                        className="border border-border bg-[var(--cat-table)]/15 px-3 py-1.5 text-left font-semibold"
+                        className="border border-border px-3 py-1.5 text-left"
+                        style={{ backgroundColor: '#FDECEE', fontWeight: 700 }}
                       >
                         {content}
                       </th>
@@ -182,20 +203,16 @@ function TableBody({ table }: { table: TableFull }) {
         </table>
       </div>
 
-      {(table.mentionedKeywordNaturalKeys?.length ?? 0) > 0 && (
-        <MentionsRow
-          title="उल्लिखित कीवर्ड"
-          base="/dictionary"
-          nks={table.mentionedKeywordNaturalKeys!}
-        />
-      )}
-      {(table.mentionedTopicNaturalKeys?.length ?? 0) > 0 && (
-        <MentionsRow
-          title="उल्लिखित विषय"
-          base="/topics"
-          nks={table.mentionedTopicNaturalKeys!}
-        />
-      )}
+      {(() => {
+        const kwNks = (raw.mentioned_keyword_natural_keys as string[] | undefined) ?? table.mentionedKeywordNaturalKeys ?? [];
+        const tpNks = (raw.mentioned_topic_natural_keys as string[] | undefined) ?? table.mentionedTopicNaturalKeys ?? [];
+        return (
+          <>
+            {kwNks.length > 0 && <MentionsRow title="उल्लिखित कीवर्ड" base="/dictionary" nks={kwNks} />}
+            {tpNks.length > 0 && <MentionsRow title="उल्लिखित विषय" base="/topics" nks={tpNks} />}
+          </>
+        );
+      })()}
 
       {process.env.NODE_ENV !== 'production' && (
         <details className="mt-4 text-xs text-foreground-muted">

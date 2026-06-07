@@ -4,9 +4,10 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import { useLocale } from 'next-intl';
 import { DefinitionModal } from '@/components/DefinitionModal';
 import { getTopicNeighbors, getTopicMentionedKeywords, getTopicRelated, getTopicAncestors } from '@/lib/api/navigation';
-import { getEntityDetail } from '@/lib/api/data';
+import { getEntityDetail, listTablesForParent } from '@/lib/api/data';
 import type { EntityDetail } from '@/lib/types';
-import { BookOpen, ChevronRight, Link2 } from '@/lib/icons';
+import { BookOpen, ChevronRight, Link2, IconTable } from '@/lib/icons';
+import { TableModal } from '@/components/TableModal';
 
 export interface TopicTreeItem {
   natural_key: string;
@@ -58,6 +59,9 @@ export function TopicTreeBrowser({ initialItems, targetTopicNk, currentKeywordNk
   const [seedExpanded, setSeedExpanded] = useState<Set<string>>(new Set());
   const [seedRelated, setSeedRelated] = useState<Map<string, RelatedItem[]>>(new Map());
   const [seedLoading, setSeedLoading] = useState<Set<string>>(new Set());
+  // topicNk → ordered list of table NKs (from CONTAINS_TABLE edges in EntityDetail.connected)
+  const [topicTableNks, setTopicTableNks] = useState<Map<string, string[]>>(new Map());
+  const [tableModalNk, setTableModalNk] = useState<string | null>(null);
   const detailCache = useRef<Map<string, EntityDetail>>(new Map());
   const inflight = useRef<Set<string>>(new Set());
   const checked = useRef<Set<string>>(new Set());
@@ -76,7 +80,10 @@ export function TopicTreeBrowser({ initialItems, targetTopicNk, currentKeywordNk
     void Promise.all(
       toFetch.map(async (nk) => {
         try {
-          const detail = await getEntityDetail('topic', nk);
+          const [detail, tables] = await Promise.all([
+            getEntityDetail('topic', nk),
+            listTablesForParent(nk).catch(() => []),
+          ]);
           detailCache.current.set(nk, detail);
           if (detail.topicExtracts && detail.topicExtracts.length > 0) {
             setHasExtracts((prev) => {
@@ -96,6 +103,14 @@ export function TopicTreeBrowser({ initialItems, targetTopicNk, currentKeywordNk
             setIsSeed((prev) => {
               const next = new Set(prev);
               next.add(nk);
+              return next;
+            });
+          }
+          if (tables.length > 0) {
+            setTopicTableNks((prev) => {
+              const next = new Map(prev);
+              // API returns snake_case: natural_key
+              next.set(nk, tables.map((t) => (t as unknown as { natural_key: string }).natural_key));
               return next;
             });
           }
@@ -396,6 +411,17 @@ export function TopicTreeBrowser({ initialItems, targetTopicNk, currentKeywordNk
                           <BookOpen className="size-3.5" strokeWidth={1.75} />
                         </button>
                       )}
+                      {topicTableNks.has(item.natural_key) && (
+                        <button
+                          type="button"
+                          onClick={() => setTableModalNk(topicTableNks.get(item.natural_key)![0])}
+                          className="shrink-0 inline-flex items-center gap-1 rounded border border-[color:var(--cat-table)] px-2 py-0.5 text-xs text-[color:var(--cat-table)] hover:bg-[var(--cat-table-soft)]"
+                          aria-label="तालिका देखें"
+                          title="तालिका देखें"
+                        >
+                          <IconTable className="size-3.5" strokeWidth={1.75} />
+                        </button>
+                      )}
                       {nonLeaf.has(item.natural_key) && (
                         <ChevronRight
                           className="size-4 shrink-0 text-foreground-muted"
@@ -442,6 +468,17 @@ export function TopicTreeBrowser({ initialItems, targetTopicNk, currentKeywordNk
                                 title="परिभाषा देखें"
                               >
                                 <BookOpen className="size-3.5" strokeWidth={1.75} />
+                              </button>
+                            )}
+                            {topicTableNks.has(item.natural_key) && (
+                              <button
+                                type="button"
+                                onClick={() => setTableModalNk(topicTableNks.get(item.natural_key)![0])}
+                                className="shrink-0 inline-flex items-center gap-1 rounded border border-[color:var(--cat-table)] px-2 py-0.5 text-xs text-[color:var(--cat-table)] hover:bg-[var(--cat-table-soft)]"
+                                aria-label="तालिका देखें"
+                                title="तालिका देखें"
+                              >
+                                <IconTable className="size-3.5" strokeWidth={1.75} />
                               </button>
                             )}
                           </div>
@@ -498,6 +535,8 @@ export function TopicTreeBrowser({ initialItems, targetTopicNk, currentKeywordNk
         navigateHref={modal.navigateHref}
         navigateLabel="शब्द पृष्ठ पर इस विषय पर जाएँ"
       />
+
+      <TableModal naturalKey={tableModalNk} onClose={() => setTableModalNk(null)} />
     </>
   );
 }
