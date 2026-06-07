@@ -28,7 +28,7 @@ for parsed_table in envelope.tables:
          MERGE (Table)-[:MENTIONS_TOPIC]->(Topic)
 ```
 
-All within the existing PG transaction → commit → Mongo → Neo4j flow described in [ingestion.md](../data_sources/jainkosh/ingestion.md).
+All within the existing PG transaction → commit → Mongo → Neo4j flow described in [ingestion.md](../../data_sources/jainkosh/ingestion.md).
 
 ## 2. Parent-label lookup
 
@@ -87,8 +87,8 @@ Full suite must stay green: `python -m pytest tests/ -v`.
 
 ## 7. Doc updates
 
-- [`docs/design/data_sources/jainkosh/ingestion.md`](../data_sources/jainkosh/ingestion.md) — new section "Tables": describes the 7-step apply flow above, the `PARENT_KIND_TO_LABEL` map, and the idempotency guarantees.
-- [`README.md`](../../../README.md) (root) — extend the `clear_dbs.py` Mongo-collections list to include `tables`; bump the "Mongo data model (15 collections, Motor async)" status row to `(16 collections)`; in the JainKosh Parser summary block, update the post-apply expected counts to include `Tables`.
+- [`docs/design/data_sources/jainkosh/ingestion.md`](../../data_sources/jainkosh/ingestion.md) — new section "Tables": describes the 7-step apply flow above, the `PARENT_KIND_TO_LABEL` map, and the idempotency guarantees.
+- [`README.md`](../../../../README.md) (root) — extend the `clear_dbs.py` Mongo-collections list to include `tables`; bump the "Mongo data model (15 collections, Motor async)" status row to `(16 collections)`; in the JainKosh Parser summary block, update the post-apply expected counts to include `Tables`.
 
 ## 8. Manual verification
 

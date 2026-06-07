@@ -183,7 +183,7 @@ cd ui && pnpm dev
 
 ## 9. Doc updates
 
-[`ui/README.md`](../../../ui/README.md):
+[`ui/README.md`](../../../../ui/README.md):
 
 - §5 Design System — add the `--kind-table` swatch row to the EntityKind colour table; add `IconTable` to the reserved icon list.
 - §8 Component Catalogue — add a `TableModal` row (sibling of `DefinitionModal`).
@@ -191,7 +191,7 @@ cd ui && pnpm dev
 - §12 Content Pages — note the new "तालिकाएँ" section on Topic/Keyword detail pages.
 - §15 Implementation Phase Log — append "Phase 9 — Tables modal + graph integration".
 
-[`docs/design/ui/`](../ui/) — if a UX template image exists for the modal, drop a markdown note; otherwise mark TBD.
+[`docs/design/ui/`](../../ui) — if a UX template image exists for the modal, drop a markdown note; otherwise mark TBD.
 
 ## 10. Definition of Done
 
@@ -203,4 +203,4 @@ cd ui && pnpm dev
 
 ## 11. Implementation notes (fill in during PR)
 
-_Leave empty._
+see ui/README.md

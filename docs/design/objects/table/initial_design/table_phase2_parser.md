@@ -97,9 +97,9 @@ python -m pytest tests/workers/jainkosh/ -v
 
 ## 7. Doc updates
 
-- [`docs/design/data_sources/jainkosh/parser.md`](../data_sources/jainkosh/parser.md) — new section "Table extraction": describes `ParsedTable`, naturalKey scheme, mention resolution, the inline-block-plus-first-class-node duality.
-- [`docs/design/data_sources/jainkosh/ingestion.md`](../data_sources/jainkosh/ingestion.md) — add `WouldWriteEnvelope.tables: list[ParsedTable]` to the envelope schema section; the actual apply behaviour comes in Phase 3.
-- [`README.md`](../../../README.md) (root) — regenerate the JainKosh Parser summary tables (Nodes + Edges columns) via `scripts/golden_stats.py`.
+- [`docs/design/data_sources/jainkosh/parser.md`](../../data_sources/jainkosh/parser.md) — new section "Table extraction": describes `ParsedTable`, naturalKey scheme, mention resolution, the inline-block-plus-first-class-node duality.
+- [`docs/design/data_sources/jainkosh/ingestion.md`](../../data_sources/jainkosh/ingestion.md) — add `WouldWriteEnvelope.tables: list[ParsedTable]` to the envelope schema section; the actual apply behaviour comes in Phase 3.
+- [`README.md`](../../../../README.md) (root) — regenerate the JainKosh Parser summary tables (Nodes + Edges columns) via `scripts/golden_stats.py`.
 
 ## 8. Definition of Done
 

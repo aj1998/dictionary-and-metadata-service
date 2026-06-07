@@ -93,14 +93,14 @@ python -m pytest tests/services/ tests/common/ -v
 
 ## 6. Doc updates
 
-- [`docs/design/api/README.md`](../api/README.md) — new "Tables" section under data domain: `GET /v1/tables/{nk}` + `GET /v1/tables?parent_natural_key=...`. Update OpenAPI examples.
-- [`docs/design/data_model/data_model_graph.md`](../data_model/data_model_graph.md) — Query Patterns section: add `Tables for a topic`:
+- [`docs/design/api/README.md`](../../api/README.md) — new "Tables" section under data domain: `GET /v1/tables/{nk}` + `GET /v1/tables?parent_natural_key=...`. Update OpenAPI examples.
+- [`docs/design/data_model/data_model_graph.md`](../../data_model/data_model_graph.md) — Query Patterns section: add `Tables for a topic`:
   ```cypher
   MATCH (t:Topic {natural_key:$nk})-[:CONTAINS_TABLE]->(tbl:Table)
   RETURN tbl.natural_key, tbl.seq, tbl.caption_hi ORDER BY tbl.seq;
   ```
-- [`docs/manual_testing/api/data/testing.md`](../../manual_testing/api/data/testing.md) — add manual `curl` examples for both new endpoints.
-- [`README.md`](../../../README.md) (root) — extend Neo4j data-stores row to list `table` EntityKind in the UI mapping, and add Table label to the traversal label list.
+- [`docs/manual_testing/api/data/testing.md`](../../../manual_testing/api/data/testing.md) — add manual `curl` examples for both new endpoints.
+- [`README.md`](../../../../README.md) (root) — extend Neo4j data-stores row to list `table` EntityKind in the UI mapping, and add Table label to the traversal label list.
 
 ## 7. Definition of Done
 

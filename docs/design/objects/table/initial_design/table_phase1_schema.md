@@ -10,7 +10,7 @@ Stand up the storage schema for the new `Table` entity in all three stores, with
 
 ## 1. Postgres — `tables` index row
 
-Add a new table `tables` mirroring the pattern used by [`gathas`](../data_model/data_model_postgres.md#gathas) and [`kalashas`](../data_model/data_model_postgres.md#kalashas).
+Add a new table `tables` mirroring the pattern used by [`gathas`](../../data_model/data_model_postgres.md#gathas) and [`kalashas`](../../data_model/data_model_postgres.md#kalashas).
 
 ```sql
 CREATE TABLE tables (
@@ -169,10 +169,10 @@ python -m pytest tests/db/ -v
 
 ## 5. Doc updates (do these in the same PR)
 
-- [`docs/design/data_model/data_model_postgres.md`](../data_model/data_model_postgres.md) — add a `tables` section right after `kalashas`, list `0020_tables.py` in the migration plan, add `tables.py` to the SQLAlchemy model layout, append `upsert_table` to the DoD checklist.
-- [`docs/design/data_model/data_model_mongo.md`](../data_model/data_model_mongo.md) — add collection `17. tables` after `kalash_word_meanings`, add row to the Reference Resolution table mapping `Postgres tables.raw_html_doc_id → Mongo tables._id`.
-- [`docs/design/data_model/data_model_graph.md`](../data_model/data_model_graph.md) — add `Table` to the Node labels table, add `CONTAINS_TABLE` to the Edge types table, extend `MENTIONS_KEYWORD` / `MENTIONS_TOPIC` rows to include `Table` as a valid `from:`, add the new Cypher constraints/indexes block, add `Table` to DoD smoke-test.
-- [`README.md`](../../../README.md) (root) — extend the Neo4j row in §Data Stores to mention `Table` label and `CONTAINS_TABLE` edge; add `tables` to the Mongo collections cleared by `clear_dbs.py` in §Scripts.
+- [`docs/design/data_model/data_model_postgres.md`](../../data_model/data_model_postgres.md) — add a `tables` section right after `kalashas`, list `0020_tables.py` in the migration plan, add `tables.py` to the SQLAlchemy model layout, append `upsert_table` to the DoD checklist.
+- [`docs/design/data_model/data_model_mongo.md`](../../data_model/data_model_mongo.md) — add collection `17. tables` after `kalash_word_meanings`, add row to the Reference Resolution table mapping `Postgres tables.raw_html_doc_id → Mongo tables._id`.
+- [`docs/design/data_model/data_model_graph.md`](../../data_model/data_model_graph.md) — add `Table` to the Node labels table, add `CONTAINS_TABLE` to the Edge types table, extend `MENTIONS_KEYWORD` / `MENTIONS_TOPIC` rows to include `Table` as a valid `from:`, add the new Cypher constraints/indexes block, add `Table` to DoD smoke-test.
+- [`README.md`](../../../../README.md) (root) — extend the Neo4j row in §Data Stores to mention `Table` label and `CONTAINS_TABLE` edge; add `tables` to the Mongo collections cleared by `clear_dbs.py` in §Scripts.
 
 ## 6. Definition of Done
 
