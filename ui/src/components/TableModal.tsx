@@ -112,7 +112,7 @@ function CellRefs({ refs }: { refs: DefinitionReference[] }) {
   if (!refs || refs.length === 0) return null;
   return (
     <Popover>
-      <PopoverTrigger className="inline-flex shrink-0 items-center rounded-[var(--radius-sm)] bg-[var(--cat-table)]/15 px-1.5 py-0.5 font-serif-hindi text-xs font-semibold text-[var(--cat-table)] transition-colors hover:bg-[var(--cat-table)]/25">
+      <PopoverTrigger className="inline-flex shrink-0 items-center rounded-[var(--radius-sm)] bg-accent px-2.5 py-0.5 font-serif-hindi text-xs font-bold text-white transition-colors hover:bg-accent-hover">
         संदर्भ {refs.length > 1 ? `(${refs.length})` : ''}
       </PopoverTrigger>
       <PopoverContent
@@ -143,7 +143,7 @@ function CellRefs({ refs }: { refs: DefinitionReference[] }) {
 function TableBody({ table }: { table: TableFull }) {
   // API returns snake_case; fall back to snake_case fields for fields with camelCase type mismatch
   const raw = table as unknown as Record<string, unknown>;
-  const headerRows = (raw.header_rows as number | undefined) ?? table.headerRows ?? 0;
+  const headerRows = Math.max((raw.header_rows as number | undefined) ?? table.headerRows ?? 0, 1);
   const sourceUrl = (raw.source_url as string | null | undefined) ?? table.sourceUrl;
   const cellRefs = table.cell_refs ?? (raw.cell_refs as typeof table.cell_refs | undefined);
 
@@ -185,8 +185,7 @@ function TableBody({ table }: { table: TableFull }) {
                     return isHeader ? (
                       <th
                         key={ci}
-                        className="border border-border px-3 py-1.5 text-left"
-                        style={{ backgroundColor: '#FDECEE', fontWeight: 700 }}
+                        className="border border-border bg-[var(--cat-table)]/15 px-3 py-1.5 text-left font-bold text-[var(--cat-table)]"
                       >
                         {content}
                       </th>
