@@ -152,7 +152,7 @@ async def landing(
 ) -> GraphPayload:
     stub_clause = "AND NOT (coalesce(s.is_stub, false) OR coalesce(t.is_stub, false))" if exclude_stubs else ""
     cypher = f"""
-    MATCH (s)-[r:IS_A|PART_OF|RELATED_TO|HAS_TOPIC|MENTIONS_KEYWORD|MENTIONS_TOPIC|CONTAINS_DEFINITION|IN_SHASTRA|HAS_TEEKA|HAS_PUBLICATION|IN_TEEKA|IN_PUBLICATION|CONTAINS_TABLE]-(t)
+    MATCH (s)-[r:IS_A|PART_OF|RELATED_TO|HAS_TOPIC|MENTIONS_KEYWORD|MENTIONS_TOPIC|CONTAINS_DEFINITION|IN_SHASTRA|HAS_TEEKA|HAS_PUBLICATION|IN_TEEKA|IN_PUBLICATION|CONTAINS_TABLE|MENTIONS_TABLE]-(t)
     WHERE (s:Topic OR s:Keyword OR s:Shastra OR s:Teeka OR s:Publication OR s:Gatha OR s:GathaTeeka OR s:GathaTeekaBhaavarth OR s:Kalash OR s:KalashBhaavarth OR s:Page OR s:Table)
       AND (t:Topic OR t:Keyword OR t:Shastra OR t:Teeka OR t:Publication OR t:Gatha OR t:GathaTeeka OR t:GathaTeekaBhaavarth OR t:Kalash OR t:KalashBhaavarth OR t:Page OR t:Table)
       {stub_clause}
@@ -206,7 +206,7 @@ async def expand(
     stub_clause = "AND NOT (coalesce(s.is_stub, false) OR coalesce(t.is_stub, false))" if exclude_stubs else ""
     cypher = f"""
     MATCH (focus {{natural_key: $nk}})
-    OPTIONAL MATCH p=(focus)-[r:IS_A|PART_OF|RELATED_TO|HAS_TOPIC|MENTIONS_KEYWORD|MENTIONS_TOPIC|CONTAINS_DEFINITION|IN_SHASTRA|HAS_TEEKA|HAS_PUBLICATION|IN_TEEKA|IN_PUBLICATION|CONTAINS_TABLE*1..4]-(n)
+    OPTIONAL MATCH p=(focus)-[r:IS_A|PART_OF|RELATED_TO|HAS_TOPIC|MENTIONS_KEYWORD|MENTIONS_TOPIC|CONTAINS_DEFINITION|IN_SHASTRA|HAS_TEEKA|HAS_PUBLICATION|IN_TEEKA|IN_PUBLICATION|CONTAINS_TABLE|MENTIONS_TABLE*1..4]-(n)
     WITH focus, p, n, relationships(p) AS rels, labels(focus)[0] AS focus_label
     WHERE p IS NULL OR length(p) <= $depth
     UNWIND CASE WHEN p IS NULL THEN [] ELSE rels END AS rel
