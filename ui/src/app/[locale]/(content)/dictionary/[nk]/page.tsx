@@ -1,4 +1,5 @@
 import { BreadcrumbBar } from '@/components/BreadcrumbBar';
+import { KeywordDefinitionButton } from '@/components/KeywordDefinitionButton';
 import { MiniGraphPreview } from '@/components/MiniGraphPreview';
 import { TopicTreeBrowser, type TopicTreeItem } from '@/components/TopicTreeBrowser';
 import { Link } from '@/i18n/navigation';
@@ -38,6 +39,7 @@ export default async function KeywordDetailPage({ params, searchParams }: PagePr
         <p className="mt-2 text-sm text-foreground-muted">{keyword.natural_key}</p>
         {aliases.length > 0 && <p className="mt-2 text-sm">aliases: {aliases.join(', ')}</p>}
         <div className="mt-4 flex flex-wrap gap-3">
+          <KeywordDefinitionButton keywordNk={keyword.natural_key} displayText={keyword.display_text} />
           {keyword.source_url && <a href={keyword.source_url} target="_blank" rel="noreferrer" className="rounded border border-border px-3 py-1 text-sm">स्रोत ↗</a>}
           <Link href={`/graph?node=${encodeURIComponent(keyword.natural_key)}`} className="rounded border border-accent px-3 py-1 text-sm text-accent">ग्राफ में खोलें →</Link>
         </div>

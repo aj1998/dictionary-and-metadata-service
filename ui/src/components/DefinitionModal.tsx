@@ -392,33 +392,39 @@ function SequentialTopicExtracts({ blocks }: { blocks: DefinitionBlock[] }) {
 }
 
 // Renders keyword definition entries numbered by definition_index (sequential view).
+// Numbers are only shown when there are multiple definitions in a section.
 function SequentialKeywordDefinitions({ sections }: { sections: KeywordPageSection[] }) {
   return (
     <div className="space-y-4">
-      {sections.map((section, si) => (
-        <Fragment key={section.section_index}>
-          {si > 0 && <hr className="my-2 border-border" />}
-          <div>
-            <p className="mb-2 text-xs font-medium uppercase tracking-wide text-foreground-muted">
-              {section.h2_text}
-            </p>
-            <div className="space-y-4">
-              {section.definitions.map((def) => (
-                <div key={def.definition_index} className="flex gap-3">
-                  <span className="mt-[3px] shrink-0 font-sans text-xs font-semibold tabular-nums text-foreground-muted">
-                    {def.definition_index}.
-                  </span>
-                  <div className="min-w-0 flex-1 space-y-3">
-                    {def.blocks.filter((b) => b.kind !== 'see_also').map((block, bi) => (
-                      <ModalBlock key={bi} block={block} showShastra />
-                    ))}
+      {sections.map((section, si) => {
+        const showNumbers = section.definitions.length > 1;
+        return (
+          <Fragment key={section.section_index}>
+            {si > 0 && <hr className="my-2 border-border" />}
+            <div>
+              <p className="mb-2 text-xs font-medium uppercase tracking-wide text-foreground-muted">
+                {section.h2_text}
+              </p>
+              <div className="space-y-4">
+                {section.definitions.map((def) => (
+                  <div key={def.definition_index} className={cn('flex', showNumbers ? 'gap-3' : 'flex-col gap-0')}>
+                    {showNumbers && (
+                      <span className="mt-[3px] shrink-0 font-sans text-xs font-semibold tabular-nums text-foreground-muted">
+                        {def.definition_index}.
+                      </span>
+                    )}
+                    <div className="min-w-0 flex-1 space-y-3">
+                      {def.blocks.filter((b) => b.kind !== 'see_also').map((block, bi) => (
+                        <ModalBlock key={bi} block={block} showShastra />
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </Fragment>
-      ))}
+          </Fragment>
+        );
+      })}
     </div>
   );
 }
