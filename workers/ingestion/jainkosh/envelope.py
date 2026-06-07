@@ -893,6 +893,73 @@ def build_neo4j_fragment(result: KeywordParseResult, config: JainkoshConfig) -> 
     return {"nodes": _dedupe(nodes), "edges": _dedupe(resolved_edges)}
 
 
+def _collect_parsed_tables(
+    result: KeywordParseResult,
+    config: JainkoshConfig,
+) -> list:
+    """Walk the parse result and build ParsedTable objects from table blocks."""
+    if not config.table.emit_first_class_node:
+        return []
+
+    from .tables import parse_table_block_from_html
+
+    tables = []
+    seq_counter: dict[str, int] = {}
+
+    def _next_seq(parent_nk: str) -> int:
+        seq_counter[parent_nk] = seq_counter.get(parent_nk, 0) + 1
+        return seq_counter[parent_nk]
+
+    for sec in result.page_sections:
+        # Tables in keyword definitions (parent_kind="keyword")
+        for defn in sec.definitions:
+            for block in defn.blocks:
+                if block.kind == "table" and block.raw_html:
+                    seq = _next_seq(result.keyword)
+                    tables.append(parse_table_block_from_html(
+                        block.raw_html,
+                        config,
+                        parent_natural_key=result.keyword,
+                        parent_kind="keyword",
+                        seq=seq,
+                        source_url=result.source_url,
+                        preceding_heading=None,
+                    ))
+
+        # Orphan tables in section extra_blocks (parent_kind="keyword")
+        for block in sec.extra_blocks:
+            if block.kind == "table" and block.raw_html:
+                seq = _next_seq(result.keyword)
+                tables.append(parse_table_block_from_html(
+                    block.raw_html,
+                    config,
+                    parent_natural_key=result.keyword,
+                    parent_kind="keyword",
+                    seq=seq,
+                    source_url=result.source_url,
+                    preceding_heading=None,
+                ))
+
+        # Tables within topic subsections (parent_kind="topic")
+        for sub in walk_subsection_tree(sec.subsections):
+            frag = "#" + sub.topic_path if sub.topic_path else ""
+            sub_url = f"{result.source_url}{frag}"
+            for block in sub.blocks:
+                if block.kind == "table" and block.raw_html:
+                    seq = _next_seq(sub.natural_key)
+                    tables.append(parse_table_block_from_html(
+                        block.raw_html,
+                        config,
+                        parent_natural_key=sub.natural_key,
+                        parent_kind="topic",
+                        seq=seq,
+                        source_url=sub_url,
+                        preceding_heading=sub.heading_text or None,
+                    ))
+
+    return tables
+
+
 def build_envelope(result: KeywordParseResult, config: Optional[JainkoshConfig] = None) -> WouldWriteEnvelope:
     if config is None:
         config = load_config()
@@ -904,6 +971,7 @@ def build_envelope(result: KeywordParseResult, config: Optional[JainkoshConfig] 
             "neo4j": build_neo4j_fragment(result, config),
             "idempotency_contracts": _build_contracts(result),
         },
+        tables=_collect_parsed_tables(result, config),
     )
 
 

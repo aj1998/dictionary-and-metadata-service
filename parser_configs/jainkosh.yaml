@@ -138,9 +138,12 @@ nested_span:
 table:
   selector: "table"
   store_raw_html: true
-  extraction_strategy: "raw_html_only"
+  extraction_strategy: "raw_html_plus_rows"
   attach_to: "current_subsection"
   fallback_when_no_subsection: "section_root"
+  emit_first_class_node: true
+  parse_cells: true
+  parse_mentions: true
   raw_html:
     collapse_whitespace: true
 

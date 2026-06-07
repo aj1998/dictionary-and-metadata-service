@@ -543,6 +543,15 @@
             "section_root"
           ]
         },
+        "emit_first_class_node": {
+          "type": "boolean"
+        },
+        "parse_cells": {
+          "type": "boolean"
+        },
+        "parse_mentions": {
+          "type": "boolean"
+        },
         "raw_html": {
           "type": "object",
           "additionalProperties": false,

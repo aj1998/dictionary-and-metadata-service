@@ -154,7 +154,30 @@ class KeywordParseResult(BaseModel):
     warnings: list[ParserWarning] = Field(default_factory=list)
 
 
+ParentKind = Literal[
+    "topic", "keyword", "gatha", "gatha_teeka",
+    "gatha_teeka_bhaavarth", "kalash", "kalash_bhaavarth", "page",
+]
+
+
+class ParsedTable(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    natural_key: str
+    seq: int
+    parent_natural_key: str
+    parent_kind: ParentKind
+    source_url: Optional[str] = None
+    caption: list[Multilingual] = Field(default_factory=list)
+    raw_html: str
+    cells: list[list[str]] = Field(default_factory=list)
+    header_rows: int = 0
+    plaintext: str = ""
+    mentioned_keyword_natural_keys: list[str] = Field(default_factory=list)
+    mentioned_topic_natural_keys: list[str] = Field(default_factory=list)
+
+
 class WouldWriteEnvelope(BaseModel):
     model_config = ConfigDict(extra="forbid")
     keyword_parse_result: KeywordParseResult
     would_write: dict
+    tables: list[ParsedTable] = Field(default_factory=list)

@@ -109,6 +109,19 @@ python -m pytest tests/workers/jainkosh/ -v
 - [ ] Goldens regenerated; `pytest tests/workers/jainkosh/` green.
 - [ ] Parser doc updated; root README stats refreshed.
 
-## 9. Implementation notes (fill in during PR)
+## 9. Implementation notes
 
-_Leave empty._
+- `ParsedTable` re-uses the existing `Multilingual` model (renamed `LangText` in spec) for `caption` entries. No new type added.
+- `parse_table_block()` and `parse_table_block_from_html()` both live in `tables.py`. The envelope-building path uses the `_from_html` variant since DOM nodes are no longer available at envelope-build time; cells/mentions are re-parsed from `block.raw_html` via `HTMLParser`.
+- `_collect_parsed_tables()` in `envelope.py` is called from `build_envelope()`. It walks definitions, `extra_blocks`, and all subsections in source order, maintaining a per-parent seq counter keyed by `parent_natural_key`.
+- `table.extraction_strategy` YAML default changed to `"raw_html_plus_rows"` (was `"raw_html_only"`). The `block.table_rows` field still returns `[]` (placeholder from original `_extract_rows`) — full row parsing now lives in `ParsedTable.cells`. This is intentional: `block.table_rows` is a legacy field from before `ParsedTable` existed; in Phase 3 it will be deprecated in favour of `ParsedTable.cells`.
+- Topic natural_keys from `#<anchor>` hrefs are stored as anchor text strings (e.g. `"बहिरात्मादि_3_भेद"`). Phase 3 will resolve these to full natural keys after the topic tree is built.
+- Goldens regenerated with `--frozen-time 2026-05-04T00:00:00Z`. All fixtures now have a top-level `"tables": [...]` array; `द्रव्य.json` has one table entry.
+
+**Definition of Done checklist:**
+
+- [x] `parse_table_block()` returns both inline `Block` and `ParsedTable`.
+- [x] Envelope JSON has top-level `tables[]` array.
+- [x] All four parser unit tests pass (6 tests total, including 2 extra coverage tests).
+- [x] Goldens regenerated; `pytest tests/workers/jainkosh/` green (590 tests).
+- [x] Parser doc updated (§6.5 and §13); ingestion doc updated (new `WouldWriteEnvelope.tables` section).

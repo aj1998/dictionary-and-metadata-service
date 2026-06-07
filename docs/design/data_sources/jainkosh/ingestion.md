@@ -338,6 +338,16 @@ async def apply_approved_keyword_payload(
 
 ---
 
+## WouldWriteEnvelope.tables (Phase 2+)
+
+`WouldWriteEnvelope` carries a top-level `tables: list[ParsedTable]` array alongside `keyword_parse_result` and `would_write`. Each `ParsedTable` is a first-class Table node derived from an inline `Block(kind="table")` block.
+
+Fields: `natural_key`, `seq`, `parent_natural_key`, `parent_kind`, `source_url`, `caption`, `raw_html`, `cells`, `header_rows`, `plaintext`, `mentioned_keyword_natural_keys`, `mentioned_topic_natural_keys`.
+
+**Apply behaviour**: Phase 3 (not yet implemented) will extend `apply_approved_keyword_payload` to upsert each `ParsedTable` to Postgres (`tables` index row), Mongo (`tables` collection), and Neo4j (`Table` node + `CONTAINS_TABLE` edge). In Phase 2, the array is present in the envelope JSON but not acted upon.
+
+---
+
 ## Envelope conventions
 
 Stub seeds are derived at envelope-build time in `envelope.py`, not at apply time:

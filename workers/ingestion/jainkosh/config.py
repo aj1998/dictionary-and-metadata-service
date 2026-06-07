@@ -249,10 +249,13 @@ class TableConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
     selector: str
     store_raw_html: bool
-    extraction_strategy: Literal["raw_html_only", "raw_html_plus_rows"] = "raw_html_only"
+    extraction_strategy: Literal["raw_html_only", "raw_html_plus_rows"] = "raw_html_plus_rows"
     attach_to: Literal["current_subsection", "section_root"] = "current_subsection"
     fallback_when_no_subsection: Literal["section_root"] = "section_root"
     raw_html: TableRawHtmlConfig = Field(default_factory=TableRawHtmlConfig)
+    emit_first_class_node: bool = True
+    parse_cells: bool = True
+    parse_mentions: bool = True
 
 
 class RedlinkProseStripConfig(BaseModel):

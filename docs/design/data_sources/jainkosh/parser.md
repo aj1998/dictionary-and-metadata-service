@@ -464,11 +464,41 @@ children before block stream processing (`_is_block_span_container()` in `parse_
 
 ### 6.5 Tables
 
-Tables kept as full outerHTML in `Block(kind="table", raw_html="…")`.
+Tables kept as full outerHTML in `Block(kind="table", raw_html="…")` for inline back-compat. When `table.emit_first_class_node=true` (default), `build_envelope()` also emits a parallel first-class `ParsedTable` entry in `WouldWriteEnvelope.tables`.
 
 Attachment (`table.attach_to`, default `current_subsection`):
 - **Inside a subsection's body** → attach to that subsection's `blocks`.
-- **Before any heading in section** (orphan) → attach to `PageSection.extra_blocks`.
+- **Before any heading in section** (orphan) �� attach to `PageSection.extra_blocks`.
+
+#### Table extraction
+
+`build_envelope()` calls `_collect_parsed_tables()` which walks all subsections and `extra_blocks`, finds `Block(kind="table")` entries, and for each creates a `ParsedTable` by re-parsing `block.raw_html` via `tables.parse_table_block_from_html()`.
+
+**`ParsedTable` fields:**
+
+| Field | Description |
+|-------|-------------|
+| `natural_key` | `table:jainkosh:{parent_natural_key}:{seq:02d}` (1-indexed per parent, source order) |
+| `seq` | 1-based sequence number within parent |
+| `parent_natural_key` | Natural key of the containing Topic or Keyword |
+| `parent_kind` | `"topic"` for subsection tables; `"keyword"` for definition/orphan tables |
+| `source_url` | URL of the parent node (with `#topic_path` fragment for topics) |
+| `caption` | `[{lang:"hin", script:"Deva", text:…}]` — inline `<caption>` preferred; falls back to parent subsection `heading_text` |
+| `raw_html` | Same as the inline `Block.raw_html` |
+| `cells` | 2-D matrix of plain-text cell values (NFC; `<br>` → `\n`; rows padded to uniform width) |
+| `header_rows` | Count of leading rows where every cell is `<th>` or has `class="header"` |
+| `plaintext` | Space-joined non-empty cell strings |
+| `mentioned_keyword_natural_keys` | Keyword NKs from `/wiki/<keyword>` `<a>` hrefs inside the table |
+| `mentioned_topic_natural_keys` | Topic path anchors from `#<slug>` `<a>` hrefs inside the table |
+
+**Config flags** (`table.*`):
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `emit_first_class_node` | `true` | Gate for Phase 2 emission; when `false`, `WouldWriteEnvelope.tables` stays empty |
+| `parse_cells` | `true` | Extract cell matrix, header_rows, and caption |
+| `parse_mentions` | `true` | Extract mentioned keyword/topic natural keys from `<a>` hrefs |
+| `extraction_strategy` | `"raw_html_plus_rows"` | `raw_html_only` skips `block.table_rows`; `raw_html_plus_rows` populates it (currently empty list, full parsing goes into `ParsedTable.cells`) |
 
 ### 6.6 Adjacent-page navigation
 
@@ -801,6 +831,23 @@ for full annotated JSON examples.
 **Config flags** (`envelope.*`):
 - `index_relations_as_topics.enabled` (default `true`) — emit index-relation label-seeds as Topic rows.
 - `shastra_hierarchy.enabled` (default `false`) — also emit `Shastra`/`Teeka`/`Publication` stub nodes for each lazy reference node (Gatha, GathaTeeka, GathaTeekaBhaavarth, Kalash, KalashBhaavarth, Page). See [ingestion doc](ingestion.md#shastra-hierarchy-ingestion).
+
+**`WouldWriteEnvelope` schema:**
+
+```json
+{
+  "keyword_parse_result": { … },
+  "would_write": {
+    "postgres": { … },
+    "mongo": { … },
+    "neo4j": { … },
+    "idempotency_contracts": { … }
+  },
+  "tables": [ … ]   // list[ParsedTable] — Phase 2+
+}
+```
+
+**`tables`**: List of first-class `ParsedTable` objects (see §6.5). Populated by `_collect_parsed_tables()` called from `build_envelope()`. Empty when `table.emit_first_class_node=false`.
 
 **Postgres**: `keywords` row + `topics` rows (one per non-synthetic subsection + synthetic label seeds from `sec.subsections` + `sec.label_topic_seeds`).
 
