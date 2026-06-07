@@ -46,6 +46,24 @@ class TopicKeywordsResponse(BaseModel):
     keywords: list[KeywordItem]
 
 
+class RelatedNode(BaseModel):
+    natural_key: str
+    display_text: str | None
+    label: str
+    is_stub: bool
+
+
+class TopicRelatedResponse(BaseModel):
+    topic_natural_key: str
+    related: list[RelatedNode]
+
+
+class TopicAncestorsResponse(BaseModel):
+    topic_natural_key: str
+    parent_keyword_natural_key: str | None
+    ancestors: list[str]
+
+
 class ShortestPathResponse(BaseModel):
     from_: str
     to: str

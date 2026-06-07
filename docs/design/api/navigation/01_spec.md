@@ -14,6 +14,8 @@
 - `GET /v1/keywords/{nk}/topics`
 - `GET /v1/topics/{nk}/neighbors`
 - `GET /v1/topics/{nk}/keywords`
+- `GET /v1/topics/{nk}/ancestors` — returns `{topic_natural_key, parent_keyword_natural_key, ancestors[]}`. `ancestors` is the ordered chain of topic natural_keys walked via `PART_OF` outbound from the topic to its root (root first → direct parent last; topic itself excluded). Used by the UI `TopicTreeBrowser` to auto-expand columns to a target topic referenced via `?topic=` on the dictionary keyword page.
+- `GET /v1/topics/{nk}/related` — returns `{topic_natural_key, related: [{natural_key, display_text, label, is_stub}, ...]}`. Walks `RELATED_TO` edges from the topic and returns both `Topic` and `Keyword` targets (label = `"Topic"` or `"Keyword"`). Stubs included by default; pass `?exclude_stubs=true` to filter. Powers the "संबंधित विषय" expansion on label-seed rows in the UI (label-seed see_also targets are frequently stub keywords like `वस्तु`, which `/neighbors` cannot return because its `RELATED_TO` clause is restricted to `Topic` targets).
 - `GET /v1/graph/shortest_path`
 - `GET /v1/landing`
 - `GET /v1/landing/random`

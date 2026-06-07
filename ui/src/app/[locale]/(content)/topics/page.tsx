@@ -3,6 +3,7 @@ import { getTopics } from '@/lib/api/data';
 import { topicsMatch } from '@/lib/api/query';
 import { getHindiText, paginatedMeta } from '@/lib/content-listing';
 import { toDevanagariNumerals } from '@/lib/format/devanagari';
+import { TopicNavAction } from '@/components/TopicNavAction';
 import type { TopicMatchItem } from '@/lib/types';
 
 export const revalidate = 60;
@@ -36,12 +37,13 @@ function TopicMatchCard({ item }: { item: TopicMatchItem }) {
           {(item.similarity * 100).toFixed(0)}% मिलान
         </span>
       </div>
-      <Link
-        href={`/topics/${item.topic_natural_key}`}
-        className="mt-4 inline-block text-sm font-medium text-accent"
-      >
-        विषय खोलें →
-      </Link>
+      <div className="mt-4">
+        <TopicNavAction
+          topicNk={item.topic_natural_key}
+          displayText={item.display_text_hi}
+          isLeaf={item.is_leaf}
+        />
+      </div>
     </article>
   );
 }
@@ -139,7 +141,14 @@ export default async function TopicsPage({ searchParams }: PageProps) {
               <span className="rounded-full bg-accent-soft px-2 py-1 text-xs text-accent">{item.parent_keyword?.display_text ?? '—'}</span>
               <span className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold text-foreground-muted">{toDevanagariNumerals(item.is_leaf ? 1 : 0)}</span>
             </div>
-            <Link href={`/topics/${item.natural_key}`} className="mt-4 inline-block text-sm font-medium text-accent">विषय खोलें →</Link>
+            <div className="mt-4">
+              <TopicNavAction
+                topicNk={item.natural_key}
+                displayText={getHindiText(item.display_text, item.natural_key)}
+                isLeaf={item.is_leaf}
+                parentKeywordNk={item.parent_keyword?.natural_key}
+              />
+            </div>
           </article>
         ))}
       </section>

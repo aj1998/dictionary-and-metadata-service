@@ -57,6 +57,8 @@ interface DefinitionModalProps {
   title: string;
   definitionSections?: KeywordPageSection[];
   topicExtracts?: DefinitionBlock[];
+  navigateHref?: string;
+  navigateLabel?: string;
 }
 
 // Returns the left-border colour class for a block.
@@ -400,7 +402,7 @@ function TopicExtractsSection({ blocks }: { blocks: DefinitionBlock[] }) {
   );
 }
 
-export function DefinitionModal({ open, onClose, title, definitionSections, topicExtracts }: DefinitionModalProps) {
+export function DefinitionModal({ open, onClose, title, definitionSections, topicExtracts, navigateHref, navigateLabel }: DefinitionModalProps) {
   return (
     <Dialog.Root open={open} onOpenChange={(v) => { if (!v) onClose(); }}>
       <Dialog.Portal>
@@ -417,6 +419,20 @@ export function DefinitionModal({ open, onClose, title, definitionSections, topi
               <X className="size-4" />
             </Dialog.Close>
           </div>
+
+          {navigateHref && (
+            <div className="shrink-0 border-b border-border bg-surface-muted px-5 py-2">
+              <a
+                href={navigateHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
+              >
+                {navigateLabel ?? 'इस विषय पर जाएँ'}
+                <ChevronRight className="size-4" strokeWidth={1.75} />
+              </a>
+            </div>
+          )}
 
           <div className="flex-1 overflow-y-auto px-5 py-4">
             {definitionSections && (

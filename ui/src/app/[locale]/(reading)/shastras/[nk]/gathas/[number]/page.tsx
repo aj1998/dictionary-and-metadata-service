@@ -6,6 +6,7 @@ import { TabbedPanel } from '@/components/TabbedPanel';
 import type { TabbedPanelItem } from '@/components/TabbedPanel';
 import { TaggedTermPopover } from '@/components/TaggedTermPopover';
 import { TeekaPanel } from '@/components/TeekaPanel';
+import { TopicNavAction } from '@/components/TopicNavAction';
 import type { TeekaPanelItem } from '@/components/TeekaPanel';
 import { Link } from '@/i18n/navigation';
 import { getExtractMatch, getGatha } from '@/lib/api/data';
@@ -259,9 +260,13 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
             <h3 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">संबंधित विषय</h3>
             <div className="mt-3 flex flex-wrap gap-2">
               {topics.map((topic) => (
-                <Link key={topic.natural_key} href={`/topics/${topic.natural_key}`} className="rounded-full bg-accent-soft px-3 py-1 text-xs text-accent">
-                  {topic.display_text}
-                </Link>
+                <TopicNavAction
+                  key={topic.natural_key}
+                  topicNk={topic.natural_key}
+                  displayText={topic.display_text_hi || topic.natural_key}
+                  variant="inline"
+                  className="rounded-full bg-accent-soft px-3 py-1 text-xs text-accent inline-flex items-center gap-1"
+                />
               ))}
             </div>
           </section>

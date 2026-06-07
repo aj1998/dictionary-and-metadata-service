@@ -38,6 +38,24 @@ export async function getTopicNeighbors(nk: string): Promise<TopicNeighborsRespo
   return apiFetch<TopicNeighborsResponse>(BASE_URL, `/v1/topics/${nk}/neighbors`);
 }
 
+export async function getTopicAncestors(
+  nk: string
+): Promise<{ topic_natural_key: string; parent_keyword_natural_key: string | null; ancestors: string[] }> {
+  return apiFetch(BASE_URL, `/v1/topics/${nk}/ancestors`);
+}
+
+export async function getTopicRelated(
+  nk: string
+): Promise<{ topic_natural_key: string; related: Array<{ natural_key: string; display_text: string | null; label: string; is_stub: boolean }> }> {
+  return apiFetch(BASE_URL, `/v1/topics/${nk}/related`);
+}
+
+export async function getTopicMentionedKeywords(
+  nk: string
+): Promise<{ topic_natural_key: string; keywords: Array<{ natural_key: string; display_text: string | null; edge_type: string; is_stub: boolean }> }> {
+  return apiFetch(BASE_URL, `/v1/topics/${nk}/keywords`);
+}
+
 export async function getKeywordTopics(nk: string): Promise<{ keyword_natural_key: string; topics: Array<{ natural_key: string; display_text_hi: string; edge_type: string; is_stub: boolean }> }> {
   return apiFetch(BASE_URL, `/v1/keywords/${nk}/topics`);
 }

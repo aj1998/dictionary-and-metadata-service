@@ -1,6 +1,7 @@
 import { Link } from '@/i18n/navigation';
 import { Loader2 } from '@/lib/icons';
 import { searchTopics } from '@/lib/api/query';
+import { TopicNavAction } from '@/components/TopicNavAction';
 
 export const revalidate = 0;
 
@@ -71,7 +72,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
             <p className="mt-2 text-sm">{result.excerpt}</p>
             <p className="mt-2 text-xs text-foreground-muted">mentions: {result.mentions.map((m) => `${m.kind}:${m.ref}`).join(' • ')}</p>
             <div className="mt-3 flex gap-4 text-sm">
-              <Link href={`/topics/${result.topic_nk}`} className="font-medium text-accent">विषय खोलें →</Link>
+              <TopicNavAction topicNk={result.topic_nk} displayText={result.title_hi} variant="inline" />
               <Link href={`/graph?node=${encodeURIComponent(result.topic_nk)}`} className="font-medium text-accent">ग्राफ में खोलें →</Link>
             </div>
           </article>

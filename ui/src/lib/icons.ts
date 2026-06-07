@@ -25,5 +25,6 @@ export {
   Loader2,
   ExternalLink,
   Building2,
+  Link2,
   Table as IconTable,
 } from 'lucide-react';

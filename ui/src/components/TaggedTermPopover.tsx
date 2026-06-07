@@ -1,7 +1,7 @@
 'use client';
 
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Link } from '@/i18n/navigation';
+import { TopicNavAction } from '@/components/TopicNavAction';
 
 export interface TaggedTermPopoverProps {
   termHi: string;
@@ -28,11 +28,7 @@ export function TaggedTermPopover({ termHi, meaningHi, meaningEn, topicNk }: Tag
           <h4 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">{termHi}</h4>
           {meaningHi && <p className="font-serif-hindi text-sm">{meaningHi}</p>}
           {meaningEn && <p className="font-sans text-xs text-foreground-muted">{meaningEn}</p>}
-          {topicNk && (
-            <Link href={`/topics/${topicNk}`} className="inline-block text-sm font-medium text-accent">
-              विषय खोलें →
-            </Link>
-          )}
+          {topicNk && <TopicNavAction topicNk={topicNk} displayText={termHi} variant="inline" />}
         </div>
       </PopoverContent>
     </Popover>

@@ -146,6 +146,77 @@ RETURN DISTINCT t.natural_key AS natural_key, t.display_text_hi AS display_text_
     ]
 
 
+async def get_topic_ancestors(
+    driver: AsyncDriver,
+    *,
+    topic_nk: str,
+    database: str = "jainkb",
+) -> dict:
+    """Walk PART_OF outbound from topic to its root.
+
+    Returns: {parent_keyword_natural_key, ancestors: [root_topic_nk, ..., direct_parent_nk]}
+    Ancestors does NOT include the topic itself.
+    """
+    cypher = """
+MATCH (t:Topic {natural_key: $nk})
+OPTIONAL MATCH path = (t)-[:PART_OF*0..50]->(root:Topic)
+WHERE NOT (root)-[:PART_OF]->(:Topic)
+WITH t, path, root
+ORDER BY length(path) DESC
+LIMIT 1
+WITH t, coalesce(nodes(path), [t]) AS chain
+RETURN [n IN chain | n.natural_key] AS chain_nks,
+       t.parent_keyword_natural_key AS parent_keyword
+"""
+    async with driver.session(database=database) as session:
+        result = await session.run(cypher, nk=topic_nk)
+        record = await result.single()
+
+    if not record:
+        return {"parent_keyword_natural_key": None, "ancestors": []}
+
+    chain = record.get("chain_nks") or []
+    # chain is [topic, parent, ..., root]; reverse and drop topic itself
+    ancestors = list(reversed(chain))[:-1] if chain else []
+    return {
+        "parent_keyword_natural_key": record.get("parent_keyword"),
+        "ancestors": ancestors,
+    }
+
+
+async def get_topic_related(
+    driver: AsyncDriver,
+    *,
+    topic_nk: str,
+    exclude_stubs: bool = False,
+    database: str = "jainkb",
+) -> list[dict]:
+    """RELATED_TO neighbors of a topic — returns Topic AND Keyword targets."""
+    stub_clause = "AND NOT coalesce(n.is_stub, false)" if exclude_stubs else ""
+    cypher = f"""
+MATCH (src:Topic {{natural_key: $nk}})-[:RELATED_TO]-(n)
+WHERE (n:Topic OR n:Keyword) AND n <> src {stub_clause}
+RETURN DISTINCT n.natural_key AS natural_key,
+       coalesce(n.display_text_hi, n.display_text) AS display_text,
+       labels(n)[0] AS label,
+       coalesce(n.is_stub, false) AS is_stub
+"""
+    async with driver.session(database=database) as session:
+        result = await session.run(cypher, nk=topic_nk)
+        records = await result.data()
+
+    return [
+        {
+            "natural_key": r["natural_key"],
+            "display_text": r.get("display_text"),
+            "label": r.get("label") or "Topic",
+            "is_stub": bool(r.get("is_stub", False)),
+        }
+        for r in records
+        if r["natural_key"]
+    ]
+
+
 async def get_topic_keywords(
     driver: AsyncDriver,
     *,

@@ -10,7 +10,10 @@ from ..schemas.neighbors import (
     KeywordItem,
     NeighborItem,
     NeighborsResponse,
+    RelatedNode,
+    TopicAncestorsResponse,
     TopicKeywordsResponse,
+    TopicRelatedResponse,
 )
 from ..services import traversal as trav_svc
 
@@ -47,6 +50,49 @@ async def get_topic_neighbors(
                 is_stub=n["is_stub"],
             )
             for n in neighbors
+        ],
+    )
+
+
+@router.get("/topics/{natural_key}/ancestors", response_model=TopicAncestorsResponse)
+async def get_topic_ancestors(
+    natural_key: str,
+    driver: AsyncDriver = Depends(get_neo4j_driver),
+) -> TopicAncestorsResponse:
+    data = await trav_svc.get_topic_ancestors(
+        driver,
+        topic_nk=natural_key,
+        database=settings.NEO4J_DATABASE,
+    )
+    return TopicAncestorsResponse(
+        topic_natural_key=natural_key,
+        parent_keyword_natural_key=data.get("parent_keyword_natural_key"),
+        ancestors=data.get("ancestors") or [],
+    )
+
+
+@router.get("/topics/{natural_key}/related", response_model=TopicRelatedResponse)
+async def get_topic_related(
+    natural_key: str,
+    exclude_stubs: bool = Query(False),
+    driver: AsyncDriver = Depends(get_neo4j_driver),
+) -> TopicRelatedResponse:
+    items = await trav_svc.get_topic_related(
+        driver,
+        topic_nk=natural_key,
+        exclude_stubs=exclude_stubs,
+        database=settings.NEO4J_DATABASE,
+    )
+    return TopicRelatedResponse(
+        topic_natural_key=natural_key,
+        related=[
+            RelatedNode(
+                natural_key=i["natural_key"],
+                display_text=i.get("display_text"),
+                label=i.get("label", "Topic"),
+                is_stub=i["is_stub"],
+            )
+            for i in items
         ],
     )
 

@@ -7,10 +7,14 @@ import { getKeywordTopics } from '@/lib/api/navigation';
 
 export const revalidate = 60;
 
-type PageProps = { params: Promise<{ nk: string }> };
+type PageProps = {
+  params: Promise<{ nk: string }>;
+  searchParams: Promise<{ topic?: string }>;
+};
 
-export default async function KeywordDetailPage({ params }: PageProps) {
+export default async function KeywordDetailPage({ params, searchParams }: PageProps) {
   const { nk: rawNk } = await params;
+  const { topic: targetTopic } = await searchParams;
   const nk = decodeURIComponent(rawNk);
   const keyword = await getKeyword(nk);
 
@@ -43,7 +47,11 @@ export default async function KeywordDetailPage({ params }: PageProps) {
         <h2 className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold">विषय</h2>
         <div className="mt-3">
           {initialItems.length > 0 ? (
-            <TopicTreeBrowser initialItems={initialItems} />
+            <TopicTreeBrowser
+              initialItems={initialItems}
+              targetTopicNk={targetTopic ? decodeURIComponent(targetTopic) : undefined}
+              currentKeywordNk={keyword.natural_key}
+            />
           ) : (
             <p className="text-sm text-foreground-muted">कोई विषय उपलब्ध नहीं</p>
           )}
