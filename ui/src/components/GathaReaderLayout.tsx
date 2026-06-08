@@ -20,7 +20,7 @@ function Inner({ main, sidebar }: InnerProps) {
     <div className={`grid gap-6 ${gridCols}`}>
       {main}
       {sidebar}
-      {showRight && <MentionedRightColumn />}
+      {showRight && <MentionedRightColumn key="right" />}
     </div>
   );
 }

@@ -118,7 +118,8 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
     };
   });
 
-  // Bhaavarth tabs — render in right sidebar as a tabbed window
+  // Bhaavarth tabs — render in right sidebar as a tabbed window.
+  // Secondary-kalash entries are filtered out server-side.
   const bhaavarthItems: TabbedPanelItem[] = teekaBhaavarth.map((bh) => {
     const bText = getHindiText(bh.text, bh.natural_key);
     return {
@@ -197,18 +198,36 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
               />
             )}
             {kalash.word_meanings && kalash.word_meanings.entries.length > 0 && (
-              <BhaavarthPanel
-                label="शब्दार्थ"
-                naturalKey={kalash.word_meanings.natural_key}
-                text={kalash.word_meanings.entries
-                  .sort((a, b) => a.position - b.position)
-                  .map((e) => `[${e.source_word}] ${e.meaning}`)
-                  .join('\n')}
-              />
+              <section className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
+                <h2 className="mb-3 font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">शब्दार्थ</h2>
+                <div className="flex flex-wrap gap-2 leading-8">
+                  {[...kalash.word_meanings.entries]
+                    .sort((a, b) => a.position - b.position)
+                    .map((entry, index) => (
+                      <TaggedTermPopover
+                        key={`${entry.source_word}-${index}`}
+                        termHi={entry.source_word}
+                        meaningHi={entry.meaning}
+                      />
+                    ))}
+                </div>
+                <div className="mt-4 border-t border-border pt-4">
+                  <p className="mb-1 text-xs font-medium text-foreground-muted">अन्वयार्थ</p>
+                  <p className="font-serif-hindi text-sm leading-8 text-foreground">
+                    {[...kalash.word_meanings.entries]
+                      .sort((a, b) => a.position - b.position)
+                      .map((e) => e.meaning)
+                      .join(' ')}
+                  </p>
+                </div>
+              </section>
             )}
           </>
         )}
         {kalash.bhaavarth.map((bh) => {
+          // Secondary kalasha whose number matches the current gatha: bhaavarth is already
+          // shown in the right-panel हिन्दी भावार्थ tabs, so skip it here to avoid duplication.
+          if (kalash.is_secondary && kalash.kalash_number === gathaNumStr) return null;
           const bText = joinedLangText(bh.text);
           return (
             <BhaavarthPanel
@@ -230,7 +249,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
     match?.match.status === 'matched' ? match.target.natural_key : null;
 
   const mainColumn = (
-    <div className="space-y-4">
+    <div key="main" className="space-y-4">
         <section className="rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-node">
           <BreadcrumbBar
             segments={[
@@ -321,17 +340,13 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   );
 
   const sidebar = (
-      <aside className="space-y-4 lg:sticky lg:top-[90px] lg:self-start lg:max-h-[calc(100vh-110px)] lg:overflow-y-auto">
-        {/* टीका — sanskrit teeka tabs */}
-        <TeekaPanel items={teekaItems} showActions />
-
-        {/* हिन्दी भावार्थ — tabs */}
+      <aside key="sidebar" className="space-y-4 lg:sticky lg:top-[90px] lg:self-start lg:max-h-[calc(100vh-110px)] lg:overflow-y-auto">
+        <TeekaPanel key="teeka" items={teekaItems} showActions />
         {bhaavarthItems.length > 0 && (
-          <TabbedPanel title="हिन्दी भावार्थ" items={bhaavarthItems} showActions />
+          <TabbedPanel key="bhaavarth" title="हिन्दी भावार्थ" items={bhaavarthItems} showActions />
         )}
-
         {topics.length > 0 && (
-          <section className="rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-node">
+          <section key="topics" className="rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-node">
             <h3 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">संबंधित विषय</h3>
             <div className="mt-3 flex flex-wrap gap-2">
               {topics.map((topic) => (

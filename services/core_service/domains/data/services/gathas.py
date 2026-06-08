@@ -116,11 +116,18 @@ async def get_detail(
         )
     # teeka_* docs use {gatha_teeka_natural_key, gatha_number} rather than a
     # gatha_natural_key field. Build a shared filter from the shastra prefix.
+    # Exclude secondary-kalash extra-gatha docs (NK contains ":कलश:") — those
+    # share gatha_number with a real gatha but belong to the kalashes payload.
     shastra_nk_prefix = gatha.natural_key.split(":गाथा:")[0] if ":गाथा:" in gatha.natural_key else ""
     import re as _re
     teeka_query: dict = {"gatha_number": str(gatha.gatha_number)}
     if shastra_nk_prefix:
-        teeka_query["gatha_teeka_natural_key"] = {"$regex": f"^{_re.escape(shastra_nk_prefix)}:"}
+        teeka_query["gatha_teeka_natural_key"] = {
+            "$regex": f"^{_re.escape(shastra_nk_prefix)}:",
+            "$not": {"$regex": ":कलश:"},
+        }
+    else:
+        teeka_query["gatha_teeka_natural_key"] = {"$not": {"$regex": ":कलश:"}}
 
     if "teeka_sanskrit" in include:
         include_keys.append("teeka_sanskrit")

@@ -140,7 +140,7 @@
 
 /* Teeka panel paragraph spacing */
 .teeka-content p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 .teeka-content p:last-child {
   margin-bottom: 0;

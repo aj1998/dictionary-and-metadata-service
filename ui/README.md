@@ -777,3 +777,47 @@ All design documents are in `docs/design/ui/`. Read them for pixel-level specifi
 | `updates/01_side_panel_vivaran.md` | Spec for keyword definition rendering, topic extracts, DefinitionModal (implemented 2026-05-15) |
 | `implementation_notes/graph_changes_implementation_nodes.md` | Hierarchical layout implementation details — design decisions, files changed, constants, known limitations |
 | `manual_verification_checklist.md` | Manual testing steps that cannot be automated (Lighthouse, cross-browser Devanagari, locale switch) |
+
+---
+
+## Special Notes
+
+### Gatha reader page — संबंधित panel & sidebar (2026-06-08)
+
+**Files touched**
+- `src/app/[locale]/(reading)/shastras/[nk]/gathas/[number]/page.tsx`
+- `src/components/GathaReaderLayout.tsx`
+- `src/lib/format/teeka-markdown.ts`
+- `src/app/globals.css` (`.teeka-content p`)
+- Backend: `services/core_service/domains/data/services/gathas.py`
+
+**1. Primary kalash शब्दार्थ rendering (संबंधित panel)**
+Primary kalash `word_meanings.entries` now render as `TaggedTermPopover` chips in the same format as the gatha's own शब्दार्थ. The अन्वयार्थ is computed client-side by joining `entry.meaning` values in `position` order (NOT `kalash.hindi`). Backend `GathaKalash.word_meanings` has no `full_anyavaarth` field — derive it on the client.
+
+**2. Secondary-kalash bhaavarth duplication (server-side filter)**
+NJ ingestion writes secondary-kalash extra-gatha bhaavarths to `gatha_teeka_bhaavarth_hindi` with `gatha_teeka_natural_key = {teeka_j_nk}:कलश:{N}` and `gatha_number = N` (envelope.py:476-485). The backend's `_get_gatha` query (`gatha_number = N` + shastra-prefix regex) used to pick these up as if they were the real gatha's bhaavarths. Fix: added `$not: {$regex: ":कलश:"}` to the teeka_* query in `services/core_service/domains/data/services/gathas.py`. The UI no longer needs to filter.
+
+Secondary kalashas (Jaysenacharya's "extra gathas") still appear in the संबंधित panel of the **preceding primary gatha** (via the `kalashes` payload). The deduplication only suppresses them as a duplicate tab in the **same gatha's** right-panel हिन्दी भावार्थ.
+
+When rendering a secondary-kalash's bhaavarth in the संबंधित panel, skip it iff `kalash.is_secondary && kalash.kalash_number === gathaNumStr` (i.e., the kalash IS the current gatha's own extra entry — its bhaavarth will be a tab on its own future gatha page).
+
+**3. React key warnings — `Inner` / `<aside>`**
+Next.js 16 + React 19 (Turbopack) reconciles `createElement` varargs as a children array and trips `warnOnInvalidKey` on positional children when sibling counts are conditional. Symptoms: warning at `<aside>` inside `Inner` (in `GathaReaderLayout`) on gatha 12 (and similar shapes).
+
+Mitigations applied:
+- Added explicit `key="main"` on `mainColumn`'s root `<div>` and `key="sidebar"` on the sidebar `<aside>` in `page.tsx`.
+- Added `key="right"` on `<MentionedRightColumn />` in `GathaReaderLayout.tsx`.
+- Added `key="teeka"`, `key="bhaavarth"`, `key="topics"` on the three direct children of `<aside>`.
+- Removed JSX `{/* comments */}` from the sidebar — Turbopack-compiled comments can manifest as additional array slots in some configurations.
+
+**Rule of thumb**: in this codebase, any JSX element passed as a `ReactNode` *prop* to a sibling-rendering wrapper (like `GathaReaderLayout`) should carry an explicit stable `key` if the wrapper renders conditional siblings.
+
+**4. Backend data-model reference for "extra gathas" (secondary kalashes)**
+See `docs/design/data_sources/nikkyjain/nj_ingestion.md` and `nj_parser.md`.
+- Parser classifies HTML pages not in `primary_index` but in `secondary_index` as `secondary_kalash` → emitted as `KalashExtract` (separate from `GathaExtract`).
+- Ingestion (`workers/ingestion/nj/envelope.py::_build_mongo_for_secondary_kalash`) emits:
+  - `gatha_prakrit` with `gatha_natural_key = {teeka_j_nk}:कलश:{N}`
+  - `gatha_teeka_sanskrit` with `gatha_teeka_natural_key = {teeka_j_nk}:कलश:{N}`
+  - `gatha_teeka_bhaavarth_hindi` with the same `:कलश:` marker and `gatha_number = norm_kalash_num`
+- The `:कलश:` substring is the canonical discriminator between a real gatha's teeka content and a secondary-kalash extra-gatha's content sharing the same `gatha_number`.
+
