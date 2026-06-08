@@ -10,9 +10,10 @@ export interface BhaavarthPanelProps {
   naturalKey?: string;
   highlight?: HighlightRange;
   className?: string;
+  variant?: 'prose' | 'verse';
 }
 
-export function BhaavarthPanel({ label, text, naturalKey, highlight, className }: BhaavarthPanelProps) {
+export function BhaavarthPanel({ label, text, naturalKey, highlight, className, variant = 'prose' }: BhaavarthPanelProps) {
   const nfcText = normalizeNFC(text);
   const split = highlight ? splitHighlight(nfcText, highlight) : null;
 
@@ -36,6 +37,10 @@ export function BhaavarthPanel({ label, text, naturalKey, highlight, className }
           {split.before}
           <mark className="rounded bg-[var(--accent-soft)] text-[var(--accent)]">{split.matched}</mark>
           {split.after}
+        </p>
+      ) : variant === 'verse' ? (
+        <p className="whitespace-pre-wrap font-serif-hindi text-[length:var(--font-size-body)] leading-[1.85] text-foreground">
+          {nfcText}
         </p>
       ) : (
         <div

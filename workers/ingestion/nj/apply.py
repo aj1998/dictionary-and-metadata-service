@@ -142,6 +142,7 @@ async def apply_nj_shastra_payload(
             natural_key=row["natural_key"],
             shastra_id=shastra_id,
             teekakar_id=teekakar_id,
+            role=row.get("role"),
         )
         teeka_ids[row["natural_key"]] = tid
 

@@ -718,6 +718,7 @@ def build_envelope(result: ShastraParseResult, cfg: NJConfig) -> dict[str, Any]:
             "natural_key": t.natural_key,
             "shastra_natural_key": cfg.shastra.natural_key,
             "teekakar_natural_key": t.teekakar_natural_key,
+            "role": t.role,
         })
         ww["postgres"]["publications"].append({
             "table": "publications",

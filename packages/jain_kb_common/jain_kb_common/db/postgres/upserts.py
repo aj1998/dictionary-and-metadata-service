@@ -97,6 +97,7 @@ async def upsert_teeka(
     cataloguesearch_shastra_id: str | None = None,
     public_url: str | None = None,
     publisher_url: str | None = None,
+    role: str | None = None,
 ) -> uuid.UUID:
     stmt = (
         pg_insert(Teeka)
@@ -110,6 +111,7 @@ async def upsert_teeka(
             cataloguesearch_shastra_id=cataloguesearch_shastra_id,
             public_url=public_url,
             publisher_url=publisher_url,
+            role=role,
         )
         .on_conflict_do_update(
             index_elements=[Teeka.natural_key],
@@ -122,6 +124,7 @@ async def upsert_teeka(
                 "cataloguesearch_shastra_id": cataloguesearch_shastra_id,
                 "public_url": public_url,
                 "publisher_url": publisher_url,
+                "role": role,
                 "updated_at": func.now(),
             },
         )

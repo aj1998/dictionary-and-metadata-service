@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { MoreHorizontal, Tag, Sparkles } from '@/lib/icons';
+import { MoreHorizontal, Tag, Sparkles, Network } from '@/lib/icons';
 import { useReaderActions } from './ReaderActionsContext';
+import { Link } from '@/i18n/navigation';
 
 interface PanelActionsMenuProps {
   sourceNk: string;
@@ -42,6 +43,15 @@ export function PanelActionsMenu({ sourceNk, sourceLabel }: PanelActionsMenuProp
           <Sparkles className="h-4 w-4 text-[var(--cat-keyword)]" strokeWidth={1.5} />
           <span className="font-serif-hindi">परिभाषित शब्द देखें</span>
         </button>
+        <Link
+          href={`/graph?node=${encodeURIComponent(sourceNk)}`}
+          target="_blank"
+          onClick={() => setOpen(false)}
+          className="flex w-full items-center gap-2 rounded-[var(--radius-sm)] px-3 py-2 text-sm text-left hover:bg-surface-muted"
+        >
+          <Network className="h-4 w-4 text-[var(--cat-gatha)]" strokeWidth={1.5} />
+          <span className="font-serif-hindi">ग्राफ में खोलें</span>
+        </Link>
       </PopoverContent>
     </Popover>
   );

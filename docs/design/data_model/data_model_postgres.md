@@ -127,6 +127,7 @@ CREATE TABLE teekas (
   cataloguesearch_shastra_id  TEXT,                    -- foreign ref into cataloguesearch
   public_url                  TEXT,
   publisher_url               TEXT,
+  role                        TEXT,                    -- 'primary' | 'secondary' | NULL; propagated from parser config role field
   created_at                  TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at                  TIMESTAMPTZ NOT NULL DEFAULT now()
 );
@@ -134,6 +135,8 @@ CREATE TABLE teekas (
 CREATE INDEX idx_teekas_shastra ON teekas(shastra_id);
 CREATE INDEX idx_teekas_teekakar ON teekas(teekakar_id);
 ```
+
+**`role` field**: Added in migration `0021_teekas_role`. Values `'primary'` or `'secondary'` are populated during NJ ingestion from the parser config's `teekas[].role` field. Used by the gatha API to determine how to label and fetch content for kalashas belonging to each teeka — primary kalashas use the `kalash_*` Mongo collections; secondary kalashas use `gatha_prakrit` / `gatha_teeka_*` collections.
 
 ### `teeka_chapters`
 

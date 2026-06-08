@@ -137,36 +137,83 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
     };
   });
 
-  // Kalash tabs — render in left column as a tabbed window
-  const kalashItems: TabbedPanelItem[] = kalashas.map((kalash) => ({
+  // Derive a short teeka name from the teeka natural_key (e.g. "समयसार:आत्मख्याति" → "आत्मख्याति")
+  function teekaShortName(teekaKn: string): string {
+    const parts = teekaKn.split(':');
+    return parts.length >= 2 ? parts[1] : teekaKn;
+  }
+
+  // Kalash/secondary-gatha tabs — render in left column as a tabbed window
+  const kalashItems: TabbedPanelItem[] = kalashas.map((kalash) => {
+    const prefix = kalash.is_secondary ? 'गाथा' : 'कलश';
+    const teeka = teekaShortName(kalash.teeka_natural_key);
+    const label = `${prefix}:${teeka}:${kalash.kalash_number}`;
+    return {
     key: kalash.natural_key,
-    label: `कलश ${kalash.kalash_number}`,
+    label,
     actionsSourceNk: kalash.natural_key,
-    actionsSourceLabel: `कलश ${kalash.kalash_number}`,
+    actionsSourceLabel: label,
     content: (
       <div className="space-y-3">
-        {kalash.sanskrit && (
-          <BhaavarthPanel
-            label="कलश संस्कृत"
-            text={joinedLangText(kalash.sanskrit.text)}
-            naturalKey={kalash.sanskrit.natural_key}
-            highlight={highlightFor(match, kalash.sanskrit.natural_key, joinedLangText(kalash.sanskrit.text))}
-          />
-        )}
-        {kalash.hindi && (
-          <BhaavarthPanel
-            label="कलश हिन्दी"
-            text={joinedLangText(kalash.hindi.text)}
-            naturalKey={kalash.hindi.natural_key}
-            highlight={highlightFor(match, kalash.hindi.natural_key, joinedLangText(kalash.hindi.text))}
-          />
+        {kalash.is_secondary ? (
+          <>
+            {kalash.prakrit && (
+              <BhaavarthPanel
+                label="गाथा प्राकृत"
+                variant="verse"
+                text={joinedLangText(kalash.prakrit.text)}
+                naturalKey={kalash.prakrit.natural_key}
+                highlight={highlightFor(match, kalash.prakrit.natural_key, joinedLangText(kalash.prakrit.text))}
+              />
+            )}
+            {kalash.sanskrit && (
+              <BhaavarthPanel
+                label="टीका संस्कृत"
+                variant="verse"
+                text={joinedLangText(kalash.sanskrit.text)}
+                naturalKey={kalash.sanskrit.natural_key}
+                highlight={highlightFor(match, kalash.sanskrit.natural_key, joinedLangText(kalash.sanskrit.text))}
+              />
+            )}
+          </>
+        ) : (
+          <>
+            {kalash.sanskrit && (
+              <BhaavarthPanel
+                label="कलश संस्कृत"
+                variant="verse"
+                text={joinedLangText(kalash.sanskrit.text)}
+                naturalKey={kalash.sanskrit.natural_key}
+                highlight={highlightFor(match, kalash.sanskrit.natural_key, joinedLangText(kalash.sanskrit.text))}
+              />
+            )}
+            {kalash.hindi && (
+              <BhaavarthPanel
+                label="कलश हिन्दी"
+                variant="verse"
+                text={joinedLangText(kalash.hindi.text)}
+                naturalKey={kalash.hindi.natural_key}
+                highlight={highlightFor(match, kalash.hindi.natural_key, joinedLangText(kalash.hindi.text))}
+              />
+            )}
+            {kalash.word_meanings && kalash.word_meanings.entries.length > 0 && (
+              <BhaavarthPanel
+                label="शब्दार्थ"
+                naturalKey={kalash.word_meanings.natural_key}
+                text={kalash.word_meanings.entries
+                  .sort((a, b) => a.position - b.position)
+                  .map((e) => `[${e.source_word}] ${e.meaning}`)
+                  .join('\n')}
+              />
+            )}
+          </>
         )}
         {kalash.bhaavarth.map((bh) => {
           const bText = joinedLangText(bh.text);
           return (
             <BhaavarthPanel
               key={bh.natural_key}
-              label="कलश भावार्थ"
+              label={kalash.is_secondary ? 'भावार्थ' : 'कलश भावार्थ'}
               text={bText}
               naturalKey={bh.natural_key}
               highlight={highlightFor(match, bh.natural_key, bText)}
@@ -175,7 +222,8 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
         })}
       </div>
     ),
-  }));
+    };
+  });
 
   // Determine scroll target natural key if we have a matched highlight
   const scrollTargetNk =
@@ -247,9 +295,9 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
           )}
         </section>
 
-        {/* कलश — tabbed panel in left column */}
+        {/* संबंधित — kalash/secondary-gatha tabbed panel */}
         {kalashItems.length > 0 && (
-          <TabbedPanel title="कलश" items={kalashItems} showActions />
+          <TabbedPanel title="संबंधित" items={kalashItems} showActions />
         )}
 
         {/* Prev / Next navigation */}
@@ -299,12 +347,6 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
           </section>
         )}
 
-        <Link
-          href={`/graph?node=${encodeURIComponent(`gatha:${gatha.natural_key}`)}`}
-          className="block rounded-[var(--radius-md)] bg-accent p-4 text-center font-semibold text-white shadow-node hover:bg-accent-hover transition-colors"
-        >
-          ग्राफ में खोलें
-        </Link>
       </aside>
   );
 

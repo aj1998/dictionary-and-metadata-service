@@ -35,3 +35,4 @@ class Teeka(Base, TimestampMixin):
     cataloguesearch_shastra_id: Mapped[str | None] = mapped_column(Text, nullable=True)
     public_url: Mapped[str | None] = mapped_column(Text, nullable=True)
     publisher_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    role: Mapped[str | None] = mapped_column(Text, nullable=True)

@@ -46,6 +46,8 @@ Label constants defined in `envelope.py`:
 
 **Publisher ID**: numeric string `"0"` for nikkyjain (not the ASCII string `"nikkyjain"`).
 
+**Teeka role**: Each teeka row now includes a `role` field (`'primary'` or `'secondary'`) populated from the parser config's `teekas[].role` value. This is stored in `teekas.role` (migration `0021_teekas_role`) and is the authoritative source for distinguishing primary vs secondary teekas at query time. See `upsert_teeka` in `jain_kb_common/db/postgres/upserts.py`.
+
 ### MongoDB doc natural keys
 
 | Collection | Pattern |

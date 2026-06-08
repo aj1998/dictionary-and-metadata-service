@@ -4,7 +4,7 @@ import asyncio
 import uuid
 
 from motor.motor_asyncio import AsyncIOMotorDatabase
-from sqlalchemy import func, select
+from sqlalchemy import Integer, cast, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from jain_kb_common.db.mongo.collections import (
@@ -18,11 +18,13 @@ from jain_kb_common.db.mongo.collections import (
     KALASH_BHAAVARTH_HINDI,
     KALASH_HINDI,
     KALASH_SANSKRIT,
+    KALASH_WORD_MEANINGS,
     TEEKA_GATHA_MAPPING,
 )
 from jain_kb_common.db.postgres.gathas import Gatha
 from jain_kb_common.db.postgres.kalashas import Kalash
 from jain_kb_common.db.postgres.shastras import Shastra
+from jain_kb_common.db.postgres.teekas import Teeka
 
 
 async def get_by_ident(session: AsyncSession, ident: str) -> Gatha | None:
@@ -170,26 +172,61 @@ async def _get_kalashas_for_gatha(
     mongo: AsyncIOMotorDatabase,
     gatha: Gatha,
 ) -> list[dict]:
-    kalash_rows_result = await session.execute(
-        select(Kalash).where(Kalash.gatha_id == gatha.id)
+    rows_result = await session.execute(
+        select(Kalash, Teeka.natural_key, Teeka.role)
+        .join(Teeka, Kalash.teeka_id == Teeka.id)
+        .where(Kalash.gatha_id == gatha.id)
+        .order_by(cast(Kalash.kalash_number, Integer), Teeka.role)
     )
-    kalash_rows = list(kalash_rows_result.scalars())
-    if not kalash_rows:
+    rows = list(rows_result.all())
+    if not rows:
         return []
 
-    async def _fetch_kalash_docs(kalash: Kalash) -> dict:
+    async def _fetch_kalash_docs(kalash: Kalash, teeka_nk: str, teeka_role: str | None) -> dict:
+        is_secondary = teeka_role == "secondary"
+        if is_secondary:
+            # Secondary kalashas (e.g. Jaysenacharya's extra gathas) store content in
+            # gatha_prakrit / gatha_teeka_sanskrit / gatha_teeka_bhaavarth_hindi
+            pra_task = mongo[GATHA_PRAKRIT].find_one({"gatha_natural_key": kalash.natural_key})
+            san_task = mongo[GATHA_TEEKA_SANSKRIT].find_one(
+                {"natural_key": f"{kalash.natural_key}:टीका:san"}
+            )
+            bh_task = mongo[GATHA_TEEKA_BHAAVARTH_HINDI].find(
+                {"gatha_teeka_natural_key": kalash.natural_key}
+            ).to_list(None)
+            prakrit_doc, sanskrit_doc, bhaavarth_docs = await asyncio.gather(pra_task, san_task, bh_task)
+            return {
+                "natural_key": kalash.natural_key,
+                "kalash_number": kalash.kalash_number,
+                "teeka_natural_key": teeka_nk,
+                "is_secondary": True,
+                "prakrit": _strip_id(prakrit_doc),
+                "sanskrit": _strip_id(sanskrit_doc),
+                "hindi": None,
+                "bhaavarth": [_strip_id(d) for d in (bhaavarth_docs or [])],
+                "word_meanings": None,
+            }
         san_task = mongo[KALASH_SANSKRIT].find_one({"natural_key": f"{kalash.natural_key}:san"})
         hin_task = mongo[KALASH_HINDI].find_one({"natural_key": f"{kalash.natural_key}:hi"})
         bh_task = mongo[KALASH_BHAAVARTH_HINDI].find(
             {"kalash_natural_key": kalash.natural_key}
         ).to_list(None)
-        sanskrit_doc, hindi_doc, bhaavarth_docs = await asyncio.gather(san_task, hin_task, bh_task)
+        wm_task = mongo[KALASH_WORD_MEANINGS].find_one(
+            {"natural_key": f"{kalash.natural_key}:word_meanings"}
+        )
+        sanskrit_doc, hindi_doc, bhaavarth_docs, wm_doc = await asyncio.gather(
+            san_task, hin_task, bh_task, wm_task
+        )
         return {
             "natural_key": kalash.natural_key,
             "kalash_number": kalash.kalash_number,
+            "teeka_natural_key": teeka_nk,
+            "is_secondary": False,
+            "prakrit": None,
             "sanskrit": _strip_id(sanskrit_doc),
             "hindi": _strip_id(hindi_doc),
             "bhaavarth": [_strip_id(d) for d in (bhaavarth_docs or [])],
+            "word_meanings": _strip_id(wm_doc),
         }
 
-    return list(await asyncio.gather(*[_fetch_kalash_docs(k) for k in kalash_rows]))
+    return list(await asyncio.gather(*[_fetch_kalash_docs(k, tnk, trole) for k, tnk, trole in rows]))

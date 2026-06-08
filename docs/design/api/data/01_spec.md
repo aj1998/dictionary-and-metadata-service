@@ -30,6 +30,39 @@
 - Most endpoint contracts are unchanged from the archived spec.
 - Module/layout moved from `services/data_service/` to `services/core_service/domains/data/`.
 
+## `GET /v1/gathas/{ident}?include=kalashas` — GathaKalash shape
+
+When `include=kalashas` is requested, each element of the `kalashas` array has the following shape:
+
+```json
+{
+  "natural_key": "समयसार:आत्मख्याति:कलश:1",
+  "kalash_number": "1",
+  "teeka_natural_key": "समयसार:आत्मख्याति",
+  "is_secondary": false,
+  "prakrit": null,
+  "sanskrit": { "natural_key": "...", "text": [...] },
+  "hindi":   { "natural_key": "...", "text": [...] },
+  "bhaavarth": [],
+  "word_meanings": {
+    "natural_key": "समयसार:आत्मख्याति:कलश:1:word_meanings",
+    "entries": [
+      { "source_word": "स्वानुभूत्या चकासते", "meaning": "स्वानुभूति से प्रकाशित,", "position": 1 }
+    ]
+  }
+}
+```
+
+**Primary kalashas** (`is_secondary: false`): content fetched from `kalash_sanskrit`, `kalash_hindi`, `kalash_bhaavarth_hindi`, and `kalash_word_meanings` Mongo collections. `prakrit` is always `null`.
+
+**Secondary kalashas** (`is_secondary: true`): These are Jaysenacharya's standalone gatha pages stored as kalashas. Content fetched from `gatha_prakrit` (using `gatha_natural_key`), `gatha_teeka_sanskrit`, and `gatha_teeka_bhaavarth_hindi` Mongo collections. `hindi` and `word_meanings` are always `null`.
+
+Kalashas are returned sorted ascending by `kalash_number` (numeric), then by `teeka.role` for stable ordering. The `is_secondary` flag is derived from `teekas.role` via a JOIN — business logic does not live in the UI.
+
+**UI label convention** (gatha reader "संबंधित" panel):
+- Primary: `कलश:{teeka_short}:{N}` e.g. `कलश:आत्मख्याति:1`
+- Secondary: `गाथा:{teeka_short}:{N}` e.g. `गाथा:तात्पर्यवृत्ति:11`
+
 ## Matching Engine Additions
 
 The matching engine now extends the Data domain in two places.

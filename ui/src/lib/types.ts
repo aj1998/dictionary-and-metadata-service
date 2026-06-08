@@ -301,9 +301,13 @@ export interface GataHindiBhaavarth {
 export interface GathaKalash {
   natural_key: string;
   kalash_number: string;
+  teeka_natural_key: string;
+  is_secondary: boolean;
+  prakrit: { natural_key: string; text: LangText[] } | null;
   sanskrit: { natural_key: string; text: LangText[] } | null;
   hindi: { natural_key: string; text: LangText[] } | null;
   bhaavarth: Array<{ natural_key: string; text: LangText[] }>;
+  word_meanings: { natural_key: string; entries: Array<{ source_word: string; meaning: string; position: number }> } | null;
 }
 
 export interface GathaDetail extends GathaSummary {

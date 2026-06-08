@@ -86,6 +86,12 @@ Neither the Mongo `natural_key` nor the Mongo `gatha_teeka_natural_key` matches 
 
 The `ui/src/app/[locale]/(reading)/shastras/[nk]/gathas/[number]/page.tsx` page (`gathaTeekaNeo4jNk`, `gathaTeekaBhaavarthNeo4jNk`) is the canonical example of this reconstruction. Until the Mongo↔Neo4j nk schemes are unified, any new graph traversal that originates from a UI panel showing Mongo-stored text must apply the same canonicalisation. Future work: drop the trailing `:टीका:san` / `:भावार्थ:hi` discriminators in Mongo so that `gatha_teeka_natural_key` and `GathaTeeka.natural_key` agree.
 
+**UI graph links**: The "ग्राफ में खोलें" action in `PanelActionsMenu` passes `sourceNk` directly as the `?node=` parameter. Each panel's `actionsSourceNk` must therefore be the canonical Neo4j node key (not the Postgres or Mongo key). The gatha page constructs these as follows:
+- Gatha: `${shastraPrefix}:गाथा:${gathaNumStr}` — the `Gatha` node key
+- GathaTeeka: `gathaTeekaNeo4jNk(teekaNk)` → `{shastra}:{teeka}:गाथा:टीका:{g}`
+- GathaTeekaBhaavarth: `gathaTeekaBhaavarthNeo4jNk(bh)` → `{shastra}:{teeka}:{publisher_id}:गाथा:टीका:भावार्थ:{g}`
+- Kalash: `kalash.natural_key` → already canonical (`{shastra}:{teeka}:कलश:{k}`)
+
 ## Constraints & indexes
 
 ```cypher
