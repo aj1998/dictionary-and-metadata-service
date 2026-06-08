@@ -6,21 +6,24 @@ import { teekaMarkdownToHtml } from '@/lib/format/teeka-markdown';
 import { splitHighlight } from '@/lib/highlight';
 import type { HighlightRange } from '@/lib/highlight';
 import { normalizeNFC } from '@/lib/format/devanagari';
+import { PanelActionsMenu } from './PanelActionsMenu';
 
 export interface TeekaPanelItem {
   key: string;
   label: string;
   content: string;
   naturalKey?: string;
+  actionsSourceNk?: string;
   highlight?: HighlightRange;
 }
 
 interface TeekaPanelProps {
   items: TeekaPanelItem[];
+  showActions?: boolean;
 }
 
 
-export function TeekaPanel({ items }: TeekaPanelProps) {
+export function TeekaPanel({ items, showActions }: TeekaPanelProps) {
   const initialActive = items.findIndex((item) => item.highlight != null);
   const [active, setActive] = useState(initialActive >= 0 ? initialActive : 0);
 
@@ -37,8 +40,14 @@ export function TeekaPanel({ items }: TeekaPanelProps) {
 
   return (
     <section className="rounded-[var(--radius-md)] border border-border bg-surface shadow-node overflow-hidden">
-      <div className="px-5 pt-5 pb-3">
+      <div className="flex items-start justify-between gap-2 px-5 pt-5 pb-3">
         <h3 className="font-serif-hindi text-base font-semibold text-foreground">टीका</h3>
+        {showActions && (current.actionsSourceNk ?? current.naturalKey ?? current.key) && (
+          <PanelActionsMenu
+            sourceNk={current.actionsSourceNk ?? current.naturalKey ?? current.key}
+            sourceLabel={current.label}
+          />
+        )}
       </div>
 
       {items.length > 1 && (

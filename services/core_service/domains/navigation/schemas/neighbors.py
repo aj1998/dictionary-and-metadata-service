@@ -64,6 +64,30 @@ class TopicAncestorsResponse(BaseModel):
     ancestors: list[str]
 
 
+class MentionedTopicItem(BaseModel):
+    natural_key: str
+    display_text_hi: str | None
+    is_stub: bool
+    is_leaf: bool
+    parent_keyword_natural_key: str | None
+
+
+class NodeMentionedTopicsResponse(BaseModel):
+    source_natural_key: str
+    topics: list[MentionedTopicItem]
+
+
+class MentionedKeywordItem(BaseModel):
+    natural_key: str
+    display_text: str | None
+    is_stub: bool
+
+
+class NodeMentionedKeywordsResponse(BaseModel):
+    source_natural_key: str
+    keywords: list[MentionedKeywordItem]
+
+
 class ShortestPathResponse(BaseModel):
     from_: str
     to: str

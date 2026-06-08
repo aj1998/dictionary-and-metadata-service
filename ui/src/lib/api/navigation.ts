@@ -59,3 +59,29 @@ export async function getTopicMentionedKeywords(
 export async function getKeywordTopics(nk: string): Promise<{ keyword_natural_key: string; topics: Array<{ natural_key: string; display_text_hi: string; edge_type: string; is_stub: boolean }> }> {
   return apiFetch(BASE_URL, `/v1/keywords/${nk}/topics`);
 }
+
+export type NodeMentionedTopic = {
+  natural_key: string;
+  display_text_hi: string | null;
+  is_stub: boolean;
+  is_leaf: boolean;
+  parent_keyword_natural_key: string | null;
+};
+
+export type NodeMentionedKeyword = {
+  natural_key: string;
+  display_text: string | null;
+  is_stub: boolean;
+};
+
+export async function getNodeMentionedTopics(
+  nk: string
+): Promise<{ source_natural_key: string; topics: NodeMentionedTopic[] }> {
+  return apiFetch(BASE_URL, `/v1/nodes/${nk}/mentioned-topics`);
+}
+
+export async function getNodeMentionedKeywords(
+  nk: string
+): Promise<{ source_natural_key: string; keywords: NodeMentionedKeyword[] }> {
+  return apiFetch(BASE_URL, `/v1/nodes/${nk}/mentioned-keywords`);
+}

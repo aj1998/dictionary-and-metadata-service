@@ -30,6 +30,7 @@ const RESERVED_ICONS = [
   "ExternalLink",
   "Building2",
   "Link2",
+  "MoreHorizontal",
   "IconTable",
 ] as const;
 

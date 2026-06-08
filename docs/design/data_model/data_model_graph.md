@@ -42,8 +42,8 @@ All edges are directed unless noted. Edge type names are uppercase (Neo4j conven
 | `ALIAS_OF` | directed | `Alias → Keyword` | `source` | Synonym / variant spelling |
 | `MENTIONS_KEYWORD` | directed | `Topic → Keyword` | `weight`, `source_chunk_id` (nullable) | Topic body mentions this keyword (used to seed query) |
 | `HAS_TOPIC` | directed | `Keyword → Topic` | `weight`, `source` | Keyword's JainKosh page yielded this topic |
-| `MENTIONS_TOPIC` | directed | `Gatha\|GathaTeeka → Topic` | `weight`, `source` | Gatha/teeka-mapping is associated with a topic |
-| `CONTAINS_DEFINITION` | directed | `Keyword → Topic` | `weight`, `source` | Keyword page contains a definition block for this topic |
+| `MENTIONS_TOPIC` | directed | `Gatha\|GathaTeeka\|GathaTeekaBhaavarth\|Kalash\|KalashBhaavarth\|Page → Topic` | `weight`, `source` | Source citation node (resolved from a JainKosh ref) cites a topic. Block-kind decides whether the source endpoint is the Gatha vs. the GathaTeeka/Bhaavarth — see `workers/ingestion/jainkosh/reference_edges.py`. |
+| `CONTAINS_DEFINITION` | directed | `Gatha\|GathaTeeka\|GathaTeekaBhaavarth\|Kalash\|KalashBhaavarth\|Page → Keyword` | `weight`, `source`, `mention_path` | Source citation node appears inside a Keyword's JainKosh definition body. (Direction is **citation → Keyword** — the edge points outward from the cited gatha-family node to the keyword whose definition contains it.) |
 | `HAS_TEEKA` | directed | `Shastra → Teeka` | — | Structural: shastra owns this teeka |
 | `HAS_PUBLICATION` | directed | `Teeka → Publication` (also `Shastra → Publication` in NJ) | — | Structural: teeka owns this publication |
 | `IN_SHASTRA` | directed | `Gatha → Shastra` | — | Structural: gatha belongs to shastra |
@@ -53,6 +53,38 @@ All edges are directed unless noted. Edge type names are uppercase (Neo4j conven
 | `MENTIONS_TABLE` | directed | `Gatha\|Kalash\|Page → Table` | `weight`, `source`, `mention_path`, `source_natural_key` | Citation node (resolved from a table cell GRef) is cited within this table |
 
 **Extending edge types:** add the new type name to `parser_configs/_meta/edge_types.yaml`. Validation on graph writes consults this file. Adding a type requires no migration.
+
+## Natural-key format conventions (and known edge case)
+
+The canonical Neo4j `natural_key` for citation-target labels (Gatha-family + Kalash-family + Page) is built by `workers/ingestion/jainkosh/reference_edges.py` and used as the endpoint of `MENTIONS_TOPIC` / `CONTAINS_DEFINITION` / `MENTIONS_TABLE` edges:
+
+| Label | Canonical nk format | Example |
+|---|---|---|
+| `Gatha` | `{shastra}:गाथा:{n}` | `समयसार:गाथा:8` |
+| `GathaTeeka` | `{shastra}:{teeka}:गाथा:टीका:{n}` | `समयसार:आत्मख्याति:गाथा:टीका:8` |
+| `GathaTeekaBhaavarth` | `{shastra}:{teeka}:{publisher_id}:गाथा:टीका:भावार्थ:{n}` | `समयसार:आत्मख्याति:राजचंद्र:गाथा:टीका:भावार्थ:8` |
+| `Kalash` | `{shastra}:{teeka}:कलश:{k}` | `समयसार:आत्मख्याति:कलश:8` |
+| `KalashBhaavarth` | `{shastra}:{teeka}:{publisher_id}:कलश:भावार्थ:{k}` | — |
+| `Page` | `{shastra}:{teeka}:{publisher_id}:पृष्ठ:{p}` | — |
+
+**⚠ Edge case — Mongo text-doc `natural_key` ≠ Neo4j node `natural_key`.** The NJ ingester (`workers/ingestion/nj/envelope.py`) writes the gatha-text Mongo documents (`gatha_teeka_sanskrit`, `gatha_teeka_bhaavarth_hindi`, etc.) with a `natural_key` that identifies the **text document**, not the abstract entity node:
+
+| Mongo collection | `natural_key` field | Sibling field carrying the entity key |
+|---|---|---|
+| `gatha_teeka_sanskrit` | `{teeka_nk}:{g}:टीका:san` (e.g. `समयसार:आत्मख्याति:8:टीका:san`) | `gatha_teeka_natural_key = {teeka_nk}:{g}` |
+| `gatha_teeka_bhaavarth_hindi` | `{publication_nk}:{g}:भावार्थ:hi` | `gatha_teeka_bhaavarth_natural_key`, `gatha_teeka_natural_key` |
+| `kalash_sanskrit` / `kalash_hindi` | `{kalash_nk}:san` / `{kalash_nk}:hi` | `kalash_natural_key` (already canonical) |
+
+Neither the Mongo `natural_key` nor the Mongo `gatha_teeka_natural_key` matches the canonical Neo4j `GathaTeeka.natural_key`. So a consumer that holds a Mongo doc and wants to query its outbound graph edges **cannot** pass `mongo_doc.natural_key` to Cypher — it will match no node. The consumer must reconstruct the Neo4j nk:
+
+```ts
+// GathaTeeka (sanskrit teeka / bhaavarth tabs in the gatha reader):
+//   `{shastra}:{teeka}:गाथा:टीका:{g}`
+// GathaTeekaBhaavarth:
+//   `{shastra}:{teeka}:{publisher_id}:गाथा:टीका:भावार्थ:{g}`
+```
+
+The `ui/src/app/[locale]/(reading)/shastras/[nk]/gathas/[number]/page.tsx` page (`gathaTeekaNeo4jNk`, `gathaTeekaBhaavarthNeo4jNk`) is the canonical example of this reconstruction. Until the Mongo↔Neo4j nk schemes are unified, any new graph traversal that originates from a UI panel showing Mongo-stored text must apply the same canonicalisation. Future work: drop the trailing `:टीका:san` / `:भावार्थ:hi` discriminators in Mongo so that `gatha_teeka_natural_key` and `GathaTeeka.natural_key` agree.
 
 ## Constraints & indexes
 

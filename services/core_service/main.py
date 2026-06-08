@@ -40,6 +40,7 @@ from .domains.navigation.routers import (
     admin as nav_admin,
     graph,
     keywords as nav_keywords,
+    nodes as nav_nodes,
     topics as nav_topics,
 )
 
@@ -139,7 +140,7 @@ for r in (
 ):
     app.include_router(r)
 
-for r in (nav_keywords.router, nav_topics.router, graph.router, nav_admin.router):
+for r in (nav_keywords.router, nav_topics.router, nav_nodes.router, graph.router, nav_admin.router):
     app.include_router(r)
 
 

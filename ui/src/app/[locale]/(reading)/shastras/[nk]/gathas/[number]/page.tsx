@@ -1,7 +1,9 @@
 import { BreadcrumbBar } from '@/components/BreadcrumbBar';
 import { BhaavarthPanel } from '@/components/BhaavarthPanel';
 import { GathaPanel } from '@/components/GathaPanel';
+import { GathaReaderLayout } from '@/components/GathaReaderLayout';
 import { HighlightScrollIntoView } from '@/components/HighlightScrollIntoView';
+import { PanelActionsMenu } from '@/components/PanelActionsMenu';
 import { TabbedPanel } from '@/components/TabbedPanel';
 import type { TabbedPanelItem } from '@/components/TabbedPanel';
 import { TaggedTermPopover } from '@/components/TaggedTermPopover';
@@ -68,6 +70,26 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
       : Promise.resolve(null),
   ]);
 
+  const shastraPrefix = gatha.shastra.natural_key;
+  const gathaNumStr = gatha.gatha_number;
+
+  // Derive canonical Neo4j GathaTeeka nk: `{sn}:{tn}:गाथा:टीका:{g}`
+  function gathaTeekaNeo4jNk(teekaNk: string | undefined): string {
+    const tn = teekaNk && teekaNk.startsWith(`${shastraPrefix}:`)
+      ? teekaNk.slice(shastraPrefix.length + 1)
+      : 'टीका';
+    return `${shastraPrefix}:${tn}:गाथा:टीका:${gathaNumStr}`;
+  }
+
+  // Derive canonical Neo4j GathaTeekaBhaavarth nk: `{sn}:{tn}:{publisher_id}:गाथा:टीका:भावार्थ:{g}`
+  function gathaTeekaBhaavarthNeo4jNk(bh: { gatha_teeka_natural_key: string; publisher_id?: string }): string {
+    // gatha_teeka_natural_key format: `{sn}:{tn}:{g}` from NJ envelope
+    const parts = bh.gatha_teeka_natural_key.split(':');
+    const tn = parts.length >= 3 ? parts.slice(1, -1).join(':') : 'टीका';
+    const pid = bh.publisher_id ?? 'pub';
+    return `${shastraPrefix}:${tn}:${pid}:गाथा:टीका:भावार्थ:${gathaNumStr}`;
+  }
+
   const teekaMapping = Array.isArray(gatha.teeka_mapping) ? gatha.teeka_mapping : [];
   const primaryMapping = teekaMapping[0] ?? null;
   const teekaBhaavarth = Array.isArray(gatha.teeka_bhaavarth) ? gatha.teeka_bhaavarth : [];
@@ -90,6 +112,8 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
       label: ts.teeka_natural_key ?? ts.natural_key,
       content,
       naturalKey: ts.natural_key,
+      // Canonical Neo4j GathaTeeka nk used by the panel actions menu.
+      actionsSourceNk: gathaTeekaNeo4jNk(ts.teeka_natural_key),
       highlight: highlightFor(match, ts.natural_key, content),
     };
   });
@@ -100,6 +124,8 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
     return {
       key: bh.natural_key,
       label: bh.publication_natural_key ?? bh.natural_key,
+      actionsSourceNk: gathaTeekaBhaavarthNeo4jNk(bh),
+      actionsSourceLabel: bh.publication_natural_key ?? bh.natural_key,
       content: (
         <BhaavarthPanel
           text={bText}
@@ -115,6 +141,8 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   const kalashItems: TabbedPanelItem[] = kalashas.map((kalash) => ({
     key: kalash.natural_key,
     label: `कलश ${kalash.kalash_number}`,
+    actionsSourceNk: kalash.natural_key,
+    actionsSourceLabel: `कलश ${kalash.kalash_number}`,
     content: (
       <div className="space-y-3">
         {kalash.sanskrit && (
@@ -153,13 +181,8 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   const scrollTargetNk =
     match?.match.status === 'matched' ? match.target.natural_key : null;
 
-  return (
-    <div className="grid gap-6 lg:grid-cols-[1fr_400px]">
-      {/* Client scroll-into-view — runs once on mount */}
-      {scrollTargetNk && <HighlightScrollIntoView naturalKey={scrollTargetNk} />}
-
-      {/* ── Main column ── */}
-      <div className="space-y-4">
+  const mainColumn = (
+    <div className="space-y-4">
         <section className="rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-node">
           <BreadcrumbBar
             segments={[
@@ -196,7 +219,10 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
 
         {/* 4. शब्दार्थ — word-by-word meanings + full anvayarth */}
         <section className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
-          <h2 className="mb-3 font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">शब्दार्थ</h2>
+          <div className="mb-3 flex items-start justify-between gap-2">
+            <h2 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">शब्दार्थ</h2>
+            <PanelActionsMenu sourceNk={gathaNk} sourceLabel={`गाथा ${gatha.gatha_number || number}`} />
+          </div>
           {primaryMapping?.tagged_terms.length ? (
             <div className="flex flex-wrap gap-2 leading-8">
               {primaryMapping.tagged_terms.map((term, index) => (
@@ -223,7 +249,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
 
         {/* कलश — tabbed panel in left column */}
         {kalashItems.length > 0 && (
-          <TabbedPanel title="कलश" items={kalashItems} />
+          <TabbedPanel title="कलश" items={kalashItems} showActions />
         )}
 
         {/* Prev / Next navigation */}
@@ -244,15 +270,16 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
           </Link>
         </div>
       </div>
+  );
 
-      {/* ── Sidebar ── */}
+  const sidebar = (
       <aside className="space-y-4 lg:sticky lg:top-[90px] lg:self-start lg:max-h-[calc(100vh-110px)] lg:overflow-y-auto">
         {/* टीका — sanskrit teeka tabs */}
-        <TeekaPanel items={teekaItems} />
+        <TeekaPanel items={teekaItems} showActions />
 
         {/* हिन्दी भावार्थ — tabs */}
         {bhaavarthItems.length > 0 && (
-          <TabbedPanel title="हिन्दी भावार्थ" items={bhaavarthItems} />
+          <TabbedPanel title="हिन्दी भावार्थ" items={bhaavarthItems} showActions />
         )}
 
         {topics.length > 0 && (
@@ -279,6 +306,12 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
           ग्राफ में खोलें
         </Link>
       </aside>
-    </div>
+  );
+
+  return (
+    <>
+      {scrollTargetNk && <HighlightScrollIntoView naturalKey={scrollTargetNk} />}
+      <GathaReaderLayout main={mainColumn} sidebar={sidebar} />
+    </>
   );
 }

@@ -248,6 +248,77 @@ RETURN k.natural_key AS natural_key, k.display_text AS display_text,
     ]
 
 
+async def get_node_mentioned_topics(
+    driver: AsyncDriver,
+    *,
+    source_nk: str,
+    exclude_stubs: bool = False,
+    database: str = "jainkb",
+) -> list[dict]:
+    """Topics referenced via MENTIONS_TOPIC outbound from a source node.
+
+    Source node can be any label (Gatha / GathaTeeka / GathaTeekaBhaavarth /
+    Kalash / KalashBhaavarth / Page / Topic / Keyword). Returns distinct topics
+    with the Topic-tree fields needed by the UI's TopicNavAction.
+    """
+    stub_clause = "AND NOT coalesce(t.is_stub, false)" if exclude_stubs else ""
+    cypher = f"""
+MATCH (src {{natural_key: $nk}})-[:MENTIONS_TOPIC]->(t:Topic)
+WHERE true {stub_clause}
+RETURN DISTINCT t.natural_key AS natural_key,
+       t.display_text_hi AS display_text_hi,
+       coalesce(t.is_stub, false) AS is_stub,
+       coalesce(t.is_leaf, false) AS is_leaf,
+       t.parent_keyword_natural_key AS parent_keyword_natural_key
+"""
+    async with driver.session(database=database) as session:
+        result = await session.run(cypher, nk=source_nk)
+        records = await result.data()
+
+    return [
+        {
+            "natural_key": r["natural_key"],
+            "display_text_hi": r.get("display_text_hi"),
+            "is_stub": bool(r.get("is_stub", False)),
+            "is_leaf": bool(r.get("is_leaf", False)),
+            "parent_keyword_natural_key": r.get("parent_keyword_natural_key"),
+        }
+        for r in records
+        if r["natural_key"]
+    ]
+
+
+async def get_node_mentioned_keywords(
+    driver: AsyncDriver,
+    *,
+    source_nk: str,
+    exclude_stubs: bool = False,
+    database: str = "jainkb",
+) -> list[dict]:
+    """Keywords whose JainKosh definitions contain this source node (CONTAINS_DEFINITION outbound)."""
+    stub_clause = "AND NOT coalesce(k.is_stub, false)" if exclude_stubs else ""
+    cypher = f"""
+MATCH (src {{natural_key: $nk}})-[:CONTAINS_DEFINITION]->(k:Keyword)
+WHERE true {stub_clause}
+RETURN DISTINCT k.natural_key AS natural_key,
+       coalesce(k.display_text_hi, k.display_text) AS display_text,
+       coalesce(k.is_stub, false) AS is_stub
+"""
+    async with driver.session(database=database) as session:
+        result = await session.run(cypher, nk=source_nk)
+        records = await result.data()
+
+    return [
+        {
+            "natural_key": r["natural_key"],
+            "display_text": r.get("display_text"),
+            "is_stub": bool(r.get("is_stub", False)),
+        }
+        for r in records
+        if r["natural_key"]
+    ]
+
+
 async def get_graph_node_count(
     driver: AsyncDriver,
     *,

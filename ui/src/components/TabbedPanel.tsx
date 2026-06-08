@@ -2,11 +2,14 @@
 
 import { useState, type ReactNode } from 'react';
 import { cn } from '@/lib/utils';
+import { PanelActionsMenu } from './PanelActionsMenu';
 
 export interface TabbedPanelItem {
   key: string;
   label: string;
   content: ReactNode;
+  actionsSourceNk?: string;
+  actionsSourceLabel?: string;
 }
 
 interface TabbedPanelProps {
@@ -14,9 +17,10 @@ interface TabbedPanelProps {
   items: TabbedPanelItem[];
   emptyMessage?: string;
   bodyClassName?: string;
+  showActions?: boolean;
 }
 
-export function TabbedPanel({ title, items, emptyMessage, bodyClassName }: TabbedPanelProps) {
+export function TabbedPanel({ title, items, emptyMessage, bodyClassName, showActions }: TabbedPanelProps) {
   const [active, setActive] = useState(0);
 
   if (items.length === 0) {
@@ -33,9 +37,17 @@ export function TabbedPanel({ title, items, emptyMessage, bodyClassName }: Tabbe
 
   return (
     <section className="rounded-[var(--radius-md)] border border-border bg-surface shadow-node overflow-hidden">
-      {title && (
-        <div className="px-5 pt-5 pb-3">
-          <h3 className="font-serif-hindi text-base font-semibold text-foreground">{title}</h3>
+      {(title || (showActions && current.actionsSourceNk)) && (
+        <div className="flex items-start justify-between gap-2 px-5 pt-5 pb-3">
+          {title ? (
+            <h3 className="font-serif-hindi text-base font-semibold text-foreground">{title}</h3>
+          ) : <span />}
+          {showActions && current.actionsSourceNk && (
+            <PanelActionsMenu
+              sourceNk={current.actionsSourceNk}
+              sourceLabel={current.actionsSourceLabel ?? current.label}
+            />
+          )}
         </div>
       )}
 
