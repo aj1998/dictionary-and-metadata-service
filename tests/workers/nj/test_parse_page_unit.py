@@ -46,6 +46,25 @@ def test_parse_primary_page_single_and_anyavartha(nj_cfg):
     assert delta == 0
 
 
+def test_parse_primary_page_strips_paren_line_numbers_single_gatha(nj_cfg):
+    """(N) mid-verse markers must be removed even for non-combined single gathas."""
+    html = """
+<div class="title" id="gatha-026"><span><a>शीर्षक</a></span></div>
+<div class="gatha">प्रथम पंक्ति ।
+(26)
+द्वितीय पंक्ति</div>
+<div class="gathaS">प्रथम संस्कृत पंक्ति
+(26)
+द्वितीय संस्कृत पंक्ति</div>
+<div id="teeka0"><b><font color="darkgreen">अमृतचंद्राचार्य</font></b></div>
+""".strip()
+    soup = BeautifulSoup(html, "lxml")
+    gathas, _ = parse_primary_page(soup, _idx("026.html", "026"), nj_cfg, global_kalash_start=1)
+    g = gathas[0]
+    assert g.prakrit_text == "प्रथम पंक्ति ।\nद्वितीय पंक्ति"
+    assert g.sanskrit_text == "प्रथम संस्कृत पंक्ति\nद्वितीय संस्कृत पंक्ति"
+
+
 def test_parse_primary_page_preserves_newlines_in_sanskrit_and_hindi(nj_cfg):
     html = """
 <div class="title" id="gatha-011"><span><a>शीर्षक</a></span></div>
@@ -76,12 +95,34 @@ def test_parse_primary_page_multi_gatha_expansion(nj_cfg):
     assert all(g.is_combined_page for g in gathas)
     assert gathas[0].related_gatha_numbers == ["010"]
     assert gathas[1].related_gatha_numbers == ["009"]
-    assert gathas[0].prakrit_text == "पहला भाग ॥9॥"
+    # Markers (॥9॥, ॥९॥, ॥१०॥) must be stripped from every chunk
+    assert gathas[0].prakrit_text == "पहला भाग"
     assert gathas[1].prakrit_text == "दूसरा भाग"
-    assert gathas[0].sanskrit_text == "प्रथम भाग ॥९॥"
+    assert gathas[0].sanskrit_text == "प्रथम भाग"
     assert gathas[1].sanskrit_text == "द्वितीय भाग"
-    assert gathas[0].hindi_chhands[0].text_hi == "हिंदी एक ॥९॥"
-    assert gathas[1].hindi_chhands[0].text_hi == "हिंदी दो ॥१०॥"
+    assert gathas[0].hindi_chhands[0].text_hi == "हिंदी एक"
+    assert gathas[1].hindi_chhands[0].text_hi == "हिंदी दो"
+
+
+def test_parse_primary_page_multi_gatha_paren_style_markers(nj_cfg):
+    """Combined pages where (N) is a mid-verse line label and ॥M॥ marks the gatha boundary."""
+    html = """
+<div class="title" id="gatha-017-018"><span><a>शीर्षक</a></span></div>
+<div class="gatha">प्रथम पंक्ति ।
+(17)
+द्वितीय पंक्ति ॥20॥
+तृतीय पंक्ति ।
+(18)
+चतुर्थ पंक्ति</div>
+<div id="teeka0"><b><font color="darkgreen">अमृतचंद्राचार्य</font></b></div>
+""".strip()
+    soup = BeautifulSoup(html, "lxml")
+    gathas, _ = parse_primary_page(soup, _idx("017-018.html", "017-018"), nj_cfg, global_kalash_start=1)
+    assert [g.gatha_number for g in gathas] == ["017", "018"]
+    assert all(g.is_combined_page for g in gathas)
+    # ॥20॥ is the verse-end for gatha 17; (17)/(18) are mid-verse line labels — all stripped
+    assert gathas[0].prakrit_text == "प्रथम पंक्ति ।\nद्वितीय पंक्ति"
+    assert gathas[1].prakrit_text == "तृतीय पंक्ति ।\nचतुर्थ पंक्ति"
 
 
 def test_parse_secondary_kalash_page(nj_cfg):

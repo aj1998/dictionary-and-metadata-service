@@ -18,9 +18,10 @@ interface TabbedPanelProps {
   emptyMessage?: string;
   bodyClassName?: string;
   showActions?: boolean;
+  notice?: ReactNode;
 }
 
-export function TabbedPanel({ title, items, emptyMessage, bodyClassName, showActions }: TabbedPanelProps) {
+export function TabbedPanel({ title, items, emptyMessage, bodyClassName, showActions, notice }: TabbedPanelProps) {
   const [active, setActive] = useState(0);
 
   if (items.length === 0) {
@@ -40,7 +41,10 @@ export function TabbedPanel({ title, items, emptyMessage, bodyClassName, showAct
       {(title || (showActions && current.actionsSourceNk)) && (
         <div className="flex items-start justify-between gap-2 px-5 pt-5 pb-3">
           {title ? (
-            <h3 className="font-serif-hindi text-base font-semibold text-foreground">{title}</h3>
+            <div className="flex flex-wrap items-center gap-2">
+              <h3 className="font-serif-hindi text-base font-semibold text-foreground">{title}</h3>
+              {notice}
+            </div>
           ) : <span />}
           {showActions && current.actionsSourceNk && (
             <PanelActionsMenu
@@ -73,7 +77,6 @@ export function TabbedPanel({ title, items, emptyMessage, bodyClassName, showAct
       {items.length === 1 && title && (
         <p className="px-5 pb-1 text-xs text-foreground-muted">{current.label}</p>
       )}
-
       <div className={cn('px-5 py-4', bodyClassName)}>{current.content}</div>
     </section>
   );

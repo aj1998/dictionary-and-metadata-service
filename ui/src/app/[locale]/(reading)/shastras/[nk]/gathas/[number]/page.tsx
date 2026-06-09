@@ -14,7 +14,7 @@ import { Link } from '@/i18n/navigation';
 import { getExtractMatch, getGatha } from '@/lib/api/data';
 import { getKeywordTopics } from '@/lib/api/navigation';
 import { getHindiText } from '@/lib/content-listing';
-import { normalizeNFC } from '@/lib/format/devanagari';
+import { normalizeNFC, toDevanagariNumerals } from '@/lib/format/devanagari';
 import type { HighlightRange } from '@/lib/highlight';
 import type { ExtractMatch, GathaKalash } from '@/lib/types';
 
@@ -103,6 +103,23 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   const nextNk = `${shastraNk}:गाथा:${gathaNum + 1}`;
 
   const match = extractMatch as ExtractMatch | null;
+
+  // Combined-page notice — shown in shared-content panels when this gatha was ingested
+  // from a multi-gatha page (e.g. 020-021-022.html). `is_related` holds the sibling numbers.
+  const isRelated: string[] = primaryMapping?.is_related ?? [];
+  const combinedGathaNotice = isRelated.length > 0 ? (() => {
+    const allNums = [gathaNumStr, ...isRelated]
+      .map((n) => parseInt(n, 10))
+      .filter((n) => !isNaN(n))
+      .sort((a, b) => a - b);
+    const devList = allNums.map((n) => toDevanagariNumerals(n)).join(', ');
+    const chip = (postposition: 'का' | 'की') => (
+      <span key={`combined-${postposition}`} className="inline-flex items-center gap-1 rounded-full border border-border bg-surface-muted px-2.5 py-0.5 font-serif-hindi text-[11px] text-foreground-muted">
+        गाथा {devList} {postposition} संयुक्त
+      </span>
+    );
+    return { ka: chip('का'), ki: chip('की') };
+  })() : null;
 
   // टीका sidebar — tabs of sanskrit teeka text
   const teekaItems: TeekaPanelItem[] = teekaSanskrit.map((ts) => {
@@ -276,7 +293,10 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
         {/* 4. शब्दार्थ — word-by-word meanings + full anvayarth */}
         <section className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
           <div className="mb-3 flex items-start justify-between gap-2">
-            <h2 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">शब्दार्थ</h2>
+            <div className="flex flex-wrap items-center gap-2">
+              <h2 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">शब्दार्थ</h2>
+              {combinedGathaNotice?.ka}
+            </div>
             <PanelActionsMenu sourceNk={gathaNk} sourceLabel={`गाथा ${gatha.gatha_number || number}`} />
           </div>
           {primaryMapping?.tagged_terms.length ? (
@@ -321,9 +341,9 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
 
   const sidebar = (
       <aside key="sidebar" className="space-y-4 lg:sticky lg:top-[90px] lg:self-start lg:max-h-[calc(100vh-110px)] lg:overflow-y-auto">
-        <TeekaPanel key="teeka" items={teekaItems} showActions />
+        <TeekaPanel key="teeka" items={teekaItems} showActions notice={combinedGathaNotice?.ki} />
         {bhaavarthItems.length > 0 && (
-          <TabbedPanel key="bhaavarth" title="हिन्दी भावार्थ" items={bhaavarthItems} showActions />
+          <TabbedPanel key="bhaavarth" title="हिन्दी भावार्थ" items={bhaavarthItems} showActions notice={combinedGathaNotice?.ka} />
         )}
         {topics.length > 0 && (
           <section key="topics" className="rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-node">

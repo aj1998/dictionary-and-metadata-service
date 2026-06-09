@@ -20,7 +20,9 @@ from .parse_myitem import GathaIndexEntry
 from .parse_primary_teeka import parse_primary_teeka
 from .parse_secondary_teeka import parse_secondary_teeka
 
-_TRAILING_VERSE_RE = re.compile(r"\s*॥\s*[\d]+\s*॥\s*$")
+_TRAILING_VERSE_RE = re.compile(r"\s*(?:॥\s*[\d०-९]+\s*॥|\|\|\s*[\d०-९]+\s*\|\|)\s*$")
+_ANY_VERSE_MARKER_RE = re.compile(r"\s*(?:॥\s*[\d०-९]+\s*॥|\|\|\s*[\d०-९]+\s*\|\|)\s*")
+_PAREN_NUM_RE = re.compile(r"\s*\(\s*[\d०-९]+\s*\)\s*")
 _DEV_DIGITS = str.maketrans("0123456789", "०१२३४५६७८९")
 
 
@@ -96,32 +98,32 @@ def _parse_page_html_id(soup: BeautifulSoup, cfg: NJConfig) -> str:
     return gid.replace("gatha-", "")
 
 
+_VERSE_END_MARKER_RE = re.compile(r"(?:॥\s*[\d०-९]+\s*॥|\|\|\s*[\d०-९]+\s*\|\|)")
+
+
 def _split_combined_text_by_markers(text: str | None, gatha_numbers: list[str]) -> list[str] | None:
-    """Split combined text into per-gatha chunks using explicit verse-number markers."""
+    """Split combined text into N chunks using the first N-1 verse-end markers found in order.
+
+    Any ॥M॥ or ||M|| (regardless of M's value) is treated as a verse-end marker.
+    The (N) notation is a mid-verse line label, NOT a split point — it is stripped
+    afterwards by _clean_gatha_chunk().
+    Markers are NOT included in the returned chunks.
+    """
     if not text or len(gatha_numbers) < 2:
         return None
 
+    n_splits = len(gatha_numbers) - 1
     chunks: list[str] = []
     cursor = 0
-    for n in gatha_numbers[:-1]:
-        try:
-            num = int(n)
-        except ValueError:
-            return None
-        n_ascii = str(num)
-        n_deva = n_ascii.translate(_DEV_DIGITS)
-        marker_re = re.compile(
-            rf"(॥\s*(?:{re.escape(n_ascii)}|{re.escape(n_deva)})\s*॥|\|\|\s*(?:{re.escape(n_ascii)}|{re.escape(n_deva)})\s*\|\|)"
-        )
-        m = marker_re.search(text, cursor)
+    for _ in range(n_splits):
+        m = _VERSE_END_MARKER_RE.search(text, cursor)
         if not m:
             return None
-        end = m.end()
-        chunk = _clean(text[cursor:end])
+        chunk = _clean(text[cursor : m.start()])
         if not chunk:
             return None
         chunks.append(chunk)
-        cursor = end
+        cursor = m.end()
 
     last = _clean(text[cursor:])
     if not last:
@@ -131,23 +133,48 @@ def _split_combined_text_by_markers(text: str | None, gatha_numbers: list[str]) 
     return chunks if len(chunks) == len(gatha_numbers) else None
 
 
+def _clean_gatha_chunk(text: str, all_gatha_numbers: list[str]) -> str:
+    """Strip residual gatha-number markers from a split chunk.
+
+    Removes:
+    - (N) and (N-deva) where N is any gatha number on the combined page
+    - Any remaining ॥M॥ / ||M|| verse-end markers
+
+    Replaces removed markers with newlines so adjacent content lines are not merged.
+    """
+    for n in all_gatha_numbers:
+        try:
+            num = int(n)
+        except ValueError:
+            continue
+        n_ascii = str(num)
+        n_deva = n_ascii.translate(_DEV_DIGITS)
+        text = re.sub(
+            rf"\s*\(\s*(?:{re.escape(n_ascii)}|{re.escape(n_deva)})\s*\)\s*",
+            "\n",
+            text,
+        )
+    text = _ANY_VERSE_MARKER_RE.sub("\n", text)
+    return _clean_preserve_newlines(text)
+
+
 def _parse_body_fields(
     soup: BeautifulSoup,
     cfg: NJConfig,
 ) -> tuple[str | None, str | None, list[GathaHindiChhand], AnyavarthaItem | None]:
+    def _clean_verse_text(raw: str) -> str:
+        text = _clean_preserve_newlines(raw)
+        text = _PAREN_NUM_RE.sub("\n", text)
+        text = _TRAILING_VERSE_RE.sub("", text)
+        return _clean_preserve_newlines(text)
+
     gatha_div = soup.select_one(cfg.selectors.gatha_prakrit)
-    prakrit_text = (
-        _strip_trailing_verse_no(_clean_preserve_newlines(gatha_div.get_text("\n", strip=False)))
-        if gatha_div
-        else None
-    )
+    prakrit_text = _clean_verse_text(gatha_div.get_text("\n", strip=False)) if gatha_div else None
+    prakrit_text = prakrit_text or None  # keep None if empty string
 
     gatha_s_div = soup.select_one(cfg.selectors.gatha_sanskrit)
-    sanskrit_text = (
-        _strip_trailing_verse_no(_clean_preserve_newlines(gatha_s_div.get_text("\n", strip=False)))
-        if gatha_s_div
-        else None
-    )
+    sanskrit_text = _clean_verse_text(gatha_s_div.get_text("\n", strip=False)) if gatha_s_div else None
+    sanskrit_text = sanskrit_text or None
 
     body_gadyas = [
         d
@@ -223,15 +250,30 @@ def parse_primary_page(
 
     if "-" in idx_entry.gatha_number:
         parts = idx_entry.gatha_number.split("-")
-        prakrit_parts = _split_combined_text_by_markers(base.prakrit_text, parts)
-        sanskrit_parts = _split_combined_text_by_markers(base.sanskrit_text, parts)
+        raw_prakrit_parts = _split_combined_text_by_markers(base.prakrit_text, parts)
+        prakrit_parts = (
+            [_clean_gatha_chunk(p, parts) for p in raw_prakrit_parts]
+            if raw_prakrit_parts
+            else None
+        )
+        raw_sanskrit_parts = _split_combined_text_by_markers(base.sanskrit_text, parts)
+        sanskrit_parts = (
+            [_clean_gatha_chunk(p, parts) for p in raw_sanskrit_parts]
+            if raw_sanskrit_parts
+            else None
+        )
         hindi_chhand_parts: list[list[GathaHindiChhand]] = []
         for i in range(len(parts)):
             split_chhands: list[GathaHindiChhand] = []
             for ch in base.hindi_chhands:
-                split_text = _split_combined_text_by_markers(ch.text_hi, parts)
+                raw_split = _split_combined_text_by_markers(ch.text_hi, parts)
+                cleaned_split = (
+                    [_clean_gatha_chunk(t, parts) for t in raw_split] if raw_split else None
+                )
                 split_chhands.append(
-                    ch.model_copy(update={"text_hi": split_text[i] if split_text else ch.text_hi})
+                    ch.model_copy(
+                        update={"text_hi": cleaned_split[i] if cleaned_split else ch.text_hi}
+                    )
                 )
             hindi_chhand_parts.append(split_chhands)
         return (

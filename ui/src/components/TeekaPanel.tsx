@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 import { teekaMarkdownToHtml } from '@/lib/format/teeka-markdown';
 import { splitHighlight } from '@/lib/highlight';
@@ -20,10 +20,11 @@ export interface TeekaPanelItem {
 interface TeekaPanelProps {
   items: TeekaPanelItem[];
   showActions?: boolean;
+  notice?: ReactNode;
 }
 
 
-export function TeekaPanel({ items, showActions }: TeekaPanelProps) {
+export function TeekaPanel({ items, showActions, notice }: TeekaPanelProps) {
   const initialActive = items.findIndex((item) => item.highlight != null);
   const [active, setActive] = useState(initialActive >= 0 ? initialActive : 0);
 
@@ -41,7 +42,10 @@ export function TeekaPanel({ items, showActions }: TeekaPanelProps) {
   return (
     <section className="rounded-[var(--radius-md)] border border-border bg-surface shadow-node overflow-hidden">
       <div className="flex items-start justify-between gap-2 px-5 pt-5 pb-3">
-        <h3 className="font-serif-hindi text-base font-semibold text-foreground">टीका</h3>
+        <div className="flex flex-wrap items-center gap-2">
+          <h3 className="font-serif-hindi text-base font-semibold text-foreground">टीका</h3>
+          {notice}
+        </div>
         {showActions && (current.actionsSourceNk ?? current.naturalKey ?? current.key) && (
           <PanelActionsMenu
             sourceNk={current.actionsSourceNk ?? current.naturalKey ?? current.key}

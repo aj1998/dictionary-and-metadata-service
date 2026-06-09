@@ -83,8 +83,8 @@ Each HTML file gets one of three classifications:
 ### Step 3 — Per-page HTML parsing
 
 **Body-level content** (before the teeka `<table>`):
-- `div.gatha` → `prakrit_text` (with `॥N॥` verse markers stripped from tail)
-- `div.gathaS` → `sanskrit_text` (optional)
+- `div.gatha` → `prakrit_text` — cleaned by `_clean_verse_text`: strips `(N)` mid-verse line-number labels (ASCII and Devanagari digits), strips trailing `॥N॥`/`||N||` verse-end markers.
+- `div.gathaS` → `sanskrit_text` (optional) — same `_clean_verse_text` pass applied.
 - `div.gadya` (outside teeka divs) → `hindi_chhands[]` (type defaults to `"harigeet"`)
 - `div.paragraph` containing `अन्वयार्थ` → `anyavartha` (full text + tagged term list)
 
@@ -99,9 +99,15 @@ Each HTML file gets one of three classifications:
 
 ### Step 4 — Multi-gatha page expansion
 
-Pages like `009-010.html` (gatha_number = `"009-010"`) produce **one `GathaExtract` per individual gatha**. The combined text is split by verse-number markers (`॥9॥`, `॥९॥`, `||9||`, `||९||`). Anyavartha and teeka content are shared across all expanded gathas.
+Pages like `009-010.html` (gatha_number = `"009-010"`) produce **one `GathaExtract` per individual gatha**. The combined text is split by `_split_combined_text_by_markers`, then each chunk is cleaned by `_clean_gatha_chunk`.
 
-Each expanded gatha gets `is_combined_page=True` and `related_gatha_numbers` listing the other gathas from the same page.
+**Splitting** (`_split_combined_text_by_markers`): finds the first N−1 verse-end markers (`॥M॥` or `||M||`, any number M) in document order — positional, not keyed to specific gatha numbers. This handles pages where the verse-end marker number differs from the sequential gatha number (e.g., page `017-018.html` uses `॥20॥` as the boundary). Split markers are **not** included in the returned chunks.
+
+**Chunk cleanup** (`_clean_gatha_chunk`): strips residual `(N)` mid-verse labels (for all gatha numbers on the page) and any remaining `॥M॥`/`||M||` markers; replaces them with newlines and re-normalises via `_clean_preserve_newlines`.
+
+**`(N)` markers in single gathas**: `_clean_verse_text` (called in `_parse_body_fields`) also strips `(N)` labels from every gatha, not just combined pages — so single-gatha prakrit/sanskrit text is always clean.
+
+Anyavartha and teeka content are shared across all expanded gathas. Each expanded gatha gets `is_combined_page=True` and `related_gatha_numbers` listing the other gathas from the same page.
 
 ---
 
@@ -183,6 +189,8 @@ Test files:
 | BOM character `﻿` in text | Stripped from all extracted strings |
 | Single-teeka shastra | `secondary_index = {}`; all pages classify as primary_gatha or skip |
 | Multi-gatha text split fails | Falls back to keeping the original combined text per gatha |
+| `(N)` mid-verse label in Prakrit/Sanskrit | Stripped by `_clean_verse_text` for all gathas; also by `_clean_gatha_chunk` for combined-page chunks |
+| Verse-end marker number ≠ gatha number | Splitting is positional (finds first N−1 `||M||`/`॥M॥` regardless of M), so mismatched internal numbering (e.g. `॥20॥` on page 017-018) is handled correctly |
 
 ---
 
