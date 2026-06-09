@@ -8,6 +8,20 @@ from typing import Optional
 from pydantic import BaseModel, Field
 
 
+class ShortFontAnchor(BaseModel):
+    start_offset: int   # char index in the cleaned bhaavarth Markdown (post strip)
+    end_offset: int     # exclusive
+
+
+class ShortFontEntry(BaseModel):
+    marker_number: int                  # 1, 2, 3, … (Devanagari digits normalised to ASCII)
+    marker_devanagari: str              # "१", "२", … (kept for display)
+    anchor_text: str                    # term the marker was attached to in the body
+    meaning: str                        # RHS of "= " in shortFont line; or full text for bare lines
+    is_definition: bool                 # True if line had "= " separator; False for narrative footnote
+    occurrences: list[ShortFontAnchor]  # zero or more body anchor positions
+
+
 class GathaWordMeaningEntry(BaseModel):
     source_word: str       # prakrit/sanskrit key, brackets stripped
     meaning: str           # hindi meaning
@@ -39,6 +53,7 @@ class KalashHindiEntry(BaseModel):
     chhand_type: str           # from <span class=notes>(कलश-XXX)</span>
     text_hi: str
     verse_number: Optional[str] = None  # canonical kalash # from trailing ॥N॥ in source
+    shortfont: list[ShortFontEntry] = Field(default_factory=list)
 
 
 class KalashWMEntry(BaseModel):
@@ -53,12 +68,14 @@ class PrimaryTeeka(BaseModel):
     kalash_hindi: list[KalashHindiEntry] = Field(default_factory=list)
     kalash_word_meanings: dict[int, list[KalashWMEntry]] = Field(default_factory=dict)
     gatha_teeka_bhaavarth_md: Optional[str] = None   # Markdown with inline HTML for colors
+    gatha_teeka_bhaavarth_shortfont: list[ShortFontEntry] = Field(default_factory=list)
 
 
 class SecondaryTeeka(BaseModel):
     """Secondary teeka without kalashes (e.g. जयसेनाचार्य)."""
     gatha_teeka_san: Optional[str] = None
     gatha_teeka_bhaavarth_md: Optional[str] = None
+    gatha_teeka_bhaavarth_shortfont: list[ShortFontEntry] = Field(default_factory=list)
 
 
 class GathaExtract(BaseModel):

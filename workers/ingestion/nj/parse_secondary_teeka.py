@@ -7,8 +7,8 @@ import unicodedata
 from bs4 import NavigableString, Tag
 
 from .config import NJConfig
-from .html_to_markdown import node_to_markdown
 from .models import SecondaryTeeka
+from .shortfont_parser import extract_shortfont
 
 
 def _clean(text: str | None) -> str:
@@ -62,13 +62,10 @@ def parse_secondary_teeka(teeka_div: Tag, cfg: NJConfig) -> SecondaryTeeka:
         if maybe_label and (maybe_label.get("color") or "").strip().lower() == "darkgreen":
             nodes_after = nodes_after[1:]
 
-    bhaavarth_parts: list[str] = []
-    for node in nodes_after:
-        md = node_to_markdown(node).strip()
-        if md:
-            bhaavarth_parts.append(md)
+    cleaned_bhaavarth_md, shortfont_entries = extract_shortfont(list(nodes_after))
 
     return SecondaryTeeka(
         gatha_teeka_san=gatha_teeka_san,
-        gatha_teeka_bhaavarth_md="\n".join(bhaavarth_parts).strip() or None,
+        gatha_teeka_bhaavarth_md=cleaned_bhaavarth_md or None,
+        gatha_teeka_bhaavarth_shortfont=shortfont_entries,
     )

@@ -11,6 +11,7 @@ from bs4 import NavigableString, Tag
 from .config import NJConfig
 from .html_to_markdown import node_to_markdown
 from .models import KalashHindiEntry, KalashSanskritEntry, KalashWMEntry, PrimaryTeeka
+from .shortfont_parser import extract_shortfont
 
 _KALASH_RE = re.compile(r"\(कलश-([^)]+)\)")
 # Permissive marker regex: source HTML inconsistently includes the "कलश-" prefix.
@@ -340,7 +341,7 @@ def parse_primary_teeka(
     hindi_counter = 0
     kalash_hindi_entries: list[KalashHindiEntry] = []
     kalash_wm_entries: dict[int, list[KalashWMEntry]] = defaultdict(list)
-    bhaavarth_parts: list[str] = []
+    bhaavarth_nodes: list[NavigableString | Tag] = []
 
     i = 0
     while i < len(nodes_after):
@@ -398,17 +399,18 @@ def parse_primary_teeka(
             kalash_wm_entries[hindi_counter].append(_parse_kalash_wm(node, trailing_text=_clean("".join(trailing_parts))))
             i = j
             continue
-        md = node_to_markdown(node).strip()
-        if md:
-            bhaavarth_parts.append(md)
+        bhaavarth_nodes.append(node)
         i += 1
+
+    cleaned_bhaavarth_md, shortfont_entries = extract_shortfont(bhaavarth_nodes)
 
     result = PrimaryTeeka(
         kalash_san=kalash_san_entries,
         gatha_teeka_san=gatha_teeka_san,
         kalash_hindi=kalash_hindi_entries,
         kalash_word_meanings=dict(kalash_wm_entries),
-        gatha_teeka_bhaavarth_md=_clean("\n".join(bhaavarth_parts)) or None,
+        gatha_teeka_bhaavarth_md=cleaned_bhaavarth_md or None,
+        gatha_teeka_bhaavarth_shortfont=shortfont_entries,
     )
 
     return result, len(kalash_san_entries)

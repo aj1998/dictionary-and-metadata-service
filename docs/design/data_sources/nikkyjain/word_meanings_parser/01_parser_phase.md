@@ -91,8 +91,32 @@ python -m workers.ingestion.nj.cli parse \
 
 ## Done when
 
-- [ ] `ShortFontEntry` / `ShortFontAnchor` models added; existing tests pass.
-- [ ] Primary-teeka parser extracts and strips for the 161.html fixture and 1 secondary-shastra fixture.
-- [ ] Offset round-trip test green.
-- [ ] No regressions in `tests/workers/nj/` full suite.
+- [x] `ShortFontEntry` / `ShortFontAnchor` models added; existing tests pass.
+- [x] Primary-teeka parser extracts and strips for the 161.html fixture and 1 secondary-shastra fixture.
+- [x] Offset round-trip test green.
+- [x] No regressions in `tests/workers/nj/` full suite.
 - [ ] Implementation notes appended to this doc and [`../nj_parser.md`](../nj_parser.md) under "Bhaavarth shortFont".
+
+## Implementation Notes
+
+**Implemented:** 2026-06-10
+
+### Files changed
+
+| File | Change |
+|---|---|
+| `workers/ingestion/nj/models.py` | Added `ShortFontAnchor`, `ShortFontEntry`; added `gatha_teeka_bhaavarth_shortfont` to `PrimaryTeeka` and `SecondaryTeeka`; added `shortfont` to `KalashHindiEntry` |
+| `workers/ingestion/nj/shortfont_parser.py` | New — `extract_shortfont(nodes, warnings) -> (cleaned_md, entries)` |
+| `workers/ingestion/nj/parse_primary_teeka.py` | Changed bhaavarth collection from `node_to_markdown` loop to `extract_shortfont` |
+| `workers/ingestion/nj/parse_secondary_teeka.py` | Same as above |
+| `workers/ingestion/nj/tests/fixtures/shortfont/161_excerpt.html` | New fixture file |
+| `tests/workers/nj/test_shortfont_parser_unit.py` | 10 new unit tests |
+
+### Design decisions / diversions
+
+- `extract_shortfont` accepts `list[NavigableString | Tag]` (not a single Tag) so both parsers can pass their already-collected bhaavarth node lists directly; this avoids coupling the function to teeka-specific DOM structure.
+- Deep-copy is done inside `extract_shortfont` so callers' BS4 trees are never mutated. The slight copy cost is acceptable; bhaavarth nodes are small.
+- `<sup>` nodes are decomposed (not just tracked) from the deep-copied tree before `node_to_markdown` is called. No change to `html_to_markdown.py` was needed — sup removal is handled entirely within the shortfont path.
+- Cursor advancement after each anchor find is `cursor = end` (past the matched text), using the same pattern as `teeka_gatha_mapping.tagged_terms`.
+- `KalashHindiEntry.shortfont` is added per spec but not yet wired to any parsing logic (no kalash bhaavarth parsing exists yet).
+- The regex for Devanagari + hyphen tokens uses `[ऀ-ॿ\-]+` which covers all Unicode Devanagari block characters.
