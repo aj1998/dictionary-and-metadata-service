@@ -10,7 +10,6 @@
 // instead of blank-line paragraphs.
 
 const MIN_COMPACT_TOTAL = 3;
-const MAX_MEANING_LEN = 260;
 
 export interface CompactBracketEntry {
   word: string;
@@ -38,16 +37,36 @@ const BRACKET_ONLY_LINE = /^\s*(?:\*\*)?\[(.+?)\](?:\*\*)?\s*$/;
 const BRACKET_INLINE_LINE = /^\s*(?:\*\*)?\[(.+?)\](?:\*\*)?\s+(.+?)\s*$/;
 const BOLD_NON_BRACKET_LINE = /^\s*\*\*(?!\s*\[).+\*\*\s*$/;
 const VERSE_MARKER_LINE = /^\s*॥[^॥]*॥\s*$/;
+// Paragraph-transition markers that should not be absorbed into the previous
+// shabdaarth meaning. Without these stops, the meaning collector after the
+// last `[term]` swallows trailing prose to end-of-text, breaking the compact
+// detection for the final mappings.
+const ITALIC_BLOCK_LINE = /^\s*\*\(\(/;
+const PARA_TRANSITION_LINE = /^\s*अब\s/;
+const BULLET_LINE = /^\s*-\s+/;
+// Verse-end marker embedded at the end of a line (e.g. `... कहा जाता है ॥७॥`).
+// VERSE_MARKER_LINE only matches when the marker is the whole line; we also
+// need to stop meaning collection when a line ENDS with `॥N॥` so we don't
+// absorb subsequent paragraphs into the previous shabdaarth meaning.
+const VERSE_END_TRAILING = /॥[^॥]*॥\s*$/;
 
 function stripHtml(text: string): string {
   return text.replace(/<[^>]+>/g, '');
 }
 
 function normalizeMeaning(lines: string[]): string {
-  return lines
+  const joined = lines
     .join(' ')
     .replace(/\s+/g, ' ')
     .trim();
+  // Truncate at the first Devanagari full stop. In this corpus the prose
+  // after `[term]` typically follows the pattern `<one-sentence meaning>।
+  // <transition prose introducing the next mapping>` — keeping everything
+  // past the first `।` would pull paragraph-level prose (or trailing verse
+  // markers like `॥७॥`) into a single chip's meaning.
+  const stopIdx = joined.indexOf('।');
+  if (stopIdx >= 0) return joined.slice(0, stopIdx + 1).trim();
+  return joined;
 }
 
 function toLines(text: string): LineInfo[] {
@@ -79,7 +98,6 @@ function buildBlocks(text: string): BlockInfo[] {
       const compact =
         word
         && meaning
-        && meaning.length <= MAX_MEANING_LEN
         && !/(^|\n)\s*-\s+/.test(meaning)
         && !/\[/.test(meaning)
           ? { word, meaning }
@@ -117,9 +135,14 @@ function buildBlocks(text: string): BlockInfo[] {
       && !lines[j].raw.match(BRACKET_ONLY_LINE)
       && !BOLD_NON_BRACKET_LINE.test(lines[j].raw)
       && !VERSE_MARKER_LINE.test(lines[j].raw)
+      && !ITALIC_BLOCK_LINE.test(lines[j].raw)
+      && !PARA_TRANSITION_LINE.test(lines[j].raw)
+      && !BULLET_LINE.test(lines[j].raw)
     ) {
       meaningLines.push(lines[j].raw);
+      const endsVerse = VERSE_END_TRAILING.test(lines[j].raw);
       j += 1;
+      if (endsVerse) break;
     }
 
     const word = stripHtml(header[1]).trim();
@@ -127,7 +150,6 @@ function buildBlocks(text: string): BlockInfo[] {
     const compact =
       word
       && meaning
-      && meaning.length <= MAX_MEANING_LEN
       && !/(^|\n)\s*-\s+/.test(meaning)
       && !/\[/.test(meaning)
         ? { word, meaning }
