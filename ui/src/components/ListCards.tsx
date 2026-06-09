@@ -7,6 +7,7 @@ import type { EntityKind } from "@/lib/types";
 
 export interface ListCardProps {
   kind: EntityKind;
+  hideBadge?: boolean;
   titleHi: string;
   titleEn?: string;
   meta?: string;
@@ -17,6 +18,7 @@ export interface ListCardProps {
 
 function BaseCard({
   kind,
+  hideBadge,
   titleHi,
   titleEn,
   meta,
@@ -33,14 +35,16 @@ function BaseCard({
         className
       )}
     >
+      {(!hideBadge || count !== undefined) && (
       <div className="flex items-start justify-between gap-2">
-        <BadgeChip kind={kind} size="sm" />
+        {!hideBadge && <BadgeChip kind={kind} size="sm" />}
         {count !== undefined && (
           <span className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold text-foreground-muted">
             {toDevanagariNumerals(count)}
           </span>
         )}
       </div>
+      )}
 
       <div className="flex flex-1 flex-col gap-0.5">
         <span className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold leading-snug text-foreground line-clamp-2">
@@ -78,5 +82,5 @@ export function TopicCard(props: ListCardProps) {
 }
 
 export function GathaTile(props: ListCardProps) {
-  return <BaseCard {...props} kind="gatha" />;
+  return <BaseCard {...props} kind="gatha" hideBadge />;
 }

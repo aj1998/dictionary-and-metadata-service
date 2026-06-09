@@ -10,8 +10,10 @@ import { ShabdaArthSection } from '@/components/ShabdaArthSection';
 import { TeekaPanel } from '@/components/TeekaPanel';
 import { TopicNavAction } from '@/components/TopicNavAction';
 import type { TeekaPanelItem } from '@/components/TeekaPanel';
+import { notFound } from 'next/navigation';
 import { Link } from '@/i18n/navigation';
 import { getExtractMatch, getGatha } from '@/lib/api/data';
+import { ApiError } from '@/lib/api/_fetch';
 import { getKeywordTopics } from '@/lib/api/navigation';
 import { getHindiText } from '@/lib/content-listing';
 import { normalizeNFC, toDevanagariNumerals } from '@/lib/format/devanagari';
@@ -63,7 +65,10 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   const gathaNk = number.includes(':गाथा:') ? number : `${nk}:गाथा:${number}`;
 
   const [gatha, topicsResult, extractMatch] = await Promise.all([
-    getGatha(gathaNk, { include: ['teeka_mapping', 'teeka_bhaavarth', 'teeka_sanskrit', 'kalashas'] }),
+    getGatha(gathaNk, { include: ['teeka_mapping', 'teeka_bhaavarth', 'teeka_sanskrit', 'kalashas'] }).catch((err) => {
+      if (err instanceof ApiError && err.status === 404) notFound();
+      throw err;
+    }),
     getKeywordTopics(gathaNk).catch(() => ({ keyword_natural_key: gathaNk, topics: [] })),
     matchNk
       ? getExtractMatch(matchNk).catch(() => null)
@@ -265,6 +270,15 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
             ]}
           />
         </section>
+
+        {/* Gatha heading */}
+        {gatha.heading?.length > 0 && (
+          <div className="rounded-[var(--radius-md)] border border-border bg-surface-muted px-5 py-3 border-l-4 border-l-border-strong">
+            <p className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold text-foreground leading-relaxed">
+              {getHindiText(gatha.heading, gathaNk)}
+            </p>
+          </div>
+        )}
 
         {/* 1. प्राकृत गाथा */}
         {gatha.prakrit && (

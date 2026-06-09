@@ -1,8 +1,7 @@
 import { BreadcrumbBar } from '@/components/BreadcrumbBar';
-import { MiniGraphPreview } from '@/components/MiniGraphPreview';
+import { GathaSearchJump } from '@/components/GathaSearchJump';
 import { StatTileRow } from '@/components/StatTileRow';
 import { GathaTile } from '@/components/ListCards';
-import { Link } from '@/i18n/navigation';
 import { getShastra, getShastraTeekas } from '@/lib/api/metadata';
 import { getGathasByShastraId } from '@/lib/api/data';
 import { getHindiText } from '@/lib/content-listing';
@@ -38,8 +37,7 @@ export default async function ShastraDetailPage({ params }: PageProps) {
   const titleHi = getHindiText(shastra.title, shastra.natural_key);
 
   return (
-    <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1fr_320px]">
-      <div className="space-y-5">
+    <div className="space-y-5">
         <BreadcrumbBar segments={[{ label: 'शास्त्र', href: '/shastras' }, { label: titleHi }]} />
 
         <section className="grid grid-cols-1 gap-4 rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node md:grid-cols-[1fr_320px]">
@@ -61,8 +59,11 @@ export default async function ShastraDetailPage({ params }: PageProps) {
         </section>
 
         <section className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
-          <h2 className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold">गाथाएँ</h2>
-          <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <h2 className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold">गाथाएँ</h2>
+            <GathaSearchJump shastraNk={nk} totalGathas={gathas.pagination.total} />
+          </div>
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
             {gathas.items.map((gatha) => (
               <GathaTile
                 key={gatha.id}
@@ -100,14 +101,6 @@ export default async function ShastraDetailPage({ params }: PageProps) {
             </table>
           </div>
         </section>
-      </div>
-
-      <aside className="space-y-4 xl:sticky xl:top-[90px] xl:self-start">
-        <Link href={`/graph?node=${encodeURIComponent(nk)}`} className="block rounded-[var(--radius-md)] bg-accent p-4 text-center font-semibold text-white shadow-node">
-          ग्राफ में खोलें
-        </Link>
-        <MiniGraphPreview nk={nk} />
-      </aside>
     </div>
   );
 }

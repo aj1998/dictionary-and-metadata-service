@@ -1,5 +1,6 @@
 import { Link } from '@/i18n/navigation';
 import { getShastras } from '@/lib/api/metadata';
+import { getGathasByShastraId } from '@/lib/api/data';
 import { getHindiText, paginatedMeta } from '@/lib/content-listing';
 import { toDevanagariNumerals } from '@/lib/format/devanagari';
 import type { AuthorSummary } from '@/lib/types';
@@ -33,6 +34,14 @@ export default async function ShastrasPage({ searchParams }: PageProps) {
   const shastras = await getShastras({ q: q || undefined, anuyoga: anuyoga || undefined, limit: PAGE_SIZE, offset });
   const meta = paginatedMeta(shastras.pagination);
 
+  const gathaCounts = await Promise.all(
+    shastras.items.map((s) =>
+      getGathasByShastraId(s.id, { limit: 1, offset: 0 })
+        .then((r) => r.pagination.total)
+        .catch(() => 0)
+    )
+  );
+
   const makeHref = (nextPage: number) => {
     const params = new URLSearchParams();
     if (q) params.set('q', q);
@@ -58,7 +67,7 @@ export default async function ShastrasPage({ searchParams }: PageProps) {
       </form>
 
       <section className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {shastras.items.map((item) => (
+        {shastras.items.map((item, i) => (
           <article key={item.id} className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
             <h2 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">{getHindiText(item.title, item.natural_key)}</h2>
             <p className="mt-1 text-sm text-foreground-muted">{getAuthorName(item.author)}</p>
@@ -68,8 +77,9 @@ export default async function ShastrasPage({ searchParams }: PageProps) {
               ))}
             </div>
             <div className="mt-4 flex items-center justify-between">
-              <span className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold text-foreground-muted">
-                {toDevanagariNumerals(item.gatha_count ?? 0)}
+              <span className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold text-accent">
+                {toDevanagariNumerals(gathaCounts[i] ?? 0)}
+                <span className="ml-2 text-xs font-normal text-foreground-muted">गाथाएँ</span>
               </span>
               <Link href={`/shastras/${item.natural_key}`} className="rounded-[var(--radius-sm)] border border-accent px-3 py-1 text-sm font-medium text-accent">खोलें →</Link>
             </div>
