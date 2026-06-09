@@ -101,6 +101,8 @@ Each HTML file gets one of three classifications:
 
 Pages like `009-010.html` (gatha_number = `"009-010"`) produce **one `GathaExtract` per individual gatha**. The combined text is split by `_split_combined_text_by_markers`, then each chunk is cleaned by `_clean_gatha_chunk`.
 
+**Gatha-number expansion** (`_expand_gatha_numbers`): myItem.js encodes multi-gatha pages either as an explicit list (`"020-021-022"`) or as a **range** (`"098-100"` meaning gathas 98, 99, and 100). The expander treats a 2-part hyphenated value as an inclusive range and a 3-or-more-part value as an explicit list, preserving the leading-zero width of the start value. Without this, `"098-100"` was split into just `["098", "100"]` and only the first verse-end marker was used as a split point, causing the verses for gathas 99 and 100 to be merged onto gatha 100 (and gatha 99 to never receive its own text).
+
 **Splitting** (`_split_combined_text_by_markers`): finds the first N−1 verse-end markers (`॥M॥` or `||M||`, any number M) in document order — positional, not keyed to specific gatha numbers. This handles pages where the verse-end marker number differs from the sequential gatha number (e.g., page `017-018.html` uses `॥20॥` as the boundary). Split markers are **not** included in the returned chunks.
 
 **Chunk cleanup** (`_clean_gatha_chunk`): strips residual `(N)` mid-verse labels (for all gatha numbers on the page) and any remaining `॥M॥`/`||M||` markers; replaces them with newlines and re-normalises via `_clean_preserve_newlines`.
@@ -190,7 +192,10 @@ Test files:
 | Single-teeka shastra | `secondary_index = {}`; all pages classify as primary_gatha or skip |
 | Multi-gatha text split fails | Falls back to keeping the original combined text per gatha |
 | `(N)` mid-verse label in Prakrit/Sanskrit | Stripped by `_clean_verse_text` for all gathas; also by `_clean_gatha_chunk` for combined-page chunks |
+| Hyphenated gatha_number is a range (e.g. `"098-100"`) | `_expand_gatha_numbers` expands 2-part hyphenated values as inclusive ranges and 3+-part values as explicit lists, so `"098-100"` becomes `["098","099","100"]` and `_split_combined_text_by_markers` uses N−1 = 2 verse-end markers as split points. |
 | Verse-end marker number ≠ gatha number | Splitting is positional (finds first N−1 `||M||`/`॥M॥` regardless of M), so mismatched internal numbering (e.g. `॥20॥` on page 017-018) is handled correctly |
+| Chhand marker missing `कलश-` prefix | Source HTML sometimes labels only the first marker as `(कलश-X)` and subsequent siblings as bare `(Y)` (e.g. samaysaar 016.html kalashes 12, 13). Marker detection uses a permissive regex `\(([^)]+)\)` inside a DarkSlateGray `<font>`; `_extract_chhand_type` strips an optional leading `कलश-`. Without this, multiple verses collapsed into a single kalash entry and the global kalash counter under-incremented, shifting subsequent kalashes onto the wrong gatha. |
+| Sanskrit kalash newlines in `<br>`-separated nodes | `_parse_sanskrit_kalashes_from_nodes` (fallback path when kalashes are direct children of `steeka0`, not wrapped in a `div.gadya`) preserves `<br>` as `\n` and flushes via `_clean_preserve_newlines`, matching the gadya-path behaviour. |
 
 ---
 

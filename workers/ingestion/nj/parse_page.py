@@ -101,6 +101,30 @@ def _parse_page_html_id(soup: BeautifulSoup, cfg: NJConfig) -> str:
 _VERSE_END_MARKER_RE = re.compile(r"(?:॥\s*[\d०-९]+\s*॥|\|\|\s*[\d०-९]+\s*\|\|)")
 
 
+def _expand_gatha_numbers(gatha_number: str) -> list[str]:
+    """Expand a hyphenated gatha_number into the list of individual gatha numbers.
+
+    Two-part hyphenated values are treated as inclusive ranges (e.g. "098-100"
+    → ["098", "099", "100"]), preserving the leading-zero width of the start
+    value. Three-or-more-part values are treated as explicit lists (e.g.
+    "020-021-022" → ["020", "021", "022"]). Non-numeric or malformed values
+    fall back to a literal split.
+    """
+    if "-" not in gatha_number:
+        return [gatha_number]
+    parts = gatha_number.split("-")
+    if len(parts) == 2:
+        try:
+            start, end = int(parts[0]), int(parts[1])
+        except ValueError:
+            return parts
+        if end < start:
+            return parts
+        width = len(parts[0])
+        return [str(n).zfill(width) for n in range(start, end + 1)]
+    return parts
+
+
 def _split_combined_text_by_markers(text: str | None, gatha_numbers: list[str]) -> list[str] | None:
     """Split combined text into N chunks using the first N-1 verse-end markers found in order.
 
@@ -249,7 +273,7 @@ def parse_primary_page(
     )
 
     if "-" in idx_entry.gatha_number:
-        parts = idx_entry.gatha_number.split("-")
+        parts = _expand_gatha_numbers(idx_entry.gatha_number)
         raw_prakrit_parts = _split_combined_text_by_markers(base.prakrit_text, parts)
         prakrit_parts = (
             [_clean_gatha_chunk(p, parts) for p in raw_prakrit_parts]

@@ -13,6 +13,11 @@ from .html_to_markdown import node_to_markdown
 from .models import KalashHindiEntry, KalashSanskritEntry, KalashWMEntry, PrimaryTeeka
 
 _KALASH_RE = re.compile(r"\(कलश-([^)]+)\)")
+# Permissive marker regex: source HTML inconsistently includes the "कलश-" prefix.
+# Some chhand markers appear as bare "(शार्दूलविक्रीडित)" without the prefix
+# (e.g. samaysaar 016.html kalashes 12, 13). Treat any parenthesised content
+# inside a DarkSlateGray <font> as a kalash chhand marker.
+_KALASH_MARKER_RE = re.compile(r"\(([^)]+)\)")
 
 
 def _clean(text: str | None) -> str:
@@ -46,13 +51,19 @@ def _is_kalash_type_marker(node: NavigableString | Tag, color: str) -> bool:
     node_color = (font.get("color") or "").strip().lower()
     if node_color != color.lower():
         return False
-    return bool(_KALASH_RE.search(_clean(font.get_text())))
+    return bool(_KALASH_MARKER_RE.search(_clean(font.get_text())))
 
 
 def _extract_chhand_type(node: NavigableString | Tag) -> str:
     text = _clean(_get_text(node))
-    m = _KALASH_RE.search(text)
-    return _clean(m.group(1)) if m else ""
+    m = _KALASH_MARKER_RE.search(text)
+    if not m:
+        return ""
+    chhand = _clean(m.group(1))
+    # Strip optional "कलश-" prefix when source includes it.
+    if chhand.startswith("कलश-"):
+        chhand = chhand[len("कलश-") :].strip()
+    return chhand
 
 
 def _is_kalash_gadya(node: NavigableString | Tag) -> bool:
@@ -142,7 +153,7 @@ def _parse_sanskrit_kalashes_from_nodes(
     def flush() -> None:
         nonlocal current_type, current_parts
         if current_type and current_parts:
-            text = _clean(" ".join(current_parts))
+            text = _clean_preserve_newlines("".join(current_parts))
             if text:
                 idx = len(entries) + 1
                 entries.append(
@@ -161,10 +172,16 @@ def _parse_sanskrit_kalashes_from_nodes(
             flush()
             current_type = _extract_chhand_type(node) or "unknown"
             continue
+        if isinstance(node, Tag) and node.name == "br":
+            if current_type and current_parts and not current_parts[-1].endswith("\n"):
+                current_parts.append("\n")
+            continue
         text = _clean(_get_text(node))
         if not text:
             continue
         if current_type:
+            if current_parts and not current_parts[-1].endswith("\n"):
+                current_parts.append(" ")
             current_parts.append(text)
         else:
             prose_parts.append(text)
