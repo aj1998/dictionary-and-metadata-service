@@ -18,6 +18,49 @@ _KALASH_RE = re.compile(r"\(कलश-([^)]+)\)")
 # (e.g. samaysaar 016.html kalashes 12, 13). Treat any parenthesised content
 # inside a DarkSlateGray <font> as a kalash chhand marker.
 _KALASH_MARKER_RE = re.compile(r"\(([^)]+)\)")
+# Trailing ॥N॥ / ||N|| verse-end marker (Devanagari or ASCII digits) — canonical
+# kalash number within the teeka, used as source of truth for kalash_number.
+_VERSE_END_RE = re.compile(r"(?:॥|\|\|)\s*([०-९0-9]+)\s*(?:॥|\|\|)\s*$")
+_DEV_TO_ASCII = str.maketrans("०१२३४५६७८९", "0123456789")
+
+
+def _extract_verse_number(text: str | None) -> str | None:
+    if not text:
+        return None
+    m = _VERSE_END_RE.search(text.rstrip())
+    if not m:
+        return None
+    return m.group(1).translate(_DEV_TO_ASCII)
+
+
+# Splits a kalash text block at each ॥N॥ / ||N|| boundary, returning
+# (verse_text_including_marker, verse_number) tuples. Used when one
+# (कलश-X) chhand marker is followed by multiple consecutive verses
+# (e.g. samaysaar 104.html अनुष्टुभ्: ॥६१॥ + ॥६२॥ sharing one marker).
+_VERSE_SPLIT_RE = re.compile(r"(?:॥|\|\|)\s*([०-९0-9]+)\s*(?:॥|\|\|)")
+
+
+def _split_kalash_verses(text: str) -> list[tuple[str, str | None]]:
+    if not text:
+        return []
+    matches = list(_VERSE_SPLIT_RE.finditer(text))
+    if len(matches) <= 1:
+        return [(text, _extract_verse_number(text))]
+    out: list[tuple[str, str | None]] = []
+    start = 0
+    for m in matches:
+        chunk = text[start : m.end()].strip()
+        if chunk:
+            out.append((chunk, m.group(1).translate(_DEV_TO_ASCII)))
+        start = m.end()
+    # Trailing text without a closing marker — append to the last chunk.
+    tail = text[start:].strip()
+    if tail and out:
+        last_chunk, last_num = out[-1]
+        out[-1] = (f"{last_chunk}\n{tail}", last_num)
+    elif tail:
+        out.append((tail, None))
+    return out
 
 
 def _clean(text: str | None) -> str:
@@ -110,15 +153,17 @@ def _parse_sanskrit_kalashes_from_gadya(
         if current_type and current_parts:
             text = _clean_preserve_newlines("".join(current_parts))
             if text:
-                idx = len(entries) + 1
-                entries.append(
-                    KalashSanskritEntry(
-                        local_kalash_index=idx,
-                        global_kalash_index=global_kalash_start + idx - 1,
-                        chhand_type=current_type,
-                        text_san=text,
+                for verse_text, vnum in _split_kalash_verses(text):
+                    idx = len(entries) + 1
+                    entries.append(
+                        KalashSanskritEntry(
+                            local_kalash_index=idx,
+                            global_kalash_index=global_kalash_start + idx - 1,
+                            chhand_type=current_type,
+                            text_san=verse_text,
+                            verse_number=vnum,
+                        )
                     )
-                )
         current_type = None
         current_parts = []
 
@@ -155,15 +200,17 @@ def _parse_sanskrit_kalashes_from_nodes(
         if current_type and current_parts:
             text = _clean_preserve_newlines("".join(current_parts))
             if text:
-                idx = len(entries) + 1
-                entries.append(
-                    KalashSanskritEntry(
-                        local_kalash_index=idx,
-                        global_kalash_index=global_kalash_start + idx - 1,
-                        chhand_type=current_type,
-                        text_san=text,
+                for verse_text, vnum in _split_kalash_verses(text):
+                    idx = len(entries) + 1
+                    entries.append(
+                        KalashSanskritEntry(
+                            local_kalash_index=idx,
+                            global_kalash_index=global_kalash_start + idx - 1,
+                            chhand_type=current_type,
+                            text_san=verse_text,
+                            verse_number=vnum,
+                        )
                     )
-                )
         current_type = None
         current_parts = []
 
@@ -300,12 +347,14 @@ def parse_primary_teeka(
         node = nodes_after[i]
         if _is_kalash_gadya(node):
             hindi_counter += 1
+            hindi_text = _clean_gadya_text(node)
             kalash_hindi_entries.append(
                 KalashHindiEntry(
                     local_kalash_index=hindi_counter,
                     global_kalash_index=global_kalash_start + hindi_counter - 1,
                     chhand_type=_extract_chhand_from_notes_span(node) or "unknown",
-                    text_hi=_clean_gadya_text(node),
+                    text_hi=hindi_text,
+                    verse_number=_extract_verse_number(hindi_text),
                 )
             )
             i += 1

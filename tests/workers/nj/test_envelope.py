@@ -226,7 +226,13 @@ def test_teeka_gatha_mapping_has_tagged_terms():
     )
     result = _make_result(gathas=[g])
     tgm = build_envelope(result, cfg)["would_write"]["mongo"]["teeka_gatha_mapping"]
-    assert tgm[0]["tagged_terms"] == [{"source_word": "वंदित्तु", "meaning": "नमस्कार"}]
+    assert tgm[0]["tagged_terms"] == [{
+        "source_word": "वंदित्तु",
+        "meaning": "नमस्कार",
+        "position": 1,
+        "start_offset": None,
+        "end_offset": None,
+    }]
 
 
 # ---------------------------------------------------------------------------

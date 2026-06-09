@@ -264,6 +264,10 @@ export interface GathaWordMeanings {
 export interface TaggedTerm {
   source_word: string;
   meaning: string;
+  position?: number;
+  /** Char offsets of `meaning` within `full_anyavaarth` (computed at ingest time). */
+  start_offset?: number | null;
+  end_offset?: number | null;
 }
 
 export interface TeekaGathaMapping {

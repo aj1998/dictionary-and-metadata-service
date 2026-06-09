@@ -13,9 +13,10 @@ export interface BhaavarthPanelProps {
   highlight?: HighlightRange;
   className?: string;
   variant?: 'prose' | 'verse';
+  notice?: import('react').ReactNode;
 }
 
-export function BhaavarthPanel({ label, text, naturalKey, highlight, className, variant = 'prose' }: BhaavarthPanelProps) {
+export function BhaavarthPanel({ label, text, naturalKey, highlight, className, variant = 'prose', notice }: BhaavarthPanelProps) {
   const nfcText = normalizeNFC(text);
   const split = highlight ? splitHighlight(nfcText, highlight) : null;
   const segments = variant === 'prose' ? parseBhaavarthSegments(nfcText) : null;
@@ -32,8 +33,11 @@ export function BhaavarthPanel({ label, text, naturalKey, highlight, className, 
         className
       )}
     >
-      {label && (
-        <p className="mb-2 text-xs font-medium text-foreground-muted">{label}</p>
+      {(label || notice) && (
+        <div className="mb-2 flex flex-wrap items-center gap-2">
+          {label && <p className="text-xs font-medium text-foreground-muted">{label}</p>}
+          {notice}
+        </div>
       )}
       {split && variant !== 'prose' ? (
         <p className="whitespace-pre-wrap font-serif-hindi text-[length:var(--font-size-body)] leading-[1.85] text-foreground">

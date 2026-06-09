@@ -20,8 +20,8 @@ from .parse_myitem import GathaIndexEntry
 from .parse_primary_teeka import parse_primary_teeka
 from .parse_secondary_teeka import parse_secondary_teeka
 
-_TRAILING_VERSE_RE = re.compile(r"\s*(?:॥\s*[\d०-९]+\s*॥|\|\|\s*[\d०-९]+\s*\|\|)\s*$")
-_ANY_VERSE_MARKER_RE = re.compile(r"\s*(?:॥\s*[\d०-९]+\s*॥|\|\|\s*[\d०-९]+\s*\|\|)\s*")
+_TRAILING_VERSE_RE = re.compile(r"\s*(?:॥\s*[\d०-९]+\s*॥|\|\|\s*[\d०-९]+\s*\|\||॥|\|\|)\s*$")
+_ANY_VERSE_MARKER_RE = re.compile(r"\s*(?:॥\s*[\d०-९]+\s*॥|\|\|\s*[\d०-९]+\s*\|\||॥|\|\|)\s*")
 _PAREN_NUM_RE = re.compile(r"\s*\(\s*[\d०-९]+\s*\)\s*")
 _DEV_DIGITS = str.maketrans("0123456789", "०१२३४५६७८९")
 
@@ -98,7 +98,7 @@ def _parse_page_html_id(soup: BeautifulSoup, cfg: NJConfig) -> str:
     return gid.replace("gatha-", "")
 
 
-_VERSE_END_MARKER_RE = re.compile(r"(?:॥\s*[\d०-९]+\s*॥|\|\|\s*[\d०-९]+\s*\|\|)")
+_VERSE_END_MARKER_RE = re.compile(r"(?:॥\s*[\d०-९]+\s*॥|\|\|\s*[\d०-९]+\s*\|\||॥|\|\|)")
 
 
 def _expand_gatha_numbers(gatha_number: str) -> list[str]:
@@ -325,23 +325,34 @@ def parse_secondary_kalash_page(
     filename: str,
     preceding_gatha: str | None,
     cfg: NJConfig,
-) -> KalashExtract:
-    """Parse a page that is only in the secondary teeka index (standalone kalash)."""
+    secondary_entry: "GathaIndexEntry | None" = None,
+) -> list[KalashExtract]:
+    """Parse a page that is only in the secondary teeka index.
+
+    Returns one KalashExtract per individual gatha number when the secondary
+    index encodes a multi-gatha range (e.g. "131-133" → 3 entries with split
+    prakrit verses). Falls back to a single entry when the gatha_number is
+    a single number or expansion/splitting fails.
+    """
     prakrit_text, _sanskrit_text, _hindi_chhands, anyavartha = _parse_body_fields(soup, cfg)
 
     teeka0_div = soup.select_one(cfg.selectors.teeka0_div)
     secondary_teeka = parse_secondary_teeka(teeka0_div, cfg) if isinstance(teeka0_div, Tag) else None
 
-    kalash_number = Path(filename).stem.split("-")[0]
+    raw_gatha_number = (
+        secondary_entry.gatha_number if secondary_entry else Path(filename).stem.split("-")[0]
+    )
 
     heading = None
     title_link = soup.select_one(cfg.selectors.gatha_heading_link)
     if isinstance(title_link, Tag):
         heading = _clean(title_link.get_text()) or None
 
-    return KalashExtract(
+    parts = _expand_gatha_numbers(raw_gatha_number)
+
+    base = KalashExtract(
         shastra_natural_key=cfg.shastra.natural_key,
-        kalash_number=kalash_number,
+        kalash_number=raw_gatha_number,
         html_filename=filename,
         heading_hi=heading,
         preceding_primary_gatha_number=preceding_gatha,
@@ -349,3 +360,21 @@ def parse_secondary_kalash_page(
         anyavartha=anyavartha,
         secondary_teeka=secondary_teeka,
     )
+
+    if len(parts) <= 1:
+        return [base]
+
+    raw_prakrit_parts = _split_combined_text_by_markers(prakrit_text, parts)
+    prakrit_parts = (
+        [_clean_gatha_chunk(c, parts) for c in raw_prakrit_parts] if raw_prakrit_parts else None
+    )
+
+    return [
+        base.model_copy(
+            update={
+                "kalash_number": num,
+                "prakrit_text": prakrit_parts[i] if prakrit_parts else prakrit_text,
+            }
+        )
+        for i, num in enumerate(parts)
+    ]

@@ -10,6 +10,7 @@ export interface TabbedPanelItem {
   content: ReactNode;
   actionsSourceNk?: string;
   actionsSourceLabel?: string;
+  notice?: ReactNode;
 }
 
 interface TabbedPanelProps {
@@ -43,7 +44,7 @@ export function TabbedPanel({ title, items, emptyMessage, bodyClassName, showAct
           {title ? (
             <div className="flex flex-wrap items-center gap-2">
               <h3 className="font-serif-hindi text-base font-semibold text-foreground">{title}</h3>
-              {notice}
+              {current.notice ?? notice}
             </div>
           ) : <span />}
           {showActions && current.actionsSourceNk && (

@@ -80,7 +80,7 @@ _NJ_CONTRACTS: dict[str, dict] = {
     "mongo:teeka_gatha_mapping": {
         "conflict_key": ["natural_key"],
         "on_conflict": "do_update",
-        "fields_replace": ["anvayartha", "tagged_terms", "full_anyavaarth", "is_related"],
+        "fields_replace": ["anvayartha", "tagged_terms", "full_anyavaarth", "is_related"],  # tagged_terms entries carry start_offset/end_offset
         "fields_append": [],
         "fields_skip_if_set": [],
         "stores": ["mongo:teeka_gatha_mapping"],
@@ -334,7 +334,27 @@ def _build_mongo_for_gatha(
     full_anyavaarth = g.anyavartha.full_anyavaarth if g.anyavartha else ""
     tagged_terms = []
     if g.anyavartha:
-        tagged_terms = [{"source_word": e.source_word, "meaning": e.meaning} for e in g.anyavartha.tagged_terms]
+        # Walk the full_anyavaarth in source order to capture each meaning's
+        # exact char offset. Since tagged_terms are emitted in source order and
+        # full_anyavaarth is the same prose minus the bracketed source_word
+        # markers, sequential search finds the correct span even when the same
+        # meaning string appears multiple times in the prose.
+        cursor = 0
+        for e in g.anyavartha.tagged_terms:
+            start = full_anyavaarth.find(e.meaning, cursor) if e.meaning else -1
+            if start == -1 and e.meaning:
+                # Fall back to a global search if the cursor walk overshot.
+                start = full_anyavaarth.find(e.meaning)
+            end = start + len(e.meaning) if start != -1 else -1
+            tagged_terms.append({
+                "source_word": e.source_word,
+                "meaning": e.meaning,
+                "position": e.position,
+                "start_offset": start if start != -1 else None,
+                "end_offset": end if end != -1 else None,
+            })
+            if start != -1:
+                cursor = end
 
     # Only populate teeka_gatha_mapping for the primary teeka
     out["teeka_gatha_mapping"].append({
@@ -395,16 +415,19 @@ def _build_mongo_for_gatha(
         hi_map = {x.global_kalash_index: x for x in g.primary_teeka.kalash_hindi}
         wm_map = g.primary_teeka.kalash_word_meanings
         for kidx in sorted(set(san_map) | set(hi_map)):
-            kalash_nk = f"{primary.natural_key}:{_KALASH}:{kidx}"
             ksan = san_map.get(kidx)
             khi = hi_map.get(kidx)
+            # Prefer source-derived ॥N॥ verse number as canonical kalash number;
+            # fall back to global sequential index only when absent.
+            knum = (ksan and ksan.verse_number) or (khi and khi.verse_number) or str(kidx)
+            kalash_nk = f"{primary.natural_key}:{_KALASH}:{knum}"
             if ksan:
                 out["kalash_sanskrit"].append({
                     "collection": "kalash_sanskrit",
                     "natural_key": f"{kalash_nk}:san",
                     "kalash_natural_key": kalash_nk,
                     "teeka_natural_key": primary.natural_key,
-                    "kalash_number": str(kidx),
+                    "kalash_number": knum,
                     "text": _lang_text("san", ksan.text_san),
                     "chhand_type": ksan.chhand_type,
                 })
@@ -414,7 +437,7 @@ def _build_mongo_for_gatha(
                     "natural_key": f"{kalash_nk}:hi",
                     "kalash_natural_key": kalash_nk,
                     "teeka_natural_key": primary.natural_key,
-                    "kalash_number": str(kidx),
+                    "kalash_number": knum,
                     "text": _lang_text("hin", khi.text_hi),
                     "chhand_type": khi.chhand_type,
                 })
@@ -429,7 +452,7 @@ def _build_mongo_for_gatha(
                     "natural_key": f"{kalash_nk}:word_meanings",
                     "kalash_natural_key": kalash_nk,
                     "teeka_natural_key": primary.natural_key,
-                    "kalash_number": str(kidx),
+                    "kalash_number": knum,
                     "entries": [
                         {"source_word": e.source_word, "meaning": e.meaning, "position": i + 1}
                         for i, e in enumerate(wm_items)
@@ -579,20 +602,23 @@ def _build_neo4j(
                 edges.append(_neo4j_edge("IN_PUBLICATION", "GathaTeekaBhaavarth", gtb_nk, "Publication", primary.publication_natural_key))
 
             # Kalash + KalashBhaavarth nodes for each primary kalash on this page
+            hi_by_gki = {x.global_kalash_index: x for x in g.primary_teeka.kalash_hindi}
             for ksan in g.primary_teeka.kalash_san:
                 kidx = ksan.global_kalash_index
-                kalash_nk = f"{primary.natural_key}:{_KALASH}:{kidx}"
+                khi = hi_by_gki.get(kidx)
+                knum = ksan.verse_number or (khi.verse_number if khi else None) or str(kidx)
+                kalash_nk = f"{primary.natural_key}:{_KALASH}:{knum}"
                 nodes.append(_neo4j_node("Kalash", kalash_nk, {
                     "teeka_natural_key": primary.natural_key,
-                    "kalash_number": str(kidx),
+                    "kalash_number": knum,
                 }))
                 edges.append(_neo4j_edge("IN_TEEKA", "Kalash", kalash_nk, "Teeka", primary.natural_key))
 
                 # KalashBhaavarth node: {pub_nk}:कलश:भावार्थ:{kalash_num}
-                kb_nk = f"{primary.publication_natural_key}:{_KALASH}:{_BHAAVARTH}:{kidx}"
+                kb_nk = f"{primary.publication_natural_key}:{_KALASH}:{_BHAAVARTH}:{knum}"
                 nodes.append(_neo4j_node("KalashBhaavarth", kb_nk, {
                     "publication_natural_key": primary.publication_natural_key,
-                    "kalash_number": str(kidx),
+                    "kalash_number": knum,
                 }))
                 edges.append(_neo4j_edge("IN_PUBLICATION", "KalashBhaavarth", kb_nk, "Publication", primary.publication_natural_key))
 
@@ -755,12 +781,13 @@ def build_envelope(result: ShastraParseResult, cfg: NJConfig) -> dict[str, Any]:
         if nk in seen_kalash_nk:
             continue
         seen_kalash_nk.add(nk)
+        nk_suffix = nk.rsplit(":", 1)[1]
         gatha_ref = next(
             (
                 _gatha_nk(g.shastra_natural_key, g.gatha_number)
                 for g in result.gathas
                 if g.primary_teeka and any(
-                    k.global_kalash_index == int(nk.rsplit(":", 1)[1])
+                    (k.verse_number or str(k.global_kalash_index)) == nk_suffix
                     for k in g.primary_teeka.kalash_san
                 )
             ),

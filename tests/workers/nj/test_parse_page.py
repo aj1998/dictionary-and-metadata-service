@@ -86,7 +86,8 @@ def test_parse_secondary_kalash(cfg, indexes):
 
     files = sorted(f.name for f in cfg.input.resolved_html_dir.iterdir() if f.is_file() and f.name.endswith(".html"))
     preceding = preceding_primary_gatha("012.html", files, primary)
-    kal = parse_secondary_kalash_page(soup, "012.html", preceding, cfg)
+    kals = parse_secondary_kalash_page(soup, "012.html", preceding, cfg)
 
-    assert kal.kalash_number == "012"
-    assert kal.preceding_primary_gatha_number is not None
+    assert isinstance(kals, list) and len(kals) >= 1
+    assert kals[0].kalash_number == "012"
+    assert kals[0].preceding_primary_gatha_number is not None

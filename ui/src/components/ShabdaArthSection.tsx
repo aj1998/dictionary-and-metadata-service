@@ -6,6 +6,12 @@ import { cn } from '@/lib/utils';
 export interface ShabdaArthEntry {
   word: string;
   meaning: string;
+  /** 1-based source position from DB. */
+  position?: number;
+  /** Char offsets within the anvayarth string (from DB). When present, used
+   *  directly for highlighting instead of guessing the occurrence. */
+  startOffset?: number | null;
+  endOffset?: number | null;
 }
 
 interface ShabdaArthSectionProps {
@@ -23,16 +29,45 @@ export function ShabdaArthSection({ entries, anvayarth }: ShabdaArthSectionProps
   }
 
   function renderAnvayarth() {
-    if (!activeMeaning) return anvayarth;
-    const idx = anvayarth.indexOf(activeMeaning);
-    if (idx === -1) return anvayarth;
+    if (!activeMeaning || activeIndex === null) return anvayarth;
+    const active = entries[activeIndex];
+    if (!active) return anvayarth;
+    // Prefer explicit char offsets stored at ingest time — they pin the exact
+    // span in anvayarth even when the meaning string repeats in connecting prose.
+    let start = -1;
+    let end = -1;
+    if (
+      typeof active.startOffset === 'number' &&
+      typeof active.endOffset === 'number' &&
+      active.startOffset >= 0 &&
+      active.endOffset <= anvayarth.length &&
+      active.endOffset > active.startOffset
+    ) {
+      start = active.startOffset;
+      end = active.endOffset;
+    } else {
+      // Fallback: walk the n-th occurrence ranked by position.
+      const sameMeaning = entries
+        .map((e, i) => ({ e, i }))
+        .filter(({ e }) => e.meaning === activeMeaning);
+      sameMeaning.sort((a, b) => (a.e.position ?? a.i) - (b.e.position ?? b.i));
+      const rank = Math.max(1, sameMeaning.findIndex(({ i }) => i === activeIndex) + 1);
+      let from = 0;
+      for (let k = 0; k < rank; k++) {
+        start = anvayarth.indexOf(activeMeaning, from);
+        if (start === -1) break;
+        from = start + activeMeaning.length;
+      }
+      if (start !== -1) end = start + activeMeaning.length;
+    }
+    if (start === -1) return anvayarth;
     return (
       <>
-        {anvayarth.slice(0, idx)}
+        {anvayarth.slice(0, start)}
         <mark className="rounded bg-[var(--accent-soft)] text-[var(--accent)]">
-          {activeMeaning}
+          {anvayarth.slice(start, end)}
         </mark>
-        {anvayarth.slice(idx + activeMeaning.length)}
+        {anvayarth.slice(end)}
       </>
     );
   }

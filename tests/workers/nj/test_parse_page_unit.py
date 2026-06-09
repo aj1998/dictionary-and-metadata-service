@@ -133,7 +133,8 @@ def test_parse_secondary_kalash_page(nj_cfg):
 <div id="teeka0"><div class="steeka" id="steeka0">संस्कृतांश</div><div>हिंदी</div></div>
 """.strip()
     soup = BeautifulSoup(html, "lxml")
-    kal = parse_secondary_kalash_page(soup, "012.html", "010", nj_cfg)
+    kals = parse_secondary_kalash_page(soup, "012.html", "010", nj_cfg)
+    kal = kals[0]
     assert kal.kalash_number == "012"
     assert kal.heading_hi == "जयसेन शीर्षक"
     assert kal.preceding_primary_gatha_number == "010"

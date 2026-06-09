@@ -196,6 +196,19 @@ Test files:
 | Verse-end marker number ≠ gatha number | Splitting is positional (finds first N−1 `||M||`/`॥M॥` regardless of M), so mismatched internal numbering (e.g. `॥20॥` on page 017-018) is handled correctly |
 | Chhand marker missing `कलश-` prefix | Source HTML sometimes labels only the first marker as `(कलश-X)` and subsequent siblings as bare `(Y)` (e.g. samaysaar 016.html kalashes 12, 13). Marker detection uses a permissive regex `\(([^)]+)\)` inside a DarkSlateGray `<font>`; `_extract_chhand_type` strips an optional leading `कलश-`. Without this, multiple verses collapsed into a single kalash entry and the global kalash counter under-incremented, shifting subsequent kalashes onto the wrong gatha. |
 | Sanskrit kalash newlines in `<br>`-separated nodes | `_parse_sanskrit_kalashes_from_nodes` (fallback path when kalashes are direct children of `steeka0`, not wrapped in a `div.gadya`) preserves `<br>` as `\n` and flushes via `_clean_preserve_newlines`, matching the gadya-path behaviour. |
+| Shared chhand marker followed by multiple verses | Some pages (e.g. samaysaar `104.html` अनुष्टुभ्) have one `(कलश-X)` marker followed by **two consecutive verses** (`॥६१॥` then `॥६२॥`) without a second marker. `_split_kalash_verses` walks the collected chunk, splits on each `॥N॥`/`||N||` boundary, and emits one `KalashSanskritEntry` per verse — all inheriting the same `chhand_type`. Without this, verses 61+62 merged into one entry, undercounting kalashes and shifting subsequent kalashes (hindi side got orphaned onto the wrong gatha). |
+| Bare `॥` / `||` verse-end (no digits) | Source occasionally ends a verse with a bare `॥` (e.g. samaysaar `123-125.html` gathas 119, 120). `_VERSE_END_MARKER_RE`, `_ANY_VERSE_MARKER_RE`, and `_TRAILING_VERSE_RE` accept either `॥N॥` or bare `॥`; alternation order keeps `॥N॥` preferred so digit markers still match as one unit. This unblocks multi-gatha splitting on pages where only a subset of verses have numbered end markers. |
+| Secondary-only multi-gatha pages | Pages absent from the primary index but present in the secondary index with a hyphenated `gatha_number` (e.g. `131-133.html` → `"131-133"`) are now expanded by `parse_secondary_kalash_page`: it returns `list[KalashExtract]`, one per gatha number, splitting the prakrit text via `_split_combined_text_by_markers`. The shared `secondary_teeka` is copied to every entry. The orchestrator uses `secondary_kalashes.extend(...)` and passes `secondary_entry=secondary_index.get(filename)`. |
+
+---
+
+## Canonical kalash number
+
+`kalash_number` is now derived from the source-of-truth `॥N॥` verse-end marker inside each kalash's text (Devanagari or ASCII digits, NFC-normalised). The new `verse_number: Optional[str]` field on `KalashSanskritEntry` and `KalashHindiEntry` carries this. The envelope (`envelope.py`) prefers `verse_number` for both the Mongo `kalash_number` field and the NK suffix (`…:कलश:{verse_number}`), falling back to the sequential `global_kalash_index` when the marker is absent. This makes NKs stable against parser undercounts and matches the source's printed kalash numbering.
+
+## Anyavartha char offsets
+
+When building `teeka_gatha_mapping` documents, the envelope now walks `full_anyavaarth` in source order and records each tagged term's `start_offset` / `end_offset` char positions. Because tagged terms are emitted in source order and `full_anyavaarth` is the same prose minus the bracketed source-word markers, a sequential cursor-search captures the correct span even when the same meaning string repeats in connecting prose. The UI uses these offsets directly to highlight, eliminating "n-th occurrence" guessing.
 
 ---
 

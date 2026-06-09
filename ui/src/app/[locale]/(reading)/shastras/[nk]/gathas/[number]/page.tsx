@@ -97,6 +97,12 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
 
   const teekaMapping = Array.isArray(gatha.teeka_mapping) ? gatha.teeka_mapping : [];
   const primaryMapping = teekaMapping[0] ?? null;
+
+  // Derive a short teeka name from the teeka natural_key (e.g. "समयसार:आत्मख्याति" → "आत्मख्याति")
+  function teekaShortName(teekaKn: string): string {
+    const parts = teekaKn.split(':');
+    return parts.length >= 2 ? parts[1] : teekaKn;
+  }
   const teekaBhaavarth = Array.isArray(gatha.teeka_bhaavarth) ? gatha.teeka_bhaavarth : [];
   const teekaSanskrit = Array.isArray(gatha.teeka_sanskrit) ? gatha.teeka_sanskrit : [];
   const kalashas: GathaKalash[] = Array.isArray(gatha.kalashas) ? gatha.kalashas : [];
@@ -126,6 +132,26 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
     return { ka: chip('का'), ki: chip('की') };
   })() : null;
 
+  // Per-teeka combined-page notice keyed by teeka_natural_key. Non-primary teekas
+  // (e.g. तात्पर्यवृत्ति) get the teeka short name prepended.
+  const noticeByTeeka = new Map<string, import('react').ReactNode>();
+  teekaMapping.forEach((m, idx) => {
+    const rel = m.is_related ?? [];
+    if (rel.length === 0) return;
+    const allNums = [gathaNumStr, ...rel]
+      .map((n) => parseInt(n, 10))
+      .filter((n) => !isNaN(n))
+      .sort((a, b) => a - b);
+    const devList = allNums.map((n) => toDevanagariNumerals(n)).join(', ');
+    const prefix = idx === 0 ? '' : `${teekaShortName(m.teeka_natural_key)} `;
+    noticeByTeeka.set(
+      m.teeka_natural_key,
+      <span key={`combined-${m.teeka_natural_key}`} className="inline-flex items-center gap-1 rounded-full border border-border bg-surface-muted px-2.5 py-0.5 font-serif-hindi text-[11px] text-foreground-muted">
+        {prefix}गाथा {devList} का संयुक्त
+      </span>
+    );
+  });
+
   // टीका sidebar — tabs of sanskrit teeka text
   const teekaItems: TeekaPanelItem[] = teekaSanskrit.map((ts) => {
     const content = joinedLangText(ts.text);
@@ -144,11 +170,14 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   // Secondary-kalash entries are filtered out server-side.
   const bhaavarthItems: TabbedPanelItem[] = teekaBhaavarth.map((bh) => {
     const bText = getHindiText(bh.text, bh.natural_key);
+    // bh.gatha_teeka_natural_key is `{sn}:{tn}:{g}` — strip the gatha suffix to get teeka_natural_key.
+    const teekaNk = bh.gatha_teeka_natural_key.split(':').slice(0, -1).join(':');
     return {
       key: bh.natural_key,
       label: bh.publication_natural_key ?? bh.natural_key,
       actionsSourceNk: gathaTeekaBhaavarthNeo4jNk(bh),
       actionsSourceLabel: bh.publication_natural_key ?? bh.natural_key,
+      notice: noticeByTeeka.get(teekaNk),
       content: (
         <BhaavarthPanel
           text={bText}
@@ -160,17 +189,34 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
     };
   });
 
-  // Derive a short teeka name from the teeka natural_key (e.g. "समयसार:आत्मख्याति" → "आत्मख्याति")
-  function teekaShortName(teekaKn: string): string {
-    const parts = teekaKn.split(':');
-    return parts.length >= 2 ? parts[1] : teekaKn;
-  }
+  // For each secondary-teeka kalash, its siblings are all OTHER secondary kalashes
+  // with the same teeka shown on this page (they come from the same combined-page).
+  // When siblings exist, the bhaavarth gets a "{teeka} गाथा N, M, ... का संयुक्त" chip.
+  const secondaryKalashNotice = (kalash: GathaKalash): import('react').ReactNode => {
+    if (!kalash.is_secondary) return null;
+    const siblings = kalashas.filter(
+      (k) => k.is_secondary && k.teeka_natural_key === kalash.teeka_natural_key && k.kalash_number !== kalash.kalash_number,
+    );
+    if (siblings.length === 0) return null;
+    const allNums = [kalash.kalash_number, ...siblings.map((s) => s.kalash_number)]
+      .map((n) => parseInt(n, 10))
+      .filter((n) => !isNaN(n))
+      .sort((a, b) => a - b);
+    const devList = allNums.map((n) => toDevanagariNumerals(n)).join(', ');
+    const tn = teekaShortName(kalash.teeka_natural_key);
+    return (
+      <span className="inline-flex items-center gap-1 rounded-full border border-border bg-surface-muted px-2.5 py-0.5 font-serif-hindi text-[11px] text-foreground-muted">
+        {tn} गाथा {devList} का संयुक्त
+      </span>
+    );
+  };
 
   // Kalash/secondary-gatha tabs — render in left column as a tabbed window
   const kalashItems: TabbedPanelItem[] = kalashas.map((kalash) => {
     const prefix = kalash.is_secondary ? 'गाथा' : 'कलश';
     const teeka = teekaShortName(kalash.teeka_natural_key);
     const label = `${prefix}:${teeka}:${kalash.kalash_number}`;
+    const bhaavarthNotice = secondaryKalashNotice(kalash);
     return {
     key: kalash.natural_key,
     label,
@@ -225,7 +271,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
                 <ShabdaArthSection
                   entries={[...kalash.word_meanings.entries]
                     .sort((a, b) => a.position - b.position)
-                    .map((e) => ({ word: e.source_word, meaning: e.meaning }))}
+                    .map((e) => ({ word: e.source_word, meaning: e.meaning, position: e.position }))}
                   anvayarth={[...kalash.word_meanings.entries]
                     .sort((a, b) => a.position - b.position)
                     .map((e) => e.meaning)
@@ -244,6 +290,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
             <BhaavarthPanel
               key={bh.natural_key}
               label={kalash.is_secondary ? 'भावार्थ' : 'कलश भावार्थ'}
+              notice={bhaavarthNotice}
               text={bText}
               naturalKey={bh.natural_key}
               highlight={highlightFor(match, bh.natural_key, bText)}
@@ -315,7 +362,13 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
           </div>
           {primaryMapping?.tagged_terms.length ? (
             <ShabdaArthSection
-              entries={primaryMapping.tagged_terms.map((t) => ({ word: t.source_word, meaning: t.meaning }))}
+              entries={primaryMapping.tagged_terms.map((t) => ({
+                word: t.source_word,
+                meaning: t.meaning,
+                position: t.position,
+                startOffset: t.start_offset,
+                endOffset: t.end_offset,
+              }))}
               anvayarth={primaryMapping.full_anyavaarth ?? primaryMapping.tagged_terms.map((t) => t.meaning).join(' ')}
             />
           ) : primaryMapping?.full_anyavaarth ? (

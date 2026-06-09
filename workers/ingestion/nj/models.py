@@ -30,6 +30,7 @@ class KalashSanskritEntry(BaseModel):
     global_kalash_index: int   # sequential across all pages in sorted file order
     chhand_type: str           # "अनुष्टुभ्", "मालिनी", "रोला" etc.
     text_san: str
+    verse_number: Optional[str] = None  # canonical kalash # from trailing ॥N॥ in source
 
 
 class KalashHindiEntry(BaseModel):
@@ -37,6 +38,7 @@ class KalashHindiEntry(BaseModel):
     global_kalash_index: int
     chhand_type: str           # from <span class=notes>(कलश-XXX)</span>
     text_hi: str
+    verse_number: Optional[str] = None  # canonical kalash # from trailing ॥N॥ in source
 
 
 class KalashWMEntry(BaseModel):

@@ -62,8 +62,14 @@ def parse_shastra(
             # preceding primary reference is computed in full eligible ordering,
             # not only within the current batch window.
             preceding = preceding_primary_gatha(filename, eligible_files, primary_index)
-            secondary_kalashes.append(
-                parse_secondary_kalash_page(soup, filename, preceding, cfg)
+            secondary_kalashes.extend(
+                parse_secondary_kalash_page(
+                    soup,
+                    filename,
+                    preceding,
+                    cfg,
+                    secondary_entry=secondary_index.get(filename),
+                )
             )
         else:
             warnings.append(f"unclassified page: {filename}")
