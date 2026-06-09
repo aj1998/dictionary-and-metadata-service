@@ -4,7 +4,7 @@ import { splitHighlight } from '@/lib/highlight';
 import type { HighlightRange } from '@/lib/highlight';
 import { teekaMarkdownToHtml } from '@/lib/format/teeka-markdown';
 import { parseBhaavarthSegments } from '@/lib/format/bhaavarth-segments';
-import { TaggedTermPopover } from '@/components/TaggedTermPopover';
+import { ShabdaArthSection } from '@/components/ShabdaArthSection';
 
 export interface BhaavarthPanelProps {
   label?: string;
@@ -52,19 +52,10 @@ export function BhaavarthPanel({ label, text, naturalKey, highlight, className, 
               const anvayarth = segment.items.map((entry) => entry.meaning).join(' ');
               return (
                 <section key={`chips-${index}`} className="rounded-[var(--radius-md)] border border-border/70 bg-surface-2/40 p-4">
-                  <div className="flex flex-wrap gap-2 leading-8">
-                    {segment.items.map((entry, itemIndex) => (
-                      <TaggedTermPopover
-                        key={`${entry.word}-${itemIndex}`}
-                        termHi={entry.word}
-                        meaningHi={entry.meaning}
-                      />
-                    ))}
-                  </div>
-                  <div className="mt-4 border-t border-border pt-4">
-                    <p className="mb-1 text-xs font-medium text-foreground-muted">अन्वयार्थ</p>
-                    <p className="font-serif-hindi text-sm leading-8 text-foreground">{anvayarth}</p>
-                  </div>
+                  <ShabdaArthSection
+                    entries={segment.items.map((e) => ({ word: e.word, meaning: e.meaning }))}
+                    anvayarth={anvayarth}
+                  />
                 </section>
               );
             }

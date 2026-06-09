@@ -6,7 +6,7 @@ import { HighlightScrollIntoView } from '@/components/HighlightScrollIntoView';
 import { PanelActionsMenu } from '@/components/PanelActionsMenu';
 import { TabbedPanel } from '@/components/TabbedPanel';
 import type { TabbedPanelItem } from '@/components/TabbedPanel';
-import { TaggedTermPopover } from '@/components/TaggedTermPopover';
+import { ShabdaArthSection } from '@/components/ShabdaArthSection';
 import { TeekaPanel } from '@/components/TeekaPanel';
 import { TopicNavAction } from '@/components/TopicNavAction';
 import type { TeekaPanelItem } from '@/components/TeekaPanel';
@@ -200,26 +200,15 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
             {kalash.word_meanings && kalash.word_meanings.entries.length > 0 && (
               <section className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
                 <h2 className="mb-3 font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">शब्दार्थ</h2>
-                <div className="flex flex-wrap gap-2 leading-8">
-                  {[...kalash.word_meanings.entries]
+                <ShabdaArthSection
+                  entries={[...kalash.word_meanings.entries]
                     .sort((a, b) => a.position - b.position)
-                    .map((entry, index) => (
-                      <TaggedTermPopover
-                        key={`${entry.source_word}-${index}`}
-                        termHi={entry.source_word}
-                        meaningHi={entry.meaning}
-                      />
-                    ))}
-                </div>
-                <div className="mt-4 border-t border-border pt-4">
-                  <p className="mb-1 text-xs font-medium text-foreground-muted">अन्वयार्थ</p>
-                  <p className="font-serif-hindi text-sm leading-8 text-foreground">
-                    {[...kalash.word_meanings.entries]
-                      .sort((a, b) => a.position - b.position)
-                      .map((e) => e.meaning)
-                      .join(' ')}
-                  </p>
-                </div>
+                    .map((e) => ({ word: e.source_word, meaning: e.meaning }))}
+                  anvayarth={[...kalash.word_meanings.entries]
+                    .sort((a, b) => a.position - b.position)
+                    .map((e) => e.meaning)
+                    .join(' ')}
+                />
               </section>
             )}
           </>
@@ -291,26 +280,17 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
             <PanelActionsMenu sourceNk={gathaNk} sourceLabel={`गाथा ${gatha.gatha_number || number}`} />
           </div>
           {primaryMapping?.tagged_terms.length ? (
-            <div className="flex flex-wrap gap-2 leading-8">
-              {primaryMapping.tagged_terms.map((term, index) => (
-                <TaggedTermPopover
-                  key={`${term.source_word}-${index}`}
-                  termHi={term.source_word}
-                  meaningHi={term.meaning}
-                />
-              ))}
+            <ShabdaArthSection
+              entries={primaryMapping.tagged_terms.map((t) => ({ word: t.source_word, meaning: t.meaning }))}
+              anvayarth={primaryMapping.full_anyavaarth ?? primaryMapping.tagged_terms.map((t) => t.meaning).join(' ')}
+            />
+          ) : primaryMapping?.full_anyavaarth ? (
+            <div>
+              <p className="mb-1 text-xs font-medium text-foreground-muted">अन्वयार्थ</p>
+              <p className="font-serif-hindi text-sm leading-8 text-foreground">{primaryMapping.full_anyavaarth}</p>
             </div>
           ) : (
             <p className="text-sm text-foreground-muted">शब्दार्थ उपलब्ध नहीं है।</p>
-          )}
-
-          {primaryMapping?.full_anyavaarth && (
-            <div className="mt-4 border-t border-border pt-4">
-              <p className="mb-1 text-xs font-medium text-foreground-muted">अन्वयार्थ</p>
-              <p className="font-serif-hindi text-sm leading-8 text-foreground">
-                {primaryMapping.full_anyavaarth}
-              </p>
-            </div>
           )}
         </section>
 

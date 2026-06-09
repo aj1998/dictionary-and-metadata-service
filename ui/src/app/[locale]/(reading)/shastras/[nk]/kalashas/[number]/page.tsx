@@ -1,6 +1,6 @@
 import { BreadcrumbBar } from '@/components/BreadcrumbBar';
 import { GathaPanel } from '@/components/GathaPanel';
-import { TaggedTermPopover } from '@/components/TaggedTermPopover';
+import { ShabdaArthSection } from '@/components/ShabdaArthSection';
 import { Link } from '@/i18n/navigation';
 import { getKalash, getKalashWordMeanings } from '@/lib/api/data';
 
@@ -50,15 +50,10 @@ export default async function KalashDetailPage({ params }: PageProps) {
         {wordMeanings && wordMeanings.entries.length > 0 && (
           <section className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
             <h2 className="mb-3 font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">शब्दार्थ</h2>
-            <div className="flex flex-wrap gap-2 leading-8">
-              {wordMeanings.entries.map((entry) => (
-                <TaggedTermPopover
-                  key={`${entry.source_word}-${entry.position}`}
-                  termHi={entry.source_word}
-                  meaningHi={entry.meaning}
-                />
-              ))}
-            </div>
+            <ShabdaArthSection
+              entries={wordMeanings.entries.map((e) => ({ word: e.source_word, meaning: e.meaning }))}
+              anvayarth={wordMeanings.entries.map((e) => e.meaning).join(' ')}
+            />
           </section>
         )}
 
