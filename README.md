@@ -19,7 +19,11 @@ Features -
 </p>
 <p float="left">
   <img src="images/detail2.png" width="49%" />
-  <img src="images/reader.png" width="49%" />
+  <img src="images/reader-match.png" width="49%" />
+</p>
+<p float="left">
+  <img src="images/reader1.png" width="49%" />
+  <img src="images/reader2.png" width="49%" />
 </p>
 
 - A digital preservation initiative for Jain Shastras including a **Shastra Reader** with various AI enhancements.
