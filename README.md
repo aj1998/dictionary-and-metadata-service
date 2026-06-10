@@ -17,6 +17,9 @@ Features -
   <img src="images/graph.png" width="49%" />
   <img src="images/detail1.png" width="49%" />
 </p>
+
+- A digital preservation initiative for Jain Shastras including a **Shastra Reader** with various AI enhancements.
+
 <p float="left">
   <img src="images/detail2.png" width="49%" />
   <img src="images/reader-match.png" width="49%" />
@@ -25,8 +28,6 @@ Features -
   <img src="images/reader1.png" width="49%" />
   <img src="images/reader2.png" width="49%" />
 </p>
-
-- A digital preservation initiative for Jain Shastras including a **Shastra Reader** with various AI enhancements.
 
 Enhancing `cataloguesearch-chat` with - 
 - **Finding exact** sanskrit/prakrit/hindi gatha from shastras and understanding it word to word.
