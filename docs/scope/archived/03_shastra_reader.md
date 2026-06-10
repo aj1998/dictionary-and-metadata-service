@@ -13,7 +13,7 @@ Different shastra families have different native structures (not fixed). The rea
 | Tatvarth-sutra | adhyaay → sutra → bhashya |
 | Puraan (Padma, Harivansha, etc.) | parva → sarga → shloka |
 | Mantra-shastra (Sahasranaam etc.) | shloka with mantra-meta |
-| Siri Bhoovalay | chakra → ank/grid (special viewer, see [07](./07_siri_bhoovalay_and_research_models.md)) |
+| Siri Bhoovalay | chakra → ank/grid (special viewer, see [07](../07_siri_bhoovalay_and_research_models.md)) |
 
 Each shastra ships with a small layout config (YAML/JSON) declaring its structure and how to render it along with canonical names of the components (for ex. gatha = shloka etc.). New shastras only need a new config — code stays the same. Spec: `design/scope/02_shastra_layout_configs_spec.md`.
 
