@@ -12,6 +12,8 @@ from workers.ingestion.nj.models import (
     KalashWMEntry,
     PrimaryTeeka,
     SecondaryTeeka,
+    ShortFontAnchor,
+    ShortFontEntry,
     ShastraParseResult,
 )
 from workers.ingestion.nj.envelope import _GATHA, _KALASH, _TEEKA, _BHAAVARTH, _ADHYAAY
@@ -528,3 +530,174 @@ def test_teeka_chapter_nk_uses_hindi_adhyaay():
     g = _make_gatha(gatha_number="001", adhikaar_number=1, adhikaar_hi="मंगलाचरण")
     chapters = build_envelope(_make_result(gathas=[g]), cfg)["would_write"]["postgres"]["teeka_chapters"]
     assert ":अध्याय:" in chapters[0]["natural_key"], f"Expected Hindi अध्याय, got: {chapters[0]['natural_key']}"
+
+
+# ---------------------------------------------------------------------------
+# shortfont — gatha_teeka_bhaavarth_shortfont
+# ---------------------------------------------------------------------------
+
+def _make_sf_entry(n=1) -> ShortFontEntry:
+    return ShortFontEntry(
+        marker_number=n,
+        marker_devanagari=str(n),
+        anchor_text="मोक्ष-मार्ग",
+        meaning="मोक्ष का विस्तार",
+        is_definition=True,
+        occurrences=[ShortFontAnchor(start_offset=10, end_offset=20)],
+    )
+
+
+def test_shortfont_doc_emitted_when_entries_present():
+    cfg = _cfg()
+    g = _make_gatha(
+        gatha_number="161",
+        primary_teeka=PrimaryTeeka(
+            gatha_teeka_bhaavarth_md="भावार्थ text",
+            gatha_teeka_bhaavarth_shortfont=[_make_sf_entry()],
+        ),
+    )
+    ww = build_envelope(_make_result(gathas=[g]), cfg)["would_write"]
+    sf_docs = ww["mongo"]["gatha_teeka_bhaavarth_shortfont"]
+    assert len(sf_docs) == 1
+    doc = sf_docs[0]
+    assert doc["collection"] == "gatha_teeka_bhaavarth_shortfont"
+    assert doc["gatha_number"] == "161"
+    assert len(doc["entries"]) == 1
+    entry = doc["entries"][0]
+    assert entry["marker_number"] == 1
+    assert entry["anchor_text"] == "मोक्ष-मार्ग"
+    assert entry["meaning"] == "मोक्ष का विस्तार"
+    assert entry["is_definition"] is True
+    assert entry["occurrences"] == [{"start_offset": 10, "end_offset": 20}]
+
+
+def test_shortfont_doc_not_emitted_when_entries_empty():
+    cfg = _cfg()
+    g = _make_gatha(
+        gatha_number="001",
+        primary_teeka=PrimaryTeeka(
+            gatha_teeka_bhaavarth_md="भावार्थ text",
+            gatha_teeka_bhaavarth_shortfont=[],
+        ),
+    )
+    ww = build_envelope(_make_result(gathas=[g]), cfg)["would_write"]
+    assert ww["mongo"]["gatha_teeka_bhaavarth_shortfont"] == []
+
+
+def test_shortfont_nk_pattern():
+    cfg = _cfg()
+    g = _make_gatha(
+        gatha_number="161",
+        primary_teeka=PrimaryTeeka(
+            gatha_teeka_bhaavarth_shortfont=[_make_sf_entry()],
+        ),
+    )
+    ww = build_envelope(_make_result(gathas=[g]), cfg)["would_write"]
+    doc = ww["mongo"]["gatha_teeka_bhaavarth_shortfont"][0]
+    assert doc["natural_key"].endswith(":shortfont")
+    assert doc["bhaavarth_natural_key"] == doc["natural_key"][:-len(":shortfont")]
+    # NK contains गाथा:टीका:भावार्थ per spec
+    assert ":गाथा:टीका:भावार्थ:" in doc["natural_key"]
+    assert doc["natural_key"].endswith(":161:shortfont")
+
+
+def test_shortfont_multi_gatha_duplication():
+    """Combined page: entries duplicated for both gatha NKs."""
+    cfg = _cfg()
+    g009 = _make_gatha(
+        gatha_number="009",
+        html_filename="009-010.html",
+        is_combined_page=True,
+        related_gatha_numbers=["010"],
+        primary_teeka=PrimaryTeeka(
+            gatha_teeka_bhaavarth_shortfont=[_make_sf_entry()],
+        ),
+    )
+    g010 = _make_gatha(
+        gatha_number="010",
+        html_filename="009-010.html",
+        is_combined_page=True,
+        related_gatha_numbers=["009"],
+        primary_teeka=PrimaryTeeka(
+            gatha_teeka_bhaavarth_shortfont=[_make_sf_entry()],
+        ),
+    )
+    ww = build_envelope(_make_result(gathas=[g009, g010]), cfg)["would_write"]
+    sf_docs = ww["mongo"]["gatha_teeka_bhaavarth_shortfont"]
+    nks = {d["natural_key"] for d in sf_docs}
+    assert any("9:shortfont" in nk for nk in nks)
+    assert any("10:shortfont" in nk for nk in nks)
+    assert len(sf_docs) == 2
+
+
+def test_secondary_teeka_shortfont_emitted():
+    cfg = _cfg()
+    g = _make_gatha(
+        gatha_number="001",
+        secondary_teeka=SecondaryTeeka(
+            gatha_teeka_bhaavarth_shortfont=[_make_sf_entry()],
+        ),
+    )
+    ww = build_envelope(_make_result(gathas=[g]), cfg)["would_write"]
+    sf_docs = ww["mongo"]["gatha_teeka_bhaavarth_shortfont"]
+    assert len(sf_docs) == 1
+    # must use secondary publication NK
+    from workers.ingestion.nj.config import load_config_for_shastra
+    secondary = load_config_for_shastra("samaysaar").shastra.secondary_teekas[0]
+    assert sf_docs[0]["publication_natural_key"] == secondary.publication_natural_key
+
+
+def test_kalash_shortfont_emitted():
+    cfg = _cfg()
+    g = _make_gatha(
+        gatha_number="001",
+        primary_teeka=PrimaryTeeka(
+            kalash_san=[KalashSanskritEntry(local_kalash_index=1, global_kalash_index=4, chhand_type="अनुष्टुभ्", text_san="san")],
+            kalash_hindi=[KalashHindiEntry(
+                local_kalash_index=1,
+                global_kalash_index=4,
+                chhand_type="दोहा",
+                text_hi="hi",
+                shortfont=[_make_sf_entry()],
+            )],
+        ),
+    )
+    ww = build_envelope(_make_result(gathas=[g]), cfg)["would_write"]
+    sf_docs = ww["mongo"]["kalash_bhaavarth_shortfont"]
+    assert len(sf_docs) == 1
+    doc = sf_docs[0]
+    assert doc["collection"] == "kalash_bhaavarth_shortfont"
+    assert doc["kalash_number"] == "4"
+    assert doc["natural_key"] == "समयसार:आत्मख्याति:कलश:4:shortfont"
+    assert doc["kalash_natural_key"] == "समयसार:आत्मख्याति:कलश:4"
+    assert len(doc["entries"]) == 1
+
+
+def test_kalash_shortfont_not_emitted_when_empty():
+    cfg = _cfg()
+    g = _make_gatha(
+        gatha_number="001",
+        primary_teeka=PrimaryTeeka(
+            kalash_san=[KalashSanskritEntry(local_kalash_index=1, global_kalash_index=1, chhand_type="अनुष्टुभ्", text_san="san")],
+            kalash_hindi=[KalashHindiEntry(
+                local_kalash_index=1,
+                global_kalash_index=1,
+                chhand_type="दोहा",
+                text_hi="hi",
+                shortfont=[],
+            )],
+        ),
+    )
+    ww = build_envelope(_make_result(gathas=[g]), cfg)["would_write"]
+    assert ww["mongo"]["kalash_bhaavarth_shortfont"] == []
+
+
+def test_shortfont_idempotency_contracts_present():
+    cfg = _cfg()
+    contracts = build_envelope(_make_result(), cfg)["would_write"]["idempotency_contracts"]
+    assert "mongo:gatha_teeka_bhaavarth_shortfont" in contracts
+    assert "mongo:kalash_bhaavarth_shortfont" in contracts
+    sf_contract = contracts["mongo:gatha_teeka_bhaavarth_shortfont"]
+    assert sf_contract["conflict_key"] == ["natural_key"]
+    assert sf_contract["on_conflict"] == "do_update"
+    assert "entries" in sf_contract["fields_replace"]

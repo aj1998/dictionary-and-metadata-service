@@ -77,6 +77,22 @@ _NJ_CONTRACTS: dict[str, dict] = {
         "fields_skip_if_set": [],
         "stores": ["mongo:kalash_word_meanings"],
     },
+    "mongo:gatha_teeka_bhaavarth_shortfont": {
+        "conflict_key": ["natural_key"],
+        "on_conflict": "do_update",
+        "fields_replace": ["entries", "ingestion_run_id", "updated_at"],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": ["mongo:gatha_teeka_bhaavarth_shortfont"],
+    },
+    "mongo:kalash_bhaavarth_shortfont": {
+        "conflict_key": ["natural_key"],
+        "on_conflict": "do_update",
+        "fields_replace": ["entries", "ingestion_run_id", "updated_at"],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": ["mongo:kalash_bhaavarth_shortfont"],
+    },
     "mongo:teeka_gatha_mapping": {
         "conflict_key": ["natural_key"],
         "on_conflict": "do_update",
@@ -279,6 +295,24 @@ _BHAAVARTH = "भावार्थ"
 _ADHYAAY = "अध्याय"
 
 
+def _shortfont_entries(sf_list) -> list[dict[str, Any]]:
+    """Convert a list of ShortFontEntry models to serialisable dicts."""
+    return [
+        {
+            "marker_number": e.marker_number,
+            "marker_devanagari": e.marker_devanagari,
+            "anchor_text": e.anchor_text,
+            "meaning": e.meaning,
+            "is_definition": e.is_definition,
+            "occurrences": [
+                {"start_offset": o.start_offset, "end_offset": o.end_offset}
+                for o in e.occurrences
+            ],
+        }
+        for e in sf_list
+    ]
+
+
 def _build_mongo_for_gatha(
     g: GathaExtract,
     primary: TeekaConfig,
@@ -293,9 +327,11 @@ def _build_mongo_for_gatha(
         "teeka_gatha_mapping": [],
         "gatha_teeka_sanskrit": [],
         "gatha_teeka_bhaavarth_hindi": [],
+        "gatha_teeka_bhaavarth_shortfont": [],
         "kalash_sanskrit": [],
         "kalash_hindi": [],
         "kalash_word_meanings": [],
+        "kalash_bhaavarth_shortfont": [],
     }
 
     norm_gatha_num = _norm_num(g.gatha_number)
@@ -398,6 +434,17 @@ def _build_mongo_for_gatha(
             "gatha_number": norm_gatha_num,
             "text": _lang_text("hin", g.primary_teeka.gatha_teeka_bhaavarth_md),
         })
+    if g.primary_teeka and g.primary_teeka.gatha_teeka_bhaavarth_shortfont:
+        bhaavarth_nk = f"{primary.publication_natural_key}:{_GATHA}:{_TEEKA}:{_BHAAVARTH}:{norm_gatha_num}"
+        out["gatha_teeka_bhaavarth_shortfont"].append({
+            "collection": "gatha_teeka_bhaavarth_shortfont",
+            "natural_key": f"{bhaavarth_nk}:shortfont",
+            "bhaavarth_natural_key": bhaavarth_nk,
+            "publication_natural_key": primary.publication_natural_key,
+            "gatha_natural_key": gatha_nk,
+            "gatha_number": norm_gatha_num,
+            "entries": _shortfont_entries(g.primary_teeka.gatha_teeka_bhaavarth_shortfont),
+        })
     if secondary and g.secondary_teeka and g.secondary_teeka.gatha_teeka_bhaavarth_md:
         out["gatha_teeka_bhaavarth_hindi"].append({
             "collection": "gatha_teeka_bhaavarth_hindi",
@@ -408,6 +455,17 @@ def _build_mongo_for_gatha(
             "publisher_id": secondary.publisher_id,
             "gatha_number": norm_gatha_num,
             "text": _lang_text("hin", g.secondary_teeka.gatha_teeka_bhaavarth_md),
+        })
+    if secondary and g.secondary_teeka and g.secondary_teeka.gatha_teeka_bhaavarth_shortfont:
+        bhaavarth_j_nk = f"{secondary.publication_natural_key}:{_GATHA}:{_TEEKA}:{_BHAAVARTH}:{norm_gatha_num}"
+        out["gatha_teeka_bhaavarth_shortfont"].append({
+            "collection": "gatha_teeka_bhaavarth_shortfont",
+            "natural_key": f"{bhaavarth_j_nk}:shortfont",
+            "bhaavarth_natural_key": bhaavarth_j_nk,
+            "publication_natural_key": secondary.publication_natural_key,
+            "gatha_natural_key": gatha_nk,
+            "gatha_number": norm_gatha_num,
+            "entries": _shortfont_entries(g.secondary_teeka.gatha_teeka_bhaavarth_shortfont),
         })
 
     if g.primary_teeka:
@@ -458,6 +516,15 @@ def _build_mongo_for_gatha(
                         for i, e in enumerate(wm_items)
                     ],
                 })
+            if khi and khi.shortfont:
+                out["kalash_bhaavarth_shortfont"].append({
+                    "collection": "kalash_bhaavarth_shortfont",
+                    "natural_key": f"{kalash_nk}:shortfont",
+                    "kalash_natural_key": kalash_nk,
+                    "teeka_natural_key": primary.natural_key,
+                    "kalash_number": knum,
+                    "entries": _shortfont_entries(khi.shortfont),
+                })
 
     return out
 
@@ -474,6 +541,7 @@ def _build_mongo_for_secondary_kalash(
         "gatha_prakrit": [],
         "gatha_teeka_sanskrit": [],
         "gatha_teeka_bhaavarth_hindi": [],
+        "kalash_bhaavarth_shortfont": [],
     }
     if k.prakrit_text:
         out["gatha_prakrit"].append({
@@ -505,6 +573,15 @@ def _build_mongo_for_secondary_kalash(
             "publisher_id": secondary.publisher_id,
             "gatha_number": norm_kalash_num,
             "text": _lang_text("hin", k.secondary_teeka.gatha_teeka_bhaavarth_md),
+        })
+    if k.secondary_teeka and k.secondary_teeka.gatha_teeka_bhaavarth_shortfont:
+        out["kalash_bhaavarth_shortfont"].append({
+            "collection": "kalash_bhaavarth_shortfont",
+            "natural_key": f"{kalash_j_nk}:shortfont",
+            "kalash_natural_key": kalash_j_nk,
+            "teeka_natural_key": secondary.natural_key,
+            "kalash_number": norm_kalash_num,
+            "entries": _shortfont_entries(k.secondary_teeka.gatha_teeka_bhaavarth_shortfont),
         })
     return out
 
@@ -718,9 +795,11 @@ def build_envelope(result: ShastraParseResult, cfg: NJConfig) -> dict[str, Any]:
             "teeka_gatha_mapping": [],
             "gatha_teeka_sanskrit": [],
             "gatha_teeka_bhaavarth_hindi": [],
+            "gatha_teeka_bhaavarth_shortfont": [],
             "kalash_sanskrit": [],
             "kalash_hindi": [],
             "kalash_word_meanings": [],
+            "kalash_bhaavarth_shortfont": [],
         },
         "neo4j": {"nodes": [], "edges": []},
         "idempotency_contracts": _NJ_CONTRACTS,

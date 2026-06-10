@@ -300,6 +300,39 @@ class KalashWordMeanings(BaseModel):
     ingestion_run_id: Optional[str] = None
 
 
+class BhaavarthShortFontOccurrence(BaseModel):
+    start_offset: int
+    end_offset: int
+
+
+class BhaavarthShortFontEntry(BaseModel):
+    marker_number: int
+    marker_devanagari: str
+    anchor_text: str
+    meaning: str
+    is_definition: bool
+    occurrences: list[BhaavarthShortFontOccurrence]
+
+
+class BhaavarthShortFontDoc(BaseModel):
+    natural_key: str
+    bhaavarth_natural_key: str
+    publication_natural_key: str
+    gatha_natural_key: str
+    gatha_number: str
+    entries: list[BhaavarthShortFontEntry]
+    ingestion_run_id: str | None = None
+
+
+class KalashBhaavarthShortFontDoc(BaseModel):
+    natural_key: str
+    kalash_natural_key: str
+    teeka_natural_key: str
+    kalash_number: str
+    entries: list[BhaavarthShortFontEntry]
+    ingestion_run_id: str | None = None
+
+
 class TableDoc(BaseModel):
     natural_key: str
     table_id: Optional[str] = None

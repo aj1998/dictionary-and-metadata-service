@@ -122,6 +122,16 @@ async def ensure_indexes(db: AsyncIOMotorDatabase) -> None:
         name="tables_text_search",
     )
 
+    # gatha_teeka_bhaavarth_shortfont
+    await db.gatha_teeka_bhaavarth_shortfont.create_index([("natural_key", pymongo.ASCENDING)], unique=True)
+    await db.gatha_teeka_bhaavarth_shortfont.create_index([("bhaavarth_natural_key", pymongo.ASCENDING)])
+    await db.gatha_teeka_bhaavarth_shortfont.create_index([("gatha_natural_key", pymongo.ASCENDING)])
+
+    # kalash_bhaavarth_shortfont
+    await db.kalash_bhaavarth_shortfont.create_index([("natural_key", pymongo.ASCENDING)], unique=True)
+    await db.kalash_bhaavarth_shortfont.create_index([("kalash_natural_key", pymongo.ASCENDING)])
+    await db.kalash_bhaavarth_shortfont.create_index([("teeka_natural_key", pymongo.ASCENDING)])
+
     # extract_matches
     await db.extract_matches.create_index([("natural_key", pymongo.ASCENDING)], unique=True)
     await db.extract_matches.create_index([

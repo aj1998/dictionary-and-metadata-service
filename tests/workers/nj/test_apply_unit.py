@@ -22,6 +22,8 @@ from workers.ingestion.nj.models import (
     KalashSanskritEntry,
     PrimaryTeeka,
     SecondaryTeeka,
+    ShortFontAnchor,
+    ShortFontEntry,
     ShastraParseResult,
 )
 
@@ -625,3 +627,154 @@ async def test_apply_calls_sync_for_gatha_teeka_and_kalash_bhaavarth_nodes():
     assert "sync_gatha_teeka_bhaavarth" in called_fns, "sync_gatha_teeka_bhaavarth not called"
     assert "sync_kalash_bhaavarth" in called_fns, "sync_kalash_bhaavarth not called"
     assert "sync_kalash" in called_fns, "sync_kalash not called"
+
+
+# ---------------------------------------------------------------------------
+# shortfont — apply layer
+# ---------------------------------------------------------------------------
+
+def _make_sf_entry(n=1) -> ShortFontEntry:
+    return ShortFontEntry(
+        marker_number=n,
+        marker_devanagari=str(n),
+        anchor_text="मोक्ष-मार्ग",
+        meaning="मोक्ष का विस्तार",
+        is_definition=True,
+        occurrences=[ShortFontAnchor(start_offset=10, end_offset=20)],
+    )
+
+
+def test_apply_nfc_normalizes_shortfont_entries():
+    """anchor_text and meaning must be NFC-normalized by apply."""
+    nfd_text = unicodedata.normalize("NFD", "मोक्ष-मार्ग")
+    entry = ShortFontEntry(
+        marker_number=1,
+        marker_devanagari="१",
+        anchor_text=nfd_text,
+        meaning=nfd_text,
+        is_definition=True,
+        occurrences=[],
+    )
+    cfg = _cfg()
+    g = _make_gatha(
+        gatha_number="001",
+        primary_teeka=PrimaryTeeka(
+            gatha_teeka_bhaavarth_shortfont=[entry],
+        ),
+    )
+    env = build_envelope(_make_result(gathas=[g]), cfg)
+    # Simulate what apply does: _nfc_deep normalises the whole envelope
+    from workers.ingestion.nj.apply import _nfc_deep
+    normalised_env = _nfc_deep(env)
+    sf_docs = normalised_env["would_write"]["mongo"]["gatha_teeka_bhaavarth_shortfont"]
+    assert len(sf_docs) == 1
+    e = sf_docs[0]["entries"][0]
+    assert e["anchor_text"] == _nfc(nfd_text)
+    assert e["meaning"] == _nfc(nfd_text)
+
+
+def test_apply_shortfont_entries_ordering_preserved():
+    """entries list order (by marker_number) is preserved through envelope→apply."""
+    cfg = _cfg()
+    entries = [_make_sf_entry(n) for n in [3, 1, 2]]
+    g = _make_gatha(
+        gatha_number="001",
+        primary_teeka=PrimaryTeeka(
+            gatha_teeka_bhaavarth_shortfont=entries,
+        ),
+    )
+    env = build_envelope(_make_result(gathas=[g]), cfg)
+    sf_docs = env["would_write"]["mongo"]["gatha_teeka_bhaavarth_shortfont"]
+    nums = [e["marker_number"] for e in sf_docs[0]["entries"]]
+    assert nums == [3, 1, 2]  # insertion order preserved, not re-sorted
+
+
+def test_apply_shortfont_idempotent():
+    """Building the envelope twice from the same result gives identical shortfont output."""
+    cfg = _cfg()
+    g = _make_gatha(
+        gatha_number="001",
+        primary_teeka=PrimaryTeeka(
+            gatha_teeka_bhaavarth_shortfont=[_make_sf_entry()],
+        ),
+    )
+    result = _make_result(gathas=[g])
+    env1 = build_envelope(result, cfg)["would_write"]["mongo"]["gatha_teeka_bhaavarth_shortfont"]
+    env2 = build_envelope(result, cfg)["would_write"]["mongo"]["gatha_teeka_bhaavarth_shortfont"]
+    assert env1 == env2
+    assert len(env1) == 1
+
+
+async def test_apply_calls_upsert_gatha_teeka_bhaavarth_shortfont():
+    """apply_nj_shastra_payload must call upsert_gatha_teeka_bhaavarth_shortfont when entries present."""
+    import contextlib
+
+    cfg = _cfg()
+    g = _make_gatha(
+        gatha_number="001",
+        primary_teeka=PrimaryTeeka(
+            gatha_teeka_bhaavarth_shortfont=[_make_sf_entry()],
+        ),
+    )
+    result = _make_result(gathas=[g])
+    envelope = build_envelope(result, cfg)
+
+    upsert_sf_calls: list[str] = []
+
+    async def _fake_upsert_sf(db, *, natural_key, doc):
+        upsert_sf_calls.append(natural_key)
+
+    pg_session = AsyncMock()
+
+    async def _fake_execute(*a, **kw):
+        m = MagicMock()
+        m.scalar_one_or_none.return_value = uuid.uuid4()
+        return m
+
+    pg_session.execute = _fake_execute
+
+    patches = [
+        patch("workers.ingestion.nj.apply.upsert_author", new_callable=AsyncMock, return_value=uuid.uuid4()),
+        patch("workers.ingestion.nj.apply.upsert_shastra", new_callable=AsyncMock, return_value=uuid.uuid4()),
+        patch("workers.ingestion.nj.apply.upsert_teeka", new_callable=AsyncMock, return_value=uuid.uuid4()),
+        patch("workers.ingestion.nj.apply.upsert_publication", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_gatha", new_callable=AsyncMock, return_value=uuid.uuid4()),
+        patch("workers.ingestion.nj.apply.upsert_kalash", new_callable=AsyncMock, return_value=uuid.uuid4()),
+        patch("workers.ingestion.nj.apply.upsert_teeka_chapter", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_gatha_prakrit", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_gatha_sanskrit", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_gatha_hindi_chhand", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_teeka_gatha_mapping", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_gatha_teeka_sanskrit", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_gatha_teeka_bhaavarth_hindi", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_gatha_teeka_bhaavarth_shortfont", _fake_upsert_sf),
+        patch("workers.ingestion.nj.apply.upsert_kalash_sanskrit", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_kalash_hindi", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_kalash_word_meanings", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.upsert_kalash_bhaavarth_shortfont", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.sync_shastra", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.sync_teeka", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.sync_publication", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.sync_gatha", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.sync_stub_node", new_callable=AsyncMock),
+        patch("jain_kb_common.db.neo4j.stubs.sync_reference_edge", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.sync_gatha_teeka", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.sync_gatha_teeka_bhaavarth", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.sync_kalash_bhaavarth", new_callable=AsyncMock),
+        patch("workers.ingestion.nj.apply.sync_kalash", new_callable=AsyncMock),
+    ]
+
+    import contextlib
+    with contextlib.ExitStack() as stack:
+        for p in patches:
+            stack.enter_context(p)
+        from workers.ingestion.nj.apply import apply_nj_shastra_payload
+        await apply_nj_shastra_payload(
+            envelope=envelope,
+            pg_session=pg_session,
+            mongo_db=AsyncMock(),
+            neo4j_driver=AsyncMock(),
+        )
+
+    assert len(upsert_sf_calls) == 1
+    assert upsert_sf_calls[0].endswith(":shortfont")

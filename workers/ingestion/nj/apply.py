@@ -15,7 +15,9 @@ from jain_kb_common.db.mongo.upserts import (
     upsert_gatha_prakrit,
     upsert_gatha_sanskrit,
     upsert_gatha_teeka_bhaavarth_hindi,
+    upsert_gatha_teeka_bhaavarth_shortfont,
     upsert_gatha_teeka_sanskrit,
+    upsert_kalash_bhaavarth_shortfont,
     upsert_kalash_hindi,
     upsert_kalash_sanskrit,
     upsert_kalash_word_meanings,
@@ -180,6 +182,7 @@ async def apply_nj_shastra_payload(
     for coll_name in (
         "gatha_prakrit", "gatha_sanskrit", "gatha_hindi_chhand",
         "teeka_gatha_mapping", "gatha_teeka_sanskrit", "gatha_teeka_bhaavarth_hindi",
+        "gatha_teeka_bhaavarth_shortfont",
     ):
         for doc in mongo.get(coll_name, []):
             d = _make_mongo_doc(doc, run_id_str)
@@ -196,6 +199,8 @@ async def apply_nj_shastra_payload(
                 await upsert_gatha_teeka_sanskrit(mongo_db, natural_key=nk, doc=d)
             elif coll_name == "gatha_teeka_bhaavarth_hindi":
                 await upsert_gatha_teeka_bhaavarth_hindi(mongo_db, natural_key=nk, doc=d)
+            elif coll_name == "gatha_teeka_bhaavarth_shortfont":
+                await upsert_gatha_teeka_bhaavarth_shortfont(mongo_db, natural_key=nk, doc=d)
 
     # --- Kalashes: Postgres + Mongo + Neo4j ---
     # Index kalash mongo docs by kalash_natural_key for cross-referencing
@@ -228,6 +233,10 @@ async def apply_nj_shastra_payload(
             ingestion_run_id=run_id_str,
         )
         kalash_wm_by_nk[nk] = doc
+
+    for doc in mongo.get("kalash_bhaavarth_shortfont", []):
+        d = _make_mongo_doc(doc, run_id_str)
+        await upsert_kalash_bhaavarth_shortfont(mongo_db, natural_key=doc["natural_key"], doc=d)
 
     for row in pg.get("kalashas", []):
         kalash_nk = row["natural_key"]

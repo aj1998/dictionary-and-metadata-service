@@ -130,8 +130,30 @@ mongosh jain_kb --eval 'db.gatha_teeka_bhaavarth_shortfont.findOne({gatha_number
 
 ## Done when
 
-- [ ] Collection + indexes ensured via `ensure_indexes()` on service startup.
-- [ ] Envelope emits docs only when entries exist; idempotency contract present.
-- [ ] Apply test suite green; full NJ suite green.
+- [x] Collection + indexes ensured via `ensure_indexes()` on service startup.
+- [x] Envelope emits docs only when entries exist; idempotency contract present.
+- [x] Apply test suite green; full NJ suite green.
 - [ ] [`data_model_mongo.md`](../../../data_model/data_model_mongo.md) updated.
 - [ ] Implementation notes appended here and in [`../nj_ingestion.md`](../nj_ingestion.md).
+
+## Implementation Notes
+
+**Implemented 2026-06-10.**
+
+### NK convention
+The `bhaavarth_natural_key` and shortfont `natural_key` are derived from the **Neo4j `GathaTeekaBhaavarth` node key** (not the Mongo `gatha_teeka_bhaavarth_hindi` doc NK, which uses a different segment order):
+
+- Gatha bhaavarth NK: `{pub_nk}:गाथा:टीका:भावार्थ:{N}` (matches `_build_neo4j` existing pattern)
+- Shortfont NK: `{bhaavarth_nk}:shortfont` (suffix-only delta as specced)
+- Kalash shortfont NK: `{kalash_nk}:shortfont` where `kalash_nk = {teeka_nk}:कलश:{N}`
+
+### Files changed
+- `packages/jain_kb_common/jain_kb_common/db/mongo/collections.py` — added `GATHA_TEEKA_BHAAVARTH_SHORTFONT`, `KALASH_BHAAVARTH_SHORTFONT`
+- `packages/jain_kb_common/jain_kb_common/db/mongo/schemas.py` — added `BhaavarthShortFontOccurrence`, `BhaavarthShortFontEntry`, `BhaavarthShortFontDoc`, `KalashBhaavarthShortFontDoc`
+- `packages/jain_kb_common/jain_kb_common/db/mongo/upserts.py` — added `upsert_gatha_teeka_bhaavarth_shortfont`, `upsert_kalash_bhaavarth_shortfont`
+- `packages/jain_kb_common/jain_kb_common/db/mongo/indexes.py` — added 6 new indexes
+- `workers/ingestion/nj/envelope.py` — added `_shortfont_entries()` helper, shortfont emission for primary/secondary gatha bhaavarth + primary kalash hindi + secondary kalash bhaavarth; two new idempotency contracts
+- `workers/ingestion/nj/apply.py` — added import + call to both new upserts
+
+### Coverage
+101 NJ tests green; 28 mongo upsert tests green (including 4 new schema/round-trip tests).

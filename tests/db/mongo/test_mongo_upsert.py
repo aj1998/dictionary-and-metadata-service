@@ -30,17 +30,25 @@ from jain_kb_common.db.mongo.schemas import (
     TeekaGathaMapping,
     TopicExtract,
 )
-from jain_kb_common.db.mongo.schemas import TableDoc
+from jain_kb_common.db.mongo.schemas import (
+    BhaavarthShortFontDoc,
+    BhaavarthShortFontEntry,
+    BhaavarthShortFontOccurrence,
+    KalashBhaavarthShortFontDoc,
+    TableDoc,
+)
 from jain_kb_common.db.mongo.upserts import (
     stable_id,
     upsert_gatha_hindi_chhand,
     upsert_gatha_prakrit,
     upsert_gatha_sanskrit,
     upsert_gatha_teeka_bhaavarth_hindi,
+    upsert_gatha_teeka_bhaavarth_shortfont,
     upsert_gatha_teeka_hindi,
     upsert_gatha_teeka_sanskrit,
     upsert_gatha_word_meanings,
     upsert_kalash_bhaavarth_hindi,
+    upsert_kalash_bhaavarth_shortfont,
     upsert_kalash_hindi,
     upsert_kalash_sanskrit,
     upsert_kalash_word_meanings,
@@ -547,3 +555,123 @@ def test_table_doc_schema():
     assert doc.cells == []
     assert doc.header_rows == 0
     assert doc.mentioned_keyword_natural_keys == []
+
+
+# ---------------------------------------------------------------------------
+# gatha_teeka_bhaavarth_shortfont collection
+# ---------------------------------------------------------------------------
+
+def _sf_entry_dict(n=1):
+    return {
+        "marker_number": n,
+        "marker_devanagari": str(n),
+        "anchor_text": "मोक्ष-मार्ग",
+        "meaning": "मोक्ष का विस्तार",
+        "is_definition": True,
+        "occurrences": [{"start_offset": 10, "end_offset": 20}],
+    }
+
+
+@skip_no_mongo
+@pytest.mark.asyncio
+async def test_upsert_gatha_teeka_bhaavarth_shortfont_round_trip(db):
+    nk = "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:161:shortfont"
+    doc = {
+        "bhaavarth_natural_key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:161",
+        "publication_natural_key": "समयसार:आत्मख्याति:0",
+        "gatha_natural_key": "समयसार:गाथा:161",
+        "gatha_number": "161",
+        "entries": [_sf_entry_dict(1), _sf_entry_dict(2)],
+    }
+    id1 = await upsert_gatha_teeka_bhaavarth_shortfont(db, natural_key=nk, doc=doc)
+    updated_doc = {**doc, "entries": [_sf_entry_dict(1), _sf_entry_dict(2), _sf_entry_dict(3)]}
+    id2 = await upsert_gatha_teeka_bhaavarth_shortfont(db, natural_key=nk, doc=updated_doc)
+
+    assert id1 == id2
+    assert id1 == stable_id(nk)
+    count = await db.gatha_teeka_bhaavarth_shortfont.count_documents({"natural_key": nk})
+    assert count == 1
+    stored = await db.gatha_teeka_bhaavarth_shortfont.find_one({"_id": id1})
+    assert stored["gatha_number"] == "161"
+    assert len(stored["entries"]) == 3
+
+
+@skip_no_mongo
+@pytest.mark.asyncio
+async def test_upsert_gatha_teeka_bhaavarth_shortfont_unique_nk_constraint(db):
+    nk = "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:1:shortfont"
+    doc = {
+        "bhaavarth_natural_key": "समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:1",
+        "publication_natural_key": "समयसार:आत्मख्याति:0",
+        "gatha_natural_key": "समयसार:गाथा:1",
+        "gatha_number": "1",
+        "entries": [_sf_entry_dict()],
+    }
+    id1 = await upsert_gatha_teeka_bhaavarth_shortfont(db, natural_key=nk, doc=doc)
+    id2 = await upsert_gatha_teeka_bhaavarth_shortfont(db, natural_key=nk, doc=doc)
+    assert id1 == id2
+    assert await db.gatha_teeka_bhaavarth_shortfont.count_documents({"natural_key": nk}) == 1
+
+
+# ---------------------------------------------------------------------------
+# kalash_bhaavarth_shortfont collection
+# ---------------------------------------------------------------------------
+
+@skip_no_mongo
+@pytest.mark.asyncio
+async def test_upsert_kalash_bhaavarth_shortfont_round_trip(db):
+    nk = "समयसार:आत्मख्याति:कलश:4:shortfont"
+    doc = {
+        "kalash_natural_key": "समयसार:आत्मख्याति:कलश:4",
+        "teeka_natural_key": "समयसार:आत्मख्याति",
+        "kalash_number": "4",
+        "entries": [_sf_entry_dict()],
+    }
+    id1 = await upsert_kalash_bhaavarth_shortfont(db, natural_key=nk, doc=doc)
+    id2 = await upsert_kalash_bhaavarth_shortfont(db, natural_key=nk, doc={**doc, "entries": []})
+
+    assert id1 == id2
+    count = await db.kalash_bhaavarth_shortfont.count_documents({"natural_key": nk})
+    assert count == 1
+    stored = await db.kalash_bhaavarth_shortfont.find_one({"_id": id1})
+    assert stored["kalash_number"] == "4"
+    assert stored["entries"] == []
+
+
+# ---------------------------------------------------------------------------
+# Pydantic schemas for shortfont
+# ---------------------------------------------------------------------------
+
+def test_bhaavarth_shortfont_doc_schema():
+    doc = BhaavarthShortFontDoc(
+        natural_key="समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:161:shortfont",
+        bhaavarth_natural_key="समयसार:आत्मख्याति:0:गाथा:टीका:भावार्थ:161",
+        publication_natural_key="समयसार:आत्मख्याति:0",
+        gatha_natural_key="समयसार:गाथा:161",
+        gatha_number="161",
+        entries=[
+            BhaavarthShortFontEntry(
+                marker_number=4,
+                marker_devanagari="४",
+                anchor_text="मोक्ष-मार्ग-प्रपंच-सूचक",
+                meaning="मोक्ष का विस्तार बतलाने वाली",
+                is_definition=True,
+                occurrences=[BhaavarthShortFontOccurrence(start_offset=1284, end_offset=1308)],
+            )
+        ],
+    )
+    assert doc.gatha_number == "161"
+    assert doc.entries[0].marker_number == 4
+    assert doc.entries[0].occurrences[0].start_offset == 1284
+
+
+def test_kalash_bhaavarth_shortfont_doc_schema():
+    doc = KalashBhaavarthShortFontDoc(
+        natural_key="समयसार:आत्मख्याति:कलश:4:shortfont",
+        kalash_natural_key="समयसार:आत्मख्याति:कलश:4",
+        teeka_natural_key="समयसार:आत्मख्याति",
+        kalash_number="4",
+        entries=[],
+    )
+    assert doc.kalash_number == "4"
+    assert doc.entries == []
