@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect, useLayoutEffect } from 'react';
 import { cn } from '@/lib/utils';
 import type { BhaavarthShortFontEntry } from '@/lib/types';
 
@@ -12,6 +12,7 @@ interface ShortFontHtmlProps {
 
 interface PopoverState {
   entry: BhaavarthShortFontEntry;
+  btnRect: { top: number; bottom: number; left: number };
   top: number;
   left: number;
 }
@@ -37,6 +38,38 @@ export function ShortFontHtml({ html, entries, className }: ShortFontHtmlProps) 
     return () => document.removeEventListener('mousedown', handler);
   }, [popover]);
 
+  // After mount, measure actual popover height and flip/clamp to viewport.
+  useLayoutEffect(() => {
+    if (!popover || !popoverRef.current) return;
+    const popEl = popoverRef.current;
+    const { btnRect } = popover;
+    const margin = 8;
+    const actualHeight = popEl.offsetHeight;
+    const actualWidth = popEl.offsetWidth;
+
+    const spaceBelow = window.innerHeight - btnRect.bottom - margin;
+    const spaceAbove = btnRect.top - margin;
+    const flipUp = actualHeight > spaceBelow && spaceAbove > spaceBelow;
+
+    const desiredTop = flipUp
+      ? btnRect.top - actualHeight - 4
+      : btnRect.bottom + 4;
+    const clampedTop = Math.max(
+      margin,
+      Math.min(desiredTop, window.innerHeight - actualHeight - margin),
+    );
+
+    const desiredLeft = btnRect.left;
+    const clampedLeft = Math.max(
+      margin,
+      Math.min(desiredLeft, window.innerWidth - actualWidth - margin),
+    );
+
+    if (clampedTop !== popover.top || clampedLeft !== popover.left) {
+      setPopover((p) => (p ? { ...p, top: clampedTop, left: clampedLeft } : p));
+    }
+  }, [popover]);
+
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     const btn = (e.target as HTMLElement).closest('[data-sf-idx]') as HTMLElement | null;
     if (!btn) return;
@@ -51,14 +84,14 @@ export function ShortFontHtml({ html, entries, className }: ShortFontHtmlProps) 
       return;
     }
 
-    const containerRect = containerRef.current?.getBoundingClientRect();
     const btnRect = btn.getBoundingClientRect();
-    if (!containerRect) return;
 
+    // Initial guess; the useLayoutEffect will measure and reposition.
     setPopover({
       entry,
-      top: btnRect.bottom - containerRect.top + 4,
-      left: Math.max(0, btnRect.left - containerRect.left),
+      btnRect: { top: btnRect.top, bottom: btnRect.bottom, left: btnRect.left },
+      top: btnRect.bottom + 4,
+      left: btnRect.left,
     });
   }, [entries, popover]);
 
@@ -70,7 +103,7 @@ export function ShortFontHtml({ html, entries, className }: ShortFontHtmlProps) 
           ref={popoverRef}
           role="dialog"
           aria-modal="false"
-          className="absolute z-50 w-[min(22rem,calc(100vw-2rem))] rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-node"
+          className="fixed z-50 w-[min(22rem,calc(100vw-2rem))] max-h-[70vh] overflow-y-auto rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-node"
           style={{ top: popover.top, left: popover.left }}
         >
           <p className="text-xs text-foreground-muted mb-1">
