@@ -9,6 +9,7 @@ from bs4 import NavigableString, Tag
 from .config import NJConfig
 from .models import SecondaryTeeka
 from .shortfont_parser import extract_shortfont
+from .tables import extract_tables_from_bhaavarth
 
 
 def _clean(text: str | None) -> str:
@@ -45,7 +46,12 @@ def _nodes_after_element(parent: Tag, element: Tag | None) -> list[NavigableStri
     return nodes
 
 
-def parse_secondary_teeka(teeka_div: Tag, cfg: NJConfig) -> SecondaryTeeka:
+def parse_secondary_teeka(
+    teeka_div: Tag,
+    cfg: NJConfig,
+    *,
+    parent_bhaavarth_nk: str | None = None,
+) -> SecondaryTeeka:
     """Parse either div#teeka1 (regular page) or div#teeka0 (secondary-only page)."""
     steeka = teeka_div.select_one("div.steeka")
 
@@ -62,10 +68,21 @@ def parse_secondary_teeka(teeka_div: Tag, cfg: NJConfig) -> SecondaryTeeka:
         if maybe_label and (maybe_label.get("color") or "").strip().lower() == "darkgreen":
             nodes_after = nodes_after[1:]
 
-    cleaned_bhaavarth_md, shortfont_entries = extract_shortfont(list(nodes_after))
+    bhaavarth_nodes = list(nodes_after)
+    parsed_tables = []
+    if parent_bhaavarth_nk:
+        bhaavarth_nodes, parsed_tables = extract_tables_from_bhaavarth(
+            bhaavarth_nodes,
+            parent_natural_key=parent_bhaavarth_nk,
+            parent_kind="gatha_teeka_bhaavarth",
+            source_url=None,
+        )
+
+    cleaned_bhaavarth_md, shortfont_entries = extract_shortfont(bhaavarth_nodes)
 
     return SecondaryTeeka(
         gatha_teeka_san=gatha_teeka_san,
         gatha_teeka_bhaavarth_md=cleaned_bhaavarth_md or None,
         gatha_teeka_bhaavarth_shortfont=shortfont_entries,
+        tables=parsed_tables,
     )

@@ -141,6 +141,14 @@ _NJ_CONTRACTS: dict[str, dict] = {
         "fields_skip_if_set": [],
         "stores": ["neo4j:KalashBhaavarth"],
     },
+    "postgres:tables": {
+        "conflict_key": ["natural_key"],
+        "on_conflict": "do_update",
+        "fields_replace": ["table_type", "caption", "raw_html_doc_id", "seq", "parent_natural_key", "parent_kind"],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": ["postgres:tables", "mongo:tables", "neo4j:Table"],
+    },
     "neo4j:Publication": {
         "conflict_key": ["key"],
         "on_conflict": "merge",
@@ -802,6 +810,7 @@ def build_envelope(result: ShastraParseResult, cfg: NJConfig) -> dict[str, Any]:
             "kalash_bhaavarth_shortfont": [],
         },
         "neo4j": {"nodes": [], "edges": []},
+        "tables": [],
         "idempotency_contracts": _NJ_CONTRACTS,
     }
 
@@ -854,6 +863,11 @@ def build_envelope(result: ShastraParseResult, cfg: NJConfig) -> dict[str, Any]:
         for coll, docs in mg.items():
             ww["mongo"][coll].extend(docs)
 
+        if g.primary_teeka:
+            ww["tables"].extend(t.model_dump(mode="json") for t in g.primary_teeka.tables)
+        if g.secondary_teeka:
+            ww["tables"].extend(t.model_dump(mode="json") for t in g.secondary_teeka.tables)
+
     seen_kalash_nk: set[str] = set()
     for doc in ww["mongo"]["kalash_sanskrit"] + ww["mongo"]["kalash_hindi"] + ww["mongo"]["kalash_word_meanings"]:
         nk = doc["kalash_natural_key"]
@@ -896,6 +910,9 @@ def build_envelope(result: ShastraParseResult, cfg: NJConfig) -> dict[str, Any]:
             ms = _build_mongo_for_secondary_kalash(k, secondary)
             for coll, docs in ms.items():
                 ww["mongo"][coll].extend(docs)
+
+            if k.secondary_teeka:
+                ww["tables"].extend(t.model_dump(mode="json") for t in k.secondary_teeka.tables)
 
     # Neo4j nodes and edges
     neo4j = _build_neo4j(result, cfg)

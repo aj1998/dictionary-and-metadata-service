@@ -252,9 +252,34 @@ def parse_primary_page(
     primary_teeka = None
     kalash_delta = 0
     if _is_primary_page(teeka0_div, cfg):
-        primary_teeka, kalash_delta = parse_primary_teeka(teeka0_div, cfg, global_kalash_start)
+        primary_cfg = cfg.shastra.primary_teeka
+        primary_pub_nk = primary_cfg.publication_natural_key if primary_cfg else ""
+        try:
+            norm_gatha = str(int(idx_entry.gatha_number))
+        except ValueError:
+            norm_gatha = idx_entry.gatha_number
+        primary_bhaavarth_nk = (
+            f"{primary_pub_nk}:गाथा:टीका:भावार्थ:{norm_gatha}"
+            if primary_pub_nk else None
+        )
+        primary_teeka, kalash_delta = parse_primary_teeka(
+            teeka0_div, cfg, global_kalash_start,
+            parent_bhaavarth_nk=primary_bhaavarth_nk,
+        )
 
-    secondary_teeka = parse_secondary_teeka(teeka1_div, cfg) if isinstance(teeka1_div, Tag) else None
+    secondary_cfg = cfg.shastra.secondary_teekas[0] if cfg.shastra.secondary_teekas else None
+    try:
+        norm_gatha_sec = str(int(idx_entry.gatha_number))
+    except ValueError:
+        norm_gatha_sec = idx_entry.gatha_number
+    secondary_bhaavarth_nk = (
+        f"{secondary_cfg.publication_natural_key}:गाथा:टीका:भावार्थ:{norm_gatha_sec}"
+        if secondary_cfg else None
+    )
+    secondary_teeka = (
+        parse_secondary_teeka(teeka1_div, cfg, parent_bhaavarth_nk=secondary_bhaavarth_nk)
+        if isinstance(teeka1_div, Tag) else None
+    )
 
     base = GathaExtract(
         shastra_natural_key=cfg.shastra.natural_key,
@@ -337,10 +362,23 @@ def parse_secondary_kalash_page(
     prakrit_text, _sanskrit_text, _hindi_chhands, anyavartha = _parse_body_fields(soup, cfg)
 
     teeka0_div = soup.select_one(cfg.selectors.teeka0_div)
-    secondary_teeka = parse_secondary_teeka(teeka0_div, cfg) if isinstance(teeka0_div, Tag) else None
 
     raw_gatha_number = (
         secondary_entry.gatha_number if secondary_entry else Path(filename).stem.split("-")[0]
+    )
+
+    kalash_sec_cfg = cfg.shastra.secondary_teekas[0] if cfg.shastra.secondary_teekas else None
+    try:
+        norm_kalash = str(int(raw_gatha_number))
+    except ValueError:
+        norm_kalash = raw_gatha_number
+    kalash_bhaavarth_nk = (
+        f"{kalash_sec_cfg.publication_natural_key}:कलश:भावार्थ:{norm_kalash}"
+        if kalash_sec_cfg else None
+    )
+    secondary_teeka = (
+        parse_secondary_teeka(teeka0_div, cfg, parent_bhaavarth_nk=kalash_bhaavarth_nk)
+        if isinstance(teeka0_div, Tag) else None
     )
 
     heading = None

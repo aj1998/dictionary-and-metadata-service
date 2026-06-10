@@ -194,3 +194,35 @@ python -m workers.ingestion.nj.cli parse --config parser_configs/nj/panchastikay
 - `gatha_teeka_bhaavarth_md` (and shortfont offsets) reference the table only via the inline Markdown link.
 - All NJ unit + envelope tests green.
 - No apply / API / UI changes yet (Phase 3 / Phase 4).
+
+---
+
+## 7. Implementation Notes
+
+**Implemented:** 2026-06-10
+
+### Files changed
+- `workers/ingestion/nj/tables.py` — new module with `extract_tables_from_bhaavarth()`
+- `workers/ingestion/nj/html_to_markdown.py` — added `<a class="nj-table-link">` handler
+- `workers/ingestion/nj/models.py` — added `tables: list[ParsedTable]` to `PrimaryTeeka` and `SecondaryTeeka`; imported `ParsedTable` from jainkosh models
+- `workers/ingestion/nj/parse_primary_teeka.py` — added `parent_bhaavarth_nk` keyword arg; calls `extract_tables_from_bhaavarth` before `extract_shortfont`
+- `workers/ingestion/nj/parse_secondary_teeka.py` — same as above; also handles `kalash_bhaavarth` parent_kind for standalone kalash pages
+- `workers/ingestion/nj/parse_page.py` — computes `parent_bhaavarth_nk` for primary and secondary teekas; passes correct `kalash_bhaavarth` NK for `parse_secondary_kalash_page`
+- `workers/ingestion/nj/envelope.py` — added `"tables": []` key to `would_write`; appends tables from all three teeka types; added `postgres:tables` idempotency contract
+- `tests/workers/nj/fixtures/panchaastikaay_007_fragment.html` — fixture with सारिणी table
+- `tests/workers/nj/test_table_parser_unit.py` — 10 unit tests (all green)
+- `tests/workers/nj/test_envelope.py` — 6 new envelope tests (all green)
+
+### Divergences from spec
+- `parent_bhaavarth_nk` is `None` when no teeka config is present (graceful no-op); the spec assumed it would always be passed.
+- The `_is_layout_only` check uses `myAltColTable` class + single `<td>` + no inner `<table>` as the layout wrapper heuristic. In 007.html the `myAltColTable` is a content table (9+ `<tr>`), so it is correctly extracted.
+- Caption heuristic: first row where exactly one non-empty cell is a `<th>` (irrespective of empty `<td class=emptyTableCell>` alongside it).
+
+### Verified end-to-end
+```
+Tables found: 1
+NK: table:nj:पंचास्तिकाय:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:7:01
+caption: प्रथम महाधिकार के द्वितीय अंतराधिकार की सारिणी
+header_rows: 1, table_type: index
+Secondary bhaavarth MD has table link: True, no raw <table>: True
+```

@@ -78,5 +78,14 @@ def node_to_markdown(node: NavigableString | Tag, *, _depth: int = 0) -> str:
     if tag == "li":
         return f"- {children_md.strip()}\n"
 
+    if tag == "a":
+        classes = node.get("class") or []
+        if isinstance(classes, str):
+            classes = classes.split()
+        if "nj-table-link" in classes:
+            nk = node.get("data-table-nk", "")
+            return f"[तालिका देखें](table://{nk})"
+        return children_md
+
     # Block-level and generic tags: pass through children
     return children_md

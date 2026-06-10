@@ -12,6 +12,7 @@ from .config import NJConfig
 from .html_to_markdown import node_to_markdown
 from .models import KalashHindiEntry, KalashSanskritEntry, KalashWMEntry, PrimaryTeeka
 from .shortfont_parser import extract_shortfont
+from .tables import extract_tables_from_bhaavarth
 
 _KALASH_RE = re.compile(r"\(कलश-([^)]+)\)")
 # Permissive marker regex: source HTML inconsistently includes the "कलश-" prefix.
@@ -308,6 +309,8 @@ def parse_primary_teeka(
     teeka0_div: Tag,
     cfg: NJConfig,
     global_kalash_start: int,
+    *,
+    parent_bhaavarth_nk: str | None = None,
 ) -> tuple[PrimaryTeeka, int]:
     """Parse div#teeka0 for primary teeka data; return (parsed, kalash_delta)."""
     steeka0 = teeka0_div.select_one(cfg.selectors.steeka0_div)
@@ -402,6 +405,15 @@ def parse_primary_teeka(
         bhaavarth_nodes.append(node)
         i += 1
 
+    parsed_tables = []
+    if parent_bhaavarth_nk:
+        bhaavarth_nodes, parsed_tables = extract_tables_from_bhaavarth(
+            bhaavarth_nodes,
+            parent_natural_key=parent_bhaavarth_nk,
+            parent_kind="gatha_teeka_bhaavarth",
+            source_url=None,
+        )
+
     cleaned_bhaavarth_md, shortfont_entries = extract_shortfont(bhaavarth_nodes)
 
     result = PrimaryTeeka(
@@ -411,6 +423,7 @@ def parse_primary_teeka(
         kalash_word_meanings=dict(kalash_wm_entries),
         gatha_teeka_bhaavarth_md=cleaned_bhaavarth_md or None,
         gatha_teeka_bhaavarth_shortfont=shortfont_entries,
+        tables=parsed_tables,
     )
 
     return result, len(kalash_san_entries)

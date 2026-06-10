@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from workers.ingestion.jainkosh.models import Multilingual, ParsedTable
 from workers.ingestion.nj.config import load_config_for_shastra
 from workers.ingestion.nj.envelope import build_envelope
 from workers.ingestion.nj.models import (
@@ -701,3 +702,99 @@ def test_shortfont_idempotency_contracts_present():
     assert sf_contract["conflict_key"] == ["natural_key"]
     assert sf_contract["on_conflict"] == "do_update"
     assert "entries" in sf_contract["fields_replace"]
+
+
+# ---------------------------------------------------------------------------
+# tables — would_write.tables (Phase 2)
+# ---------------------------------------------------------------------------
+
+def _make_parsed_table(nk: str, parent_nk: str, seq: int = 1) -> ParsedTable:
+    return ParsedTable(
+        natural_key=nk,
+        seq=seq,
+        parent_natural_key=parent_nk,
+        parent_kind="gatha_teeka_bhaavarth",
+        table_type="index",
+        raw_html="<table><tr><th>head</th></tr><tr><td>cell</td></tr></table>",
+        cells=[["head"], ["cell"]],
+        header_rows=1,
+        plaintext="head cell",
+        caption=[Multilingual(lang="hin", script="Deva", text="सारिणी")],
+    )
+
+
+def test_would_write_has_tables_key():
+    cfg = _cfg()
+    result = _make_result(gathas=[_make_gatha()])
+    ww = build_envelope(result, cfg)["would_write"]
+    assert "tables" in ww
+
+
+def test_tables_empty_when_no_tables_parsed():
+    cfg = _cfg()
+    result = _make_result(gathas=[_make_gatha()])
+    ww = build_envelope(result, cfg)["would_write"]
+    assert ww["tables"] == []
+
+
+def test_primary_teeka_tables_emitted_in_would_write():
+    cfg = _cfg()
+    table_nk = "table:nj:test:parent:01"
+    g = _make_gatha(
+        gatha_number="007",
+        primary_teeka=PrimaryTeeka(
+            gatha_teeka_bhaavarth_md="भावार्थ text [तालिका देखें](table://table:nj:test:parent:01)",
+            tables=[_make_parsed_table(table_nk, "test:parent")],
+        ),
+    )
+    result = _make_result(gathas=[g])
+    ww = build_envelope(result, cfg)["would_write"]
+    assert len(ww["tables"]) == 1
+    t = ww["tables"][0]
+    assert t["natural_key"] == table_nk
+    assert t["table_type"] == "index"
+    assert t["parent_kind"] == "gatha_teeka_bhaavarth"
+
+
+def test_secondary_teeka_tables_emitted_in_would_write():
+    cfg = _cfg()
+    table_nk = "table:nj:test:secondary:01"
+    g = _make_gatha(
+        gatha_number="007",
+        secondary_teeka=SecondaryTeeka(
+            gatha_teeka_bhaavarth_md="भावार्थ",
+            tables=[_make_parsed_table(table_nk, "test:secondary")],
+        ),
+    )
+    result = _make_result(gathas=[g])
+    ww = build_envelope(result, cfg)["would_write"]
+    assert any(t["natural_key"] == table_nk for t in ww["tables"])
+
+
+def test_secondary_kalash_tables_emitted_in_would_write():
+    cfg = _cfg()
+    table_nk = "table:nj:test:kalash:01"
+    k = KalashExtract(
+        shastra_natural_key="समयसार",
+        kalash_number="011",
+        html_filename="011.html",
+        heading_hi=None,
+        preceding_primary_gatha_number="010",
+        secondary_teeka=SecondaryTeeka(
+            gatha_teeka_bhaavarth_md="कलश भावार्थ",
+            tables=[_make_parsed_table(table_nk, "test:kalash", seq=1)],
+        ),
+    )
+    result = _make_result(secondary_kalashes=[k])
+    ww = build_envelope(result, cfg)["would_write"]
+    assert any(t["natural_key"] == table_nk for t in ww["tables"])
+
+
+def test_tables_idempotency_contract_present():
+    cfg = _cfg()
+    contracts = build_envelope(_make_result(), cfg)["would_write"]["idempotency_contracts"]
+    assert "postgres:tables" in contracts
+    c = contracts["postgres:tables"]
+    assert c["conflict_key"] == ["natural_key"]
+    assert c["on_conflict"] == "do_update"
+    assert "table_type" in c["fields_replace"]

@@ -7,6 +7,8 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
+from workers.ingestion.jainkosh.models import ParsedTable
+
 
 class ShortFontAnchor(BaseModel):
     start_offset: int   # char index in the cleaned bhaavarth Markdown (post strip)
@@ -69,6 +71,7 @@ class PrimaryTeeka(BaseModel):
     kalash_word_meanings: dict[int, list[KalashWMEntry]] = Field(default_factory=dict)
     gatha_teeka_bhaavarth_md: Optional[str] = None   # Markdown with inline HTML for colors
     gatha_teeka_bhaavarth_shortfont: list[ShortFontEntry] = Field(default_factory=list)
+    tables: list[ParsedTable] = Field(default_factory=list)
 
 
 class SecondaryTeeka(BaseModel):
@@ -76,6 +79,7 @@ class SecondaryTeeka(BaseModel):
     gatha_teeka_san: Optional[str] = None
     gatha_teeka_bhaavarth_md: Optional[str] = None
     gatha_teeka_bhaavarth_shortfont: list[ShortFontEntry] = Field(default_factory=list)
+    tables: list[ParsedTable] = Field(default_factory=list)
 
 
 class GathaExtract(BaseModel):
