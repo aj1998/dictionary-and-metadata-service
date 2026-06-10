@@ -120,3 +120,11 @@ python -m workers.ingestion.nj.cli parse \
 - Cursor advancement after each anchor find is `cursor = end` (past the matched text), using the same pattern as `teeka_gatha_mapping.tagged_terms`.
 - `KalashHindiEntry.shortfont` is added per spec but not yet wired to any parsing logic (no kalash bhaavarth parsing exists yet).
 - The regex for Devanagari + hyphen tokens uses `[ऀ-ॿ\-]+` which covers all Unicode Devanagari block characters.
+
+### Fixes — 2026-06-10 (post-merge)
+
+**Bug 1 — top-level `<sup>` siblings not stripped/matched.** In panchaastikaya HTML (e.g. `005.html`), the Hindi bhaavarth lives as loose sibling nodes of `div#teeka0` (not wrapped in a content div), so `<sup>` tags are themselves top-level siblings. `extract_shortfont` previously iterated nodes and only called `find_all("sup")` on Tag children, missing top-level sup tags entirely. Also, `copy.deepcopy(n)` per-node detached siblings, so `_get_following_token` (which reads `sup.next_sibling`) returned `""`. Fix: wrap nodes in a single in-memory `<div>` wrapper before deep-copying, then call `find_all("sup")` on the wrapper.
+
+**Bug 2 — asterisk markers (`<sup>*</sup>`) unsupported.** Some bhaavarths (e.g. panchaastikaya `006.html`) use `*` instead of a Devanagari digit. `_dev_to_int` now maps a run of asterisks to a negative int (`*` → -1, `**` → -2, ...) so they get a unique slot without colliding with numeric markers; `_int_to_dev` renders negatives back to the literal asterisks for display.
+
+Regression tests: `test_top_level_sup_siblings_are_stripped_and_matched`, `test_asterisk_marker_round_trip`.

@@ -7,7 +7,7 @@ import logging
 import re
 import unicodedata
 
-from bs4 import NavigableString, Tag
+from bs4 import BeautifulSoup, NavigableString, Tag
 
 from .html_to_markdown import node_to_markdown
 from .models import ShortFontAnchor, ShortFontEntry
@@ -24,10 +24,14 @@ _DEV_TOKEN_RE = re.compile(r"[ऀ-ॿ\-]+")
 
 
 def _dev_to_int(text: str) -> int | None:
-    """Convert Devanagari (or ASCII) digit string to int; None if not parseable."""
+    """Marker text → unique int key. Devanagari/ASCII digits map to positive ints;
+    asterisk runs (`*`, `**`, ...) map to negative ints (-1, -2, ...) so they get
+    a distinct slot without colliding with numeric markers."""
     text = text.strip()
     if not text:
         return None
+    if set(text) == {"*"}:
+        return -len(text)
     result = 0
     for ch in text:
         if ch in _DEV_DIGIT_MAP:
@@ -40,6 +44,8 @@ def _dev_to_int(text: str) -> int | None:
 
 
 def _int_to_dev(n: int) -> str:
+    if n < 0:
+        return "*" * (-n)
     return str(n).translate(_ASCII_TO_DEV)
 
 
@@ -54,20 +60,12 @@ def _is_shortfont_span(node: NavigableString | Tag) -> bool:
     return "shortfont" in classes
 
 
-def _find_and_remove_shortfont(nodes: list[NavigableString | Tag]) -> Tag | None:
-    """Find the shortFont span, remove it from nodes/tree, and return it."""
-    # Direct child of nodes list
-    for i, node in enumerate(nodes):
-        if _is_shortfont_span(node):
-            nodes.pop(i)
-            return node  # type: ignore[return-value]
-    # Nested inside one of the nodes
-    for node in nodes:
-        if isinstance(node, Tag):
-            found = node.find(lambda t: isinstance(t, Tag) and _is_shortfont_span(t))
-            if found:
-                found.extract()
-                return found  # type: ignore[return-value]
+def _find_and_remove_shortfont(wrapper: Tag) -> Tag | None:
+    """Find the shortFont span anywhere in wrapper, extract it, and return it."""
+    found = wrapper.find(lambda t: isinstance(t, Tag) and _is_shortfont_span(t))
+    if found:
+        found.extract()
+        return found  # type: ignore[return-value]
     return None
 
 
@@ -160,11 +158,16 @@ def extract_shortfont(
     if warnings is None:
         warnings = []
 
-    # Deep-copy so we don't mutate the caller's BS4 tree
-    nodes = [copy.deepcopy(n) for n in nodes]
+    # Wrap nodes in a shared parent BEFORE deep-copying so sibling relationships
+    # (used by `_get_following_token`) survive the copy. Deep-copying each node
+    # individually would detach them and break `.next_sibling`.
+    wrapper = BeautifulSoup("<div></div>", "html.parser").div
+    assert wrapper is not None
+    for n in nodes:
+        wrapper.append(copy.deepcopy(n))
 
     # 1. Locate and detach the shortFont span
-    sf_span = _find_and_remove_shortfont(nodes)
+    sf_span = _find_and_remove_shortfont(wrapper)
 
     # 2. Parse glossary
     glossary: dict[int, ShortFontEntry] = {}
@@ -179,15 +182,14 @@ def extract_shortfont(
                 occurrences=[],
             )
 
-    # 3. Walk body nodes (before sup removal) to collect ordered anchor candidates
+    # 3. Walk body (before sup removal) to collect ordered anchor candidates.
+    # `find_all("sup")` on the wrapper covers both top-level and nested sups.
     body_anchors: list[tuple[int, str]] = []
-    for node in nodes:
-        if isinstance(node, Tag):
-            for sup in node.find_all("sup"):
-                marker_num = _dev_to_int(_clean(sup.get_text()))
-                if marker_num is None:
-                    continue
-                body_anchors.append((marker_num, _get_following_token(sup)))
+    for sup in wrapper.find_all("sup"):
+        marker_num = _dev_to_int(_clean(sup.get_text()))
+        if marker_num is None:
+            continue
+        body_anchors.append((marker_num, _get_following_token(sup)))
 
     # 4. Emit warnings for body/glossary mismatches
     glossary_markers = set(glossary.keys())
@@ -204,18 +206,20 @@ def extract_shortfont(
         logger.warning(msg)
 
     # 5. Strip all <sup> nodes
-    for node in nodes:
-        if isinstance(node, Tag):
-            for sup in node.find_all("sup"):
-                sup.decompose()
+    for sup in wrapper.find_all("sup"):
+        sup.decompose()
 
-    # 6. Build cleaned Markdown
-    parts: list[str] = []
-    for node in nodes:
-        md = node_to_markdown(node).strip()
-        if md:
-            parts.append(md)
-    cleaned_md = unicodedata.normalize("NFC", "\n".join(parts)).strip()
+    # 6. Build cleaned Markdown. Render the whole wrapper as a single tree so
+    # inline siblings (NavigableString / span / font) stay on one line.
+    # `<br>` already maps to `\n` inside `node_to_markdown`; consecutive `<br>`s
+    # become a `\n\n` paragraph break.
+    raw_md = node_to_markdown(wrapper)
+    # Trim whitespace on each line and collapse 3+ newlines to 2 (paragraph break).
+    lines = [ln.rstrip() for ln in raw_md.split("\n")]
+    cleaned_md = "\n".join(lines)
+    while "\n\n\n" in cleaned_md:
+        cleaned_md = cleaned_md.replace("\n\n\n", "\n\n")
+    cleaned_md = unicodedata.normalize("NFC", cleaned_md).strip()
 
     # 7. Backfill bare-footnote anchor_text and compute offsets (cursor-based)
     cursor = 0

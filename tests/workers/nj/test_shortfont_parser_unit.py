@@ -274,3 +274,58 @@ def test_no_shortfont_span_passthrough():
 
     assert entries == []
     assert "सामान्य भावार्थ" in cleaned_md
+
+
+# ---------------------------------------------------------------------------
+# Top-level (sibling) <sup> markers — panchaastikaya 005.html style
+# ---------------------------------------------------------------------------
+
+def test_top_level_sup_siblings_are_stripped_and_matched():
+    """When <sup> tags are top-level siblings (not nested in another tag),
+    they must still be detected as anchors and stripped from cleaned_md.
+    Regression: panchaastikaya 005.html structure.
+    """
+    html = (
+        "वस्तु के <sup>१</sup>व्यतिरेकी विशेष पर्यायें हैं "
+        "और <sup>२</sup>अन्वयी विशेष गुण हैं ।"
+        "<span class=shortFont>"
+        "<sup>१</sup>व्यतिरेक : भेद ।<br>"
+        "<sup>२</sup>अन्वय : एकरूपता ।"
+        "</span>"
+    )
+    cleaned_md, entries = extract_shortfont(_nodes(html))
+
+    assert "१" not in cleaned_md
+    assert "२" not in cleaned_md
+    assert len(entries) == 2
+    assert entries[0].anchor_text == "व्यतिरेकी"
+    assert entries[0].occurrences and cleaned_md[
+        entries[0].occurrences[0].start_offset:entries[0].occurrences[0].end_offset
+    ] == "व्यतिरेकी"
+    assert entries[1].anchor_text == "अन्वयी"
+
+
+# ---------------------------------------------------------------------------
+# Asterisk marker — panchaastikaya 006.html style
+# ---------------------------------------------------------------------------
+
+def test_asterisk_marker_round_trip():
+    """A <sup>*</sup> marker matches a <sup>*</sup> glossary line."""
+    html = (
+        "उसे <sup>*</sup>परिवर्तन-लिंग कहा है ।"
+        "<span class=shortFont>"
+        "<sup>*</sup>परिवर्तन-लिंग=पुद्गलादि का परिवर्तन ।"
+        "</span>"
+    )
+    cleaned_md, entries = extract_shortfont(_nodes(html))
+
+    assert "*" not in cleaned_md.replace("*((", "").replace("))*", "")  # only notes-italic remain
+    assert len(entries) == 1
+    e = entries[0]
+    assert e.marker_devanagari == "*"
+    assert e.marker_number == -1
+    assert e.anchor_text == "परिवर्तन-लिंग"
+    assert e.is_definition is True
+    assert e.occurrences and cleaned_md[
+        e.occurrences[0].start_offset:e.occurrences[0].end_offset
+    ] == "परिवर्तन-लिंग"
