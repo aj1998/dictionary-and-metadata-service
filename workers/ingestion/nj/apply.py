@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 import unicodedata
 import uuid
 from typing import Any
@@ -21,9 +22,11 @@ from jain_kb_common.db.mongo.upserts import (
     upsert_kalash_hindi,
     upsert_kalash_sanskrit,
     upsert_kalash_word_meanings,
+    upsert_table as upsert_table_mongo,
     upsert_teeka_gatha_mapping,
 )
 from jain_kb_common.db.postgres.authors import Author
+from jain_kb_common.db.postgres.enums import IngestionSource
 from jain_kb_common.db.postgres.gathas import Gatha
 from jain_kb_common.db.postgres.shastras import Shastra
 from jain_kb_common.db.postgres.teekas import Teeka
@@ -33,6 +36,7 @@ from jain_kb_common.db.postgres.upserts import (
     upsert_kalash,
     upsert_publication,
     upsert_shastra,
+    upsert_table as upsert_table_pg,
     upsert_teeka,
     upsert_teeka_chapter,
 )
@@ -42,11 +46,20 @@ from jain_kb_common.db.neo4j.upserts import (
     sync_gatha_teeka_bhaavarth,
     sync_kalash,
     sync_kalash_bhaavarth,
+    sync_contains_table_edge,
     sync_publication,
     sync_shastra,
+    sync_table,
     sync_teeka,
 )
 from jain_kb_common.db.neo4j.stubs import sync_stub_node
+
+_log = logging.getLogger(__name__)
+
+_PARENT_KIND_TO_LABEL: dict[str, str] = {
+    "gatha_teeka_bhaavarth": "GathaTeekaBhaavarth",
+    "kalash_bhaavarth": "KalashBhaavarth",
+}
 
 
 def _nfc(v: str) -> str:
@@ -161,7 +174,8 @@ async def apply_nj_shastra_payload(
         )
 
     # --- Gathas: Postgres + Mongo + Neo4j ---
-    shastra_nk_default = pg.get("shastras", [{}])[0].get("natural_key", "")
+    _shastras = pg.get("shastras") or [{}]
+    shastra_nk_default = _shastras[0].get("natural_key", "")
 
     for row in pg.get("gathas", []):
         shastra_nk = row.get("shastra_natural_key", shastra_nk_default)
@@ -299,7 +313,53 @@ async def apply_nj_shastra_payload(
             end_gatha_id=end_gid,
         )
 
+    # --- Postgres: table rows ---
+    table_pg_ids: dict[str, uuid.UUID] = {}
+    for t in ww.get("tables", []):
+        nk = t["natural_key"]
+        caption_list = t.get("caption") or []
+        caption_pg = caption_list if caption_list else None
+        table_id = await upsert_table_pg(
+            pg_session,
+            natural_key=nk,
+            source=IngestionSource.nj,
+            parent_natural_key=t["parent_natural_key"],
+            parent_kind=t["parent_kind"],
+            seq=t["seq"],
+            raw_html_doc_id=str(stable_id(nk)),
+            caption=caption_pg,
+            source_url=t.get("source_url"),
+            table_type=t.get("table_type", "index"),
+        )
+        table_pg_ids[nk] = table_id
+        _log.debug("upserted nj table PG row: %s → %s", nk, table_id)
+
     await pg_session.commit()
+
+    # --- Mongo: table docs ---
+    for t in ww.get("tables", []):
+        nk = t["natural_key"]
+        table_id = table_pg_ids.get(nk)
+        mongo_doc: dict = {
+            "table_id": str(table_id) if table_id else "",
+            "parent_natural_key": t["parent_natural_key"],
+            "parent_kind": t["parent_kind"],
+            "table_type": t.get("table_type", "index"),
+            "seq": t["seq"],
+            "raw_html": t.get("raw_html", ""),
+            "cells": t.get("cells", []),
+            "cell_refs": t.get("cell_refs", []),
+            "header_rows": t.get("header_rows", 0),
+            "plaintext": t.get("plaintext", ""),
+            "caption": t.get("caption", []),
+            "source_url": t.get("source_url"),
+            "mentioned_keyword_natural_keys": t.get("mentioned_keyword_natural_keys", []),
+            "mentioned_topic_natural_keys": t.get("mentioned_topic_natural_keys", []),
+        }
+        if run_id_str:
+            mongo_doc["ingestion_run_id"] = run_id_str
+        await upsert_table_mongo(mongo_db, natural_key=nk, doc=mongo_doc)
+        _log.debug("upserted nj table Mongo doc: %s", nk)
 
     # --- Neo4j: structural nodes ---
     shastra_row = pg.get("shastras", [{}])[0] if pg.get("shastras") else {}
@@ -411,6 +471,41 @@ async def apply_nj_shastra_payload(
                 tgt_nk=to_key,
                 database=neo4j_database,
             )
+
+    # --- Neo4j: Table nodes + CONTAINS_TABLE edges ---
+    for t in ww.get("tables", []):
+        nk = t["natural_key"]
+        table_id = table_pg_ids.get(nk)
+        parent_nk = t["parent_natural_key"]
+        parent_kind = t["parent_kind"]
+        caption_list = t.get("caption") or []
+        caption_hi = caption_list[0]["text"] if caption_list else None
+
+        await sync_table(
+            neo4j_driver,
+            natural_key=nk,
+            pg_id=str(table_id) if table_id else "",
+            source="nj",
+            parent_natural_key=parent_nk,
+            parent_kind=parent_kind,
+            seq=t["seq"],
+            caption_hi=caption_hi,
+            table_type=t.get("table_type", "index"),
+            database=neo4j_database,
+        )
+
+        parent_label = _PARENT_KIND_TO_LABEL.get(parent_kind)
+        if parent_label:
+            await sync_contains_table_edge(
+                neo4j_driver,
+                parent_label=parent_label,
+                parent_nk=parent_nk,
+                table_nk=nk,
+                source="nj",
+                database=neo4j_database,
+            )
+        else:
+            _log.warning("unknown parent_kind %r for nj table %s, skipping CONTAINS_TABLE edge", parent_kind, nk)
 
 
 def _make_mongo_doc(doc: dict, run_id_str: str | None) -> dict:

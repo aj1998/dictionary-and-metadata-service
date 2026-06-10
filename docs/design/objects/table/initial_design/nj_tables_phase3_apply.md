@@ -101,6 +101,15 @@ Expected: one row + one edge per NJ table seen.
 
 ---
 
+## 8. Implementation Notes
+
+- Added `upsert_table_pg`, `upsert_table_mongo`, `sync_table`, `sync_contains_table_edge`, and `IngestionSource` imports to `workers/ingestion/nj/apply.py`.
+- Added `_PARENT_KIND_TO_LABEL` dict (restricted to `gatha_teeka_bhaavarth` and `kalash_bhaavarth` — the only parent kinds NJ tables carry).
+- Fixed a latent bug in `apply_nj_shastra_payload`: `pg.get("shastras", [{}])[0]` raised `IndexError` when `shastras` was explicitly `[]`. Fixed to `pg.get("shastras") or [{}]`.
+- Added `mongo:tables` and `neo4j:Table` as separate top-level entries in `_NJ_CONTRACTS` in `envelope.py` (previously only `postgres:tables` entry referenced them in `stores`).
+- Tests in `tests/ingestion/test_apply_nj_tables.py` use a synthetic minimal envelope (no real HTML parsing needed) so they run without the NJ HTML fixture files.
+- All 5 tests pass; full suite (1192 tests) passes with no regressions.
+
 ## 7. Done when
 
 - NJ apply writes Table to all three stores with `table_type='index'`.

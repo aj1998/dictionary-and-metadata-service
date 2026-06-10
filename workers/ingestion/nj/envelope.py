@@ -149,6 +149,22 @@ _NJ_CONTRACTS: dict[str, dict] = {
         "fields_skip_if_set": [],
         "stores": ["postgres:tables", "mongo:tables", "neo4j:Table"],
     },
+    "mongo:tables": {
+        "conflict_key": ["natural_key"],
+        "on_conflict": "do_update",
+        "fields_replace": ["table_type", "raw_html", "cells", "cell_refs", "header_rows", "plaintext", "caption", "mentioned_keyword_natural_keys", "mentioned_topic_natural_keys"],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": ["mongo:tables"],
+    },
+    "neo4j:Table": {
+        "conflict_key": ["key"],
+        "on_conflict": "merge",
+        "fields_replace": ["table_type", "seq", "caption_hi", "parent_natural_key", "parent_kind", "pg_id", "source"],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": ["neo4j:Table"],
+    },
     "neo4j:Publication": {
         "conflict_key": ["key"],
         "on_conflict": "merge",
