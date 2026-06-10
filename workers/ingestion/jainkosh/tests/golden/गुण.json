@@ -577,12 +577,37 @@
                       {
                         "text": "श्लोकवार्तिक/ भाषा 2/1/4/53/158/11",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "भाषा",
                         "shastra_name": "श्लोकवार्तिक",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "पुस्तक",
+                            "value": 2
+                          },
+                          {
+                            "field": "अध्याय",
+                            "value": 1
+                          },
+                          {
+                            "field": "सूत्र",
+                            "value": 4
+                          },
+                          {
+                            "field": "श्लोकवार्तिकवार्तिक",
+                            "value": 53
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 158
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 11
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2010,12 +2035,37 @@
                       {
                         "text": "श्लोकवार्तिक/ भाषा/2/1/6/56/503/7",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": true,
                         "teeka_name": "भाषा",
                         "shastra_name": "श्लोकवार्तिक",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "पुस्तक",
+                            "value": 2
+                          },
+                          {
+                            "field": "अध्याय",
+                            "value": 1
+                          },
+                          {
+                            "field": "सूत्र",
+                            "value": 6
+                          },
+                          {
+                            "field": "श्लोकवार्तिकवार्तिक",
+                            "value": 56
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 503
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 7
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -3761,11 +3811,11 @@
                             "value": 4
                           },
                           {
-                            "field": "श्लोकवार्तिकसूत्र",
+                            "field": "सूत्र",
                             "value": 53
                           },
                           {
-                            "field": "वार्तिक",
+                            "field": "श्लोकवार्तिकवार्तिक",
                             "value": 158
                           },
                           {
@@ -4372,7 +4422,7 @@
       "next": "/wiki/Aaaa"
     },
     "parser_version": "jainkosh.rules/1.11.21",
-    "parsed_at": "2026-06-09T21:06:15.265327",
+    "parsed_at": "2026-06-10T16:51:50.654113",
     "warnings": []
   },
   "would_write": {
@@ -5571,12 +5621,37 @@
                 {
                   "text": "श्लोकवार्तिक/ भाषा 2/1/4/53/158/11",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "भाषा",
                   "shastra_name": "श्लोकवार्तिक",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "पुस्तक",
+                      "value": 2
+                    },
+                    {
+                      "field": "अध्याय",
+                      "value": 1
+                    },
+                    {
+                      "field": "सूत्र",
+                      "value": 4
+                    },
+                    {
+                      "field": "श्लोकवार्तिकवार्तिक",
+                      "value": 53
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 158
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 11
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -7013,12 +7088,37 @@
                 {
                   "text": "श्लोकवार्तिक/ भाषा/2/1/6/56/503/7",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": true,
                   "teeka_name": "भाषा",
                   "shastra_name": "श्लोकवार्तिक",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "पुस्तक",
+                      "value": 2
+                    },
+                    {
+                      "field": "अध्याय",
+                      "value": 1
+                    },
+                    {
+                      "field": "सूत्र",
+                      "value": 6
+                    },
+                    {
+                      "field": "श्लोकवार्तिकवार्तिक",
+                      "value": 56
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 503
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 7
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -8779,11 +8879,11 @@
                       "value": 4
                     },
                     {
-                      "field": "श्लोकवार्तिकसूत्र",
+                      "field": "सूत्र",
                       "value": 53
                     },
                     {
-                      "field": "वार्तिक",
+                      "field": "श्लोकवार्तिकवार्तिक",
                       "value": 158
                     },
                     {
@@ -9726,6 +9826,38 @@
           "lazy": true
         },
         {
+          "label": "GathaTeeka",
+          "key": "श्लोकवार्तिक:भाषा:गाथा:टीका:4",
+          "props": {
+            "shastra_natural_key": "श्लोकवार्तिक",
+            "teeka_natural_key": "श्लोकवार्तिक:भाषा",
+            "gatha_number": "4"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "श्लोकवार्तिक:भाषा:4:गाथा:टीका:भावार्थ:4",
+          "props": {
+            "shastra_natural_key": "श्लोकवार्तिक",
+            "teeka_natural_key": "श्लोकवार्तिक:भाषा",
+            "publisher_id": "4",
+            "gatha_number": "4"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "श्लोकवार्तिक:भाषा:4:पृष्ठ:158",
+          "props": {
+            "shastra_natural_key": "श्लोकवार्तिक",
+            "teeka_natural_key": "श्लोकवार्तिक:भाषा",
+            "publisher_id": "4",
+            "page_number": "158"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "गुण:गुण-के-भेद-व-लक्षण:साधारण-व-असाधारण-या-सामान्य-व-विशेष-गुणों-के-लक्षण",
           "props": {
@@ -10026,6 +10158,38 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "श्लोकवार्तिक:भाषा:गाथा:टीका:6",
+          "props": {
+            "shastra_natural_key": "श्लोकवार्तिक",
+            "teeka_natural_key": "श्लोकवार्तिक:भाषा",
+            "gatha_number": "6"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "श्लोकवार्तिक:भाषा:4:गाथा:टीका:भावार्थ:6",
+          "props": {
+            "shastra_natural_key": "श्लोकवार्तिक",
+            "teeka_natural_key": "श्लोकवार्तिक:भाषा",
+            "publisher_id": "4",
+            "gatha_number": "6"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "श्लोकवार्तिक:भाषा:4:पृष्ठ:503",
+          "props": {
+            "shastra_natural_key": "श्लोकवार्तिक",
+            "teeka_natural_key": "श्लोकवार्तिक:भाषा",
+            "publisher_id": "4",
+            "page_number": "503"
+          },
+          "lazy": true
         },
         {
           "label": "Topic",
@@ -10543,22 +10707,22 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "श्लोकवार्तिक:भाषा:गाथा:टीका:158",
+          "key": "श्लोकवार्तिक:भाषा:गाथा:टीका:53",
           "props": {
             "shastra_natural_key": "श्लोकवार्तिक",
             "teeka_natural_key": "श्लोकवार्तिक:भाषा",
-            "gatha_number": "158"
+            "gatha_number": "53"
           },
           "lazy": true
         },
         {
           "label": "GathaTeekaBhaavarth",
-          "key": "श्लोकवार्तिक:भाषा:4:गाथा:टीका:भावार्थ:158",
+          "key": "श्लोकवार्तिक:भाषा:4:गाथा:टीका:भावार्थ:53",
           "props": {
             "shastra_natural_key": "श्लोकवार्तिक",
             "teeka_natural_key": "श्लोकवार्तिक:भाषा",
             "publisher_id": "4",
-            "gatha_number": "158"
+            "gatha_number": "53"
           },
           "lazy": true
         },
@@ -11209,6 +11373,63 @@
             "pankti": 8,
             "block_index": 2,
             "mention_path": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद/2",
+            "source_natural_key": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "श्लोकवार्तिक:भाषा:गाथा:टीका:4"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 11,
+            "block_index": 3,
+            "mention_path": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद/3",
+            "source_natural_key": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "श्लोकवार्तिक:भाषा:4:गाथा:टीका:भावार्थ:4"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 11,
+            "block_index": 3,
+            "mention_path": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद/3",
+            "source_natural_key": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "श्लोकवार्तिक:भाषा:4:पृष्ठ:158"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 11,
+            "block_index": 3,
+            "mention_path": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद/3",
             "source_natural_key": "गुण:गुण-के-भेद-व-लक्षण:गुण-के-साधारण-असाधारणादि-मूल-भेद"
           }
         },
@@ -11895,6 +12116,63 @@
             "source": "jainkosh",
             "block_index": 0,
             "mention_path": "गुण:गुण-निर्देश:गुण-का-अर्थ-अनंत-पर्यायों-का-समूह/0",
+            "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अर्थ-अनंत-पर्यायों-का-समूह"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "श्लोकवार्तिक:भाषा:गाथा:टीका:6"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:गुण-का-अर्थ-अनंत-पर्यायों-का-समूह"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 7,
+            "block_index": 1,
+            "mention_path": "गुण:गुण-निर्देश:गुण-का-अर्थ-अनंत-पर्यायों-का-समूह/1",
+            "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अर्थ-अनंत-पर्यायों-का-समूह"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "श्लोकवार्तिक:भाषा:4:गाथा:टीका:भावार्थ:6"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:गुण-का-अर्थ-अनंत-पर्यायों-का-समूह"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 7,
+            "block_index": 1,
+            "mention_path": "गुण:गुण-निर्देश:गुण-का-अर्थ-अनंत-पर्यायों-का-समूह/1",
+            "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अर्थ-अनंत-पर्यायों-का-समूह"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "श्लोकवार्तिक:भाषा:4:पृष्ठ:503"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "गुण:गुण-निर्देश:गुण-का-अर्थ-अनंत-पर्यायों-का-समूह"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 7,
+            "block_index": 1,
+            "mention_path": "गुण:गुण-निर्देश:गुण-का-अर्थ-अनंत-पर्यायों-का-समूह/1",
             "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अर्थ-अनंत-पर्यायों-का-समूह"
           }
         },
@@ -13112,7 +13390,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "श्लोकवार्तिक:भाषा:गाथा:टीका:158"
+            "key": "श्लोकवार्तिक:भाषा:गाथा:टीका:53"
           },
           "to": {
             "label": "Topic",
@@ -13130,7 +13408,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeekaBhaavarth",
-            "key": "श्लोकवार्तिक:भाषा:4:गाथा:टीका:भावार्थ:158"
+            "key": "श्लोकवार्तिक:भाषा:4:गाथा:टीका:भावार्थ:53"
           },
           "to": {
             "label": "Topic",

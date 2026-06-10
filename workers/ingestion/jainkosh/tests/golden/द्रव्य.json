@@ -2105,12 +2105,37 @@
                       {
                         "text": "श्लोकवार्तिक 2/1/5/63/269/3",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "श्लोकवार्तिक",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "पुस्तक",
+                            "value": 2
+                          },
+                          {
+                            "field": "अध्याय",
+                            "value": 1
+                          },
+                          {
+                            "field": "सूत्र",
+                            "value": 5
+                          },
+                          {
+                            "field": "श्लोकवार्तिकवार्तिक",
+                            "value": 63
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 269
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 3
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2927,11 +2952,11 @@
                             "value": 1
                           },
                           {
-                            "field": "श्लोकवार्तिकसूत्र",
+                            "field": "सूत्र",
                             "value": 5
                           },
                           {
-                            "field": "वार्तिक",
+                            "field": "श्लोकवार्तिकवार्तिक",
                             "value": 269
                           },
                           {
@@ -10616,7 +10641,7 @@
       "next": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF_%E0%A4%86%E0%A4%B8%E0%A5%8D%E0%A4%B0%E0%A4%B5"
     },
     "parser_version": "jainkosh.rules/1.11.21",
-    "parsed_at": "2026-06-09T21:06:15.462022",
+    "parsed_at": "2026-06-10T16:51:50.839956",
     "warnings": []
   },
   "would_write": {
@@ -13965,12 +13990,37 @@
                 {
                   "text": "श्लोकवार्तिक 2/1/5/63/269/3",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "श्लोकवार्तिक",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "पुस्तक",
+                      "value": 2
+                    },
+                    {
+                      "field": "अध्याय",
+                      "value": 1
+                    },
+                    {
+                      "field": "सूत्र",
+                      "value": 5
+                    },
+                    {
+                      "field": "श्लोकवार्तिकवार्तिक",
+                      "value": 63
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 269
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 3
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -14794,11 +14844,11 @@
                       "value": 1
                     },
                     {
-                      "field": "श्लोकवार्तिकसूत्र",
+                      "field": "सूत्र",
                       "value": 5
                     },
                     {
-                      "field": "वार्तिक",
+                      "field": "श्लोकवार्तिकवार्तिक",
                       "value": 269
                     },
                     {
@@ -23430,6 +23480,27 @@
         },
         {
           "label": "GathaTeeka",
+          "key": "श्लोकवार्तिक:टीका:गाथा:टीका:5",
+          "props": {
+            "shastra_natural_key": "श्लोकवार्तिक",
+            "teeka_natural_key": "श्लोकवार्तिक:टीका",
+            "gatha_number": "5"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "श्लोकवार्तिक:टीका:4:पृष्ठ:269",
+          "props": {
+            "shastra_natural_key": "श्लोकवार्तिक",
+            "teeka_natural_key": "श्लोकवार्तिक:टीका",
+            "publisher_id": "4",
+            "page_number": "269"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
           "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:36",
           "props": {
             "shastra_natural_key": "प्रवचनसार",
@@ -23683,16 +23754,6 @@
             "source": "jainkosh",
             "is_leaf": true
           }
-        },
-        {
-          "label": "GathaTeeka",
-          "key": "श्लोकवार्तिक:टीका:गाथा:टीका:269",
-          "props": {
-            "shastra_natural_key": "श्लोकवार्तिक",
-            "teeka_natural_key": "श्लोकवार्तिक:टीका",
-            "gatha_number": "269"
-          },
-          "lazy": true
         },
         {
           "label": "Page",
@@ -27322,6 +27383,44 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
+            "key": "श्लोकवार्तिक:टीका:गाथा:टीका:5"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-त्रिकाली-पर्यायों-का-पिंड"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 3,
+            "block_index": 2,
+            "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-त्रिकाली-पर्यायों-का-पिंड/2",
+            "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-त्रिकाली-पर्यायों-का-पिंड"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "श्लोकवार्तिक:टीका:4:पृष्ठ:269"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-त्रिकाली-पर्यायों-का-पिंड"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 3,
+            "block_index": 2,
+            "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-त्रिकाली-पर्यायों-का-पिंड/2",
+            "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-त्रिकाली-पर्यायों-का-पिंड"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
             "key": "प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:36"
           },
           "to": {
@@ -27800,7 +27899,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "श्लोकवार्तिक:टीका:गाथा:टीका:269"
+            "key": "श्लोकवार्तिक:टीका:गाथा:टीका:5"
           },
           "to": {
             "label": "Topic",
@@ -33882,6 +33981,7 @@
       "seq": 1,
       "parent_natural_key": "द्रव्य:षट्द्रव्य-विभाजन:द्रव्य-के-या-वस्तु-के-एक-दो-आदि-भेदों-की-अपेक्षा-विभाग",
       "parent_kind": "topic",
+      "table_type": "general",
       "source_url": "https://www.jainkosh.org/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF#3.10",
       "caption": [
         {

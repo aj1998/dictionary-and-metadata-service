@@ -1040,12 +1040,37 @@
                           {
                             "text": "श्लोकवार्तिक/4/1/33/60/245/1",
                             "inline_reference": false,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
                             "shastra_name": "श्लोकवार्तिक",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "पुस्तक",
+                                "value": 4
+                              },
+                              {
+                                "field": "अध्याय",
+                                "value": 1
+                              },
+                              {
+                                "field": "सूत्र",
+                                "value": 33
+                              },
+                              {
+                                "field": "श्लोकवार्तिकवार्तिक",
+                                "value": 60
+                              },
+                              {
+                                "field": "पृष्ठ",
+                                "value": 245
+                              },
+                              {
+                                "field": "पंक्ति",
+                                "value": 1
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -5633,7 +5658,7 @@
       "next": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%B8%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8"
     },
     "parser_version": "jainkosh.rules/1.11.21",
-    "parsed_at": "2026-06-09T21:06:15.646282",
+    "parsed_at": "2026-06-10T16:51:51.014120",
     "warnings": []
   },
   "would_write": {
@@ -7577,12 +7602,37 @@
                 {
                   "text": "श्लोकवार्तिक/4/1/33/60/245/1",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "श्लोकवार्तिक",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "पुस्तक",
+                      "value": 4
+                    },
+                    {
+                      "field": "अध्याय",
+                      "value": 1
+                    },
+                    {
+                      "field": "सूत्र",
+                      "value": 33
+                    },
+                    {
+                      "field": "श्लोकवार्तिकवार्तिक",
+                      "value": 60
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 245
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 1
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -12583,6 +12633,27 @@
           }
         },
         {
+          "label": "GathaTeeka",
+          "key": "श्लोकवार्तिक:टीका:गाथा:टीका:33",
+          "props": {
+            "shastra_natural_key": "श्लोकवार्तिक",
+            "teeka_natural_key": "श्लोकवार्तिक:टीका",
+            "gatha_number": "33"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "श्लोकवार्तिक:टीका:4:पृष्ठ:245",
+          "props": {
+            "shastra_natural_key": "श्लोकवार्तिक",
+            "teeka_natural_key": "श्लोकवार्तिक:टीका",
+            "publisher_id": "4",
+            "page_number": "245"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:द्रव्य-व-गुण-पर्याय",
           "props": {
@@ -14450,6 +14521,44 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "श्लोकवार्तिक:टीका:गाथा:टीका:33"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:सहभावी-व-क्रमभावी"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 1,
+            "block_index": 0,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:सहभावी-व-क्रमभावी/0",
+            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:सहभावी-व-क्रमभावी"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "श्लोकवार्तिक:टीका:4:पृष्ठ:245"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:सहभावी-व-क्रमभावी"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 1,
+            "block_index": 0,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:सहभावी-व-क्रमभावी/0",
+            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:सहभावी-व-क्रमभावी"
           }
         },
         {

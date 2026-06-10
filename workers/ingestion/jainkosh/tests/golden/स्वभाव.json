@@ -1339,12 +1339,37 @@
                       {
                         "text": "श्लोकवार्तिक 2/1/7/9/529/27",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "श्लोकवार्तिक",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "पुस्तक",
+                            "value": 2
+                          },
+                          {
+                            "field": "अध्याय",
+                            "value": 1
+                          },
+                          {
+                            "field": "सूत्र",
+                            "value": 7
+                          },
+                          {
+                            "field": "श्लोकवार्तिकवार्तिक",
+                            "value": 9
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 529
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 27
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2092,7 +2117,7 @@
       "next": "/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5_%E0%A4%A8%E0%A4%AF"
     },
     "parser_version": "jainkosh.rules/1.11.21",
-    "parsed_at": "2026-06-09T21:06:15.934108",
+    "parsed_at": "2026-06-10T16:51:51.297588",
     "warnings": []
   },
   "would_write": {
@@ -3828,12 +3853,37 @@
                 {
                   "text": "श्लोकवार्तिक 2/1/7/9/529/27",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "श्लोकवार्तिक",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "पुस्तक",
+                      "value": 2
+                    },
+                    {
+                      "field": "अध्याय",
+                      "value": 1
+                    },
+                    {
+                      "field": "सूत्र",
+                      "value": 7
+                    },
+                    {
+                      "field": "श्लोकवार्तिकवार्तिक",
+                      "value": 9
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 529
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 27
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -5181,6 +5231,27 @@
           }
         },
         {
+          "label": "GathaTeeka",
+          "key": "श्लोकवार्तिक:टीका:गाथा:टीका:7",
+          "props": {
+            "shastra_natural_key": "श्लोकवार्तिक",
+            "teeka_natural_key": "श्लोकवार्तिक:टीका",
+            "gatha_number": "7"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "श्लोकवार्तिक:टीका:4:पृष्ठ:529",
+          "props": {
+            "shastra_natural_key": "श्लोकवार्तिक",
+            "teeka_natural_key": "श्लोकवार्तिक:टीका",
+            "publisher_id": "4",
+            "page_number": "529"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश",
           "props": {
@@ -6495,6 +6566,44 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "श्लोकवार्तिक:टीका:गाथा:टीका:7"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:वस्तु-में-कल्पित-व-वस्तुभूत-धर्मों-का-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 27,
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:वस्तु-में-कल्पित-व-वस्तुभूत-धर्मों-का-निर्देश/0",
+            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:वस्तु-में-कल्पित-व-वस्तुभूत-धर्मों-का-निर्देश"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "श्लोकवार्तिक:टीका:4:पृष्ठ:529"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:वस्तु-में-कल्पित-व-वस्तुभूत-धर्मों-का-निर्देश"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 27,
+            "block_index": 0,
+            "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:वस्तु-में-कल्पित-व-वस्तुभूत-धर्मों-का-निर्देश/0",
+            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:वस्तु-में-कल्पित-व-वस्तुभूत-धर्मों-का-निर्देश"
           }
         },
         {

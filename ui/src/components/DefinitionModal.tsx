@@ -136,6 +136,40 @@ export function groupTopicExtractsByShastra(blocks: DefinitionBlock[]): ShastraG
 
 const REF_BADGE_CLASSES = 'text-foreground-muted';
 
+type RefSourceGroup = {
+  sourceLabel: string;
+  isTeeka: boolean;
+  commonFields: Array<{ field: string; value: string }>;
+  refs: DefinitionReference[];
+};
+
+// Groups refs by (shastra_name, teeka_name) and computes shared field values within each group.
+function groupRefsBySource(refs: DefinitionReference[]): RefSourceGroup[] {
+  const groups = new Map<string, RefSourceGroup>();
+  const order: string[] = [];
+
+  for (const ref of refs) {
+    const key = `${ref.shastra_name ?? ''}|${ref.teeka_name ?? ''}`;
+    if (!groups.has(key)) {
+      groups.set(key, { sourceLabel: formatRefSourceLabel(ref), isTeeka: ref.is_teeka, commonFields: [], refs: [] });
+      order.push(key);
+    }
+    groups.get(key)!.refs.push(ref);
+  }
+
+  for (const group of groups.values()) {
+    if (group.refs.length <= 1) {
+      group.commonFields = [...(group.refs[0]?.resolved_fields ?? [])];
+    } else {
+      group.commonFields = group.refs[0].resolved_fields.filter(({ field, value }) =>
+        group.refs.every((r) => r.resolved_fields.some((f) => f.field === field && f.value === value))
+      );
+    }
+  }
+
+  return order.map((k) => groups.get(k)!);
+}
+
 // Renders a single ref as a bulleted list row used inside the समान संदर्भ popover.
 function RefListItem({ ref, matchEntry, loading, ingestedShastras }: { ref: DefinitionReference; matchEntry?: MatchEntry; loading?: boolean; ingestedShastras: Set<string> | null }) {
   const sourceLabel = formatRefSourceLabel(ref);
@@ -189,6 +223,146 @@ export function RefBadge({ ref, showShastra = false, matchEntry, loading, ingest
       ))}
       <span className="ml-1"><RefMatchLink ref={ref} matchEntry={matchEntry} loading={loading} ingestedShastras={ingestedShastras} /></span>
     </span>
+  );
+}
+
+// Renders a flat list of refs, grouping those that share the same shastra+teeka source.
+// Groups with >1 ref show the source label and common fields once, then per-ref differentiators.
+function GroupedRefRow({ refs, showShastra, entries, loading, ingestedShastras }: {
+  refs: DefinitionReference[];
+  showShastra: boolean;
+  entries: MatchEntry[] | null;
+  loading: boolean;
+  ingestedShastras: Set<string> | null;
+}) {
+  const groups = groupRefsBySource(refs);
+  return (
+    <>
+      {groups.map((group, gi) => {
+        if (group.refs.length === 1) {
+          return (
+            <RefBadge
+              key={gi}
+              ref={group.refs[0]}
+              showShastra={showShastra}
+              matchEntry={findMatchForRef(group.refs[0], entries)}
+              loading={loading}
+              ingestedShastras={ingestedShastras}
+            />
+          );
+        }
+
+        const commonFieldKeys = new Set(group.commonFields.map((f) => `${f.field}:${f.value}`));
+        const badgeLabel = showShastra
+          ? group.sourceLabel || null
+          : group.isTeeka ? (group.refs[0].teeka_name || null) : null;
+
+        return (
+          <span key={gi} className={cn('inline-flex flex-wrap items-center gap-0 font-serif-hindi text-xs italic', REF_BADGE_CLASSES)}>
+            {badgeLabel && (
+              <>
+                <span className={cn('font-semibold', group.isTeeka ? 'text-amber-700' : '')}>{badgeLabel}</span>
+                <span className="mx-1.5 opacity-30">|</span>
+              </>
+            )}
+            {group.commonFields.map((f, fi) => (
+              <span key={fi} className="flex items-center">
+                {fi > 0 && <span className="mx-1 opacity-50">·</span>}
+                <span className="opacity-80">{f.field}:</span>
+                <span className="ml-0.5 text-[10px] font-medium not-italic">{f.value}</span>
+              </span>
+            ))}
+            {group.commonFields.length > 0 && <span className="mx-1.5 opacity-30">|</span>}
+            {group.refs.map((ref, ri) => {
+              const diffFields = ref.resolved_fields.filter((f) => !commonFieldKeys.has(`${f.field}:${f.value}`));
+              return (
+                <span key={ri} className="inline-flex items-center gap-0">
+                  {ri > 0 && <span className="mx-1 opacity-50">·</span>}
+                  {diffFields.map((f, fi) => (
+                    <span key={fi} className="flex items-center">
+                      {fi > 0 && <span className="mx-1 opacity-50">·</span>}
+                      <span className="opacity-80">{f.field}:</span>
+                      <span className="ml-0.5 text-[10px] font-medium not-italic">{f.value}</span>
+                    </span>
+                  ))}
+                  <span className="ml-1">
+                    <RefMatchLink ref={ref} matchEntry={findMatchForRef(ref, entries)} loading={loading} ingestedShastras={ingestedShastras} />
+                  </span>
+                </span>
+              );
+            })}
+          </span>
+        );
+      })}
+    </>
+  );
+}
+
+// Renders grouped refs as list items for the समान संदर्भ popover.
+function GroupedRefList({ refs, entries, loading, ingestedShastras }: {
+  refs: DefinitionReference[];
+  entries: MatchEntry[] | null;
+  loading: boolean;
+  ingestedShastras: Set<string> | null;
+}) {
+  const groups = groupRefsBySource(refs);
+  return (
+    <>
+      {groups.map((group, gi) => {
+        if (group.refs.length === 1) {
+          return (
+            <RefListItem
+              key={gi}
+              ref={group.refs[0]}
+              matchEntry={findMatchForRef(group.refs[0], entries)}
+              loading={loading}
+              ingestedShastras={ingestedShastras}
+            />
+          );
+        }
+
+        const commonFieldKeys = new Set(group.commonFields.map((f) => `${f.field}:${f.value}`));
+        return (
+          <li key={gi} className="flex items-baseline gap-2 font-serif-hindi text-xs text-foreground">
+            <span className="mt-0.5 shrink-0 text-foreground-subtle">•</span>
+            <span className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+              {group.sourceLabel && (
+                <>
+                  <span className={cn('font-semibold', group.isTeeka ? 'text-amber-700' : 'text-foreground-muted')}>
+                    {group.sourceLabel}
+                  </span>
+                  <span className="opacity-30">|</span>
+                </>
+              )}
+              {group.commonFields.map((f, fi) => (
+                <span key={fi} className="flex items-center gap-0.5">
+                  {fi > 0 && <span className="opacity-30">·</span>}
+                  <span className="text-foreground-muted">{f.field}:</span>
+                  <span className="font-medium">{f.value}</span>
+                </span>
+              ))}
+              {group.commonFields.length > 0 && <span className="opacity-30">|</span>}
+              {group.refs.map((ref, ri) => {
+                const diffFields = ref.resolved_fields.filter((f) => !commonFieldKeys.has(`${f.field}:${f.value}`));
+                return (
+                  <span key={ri} className="inline-flex items-center gap-0.5">
+                    {ri > 0 && <span className="opacity-30">·</span>}
+                    {diffFields.map((f, fi) => (
+                      <span key={fi} className="flex items-center gap-0.5">
+                        {fi > 0 && <span className="opacity-30">·</span>}
+                        <span className="text-foreground-muted">{f.field}:</span>
+                        <span className="font-medium">{f.value}</span>
+                      </span>
+                    ))}
+                    <RefMatchLink ref={ref} matchEntry={findMatchForRef(ref, entries)} loading={loading} ingestedShastras={ingestedShastras} />
+                  </span>
+                );
+              })}
+            </span>
+          </li>
+        );
+      })}
+    </>
   );
 }
 
@@ -254,15 +428,13 @@ function ModalBlock({ block, showShastra = false }: { block: DefinitionBlock; sh
       {hasAnyRef && (
         <div className="mt-2 flex items-start gap-2">
           <div className="flex flex-wrap items-center gap-1.5">
-            {refsToShow.map((ref, ri) => (
-              <RefBadge key={ri} ref={ref} showShastra={showShastra} matchEntry={findMatchForRef(ref, entries)} loading={loading} ingestedShastras={ingestedShastras} />
-            ))}
+            <GroupedRefRow refs={refsToShow} showShastra={showShastra} entries={entries} loading={loading} ingestedShastras={ingestedShastras} />
           </div>
           {hiddenRefs.length > 0 && (
             <Popover>
               <PopoverTrigger
                 aria-haspopup="dialog"
-                className="ml-auto shrink-0 rounded-[var(--radius-sm)] bg-accent px-2.5 py-0.5 font-serif-hindi text-xs font-bold text-white transition-colors hover:bg-accent-hover"
+                className="ml-auto shrink-0 rounded-[var(--radius-sm)] border border-accent/30 bg-accent-soft px-2.5 py-0.5 font-serif-hindi text-xs font-bold text-accent transition-colors hover:bg-accent hover:text-accent-foreground"
               >
                 समान संदर्भ
               </PopoverTrigger>
@@ -275,9 +447,7 @@ function ModalBlock({ block, showShastra = false }: { block: DefinitionBlock; sh
                   समान संदर्भ ({hiddenRefs.length})
                 </p>
                 <ul className="space-y-1.5">
-                  {hiddenRefs.map((ref, ri) => (
-                    <RefListItem key={ri} ref={ref} matchEntry={findMatchForRef(ref, entries)} loading={loading} ingestedShastras={ingestedShastras} />
-                  ))}
+                  <GroupedRefList refs={hiddenRefs} entries={entries} loading={loading} ingestedShastras={ingestedShastras} />
                 </ul>
               </PopoverContent>
             </Popover>
@@ -326,7 +496,7 @@ function KeywordDefinitionBlocks({ blocks }: { blocks: DefinitionBlock[] }) {
   const groups = groupTopicExtractsByShastra(blocks);
 
   const [openMap, setOpenMap] = useState<Record<number, boolean>>(() =>
-    Object.fromEntries(groups.map((_, i) => [i, true]))
+    Object.fromEntries(groups.map((_, i) => [i, false]))
   );
 
   const toggleOne = (i: number) =>
@@ -435,7 +605,7 @@ function TopicExtractsSection({ blocks, viewMode }: { blocks: DefinitionBlock[];
 
   // One open-state entry per group; all start expanded.
   const [openMap, setOpenMap] = useState<Record<number, boolean>>(() =>
-    Object.fromEntries(groups.map((_, i) => [i, true]))
+    Object.fromEntries(groups.map((_, i) => [i, false]))
   );
 
   const allOpen = groups.every((_, i) => openMap[i]);
