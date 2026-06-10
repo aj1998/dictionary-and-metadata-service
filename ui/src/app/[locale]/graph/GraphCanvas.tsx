@@ -104,6 +104,7 @@ interface EdgesAndNodesProps {
   onNodePinToggle?: (nk: string) => void;
   onNodeExpand?: (nk: string) => void;
   onEdgeClick?: (id: string) => void;
+  onNodePointerDown?: (nk: string, e: React.PointerEvent) => void;
 }
 
 const EdgesAndNodes = memo(function EdgesAndNodes({
@@ -116,6 +117,7 @@ const EdgesAndNodes = memo(function EdgesAndNodes({
   onNodePinToggle,
   onNodeExpand,
   onEdgeClick,
+  onNodePointerDown,
 }: EdgesAndNodesProps) {
   return (
     <>
@@ -164,6 +166,8 @@ const EdgesAndNodes = memo(function EdgesAndNodes({
             width={CARD_W}
             height={CARD_H}
             className="graph-node overflow-visible"
+            style={{ cursor: 'grab' }}
+            onPointerDown={e => onNodePointerDown?.(node.nk, e)}
           >
             <NodeCard
               id={node.nk}
@@ -268,7 +272,7 @@ export function GraphCanvas({
   }, []);
 
   // Force simulation (direct DOM updates, no React re-renders per tick)
-  const { registerNode, registerEdge, restart } = useForceSimulation(
+  const { registerNode, registerEdge, restart, getSimNode, kickSim } = useForceSimulation(
     canvasSize.w,
     canvasSize.h,
   );
@@ -654,6 +658,99 @@ export function GraphCanvas({
     onNodeExpand?.(nk);
   }, [onNodeExpand]);
 
+  // ── Node drag ────────────────────────────────────────────────────────────────
+  //
+  // Lets the user reposition any node by pressing and dragging the card.
+  // While dragging we mutate the d3 node's fx/fy (pinning it under the cursor)
+  // and kick the sim so the existing tick handler updates the DOM. When the
+  // drag ends we commit the new position to lastPositionsRef + the zustand
+  // store so it survives re-layouts and page navigation.
+  const dragRef = useRef<{
+    nk: string;
+    startClientX: number;
+    startClientY: number;
+    startNodeX: number;
+    startNodeY: number;
+    hadFx: boolean;
+    hadFy: boolean;
+    moved: boolean;
+  } | null>(null);
+  const suppressNextClickRef = useRef(false);
+
+  const handleNodePointerDown = useCallback((nk: string, e: React.PointerEvent) => {
+    if (e.button !== 0) return;
+    // Ignore drags initiated on interactive sub-controls of the card
+    // (pin / expand / external-link buttons all live inside the node card).
+    if ((e.target as Element).closest('button, a')) return;
+    const sn = getSimNode(nk);
+    if (!sn || sn.x == null || sn.y == null) return;
+    dragRef.current = {
+      nk,
+      startClientX: e.clientX,
+      startClientY: e.clientY,
+      startNodeX: sn.x,
+      startNodeY: sn.y,
+      hadFx: sn.fx != null,
+      hadFy: sn.fy != null,
+      moved: false,
+    };
+    e.stopPropagation();
+  }, [getSimNode]);
+
+  useEffect(() => {
+    const onMove = (e: PointerEvent) => {
+      const drag = dragRef.current;
+      if (!drag) return;
+      const dx = (e.clientX - drag.startClientX) / cameraRef.current.k;
+      const dy = (e.clientY - drag.startClientY) / cameraRef.current.k;
+      if (!drag.moved && Math.hypot(e.clientX - drag.startClientX, e.clientY - drag.startClientY) >= CANVAS_CLICK_THRESHOLD_PX) {
+        drag.moved = true;
+      }
+      const sn = getSimNode(drag.nk);
+      if (!sn) return;
+      const nx = drag.startNodeX + dx;
+      const ny = drag.startNodeY + dy;
+      sn.fx = nx;
+      sn.fy = ny;
+      sn.x = nx;
+      sn.y = ny;
+      kickSim();
+    };
+    const onUp = () => {
+      const drag = dragRef.current;
+      if (!drag) return;
+      dragRef.current = null;
+      const sn = getSimNode(drag.nk);
+      if (sn && drag.moved) {
+        // Persist the new position so layout-change effects and remounts
+        // honor where the user dropped the card.
+        const x = sn.x ?? drag.startNodeX;
+        const y = sn.y ?? drag.startNodeY;
+        lastPositionsRef.current.set(drag.nk, { x, y });
+        setStorePositions(Object.fromEntries(lastPositionsRef.current));
+        // Restore freedom if the node wasn't pinned before; otherwise keep it
+        // pinned at the new spot (matches d3-drag default behaviour).
+        if (!drag.hadFx) sn.fx = null;
+        if (!drag.hadFy) sn.fy = null;
+        suppressNextClickRef.current = true;
+      }
+    };
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp);
+    return () => {
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+    };
+  }, [getSimNode, kickSim, setStorePositions]);
+
+  const handleNodeClick = useCallback((nk: string) => {
+    if (suppressNextClickRef.current) {
+      suppressNextClickRef.current = false;
+      return;
+    }
+    onNodeClick?.(nk);
+  }, [onNodeClick]);
+
   // ── Event handlers ───────────────────────────────────────────────────────────
 
   const handleWheel = useCallback(
@@ -748,11 +845,12 @@ export function GraphCanvas({
             edges={edges}
             registerNode={registerNode}
             accumulateEdgeRef={accumulateEdgeRef}
-            onNodeClick={onNodeClick}
+            onNodeClick={handleNodeClick}
             onNodeDoubleClick={onNodeDoubleClick}
             onNodePinToggle={onNodePinToggle}
             onNodeExpand={handleNodeExpand}
             onEdgeClick={onEdgeClick}
+            onNodePointerDown={handleNodePointerDown}
           />
         </g>
       </svg>

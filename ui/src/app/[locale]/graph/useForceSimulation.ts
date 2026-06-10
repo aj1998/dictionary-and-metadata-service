@@ -309,5 +309,18 @@ export function useForceSimulation(canvasW: number, canvasH: number) {
     }
   }).current;
 
-  return { registerNode, registerEdge, restart };
+  const getSimNode = useRef((nk: string): D3Node | null => {
+    const sim = simRef.current;
+    if (!sim) return null;
+    return sim.nodes().find(n => n.nk === nk) ?? null;
+  }).current;
+
+  const kickSim = useRef(() => {
+    const sim = simRef.current;
+    if (!sim) return;
+    if (sim.alpha() < 0.001) sim.alpha(0.001);
+    sim.restart();
+  }).current;
+
+  return { registerNode, registerEdge, restart, getSimNode, kickSim };
 }
