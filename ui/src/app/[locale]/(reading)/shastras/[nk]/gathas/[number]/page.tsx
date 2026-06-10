@@ -352,38 +352,46 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
         <GathaPanel lang="hindi-harigeet" text={joinedLangText(gatha.hindi_chhand[0]?.text) || '—'} />
 
         {/* 4. शब्दार्थ — word-by-word meanings + full anvayarth */}
-        <section className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
-          <div className="mb-3 flex items-start justify-between gap-2">
+        <section className="rounded-[var(--radius-md)] border bg-surface shadow-node overflow-hidden" style={{ borderColor: 'color-mix(in srgb, var(--cat-keyword) 35%, var(--border))', ['--panel-accent' as string]: 'var(--cat-keyword)' }}>
+          <div
+            className="flex items-start justify-between gap-2 px-5 py-3 border-b"
+            style={{
+              backgroundColor: 'color-mix(in srgb, var(--cat-keyword) 12%, transparent)',
+              borderBottomColor: 'color-mix(in srgb, var(--cat-keyword) 25%, var(--border))',
+            }}
+          >
             <div className="flex flex-wrap items-center gap-2">
-              <h2 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">शब्दार्थ</h2>
+              <h2 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold" style={{ color: 'color-mix(in srgb, var(--cat-keyword) 85%, var(--foreground))' }}>शब्दार्थ</h2>
               {combinedGathaNotice?.ka}
             </div>
             <PanelActionsMenu sourceNk={gathaNk} sourceLabel={`गाथा ${gatha.gatha_number || number}`} />
           </div>
-          {primaryMapping?.tagged_terms.length ? (
-            <ShabdaArthSection
-              entries={primaryMapping.tagged_terms.map((t) => ({
-                word: t.source_word,
-                meaning: t.meaning,
-                position: t.position,
-                startOffset: t.start_offset,
-                endOffset: t.end_offset,
-              }))}
-              anvayarth={primaryMapping.full_anyavaarth ?? primaryMapping.tagged_terms.map((t) => t.meaning).join(' ')}
-            />
-          ) : primaryMapping?.full_anyavaarth ? (
-            <div>
-              <p className="mb-1 text-xs font-medium text-foreground-muted">अन्वयार्थ</p>
-              <p className="font-serif-hindi text-sm leading-8 text-foreground">{primaryMapping.full_anyavaarth}</p>
-            </div>
-          ) : (
-            <p className="text-sm text-foreground-muted">शब्दार्थ उपलब्ध नहीं है।</p>
-          )}
+          <div className="p-5">
+            {primaryMapping?.tagged_terms.length ? (
+              <ShabdaArthSection
+                entries={primaryMapping.tagged_terms.map((t) => ({
+                  word: t.source_word,
+                  meaning: t.meaning,
+                  position: t.position,
+                  startOffset: t.start_offset,
+                  endOffset: t.end_offset,
+                }))}
+                anvayarth={primaryMapping.full_anyavaarth ?? primaryMapping.tagged_terms.map((t) => t.meaning).join(' ')}
+              />
+            ) : primaryMapping?.full_anyavaarth ? (
+              <div>
+                <p className="mb-1 text-xs font-medium text-foreground-muted">अन्वयार्थ</p>
+                <p className="font-serif-hindi text-sm leading-8 text-foreground">{primaryMapping.full_anyavaarth}</p>
+              </div>
+            ) : (
+              <p className="text-sm text-foreground-muted">शब्दार्थ उपलब्ध नहीं है।</p>
+            )}
+          </div>
         </section>
 
         {/* संबंधित — kalash/secondary-gatha tabbed panel */}
         {kalashItems.length > 0 && (
-          <TabbedPanel title="संबंधित" items={kalashItems} showActions />
+          <TabbedPanel title="संबंधित" items={kalashItems} showActions accent="kalash" />
         )}
 
         {/* Prev / Next navigation */}
@@ -408,14 +416,22 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
 
   const sidebar = (
       <aside key="sidebar" className="space-y-4 lg:sticky lg:top-[90px] lg:self-start lg:max-h-[calc(100vh-110px)] lg:overflow-y-auto">
-        <TeekaPanel key="teeka" items={teekaItems} showActions notice={combinedGathaNotice?.ki} />
+        <TeekaPanel key="teeka" items={teekaItems} showActions notice={combinedGathaNotice?.ki} accent="teeka" />
         {bhaavarthItems.length > 0 && (
-          <TabbedPanel key="bhaavarth" title="हिन्दी भावार्थ" items={bhaavarthItems} showActions notice={combinedGathaNotice?.ka} />
+          <TabbedPanel key="bhaavarth" title="हिन्दी भावार्थ" items={bhaavarthItems} showActions notice={combinedGathaNotice?.ka} accent="bhaavarth" />
         )}
         {topics.length > 0 && (
-          <section key="topics" className="rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-node">
-            <h3 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">संबंधित विषय</h3>
-            <div className="mt-3 flex flex-wrap gap-2">
+          <section key="topics" className="rounded-[var(--radius-md)] border bg-surface shadow-node overflow-hidden" style={{ borderColor: 'color-mix(in srgb, var(--cat-topic) 35%, var(--border))' }}>
+            <div
+              className="px-5 py-3 border-b"
+              style={{
+                backgroundColor: 'color-mix(in srgb, var(--cat-topic) 12%, transparent)',
+                borderBottomColor: 'color-mix(in srgb, var(--cat-topic) 25%, var(--border))',
+              }}
+            >
+              <h3 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold" style={{ color: 'color-mix(in srgb, var(--cat-topic) 85%, var(--foreground))' }}>संबंधित विषय</h3>
+            </div>
+            <div className="p-4 flex flex-wrap gap-2">
               {topics.map((topic) => (
                 <TopicNavAction
                   key={topic.natural_key}

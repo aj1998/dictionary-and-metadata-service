@@ -5,6 +5,7 @@ import type { HighlightRange } from '@/lib/highlight';
 import { teekaMarkdownToHtml } from '@/lib/format/teeka-markdown';
 import { parseBhaavarthSegments } from '@/lib/format/bhaavarth-segments';
 import { ShabdaArthSection } from '@/components/ShabdaArthSection';
+import { panelAccentRootStyle, panelAccentTitleStyle, type PanelAccent } from '@/lib/panel-accent';
 
 export interface BhaavarthPanelProps {
   label?: string;
@@ -14,9 +15,10 @@ export interface BhaavarthPanelProps {
   className?: string;
   variant?: 'prose' | 'verse';
   notice?: import('react').ReactNode;
+  accent?: PanelAccent;
 }
 
-export function BhaavarthPanel({ label, text, naturalKey, highlight, className, variant = 'prose', notice }: BhaavarthPanelProps) {
+export function BhaavarthPanel({ label, text, naturalKey, highlight, className, variant = 'prose', notice, accent }: BhaavarthPanelProps) {
   const nfcText = normalizeNFC(text);
   const split = highlight ? splitHighlight(nfcText, highlight) : null;
   const segments = variant === 'prose' ? parseBhaavarthSegments(nfcText) : null;
@@ -32,10 +34,11 @@ export function BhaavarthPanel({ label, text, naturalKey, highlight, className, 
         'rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node',
         className
       )}
+      style={panelAccentRootStyle(accent)}
     >
       {(label || notice) && (
         <div className="mb-2 flex flex-wrap items-center gap-2">
-          {label && <p className="text-xs font-medium text-foreground-muted">{label}</p>}
+          {label && <p className="text-xs font-medium" style={accent ? panelAccentTitleStyle(accent) : { color: 'var(--foreground-muted)' }}>{label}</p>}
           {notice}
         </div>
       )}
@@ -55,7 +58,7 @@ export function BhaavarthPanel({ label, text, naturalKey, highlight, className, 
             if (segment.kind === 'chips') {
               const anvayarth = segment.items.map((entry) => entry.meaning).join(' ');
               return (
-                <section key={`chips-${index}`} className="rounded-[var(--radius-md)] border border-border/70 bg-surface-2/40 p-4">
+                <section key={`chips-${index}`} className="rounded-[var(--radius-md)] border border-border bg-[var(--background)] p-4">
                   <ShabdaArthSection
                     entries={segment.items.map((e) => ({ word: e.word, meaning: e.meaning }))}
                     anvayarth={anvayarth}

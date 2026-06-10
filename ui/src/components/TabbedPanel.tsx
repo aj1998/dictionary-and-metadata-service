@@ -3,6 +3,7 @@
 import { useState, type ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 import { PanelActionsMenu } from './PanelActionsMenu';
+import { panelAccentRootStyle, panelAccentHeaderStyle, panelAccentTitleStyle, type PanelAccent } from '@/lib/panel-accent';
 
 export interface TabbedPanelItem {
   key: string;
@@ -20,17 +21,22 @@ interface TabbedPanelProps {
   bodyClassName?: string;
   showActions?: boolean;
   notice?: ReactNode;
+  accent?: PanelAccent;
 }
 
-export function TabbedPanel({ title, items, emptyMessage, bodyClassName, showActions, notice }: TabbedPanelProps) {
+export function TabbedPanel({ title, items, emptyMessage, bodyClassName, showActions, notice, accent }: TabbedPanelProps) {
   const [active, setActive] = useState(0);
 
   if (items.length === 0) {
     if (!emptyMessage) return null;
     return (
-      <section className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
-        {title && <h3 className="mb-3 font-serif-hindi text-base font-semibold">{title}</h3>}
-        <p className="text-sm text-foreground-muted">{emptyMessage}</p>
+      <section className="rounded-[var(--radius-md)] border border-border bg-surface shadow-node overflow-hidden" style={panelAccentRootStyle(accent)}>
+        {title && (
+          <div className="px-5 py-3 border-b border-border" style={panelAccentHeaderStyle(accent)}>
+            <h3 className="font-serif-hindi text-base font-semibold" style={panelAccentTitleStyle(accent)}>{title}</h3>
+          </div>
+        )}
+        <div className="p-5"><p className="text-sm text-foreground-muted">{emptyMessage}</p></div>
       </section>
     );
   }
@@ -38,12 +44,15 @@ export function TabbedPanel({ title, items, emptyMessage, bodyClassName, showAct
   const current = items[Math.min(active, items.length - 1)];
 
   return (
-    <section className="rounded-[var(--radius-md)] border border-border bg-surface shadow-node overflow-hidden">
+    <section className="rounded-[var(--radius-md)] border border-border bg-surface shadow-node overflow-hidden" style={panelAccentRootStyle(accent)}>
       {(title || (showActions && current.actionsSourceNk)) && (
-        <div className="flex items-start justify-between gap-2 px-5 pt-5 pb-3">
+        <div
+          className={cn('flex items-start justify-between gap-2 px-5 py-3', accent ? 'border-b' : '')}
+          style={panelAccentHeaderStyle(accent)}
+        >
           {title ? (
             <div className="flex flex-wrap items-center gap-2">
-              <h3 className="font-serif-hindi text-base font-semibold text-foreground">{title}</h3>
+              <h3 className="font-serif-hindi text-base font-semibold" style={panelAccentTitleStyle(accent)}>{title}</h3>
               {current.notice ?? notice}
             </div>
           ) : <span />}
@@ -57,7 +66,7 @@ export function TabbedPanel({ title, items, emptyMessage, bodyClassName, showAct
       )}
 
       {items.length > 1 && (
-        <div className="flex overflow-x-auto border-b border-border px-5 gap-1">
+        <div className="flex overflow-x-auto border-b border-border px-5 pt-3 gap-1">
           {items.map((item, i) => (
             <button
               key={item.key}
@@ -76,7 +85,7 @@ export function TabbedPanel({ title, items, emptyMessage, bodyClassName, showAct
       )}
 
       {items.length === 1 && title && (
-        <p className="px-5 pb-1 text-xs text-foreground-muted">{current.label}</p>
+        <p className="px-5 pt-3 pb-1 text-xs text-foreground-muted">{current.label}</p>
       )}
       <div className={cn('px-5 py-4', bodyClassName)}>{current.content}</div>
     </section>

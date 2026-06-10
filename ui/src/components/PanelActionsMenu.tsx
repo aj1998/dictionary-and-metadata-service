@@ -24,9 +24,14 @@ export function PanelActionsMenu({ sourceNk, sourceLabel }: PanelActionsMenuProp
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
         aria-label="क्रियाएँ"
-        className="inline-flex h-7 w-7 items-center justify-center rounded-full text-foreground-muted hover:bg-surface-muted hover:text-foreground transition-colors"
+        title="और क्रियाएँ"
+        className="group inline-flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] shadow-sm transition-all hover:scale-105 hover:shadow-md"
+        style={{
+          backgroundColor: 'color-mix(in srgb, var(--panel-accent, var(--accent)) 70%, white)',
+          color: '#fff',
+        }}
       >
-        <MoreHorizontal className="h-4 w-4" strokeWidth={1.5} />
+        <MoreHorizontal className="h-4 w-4 transition-transform group-hover:rotate-90" strokeWidth={2.5} />
       </PopoverTrigger>
       <PopoverContent align="end" side="bottom" sideOffset={6} className="w-56 p-1">
         <button
