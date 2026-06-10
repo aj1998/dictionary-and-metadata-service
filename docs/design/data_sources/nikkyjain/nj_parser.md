@@ -235,12 +235,13 @@ New module `workers/ingestion/nj/shortfont_parser.py` extracts `<span class=shor
 - Offsets are relative to the post-conversion, NFC-normalised `cleaned_md`; validated by `cleaned_md[start:end] == anchor_text`.
 - Asterisk markers (`<sup>*</sup>`) mapped to negative int keys (`*` → −1, `**` → −2) so they get unique slots without colliding with digit markers.
 - Top-level `<sup>` siblings (e.g. panchaastikaya) handled by wrapping nodes into a single `<div>` before `find_all("sup")` — avoids missing sups that are direct siblings rather than nested children.
+- Inline `**[word]**` shabdaarth headers are forced onto their own line via a `re.sub(r"(?<!\n)[ \t]*(\*\*\[)", r"\n\1", cleaned_md)` pass. Source HTML for some teekas (e.g. samaysaar gatha 9 jayasenacharya) emits multiple `<b>[word]</b> meaning … <b>[word]</b> meaning …` inline within a single paragraph; without the per-`[word]` line break, the UI `bhaavarth-segments` parser only detects the first as a compact entry and the shabdaarth chip component never renders. Plain prose paragraphs (e.g. panchaastikaya 005) contain no `**[` and are unaffected — `<br><br>` → `\n\n` continues to be the only paragraph break, and inline `<span class=notes>` / `<sup>` stay on the same line.
 
 ### Tests
 
-New file `tests/workers/nj/test_shortfont_parser_unit.py` — 10 tests covering: definition entries, bare-narrative footnotes, repeated markers, orphan handling (both directions), offset round-trip, `<span class=notes>` parentheticals left untouched, top-level sup siblings, asterisk markers.
+New file `tests/workers/nj/test_shortfont_parser_unit.py` — covers: definition entries, bare-narrative footnotes, repeated markers, orphan handling (both directions), offset round-trip, `<span class=notes>` parentheticals left untouched, top-level sup siblings, asterisk markers, inline `**[word]**` line-splitting, and plain-prose paragraph preservation.
 
-Full NJ suite: **101 tests green** (extended from 72 after Phase 1+2).
+Full NJ suite: **105 tests green**.
 
 ---
 

@@ -329,3 +329,41 @@ def test_asterisk_marker_round_trip():
     assert e.occurrences and cleaned_md[
         e.occurrences[0].start_offset:e.occurrences[0].end_offset
     ] == "परिवर्तन-लिंग"
+
+
+def test_inline_bracket_headers_split_onto_own_lines():
+    """Multiple inline `<b>[word]</b> meaning` patterns within one paragraph
+    must be split onto separate lines so the UI shabdaarth-segments parser
+    detects each as a compact `[word] meaning` block.
+
+    Source pattern (e.g. samaysaar gatha 9 jayasenacharya teeka):
+        <b>[word1]</b> meaning1 <b>[word2]</b> meaning2 ...
+    """
+    html = (
+        "<b>[<font color=maroon>जो हि</font>]</b> जो जीव ... है "
+        "<b>[<font color=maroon>केवलं</font>]</b> सहाय रहित, "
+        "<b>[<font color=maroon>सुद्धं</font>]</b> रागादि से रहित ।"
+    )
+    cleaned_md, _ = extract_shortfont(_nodes(html))
+    lines = [ln for ln in cleaned_md.split("\n") if ln.strip()]
+    assert len(lines) >= 3, f"expected 3+ lines, got {lines!r}"
+    assert lines[0].startswith("**[") and "जो हि" in lines[0]
+    assert lines[1].startswith("**[") and "केवलं" in lines[1]
+    assert lines[2].startswith("**[") and "सुद्धं" in lines[2]
+
+
+def test_plain_prose_paragraphs_stay_intact():
+    """A panchaastikaya-style paragraph with `<span class=notes>` and `<sup>`
+    in the middle must stay on a single line (not split per inline element)."""
+    html = (
+        "वास्तव में अस्तिकायों को <span class=notes>(अपनापन)</span> है । "
+        "वस्तु के <sup>१</sup>व्यतिरेकी पर्यायें हैं ।<br><br>"
+        "अब, कायत्व किस प्रकार है ।"
+        "<span class=shortFont><sup>१</sup>व्यतिरेक=भेद ।</span>"
+    )
+    cleaned_md, entries = extract_shortfont(_nodes(html))
+    paras = [p for p in cleaned_md.split("\n\n") if p.strip()]
+    assert len(paras) == 2, f"expected 2 paragraphs, got {paras!r}"
+    # First paragraph stays as one line — no splits at notes or sup
+    assert "\n" not in paras[0]
+    assert "अपनापन" in paras[0] and "व्यतिरेकी" in paras[0]

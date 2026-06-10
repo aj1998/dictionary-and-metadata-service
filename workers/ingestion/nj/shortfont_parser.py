@@ -219,6 +219,16 @@ def extract_shortfont(
     cleaned_md = "\n".join(lines)
     while "\n\n\n" in cleaned_md:
         cleaned_md = cleaned_md.replace("\n\n\n", "\n\n")
+    # Break inline `**[word]**` (shabdaarth header) onto its own line so the UI
+    # bhaavarth-segments parser detects each `[word] meaning` block. Source HTML
+    # for some teekas (e.g. jayasenacharya samaysar) emits multiple
+    # `<b>[word]</b> meaning … <b>[word]</b> meaning …` inline within one
+    # paragraph; without a newline before each `**[`, only the first is parsed.
+    cleaned_md = re.sub(r"(?<!\n)[ \t]*(\*\*\[)", r"\n\1", cleaned_md)
+    # Ensure the meaning that follows `**[word]**` ends the line: cut after the
+    # next danda (।) so the *next* `**[` starts cleanly even if no source break.
+    # (Skip — we only need the leading newline; the trailing newline before the
+    # next `**[` already comes from the same rule on the next match.)
     cleaned_md = unicodedata.normalize("NFC", cleaned_md).strip()
 
     # 7. Backfill bare-footnote anchor_text and compute offsets (cursor-based)
