@@ -120,9 +120,47 @@ Also run the **verify** skill on the local app per `ui/AGENTS.md`.
 
 ## Done when
 
-- [ ] API hydrates `shortfont_entries` on every gatha bhaavarth that has a Mongo doc.
-- [ ] `BhaavarthPanel` underlines anchors and opens the popover on click.
-- [ ] Existing chip / highlight logic still works on segments containing anchors.
-- [ ] `pnpm build`, `pnpm test` green.
+- [x] API hydrates `shortfont_entries` on every gatha bhaavarth that has a Mongo doc.
+- [x] `BhaavarthPanel` underlines anchors and opens the popover on click.
+- [x] Existing chip / highlight logic still works on segments containing anchors.
+- [x] `pnpm build`, `pnpm test` green.
 - [ ] Manual reader test on at least 1 page with markers passes.
 - [ ] Implementation notes appended here and in [`../../../../../ui/README.md`](../../../../../ui/README.md) §8.
+
+## Implementation Notes
+
+**Implemented 2026-06-10.**
+
+### Architecture decisions
+
+**Rendering approach**: The spec considered sentinel injection + `html-react-parser`. Since `html-react-parser` was not in the project, a custom approach was used:
+
+1. Sentinels (`\x02sf:N\x03` / `\x02/sf\x03`) are injected into the Markdown text at occurrence offsets.
+2. `teekaMarkdownToHtml` processes the text with sentinels intact (they pass through as plain text).
+3. `postProcessShortFontHtml` replaces sentinels with `<button type="button" class="sf-anchor" data-sf-idx="N">` elements.
+4. `ShortFontHtml` ('use client') renders the final HTML via `dangerouslySetInnerHTML` and uses event delegation to intercept clicks on `[data-sf-idx]` buttons, showing an inline positioned popover.
+
+**Why not Radix Popover inside `dangerouslySetInnerHTML`**: React nodes can't be injected into `dangerouslySetInnerHTML`. `ShortFontAnchor.tsx` (Radix-based) is provided as a standalone component for pure-React contexts; `ShortFontHtml.tsx` handles the HTML-embedded button case.
+
+**CSS class `.sf-anchor`**: Defined in `globals.css` (not Tailwind utilities) to work inside `dangerouslySetInnerHTML`-rendered content, where Tailwind class names won't be discovered by the compiler.
+
+**Kalash bhaavarth hydration**:
+- Primary kalash: fetches from `KALASH_BHAAVARTH_SHORTFONT` by `kalash_natural_key`; entries are attached to all bhaavarth docs of that kalash.
+- Secondary kalash: fetches from `GATHA_TEEKA_BHAAVARTH_SHORTFONT` by `gatha_natural_key = kalash.natural_key`; matched to bhaavarth docs by `publication_natural_key`.
+
+### Files changed
+
+- `services/core_service/domains/data/services/gathas.py` — added shortfont hydration for `teeka_bhaavarth` (using `__teeka_bhaavarth_sf__` internal key in gather) and for primary/secondary kalash bhaavarths
+- `ui/src/lib/types.ts` — added `BhaavarthShortFontOccurrence`, `BhaavarthShortFontEntry`; extended `TeekaBhaavarth.shortfont_entries` and `GathaKalash.bhaavarth[].shortfont_entries`
+- `ui/src/styles/theme.css` — added `--shortfont-underline` + `--shortfont-soft` tokens
+- `ui/src/app/globals.css` — added `.sf-anchor` CSS class
+- `ui/src/lib/format/bhaavarth-shortfont.ts` — new: `getSegmentEntries`, `injectShortFontSentinels`, `postProcessShortFontHtml`
+- `ui/src/components/ShortFontAnchor.tsx` — new: standalone Radix Popover component for pure-React contexts
+- `ui/src/components/ShortFontHtml.tsx` — new: client component for HTML-embedded anchors
+- `ui/src/components/BhaavarthPanel.tsx` — added `shortFontEntries` prop; `html` segments use `ShortFontHtml` when entries present
+- `ui/src/app/[locale]/(reading)/shastras/[nk]/gathas/[number]/page.tsx` — passes `shortFontEntries` to `BhaavarthPanel`
+- `tests/services/data/test_gathas_shortfont.py` — 4 new service tests
+- `ui/src/__tests__/lib/format/bhaavarth-shortfont.test.ts` — 13 new Vitest unit tests
+- `ui/src/__tests__/components/BhaavarthPanel.test.ts` — 4 new shortfont integration tests
+
+Also fixed a pre-existing TypeScript error in `DetailsPanel.tsx` (missing `GraphEdge` import).

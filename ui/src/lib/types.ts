@@ -280,12 +280,27 @@ export interface TeekaGathaMapping {
   is_related: string[];
 }
 
+export interface BhaavarthShortFontOccurrence {
+  start_offset: number;
+  end_offset: number;
+}
+
+export interface BhaavarthShortFontEntry {
+  marker_number: number;
+  marker_devanagari: string;
+  anchor_text: string;
+  meaning: string;
+  is_definition: boolean;
+  occurrences: BhaavarthShortFontOccurrence[];
+}
+
 export interface TeekaBhaavarth {
   natural_key: string;
   gatha_teeka_natural_key: string;
   publication_natural_key?: string;
   publisher_id?: string;
   text: LangText[];
+  shortfont_entries?: BhaavarthShortFontEntry[];
 }
 
 export interface GathaTeekaSanskrit {
@@ -310,7 +325,7 @@ export interface GathaKalash {
   prakrit: { natural_key: string; text: LangText[] } | null;
   sanskrit: { natural_key: string; text: LangText[] } | null;
   hindi: { natural_key: string; text: LangText[] } | null;
-  bhaavarth: Array<{ natural_key: string; text: LangText[] }>;
+  bhaavarth: Array<{ natural_key: string; text: LangText[]; shortfont_entries?: BhaavarthShortFontEntry[] }>;
   word_meanings: { natural_key: string; entries: Array<{ source_word: string; meaning: string; position: number }> } | null;
 }
 

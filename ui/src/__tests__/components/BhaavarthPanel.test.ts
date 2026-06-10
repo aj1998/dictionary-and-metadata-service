@@ -5,6 +5,7 @@ import { splitHighlight } from '@/lib/highlight';
 import { normalizeNFC } from '@/lib/format/devanagari';
 import { BhaavarthPanel } from '@/components/BhaavarthPanel';
 import { parseBhaavarthSegments } from '@/lib/format/bhaavarth-segments';
+import type { BhaavarthShortFontEntry } from '@/lib/types';
 
 // BhaavarthPanel is a React component — per existing test policy we don't mount JSX.
 // These tests validate the pure logic used inside the component.
@@ -134,4 +135,71 @@ describe('BhaavarthPanel — compact bhaavarth rendering', () => {
     expect(htmlSegments.some((segment) => segment.text.includes('स्वसमय ही आत्मा का स्वरूप है'))).toBe(true);
   });
 
+});
+
+describe('BhaavarthPanel — shortFont entries', () => {
+  // "अब " is 3 chars (अ=3bytes but 1 JS char, ब=1, space=1 → index 3 in the string)
+  // "मोक्ष-मार्ग" starts at char index 3
+  const bhaavarth = 'अब मोक्ष-मार्ग-प्रपंच-सूचक चूलिका है।';
+
+  const shortFontEntries: BhaavarthShortFontEntry[] = [
+    {
+      marker_number: 4,
+      marker_devanagari: '४',
+      anchor_text: 'मोक्ष-मार्ग-प्रपंच-सूचक',
+      meaning: 'मोक्ष का विस्तार बतलाने वाली।',
+      is_definition: true,
+      occurrences: [{ start_offset: 3, end_offset: 3 + 'मोक्ष-मार्ग-प्रपंच-सूचक'.length }],
+    },
+  ];
+
+  it('renders sf-anchor button for the anchor word when shortFontEntries provided', () => {
+    const html = renderToStaticMarkup(
+      createElement(BhaavarthPanel, {
+        text: bhaavarth,
+        variant: 'prose',
+        shortFontEntries,
+      })
+    );
+    // ShortFontHtml renders a client component; in SSR the anchor text should appear
+    expect(html).toContain('मोक्ष-मार्ग-प्रपंच-सूचक');
+  });
+
+  it('does not add anchor markup when shortFontEntries is empty', () => {
+    const html = renderToStaticMarkup(
+      createElement(BhaavarthPanel, {
+        text: bhaavarth,
+        variant: 'prose',
+        shortFontEntries: [],
+      })
+    );
+    expect(html).not.toContain('sf-anchor');
+    expect(html).not.toContain('data-sf-idx');
+  });
+
+  it('does not add anchor markup when shortFontEntries is absent', () => {
+    const html = renderToStaticMarkup(
+      createElement(BhaavarthPanel, { text: bhaavarth, variant: 'prose' })
+    );
+    expect(html).not.toContain('sf-anchor');
+    expect(html).not.toContain('data-sf-idx');
+  });
+
+  it('still renders chip sections correctly alongside shortFont anchors', () => {
+    const mixedText = [
+      bhaavarth,
+      '',
+      '[जीव] चेतन द्रव्य',
+      '',
+      '[अजीव] अचेतन द्रव्य',
+      '',
+      '[आस्रव] कर्मों का प्रवाह',
+    ].join('\n');
+
+    const html = renderToStaticMarkup(
+      createElement(BhaavarthPanel, { text: mixedText, variant: 'prose', shortFontEntries })
+    );
+    expect(html).toContain('अन्वयार्थ');
+    expect(html).toContain('मोक्ष-मार्ग-प्रपंच-सूचक');
+  });
 });

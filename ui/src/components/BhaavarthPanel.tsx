@@ -4,8 +4,15 @@ import { splitHighlight } from '@/lib/highlight';
 import type { HighlightRange } from '@/lib/highlight';
 import { teekaMarkdownToHtml } from '@/lib/format/teeka-markdown';
 import { parseBhaavarthSegments } from '@/lib/format/bhaavarth-segments';
+import {
+  getSegmentEntries,
+  injectShortFontSentinels,
+  postProcessShortFontHtml,
+} from '@/lib/format/bhaavarth-shortfont';
 import { ShabdaArthSection } from '@/components/ShabdaArthSection';
+import { ShortFontHtml } from '@/components/ShortFontHtml';
 import { panelAccentRootStyle, panelAccentTitleStyle, type PanelAccent } from '@/lib/panel-accent';
+import type { BhaavarthShortFontEntry } from '@/lib/types';
 
 export interface BhaavarthPanelProps {
   label?: string;
@@ -16,9 +23,10 @@ export interface BhaavarthPanelProps {
   variant?: 'prose' | 'verse';
   notice?: import('react').ReactNode;
   accent?: PanelAccent;
+  shortFontEntries?: BhaavarthShortFontEntry[];
 }
 
-export function BhaavarthPanel({ label, text, naturalKey, highlight, className, variant = 'prose', notice, accent }: BhaavarthPanelProps) {
+export function BhaavarthPanel({ label, text, naturalKey, highlight, className, variant = 'prose', notice, accent, shortFontEntries }: BhaavarthPanelProps) {
   const nfcText = normalizeNFC(text);
   const split = highlight ? splitHighlight(nfcText, highlight) : null;
   const segments = variant === 'prose' ? parseBhaavarthSegments(nfcText) : null;
@@ -85,6 +93,24 @@ export function BhaavarthPanel({ label, text, naturalKey, highlight, className, 
                   </p>
                 );
               }
+            }
+
+            const sfEntries = shortFontEntries?.length
+              ? getSegmentEntries(shortFontEntries, segment.start, segment.end)
+              : [];
+
+            if (sfEntries.length > 0) {
+              const injected = injectShortFontSentinels(segment.text, sfEntries);
+              const rawHtml = teekaMarkdownToHtml(injected);
+              const processedHtml = postProcessShortFontHtml(rawHtml);
+              return (
+                <ShortFontHtml
+                  key={`html-${index}`}
+                  html={processedHtml}
+                  entries={shortFontEntries!}
+                  className="font-serif-hindi text-[length:var(--font-size-body)] leading-[1.85] text-foreground teeka-content"
+                />
+              );
             }
 
             return (

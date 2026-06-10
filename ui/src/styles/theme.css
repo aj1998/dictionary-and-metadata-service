@@ -68,6 +68,10 @@
   --cat-publication-fg: #FFFFFF;
   --cat-table-fg:   #FFFFFF;
 
+  /* ShortFont anchor decoration */
+  --shortfont-underline: #B7791F;   /* amber-700 */
+  --shortfont-soft: #FEF3C7;        /* amber-100 */
+
   /* Radii */
   --radius-sm: 6px;
   --radius-md: 10px;

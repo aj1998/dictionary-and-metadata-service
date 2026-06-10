@@ -13,7 +13,7 @@ import { resolveNodeTitle } from '@/components/NodeCard';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import * as dataApi from '@/lib/api/data';
 import { ApiError } from '@/lib/api/_fetch';
-import type { DefinitionBlock, EdgeKind, EntityDetail, GraphNode, KeywordPageSection } from '@/lib/types';
+import type { DefinitionBlock, EdgeKind, EntityDetail, GraphEdge, GraphNode, KeywordPageSection } from '@/lib/types';
 
 // Stub-seed topics only exist in Neo4j (not Postgres), so /v1/topics/{nk}
 // returns 404 and detail stays null. Their nk is always "<keyword>:<path>",

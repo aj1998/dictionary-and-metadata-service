@@ -184,6 +184,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
           naturalKey={bh.natural_key}
           highlight={highlightFor(match, bh.natural_key, bText)}
           className="border-0 p-0 shadow-none"
+          shortFontEntries={bh.shortfont_entries}
         />
       ),
     };
@@ -294,6 +295,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
               text={bText}
               naturalKey={bh.natural_key}
               highlight={highlightFor(match, bh.natural_key, bText)}
+              shortFontEntries={bh.shortfont_entries}
             />
           );
         })}

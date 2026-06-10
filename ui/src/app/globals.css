@@ -138,6 +138,28 @@
   }
 }
 
+/* ShortFont inline anchor buttons */
+.sf-anchor {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--shortfont-underline);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.sf-anchor:hover {
+  background-color: var(--shortfont-soft);
+  border-radius: 2px;
+}
+.sf-anchor:focus-visible {
+  outline: 2px solid var(--shortfont-underline);
+  outline-offset: 2px;
+}
+
 /* Teeka panel paragraph spacing */
 .teeka-content p {
   margin-bottom: 0.5rem;

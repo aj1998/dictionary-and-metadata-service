@@ -12,10 +12,12 @@ from jain_kb_common.db.mongo.collections import (
     GATHA_PRAKRIT,
     GATHA_SANSKRIT,
     GATHA_TEEKA_BHAAVARTH_HINDI,
+    GATHA_TEEKA_BHAAVARTH_SHORTFONT,
     GATHA_TEEKA_HINDI,
     GATHA_TEEKA_SANSKRIT,
     GATHA_WORD_MEANINGS,
     KALASH_BHAAVARTH_HINDI,
+    KALASH_BHAAVARTH_SHORTFONT,
     KALASH_HINDI,
     KALASH_SANSKRIT,
     KALASH_WORD_MEANINGS,
@@ -144,6 +146,12 @@ async def get_detail(
         base_tasks.append(
             mongo[GATHA_TEEKA_BHAAVARTH_HINDI].find(teeka_query).to_list(None)
         )
+        include_keys.append("__teeka_bhaavarth_sf__")
+        base_tasks.append(
+            mongo[GATHA_TEEKA_BHAAVARTH_SHORTFONT].find(
+                {"gatha_natural_key": gatha.natural_key}
+            ).to_list(None)
+        )
 
     results = await asyncio.gather(*base_tasks)
     shastra, prakrit, sanskrit, chhand, wm_prakrit, wm_sanskrit = results[:6]
@@ -166,7 +174,24 @@ async def get_detail(
     }
 
     for key, result in zip(include_keys, extra_results):
-        out[key] = [_strip_id(d) for d in (result or [])]
+        if not key.startswith("__"):
+            out[key] = [_strip_id(d) for d in (result or [])]
+
+    # Attach shortfont entries to each teeka_bhaavarth doc.
+    # Shortfont docs are indexed by bhaavarth_natural_key which uses the Neo4j NK pattern:
+    # {publication_natural_key}:गाथा:टीका:भावार्थ:{gatha_number}
+    if "teeka_bhaavarth" in out and "__teeka_bhaavarth_sf__" in include_keys:
+        sf_idx = include_keys.index("__teeka_bhaavarth_sf__")
+        sf_docs = extra_results[sf_idx] or []
+        sf_by_nk = {
+            d["bhaavarth_natural_key"]: d.get("entries", [])
+            for d in sf_docs
+            if d.get("bhaavarth_natural_key")
+        }
+        for bh in out["teeka_bhaavarth"]:
+            pub_nk = bh.get("publication_natural_key", "")
+            bh_nk = f"{pub_nk}:गाथा:टीका:भावार्थ:{gatha.gatha_number}" if pub_nk else ""
+            bh["shortfont_entries"] = sf_by_nk.get(bh_nk, [])
 
     if "kalashas" in include:
         out["kalashas"] = await _get_kalashas_for_gatha(session, mongo, gatha)
@@ -201,7 +226,24 @@ async def _get_kalashas_for_gatha(
             bh_task = mongo[GATHA_TEEKA_BHAAVARTH_HINDI].find(
                 {"gatha_teeka_natural_key": kalash.natural_key}
             ).to_list(None)
-            prakrit_doc, sanskrit_doc, bhaavarth_docs = await asyncio.gather(pra_task, san_task, bh_task)
+            sf_task = mongo[GATHA_TEEKA_BHAAVARTH_SHORTFONT].find(
+                {"gatha_natural_key": kalash.natural_key}
+            ).to_list(None)
+            prakrit_doc, sanskrit_doc, bhaavarth_docs, sf_docs = await asyncio.gather(
+                pra_task, san_task, bh_task, sf_task
+            )
+            # Attach shortfont entries to each bhaavarth doc.
+            bh_list = [_strip_id(d) for d in (bhaavarth_docs or [])]
+            if sf_docs:
+                sf_by_nk = {
+                    d["bhaavarth_natural_key"]: d.get("entries", [])
+                    for d in sf_docs
+                    if d.get("bhaavarth_natural_key")
+                }
+                for bh in bh_list:
+                    pub_nk = bh.get("publication_natural_key", "")
+                    bh_nk = f"{pub_nk}:गाथा:टीका:भावार्थ:{kalash.kalash_number}" if pub_nk else ""
+                    bh["shortfont_entries"] = sf_by_nk.get(bh_nk, [])
             return {
                 "natural_key": kalash.natural_key,
                 "kalash_number": kalash.kalash_number,
@@ -210,7 +252,7 @@ async def _get_kalashas_for_gatha(
                 "prakrit": _strip_id(prakrit_doc),
                 "sanskrit": _strip_id(sanskrit_doc),
                 "hindi": None,
-                "bhaavarth": [_strip_id(d) for d in (bhaavarth_docs or [])],
+                "bhaavarth": bh_list,
                 "word_meanings": None,
             }
         san_task = mongo[KALASH_SANSKRIT].find_one({"natural_key": f"{kalash.natural_key}:san"})
@@ -221,9 +263,17 @@ async def _get_kalashas_for_gatha(
         wm_task = mongo[KALASH_WORD_MEANINGS].find_one(
             {"natural_key": f"{kalash.natural_key}:word_meanings"}
         )
-        sanskrit_doc, hindi_doc, bhaavarth_docs, wm_doc = await asyncio.gather(
-            san_task, hin_task, bh_task, wm_task
+        sf_task = mongo[KALASH_BHAAVARTH_SHORTFONT].find_one(
+            {"kalash_natural_key": kalash.natural_key}
         )
+        sanskrit_doc, hindi_doc, bhaavarth_docs, wm_doc, sf_doc = await asyncio.gather(
+            san_task, hin_task, bh_task, wm_task, sf_task
+        )
+        bh_list = [_strip_id(d) for d in (bhaavarth_docs or [])]
+        if sf_doc:
+            sf_entries = sf_doc.get("entries", [])
+            for bh in bh_list:
+                bh["shortfont_entries"] = sf_entries
         return {
             "natural_key": kalash.natural_key,
             "kalash_number": kalash.kalash_number,
@@ -232,7 +282,7 @@ async def _get_kalashas_for_gatha(
             "prakrit": None,
             "sanskrit": _strip_id(sanskrit_doc),
             "hindi": _strip_id(hindi_doc),
-            "bhaavarth": [_strip_id(d) for d in (bhaavarth_docs or [])],
+            "bhaavarth": bh_list,
             "word_meanings": _strip_id(wm_doc),
         }
 
