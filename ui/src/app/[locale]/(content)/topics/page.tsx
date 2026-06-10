@@ -98,7 +98,7 @@ export default async function TopicsPage({ searchParams }: PageProps) {
           </div>
           <label className="mt-3 inline-flex items-center gap-2 text-sm text-foreground-muted">
             <input type="checkbox" name="include_other" value="1" defaultChecked={includeOther} className="size-4 accent-accent" />
-            अन्य विषय भी दिखाएँ
+            मध्यवर्ती विषय भी दिखाएँ
           </label>
         </form>
 
@@ -146,7 +146,7 @@ export default async function TopicsPage({ searchParams }: PageProps) {
         </div>
         <label className="mt-3 inline-flex items-center gap-2 text-sm text-foreground-muted">
           <input type="checkbox" name="include_other" value="1" defaultChecked={includeOther} className="size-4 accent-accent" />
-          अन्य विषय भी दिखाएँ
+          मध्यवर्ती विषय भी दिखाएँ
         </label>
       </form>
 

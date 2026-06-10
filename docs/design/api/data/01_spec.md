@@ -37,7 +37,7 @@ Query params:
 - `parent_keyword_id` (uuid, optional)
 - `source` (string, optional) — e.g. `jainkosh`, `nj`, `chat_candidate`.
 - `is_leaf` (bool, optional) — restrict to leaf / non-leaf topics.
-- `has_topic_path` (bool, optional) — `true` keeps only topics with a non-null `topic_path` (excludes "अन्य विषय" / unordered seeds); `false` returns only the null-path subset. **Used by the UI topics page as the default filter** (combined with `is_leaf=true`) so the listing shows only readable leaf topics; the "अन्य विषय भी दिखाएँ" toggle drops both filters.
+- `has_topic_path` (bool, optional) — `true` keeps only topics with a non-null `topic_path` (excludes "अन्य विषय" / unordered seeds); `false` returns only the null-path subset. **Used by the UI topics page as the default filter** (combined with `is_leaf=true`) so the listing shows only readable leaf topics; the "मध्यवर्ती विषय भी दिखाएँ" toggle drops both filters.
 - `limit` (1–200, default 50), `offset` (default 0).
 
 `TopicSummary` items include:
