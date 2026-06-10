@@ -5,6 +5,7 @@ import { getHindiText, paginatedMeta } from '@/lib/content-listing';
 import { toDevanagariNumerals } from '@/lib/format/devanagari';
 import { TopicNavAction } from '@/components/TopicNavAction';
 import { TopicPathInfo } from '@/components/TopicPathInfo';
+import { TopicMatchActions } from '@/components/TopicMatchActions';
 import { getLocale, getTranslations } from 'next-intl/server';
 import type { TopicMatchItem } from '@/lib/types';
 
@@ -25,6 +26,10 @@ function TopicMatchCard({ item }: { item: TopicMatchItem }) {
   const breadcrumb = item.ancestors_hi.length > 0
     ? item.ancestors_hi.join(' › ') + ' › '
     : '';
+  const parentKw = item.topic_natural_key.split(':')[0];
+  const dictionaryHref = parentKw
+    ? `/dictionary/${encodeURIComponent(parentKw)}?topic=${encodeURIComponent(item.topic_natural_key)}`
+    : undefined;
   return (
     <article className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
       {breadcrumb && (
@@ -39,12 +44,11 @@ function TopicMatchCard({ item }: { item: TopicMatchItem }) {
         </span>
       </div>
       <div className="mt-4 flex items-center justify-between gap-2">
-        <TopicNavAction
+        <TopicMatchActions
           topicNk={item.topic_natural_key}
           displayText={item.display_text_hi}
-          isLeaf={item.is_leaf}
+          dictionaryHref={dictionaryHref}
         />
-        <TopicPathInfo topicNk={item.topic_natural_key} />
       </div>
     </article>
   );

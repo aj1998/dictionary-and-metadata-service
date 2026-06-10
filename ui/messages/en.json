@@ -148,7 +148,16 @@
     "button": "Search",
     "empty": "No results found",
     "open_topic": "Open topic →",
-    "open_graph": "Open in graph →"
+    "open_graph": "Open in graph →",
+    "hint": "Type a word, topic, or shastra to start searching",
+    "error": "Search failed. Please try again.",
+    "section_keywords": "Dictionary",
+    "section_topics": "Topics",
+    "section_shastras": "Shastras",
+    "exact_match": "Exact match",
+    "best_match": "Best match",
+    "view_all": "View all →",
+    "no_section_results": "No results in this category"
   },
   "feedback": {
     "title": "Feedback",
