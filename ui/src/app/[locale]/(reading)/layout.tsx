@@ -1,4 +1,5 @@
 import { Footer } from "@/components/Footer";
+import { BhaavarthTableLinkHost } from "@/components/BhaavarthTableLinkHost";
 
 export default function ReadingLayout({
   children,
@@ -13,6 +14,7 @@ export default function ReadingLayout({
         {children}
       </main>
       <Footer />
+      <BhaavarthTableLinkHost />
     </div>
   );
 }

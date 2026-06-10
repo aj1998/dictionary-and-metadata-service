@@ -110,6 +110,20 @@ cd ui && pnpm test && pnpm build
 
 ---
 
+## Implementation Notes (2026-06-10)
+
+Spec diverged from reality in three places; adapted as follows:
+
+1. **Markdown renderer**: BhaavarthPanel does NOT use `<ReactMarkdown>` — it pipes text through `teekaMarkdownToHtml` and renders via `dangerouslySetInnerHTML`. There is no `components={{ a: ... }}` override map. Instead, `teekaMarkdownToHtml` was extended to recognize `[text](table://nk)` markdown links and emit a `<button data-bhaavarth-table-nk="…" class="bhaavarth-table-link …">text</button>`. Ordinary `[text](https://…)` links are also now emitted as `<a target="_blank">`. See `ui/src/lib/format/teeka-markdown.ts`.
+2. **Modal mounting & click delegation**: TableModal was NOT yet global. Added `ui/src/components/BhaavarthTableLinkHost.tsx` (`'use client'`) which mounts `<TableModal />` and delegates clicks on `[data-bhaavarth-table-nk]` to `useGraphStore.openTableModal`. Mounted once in `ui/src/app/[locale]/(reading)/layout.tsx`.
+3. **Index badge**: TableModal header now shows a "सूची" pill when `table_type === 'index'` (checks both snake_case API field and the camelCase `tableType` on `TableFull`).
+
+i18n keys (`open_inline`, `type_index`) were skipped — the spec marks them as optional polish and the Devanagari literals in the source Markdown remain authoritative.
+
+Tests: `ui/src/__tests__/lib/format/teeka-markdown-tablelink.test.ts` covers the markdown→button conversion, non-table anchor handling, and chip-header non-interference. Full `pnpm test` (491 tests) and `pnpm build` pass.
+
+---
+
 ## 7. Done when
 
 - Inline pill appears in every NJ bhaavarth that originally contained a `<table>`.

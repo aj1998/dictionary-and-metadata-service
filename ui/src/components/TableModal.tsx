@@ -64,9 +64,16 @@ export function TableModal({ naturalKey, onClose }: TableModalProps) {
         <Dialog.Backdrop className="fixed inset-0 z-50 bg-black/40 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 supports-backdrop-filter:backdrop-blur-sm" />
         <Dialog.Popup className="fixed left-1/2 top-1/2 z-50 flex max-h-[85vh] w-full max-w-3xl -translate-x-1/2 -translate-y-1/2 flex-col rounded-[var(--radius-lg)] bg-surface shadow-xl transition duration-150 data-ending-style:opacity-0 data-ending-style:scale-95 data-starting-style:opacity-0 data-starting-style:scale-95">
           <div className="flex shrink-0 items-start justify-between border-b border-border px-5 py-4">
-            <Dialog.Title className="font-serif-hindi text-[length:var(--font-size-h1)] font-semibold text-foreground">
-              {table ? getHindiText(table.caption, 'तालिका') : 'तालिका'}
-            </Dialog.Title>
+            <div className="flex items-center gap-2 flex-wrap">
+              <Dialog.Title className="font-serif-hindi text-[length:var(--font-size-h1)] font-semibold text-foreground">
+                {table ? getHindiText(table.caption, 'तालिका') : 'तालिका'}
+              </Dialog.Title>
+              {table && (((table as unknown as Record<string, unknown>).table_type as string | undefined) ?? table.tableType) === 'index' && (
+                <span className="text-xs px-2 py-0.5 rounded-full bg-[color:color-mix(in_srgb,var(--cat-table)_18%,transparent)] text-[var(--cat-table)] font-serif-hindi">
+                  सूची
+                </span>
+              )}
+            </div>
             <Dialog.Close
               className="ml-4 mt-0.5 shrink-0 rounded-[var(--radius-sm)] p-1 text-foreground-muted transition-colors hover:bg-surface-muted hover:text-foreground"
               aria-label="बंद करें"

@@ -13,6 +13,14 @@ export function teekaMarkdownToHtml(text: string): string {
 
   const formatInline = (s: string) =>
     s
+      .replace(/\[([^\]]+)\]\(table:\/\/([^)\s]+)\)/g, (_m, label, nk) => {
+        const safeNk = String(nk).replace(/"/g, '&quot;');
+        return `<button type="button" data-bhaavarth-table-nk="${safeNk}" class="bhaavarth-table-link inline-flex items-center gap-1 px-1.5 py-0.5 mx-0.5 rounded-md border border-[var(--cat-table)] text-[var(--cat-table)] bg-[color:color-mix(in_srgb,var(--cat-table)_12%,transparent)] hover:bg-[color:color-mix(in_srgb,var(--cat-table)_22%,transparent)] transition align-baseline">${label}</button>`;
+      })
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, (_m, label, href) => {
+        const safeHref = String(href).replace(/"/g, '&quot;');
+        return `<a href="${safeHref}" target="_blank" rel="noreferrer noopener">${label}</a>`;
+      })
       .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
       .replace(/\*\(\(([^)]+)\)\)\*/g, '<em class="teeka-paren">($1)</em>')
       .replace(/(?<!\*)\*\(([^)\n]+)\)\*(?!\*)/g, '<em class="teeka-paren">($1)</em>')
