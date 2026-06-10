@@ -64,6 +64,16 @@ export function BhaavarthPanel({ label, text, naturalKey, highlight, className, 
         <div className="space-y-4">
           {segments!.map((segment, index) => {
             if (segment.kind === 'chips') {
+              if (segment.items.length === 1) {
+                const rawSlice = nfcText.slice(segment.start, segment.end);
+                return (
+                  <div
+                    key={`html-${index}`}
+                    className="font-serif-hindi text-[length:var(--font-size-body)] leading-[1.85] text-foreground teeka-content"
+                    dangerouslySetInnerHTML={{ __html: teekaMarkdownToHtml(rawSlice) }}
+                  />
+                );
+              }
               const anvayarth = segment.items.map((entry) => entry.meaning).join(' ');
               return (
                 <section key={`chips-${index}`} className="rounded-[var(--radius-md)] border border-border bg-[var(--background)] p-4">

@@ -23,14 +23,15 @@ interface PopoverState {
 export function ShortFontHtml({ html, entries, className }: ShortFontHtmlProps) {
   const [popover, setPopover] = useState<PopoverState | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!popover) return;
     const handler = (e: MouseEvent) => {
-      const target = e.target as Node;
-      if (!containerRef.current?.contains(target)) {
-        setPopover(null);
-      }
+      const target = e.target as HTMLElement;
+      if (popoverRef.current?.contains(target)) return;
+      if (target.closest('[data-sf-idx]')) return;
+      setPopover(null);
     };
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
@@ -66,13 +67,14 @@ export function ShortFontHtml({ html, entries, className }: ShortFontHtmlProps) 
       <div dangerouslySetInnerHTML={{ __html: html }} />
       {popover && (
         <div
+          ref={popoverRef}
           role="dialog"
           aria-modal="false"
           className="absolute z-50 max-w-sm rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-node"
           style={{ top: popover.top, left: popover.left }}
         >
           <p className="text-xs text-foreground-muted mb-1">
-            टिप्पणी {popover.entry.marker_devanagari}
+            टिप्पणी
           </p>
           <p className="font-serif-hindi text-[length:var(--font-size-body)] whitespace-pre-wrap">
             {popover.entry.meaning}

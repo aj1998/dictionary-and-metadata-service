@@ -2,14 +2,16 @@
 
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { teekaMarkdownToHtml } from '@/lib/format/teeka-markdown';
+
+function renderInlineHtml(raw: string): string {
+  return teekaMarkdownToHtml(raw).replace(/^<p[^>]*>/, '').replace(/<\/p>$/, '');
+}
 
 export interface ShabdaArthEntry {
   word: string;
   meaning: string;
-  /** 1-based source position from DB. */
   position?: number;
-  /** Char offsets within the anvayarth string (from DB). When present, used
-   *  directly for highlighting instead of guessing the occurrence. */
   startOffset?: number | null;
   endOffset?: number | null;
 }
@@ -29,11 +31,13 @@ export function ShabdaArthSection({ entries, anvayarth }: ShabdaArthSectionProps
   }
 
   function renderAnvayarth() {
-    if (!activeMeaning || activeIndex === null) return anvayarth;
+    if (!activeMeaning || activeIndex === null) {
+      return <span dangerouslySetInnerHTML={{ __html: renderInlineHtml(anvayarth) }} />;
+    }
     const active = entries[activeIndex];
-    if (!active) return anvayarth;
-    // Prefer explicit char offsets stored at ingest time — they pin the exact
-    // span in anvayarth even when the meaning string repeats in connecting prose.
+    if (!active) {
+      return <span dangerouslySetInnerHTML={{ __html: renderInlineHtml(anvayarth) }} />;
+    }
     let start = -1;
     let end = -1;
     if (
@@ -46,7 +50,6 @@ export function ShabdaArthSection({ entries, anvayarth }: ShabdaArthSectionProps
       start = active.startOffset;
       end = active.endOffset;
     } else {
-      // Fallback: walk the n-th occurrence ranked by position.
       const sameMeaning = entries
         .map((e, i) => ({ e, i }))
         .filter(({ e }) => e.meaning === activeMeaning);
@@ -60,16 +63,19 @@ export function ShabdaArthSection({ entries, anvayarth }: ShabdaArthSectionProps
       }
       if (start !== -1) end = start + activeMeaning.length;
     }
-    if (start === -1) return anvayarth;
-    return (
-      <>
-        {anvayarth.slice(0, start)}
-        <mark className="rounded bg-[var(--accent-soft)] text-[var(--accent)]">
-          {anvayarth.slice(start, end)}
-        </mark>
-        {anvayarth.slice(end)}
-      </>
-    );
+    if (start === -1) {
+      return <span dangerouslySetInnerHTML={{ __html: renderInlineHtml(anvayarth) }} />;
+    }
+    const beforeHtml = renderInlineHtml(anvayarth.slice(0, start));
+    const middleHtml = renderInlineHtml(anvayarth.slice(start, end));
+    const afterHtml = renderInlineHtml(anvayarth.slice(end));
+    const combined =
+      beforeHtml +
+      '<mark class="rounded bg-[var(--accent-soft)] text-[var(--accent)]">' +
+      middleHtml +
+      '</mark>' +
+      afterHtml;
+    return <span dangerouslySetInnerHTML={{ __html: combined }} />;
   }
 
   return (
@@ -93,9 +99,9 @@ export function ShabdaArthSection({ entries, anvayarth }: ShabdaArthSectionProps
       </div>
       <div className="mt-4 border-t border-border pt-4">
         <p className="mb-1 text-xs font-medium text-foreground-muted">अन्वयार्थ</p>
-        <p className="font-serif-hindi text-sm leading-8 text-foreground">
+        <div className="font-serif-hindi text-sm leading-8 text-foreground teeka-content">
           {renderAnvayarth()}
-        </p>
+        </div>
       </div>
     </>
   );

@@ -18,7 +18,7 @@ export function ShortFontAnchor({ entry }: ShortFontAnchorProps) {
       </PopoverTrigger>
       <PopoverContent>
         <div className="text-xs text-foreground-muted mb-1">
-          टिप्पणी {entry.marker_devanagari}
+          टिप्पणी
         </div>
         <div className="font-serif-hindi text-[length:var(--font-size-body)] whitespace-pre-wrap">
           {entry.meaning}
