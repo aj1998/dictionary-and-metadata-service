@@ -212,6 +212,38 @@ When building `teeka_gatha_mapping` documents, the envelope now walks `full_anya
 
 ---
 
+## Bhaavarth shortFont (Phase 1 — implemented 2026-06-10)
+
+New module `workers/ingestion/nj/shortfont_parser.py` extracts `<span class=shortFont>` footnote glossaries from bhaavarth HTML and strips the inline `<sup>N</sup>` digit markers from the resulting Markdown.
+
+### Models added (`models.py`)
+
+| Model | Description |
+|---|---|
+| `ShortFontAnchor` | `start_offset`, `end_offset` (char positions in cleaned bhaavarth Markdown) |
+| `ShortFontEntry` | `marker_number` (int), `marker_devanagari` (str), `anchor_text`, `meaning`, `is_definition` (bool), `occurrences: list[ShortFontAnchor]` |
+
+`PrimaryTeeka.gatha_teeka_bhaavarth_shortfont: list[ShortFontEntry] = []`
+`SecondaryTeeka.gatha_teeka_bhaavarth_shortfont: list[ShortFontEntry] = []`
+`KalashHindiEntry.shortfont: list[ShortFontEntry] = []`
+
+### `extract_shortfont(nodes, warnings)` contract
+
+- Accepts `list[NavigableString | Tag]` (caller's already-collected bhaavarth nodes) so it is teeka-agnostic.
+- Deep-copies the node list into a `<div>` wrapper before mutation — caller's BS4 tree is never modified.
+- Returns `(cleaned_md: str, entries: list[ShortFontEntry])`.
+- Offsets are relative to the post-conversion, NFC-normalised `cleaned_md`; validated by `cleaned_md[start:end] == anchor_text`.
+- Asterisk markers (`<sup>*</sup>`) mapped to negative int keys (`*` → −1, `**` → −2) so they get unique slots without colliding with digit markers.
+- Top-level `<sup>` siblings (e.g. panchaastikaya) handled by wrapping nodes into a single `<div>` before `find_all("sup")` — avoids missing sups that are direct siblings rather than nested children.
+
+### Tests
+
+New file `tests/workers/nj/test_shortfont_parser_unit.py` — 10 tests covering: definition entries, bare-narrative footnotes, repeated markers, orphan handling (both directions), offset round-trip, `<span class=notes>` parentheticals left untouched, top-level sup siblings, asterisk markers.
+
+Full NJ suite: **101 tests green** (extended from 72 after Phase 1+2).
+
+---
+
 ## Known open items
 
 - `ingest_nj_apply.py` script (§5 of ingestion doc) is specified but not yet wired as a standalone CLI — ingestion is done via `apply.py` + `envelope.py` + manual invocation.

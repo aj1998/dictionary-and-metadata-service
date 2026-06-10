@@ -257,6 +257,38 @@ python -m pytest tests/workers/nj/ -v
 
 ---
 
+## shortFont collections (Phase 2 — implemented 2026-06-10)
+
+### New Mongo collections
+
+| Collection | NK pattern | Condition |
+|---|---|---|
+| `gatha_teeka_bhaavarth_shortfont` | `{pub_nk}:गाथा:टीका:भावार्थ:{N}:shortfont` | Only when `entries` non-empty; primary and secondary bhaavarth both use this collection (distinguished by `pub_nk`) |
+| `kalash_bhaavarth_shortfont` | `{kalash_nk}:shortfont` where `{kalash_nk} = {teeka_nk}:कलश:{N}` | Only when kalash `shortfont` entries non-empty |
+
+Both collections share the same doc shape: `natural_key`, `bhaavarth_natural_key` (or `kalash_natural_key`), `publication_natural_key`, `gatha_natural_key` (or `teeka_natural_key`), `gatha_number`, `entries[]`.
+
+**NK convention**: `bhaavarth_natural_key` is derived from the **Neo4j `GathaTeekaBhaavarth` node key** (`{pub_nk}:गाथा:टीका:भावार्थ:{N}`), not the Mongo `gatha_teeka_bhaavarth_hindi` doc NK.
+
+### Envelope changes
+
+- `_shortfont_entries()` helper emits docs for primary gatha bhaavarth, secondary gatha bhaavarth, primary kalash Hindi, and secondary kalash bhaavarth.
+- Multi-gatha pages: one doc per expanded gatha NK (same pattern as `gatha_teeka_bhaavarth_hindi`).
+- Two new idempotency contracts added (one per collection); total contracts = 27.
+
+### Files changed (Phase 2)
+
+- `packages/jain_kb_common/jain_kb_common/db/mongo/collections.py` — `GATHA_TEEKA_BHAAVARTH_SHORTFONT`, `KALASH_BHAAVARTH_SHORTFONT`
+- `packages/jain_kb_common/jain_kb_common/db/mongo/schemas.py` — `BhaavarthShortFontOccurrence`, `BhaavarthShortFontEntry`, `BhaavarthShortFontDoc`, `KalashBhaavarthShortFontDoc`
+- `packages/jain_kb_common/jain_kb_common/db/mongo/upserts.py` — `upsert_gatha_teeka_bhaavarth_shortfont`, `upsert_kalash_bhaavarth_shortfont`
+- `packages/jain_kb_common/jain_kb_common/db/mongo/indexes.py` — 6 new indexes
+- `workers/ingestion/nj/envelope.py` — `_shortfont_entries()` helper + shortfont emission + two new idempotency contracts
+- `workers/ingestion/nj/apply.py` — calls to both new upserts
+
+Test coverage: 101 NJ tests green; 28 Mongo upsert tests green (4 new schema/round-trip tests).
+
+---
+
 ## Known open items
 
 - **Cross-source Gatha NK (NJ × JK)**: NJ emits `समयसार:गाथा:8`; JK lazy GathaTeeka stubs may still derive `समयसार:8`. JK parser must adopt the `गाथा` label for cross-source MERGE to work.
