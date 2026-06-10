@@ -3,6 +3,7 @@ import { getShastras } from '@/lib/api/metadata';
 import { getGathasByShastraId } from '@/lib/api/data';
 import { getHindiText, paginatedMeta } from '@/lib/content-listing';
 import { toDevanagariNumerals } from '@/lib/format/devanagari';
+import { getLocale, getTranslations } from 'next-intl/server';
 import type { AuthorSummary } from '@/lib/types';
 
 function getAuthorName(author: AuthorSummary | string | null | undefined): string {
@@ -30,6 +31,13 @@ export default async function ShastrasPage({ searchParams }: PageProps) {
   const anuyoga = first(query.anuyoga).trim();
   const page = Math.max(1, Number.parseInt(first(query.page), 10) || 1);
   const offset = (page - 1) * PAGE_SIZE;
+  const [tS, tP, locale] = await Promise.all([
+    getTranslations('shastras'),
+    getTranslations('pagination'),
+    getLocale(),
+  ]);
+  const isHi = locale === 'hi';
+  const num = (n: number) => (isHi ? toDevanagariNumerals(n) : String(n));
 
   const shastras = await getShastras({ q: q || undefined, anuyoga: anuyoga || undefined, limit: PAGE_SIZE, offset });
   const meta = paginatedMeta(shastras.pagination);
@@ -54,15 +62,15 @@ export default async function ShastrasPage({ searchParams }: PageProps) {
     <div className="space-y-5">
       <form className="sticky top-[72px] z-10 rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-node">
         <div className="grid grid-cols-1 gap-3 md:grid-cols-4">
-          <input name="q" defaultValue={q} placeholder="शास्त्र खोजें" className="h-10 rounded-[var(--radius-md)] border border-border bg-background px-3 text-sm" />
+          <input name="q" defaultValue={q} placeholder={tS('search_within')} className="h-10 rounded-[var(--radius-md)] border border-border bg-background px-3 text-sm" />
           <select name="anuyoga" defaultValue={anuyoga} className="h-10 rounded-[var(--radius-md)] border border-border bg-background px-3 text-sm">
-            <option value="">सभी अनुयोग</option>
+            <option value="">{tS('all_anuyoga')}</option>
             <option value="charananuyoga">चर्यानुयोग</option>
             <option value="dravyanuyoga">द्रव्यानुयोग</option>
             <option value="kathanuyoga">कथानुयोग</option>
           </select>
-          <div className="h-10 rounded-[var(--radius-md)] border border-border bg-background px-3 text-sm leading-10 text-foreground-muted">Sort: नाम / गाथा / नया</div>
-          <button type="submit" className="h-10 rounded-[var(--radius-md)] bg-accent px-4 text-sm font-semibold text-white">लागू करें</button>
+          <div className="h-10 rounded-[var(--radius-md)] border border-border bg-background px-3 text-sm leading-10 text-foreground-muted">{tS('sort_label')}</div>
+          <button type="submit" className="h-10 rounded-[var(--radius-md)] bg-accent px-4 text-sm font-semibold text-white">{isHi ? 'लागू करें' : 'Apply'}</button>
         </div>
       </form>
 
@@ -78,19 +86,19 @@ export default async function ShastrasPage({ searchParams }: PageProps) {
             </div>
             <div className="mt-4 flex items-center justify-between">
               <span className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold text-accent">
-                {toDevanagariNumerals(gathaCounts[i] ?? 0)}
-                <span className="ml-2 text-xs font-normal text-foreground-muted">गाथाएँ</span>
+                {num(gathaCounts[i] ?? 0)}
+                <span className="ml-2 text-xs font-normal text-foreground-muted">{tS('gathas')}</span>
               </span>
-              <Link href={`/shastras/${item.natural_key}`} className="rounded-[var(--radius-sm)] border border-accent px-3 py-1 text-sm font-medium text-accent">खोलें →</Link>
+              <Link href={`/shastras/${item.natural_key}`} className="rounded-[var(--radius-sm)] border border-accent px-3 py-1 text-sm font-medium text-accent">{tS('open')}</Link>
             </div>
           </article>
         ))}
       </section>
 
       <div className="flex items-center justify-center gap-3 text-sm">
-        {meta.hasPrevious ? <Link href={makeHref(meta.page - 1)} className="rounded border border-border px-3 py-1">पिछला</Link> : <span className="rounded border border-border px-3 py-1 text-foreground-subtle">पिछला</span>}
-        <span>पृष्ठ {toDevanagariNumerals(meta.page)} / {toDevanagariNumerals(meta.totalPages)}</span>
-        {meta.hasNext ? <Link href={makeHref(meta.page + 1)} className="rounded border border-border px-3 py-1">अगला</Link> : <span className="rounded border border-border px-3 py-1 text-foreground-subtle">अगला</span>}
+        {meta.hasPrevious ? <Link href={makeHref(meta.page - 1)} className="rounded border border-border px-3 py-1">{tP('prev')}</Link> : <span className="rounded border border-border px-3 py-1 text-foreground-subtle">{tP('prev')}</span>}
+        <span>{tP('page')} {num(meta.page)} / {num(meta.totalPages)}</span>
+        {meta.hasNext ? <Link href={makeHref(meta.page + 1)} className="rounded border border-border px-3 py-1">{tP('next')}</Link> : <span className="rounded border border-border px-3 py-1 text-foreground-subtle">{tP('next')}</span>}
       </div>
     </div>
   );

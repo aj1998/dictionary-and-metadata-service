@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, type ReactNode } from 'react';
+import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import { teekaMarkdownToHtml } from '@/lib/format/teeka-markdown';
 import { splitHighlight } from '@/lib/highlight';
@@ -27,6 +28,8 @@ interface TeekaPanelProps {
 
 
 export function TeekaPanel({ items, showActions, notice, accent }: TeekaPanelProps) {
+  const tR = useTranslations('reader');
+  const teekaTitle = tR('teeka');
   const initialActive = items.findIndex((item) => item.highlight != null);
   const [active, setActive] = useState(initialActive >= 0 ? initialActive : 0);
 
@@ -34,9 +37,9 @@ export function TeekaPanel({ items, showActions, notice, accent }: TeekaPanelPro
     return (
       <section className="rounded-[var(--radius-md)] border border-border bg-surface shadow-node overflow-hidden" style={panelAccentRootStyle(accent)}>
         <div className={cn('px-5 py-3', accent ? 'border-b' : '')} style={panelAccentHeaderStyle(accent)}>
-          <h3 className="font-serif-hindi text-base font-semibold" style={panelAccentTitleStyle(accent)}>टीका</h3>
+          <h3 className="font-serif-hindi text-base font-semibold" style={panelAccentTitleStyle(accent)}>{teekaTitle}</h3>
         </div>
-        <div className="p-5"><p className="text-sm text-foreground-muted">टीका उपलब्ध नहीं है।</p></div>
+        <div className="p-5"><p className="text-sm text-foreground-muted">{teekaTitle} {tR('shabdarth_unavailable').includes('unavailable') ? 'unavailable.' : 'उपलब्ध नहीं है।'}</p></div>
       </section>
     );
   }
@@ -47,7 +50,7 @@ export function TeekaPanel({ items, showActions, notice, accent }: TeekaPanelPro
     <section className="rounded-[var(--radius-md)] border border-border bg-surface shadow-node overflow-hidden" style={panelAccentRootStyle(accent)}>
       <div className={cn('flex items-start justify-between gap-2 px-5 py-3', accent ? 'border-b' : '')} style={panelAccentHeaderStyle(accent)}>
         <div className="flex flex-wrap items-center gap-2">
-          <h3 className="font-serif-hindi text-base font-semibold" style={panelAccentTitleStyle(accent)}>टीका</h3>
+          <h3 className="font-serif-hindi text-base font-semibold" style={panelAccentTitleStyle(accent)}>{teekaTitle}</h3>
           {notice}
         </div>
         {showActions && (current.actionsSourceNk ?? current.naturalKey ?? current.key) && (

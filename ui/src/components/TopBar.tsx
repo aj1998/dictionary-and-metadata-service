@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, type FormEvent } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import {
   BookOpen,
@@ -27,25 +27,29 @@ function NavLink({
   item,
   pathname,
   onClick,
+  isHi,
 }: {
   item: NavItem;
   pathname: string;
   onClick?: () => void;
+  isHi: boolean;
 }) {
+  const t = useTranslations("nav");
   const active = isActive(pathname, item.route);
   return (
     <Link
       href={item.route}
       onClick={onClick}
       className={cn(
-        "inline-flex h-9 items-center rounded-[var(--radius-pill)] px-3.5",
-        "text-[length:var(--font-size-body)] font-medium transition-colors",
+        "inline-flex h-9 items-center rounded-[var(--radius-pill)] px-3",
+        "font-medium transition-colors",
+        isHi ? "text-[length:var(--font-size-body)]" : "text-[13px]",
         active
           ? "bg-accent-soft text-foreground outline outline-1 outline-accent/30"
           : "text-foreground-muted hover:bg-surface-muted hover:text-foreground"
       )}
     >
-      {item.labelHi}
+      {t(item.labelKey)}
     </Link>
   );
 }
@@ -54,8 +58,10 @@ export interface TopBarProps {
   locale?: "hi" | "en";
 }
 
-export function TopBar({ locale = "hi" }: TopBarProps) {
+export function TopBar({}: TopBarProps) {
   const t = useTranslations("nav");
+  const locale = useLocale();
+  const isHi = locale === "hi";
   const pathname = usePathname();
   const router = useRouter();
   const [moreOpen, setMoreOpen] = useState(false);
@@ -81,12 +87,22 @@ export function TopBar({ locale = "hi" }: TopBarProps) {
           />
           <span className="hidden flex-col sm:flex">
             <span
-              className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold leading-none text-foreground"
+              className={cn(
+                "font-semibold leading-none text-foreground",
+                isHi
+                  ? "font-serif-hindi text-[length:var(--font-size-h3)]"
+                  : "font-sans text-[13px] tracking-tight",
+              )}
             >
-              जैन ज्ञान कोष
+              {isHi ? "जैन ज्ञान कोष" : "Jain Knowledge Base"}
             </span>
-            <span className="text-[length:var(--font-size-xs)] text-foreground-muted">
-              Jain Knowledge Base
+            <span
+              className={cn(
+                "text-foreground-muted",
+                isHi ? "text-[length:var(--font-size-xs)]" : "font-serif-hindi text-[11px] leading-tight",
+              )}
+            >
+              {isHi ? "Jain Knowledge Base" : "जैन ज्ञान कोष"}
             </span>
           </span>
         </Link>
@@ -124,7 +140,7 @@ export function TopBar({ locale = "hi" }: TopBarProps) {
         >
           {/* Always-visible primary items */}
           {PRIMARY_ITEMS.map((item) => (
-            <NavLink key={item.route} item={item} pathname={pathname} />
+            <NavLink key={item.route} item={item} pathname={pathname} isHi={isHi} />
           ))}
 
           {/* More dropdown (hidden at xl when all items fit) */}
@@ -178,7 +194,7 @@ export function TopBar({ locale = "hi" }: TopBarProps) {
                           : "text-foreground-muted hover:bg-surface-muted hover:text-foreground"
                       )}
                     >
-                      {item.labelHi}
+                      {t(item.labelKey)}
                     </Link>
                   ))}
                 </div>
@@ -189,7 +205,7 @@ export function TopBar({ locale = "hi" }: TopBarProps) {
           {/* All more items visible at xl+ */}
           {MORE_ITEMS.map((item) => (
             <span key={item.route} className="hidden xl:inline-flex">
-              <NavLink item={item} pathname={pathname} />
+              <NavLink item={item} pathname={pathname} isHi={isHi} />
             </span>
           ))}
         </nav>
@@ -220,8 +236,11 @@ export function TopBar({ locale = "hi" }: TopBarProps) {
                   style={{ color: "var(--accent)" }}
                   strokeWidth={1.5}
                 />
-                <span className="ml-2 font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">
-                  जैन ज्ञान कोष
+                <span className={cn(
+                  "ml-2 text-[length:var(--font-size-h3)] font-semibold",
+                  isHi ? "font-serif-hindi" : "font-sans",
+                )}>
+                  {isHi ? "जैन ज्ञान कोष" : "Jain Knowledge Base"}
                 </span>
               </div>
 
@@ -256,6 +275,7 @@ export function TopBar({ locale = "hi" }: TopBarProps) {
                     key={item.route}
                     item={item}
                     pathname={pathname}
+                    isHi={isHi}
                     onClick={() => setSheetOpen(false)}
                   />
                 ))}

@@ -80,5 +80,5 @@
 
   /* Font variables (populated by next/font in layout.tsx) */
   --font-serif-hindi: 'Noto Serif Devanagari', 'Mangal', 'Devanagari MT', serif;
-  --font-sans: Inter, system-ui, sans-serif;
+  --font-sans: Manrope, system-ui, sans-serif;
 }

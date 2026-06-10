@@ -63,35 +63,84 @@
   "home": {
     "hero": "Jain Knowledge Base",
     "hero_sub": "जैन ज्ञान कोष",
+    "hero_badge": "A structured corpus of Jain literature",
+    "hero_tagline": "A single, structured search layer over shastras, gathas, teekas, bhaavarths and topics.",
+    "search_placeholder": "Search gatha, shastra, keyword...",
     "search_label": "Search",
     "search_alt": "Browse topics",
+    "popular": "Popular:",
+    "explore_title": "Start exploring",
+    "explore_subtitle": "Four primary entry points",
+    "explore_cta": "Explore",
     "entry_shastras": "Shastras",
     "entry_dictionary": "Dictionary",
     "entry_topics": "Topics",
-    "entry_graph": "Knowledge Graph",
-    "recent_activity": "Recent activity"
+    "entry_graph": "Graph",
+    "entry_dictionary_desc": "Meanings and citations of canonical terms",
+    "entry_shastras_desc": "Source texts, gathas and commentaries",
+    "entry_topics_desc": "Topic-organised view of the knowledge base",
+    "entry_graph_desc": "Visual exploration of relationships",
+    "recent_activity": "Recent activity",
+    "recent_activity_sub": "Recently added",
+    "recent_empty": "No activity yet",
+    "activity_source": "Source"
+  },
+  "reader": {
+    "shabdarth": "Word meanings",
+    "shabdarth_unavailable": "Word meanings unavailable.",
+    "anvayarth": "Anvayarth",
+    "related": "Related",
+    "related_topics": "Related topics",
+    "teeka": "Teeka",
+    "hindi_bhaavarth": "Hindi bhaavarth",
+    "kalash_sanskrit": "Kalash (Sanskrit)",
+    "kalash_hindi": "Kalash (Hindi)",
+    "kalash_bhaavarth": "Kalash bhaavarth",
+    "gatha_prakrit_label": "Gatha (Prakrit)",
+    "teeka_sanskrit_label": "Teeka (Sanskrit)",
+    "bhaavarth_label": "Bhaavarth"
   },
   "shastras": {
     "title": "Shastras",
     "filter_anuyog": "Anuyog",
     "filter_author": "Author",
     "sort": "Sort",
-    "search_within": "Search within shastras",
+    "sort_label": "Sort: name / gathas / latest",
+    "search_within": "Search shastras",
+    "all_anuyoga": "All anuyogas",
     "open": "Open →",
     "gathas": "Gathas",
     "teekas": "Teekas",
-    "pages": "Pages"
+    "pages": "Pages",
+    "source_external": "Original source ↗",
+    "gatha_label": "Gatha",
+    "col_teekakar": "Teekakar",
+    "col_publisher": "Publisher",
+    "col_year": "Year",
+    "col_language": "Language"
   },
   "dictionary": {
     "title": "Dictionary",
     "recent": "Recently added words",
-    "search_within": "Search words"
+    "search_within": "Search words",
+    "topics_section": "Topics",
+    "graph_relations": "Graph relations",
+    "no_topics": "No topics available",
+    "source": "Source ↗",
+    "open_in_graph": "Open in graph →",
+    "aliases": "Aliases"
   },
   "topics": {
     "title": "Topics",
     "open": "Open topic →",
     "mentions": "Mentions",
-    "search_within": "Search topics"
+    "search_within": "Search topics",
+    "all_sources": "All sources",
+    "show_intermediate": "Include intermediate topics",
+    "apply": "Apply",
+    "no_results": "No topics found for \"{q}\".",
+    "match_pct": "% match",
+    "search_error": "Search failed. Please try again."
   },
   "search": {
     "title": "Search",
@@ -103,6 +152,7 @@
   },
   "feedback": {
     "title": "Feedback",
+    "subtitle": "प्रतिक्रिया",
     "name": "Name",
     "email": "Email",
     "type": "Type",
@@ -111,12 +161,19 @@
     "type_content": "Content error",
     "message": "Message",
     "submit": "Submit",
-    "submit_en": "Submit",
-    "success": "Your feedback has been submitted successfully.",
-    "error": "Something went wrong. Please try again."
+    "sending": "Sending…",
+    "success": "Thank you! Your feedback has been received.",
+    "error": "Something went wrong. Please try again.",
+    "invalid_email": "Please enter a valid email address.",
+    "missing_fields": "Please fill in all required fields."
   },
   "about": {
-    "title": "About"
+    "title": "About",
+    "p1": "Jain Knowledge Base is a structured search system for Jain agamas, scriptures and classical literature, offering an organised, accessible exploration layer. Its purpose is to bring ancient knowledge to scholars, sadhakas and seekers through modern technology.",
+    "p2": "The system presents the dictionary, topic index, gathas and shastra references as an interlinked graph. By establishing relationships between every word, topic and source, it offers a fresh perspective on the depth of Jain literature.",
+    "p3": "Our goal is to preserve and make searchable the multilingual heritage of Jain agama literature — Sanskrit, Prakrit and Hindi — in the digital age. This project is continuously evolving through open-source data and community contribution.",
+    "sources_heading": "Sources & acknowledgements",
+    "tech_stack": "Tech stack"
   },
   "footer": {
     "copyright": "© Jain Knowledge Base",
@@ -136,7 +193,8 @@
   },
   "pagination": {
     "prev": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "page": "Page"
   },
   "skeleton": {
     "loading": "Loading…"

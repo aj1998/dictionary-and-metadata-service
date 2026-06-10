@@ -17,6 +17,7 @@ import { ApiError } from '@/lib/api/_fetch';
 import { getKeywordTopics } from '@/lib/api/navigation';
 import { getHindiText } from '@/lib/content-listing';
 import { normalizeNFC, toDevanagariNumerals } from '@/lib/format/devanagari';
+import { getLocale, getTranslations } from 'next-intl/server';
 import type { HighlightRange } from '@/lib/highlight';
 import type { ExtractMatch, GathaKalash } from '@/lib/types';
 
@@ -64,7 +65,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   // Normalize to the gatha natural key the API expects.
   const gathaNk = number.includes(':गाथा:') ? number : `${nk}:गाथा:${number}`;
 
-  const [gatha, topicsResult, extractMatch] = await Promise.all([
+  const [gatha, topicsResult, extractMatch, tR, tS, locale] = await Promise.all([
     getGatha(gathaNk, { include: ['teeka_mapping', 'teeka_bhaavarth', 'teeka_sanskrit', 'kalashas'] }).catch((err) => {
       if (err instanceof ApiError && err.status === 404) notFound();
       throw err;
@@ -73,7 +74,12 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
     matchNk
       ? getExtractMatch(matchNk).catch(() => null)
       : Promise.resolve(null),
+    getTranslations('reader'),
+    getTranslations('shastras'),
+    getLocale(),
   ]);
+  const isHi = locale === 'hi';
+  const gathaLbl = isHi ? 'गाथा' : tS('gatha_label');
 
   const shastraPrefix = gatha.shastra.natural_key;
   const gathaNumStr = gatha.gatha_number;
@@ -313,9 +319,9 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
         <section className="rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-node">
           <BreadcrumbBar
             segments={[
-              { label: 'शास्त्र', href: '/shastras' },
+              { label: tS('title'), href: '/shastras' },
               { label: nk, href: `/shastras/${nk}` },
-              { label: `गाथा ${gatha.gatha_number || number}` },
+              { label: `${gathaLbl} ${gatha.gatha_number || number}` },
             ]}
           />
         </section>
@@ -363,10 +369,10 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
             }}
           >
             <div className="flex flex-wrap items-center gap-2">
-              <h2 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold" style={{ color: 'color-mix(in srgb, var(--cat-keyword) 85%, var(--foreground))' }}>शब्दार्थ</h2>
+              <h2 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold" style={{ color: 'color-mix(in srgb, var(--cat-keyword) 85%, var(--foreground))' }}>{tR('shabdarth')}</h2>
               {combinedGathaNotice?.ka}
             </div>
-            <PanelActionsMenu sourceNk={gathaNk} sourceLabel={`गाथा ${gatha.gatha_number || number}`} />
+            <PanelActionsMenu sourceNk={gathaNk} sourceLabel={`${gathaLbl} ${gatha.gatha_number || number}`} />
           </div>
           <div className="p-5">
             {primaryMapping?.tagged_terms.length ? (
@@ -382,18 +388,18 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
               />
             ) : primaryMapping?.full_anyavaarth ? (
               <div>
-                <p className="mb-1 text-xs font-medium text-foreground-muted">अन्वयार्थ</p>
+                <p className="mb-1 text-xs font-medium text-foreground-muted">{tR('anvayarth')}</p>
                 <p className="font-serif-hindi text-sm leading-8 text-foreground">{primaryMapping.full_anyavaarth}</p>
               </div>
             ) : (
-              <p className="text-sm text-foreground-muted">शब्दार्थ उपलब्ध नहीं है।</p>
+              <p className="text-sm text-foreground-muted">{tR('shabdarth_unavailable')}</p>
             )}
           </div>
         </section>
 
         {/* संबंधित — kalash/secondary-gatha tabbed panel */}
         {kalashItems.length > 0 && (
-          <TabbedPanel title="संबंधित" items={kalashItems} showActions accent="kalash" />
+          <TabbedPanel title={tR('related')} items={kalashItems} showActions accent="kalash" />
         )}
 
         {/* Prev / Next navigation */}
@@ -403,14 +409,14 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
               href={`/shastras/${nk}/gathas/${encodeURIComponent(prevNk)}`}
               className="flex items-center gap-1 rounded-[var(--radius-md)] border border-border bg-surface px-4 py-2 text-sm hover:border-accent hover:text-accent"
             >
-              ← गाथा {gathaNum - 1}
+              ← {gathaLbl} {gathaNum - 1}
             </Link>
           ) : <span />}
           <Link
             href={`/shastras/${nk}/gathas/${encodeURIComponent(nextNk)}`}
             className="flex items-center gap-1 rounded-[var(--radius-md)] border border-border bg-surface px-4 py-2 text-sm hover:border-accent hover:text-accent"
           >
-            गाथा {gathaNum + 1} →
+            {gathaLbl} {gathaNum + 1} →
           </Link>
         </div>
       </div>
@@ -420,7 +426,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
       <aside key="sidebar" className="space-y-4 lg:sticky lg:top-[90px] lg:self-start lg:max-h-[calc(100vh-110px)] lg:overflow-y-auto">
         <TeekaPanel key="teeka" items={teekaItems} showActions notice={combinedGathaNotice?.ki} accent="teeka" />
         {bhaavarthItems.length > 0 && (
-          <TabbedPanel key="bhaavarth" title="हिन्दी भावार्थ" items={bhaavarthItems} showActions notice={combinedGathaNotice?.ka} accent="bhaavarth" />
+          <TabbedPanel key="bhaavarth" title={tR('hindi_bhaavarth')} items={bhaavarthItems} showActions notice={combinedGathaNotice?.ka} accent="bhaavarth" />
         )}
         {topics.length > 0 && (
           <section key="topics" className="rounded-[var(--radius-md)] border bg-surface shadow-node overflow-hidden" style={{ borderColor: 'color-mix(in srgb, var(--cat-topic) 35%, var(--border))' }}>
@@ -431,7 +437,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
                 borderBottomColor: 'color-mix(in srgb, var(--cat-topic) 25%, var(--border))',
               }}
             >
-              <h3 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold" style={{ color: 'color-mix(in srgb, var(--cat-topic) 85%, var(--foreground))' }}>संबंधित विषय</h3>
+              <h3 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold" style={{ color: 'color-mix(in srgb, var(--cat-topic) 85%, var(--foreground))' }}>{tR('related_topics')}</h3>
             </div>
             <div className="p-4 flex flex-wrap gap-2">
               {topics.map((topic) => (

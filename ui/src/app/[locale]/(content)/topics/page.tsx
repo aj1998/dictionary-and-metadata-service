@@ -5,6 +5,7 @@ import { getHindiText, paginatedMeta } from '@/lib/content-listing';
 import { toDevanagariNumerals } from '@/lib/format/devanagari';
 import { TopicNavAction } from '@/components/TopicNavAction';
 import { TopicPathInfo } from '@/components/TopicPathInfo';
+import { getLocale, getTranslations } from 'next-intl/server';
 import type { TopicMatchItem } from '@/lib/types';
 
 export const revalidate = 60;
@@ -56,6 +57,13 @@ export default async function TopicsPage({ searchParams }: PageProps) {
   const includeOther = first(query.include_other) === '1';
   const page = Math.max(1, Number.parseInt(first(query.page), 10) || 1);
   const offset = (page - 1) * PAGE_SIZE;
+  const [tT, tP, locale] = await Promise.all([
+    getTranslations('topics'),
+    getTranslations('pagination'),
+    getLocale(),
+  ]);
+  const isHi = locale === 'hi';
+  const num = (n: number) => (isHi ? toDevanagariNumerals(n) : String(n));
 
   const makeHref = (nextPage: number) => {
     const params = new URLSearchParams();
@@ -88,17 +96,17 @@ export default async function TopicsPage({ searchParams }: PageProps) {
         <form className="rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-node">
           <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
             <select name="source" defaultValue={source} className="h-10 rounded-[var(--radius-md)] border border-border bg-background px-3 text-sm">
-              <option value="">सभी स्रोत</option>
+              <option value="">{tT('all_sources')}</option>
               <option value="jainkosh">jainkosh</option>
               <option value="nj">nj</option>
               <option value="chat_candidate">chat_candidate</option>
             </select>
-            <input name="q" defaultValue={q} placeholder="विषय खोजें" className="h-10 rounded-[var(--radius-md)] border border-border bg-background px-3 text-sm" />
-            <button type="submit" className="h-10 rounded-[var(--radius-md)] bg-accent px-4 text-sm font-semibold text-white">लागू करें</button>
+            <input name="q" defaultValue={q} placeholder={tT('search_within')} className="h-10 rounded-[var(--radius-md)] border border-border bg-background px-3 text-sm" />
+            <button type="submit" className="h-10 rounded-[var(--radius-md)] bg-accent px-4 text-sm font-semibold text-white">{tT('apply')}</button>
           </div>
           <label className="mt-3 inline-flex items-center gap-2 text-sm text-foreground-muted">
             <input type="checkbox" name="include_other" value="1" defaultChecked={includeOther} className="size-4 accent-accent" />
-            मध्यवर्ती विषय भी दिखाएँ
+            {tT('show_intermediate')}
           </label>
         </form>
 
@@ -136,17 +144,17 @@ export default async function TopicsPage({ searchParams }: PageProps) {
       <form className="rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-node">
         <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
           <select name="source" defaultValue={source} className="h-10 rounded-[var(--radius-md)] border border-border bg-background px-3 text-sm">
-            <option value="">सभी स्रोत</option>
+            <option value="">{tT('all_sources')}</option>
             <option value="jainkosh">jainkosh</option>
             <option value="nj">nj</option>
             <option value="chat_candidate">chat_candidate</option>
           </select>
-          <input name="q" defaultValue={q} placeholder="विषय खोजें" className="h-10 rounded-[var(--radius-md)] border border-border bg-background px-3 text-sm" />
-          <button type="submit" className="h-10 rounded-[var(--radius-md)] bg-accent px-4 text-sm font-semibold text-white">लागू करें</button>
+          <input name="q" defaultValue={q} placeholder={tT('search_within')} className="h-10 rounded-[var(--radius-md)] border border-border bg-background px-3 text-sm" />
+          <button type="submit" className="h-10 rounded-[var(--radius-md)] bg-accent px-4 text-sm font-semibold text-white">{tT('apply')}</button>
         </div>
         <label className="mt-3 inline-flex items-center gap-2 text-sm text-foreground-muted">
           <input type="checkbox" name="include_other" value="1" defaultChecked={includeOther} className="size-4 accent-accent" />
-          मध्यवर्ती विषय भी दिखाएँ
+          {tT('show_intermediate')}
         </label>
       </form>
 
@@ -160,7 +168,7 @@ export default async function TopicsPage({ searchParams }: PageProps) {
             </div>
             <div className="mt-4 flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
-                {item.topic_path && (
+                {item.topic_path && item.is_leaf && (
                   <TopicNavAction
                     topicNk={item.natural_key}
                     displayText={getHindiText(item.display_text, item.natural_key)}
@@ -172,7 +180,7 @@ export default async function TopicsPage({ searchParams }: PageProps) {
               <TopicPathInfo
                 topicNk={item.natural_key}
                 dictionaryHref={
-                  item.is_leaf && item.parent_keyword?.natural_key
+                  item.parent_keyword?.natural_key
                     ? `/dictionary/${encodeURIComponent(item.parent_keyword.natural_key)}?topic=${encodeURIComponent(item.natural_key)}`
                     : undefined
                 }
@@ -183,9 +191,9 @@ export default async function TopicsPage({ searchParams }: PageProps) {
       </section>
 
       <div className="flex items-center justify-center gap-3 text-sm">
-        {meta.hasPrevious ? <Link href={makeHref(meta.page - 1)} className="rounded border border-border px-3 py-1">पिछला</Link> : <span className="rounded border border-border px-3 py-1 text-foreground-subtle">पिछला</span>}
-        <span>पृष्ठ {toDevanagariNumerals(meta.page)} / {toDevanagariNumerals(meta.totalPages)}</span>
-        {meta.hasNext ? <Link href={makeHref(meta.page + 1)} className="rounded border border-border px-3 py-1">अगला</Link> : <span className="rounded border border-border px-3 py-1 text-foreground-subtle">अगला</span>}
+        {meta.hasPrevious ? <Link href={makeHref(meta.page - 1)} className="rounded border border-border px-3 py-1">{tP('prev')}</Link> : <span className="rounded border border-border px-3 py-1 text-foreground-subtle">{tP('prev')}</span>}
+        <span>{tP('page')} {num(meta.page)} / {num(meta.totalPages)}</span>
+        {meta.hasNext ? <Link href={makeHref(meta.page + 1)} className="rounded border border-border px-3 py-1">{tP('next')}</Link> : <span className="rounded border border-border px-3 py-1 text-foreground-subtle">{tP('next')}</span>}
       </div>
     </div>
   );

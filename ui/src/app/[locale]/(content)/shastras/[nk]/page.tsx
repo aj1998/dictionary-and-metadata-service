@@ -5,6 +5,7 @@ import { GathaTile } from '@/components/ListCards';
 import { getShastra, getShastraTeekas } from '@/lib/api/metadata';
 import { getGathasByShastraId } from '@/lib/api/data';
 import { getHindiText } from '@/lib/content-listing';
+import { getTranslations } from 'next-intl/server';
 import type { AuthorSummary } from '@/lib/types';
 
 export const revalidate = 60;
@@ -21,7 +22,7 @@ export default async function ShastraDetailPage({ params }: PageProps) {
   const { nk: rawNk } = await params;
   const nk = decodeURIComponent(rawNk);
 
-  const shastra = await getShastra(nk);
+  const [shastra, t] = await Promise.all([getShastra(nk), getTranslations('shastras')]);
 
   const [teekas, gathas] = await Promise.all([
     getShastraTeekas(nk).catch((error) => {
@@ -38,7 +39,7 @@ export default async function ShastraDetailPage({ params }: PageProps) {
 
   return (
     <div className="space-y-5">
-        <BreadcrumbBar segments={[{ label: 'शास्त्र', href: '/shastras' }, { label: titleHi }]} />
+        <BreadcrumbBar segments={[{ label: t('title'), href: '/shastras' }, { label: titleHi }]} />
 
         <section className="grid grid-cols-1 gap-4 rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node md:grid-cols-[1fr_320px]">
           <div>
@@ -46,21 +47,21 @@ export default async function ShastraDetailPage({ params }: PageProps) {
             <div className="mt-2 flex flex-wrap gap-2 text-sm">
               {shastra.author && <span className="rounded-full bg-surface-muted px-3 py-1">{getAuthorName(shastra.author)}</span>}
               {(shastra.anuyogas ?? []).map((tag) => <span key={tag} className="rounded-full bg-accent-soft px-3 py-1 text-accent">{tag}</span>)}
-              {shastra.source_url && <a href={shastra.source_url} target="_blank" rel="noreferrer" className="rounded-full border border-accent px-3 py-1 text-accent">मूल स्रोत ↗</a>}
+              {shastra.source_url && <a href={shastra.source_url} target="_blank" rel="noreferrer" className="rounded-full border border-accent px-3 py-1 text-accent">{t('source_external')}</a>}
             </div>
           </div>
           <StatTileRow
             tiles={[
-              { count: gathas.pagination.total, label: 'गाथाएँ' },
-              { count: teekas.length, label: 'टीकाएँ' },
-              { count: 0, label: 'पृष्ठ' },
+              { count: gathas.pagination.total, label: t('gathas') },
+              { count: teekas.length, label: t('teekas') },
+              { count: 0, label: t('pages') },
             ]}
           />
         </section>
 
         <section className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-            <h2 className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold">गाथाएँ</h2>
+            <h2 className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold">{t('gathas')}</h2>
             <GathaSearchJump shastraNk={nk} totalGathas={gathas.pagination.total} />
           </div>
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
@@ -68,7 +69,7 @@ export default async function ShastraDetailPage({ params }: PageProps) {
               <GathaTile
                 key={gatha.id}
                 kind="gatha"
-                titleHi={`गाथा ${gatha.gatha_number}`}
+                titleHi={`${t('gatha_label')} ${gatha.gatha_number}`}
                 meta={getHindiText(gatha.heading, gatha.natural_key)}
                 href={`/shastras/${nk}/gathas/${encodeURIComponent(gatha.natural_key)}`}
               />
@@ -77,15 +78,15 @@ export default async function ShastraDetailPage({ params }: PageProps) {
         </section>
 
         <section className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
-          <h2 className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold">टीकाएँ</h2>
+          <h2 className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold">{t('teekas')}</h2>
           <div className="mt-3 overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border text-left text-foreground-muted">
-                  <th className="pb-2">टीकाकार</th>
-                  <th className="pb-2">प्रकाशक</th>
-                  <th className="pb-2">वर्ष</th>
-                  <th className="pb-2">भाषा</th>
+                  <th className="pb-2">{t('col_teekakar')}</th>
+                  <th className="pb-2">{t('col_publisher')}</th>
+                  <th className="pb-2">{t('col_year')}</th>
+                  <th className="pb-2">{t('col_language')}</th>
                 </tr>
               </thead>
               <tbody>

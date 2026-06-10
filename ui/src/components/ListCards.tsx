@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BadgeChip } from "@/components/BadgeChip";
 import { toDevanagariNumerals } from "@/lib/format/devanagari";
+import { getLocale, getTranslations } from "next-intl/server";
 import type { EntityKind } from "@/lib/types";
 
 export interface ListCardProps {
@@ -16,7 +17,7 @@ export interface ListCardProps {
   className?: string;
 }
 
-function BaseCard({
+async function BaseCard({
   kind,
   hideBadge,
   titleHi,
@@ -26,6 +27,10 @@ function BaseCard({
   href,
   className,
 }: ListCardProps) {
+  const [tNav, locale] = await Promise.all([getTranslations('nav'), getLocale()]);
+  const openLabel = locale === 'hi' ? 'खोलें' : 'Open';
+  void tNav;
+  const num = locale === 'hi' ? toDevanagariNumerals : (n: number) => String(n);
   return (
     <Link
       href={href}
@@ -40,7 +45,7 @@ function BaseCard({
         {!hideBadge && <BadgeChip kind={kind} size="sm" />}
         {count !== undefined && (
           <span className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold text-foreground-muted">
-            {toDevanagariNumerals(count)}
+            {num(count)}
           </span>
         )}
       </div>
@@ -63,7 +68,7 @@ function BaseCard({
       </div>
 
       <span className="flex items-center gap-1 font-sans text-[length:var(--font-size-sm)] font-medium text-accent">
-        खोलें
+        {openLabel}
         <ArrowRight
           className="size-3.5 transition-transform group-hover:translate-x-0.5"
           strokeWidth={1.5}
@@ -73,14 +78,14 @@ function BaseCard({
   );
 }
 
-export function KeywordCard(props: ListCardProps) {
+export async function KeywordCard(props: ListCardProps) {
   return <BaseCard {...props} kind="keyword" />;
 }
 
-export function TopicCard(props: ListCardProps) {
+export async function TopicCard(props: ListCardProps) {
   return <BaseCard {...props} kind="topic" />;
 }
 
-export function GathaTile(props: ListCardProps) {
+export async function GathaTile(props: ListCardProps) {
   return <BaseCard {...props} kind="gatha" hideBadge />;
 }

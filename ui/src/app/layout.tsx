@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Serif_Devanagari, Inter } from "next/font/google";
+import { Noto_Serif_Devanagari, Manrope } from "next/font/google";
 import { getLocale } from "next-intl/server";
 import "./globals.css";
 
@@ -12,11 +12,12 @@ const notoSerifDevanagari = Noto_Serif_Devanagari({
   fallback: ["Mangal", "Devanagari MT", "serif"],
 });
 
-const inter = Inter({
+const manrope = Manrope({
   variable: "--font-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
+  fallback: ["system-ui", "Segoe UI", "sans-serif"],
 });
 
 export const metadata: Metadata = {
@@ -35,7 +36,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${notoSerifDevanagari.variable} ${inter.variable} h-full`}
+      className={`${notoSerifDevanagari.variable} ${manrope.variable} h-full`}
     >
       <body className="flex min-h-full flex-col antialiased">
         {children}
