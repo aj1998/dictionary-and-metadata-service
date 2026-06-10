@@ -70,13 +70,16 @@ export function ShortFontHtml({ html, entries, className }: ShortFontHtmlProps) 
           ref={popoverRef}
           role="dialog"
           aria-modal="false"
-          className="absolute z-50 max-w-sm rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-node"
+          className="absolute z-50 w-[min(22rem,calc(100vw-2rem))] rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-node"
           style={{ top: popover.top, left: popover.left }}
         >
           <p className="text-xs text-foreground-muted mb-1">
             टिप्पणी
           </p>
-          <p className="font-serif-hindi text-[length:var(--font-size-body)] whitespace-pre-wrap">
+          <p
+            className="text-xs leading-relaxed whitespace-pre-wrap"
+            style={{ fontFamily: '"Noto Sans Devanagari", "Kohinoor Devanagari", "Nirmala UI", sans-serif' }}
+          >
             {popover.entry.meaning}
           </p>
         </div>

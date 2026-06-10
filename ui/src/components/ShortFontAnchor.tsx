@@ -16,11 +16,19 @@ export function ShortFontAnchor({ entry }: ShortFontAnchorProps) {
       >
         {entry.anchor_text}
       </PopoverTrigger>
-      <PopoverContent>
+      <PopoverContent
+        side="top"
+        align="center"
+        collisionAvoidance={{ side: 'flip', align: 'shift' }}
+        className="w-[min(22rem,calc(100vw-2rem))]"
+      >
         <div className="text-xs text-foreground-muted mb-1">
           टिप्पणी
         </div>
-        <div className="font-serif-hindi text-[length:var(--font-size-body)] whitespace-pre-wrap">
+        <div
+          className="text-xs leading-relaxed whitespace-pre-wrap"
+          style={{ fontFamily: '"Noto Sans Devanagari", "Kohinoor Devanagari", "Nirmala UI", sans-serif' }}
+        >
           {entry.meaning}
         </div>
       </PopoverContent>
