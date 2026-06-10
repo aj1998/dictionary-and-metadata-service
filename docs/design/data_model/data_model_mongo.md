@@ -366,7 +366,44 @@ Publication-specific bhaavarth for a kalash.
 
 **Indexes:** `{natural_key: 1}` UNIQUE; `{publication_natural_key: 1}`; `{kalash_natural_key: 1}`.
 
-### 16. `kalash_word_meanings`
+### 16. `tables`
+
+Structured table body for a parsed table (JainKosh or NJ source). Postgres holds the lightweight row; Mongo holds cells, raw HTML, and plaintext.
+
+```json
+{
+  "_id": "ObjectId(...)",
+  "natural_key": "table:nj:पंचास्तिकाय:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:7:01",
+  "table_id": "<uuid from postgres tables.id>",
+  "source": "nj",
+  "table_type": "index",
+  "parent_natural_key": "पंचास्तिकाय:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:7",
+  "parent_kind": "gatha_teeka_bhaavarth",
+  "seq": 1,
+  "caption": "प्रथम महाधिकार के द्वितीय अंतराधिकार की सारिणी",
+  "header_rows": 1,
+  "cells": [
+    ["स्थान", "अधिकार", "गाथाएँ"],
+    ["प्रथम", "द्वितीय अंतराधिकार", "१–१५"]
+  ],
+  "raw_html": "<table class=\"myAltColTable\">...</table>",
+  "plaintext": "स्थान अधिकार गाथाएँ ...",
+  "mentioned_keyword_natural_keys": [],
+  "mentioned_topic_natural_keys": [],
+  "ingestion_run_id": "uuid",
+  "created_at": ISODate(...),
+  "updated_at": ISODate(...)
+}
+```
+
+- `table_type`: `"index"` (NJ structured सारिणी tables) or `"general"` (JainKosh inline tables, default).
+- `cells`: 2D array of plain-text cell strings, padded to uniform row width. First `header_rows` rows contain header cells.
+- `raw_html`: original `<table>` outerHTML for debug / dev-only rendering.
+- `plaintext`: space-joined non-empty cell text for full-text search.
+
+**Indexes:** `{natural_key: 1}` UNIQUE; `{parent_natural_key: 1}`.
+
+### 17. `kalash_word_meanings`
 
 Word-by-word Sanskrit→Hindi glossary for a kalash (nikkyjain source). One document per kalash.
 

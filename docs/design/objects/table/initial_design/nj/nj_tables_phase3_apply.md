@@ -3,7 +3,7 @@
 Persist the Phase-2 `ParsedTable`s for NJ into Postgres / Mongo / Neo4j, and emit a `CONTAINS_TABLE` edge from the owning `GathaTeekaBhaavarth` (or `KalashBhaavarth`) node to the new `Table` node.
 
 Depends on: [Phase 1 — Schema](./nj_tables_phase1_schema.md), [Phase 2 — Parser](./nj_tables_phase2_parser.md)
-Parent wiki: [../README.md](../README.md) §7
+Parent wiki: [../README.md](../../README.md) §7
 
 ---
 

@@ -3,8 +3,8 @@
 Extract `<table>` blocks from NJ bhaavarth HTML into first-class `ParsedTable` records (with `table_type="index"`) and **replace** each table's serialised HTML in the bhaavarth Markdown with a `[तालिका देखें](table://<natural_key>)` link so the UI can render an inline opener.
 
 Depends on: [Phase 1 — Schema](./nj_tables_phase1_schema.md)
-Parent wiki: [../README.md](../README.md)
-NJ parser wiki: [../../../data_sources/nikkyjain/nj_parser.md](../../../data_sources/nikkyjain/nj_parser.md)
+Parent wiki: [../README.md](../../README.md)
+NJ parser wiki: [../../../data_sources/nikkyjain/nj_parser.md](../../../../data_sources/nikkyjain/nj_parser.md)
 
 ---
 

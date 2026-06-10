@@ -245,6 +245,53 @@ Full NJ suite: **105 tests green**.
 
 ---
 
+## NJ Table extraction (Phase 2 — implemented 2026-06-10)
+
+New module `workers/ingestion/nj/tables.py` extracts `<table>` blocks from bhaavarth HTML into first-class `ParsedTable` records with `table_type="index"`, and replaces each table in the bhaavarth nodes with a `[तालिका देखें](table://<natural_key>)` Markdown link.
+
+### Natural-key format
+
+```
+table:nj:<parent_bhaavarth_nk>:<seq:02d>
+```
+
+`seq` is 1-indexed in DOM source order within the bhaavarth nodes. `parent_bhaavarth_nk` is the `GathaTeekaBhaavarth` or `KalashBhaavarth` node key.
+
+### `extract_tables_from_bhaavarth()` contract
+
+- Accepts `list[NavigableString | Tag]` plus `parent_natural_key`, `parent_kind`, `source_url` kwargs.
+- Layout-only tables (`class="myAltColTable"` + single `<td>` + no inner `<table>`) are skipped.
+- Caption: prefers `<caption>` tag; falls back to first row when it is a single non-empty `<th>` (irrespective of empty `<td class=emptyTableCell>` alongside it).
+- Each extracted table is replaced inline with `<a class="nj-table-link" data-table-nk="{nk}">तालिका देखें</a>`.
+- Returns `(mutated_nodes, parsed_tables)`.
+
+### Markdown rendering
+
+`workers/ingestion/nj/html_to_markdown.py` handles `<a class="nj-table-link">` and emits `[तालिका देखें](table://{nk})`. Shortfont anchor offsets are computed **after** table replacement so they remain valid.
+
+### Integration points
+
+- `parse_primary_teeka.py` and `parse_secondary_teeka.py` both call `extract_tables_from_bhaavarth` before `extract_shortfont`. `parse_page.py` computes the `parent_bhaavarth_nk` and passes it through.
+- `models.py`: `PrimaryTeeka.tables: list[ParsedTable] = []` and `SecondaryTeeka.tables: list[ParsedTable] = []`. `ParsedTable` is imported from `workers.ingestion.jainkosh.models`.
+- `envelope.py`: `would_write["tables"]` collects all parsed tables from all teeka types; `postgres:tables` idempotency contract added.
+
+### Verified end-to-end (पंचास्तिकाय gatha 7)
+
+```
+NK: table:nj:पंचास्तिकाय:तात्पर्यवृत्ति:0:गाथा:टीका:भावार्थ:7:01
+caption: प्रथम महाधिकार के द्वितीय अंतराधिकार की सारिणी
+header_rows: 1, table_type: index
+```
+
+### Tests
+
+- `tests/workers/nj/test_table_parser_unit.py` — 10 unit tests covering extraction, NK format, caption detection, header_rows, layout-wrapper skip, and shortfont offset validity.
+- `tests/workers/nj/test_envelope.py` extended with 6 table-related assertions.
+
+Full NJ suite: **101 tests green**.
+
+---
+
 ## Known open items
 
 - `ingest_nj_apply.py` script (§5 of ingestion doc) is specified but not yet wired as a standalone CLI — ingestion is done via `apply.py` + `envelope.py` + manual invocation.

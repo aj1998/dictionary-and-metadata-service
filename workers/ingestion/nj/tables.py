@@ -66,13 +66,48 @@ def _parse_cells(table: Tag) -> tuple[list[list[str]], int, str | None]:
     Caption detection: if the first row has exactly one non-empty cell and it's a
     <th>, treat its text as the caption and exclude that row from header_rows.
     """
-    rows: list[list[str]] = []
-    for tr in table.find_all("tr"):
-        cells = tr.find_all(["td", "th"])
-        if not cells:
-            continue
-        rows.append([_cell_text(c) for c in cells])
+    # Build a row-major grid that respects rowspan/colspan: a spanned cell's
+    # text is duplicated into every (row, col) position it occupies so the
+    # resulting matrix stays rectangular and visually matches the source.
+    trs = [tr for tr in table.find_all("tr") if tr.find_all(["td", "th"])]
+    rows: list[list[str]] = [[] for _ in trs]
+    # pending[col_index] = (text, remaining_rowspan) for cells continuing down
+    pending: dict[int, tuple[str, int]] = {}
 
+    def _span(cell: Tag, attr: str) -> int:
+        try:
+            v = int(str(cell.get(attr) or "1").strip())
+            return v if v > 0 else 1
+        except ValueError:
+            return 1
+
+    for r, tr in enumerate(trs):
+        col = 0
+        cells_in_row = tr.find_all(["td", "th"])
+        ci = 0
+        while ci < len(cells_in_row) or any(rem > 0 for _, rem in pending.values()):
+            if col in pending and pending[col][1] > 0:
+                text, rem = pending[col]
+                rows[r].append(text)
+                pending[col] = (text, rem - 1)
+                if pending[col][1] == 0:
+                    del pending[col]
+                col += 1
+                continue
+            if ci >= len(cells_in_row):
+                break
+            cell = cells_in_row[ci]
+            ci += 1
+            text = _cell_text(cell)
+            cs = _span(cell, "colspan")
+            rs = _span(cell, "rowspan")
+            for k in range(cs):
+                rows[r].append(text)
+                if rs > 1:
+                    pending[col + k] = (text, rs - 1)
+            col += cs
+
+    rows = [r for r in rows if r]
     if not rows:
         return [], 0, None
 

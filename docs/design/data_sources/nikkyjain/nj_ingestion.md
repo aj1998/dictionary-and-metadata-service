@@ -289,6 +289,52 @@ Test coverage: 101 NJ tests green; 28 Mongo upsert tests green (4 new schema/rou
 
 ---
 
+## NJ Tables ingestion (Phase 3 — implemented 2026-06-10)
+
+After Phase 2 parser produces `ParsedTable` records with `table_type="index"`, Phase 3 persists them across all three stores.
+
+### Apply order (within `apply_nj_shastra_payload`)
+
+For each `ParsedTable` in `envelope["tables"]`:
+
+1. `upsert_table_pg` → Postgres row with `source='nj'`, `table_type='index'`, `parent_natural_key`, `parent_kind`.
+2. `upsert_table_mongo` → Mongo `tables` doc with `cells`, `raw_html`, `table_type`.
+3. `sync_table` (Neo4j MERGE on `Table` node, props include `table_type`).
+4. `sync_contains_table_edge` → `CONTAINS_TABLE` edge from the owning `GathaTeekaBhaavarth` or `KalashBhaavarth` node.
+
+`_PARENT_KIND_TO_LABEL` in `apply.py` maps `gatha_teeka_bhaavarth → GathaTeekaBhaavarth` and `kalash_bhaavarth → KalashBhaavarth`.
+
+### Envelope contracts (added in Phase 2/3)
+
+```python
+"postgres:tables": { conflict_key: ["natural_key"], on_conflict: "do_update",
+                     fields_replace: ["table_type","caption","raw_html_doc_id","seq",
+                                      "parent_natural_key","parent_kind"], ... }
+"mongo:tables":    { ..., fields_replace: ["table_type","raw_html","cells","cell_refs",
+                                            "header_rows","plaintext","caption"] ... }
+"neo4j:Table":     { conflict_key: ["key"], on_conflict: "merge",
+                     fields_replace: ["table_type","seq","caption_hi",
+                                      "parent_natural_key","parent_kind","pg_id","source"], ... }
+```
+
+Total idempotency contracts: **30** (was 27 before Phase 3).
+
+### Neo4j edge
+
+| Edge | From | To |
+|---|---|---|
+| `CONTAINS_TABLE` | `GathaTeekaBhaavarth` / `KalashBhaavarth` | `Table` |
+
+### Bugfix in apply
+
+`pg.get("shastras", [{}])[0]` raised `IndexError` when `shastras` was explicitly `[]`. Fixed to `pg.get("shastras") or [{}]` in `apply_nj_shastra_payload`.
+
+### Tests
+
+- `tests/ingestion/test_apply_nj_tables.py` — 5 tests covering Postgres, Mongo, Neo4j, idempotency, and kalash_bhaavarth parent. All green; full 1192-test suite passes with no regressions.
+
+---
+
 ## Known open items
 
 - **Cross-source Gatha NK (NJ × JK)**: NJ emits `समयसार:गाथा:8`; JK lazy GathaTeeka stubs may still derive `समयसार:8`. JK parser must adopt the `गाथा` label for cross-source MERGE to work.

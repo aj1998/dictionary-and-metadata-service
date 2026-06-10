@@ -3,7 +3,7 @@
 Render the `[तालिका देखें](table://<natural_key>)` link emitted by the Phase-2 parser as an in-line, clickable element inside the Shastra Reader's bhaavarth Markdown, opening the existing `TableModal`.
 
 Depends on: [Phase 1](./nj_tables_phase1_schema.md), [Phase 2](./nj_tables_phase2_parser.md), [Phase 3](./nj_tables_phase3_apply.md)
-Parent wiki: [../README.md](../README.md) §10
+Parent wiki: [../README.md](../../README.md) §10
 
 ---
 

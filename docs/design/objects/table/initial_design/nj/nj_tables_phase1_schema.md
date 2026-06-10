@@ -2,7 +2,7 @@
 
 Adds a typed-category field to the existing `Table` entity so consumers can distinguish a plain index/ToC table (NJ shastra pages) from richer special tables (future). Required by all later phases.
 
-Parent wiki: [docs/design/objects/table/README.md](../README.md)
+Parent wiki: [docs/design/objects/table/README.md](../../README.md)
 
 ---
 

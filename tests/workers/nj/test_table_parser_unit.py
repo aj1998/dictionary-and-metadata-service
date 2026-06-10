@@ -33,6 +33,38 @@ def _make_simple_table_html(caption: str | None = None, header_rows: int = 1) ->
     return f"<table>{rows}</table>"
 
 
+def test_rowspan_expands_into_each_spanned_row():
+    """A rowspan=N cell duplicates its text into each of the N rows so columns stay aligned."""
+    html = (
+        '<div id="w">'
+        "<table>"
+        "<tr><th>group</th><th>k</th><th>v</th></tr>"
+        '<tr><td rowspan="3">A</td><td>1</td><td>x</td></tr>'
+        "<tr><td>2</td><td>y</td></tr>"
+        "<tr><td>3</td><td>z</td></tr>"
+        '<tr><td rowspan="2">B</td><td>1</td><td>p</td></tr>'
+        "<tr><td>2</td><td>q</td></tr>"
+        "</table>"
+        "</div>"
+    )
+    soup = BeautifulSoup(html, "lxml")
+    nodes = list(soup.find("div", id="w").children)
+    _, tables = extract_tables_from_bhaavarth(
+        nodes,
+        parent_natural_key=_PARENT_NK,
+        parent_kind="gatha_teeka_bhaavarth",
+        source_url=None,
+    )
+    assert len(tables) == 1
+    cells = tables[0].cells
+    assert all(len(r) == 3 for r in cells), cells
+    assert cells[1] == ["A", "1", "x"]
+    assert cells[2] == ["A", "2", "y"]
+    assert cells[3] == ["A", "3", "z"]
+    assert cells[4] == ["B", "1", "p"]
+    assert cells[5] == ["B", "2", "q"]
+
+
 def test_extracts_single_table_from_bhaavarth_nodes():
     nodes = _fragment_nodes()
     mutated, tables = extract_tables_from_bhaavarth(
