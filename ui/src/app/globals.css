@@ -130,6 +130,10 @@
     color: var(--foreground);
     font-family: var(--font-serif-hindi);
   }
+
+  html[lang="en"] .font-sans {
+    font-family: var(--font-serif-hindi) !important;
+  }
 }
 
 @layer base {

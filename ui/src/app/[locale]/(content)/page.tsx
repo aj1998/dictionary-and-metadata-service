@@ -162,7 +162,7 @@ export default async function HomePage() {
                 </div>
 
                 <div>
-                  <p className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold leading-tight">
+                  <p className={`${isHi ? 'font-serif-hindi' : 'font-sans'} text-[length:var(--font-size-h2)] font-semibold leading-tight`}>
                     {t(`entry_${card.key}` as const)}
                   </p>
                   <p className="font-sans text-xs uppercase tracking-wide text-foreground-muted">
