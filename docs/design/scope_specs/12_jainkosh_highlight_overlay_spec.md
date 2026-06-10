@@ -1,6 +1,6 @@
 # 12 — JainKosh Highlight Overlay Spec
 
-Scope context: [`scope/03_shastra_reader.md`](../../scope/03_shastra_reader.md#jainkosh-highlight-overlay).
+Scope context: [`scope/03_shastra_reader.md`](../../scope/archived/03_shastra_reader.md#jainkosh-highlight-overlay).
 
 The visible payoff of the enrichment pipeline. Every span emitted by [`08_translation_pipeline_extraction_spec.md`](./08_translation_pipeline_extraction_spec.md) — topic, keyword, drushtaant, flowchart — is rendered as a colour-coded, hyperlinked overlay on top of the rendered Hindi panels in the Shastra Reader. The user toggles layers per type; hovering shows a tooltip with the reference label; clicking opens a side panel anchored to the underlying entity.
 

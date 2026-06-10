@@ -1,6 +1,6 @@
 # 04 — Keyword Hover / Click Expansion Spec
 
-Scope context: [`scope/03_shastra_reader.md`](../../scope/03_shastra_reader.md), section "Keyword expansion (hover / click)".
+Scope context: [`scope/03_shastra_reader.md`](../../scope/archived/03_shastra_reader.md), section "Keyword expansion (hover / click)".
 
 Inline tagging of any rendered Hindi/Prakrit text token that matches a `Keyword`. Hover → small popover with short definition. Click → docked side-panel with full definition, related topics, "open in Graph", "open in dictionary".
 

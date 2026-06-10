@@ -1,6 +1,6 @@
 # 03 — Shastra Reader UI Spec
 
-Scope context: [`scope/03_shastra_reader.md`](../../scope/03_shastra_reader.md). The reading core — a per-shastra layout-driven page with stacked panels, keyword hover/click, JainKosh highlight overlay, audio strip, drushtaant images, and export menu.
+Scope context: [`scope/03_shastra_reader.md`](../../scope/archived/03_shastra_reader.md). The reading core — a per-shastra layout-driven page with stacked panels, keyword hover/click, JainKosh highlight overlay, audio strip, drushtaant images, and export menu.
 
 Depends on:
 - [`02_shastra_layout_configs_spec.md`](./02_shastra_layout_configs_spec.md) for the layout config served at `GET /v1/shastras/{nk}/layout`.

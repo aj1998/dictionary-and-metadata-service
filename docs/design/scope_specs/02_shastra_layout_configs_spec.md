@@ -1,6 +1,6 @@
 # 02 — Shastra Layout Configs Spec
 
-Scope context: [`scope/03_shastra_reader.md`](../../scope/03_shastra_reader.md), open question Q4 in [`scope/09_open_questions.md`](../../scope/09_open_questions.md).
+Scope context: [`scope/03_shastra_reader.md`](../../scope/archived/03_shastra_reader.md), open question Q4 in [`scope/09_open_questions.md`](../../scope/09_open_questions.md).
 
 Per-shastra layout YAML declares the native structural hierarchy (adhikaar → gatha, parva → sarga → shloka, etc.) and the panel order/visibility for the Shastra Reader. New shastras only require a new YAML — no code change. A small Postgres registry (`shastra_layouts`) names the *active* version so the API can serve it deterministically.
 

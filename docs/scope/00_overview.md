@@ -12,7 +12,7 @@ These docs are intentionally short. Detailed, implementable specs live in [`../d
 |---|---|---|---|
 | 1 | Graph UI (with Shastra Reader side panel) | `#Graph` | [01_pages_and_features.md](./01_pages_and_features.md) |
 | 2 | Advanced RAGs / AI page | `#AI` | [06_advanced_rag_and_finetuning.md](./06_advanced_rag_and_finetuning.md) |
-| 3 | Shastra Reader | `#ShastraExplorer` | [03_shastra_reader.md](./03_shastra_reader.md) |
+| 3 | Shastra Reader | `#ShastraExplorer` | [03_shastra_reader.md](./archived/03_shastra_reader.md) |
 | 4 | Translations / Multilingual | All pages | [05_multilingual_strategy.md](./05_multilingual_strategy.md) |
 | 5 | Finetuned Models | `#AI` | [06_advanced_rag_and_finetuning.md](./06_advanced_rag_and_finetuning.md) |
 | 6 | Siri Bhoovalay decoder | `#ResearchTools` | [07_siri_bhoovalay_and_research_models.md](./07_siri_bhoovalay_and_research_models.md) |
@@ -48,7 +48,7 @@ These docs are intentionally short. Detailed, implementable specs live in [`../d
 
 1. [01_pages_and_features.md](./01_pages_and_features.md) — the eight features as a user sees them.
 2. [02_foundation_status.md](./02_foundation_status.md) — what's already built; gaps the scope work fills.
-3. [03_shastra_reader.md](./03_shastra_reader.md) — the reading core.
+3. [03_shastra_reader.md](./archived/03_shastra_reader.md) — the reading core.
 4. [04_translation_enrichment_pipeline.md](./04_translation_enrichment_pipeline.md) — the 3-step pipeline (the engine behind everything multilingual).
 5. [05_multilingual_strategy.md](./05_multilingual_strategy.md) — Kn/Gu/Sa/Pr scope.
 6. [06_advanced_rag_and_finetuning.md](./06_advanced_rag_and_finetuning.md) — AI page, training infra, A/V RAG, Jinswara.

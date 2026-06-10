@@ -8,8 +8,8 @@ export const revalidate = 60;
 
 const entryCards = [
   { key: 'dictionary', href: '/dictionary', icon: Tag, accent: 'var(--cat-keyword)' },
-  { key: 'shastras', href: '/shastras', icon: BookOpen, accent: 'var(--cat-teeka)' },
   { key: 'topics', href: '/topics', icon: ScrollText, accent: 'var(--cat-topic)' },
+  { key: 'shastras', href: '/shastras', icon: BookOpen, accent: 'var(--cat-teeka)' },
   { key: 'graph', href: '/graph', icon: Network, accent: 'var(--cat-bhaavarth)' },
 ] as const;
 

@@ -1,6 +1,6 @@
 # 06 — Audio Reader (ElevenLabs) Spec
 
-Scope context: [`scope/03_shastra_reader.md`](../../scope/03_shastra_reader.md) (Audio reader section), open question Q6 in [`scope/09_open_questions.md`](../../scope/09_open_questions.md).
+Scope context: [`scope/03_shastra_reader.md`](../../scope/archived/03_shastra_reader.md) (Audio reader section), open question Q6 in [`scope/09_open_questions.md`](../../scope/09_open_questions.md).
 
 TTS narration per *adhikaar* (chapter unit; not per gatha). One voice per shastra, configured in the layout YAML (`audio_voice_id` — see [`02_shastra_layout_configs_spec.md`](./02_shastra_layout_configs_spec.md)). Pre-generated, stored in S3, streamed via signed URL, played by an `<AudioStrip>` pinned to the reader. Resume position persisted per user.
 

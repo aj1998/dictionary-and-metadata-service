@@ -5,16 +5,16 @@ export interface NavItem {
 }
 
 export const PRIMARY_NAV_ITEMS: NavItem[] = [
-  { labelKey: "home",       labelHi: "होम",       route: "/" },
-  { labelKey: "graph",      labelHi: "ग्राफ",      route: "/graph" },
-  { labelKey: "dictionary", labelHi: "शब्दकोश",   route: "/dictionary" },
-  { labelKey: "about",      labelHi: "परिचय",      route: "/about" },
+  { labelKey: "home",       labelHi: "होम",          route: "/" },
+  { labelKey: "dictionary", labelHi: "शब्दकोश",     route: "/dictionary" },
+  { labelKey: "topics",     labelHi: "विषय",         route: "/topics" },
+  { labelKey: "shastras",   labelHi: "शास्त्र",     route: "/shastras" },
 ];
 
 export const MORE_NAV_ITEMS: NavItem[] = [
-  { labelKey: "shastras",  labelHi: "शास्त्र",     route: "/shastras" },
-  { labelKey: "topics",    labelHi: "विषय",         route: "/topics" },
-  { labelKey: "feedback",  labelHi: "प्रतिक्रिया",  route: "/feedback" },
+  { labelKey: "graph",     labelHi: "ग्राफ",         route: "/graph" },
+  { labelKey: "about",     labelHi: "परिचय",         route: "/about" },
+  { labelKey: "feedback",  labelHi: "प्रतिक्रिया",   route: "/feedback" },
 ];
 
 export const ALL_NAV_ITEMS: NavItem[] = [...PRIMARY_NAV_ITEMS, ...MORE_NAV_ITEMS];

@@ -1,6 +1,6 @@
 # 07 — PDF Export Spec
 
-Scope context: [`scope/03_shastra_reader.md`](../../scope/03_shastra_reader.md#pdf-export).
+Scope context: [`scope/03_shastra_reader.md`](../../scope/archived/03_shastra_reader.md#pdf-export).
 
 Server-side PDF rendering of a shastra unit (single leaf), a chapter / adhikaar range, or a whole shastra, triggered from the Shastra Reader's right-rail export menu (see [`03_shastra_reader_ui_spec.md`](./03_shastra_reader_ui_spec.md#right-rail)). Async job model: the API enqueues a Celery task, the worker renders HTML → PDF via WeasyPrint, uploads the blob to S3, and the UI polls / downloads via a signed URL.
 

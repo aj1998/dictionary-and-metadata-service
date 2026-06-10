@@ -1,6 +1,6 @@
 # 05 — Drush-taant Image Generation Spec
 
-Scope context: [`scope/03_shastra_reader.md`](../../scope/03_shastra_reader.md) (Drush-taant section), open question Q5 in [`scope/09_open_questions.md`](../../scope/09_open_questions.md).
+Scope context: [`scope/03_shastra_reader.md`](../../scope/archived/03_shastra_reader.md) (Drush-taant section), open question Q5 in [`scope/09_open_questions.md`](../../scope/09_open_questions.md).
 
 A drush-taant in a Jain teeka is a worldly analogy. For every gatha with a bhaavarth we can generate one illustrative image. Pipeline:
 

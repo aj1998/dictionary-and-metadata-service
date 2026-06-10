@@ -25,12 +25,12 @@ The `cataloguesearch-chat` UI re-styled and re-mounted inside SAAR, with these e
 - **GraphRAG-fused retrieval.** Vector hits → keyword resolve → graph expansion → re-rank (already implemented via query-service).
 - **Structured citation tiles.** Each answer cites gathas / topics / keywords / Jinswara Q&As with click-throughs into ShastraExplorer or Graph.
 - **Flowchart / table / diagram retrieval.** When an answer touches a topic that has a stored flowchart/table/graph (from `flowchart_table_graph_scanner` ingestion), render it inline.
-- **Drush-taant generation toggle.** For a gatha-grounded answer, optionally trigger image generation (see [03_shastra_reader.md](./03_shastra_reader.md)).
+- **Drush-taant generation toggle.** For a gatha-grounded answer, optionally trigger image generation (see [03_shastra_reader.md](./archived/03_shastra_reader.md)).
 - **Model picker.** Pick between base Anthropic/OpenAI and finetuned in-house models (graph-understanding model, Jainism main model, research-domain models).
 
 ## #ShastraExplorer — Shastra Reader
 
-The reading core. See [03_shastra_reader.md](./03_shastra_reader.md) for full feature list. Key elements:
+The reading core. See [03_shastra_reader.md](./archived/03_shastra_reader.md) for full feature list. Key elements:
 
 - Organised, per-shastra layout following its native structure (e.g. samaysaar adhikaar→kalash→gatha; puraan chapter→sarga; karm-grantha chapter→shloka). Configurable per shastra.
 - Keyword hover/click expansion (popover; deep-link to `/dictionary/[nk]` or Graph).
