@@ -171,6 +171,7 @@ class ParsedTable(BaseModel):
     seq: int
     parent_natural_key: str
     parent_kind: ParentKind
+    table_type: Literal["index", "general"] = "general"
     source_url: Optional[str] = None
     caption: list[Multilingual] = Field(default_factory=list)
     raw_html: str

@@ -442,3 +442,41 @@ async def test_upsert_table_idempotent(async_session):
     assert row is not None
     assert row.raw_html_doc_id == "mongo-table-doc-2"
     assert row.graph_node_id == nk
+    assert row.table_type == "general"
+
+
+@skip_no_db
+async def test_upsert_table_table_type_index(async_session):
+    nk = "table:nj:पञ्चास्तिकाय:गाथा:भावार्थ:7:01"
+    await upsert_table(
+        async_session,
+        natural_key=nk,
+        source=IngestionSource.nj,
+        parent_natural_key="पञ्चास्तिकाय:गाथा:भावार्थ:7",
+        parent_kind="gatha_teeka_bhaavarth",
+        seq=1,
+        raw_html_doc_id="mongo-table-doc-x",
+        caption=None,
+        table_type="index",
+    )
+    await async_session.commit()
+    row = await async_session.scalar(select(Table).where(Table.natural_key == nk))
+    assert row is not None
+    assert row.table_type == "index"
+
+    # Updating back to general flips the field.
+    await upsert_table(
+        async_session,
+        natural_key=nk,
+        source=IngestionSource.nj,
+        parent_natural_key="पञ्चास्तिकाय:गाथा:भावार्थ:7",
+        parent_kind="gatha_teeka_bhaavarth",
+        seq=1,
+        raw_html_doc_id="mongo-table-doc-x",
+        caption=None,
+        table_type="general",
+    )
+    await async_session.commit()
+    async_session.expire_all()
+    row = await async_session.scalar(select(Table).where(Table.natural_key == nk))
+    assert row.table_type == "general"

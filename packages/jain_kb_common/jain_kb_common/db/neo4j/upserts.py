@@ -326,6 +326,7 @@ async def sync_table(
     parent_kind: str,
     seq: int,
     caption_hi: str | None = None,
+    table_type: str = "general",
     database: str = "jainkb",
 ) -> None:
     async with driver.session(database=database) as session:
@@ -338,6 +339,7 @@ async def sync_table(
                 t.parent_kind = $parent_kind,
                 t.seq = $seq,
                 t.caption_hi = $caption_hi,
+                t.table_type = $table_type,
                 t.is_stub = false,
                 t.stub_source = null,
                 t.updated_at = datetime(),
@@ -350,6 +352,7 @@ async def sync_table(
             parent_kind=parent_kind,
             seq=seq,
             caption_hi=caption_hi,
+            table_type=table_type,
         )
 
 

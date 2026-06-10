@@ -268,6 +268,7 @@ async def apply_approved_keyword_payload(
             raw_html_doc_id=mongo_doc_id,
             caption=caption_pg,
             source_url=t.get("source_url"),
+            table_type=t.get("table_type", "general"),
         )
         table_pg_ids[nk] = table_id
         _log.debug("upserted table PG row: %s → %s", nk, table_id)
@@ -325,6 +326,7 @@ async def apply_approved_keyword_payload(
             "table_id": str(table_id) if table_id else "",
             "parent_natural_key": t["parent_natural_key"],
             "parent_kind": t["parent_kind"],
+            "table_type": t.get("table_type", "general"),
             "seq": t["seq"],
             "raw_html": t.get("raw_html", ""),
             "cells": t.get("cells", []),
@@ -470,6 +472,7 @@ async def apply_approved_keyword_payload(
             parent_kind=parent_kind,
             seq=t["seq"],
             caption_hi=caption_hi,
+            table_type=t.get("table_type", "general"),
             database=neo4j_database,
         )
 

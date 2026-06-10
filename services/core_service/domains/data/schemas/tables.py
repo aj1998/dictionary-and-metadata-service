@@ -9,6 +9,7 @@ class TableSummary(BaseModel):
     natural_key: str
     seq: int
     caption: list[LangText]
+    table_type: str = "general"
 
 
 class TableResponse(BaseModel):
@@ -17,6 +18,7 @@ class TableResponse(BaseModel):
     source: str
     parent_natural_key: str
     parent_kind: str
+    table_type: str = "general"
     seq: int
     caption: list[LangText]
     source_url: str | None

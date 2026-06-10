@@ -14,6 +14,7 @@ class Table(Base, TimestampMixin):
         Index("idx_tables_parent", "parent_natural_key"),
         Index("idx_tables_source", "source"),
         Index("idx_tables_run", "ingestion_run_id"),
+        Index("idx_tables_type", "table_type"),
     )
 
     id: Mapped[uuid.UUID] = mapped_column(
@@ -23,6 +24,9 @@ class Table(Base, TimestampMixin):
     source: Mapped[IngestionSource] = mapped_column(ingestion_source_sa, nullable=False)
     parent_natural_key: Mapped[str] = mapped_column(Text, nullable=False)
     parent_kind: Mapped[str] = mapped_column(Text, nullable=False)
+    table_type: Mapped[str] = mapped_column(
+        Text, nullable=False, server_default="general"
+    )
     seq: Mapped[int] = mapped_column(Integer, nullable=False)
     caption: Mapped[list | None] = mapped_column(JSONB, nullable=True)
     source_url: Mapped[str | None] = mapped_column(Text, nullable=True)

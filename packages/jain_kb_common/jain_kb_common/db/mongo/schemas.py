@@ -339,6 +339,7 @@ class TableDoc(BaseModel):
     source: str
     parent_natural_key: str
     parent_kind: str
+    table_type: str = "general"
     seq: int
     source_url: Optional[str] = None
     caption: list[LangText] = []

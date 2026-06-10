@@ -21,6 +21,7 @@ class TableSummary(BaseModel):
     natural_key: str
     seq: int
     caption: list[LangText]
+    table_type: str = "general"
 
 
 class TableResponse(BaseModel):
@@ -29,6 +30,7 @@ class TableResponse(BaseModel):
     source: str
     parent_natural_key: str
     parent_kind: str
+    table_type: str = "general"
     seq: int
     caption: list[LangText]
     source_url: str | None
@@ -62,6 +64,7 @@ async def hydrate_tables_for_parent(
             natural_key=row.natural_key,
             seq=row.seq,
             caption=caption,
+            table_type=getattr(row, "table_type", "general") or "general",
         ))
     logger.debug(
         "hydrate_tables_for_parent parent=%s → %d tables",
@@ -98,6 +101,7 @@ async def hydrate_table_full(
         source=row.source.value if hasattr(row.source, "value") else str(row.source),
         parent_natural_key=row.parent_natural_key,
         parent_kind=row.parent_kind,
+        table_type=getattr(row, "table_type", "general") or "general",
         seq=row.seq,
         caption=_parse_caption(row.caption),
         source_url=row.source_url,

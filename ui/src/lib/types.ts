@@ -16,10 +16,13 @@ export type EdgeKind =
   | 'CONTAINS_DEFINITION'
   | 'CONTAINS_TABLE';
 
+export type TableType = 'index' | 'general';
+
 export interface TableSummary {
   naturalKey: string;
   seq: number;
   caption: LangText[];
+  tableType: TableType;
 }
 
 export interface TableFull {
@@ -30,6 +33,7 @@ export interface TableFull {
   parentKind:
     | 'topic' | 'keyword' | 'gatha' | 'gatha_teeka'
     | 'gatha_teeka_bhaavarth' | 'kalash' | 'kalash_bhaavarth' | 'page';
+  tableType: TableType;
   seq: number;
   caption: LangText[];
   sourceUrl: string | null;

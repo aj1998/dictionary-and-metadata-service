@@ -449,6 +449,7 @@ async def upsert_table(
     source_url: str | None = None,
     graph_node_id: str | None = None,
     ingestion_run_id: uuid.UUID | None = None,
+    table_type: str = "general",
 ) -> uuid.UUID:
     stmt = (
         pg_insert(Table)
@@ -463,6 +464,7 @@ async def upsert_table(
             source_url=source_url,
             graph_node_id=graph_node_id,
             ingestion_run_id=ingestion_run_id,
+            table_type=table_type,
         )
         .on_conflict_do_update(
             index_elements=[Table.natural_key],
@@ -476,6 +478,7 @@ async def upsert_table(
                 "source_url": source_url,
                 "graph_node_id": graph_node_id,
                 "ingestion_run_id": ingestion_run_id,
+                "table_type": table_type,
                 "updated_at": func.now(),
             },
         )

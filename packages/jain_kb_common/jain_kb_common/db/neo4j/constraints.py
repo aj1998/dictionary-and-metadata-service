@@ -34,6 +34,7 @@ _INDEXES = [
     "CREATE INDEX table_pg_id IF NOT EXISTS FOR (n:Table) ON (n.pg_id)",
     "CREATE INDEX table_is_stub IF NOT EXISTS FOR (n:Table) ON (n.is_stub)",
     "CREATE INDEX table_parent IF NOT EXISTS FOR (n:Table) ON (n.parent_natural_key)",
+    "CREATE INDEX table_type IF NOT EXISTS FOR (n:Table) ON (n.table_type)",
 ]
 
 
