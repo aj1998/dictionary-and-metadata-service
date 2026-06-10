@@ -6,6 +6,8 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Response
 from motor.motor_asyncio import AsyncIOMotorDatabase
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from jain_kb_common.db.mongo.collections import TOPIC_EXTRACTS
+
 from ....deps import get_mongo_db, get_session
 from ..schemas.common import KeywordRef, Pagination
 from ..schemas.topics import TopicDetail, TopicListResponse, TopicParentRef, TopicSummary
@@ -23,16 +25,30 @@ async def list_topics(
     parent_keyword_id: uuid.UUID | None = Query(None),
     source: str | None = Query(None),
     is_leaf: bool | None = Query(None),
+    has_topic_path: bool | None = Query(None),
     limit: int = Query(50, ge=1, le=200),
     offset: int = Query(0, ge=0),
     session: AsyncSession = Depends(get_session),
+    mongo: AsyncIOMotorDatabase = Depends(get_mongo_db),
 ) -> TopicListResponse:
     items, total = await svc.list_topics(
         session, limit, offset, q=q,
         parent_keyword_id=parent_keyword_id,
         source=source, is_leaf=is_leaf,
+        has_topic_path=has_topic_path,
     )
     response.headers["Cache-Control"] = _CACHE_CONTROL
+
+    extract_counts: dict[str, int] = {}
+    nks = [t.natural_key for t in items]
+    if nks:
+        cursor = mongo[TOPIC_EXTRACTS].aggregate([
+            {"$match": {"natural_key": {"$in": nks}}},
+            {"$project": {"natural_key": 1, "n": {"$size": {"$ifNull": ["$blocks", []]}}}},
+            {"$group": {"_id": "$natural_key", "total": {"$sum": "$n"}}},
+        ])
+        async for doc in cursor:
+            extract_counts[doc["_id"]] = int(doc["total"])
 
     result = []
     for t in items:
@@ -50,6 +66,7 @@ async def list_topics(
             is_leaf=t.is_leaf,
             topic_path=t.topic_path,
             parent_keyword=pk,
+            extract_count=extract_counts.get(t.natural_key, 0),
         ))
 
     return TopicListResponse(

@@ -11,6 +11,15 @@ mentions that pure string match misses.
 
 String-similarity match over topic natural_keys, **parent-aware**.
 
+> **Implementation note (2026-06):** `display_text_hi` in each match item is
+> extracted from the `topics.display_text` JSONB by
+> `get_display_text_hi()` in `services/query_service/pipeline/topics_match.py`.
+> The lang code stored on extracts is `"hin"` (Bharati/ISO 639-3), not `"hi"`;
+> the helper accepts both (`item.get("lang") in ("hin", "hi")`). Earlier
+> versions only matched `"hi"` and returned an empty string, leaving the topic
+> name blank on the public UI topics search cards.
+
+
 ### Why parent-aware
 
 Topic natural_keys today encode hierarchy (e.g.

@@ -31,6 +31,7 @@ async def list_topics(
     parent_keyword_id: uuid.UUID | None = None,
     source: str | None = None,
     is_leaf: bool | None = None,
+    has_topic_path: bool | None = None,
 ) -> tuple[list[Topic], int]:
     stmt = select(Topic)
     cnt = select(func.count()).select_from(Topic)
@@ -56,6 +57,14 @@ async def list_topics(
     if is_leaf is not None:
         stmt = stmt.where(Topic.is_leaf == is_leaf)
         cnt = cnt.where(Topic.is_leaf == is_leaf)
+
+    if has_topic_path is not None:
+        if has_topic_path:
+            stmt = stmt.where(Topic.topic_path.isnot(None))
+            cnt = cnt.where(Topic.topic_path.isnot(None))
+        else:
+            stmt = stmt.where(Topic.topic_path.is_(None))
+            cnt = cnt.where(Topic.topic_path.is_(None))
 
     total = await session.scalar(cnt)
     rows = await session.execute(

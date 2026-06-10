@@ -34,6 +34,7 @@ class TopicSummary(BaseModel):
     is_leaf: bool
     topic_path: str | None = None
     parent_keyword: KeywordRef | None = None
+    extract_count: int = 0
 
     @field_validator("display_text", mode="before")
     @classmethod

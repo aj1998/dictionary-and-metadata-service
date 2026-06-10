@@ -176,12 +176,16 @@ export async function getTopics(params?: {
   source?: string;
   limit?: number;
   offset?: number;
+  hasTopicPath?: boolean;
+  isLeaf?: boolean;
 }): Promise<Paginated<TopicSummary>> {
   const qs = new URLSearchParams();
   if (params?.q !== undefined) qs.set('q', params.q);
   if (params?.source !== undefined) qs.set('source', params.source);
   if (params?.limit !== undefined) qs.set('limit', String(params.limit));
   if (params?.offset !== undefined) qs.set('offset', String(params.offset));
+  if (params?.hasTopicPath !== undefined) qs.set('has_topic_path', params.hasTopicPath ? 'true' : 'false');
+  if (params?.isLeaf !== undefined) qs.set('is_leaf', params.isLeaf ? 'true' : 'false');
   const query = qs.toString();
   return apiFetch<Paginated<TopicSummary>>(BASE_URL, `/v1/topics${query ? `?${query}` : ''}`);
 }

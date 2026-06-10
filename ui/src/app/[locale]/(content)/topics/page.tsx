@@ -4,7 +4,7 @@ import { topicsMatch } from '@/lib/api/query';
 import { getHindiText, paginatedMeta } from '@/lib/content-listing';
 import { toDevanagariNumerals } from '@/lib/format/devanagari';
 import { TopicNavAction } from '@/components/TopicNavAction';
-import { ExternalLink } from '@/lib/icons';
+import { TopicPathInfo } from '@/components/TopicPathInfo';
 import type { TopicMatchItem } from '@/lib/types';
 
 export const revalidate = 60;
@@ -32,18 +32,18 @@ function TopicMatchCard({ item }: { item: TopicMatchItem }) {
       <h2 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">
         {item.display_text_hi}
       </h2>
-      <div className="mt-2 flex items-center justify-between">
-        <span className="rounded-full bg-accent-soft px-2 py-1 text-xs text-accent">{item.source}</span>
+      <div className="mt-2 flex items-center justify-end">
         <span className="text-xs text-foreground-muted">
           {(item.similarity * 100).toFixed(0)}% मिलान
         </span>
       </div>
-      <div className="mt-4">
+      <div className="mt-4 flex items-center justify-between gap-2">
         <TopicNavAction
           topicNk={item.topic_natural_key}
           displayText={item.display_text_hi}
           isLeaf={item.is_leaf}
         />
+        <TopicPathInfo topicNk={item.topic_natural_key} />
       </div>
     </article>
   );
@@ -53,6 +53,7 @@ export default async function TopicsPage({ searchParams }: PageProps) {
   const query = await searchParams;
   const q = first(query.q).trim();
   const source = first(query.source).trim();
+  const includeOther = first(query.include_other) === '1';
   const page = Math.max(1, Number.parseInt(first(query.page), 10) || 1);
   const offset = (page - 1) * PAGE_SIZE;
 
@@ -60,6 +61,7 @@ export default async function TopicsPage({ searchParams }: PageProps) {
     const params = new URLSearchParams();
     if (q) params.set('q', q);
     if (source) params.set('source', source);
+    if (includeOther) params.set('include_other', '1');
     params.set('page', String(nextPage));
     return `/topics?${params.toString()}`;
   };
@@ -76,7 +78,7 @@ export default async function TopicsPage({ searchParams }: PageProps) {
         includeExtracts: false,
         includeReferences: false,
       });
-      matchItems = result.matches;
+      matchItems = [...result.matches].sort((a, b) => b.similarity - a.similarity);
     } catch {
       matchError = true;
     }
@@ -94,6 +96,10 @@ export default async function TopicsPage({ searchParams }: PageProps) {
             <input name="q" defaultValue={q} placeholder="विषय खोजें" className="h-10 rounded-[var(--radius-md)] border border-border bg-background px-3 text-sm" />
             <button type="submit" className="h-10 rounded-[var(--radius-md)] bg-accent px-4 text-sm font-semibold text-white">लागू करें</button>
           </div>
+          <label className="mt-3 inline-flex items-center gap-2 text-sm text-foreground-muted">
+            <input type="checkbox" name="include_other" value="1" defaultChecked={includeOther} className="size-4 accent-accent" />
+            अन्य विषय भी दिखाएँ
+          </label>
         </form>
 
         {matchError && (
@@ -116,7 +122,13 @@ export default async function TopicsPage({ searchParams }: PageProps) {
   }
 
   // Default: exact/ILIKE listing from data-service
-  const topics = await getTopics({ source: source || undefined, limit: PAGE_SIZE, offset });
+  const topics = await getTopics({
+    source: source || undefined,
+    limit: PAGE_SIZE,
+    offset,
+    hasTopicPath: includeOther ? undefined : true,
+    isLeaf: includeOther ? undefined : true,
+  });
   const meta = paginatedMeta(topics.pagination);
 
   return (
@@ -132,6 +144,10 @@ export default async function TopicsPage({ searchParams }: PageProps) {
           <input name="q" defaultValue={q} placeholder="विषय खोजें" className="h-10 rounded-[var(--radius-md)] border border-border bg-background px-3 text-sm" />
           <button type="submit" className="h-10 rounded-[var(--radius-md)] bg-accent px-4 text-sm font-semibold text-white">लागू करें</button>
         </div>
+        <label className="mt-3 inline-flex items-center gap-2 text-sm text-foreground-muted">
+          <input type="checkbox" name="include_other" value="1" defaultChecked={includeOther} className="size-4 accent-accent" />
+          अन्य विषय भी दिखाएँ
+        </label>
       </form>
 
       <section className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -140,25 +156,27 @@ export default async function TopicsPage({ searchParams }: PageProps) {
             <h2 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">{getHindiText(item.display_text, item.natural_key)}</h2>
             <div className="mt-2 flex items-center justify-between">
               <span className="rounded-full bg-accent-soft px-2 py-1 text-xs text-accent">{item.parent_keyword?.display_text ?? '—'}</span>
-              <span className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold text-foreground-muted">{toDevanagariNumerals(item.is_leaf ? 1 : 0)}</span>
+              <span className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold text-foreground-muted">{toDevanagariNumerals(item.extract_count ?? 0)}</span>
             </div>
-            <div className="mt-4 flex items-center gap-2">
-              <TopicNavAction
+            <div className="mt-4 flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                {item.topic_path && (
+                  <TopicNavAction
+                    topicNk={item.natural_key}
+                    displayText={getHindiText(item.display_text, item.natural_key)}
+                    isLeaf={item.is_leaf}
+                    parentKeywordNk={item.parent_keyword?.natural_key}
+                  />
+                )}
+              </div>
+              <TopicPathInfo
                 topicNk={item.natural_key}
-                displayText={getHindiText(item.display_text, item.natural_key)}
-                isLeaf={item.is_leaf}
-                parentKeywordNk={item.parent_keyword?.natural_key}
+                dictionaryHref={
+                  item.is_leaf && item.parent_keyword?.natural_key
+                    ? `/dictionary/${encodeURIComponent(item.parent_keyword.natural_key)}?topic=${encodeURIComponent(item.natural_key)}`
+                    : undefined
+                }
               />
-              {item.is_leaf && item.parent_keyword?.natural_key && (
-                <Link
-                  href={`/dictionary/${encodeURIComponent(item.parent_keyword.natural_key)}?topic=${encodeURIComponent(item.natural_key)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded border border-accent px-3 py-1 text-sm font-medium text-accent hover:bg-accent-soft"
-                >
-                  <ExternalLink className="size-4" strokeWidth={1.75} />
-                </Link>
-              )}
             </div>
           </article>
         ))}

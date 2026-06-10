@@ -38,7 +38,7 @@ def get_display_text_hi(display_text: object) -> str:
     if isinstance(display_text, dict):
         display_text = [display_text]
     for item in (display_text or []):
-        if isinstance(item, dict) and item.get("lang") == "hi":
+        if isinstance(item, dict) and item.get("lang") in ("hin", "hi"):
             return item.get("text", "")
     return ""
 

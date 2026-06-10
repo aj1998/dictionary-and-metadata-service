@@ -233,6 +233,7 @@ export interface TopicSummary {
   is_leaf: boolean;
   topic_path: string;
   parent_keyword: KeywordSummary | null;
+  extract_count: number;
 }
 
 export interface TopicDetail extends TopicSummary {

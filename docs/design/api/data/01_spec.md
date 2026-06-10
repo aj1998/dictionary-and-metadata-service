@@ -30,6 +30,34 @@
 - Most endpoint contracts are unchanged from the archived spec.
 - Module/layout moved from `services/data_service/` to `services/core_service/domains/data/`.
 
+## `GET /v1/topics` — query params & response shape
+
+Query params:
+- `q` (string, optional) — case-insensitive ILIKE over `display_text::text`.
+- `parent_keyword_id` (uuid, optional)
+- `source` (string, optional) — e.g. `jainkosh`, `nj`, `chat_candidate`.
+- `is_leaf` (bool, optional) — restrict to leaf / non-leaf topics.
+- `has_topic_path` (bool, optional) — `true` keeps only topics with a non-null `topic_path` (excludes "अन्य विषय" / unordered seeds); `false` returns only the null-path subset. **Used by the UI topics page as the default filter** (combined with `is_leaf=true`) so the listing shows only readable leaf topics; the "अन्य विषय भी दिखाएँ" toggle drops both filters.
+- `limit` (1–200, default 50), `offset` (default 0).
+
+`TopicSummary` items include:
+
+```json
+{
+  "id": "uuid",
+  "natural_key": "string",
+  "display_text": [{"lang": "hin", "script": "Deva", "text": "…"}],
+  "source": "jainkosh",
+  "is_leaf": true,
+  "topic_path": "1.2" ,
+  "parent_keyword": {"id": "uuid", "natural_key": "…", "display_text": "…"},
+  "extract_count": 4
+}
+```
+
+- `extract_count` is the total number of `blocks[]` entries across all Mongo `topic_extracts` documents whose `natural_key` matches this topic. Computed in a single batched `$match` + `$size` + `$group` aggregation over the natural_keys returned by the current page (one round-trip per page). The UI topics-page card displays this as the right-side numeric badge.
+
+
 ## `GET /v1/gathas/{ident}?include=kalashas` — GathaKalash shape
 
 When `include=kalashas` is requested, each element of the `kalashas` array has the following shape:
