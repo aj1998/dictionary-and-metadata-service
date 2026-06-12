@@ -873,6 +873,7 @@ def build_envelope(result: ShastraParseResult, cfg: NJConfig) -> dict[str, Any]:
             "adhikaar_number": g.adhikaar_number,
             "adhikaar": _lang_text("hin", g.adhikaar_hi) if g.adhikaar_hi else [],
             "heading": _lang_text("hin", g.heading_hi) if g.heading_hi else [],
+            "prakrit_verse_marker": g.prakrit_verse_marker,
         })
 
         mg = _build_mongo_for_gatha(g, primary, secondary)

@@ -75,13 +75,17 @@ For **secondary-only kalash pages**, `{gatha_nk}` in `gatha_prakrit` is replaced
 2. upsert shastra
 3. upsert teekas
 4. upsert publications
-5. upsert gathas         (one per GathaExtract after multi-page expansion)
+5. upsert gathas         (one per GathaExtract after multi-page expansion; includes prakrit_verse_marker — see below)
 6. upsert primary kalashas  (global counter order; gatha_id FK required)
 7. upsert secondary kalashas (gatha_id → preceding primary gatha)
 8. upsert teeka_chapters    (grouped by adhikaar_number; primary teeka only)
 ```
 
 `apply.py` builds a `gatha_nk → uuid` cache from step 5 to resolve FK references in steps 6–8 without extra queries.
+
+### `gathas.prakrit_verse_marker`
+
+Migration `0023_gatha_prakrit_verse_marker.py`. The NJ parser captures the trailing `॥N॥` / `||N||` marker from the **raw** Prakrit gatha text (before `_clean_verse_text` strips it — see [nj_parser.md](nj_parser.md) §3) and stores the ASCII digit run on `GathaExtract.prakrit_verse_marker`. The envelope copies it into the `postgres.gathas` row dict, `upsert_gatha` writes it to the new nullable `prakrit_verse_marker TEXT` column, and `services/core_service/domains/data/routers/gathas.py` surfaces it on the `/v1/gathas/{ident}` response. The UI gatha-reader breadcrumb uses it together with `teeka_mapping[0]` (primary) and the first non-primary teeka seen in `teeka_bhaavarth` / `teeka_sanskrit` / secondary kalashes to render `गाथा N (आत्मख्याति) | गाथा M (तात्पर्यवृत्ति)`. When the marker is NULL (no source `॥N॥`, or older ingestion runs), the UI falls back to the canonical gatha number for the secondary segment so both teekas appear with the same number.
 
 ### `teeka_chapters` table
 

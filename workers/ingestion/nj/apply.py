@@ -187,6 +187,7 @@ async def apply_nj_shastra_payload(
             natural_key=row["natural_key"],
             shastra_id=shastra_id,
             gatha_number=row.get("gatha_number", ""),
+            prakrit_verse_marker=row.get("prakrit_verse_marker"),
             adhikaar=row.get("adhikaar"),
             heading=row.get("heading"),
         )

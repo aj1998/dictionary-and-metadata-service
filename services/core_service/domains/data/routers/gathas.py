@@ -81,6 +81,7 @@ async def get_gatha(
         "id": gatha.id,
         "natural_key": gatha.natural_key,
         "gatha_number": gatha.gatha_number,
+        "prakrit_verse_marker": gatha.prakrit_verse_marker,
         "shastra": ShastraRef(natural_key=shastra.natural_key, title=shastra.title).model_dump() if shastra else {"natural_key": "", "title": []},
         "adhikaar": gatha.adhikaar or [],
         "heading": gatha.heading or [],

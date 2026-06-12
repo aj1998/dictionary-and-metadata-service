@@ -25,6 +25,10 @@ class Gatha(Base, TimestampMixin):
         nullable=False,
     )
     gatha_number: Mapped[str] = mapped_column(Text, nullable=False)
+    # Source verse-end marker ॥N॥ captured from the Prakrit gatha text. Distinct from
+    # gatha_number (which is the primary teeka's canonical numbering). Typically reflects
+    # the secondary teeka's numbering. Nullable when source has no trailing marker.
+    prakrit_verse_marker: Mapped[str | None] = mapped_column(Text, nullable=True)
     adhikaar: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
     heading: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
     prakrit_doc_id: Mapped[str | None] = mapped_column(Text, nullable=True)

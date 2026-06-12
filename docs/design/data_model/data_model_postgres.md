@@ -271,6 +271,7 @@ CREATE TABLE gathas (
   natural_key              TEXT NOT NULL UNIQUE,        -- e.g. 'pravachansaar:039'
   shastra_id               UUID NOT NULL REFERENCES shastras(id) ON DELETE CASCADE,
   gatha_number             TEXT NOT NULL,               -- '039' or '004-005' for ranges
+  prakrit_verse_marker     TEXT,                        -- ॥N॥ source verse-end marker captured from raw Prakrit text (added 0023); reflects the secondary teeka's gatha numbering when it differs from the primary (e.g. samaysaar canonical 106 carries marker '113' = तात्पर्यवृत्ति's number)
   adhikaar                 JSONB,                       -- chapter title (multilingual)
   heading                  JSONB,                       -- title under which gatha sits, used as a topic seed
   prakrit_doc_id           TEXT,                        -- mongo id
@@ -479,7 +480,11 @@ migrations/
 ├── 0016_topics_natural_key_trgm_idx.py    gin trgm index on topics.natural_key
 ├── 0017_metadata_trgm_indexes.py          trgm indexes on metadata tables for fuzzy search
 ├── 0018_kalashas_gatha_id_fk.py           gatha_id FK + idx_kalashas_gatha on kalashas
-└── 0019_teeka_chapters.py                 teeka_chapters table (chapter divisions per primary teeka)
+├── 0019_teeka_chapters.py                 teeka_chapters table (chapter divisions per primary teeka)
+├── 0020_tables.py                         tables table (parsed tabular content)
+├── 0021_teekas_role.py                    role column on teekas (primary/secondary)
+├── 0022_tables_table_type.py              table_type column on tables
+└── 0023_gatha_prakrit_verse_marker.py     prakrit_verse_marker column on gathas (source ॥N॥ verse marker captured by NJ parser)
 ```
 
 ## SQLAlchemy model layout

@@ -10,9 +10,10 @@ export interface BreadcrumbSegment {
 interface BreadcrumbBarProps {
   segments: BreadcrumbSegment[];
   className?: string;
+  maxLabelLength?: number;
 }
 
-export function BreadcrumbBar({ segments, className }: BreadcrumbBarProps) {
+export function BreadcrumbBar({ segments, className, maxLabelLength }: BreadcrumbBarProps) {
   return (
     <nav
       aria-label="Breadcrumb"
@@ -23,7 +24,7 @@ export function BreadcrumbBar({ segments, className }: BreadcrumbBarProps) {
     >
       {segments.map((seg, i) => {
         const isLast = i === segments.length - 1;
-        const label = truncate(seg.label);
+        const label = truncate(seg.label, maxLabelLength);
 
         return (
           <span key={i} className="flex items-center gap-1.5">

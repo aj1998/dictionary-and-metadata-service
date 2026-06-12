@@ -21,6 +21,8 @@ from .parse_primary_teeka import parse_primary_teeka
 from .parse_secondary_teeka import parse_secondary_teeka
 
 _TRAILING_VERSE_RE = re.compile(r"\s*(?:॥\s*[\d०-९]+\s*॥|\|\|\s*[\d०-९]+\s*\|\||॥|\|\|)\s*$")
+_DEV_DIGIT_MAP = str.maketrans("०१२३४५६७८९", "0123456789")
+
 _ANY_VERSE_MARKER_RE = re.compile(r"\s*(?:॥\s*[\d०-९]+\s*॥|\|\|\s*[\d०-९]+\s*\|\||॥|\|\|)\s*")
 _PAREN_NUM_RE = re.compile(r"\s*\(\s*[\d०-९]+\s*\)\s*")
 _DEV_DIGITS = str.maketrans("0123456789", "०१२३४५६७८९")
@@ -185,7 +187,7 @@ def _clean_gatha_chunk(text: str, all_gatha_numbers: list[str]) -> str:
 def _parse_body_fields(
     soup: BeautifulSoup,
     cfg: NJConfig,
-) -> tuple[str | None, str | None, list[GathaHindiChhand], AnyavarthaItem | None]:
+) -> tuple[str | None, str | None, list[GathaHindiChhand], AnyavarthaItem | None, list[str]]:
     def _clean_verse_text(raw: str) -> str:
         text = _clean_preserve_newlines(raw)
         text = _PAREN_NUM_RE.sub("\n", text)
@@ -193,7 +195,18 @@ def _parse_body_fields(
         return _clean_preserve_newlines(text)
 
     gatha_div = soup.select_one(cfg.selectors.gatha_prakrit)
-    prakrit_text = _clean_verse_text(gatha_div.get_text("\n", strip=False)) if gatha_div else None
+    raw_prakrit = gatha_div.get_text("\n", strip=False) if gatha_div else None
+    # Capture ALL ॥N॥ / ||N|| markers in source order, BEFORE _clean_verse_text strips
+    # the trailing one. For single-gatha pages there is one; for combined pages (e.g.
+    # 112-113.html → gatha_number "105-106") there is one per included gatha.
+    prakrit_verse_markers: list[str] = []
+    if raw_prakrit:
+        normalized = unicodedata.normalize("NFC", raw_prakrit)
+        prakrit_verse_markers = [
+            m.group(1).translate(_DEV_DIGIT_MAP)
+            for m in re.finditer(r"(?:॥|\|\|)\s*([\d०-९]+)\s*(?:॥|\|\|)", normalized)
+        ]
+    prakrit_text = _clean_verse_text(raw_prakrit) if raw_prakrit is not None else None
     prakrit_text = prakrit_text or None  # keep None if empty string
 
     gatha_s_div = soup.select_one(cfg.selectors.gatha_sanskrit)
@@ -225,7 +238,7 @@ def _parse_body_fields(
     )
     anyavartha = _parse_anyavartha(para_div, cfg) if para_div else None
 
-    return prakrit_text, sanskrit_text, hindi_chhands, anyavartha
+    return prakrit_text, sanskrit_text, hindi_chhands, anyavartha, prakrit_verse_markers
 
 
 def _is_primary_page(teeka0_div: Tag | None, cfg: NJConfig) -> bool:
@@ -244,7 +257,9 @@ def parse_primary_page(
     global_kalash_start: int,
 ) -> tuple[list[GathaExtract], int]:
     """Parse a primary-gatha page; returns (expanded_gathas, kalash_delta)."""
-    prakrit_text, sanskrit_text, hindi_chhands, anyavartha = _parse_body_fields(soup, cfg)
+    prakrit_text, sanskrit_text, hindi_chhands, anyavartha, prakrit_verse_markers = _parse_body_fields(soup, cfg)
+    # Single-gatha page → first marker is canonical; combined pages override per-chunk below.
+    prakrit_verse_marker = prakrit_verse_markers[0] if prakrit_verse_markers else None
 
     teeka0_div = soup.select_one(cfg.selectors.teeka0_div)
     teeka1_div = soup.select_one(cfg.selectors.teeka1_div)
@@ -295,10 +310,18 @@ def parse_primary_page(
         anyavartha=anyavartha,
         primary_teeka=primary_teeka,
         secondary_teeka=secondary_teeka,
+        prakrit_verse_marker=prakrit_verse_marker,
     )
 
     if "-" in idx_entry.gatha_number:
         parts = _expand_gatha_numbers(idx_entry.gatha_number)
+        # For combined pages, the raw prakrit text carries one ॥M॥ marker per included
+        # gatha (e.g. 112-113.html → markers ॥112॥, ॥113॥ for canonical 105, 106).
+        # Use the markers list captured from raw text — `base.prakrit_text` has its
+        # trailing marker stripped, so scanning it would miss the last gatha's marker.
+        per_chunk_markers: list[str | None] = [None] * len(parts)
+        for i in range(min(len(parts), len(prakrit_verse_markers))):
+            per_chunk_markers[i] = prakrit_verse_markers[i]
         raw_prakrit_parts = _split_combined_text_by_markers(base.prakrit_text, parts)
         prakrit_parts = (
             [_clean_gatha_chunk(p, parts) for p in raw_prakrit_parts]
@@ -335,6 +358,7 @@ def parse_primary_page(
                         "hindi_chhands": hindi_chhand_parts[i],
                         "is_combined_page": True,
                         "related_gatha_numbers": [p for p in parts if p != num],
+                        "prakrit_verse_marker": per_chunk_markers[i],
                     }
                 )
                 for i, num in enumerate(parts)
@@ -359,7 +383,7 @@ def parse_secondary_kalash_page(
     prakrit verses). Falls back to a single entry when the gatha_number is
     a single number or expansion/splitting fails.
     """
-    prakrit_text, _sanskrit_text, _hindi_chhands, anyavartha = _parse_body_fields(soup, cfg)
+    prakrit_text, _sanskrit_text, _hindi_chhands, anyavartha, _prakrit_verse_markers = _parse_body_fields(soup, cfg)
 
     teeka0_div = soup.select_one(cfg.selectors.teeka0_div)
 

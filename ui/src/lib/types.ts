@@ -335,6 +335,7 @@ export interface GathaKalash {
 }
 
 export interface GathaDetail extends GathaSummary {
+  prakrit_verse_marker?: string | null;
   prakrit: { natural_key: string; text: LangText[]; is_kalash: boolean } | null;
   sanskrit: { natural_key: string; text: LangText[] } | null;
   hindi_chhand: Array<{ natural_key: string; chhand_index: number; chhand_type: string; text: LangText[] }>;

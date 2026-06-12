@@ -100,6 +100,13 @@ class GathaExtract(BaseModel):
     hindi_chhands: list[GathaHindiChhand] = Field(default_factory=list)
     anyavartha: Optional[AnyavarthaItem] = None
 
+    # Trailing ॥N॥ / ||N|| verse-end marker captured from the Prakrit gatha text BEFORE
+    # _clean_verse_text strips it. This is the per-page source verse number — distinct from
+    # the canonical `gatha_number` (which comes from the primary teeka's myItem.js index).
+    # Typically reflects the secondary teeka's numbering convention (e.g. तात्पर्यवृत्ति).
+    # NFC-normalised; empty when the source has no trailing marker.
+    prakrit_verse_marker: Optional[str] = None
+
     # Teekas
     primary_teeka: Optional[PrimaryTeeka] = None
     secondary_teeka: Optional[SecondaryTeeka] = None

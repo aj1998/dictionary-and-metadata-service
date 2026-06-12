@@ -196,13 +196,25 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
     };
   });
 
-  // For each secondary-teeka kalash, its siblings are all OTHER secondary kalashes
-  // with the same teeka shown on this page (they come from the same combined-page).
-  // When siblings exist, the bhaavarth gets a "{teeka} गाथा N, M, ... का संयुक्त" chip.
-  const secondaryKalashNotice = (kalash: GathaKalash): import('react').ReactNode => {
+  // For each secondary-teeka kalash bhaavarth, siblings are OTHER secondary kalashes
+  // with the same teeka AND whose bhaavarth text matches the current bhaavarth.
+  // Only when such siblings exist do we show the "{teeka} गाथा N, M, ... का संयुक्त" chip.
+  // (Combined-page siblings can share Prakrit/Sanskrit but still carry distinct bhaavarths —
+  // those must NOT be marked as संयुक्त.)
+  const normalizeForCompare = (s: string): string => normalizeNFC(s).replace(/\s+/g, ' ').trim();
+  const secondaryKalashBhaavarthNotice = (
+    kalash: GathaKalash,
+    bhText: string,
+  ): import('react').ReactNode => {
     if (!kalash.is_secondary) return null;
+    const target = normalizeForCompare(bhText);
+    if (!target) return null;
     const siblings = kalashas.filter(
-      (k) => k.is_secondary && k.teeka_natural_key === kalash.teeka_natural_key && k.kalash_number !== kalash.kalash_number,
+      (k) =>
+        k.is_secondary &&
+        k.teeka_natural_key === kalash.teeka_natural_key &&
+        k.kalash_number !== kalash.kalash_number &&
+        k.bhaavarth.some((b) => normalizeForCompare(joinedLangText(b.text)) === target),
     );
     if (siblings.length === 0) return null;
     const allNums = [kalash.kalash_number, ...siblings.map((s) => s.kalash_number)]
@@ -223,7 +235,6 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
     const prefix = kalash.is_secondary ? 'गाथा' : 'कलश';
     const teeka = teekaShortName(kalash.teeka_natural_key);
     const label = `${prefix}:${teeka}:${kalash.kalash_number}`;
-    const bhaavarthNotice = secondaryKalashNotice(kalash);
     return {
     key: kalash.natural_key,
     label,
@@ -297,7 +308,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
             <BhaavarthPanel
               key={bh.natural_key}
               label={kalash.is_secondary ? 'भावार्थ' : 'कलश भावार्थ'}
-              notice={bhaavarthNotice}
+              notice={secondaryKalashBhaavarthNotice(kalash, bText)}
               text={bText}
               naturalKey={bh.natural_key}
               highlight={highlightFor(match, bh.natural_key, bText)}
@@ -314,14 +325,62 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   const scrollTargetNk =
     match?.match.status === 'matched' ? match.target.natural_key : null;
 
+  // Breadcrumb leaf: canonical gatha number (from primary teeka — आत्मख्याति in समयसार) +
+  // primary teeka name in parens + the source-printed ॥N॥ verse marker in brackets.
+  // The marker is captured by the NJ parser as `prakrit_verse_marker`; it is the per-page
+  // source verse number (typically reflects the secondary teeka's numbering), so when a
+  // secondary teeka is present on this gatha we attribute the marker to it.
+  const canonicalGathaDev = toDevanagariNumerals(parseInt(gatha.gatha_number, 10));
+  const primaryTeekaName = primaryMapping
+    ? teekaShortName(primaryMapping.teeka_natural_key)
+    : null;
+  // Secondary teeka name: first non-primary teeka seen across teeka_mapping,
+  // teeka_bhaavarth (parsed from `{sn}:{tn}:{g}` natural keys), teeka_sanskrit, and
+  // is_secondary kalashes.
+  const primaryTeekaNk = primaryMapping?.teeka_natural_key ?? null;
+  const teekaNkFromGathaTeekaKey = (key: string | undefined): string | null => {
+    if (!key) return null;
+    const parts = key.split(':');
+    return parts.length >= 3 ? parts.slice(0, -1).join(':') : null;
+  };
+  const secondaryTeekaCandidates: Array<string | null> = [
+    ...teekaMapping.map((m) => m.teeka_natural_key),
+    ...teekaBhaavarth.map((b) => teekaNkFromGathaTeekaKey(b.gatha_teeka_natural_key)),
+    ...teekaSanskrit.map((s) => s.teeka_natural_key ?? null),
+    ...kalashas.filter((k) => k.is_secondary).map((k) => k.teeka_natural_key),
+  ];
+  const secondaryTeekaNk =
+    secondaryTeekaCandidates.find((k): k is string => !!k && k !== primaryTeekaNk) ?? null;
+  const markerDev = gatha.prakrit_verse_marker
+    ? toDevanagariNumerals(parseInt(gatha.prakrit_verse_marker, 10))
+    : null;
+  const primarySegment = [
+    `${gathaLbl} ${canonicalGathaDev}`,
+    primaryTeekaName ? `(${primaryTeekaName})` : null,
+  ]
+    .filter(Boolean)
+    .join(' ');
+  // When the source marker is missing (older ingestion, or no ॥N॥ in source) but a
+  // secondary teeka exists, assume both teekas share the same gatha number — show
+  // "गाथा N (आत्मख्याति) | गाथा N (तात्पर्यवृत्ति)". Suppressed when no secondary
+  // teeka is detected at all (single-teeka shastras).
+  const secondaryNumDev = markerDev ?? canonicalGathaDev;
+  const secondarySegment = secondaryTeekaNk
+    ? `${gathaLbl} ${secondaryNumDev} (${teekaShortName(secondaryTeekaNk)})`
+    : null;
+  const gathaLeafLabel = [primarySegment, secondarySegment]
+    .filter(Boolean)
+    .join(' | ');
+
   const mainColumn = (
     <div key="main" className="space-y-4">
         <section className="rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-node">
           <BreadcrumbBar
+            maxLabelLength={120}
             segments={[
               { label: tS('title'), href: '/shastras' },
               { label: nk, href: `/shastras/${nk}` },
-              { label: `${gathaLbl} ${gatha.gatha_number || number}` },
+              { label: gathaLeafLabel },
             ]}
           />
         </section>

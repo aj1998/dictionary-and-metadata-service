@@ -494,6 +494,7 @@ async def upsert_gatha(
     natural_key: str,
     shastra_id: uuid.UUID,
     gatha_number: str,
+    prakrit_verse_marker: str | None = None,
     adhikaar: Any = None,
     heading: Any = None,
     prakrit_doc_id: str | None = None,
@@ -511,6 +512,7 @@ async def upsert_gatha(
             natural_key=natural_key,
             shastra_id=shastra_id,
             gatha_number=gatha_number,
+            prakrit_verse_marker=prakrit_verse_marker,
             adhikaar=adhikaar,
             heading=heading,
             prakrit_doc_id=prakrit_doc_id,
@@ -527,6 +529,7 @@ async def upsert_gatha(
             set_={
                 "shastra_id": shastra_id,
                 "gatha_number": gatha_number,
+                "prakrit_verse_marker": prakrit_verse_marker,
                 "adhikaar": adhikaar,
                 "heading": heading,
                 "prakrit_doc_id": prakrit_doc_id,

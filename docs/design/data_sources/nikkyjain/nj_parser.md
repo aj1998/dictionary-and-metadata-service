@@ -83,7 +83,7 @@ Each HTML file gets one of three classifications:
 ### Step 3 — Per-page HTML parsing
 
 **Body-level content** (before the teeka `<table>`):
-- `div.gatha` → `prakrit_text` — cleaned by `_clean_verse_text`: strips `(N)` mid-verse line-number labels (ASCII and Devanagari digits), strips trailing `॥N॥`/`||N||` verse-end markers.
+- `div.gatha` → `prakrit_text` — cleaned by `_clean_verse_text`: strips `(N)` mid-verse line-number labels (ASCII and Devanagari digits), strips trailing `॥N॥`/`||N||` verse-end markers. **Before** stripping, `_parse_body_fields` scans the *raw* Prakrit text and captures every numbered marker into `prakrit_verse_markers: list[str]` (NFC-normalised, Devanagari digits converted to ASCII). For single-gatha pages the first marker is assigned to `GathaExtract.prakrit_verse_marker`; for combined pages it is sliced per chunk in source order (see Step 4). This carries the source's per-page verse number — typically the secondary teeka's gatha numbering — through to Postgres `gathas.prakrit_verse_marker` (migration `0023`) and is shown in the UI breadcrumb (e.g. `गाथा १०६ (आत्मख्याति) | गाथा ११३ (तात्पर्यवृत्ति)` for `112-113.html`).
 - `div.gathaS` → `sanskrit_text` (optional) — same `_clean_verse_text` pass applied.
 - `div.gadya` (outside teeka divs) → `hindi_chhands[]` (type defaults to `"harigeet"`)
 - `div.paragraph` containing `अन्वयार्थ` → `anyavartha` (full text + tagged term list)
@@ -110,6 +110,8 @@ Pages like `009-010.html` (gatha_number = `"009-010"`) produce **one `GathaExtra
 **`(N)` markers in single gathas**: `_clean_verse_text` (called in `_parse_body_fields`) also strips `(N)` labels from every gatha, not just combined pages — so single-gatha prakrit/sanskrit text is always clean.
 
 Anyavartha and teeka content are shared across all expanded gathas. Each expanded gatha gets `is_combined_page=True` and `related_gatha_numbers` listing the other gathas from the same page.
+
+**Per-chunk `prakrit_verse_marker`**: the markers list captured up-front from the raw Prakrit text (see Step 3 note) is sliced per gatha — chunk *i* gets `prakrit_verse_markers[i]`. Scanning `base.prakrit_text` instead of the raw text would lose the last gatha's marker (because `_clean_verse_text` already stripped the trailing `॥M॥`), so the raw-text pre-scan is load-bearing for combined pages like `112-113.html` where canonical gatha 106 must carry marker `113`.
 
 ---
 
