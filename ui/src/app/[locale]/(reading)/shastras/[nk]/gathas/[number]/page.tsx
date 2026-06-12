@@ -251,6 +251,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
                 text={joinedLangText(kalash.prakrit.text)}
                 naturalKey={kalash.prakrit.natural_key}
                 highlight={highlightFor(match, kalash.prakrit.natural_key, joinedLangText(kalash.prakrit.text))}
+                className="border-l-4 border-l-green-600"
               />
             )}
             {kalash.sanskrit && (
@@ -272,6 +273,8 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
                 text={joinedLangText(kalash.sanskrit.text)}
                 naturalKey={kalash.sanskrit.natural_key}
                 highlight={highlightFor(match, kalash.sanskrit.natural_key, joinedLangText(kalash.sanskrit.text))}
+                className="border-l-4"
+                style={{ borderLeftColor: 'var(--cat-teeka)' }}
               />
             )}
             {kalash.hindi && (
@@ -281,6 +284,8 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
                 text={joinedLangText(kalash.hindi.text)}
                 naturalKey={kalash.hindi.natural_key}
                 highlight={highlightFor(match, kalash.hindi.natural_key, joinedLangText(kalash.hindi.text))}
+                className="border-l-4"
+                style={{ borderLeftColor: 'var(--cat-bhaavarth)' }}
               />
             )}
             {kalash.word_meanings && kalash.word_meanings.entries.length > 0 && (

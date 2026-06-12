@@ -13,21 +13,25 @@ export interface GathaPanelProps {
   className?: string;
 }
 
-const LANG_CONFIG: Record<GathaPanelProps['lang'], { label: string; border: string; badge: string }> = {
+type LangConfig = { label: string; colorVar?: string; border: string; badge: string };
+
+const LANG_CONFIG: Record<GathaPanelProps['lang'], LangConfig> = {
   prakrit: {
     label: 'प्राकृत',
-    border: 'border-l-4 border-l-amber-500',
-    badge: 'bg-amber-50 text-amber-700 border border-amber-200',
+    border: 'border-l-4 border-l-green-600',
+    badge: 'bg-green-50 text-green-700 border border-green-200',
   },
   sanskrit: {
     label: 'संस्कृत',
-    border: 'border-l-4 border-l-indigo-500',
-    badge: 'bg-indigo-50 text-indigo-700 border border-indigo-200',
+    colorVar: '--cat-teeka',
+    border: 'border-l-4',
+    badge: 'border',
   },
   'hindi-harigeet': {
     label: 'छंद',
-    border: 'border-l-4 border-l-teal-500',
-    badge: 'bg-teal-50 text-teal-700 border border-teal-200',
+    colorVar: '--cat-bhaavarth',
+    border: 'border-l-4',
+    badge: 'border',
   },
   'sanskrit-teeka': {
     label: 'संस्कृत टीका',
@@ -45,6 +49,8 @@ export function GathaPanel({ lang, text, naturalKey, highlight, label, className
     console.warn('[GathaPanel] highlight range out of bounds', { naturalKey, highlight, textLen: nfcText.length });
   }
 
+  const colorValue = cfg.colorVar ? `var(${cfg.colorVar})` : undefined;
+
   return (
     <section
       data-match-target={naturalKey}
@@ -53,8 +59,16 @@ export function GathaPanel({ lang, text, naturalKey, highlight, label, className
         cfg.border,
         className
       )}
+      style={colorValue ? { borderLeftColor: colorValue } : undefined}
     >
-      <span className={cn('mb-3 inline-block rounded-full px-2 py-0.5 text-xs font-medium', cfg.badge)}>
+      <span
+        className={cn('mb-3 inline-block rounded-full px-2 py-0.5 text-xs font-medium', cfg.badge)}
+        style={colorValue ? {
+          backgroundColor: `color-mix(in srgb, ${colorValue} 12%, transparent)`,
+          borderColor: `color-mix(in srgb, ${colorValue} 30%, transparent)`,
+          color: `color-mix(in srgb, ${colorValue} 85%, var(--foreground))`,
+        } : undefined}
+      >
         {label ?? cfg.label}
       </span>
       {split ? (

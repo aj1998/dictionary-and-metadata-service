@@ -24,9 +24,10 @@ export interface BhaavarthPanelProps {
   notice?: import('react').ReactNode;
   accent?: PanelAccent;
   shortFontEntries?: BhaavarthShortFontEntry[];
+  style?: import('react').CSSProperties;
 }
 
-export function BhaavarthPanel({ label, text, naturalKey, highlight, className, variant = 'prose', notice, accent, shortFontEntries }: BhaavarthPanelProps) {
+export function BhaavarthPanel({ label, text, naturalKey, highlight, className, variant = 'prose', notice, accent, shortFontEntries, style: styleProp }: BhaavarthPanelProps) {
   const nfcText = normalizeNFC(text);
   const split = highlight ? splitHighlight(nfcText, highlight) : null;
   const segments = variant === 'prose' ? parseBhaavarthSegments(nfcText) : null;
@@ -42,7 +43,7 @@ export function BhaavarthPanel({ label, text, naturalKey, highlight, className, 
         'rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node',
         className
       )}
-      style={panelAccentRootStyle(accent)}
+      style={{ ...panelAccentRootStyle(accent), ...styleProp }}
     >
       {(label || notice) && (
         <div className="mb-2 flex flex-wrap items-center gap-2">
