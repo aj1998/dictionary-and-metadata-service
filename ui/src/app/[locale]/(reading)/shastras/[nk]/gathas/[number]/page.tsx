@@ -1,7 +1,12 @@
 import { BreadcrumbBar } from '@/components/BreadcrumbBar';
 import { BhaavarthPanel } from '@/components/BhaavarthPanel';
-import { GathaPanel } from '@/components/GathaPanel';
 import { GathaReaderLayout } from '@/components/GathaReaderLayout';
+import {
+  GathaPageBottomNav,
+  GathaVerseGroup,
+  GathaVerseStateProvider,
+} from '@/components/GathaVerseGroup';
+import type { GathaVerseEntry } from '@/components/GathaVerseGroup';
 import { HighlightScrollIntoView } from '@/components/HighlightScrollIntoView';
 import { PanelActionsMenu } from '@/components/PanelActionsMenu';
 import { TabbedPanel } from '@/components/TabbedPanel';
@@ -11,12 +16,18 @@ import { TeekaPanel } from '@/components/TeekaPanel';
 import { TopicNavAction } from '@/components/TopicNavAction';
 import type { TeekaPanelItem } from '@/components/TeekaPanel';
 import { notFound } from 'next/navigation';
-import { Link } from '@/i18n/navigation';
 import { getExtractMatch, getGatha } from '@/lib/api/data';
 import { ApiError } from '@/lib/api/_fetch';
 import { getKeywordTopics } from '@/lib/api/navigation';
 import { getHindiText } from '@/lib/content-listing';
 import { normalizeNFC, toDevanagariNumerals } from '@/lib/format/devanagari';
+
+const formatGathaRange = (nums: number[]): string => {
+  if (nums.length > 2) {
+    return `${toDevanagariNumerals(nums[0])}-${toDevanagariNumerals(nums[nums.length - 1])}`;
+  }
+  return nums.map((n) => toDevanagariNumerals(n)).join(', ');
+};
 import { getLocale, getTranslations } from 'next-intl/server';
 import type { HighlightRange } from '@/lib/highlight';
 import type { ExtractMatch, GathaKalash } from '@/lib/types';
@@ -114,22 +125,62 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   const kalashas: GathaKalash[] = Array.isArray(gatha.kalashas) ? gatha.kalashas : [];
   const topics = topicsResult.topics;
 
-  const gathaNum = parseInt(gatha.gatha_number, 10);
   const shastraNk = gatha.shastra.natural_key;
-  const prevNk = gathaNum > 1 ? `${shastraNk}:गाथा:${gathaNum - 1}` : null;
-  const nextNk = `${shastraNk}:गाथा:${gathaNum + 1}`;
 
   const match = extractMatch as ExtractMatch | null;
 
   // Combined-page notice — shown in shared-content panels when this gatha was ingested
   // from a multi-gatha page (e.g. 020-021-022.html). `is_related` holds the sibling numbers.
   const isRelated: string[] = primaryMapping?.is_related ?? [];
+
+  // For sanyukt (combined) gathas, fetch sibling gathas' verse content so the reader
+  // can navigate between प्राकृत/संस्कृत/छंद verses without leaving the शब्दार्थ/टीका context.
+  const siblingNums = isRelated.length > 0
+    ? [gathaNumStr, ...isRelated]
+        .map((n) => parseInt(n, 10))
+        .filter((n) => !isNaN(n))
+        .sort((a, b) => a - b)
+        .map((n) => String(n))
+    : [gathaNumStr];
+  const siblingGathas = isRelated.length > 0
+    ? await Promise.all(
+        siblingNums.map((n) =>
+          n === gathaNumStr
+            ? Promise.resolve(gatha)
+            : getGatha(`${shastraNk}:गाथा:${n}`).catch(() => null),
+        ),
+      )
+    : [gatha];
+  const verseEntries: GathaVerseEntry[] = siblingGathas.map((g, i) => {
+    const num = siblingNums[i];
+    if (!g) return { number: num };
+    const prakritText = joinedLangText(g.prakrit?.text);
+    const sanskritText = joinedLangText(g.sanskrit?.text);
+    return {
+      number: num,
+      prakrit: g.prakrit
+        ? {
+            text: prakritText,
+            naturalKey: g.prakrit.natural_key,
+            highlight: highlightFor(match, g.prakrit.natural_key, prakritText),
+          }
+        : undefined,
+      sanskrit: g.sanskrit
+        ? {
+            text: sanskritText,
+            naturalKey: g.sanskrit.natural_key,
+            highlight: highlightFor(match, g.sanskrit.natural_key, sanskritText),
+          }
+        : undefined,
+      hindiHarigeet: { text: joinedLangText(g.hindi_chhand?.[0]?.text) },
+    };
+  });
   const combinedGathaNotice = isRelated.length > 0 ? (() => {
     const allNums = [gathaNumStr, ...isRelated]
       .map((n) => parseInt(n, 10))
       .filter((n) => !isNaN(n))
       .sort((a, b) => a - b);
-    const devList = allNums.map((n) => toDevanagariNumerals(n)).join(', ');
+    const devList = formatGathaRange(allNums);
     const chip = (postposition: 'का' | 'की') => (
       <span key={`combined-${postposition}`} className="inline-flex items-center gap-1 rounded-full border border-border bg-surface-muted px-2.5 py-0.5 font-serif-hindi text-[11px] text-foreground-muted">
         गाथा {devList} {postposition} संयुक्त
@@ -148,7 +199,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
       .map((n) => parseInt(n, 10))
       .filter((n) => !isNaN(n))
       .sort((a, b) => a - b);
-    const devList = allNums.map((n) => toDevanagariNumerals(n)).join(', ');
+    const devList = formatGathaRange(allNums);
     const prefix = idx === 0 ? '' : `${teekaShortName(m.teeka_natural_key)} `;
     noticeByTeeka.set(
       m.teeka_natural_key,
@@ -221,7 +272,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
       .map((n) => parseInt(n, 10))
       .filter((n) => !isNaN(n))
       .sort((a, b) => a - b);
-    const devList = allNums.map((n) => toDevanagariNumerals(n)).join(', ');
+    const devList = formatGathaRange(allNums);
     const tn = teekaShortName(kalash.teeka_natural_key);
     return (
       <span className="inline-flex items-center gap-1 rounded-full border border-border bg-surface-muted px-2.5 py-0.5 font-serif-hindi text-[11px] text-foreground-muted">
@@ -416,29 +467,8 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
           </div>
         )}
 
-        {/* 1. प्राकृत गाथा */}
-        {gatha.prakrit && (
-          <GathaPanel
-            lang="prakrit"
-            text={joinedLangText(gatha.prakrit.text) || '—'}
-            naturalKey={gatha.prakrit.natural_key}
-            highlight={highlightFor(match, gatha.prakrit.natural_key, joinedLangText(gatha.prakrit.text))}
-          />
-        )}
-        {!gatha.prakrit && <GathaPanel lang="prakrit" text="—" />}
-
-        {/* 2. संस्कृत छाया */}
-        {gatha.sanskrit && (
-          <GathaPanel
-            lang="sanskrit"
-            text={joinedLangText(gatha.sanskrit.text)}
-            naturalKey={gatha.sanskrit.natural_key}
-            highlight={highlightFor(match, gatha.sanskrit.natural_key, joinedLangText(gatha.sanskrit.text))}
-          />
-        )}
-
-        {/* 3. हिन्दी हरिगीत */}
-        <GathaPanel lang="hindi-harigeet" text={joinedLangText(gatha.hindi_chhand[0]?.text) || '—'} />
+        {/* 1-3. प्राकृत / संस्कृत / छंद — grouped, with sanyukt navigators */}
+        <GathaVerseGroup entries={verseEntries} />
 
         {/* 4. शब्दार्थ — word-by-word meanings + full anvayarth */}
         <section className="rounded-[var(--radius-md)] border bg-surface shadow-node overflow-hidden" style={{ borderColor: 'color-mix(in srgb, var(--cat-keyword) 35%, var(--border))', ['--panel-accent' as string]: 'var(--cat-keyword)' }}>
@@ -483,23 +513,8 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
           <TabbedPanel title={tR('related')} items={kalashItems} showActions accent="kalash" />
         )}
 
-        {/* Prev / Next navigation */}
-        <div className="flex items-center justify-between gap-3 pt-1">
-          {prevNk ? (
-            <Link
-              href={`/shastras/${nk}/gathas/${encodeURIComponent(prevNk)}`}
-              className="flex items-center gap-1 rounded-[var(--radius-md)] border border-border bg-surface px-4 py-2 text-sm hover:border-accent hover:text-accent"
-            >
-              ← {gathaLbl} {gathaNum - 1}
-            </Link>
-          ) : <span />}
-          <Link
-            href={`/shastras/${nk}/gathas/${encodeURIComponent(nextNk)}`}
-            className="flex items-center gap-1 rounded-[var(--radius-md)] border border-border bg-surface px-4 py-2 text-sm hover:border-accent hover:text-accent"
-          >
-            {gathaLbl} {gathaNum + 1} →
-          </Link>
-        </div>
+        {/* Prev / Next navigation — tracks the currently-viewed verse in GathaVerseGroup */}
+        <GathaPageBottomNav shastraNk={shastraNk} shastraDisplayNk={nk} gathaLabel={gathaLbl} />
       </div>
   );
 
@@ -540,7 +555,9 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   return (
     <>
       {scrollTargetNk && <HighlightScrollIntoView naturalKey={scrollTargetNk} />}
-      <GathaReaderLayout main={mainColumn} sidebar={sidebar} />
+      <GathaVerseStateProvider initialNumber={gathaNumStr}>
+        <GathaReaderLayout main={mainColumn} sidebar={sidebar} />
+      </GathaVerseStateProvider>
     </>
   );
 }
