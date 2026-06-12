@@ -39,7 +39,21 @@ def node_to_markdown(node: NavigableString | Tag, *, _depth: int = 0) -> str:
     )
 
     if tag == "b":
-        # <b> containing a <div> is a kalash gadya wrapper — don't bold it
+        # <b> containing a <div class="gadya"> is a Hindi chhand/translation
+        # verse wrapper. The source styles div.gadya green via CSS (no inline
+        # color attribute), so wrap children in an explicit color span so the
+        # green formatting survives into the rendered bhaavarth markdown.
+        gadya = node.find("div", class_="gadya")
+        if gadya:
+            # Hindi chhand/translation verse block. Source styles div.gadya
+            # green via CSS (no inline color). Emit a self-contained block
+            # with internal <br> separators so the verse lines stay tightly
+            # spaced — teekaMarkdownToHtml splits paragraphs on `\n\n+`, so a
+            # single-line HTML fragment renders as one <p> with all verse
+            # lines joined by <br>.
+            lines = [ln.strip() for ln in children_md.split("\n") if ln.strip()]
+            inner = "<br>".join(lines)
+            return f'<div class="nj-gadya" style="color:darkgreen">{inner}</div>'
         if node.find("div"):
             return children_md
         inner = children_md.strip()

@@ -204,6 +204,17 @@
 .teeka-content p.teeka-bracket:first-child {
   margin-top: 0;
 }
+/* Inline gathas/chhands extracted from NJ <b><div class="gadya">…</div></b>
+   blocks: render as a tight grey-bg verse box. Color is set inline by the
+   parser (style="color:darkgreen"); this rule just adds the surface chrome. */
+.teeka-content .nj-gadya,
+.bhaavarth-content .nj-gadya {
+  background: var(--surface-muted, #f3f4f6);
+  border-radius: var(--radius-sm, 6px);
+  padding: 0.5rem 0.75rem;
+  margin: 0.5rem 0;
+  line-height: 1.5;
+}
 
 /* Shimmer animation for skeleton loading blocks */
 @keyframes shimmer {
