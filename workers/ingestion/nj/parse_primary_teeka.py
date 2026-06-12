@@ -108,6 +108,8 @@ def _extract_chhand_type(node: NavigableString | Tag) -> str:
     # Strip optional "कलश-" prefix when source includes it.
     if chhand.startswith("कलश-"):
         chhand = chhand[len("कलश-") :].strip()
+    # Source sometimes uses a double hyphen, e.g. (कलश--शार्दूलविक्रीडित).
+    chhand = chhand.lstrip("-").strip()
     return chhand
 
 
@@ -232,6 +234,14 @@ def _parse_sanskrit_kalashes_from_nodes(
             if current_parts and not current_parts[-1].endswith("\n"):
                 current_parts.append(" ")
             current_parts.append(text)
+            # If the accumulated kalash text now ends with a ॥N॥ verse-end
+            # marker, close out this kalash. Any trailing prose belongs to
+            # gatha_teeka_san, not to the kalash. This handles pages where
+            # the source places the kalash before the main Sanskrit teeka
+            # prose (e.g. samaysaar 044-048.html: intro → कलश → ॥३३॥ → main
+            # teeka prose).
+            if _VERSE_END_RE.search("".join(current_parts).rstrip()):
+                flush()
         else:
             prose_parts.append(text)
     flush()

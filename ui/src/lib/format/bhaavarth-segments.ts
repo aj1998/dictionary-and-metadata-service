@@ -167,7 +167,24 @@ function buildBlocks(text: string): BlockInfo[] {
   return blocks;
 }
 
+// Some sources (e.g. Tatparyavritti bhaavarth) emit lists where each
+// `**[term]** meaning` entry is preceded by a lone `-` on its own line as a
+// bullet marker. Left as-is, the compact-bracket parser would treat each
+// bracket line as a chip and each lone `-` as a separator that flushes the
+// chip run, producing fragmented ShabdaArthSection blocks. Merging the dash
+// with the following bracket line restores a proper markdown bullet list, so
+// the renderer falls back to teekaMarkdownToHtml and produces a real <ul>
+// matching the source layout.
+function normalizeDashSeparators(text: string): string {
+  // Trailing " -" at end of a line followed by a bracket entry — first list lead.
+  text = text.replace(/[ \t]+-[ \t]*\n(?=[ \t]*(?:\*\*)?\[)/g, '\n- ');
+  // Lone "-" separator line between bracket entries.
+  text = text.replace(/(^|\n)-[ \t]*\n(?=[ \t]*(?:\*\*)?\[)/g, '$1- ');
+  return text;
+}
+
 export function parseBhaavarthSegments(text: string): BhaavarthSegment[] {
+  text = normalizeDashSeparators(text);
   const blocks = buildBlocks(text);
   const totalCompact = blocks.reduce((n, block) => n + (block.compact ? 1 : 0), 0);
   if (totalCompact < MIN_COMPACT_TOTAL) {

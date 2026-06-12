@@ -75,6 +75,38 @@ def test_parse_primary_teeka_kalash_meaning_outside_b_tag(nj_cfg):
     assert parsed.kalash_word_meanings[1][0].meaning == "निज अनुभव से प्रकाशित"
 
 
+def test_parse_primary_teeka_kalash_before_main_teeka_prose(nj_cfg):
+    # Mirrors samaysaar 044-048.html: a short intro, then a chhand-marked
+    # kalash with a ॥N॥ verse-end marker, then the main Sanskrit teeka prose.
+    # The kalash text must stop at ॥N॥ and the trailing prose must land in
+    # gatha_teeka_san (not get absorbed into the kalash).
+    html = """
+<div id="teeka0">
+  <div class="steeka" id="steeka0">
+    अथ जीवाजीवावेकीभूतौ प्रविशतः ।<br/><br/>
+    <font color="DarkSlateGray">(कलश--शार्दूलविक्रीडित)</font><br/>
+    जीवाजीवविवेकपुष्कलद्रशा प्रत्याययत्पार्षदान् ॥३३॥<br/><br/>
+    इह खलु तदसाधारणलक्षणाकलनात् इति निर्दिश्यन्ते ।
+    <hr class="type_7"/>
+  </div>
+  <b><font color="darkgreen">अमृतचंद्राचार्य</font></b>
+</div>
+""".strip()
+    teeka0 = BeautifulSoup(html, "lxml").select_one("div#teeka0")
+    assert teeka0 is not None
+    parsed, delta = parse_primary_teeka(teeka0, nj_cfg, global_kalash_start=33)
+    assert delta == 1
+    assert len(parsed.kalash_san) == 1
+    k = parsed.kalash_san[0]
+    assert k.chhand_type == "शार्दूलविक्रीडित"
+    assert k.verse_number == "33"
+    assert k.text_san.rstrip().endswith("॥३३॥")
+    assert "इह खलु" not in k.text_san
+    assert parsed.gatha_teeka_san is not None
+    assert "अथ जीवाजीवावेकीभूतौ प्रविशतः" in parsed.gatha_teeka_san
+    assert "इह खलु तदसाधारणलक्षणाकलनात्" in parsed.gatha_teeka_san
+
+
 def test_parse_primary_teeka_separates_kalash_san_and_sutraavataar(nj_cfg):
     html = """
 <div id="teeka0">
