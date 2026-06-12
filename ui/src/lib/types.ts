@@ -331,7 +331,17 @@ export interface GathaKalash {
   sanskrit: { natural_key: string; text: LangText[] } | null;
   hindi: { natural_key: string; text: LangText[] } | null;
   bhaavarth: Array<{ natural_key: string; text: LangText[]; shortfont_entries?: BhaavarthShortFontEntry[] }>;
-  word_meanings: { natural_key: string; entries: Array<{ source_word: string; meaning: string; position: number }> } | null;
+  word_meanings: {
+    natural_key?: string;
+    entries: Array<{
+      source_word: string;
+      meaning: string;
+      position: number;
+      start_offset?: number | null;
+      end_offset?: number | null;
+    }>;
+    full_anyavaarth?: string;
+  } | null;
 }
 
 export interface GathaDetail extends GathaSummary {

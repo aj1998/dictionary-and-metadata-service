@@ -346,12 +346,32 @@ def parse_primary_teeka(
     nodes_after = _nodes_after_element(teeka0_div, steeka0)
 
     # Strip the primary label node from markdown/hindi parsing.
-    if nodes_after and isinstance(nodes_after[0], Tag):
-        maybe_label = nodes_after[0].find("font") if nodes_after[0].name == "b" else None
-        if maybe_label and (maybe_label.get("color") or "").strip().lower() == "darkgreen":
-            nodes_after = nodes_after[1:]
+    # Skip any leading whitespace NavigableStrings so we find the first real Tag.
+    first_tag_idx = next(
+        (idx for idx, n in enumerate(nodes_after) if isinstance(n, Tag)),
+        None,
+    )
+    if first_tag_idx is not None:
+        first_tag = nodes_after[first_tag_idx]
+        maybe_label = first_tag.find("font") if first_tag.name == "b" else None
+        if (
+            maybe_label
+            and (maybe_label.get("color") or "").strip().lower() == "darkgreen"
+            and first_tag.find("div") is None
+        ):
+            nodes_after = nodes_after[first_tag_idx + 1 :]
+
+    # Match Hindi kalash blocks to Sanskrit kalashes by trailing ॥N॥ verse
+    # number. The source Hindi side mixes (हरिगीत)/etc. translation verses of
+    # preceding Prakrit gathas — those use the same b>div.gadya markup as
+    # actual kalashes but their ॥N॥ numbers don't match any kalash_san.verse_number.
+    # Without this filter, extra translation verses shift hindi_counter and the
+    # wrong Hindi entry pairs with each Sanskrit kalash via global_kalash_index.
+    san_verse_numbers = {k.verse_number for k in kalash_san_entries if k.verse_number}
+    san_by_verse = {k.verse_number: k for k in kalash_san_entries if k.verse_number}
 
     hindi_counter = 0
+    current_local_idx = 0
     kalash_hindi_entries: list[KalashHindiEntry] = []
     kalash_wm_entries: dict[int, list[KalashWMEntry]] = defaultdict(list)
     bhaavarth_nodes: list[NavigableString | Tag] = []
@@ -360,15 +380,29 @@ def parse_primary_teeka(
     while i < len(nodes_after):
         node = nodes_after[i]
         if _is_kalash_gadya(node):
-            hindi_counter += 1
             hindi_text = _clean_gadya_text(node)
+            hindi_verse_num = _extract_verse_number(hindi_text)
+            if san_verse_numbers and hindi_verse_num not in san_verse_numbers:
+                # Not an actual kalash — translation verse for a preceding gatha.
+                bhaavarth_nodes.append(node)
+                i += 1
+                continue
+            if san_by_verse and hindi_verse_num in san_by_verse:
+                matched = san_by_verse[hindi_verse_num]
+                local_idx = matched.local_kalash_index
+                global_idx = matched.global_kalash_index
+            else:
+                hindi_counter += 1
+                local_idx = hindi_counter
+                global_idx = global_kalash_start + hindi_counter - 1
+            current_local_idx = local_idx
             kalash_hindi_entries.append(
                 KalashHindiEntry(
-                    local_kalash_index=hindi_counter,
-                    global_kalash_index=global_kalash_start + hindi_counter - 1,
+                    local_kalash_index=local_idx,
+                    global_kalash_index=global_idx,
                     chhand_type=_extract_chhand_from_notes_span(node) or "unknown",
                     text_hi=hindi_text,
-                    verse_number=_extract_verse_number(hindi_text),
+                    verse_number=hindi_verse_num,
                 )
             )
             i += 1
@@ -409,7 +443,7 @@ def parse_primary_teeka(
                     j += 1
                     continue
                 break
-            kalash_wm_entries[hindi_counter].append(_parse_kalash_wm(node, trailing_text=_clean("".join(trailing_parts))))
+            kalash_wm_entries[current_local_idx].append(_parse_kalash_wm(node, trailing_text=_clean("".join(trailing_parts))))
             i = j
             continue
         bhaavarth_nodes.append(node)

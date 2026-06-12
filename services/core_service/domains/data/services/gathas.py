@@ -229,8 +229,16 @@ async def _get_kalashas_for_gatha(
             sf_task = mongo[GATHA_TEEKA_BHAAVARTH_SHORTFONT].find(
                 {"gatha_natural_key": kalash.natural_key}
             ).to_list(None)
-            prakrit_doc, sanskrit_doc, bhaavarth_docs, sf_docs = await asyncio.gather(
-                pra_task, san_task, bh_task, sf_task
+            # Secondary-kalash pages (e.g. samaysaar 011.html — Jaysenacharya
+            # standalone gathas) also carry their own अन्वयार्थ / शब्दार्थ
+            # block; the NJ envelope emits a teeka_gatha_mapping doc keyed by
+            # the kalash NK. Fetch it so the UI can render the शब्दार्थ section
+            # in the संबंधित panel for secondary kalashes too.
+            tgm_task = mongo[TEEKA_GATHA_MAPPING].find_one(
+                {"gatha_natural_key": kalash.natural_key}
+            )
+            prakrit_doc, sanskrit_doc, bhaavarth_docs, sf_docs, tgm_doc = await asyncio.gather(
+                pra_task, san_task, bh_task, sf_task, tgm_task
             )
             # Attach shortfont entries to each bhaavarth doc.
             bh_list = [_strip_id(d) for d in (bhaavarth_docs or [])]
@@ -244,6 +252,15 @@ async def _get_kalashas_for_gatha(
                     pub_nk = bh.get("publication_natural_key", "")
                     bh_nk = f"{pub_nk}:गाथा:टीका:भावार्थ:{kalash.kalash_number}" if pub_nk else ""
                     bh["shortfont_entries"] = sf_by_nk.get(bh_nk, [])
+            secondary_word_meanings = None
+            if tgm_doc:
+                tagged = tgm_doc.get("tagged_terms") or []
+                full_anv = tgm_doc.get("full_anyavaarth") or ""
+                if tagged or full_anv:
+                    secondary_word_meanings = {
+                        "entries": tagged,
+                        "full_anyavaarth": full_anv,
+                    }
             return {
                 "natural_key": kalash.natural_key,
                 "kalash_number": kalash.kalash_number,
@@ -253,7 +270,7 @@ async def _get_kalashas_for_gatha(
                 "sanskrit": _strip_id(sanskrit_doc),
                 "hindi": None,
                 "bhaavarth": bh_list,
-                "word_meanings": None,
+                "word_meanings": secondary_word_meanings,
             }
         san_task = mongo[KALASH_SANSKRIT].find_one({"natural_key": f"{kalash.natural_key}:san"})
         hin_task = mongo[KALASH_HINDI].find_one({"natural_key": f"{kalash.natural_key}:hi"})

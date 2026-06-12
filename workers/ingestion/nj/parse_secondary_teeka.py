@@ -62,11 +62,21 @@ def parse_secondary_teeka(
 
     nodes_after = _nodes_after_element(teeka_div, steeka)
 
-    # Skip label node (e.g. <b><font color=darkgreen>जयसेनाचार्य</font></b>)
-    if nodes_after and isinstance(nodes_after[0], Tag):
-        maybe_label = nodes_after[0].find("font") if nodes_after[0].name == "b" else None
-        if maybe_label and (maybe_label.get("color") or "").strip().lower() == "darkgreen":
-            nodes_after = nodes_after[1:]
+    # Skip label node (e.g. <b><font color=darkgreen>जयसेनाचार्य</font></b>).
+    # Walk past any leading whitespace NavigableStrings to find the first real Tag.
+    first_tag_idx = next(
+        (idx for idx, n in enumerate(nodes_after) if isinstance(n, Tag)),
+        None,
+    )
+    if first_tag_idx is not None:
+        first_tag = nodes_after[first_tag_idx]
+        maybe_label = first_tag.find("font") if first_tag.name == "b" else None
+        if (
+            maybe_label
+            and (maybe_label.get("color") or "").strip().lower() == "darkgreen"
+            and first_tag.find("div") is None
+        ):
+            nodes_after = nodes_after[first_tag_idx + 1 :]
 
     bhaavarth_nodes = list(nodes_after)
     parsed_tables = []

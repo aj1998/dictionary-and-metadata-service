@@ -566,7 +566,43 @@ def _build_mongo_for_secondary_kalash(
         "gatha_teeka_sanskrit": [],
         "gatha_teeka_bhaavarth_hindi": [],
         "kalash_bhaavarth_shortfont": [],
+        "teeka_gatha_mapping": [],
     }
+
+    # Secondary-kalash pages (e.g. samaysaar 011.html — Jaysenacharya standalone
+    # gathas) carry their own अन्वयार्थ (शब्दार्थ) block. Emit a
+    # teeka_gatha_mapping doc keyed by the kalash NK so the UI can render
+    # term-chips + अन्वयार्थ on the secondary side of the संबंधित panel.
+    full_anyavaarth = k.anyavartha.full_anyavaarth if k.anyavartha else ""
+    tagged_terms: list[dict[str, Any]] = []
+    if k.anyavartha:
+        cursor = 0
+        for e in k.anyavartha.tagged_terms:
+            start = full_anyavaarth.find(e.meaning, cursor) if e.meaning else -1
+            if start == -1 and e.meaning:
+                start = full_anyavaarth.find(e.meaning)
+            end = start + len(e.meaning) if start != -1 else -1
+            tagged_terms.append({
+                "source_word": e.source_word,
+                "meaning": e.meaning,
+                "position": e.position,
+                "start_offset": start if start != -1 else None,
+                "end_offset": end if end != -1 else None,
+            })
+            if start != -1:
+                cursor = end
+    if full_anyavaarth or tagged_terms:
+        out["teeka_gatha_mapping"].append({
+            "collection": "teeka_gatha_mapping",
+            "natural_key": f"{secondary.natural_key}:{_KALASH}:{norm_kalash_num}",
+            "teeka_natural_key": secondary.natural_key,
+            "gatha_natural_key": kalash_j_nk,
+            "anvayartha": _lang_text("hin", full_anyavaarth) if full_anyavaarth else [],
+            "tagged_terms": tagged_terms,
+            "full_anyavaarth": full_anyavaarth,
+            "is_related": [],
+        })
+
     if k.prakrit_text:
         out["gatha_prakrit"].append({
             "collection": "gatha_prakrit",

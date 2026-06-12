@@ -4,8 +4,12 @@ from __future__ import annotations
 
 from bs4 import NavigableString, Tag
 
-# Colors used as teekakar label decorators — strip these, don't wrap in color spans
-_STRIP_COLORS = {"darkgreen", "red"}
+# Colors used as teekakar label decorators — strip these, don't wrap in color spans.
+# Note: the top-level darkgreen teekakar label (e.g. <b><font color=darkgreen>अमृतचंद्राचार्य</font></b>)
+# is already removed from nodes_after by parse_primary_teeka/parse_secondary_teeka,
+# so darkgreen surviving here belongs to in-flow content (e.g. (हरिगीत) translation
+# verses on pages like samaysaar 014.html) and should be preserved as a color span.
+_STRIP_COLORS = {"red"}
 
 
 def node_to_markdown(node: NavigableString | Tag, *, _depth: int = 0) -> str:

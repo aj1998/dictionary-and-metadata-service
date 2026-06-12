@@ -263,6 +263,23 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
                 highlight={highlightFor(match, kalash.sanskrit.natural_key, joinedLangText(kalash.sanskrit.text))}
               />
             )}
+            {kalash.word_meanings && kalash.word_meanings.entries.length > 0 && (
+              <section className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
+                <h2 className="mb-3 font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">शब्दार्थ</h2>
+                <ShabdaArthSection
+                  entries={[...kalash.word_meanings.entries]
+                    .sort((a, b) => a.position - b.position)
+                    .map((e) => ({ word: e.source_word, meaning: e.meaning, position: e.position, startOffset: e.start_offset ?? undefined, endOffset: e.end_offset ?? undefined }))}
+                  anvayarth={
+                    kalash.word_meanings.full_anyavaarth
+                      || [...kalash.word_meanings.entries]
+                        .sort((a, b) => a.position - b.position)
+                        .map((e) => e.meaning)
+                        .join(' ')
+                  }
+                />
+              </section>
+            )}
           </>
         ) : (
           <>
