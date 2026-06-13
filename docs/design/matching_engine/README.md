@@ -224,6 +224,21 @@ Route:
 
 Returns the stored match doc, minus Mongo `_id`.
 
+**Read-time enrichment for kalash targets.** The matcher worker leaves
+`target.gatha_natural_key` null for `kalash_sanskrit` / `kalash_hindi` targets
+because the Neo4j `Kalash` stub does not store the owning gatha
+(`Kalash → Gatha` lives only in Postgres via `kalashes.gatha_id`). The
+extract-matches service backfills this field at read-time: when the target
+collection is one of `kalash_sanskrit` / `kalash_hindi` and `gatha_natural_key`
+is missing, it reconstructs the Kalash natural_key from the target NK
+(stripping the `:san` / `:hi` suffix), looks up `Kalash.gatha_id → Gatha` in
+Postgres, and writes the result back onto the returned document. The UI's
+`buildGathaHref` then prefers this field so kalash matches deep-link to the
+gatha page that contains the kalash in "विशेष देखें" rather than to a non-
+existent gatha numbered after the kalash. `kalash_bhaavarth_hindi` is not yet
+enriched (its NK shape `{publication}:कलश:भावार्थ:{n}` lacks the
+shastra/teeka prefix needed to reconstruct the Kalash NK).
+
 ## 9. UI Integration
 
 ### Definition modal
@@ -254,12 +269,22 @@ Relevant files:
 
 Behavior:
 
-- deep links are built as `/shastras/<shastra>/gathas/<number>?match=<match_nk>`
+- deep links are built as `/shastras/<shastra>/gathas/<number-or-gatha-nk>?match=<match_nk>`
+  - `buildGathaHref` prefers `target.gatha_natural_key` (set directly by the
+    matcher for gatha/teeka/bhaavarth targets, and backfilled at read-time for
+    kalash targets — see §8.2) so kalash matches land on the owning gatha
+  - falls back to the legacy heuristic (`extractGathaNumberFromTargetNk`) only
+    when `gatha_natural_key` is absent
 - the reading page fetches the match doc when `searchParams.match` is present
 - a highlight is applied only when:
   - `match.status === 'matched'`
   - `match.target.natural_key` equals the panel text being rendered
   - `char_start` and `char_end` are in bounds
+- the panel that contains the matched target also gets a red accent ring
+  (`ring-2 ring-accent`) so the matched window is visually obvious; in tabbed
+  panels (kalash tabs, hindi-bhaavarth tabs) the matching tab is auto-activated
+  on first render and its label stays accent-coloured when not active — wired
+  via the `hasMatch` flag on `TabbedPanelItem`
 
 The same reading page supports highlights for:
 
@@ -285,7 +310,8 @@ The same reading page supports highlights for:
 - `Page` stub matching is not implemented.
 - Matching is CLI-triggered, not async-worker driven.
 - The UI fetches match docs one-by-one from the client; there is no batch endpoint yet.
-- `buildGathaHref` derives the reading route from `target.natural_key`, so any future target-key format change must update that helper too.
+- `buildGathaHref` derives the reading route from `target.gatha_natural_key` (preferred) and falls back to parsing `target.natural_key`, so any future target-key format change must update that helper too.
+- `kalash_bhaavarth_hindi` targets still lack `gatha_natural_key` enrichment — fix requires storing `shastra_natural_key` / `teeka_natural_key` on the KalashBhaavarth Neo4j stub at ingestion so the Kalash NK can be reconstructed.
 - The UI TypeScript `ExtractMatch` type is a trimmed client view of the backend document, not a full schema mirror.
 
 ## 12. Change Checklist For Agents

@@ -12,6 +12,8 @@ export interface TabbedPanelItem {
   actionsSourceNk?: string;
   actionsSourceLabel?: string;
   notice?: ReactNode;
+  /** When true, the tab indicator turns accent-coloured to signal the matcher landed in this tab. */
+  hasMatch?: boolean;
 }
 
 interface TabbedPanelProps {
@@ -25,7 +27,8 @@ interface TabbedPanelProps {
 }
 
 export function TabbedPanel({ title, items, emptyMessage, bodyClassName, showActions, notice, accent }: TabbedPanelProps) {
-  const [active, setActive] = useState(0);
+  const initialMatchIdx = items.findIndex((item) => item.hasMatch);
+  const [active, setActive] = useState(initialMatchIdx >= 0 ? initialMatchIdx : 0);
 
   if (items.length === 0) {
     if (!emptyMessage) return null;
@@ -75,7 +78,8 @@ export function TabbedPanel({ title, items, emptyMessage, bodyClassName, showAct
                 'shrink-0 pb-2 pt-1 px-3 text-xs font-medium border-b-2 transition-colors whitespace-nowrap',
                 i === active
                   ? 'border-accent text-accent'
-                  : 'border-transparent text-foreground-muted hover:text-foreground'
+                  : 'border-transparent text-foreground-muted hover:text-foreground',
+                item.hasMatch && i !== active && 'text-accent'
               )}
             >
               {item.label}

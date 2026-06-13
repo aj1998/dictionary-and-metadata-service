@@ -128,6 +128,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   const shastraNk = gatha.shastra.natural_key;
 
   const match = extractMatch as ExtractMatch | null;
+  const matchedTargetNk = match?.target.natural_key;
 
   // Combined-page notice — shown in shared-content panels when this gatha was ingested
   // from a multi-gatha page (e.g. 020-021-022.html). `is_related` holds the sibling numbers.
@@ -253,6 +254,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
     return {
       key: bh.natural_key,
       label: bh.publication_natural_key ?? bh.natural_key,
+      hasMatch: !!matchedTargetNk && matchedTargetNk === bh.natural_key,
       actionsSourceNk: gathaTeekaBhaavarthNeo4jNk(bh),
       actionsSourceLabel: bh.publication_natural_key ?? bh.natural_key,
       notice: noticeByTeeka.get(teekaNk),
@@ -307,9 +309,18 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
     const prefix = kalash.is_secondary ? 'गाथा' : 'कलश';
     const teeka = teekaShortName(kalash.teeka_natural_key);
     const label = `${prefix}:${teeka}:${kalash.kalash_number}`;
+    const kalashNks: string[] = [
+      kalash.natural_key,
+      kalash.prakrit?.natural_key,
+      kalash.sanskrit?.natural_key,
+      kalash.hindi?.natural_key,
+      ...kalash.bhaavarth.map((b) => b.natural_key),
+    ].filter((v): v is string => !!v);
+    const hasMatch = !!matchedTargetNk && kalashNks.includes(matchedTargetNk);
     return {
     key: kalash.natural_key,
     label,
+    hasMatch,
     actionsSourceNk: kalash.natural_key,
     actionsSourceLabel: label,
     content: (

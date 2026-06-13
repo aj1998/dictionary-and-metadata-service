@@ -41,6 +41,7 @@ export function BhaavarthPanel({ label, text, naturalKey, highlight, className, 
       data-match-target={naturalKey}
       className={cn(
         'rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node',
+        highlight && 'ring-2 ring-[var(--accent)] border-[var(--accent)]',
         className
       )}
       style={{ ...panelAccentRootStyle(accent), ...styleProp }}

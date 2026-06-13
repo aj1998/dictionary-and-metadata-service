@@ -737,12 +737,13 @@ Relevant files:
 
 Flow:
 
-1. `buildGathaHref` creates `/shastras/<shastra>/gathas/<number>?match=<match_natural_key>`.
+1. `buildGathaHref` creates `/shastras/<shastra>/gathas/<gatha-nk-or-number>?match=<match_natural_key>`. It prefers `match.target.gatha_natural_key` (set by the matcher for gatha/teeka/bhaavarth targets, and backfilled at read-time by `core_service` for kalash targets), and only falls back to the `extractGathaNumberFromTargetNk` heuristic when that field is absent — this is what makes kalash matches deep-link to the owning gatha (the one that contains the kalash in "विशेष देखें") rather than to a non-existent gatha numbered after the kalash.
 2. The reading page fetches the extract-match doc when `searchParams.match` is present.
 3. Highlighting is applied only when:
    - `match.status === 'matched'`
    - the current panel `naturalKey` equals `match.target.natural_key`
    - `char_start` and `char_end` are valid in NFC-normalized text
+4. **Window-level match indicator.** `BhaavarthPanel` adds a `ring-2 ring-accent border-accent` outline whenever a `highlight` prop is set, so the matched window is visually outlined in addition to the inline `<mark>`. `TabbedPanel` accepts a per-item `hasMatch` flag: the first item with `hasMatch` becomes the initial active tab, and matching tabs keep an accent-coloured label when not active. The gatha page computes `hasMatch` for kalash tabs (by checking all child natural keys — prakrit / sanskrit / hindi / bhaavarth) and for hindi-bhaavarth tabs (by direct natural-key compare against `match.target.natural_key`).
 
 Supported highlighted targets today:
 

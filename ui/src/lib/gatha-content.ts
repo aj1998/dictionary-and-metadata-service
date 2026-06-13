@@ -98,10 +98,15 @@ export function extractGathaNumberFromTargetNk(naturalKey: string): string {
 export function buildGathaHref(match: ExtractMatch): string {
   const targetNk = match.target.natural_key;
   // shastra natural key is the first segment before the first ":"
-  const shastraNk = targetNk.split(':')[0] ?? '';
-  const gathaNumber = extractGathaNumberFromTargetNk(targetNk);
+  const shastraNk = match.target.shastra_natural_key ?? targetNk.split(':')[0] ?? '';
+  // Prefer the owning-gatha natural key for non-gatha targets (kalash, kalash teeka, etc.)
+  // so the link lands on the gatha page that actually contains that element in
+  // "विशेष देखें". Fall back to the legacy heuristic when the matcher didn't
+  // populate `gatha_natural_key`.
+  const gathaNkOrNumber =
+    match.target.gatha_natural_key ?? extractGathaNumberFromTargetNk(targetNk);
   return (
-    `/shastras/${encodeURIComponent(shastraNk)}/gathas/${encodeURIComponent(gathaNumber)}` +
+    `/shastras/${encodeURIComponent(shastraNk)}/gathas/${encodeURIComponent(gathaNkOrNumber)}` +
     `?match=${encodeURIComponent(match.natural_key)}`
   );
 }

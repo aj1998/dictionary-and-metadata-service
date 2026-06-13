@@ -2,8 +2,9 @@ from __future__ import annotations
 
 from fastapi import APIRouter, Depends, HTTPException, Response
 from motor.motor_asyncio import AsyncIOMotorDatabase
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from ....deps import get_mongo_db
+from ....deps import get_mongo_db, get_session
 from ..services import extract_matches as svc
 
 router = APIRouter(prefix="/v1", tags=["extract-matches"])
@@ -16,8 +17,9 @@ async def get_extract_match(
     natural_key: str,
     response: Response,
     mongo: AsyncIOMotorDatabase = Depends(get_mongo_db),
+    session: AsyncSession = Depends(get_session),
 ) -> dict:
-    doc = await svc.get_by_natural_key(mongo, natural_key)
+    doc = await svc.get_by_natural_key(mongo, natural_key, session=session)
     if doc is None:
         raise HTTPException(
             404,
