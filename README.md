@@ -296,7 +296,7 @@ python -m pytest tests/workers/nj/ -v
 # Hydration unit tests (no DB required)
 python -m pytest tests/common/ -v
 
-# Full suite — 746 passed, 0 skipped, 0 failed (as of 2026-05-24)
+# Full suite — 1202 passed, 1 skipped, 0 failed (as of 2026-06-13)
 # Requires: Postgres + Neo4j running; nikkyjain repo cloned locally
 export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test"
 export MONGO_URL="mongodb://localhost:27017"
@@ -305,6 +305,9 @@ export NEO4J_USER="neo4j"
 export NEO4J_PASSWORD="jainkb_password"
 export NIKKYJAIN_LOCAL_PATH="/path/to/nikkyjain.github.io"
 python -m pytest tests/ -v
+
+# UI tests — 491 passed, 0 failed (as of 2026-06-13)
+cd ui && npm test
 ```
 
 ---
