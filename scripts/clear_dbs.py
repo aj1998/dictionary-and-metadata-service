@@ -34,6 +34,7 @@ import jain_kb_common.db.postgres.ingestion  # noqa: F401
 import jain_kb_common.db.postgres.enrichment  # noqa: F401
 import jain_kb_common.db.postgres.query_logs  # noqa: F401
 import jain_kb_common.db.postgres.teeka_chapters  # noqa: F401
+import jain_kb_common.db.postgres.tables  # noqa: F401
 
 
 _POSTGRES_EXTENSION_STMTS = (
@@ -48,12 +49,18 @@ _MONGO_COLLECTIONS = (
     "keyword_definitions",
     "topic_extracts",
     "raw_html_snapshots",
+    "ocr_pages",
     # nj
     "gatha_hindi_chhand",
     "gatha_prakrit",
     "gatha_sanskrit",
+    "gatha_teeka_hindi",
+    "gatha_word_meanings",
     "gatha_teeka_bhaavarth_hindi",
+    "gatha_teeka_bhaavarth_shortfont",
     "gatha_teeka_sanskrit",
+    "kalash_bhaavarth_hindi",
+    "kalash_bhaavarth_shortfont",
     "kalash_hindi",
     "kalash_sanskrit",
     "kalash_word_meanings",
