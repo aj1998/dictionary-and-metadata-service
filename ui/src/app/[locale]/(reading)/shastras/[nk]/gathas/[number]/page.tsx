@@ -122,7 +122,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   }
   const teekaBhaavarth = Array.isArray(gatha.teeka_bhaavarth) ? gatha.teeka_bhaavarth : [];
   const teekaSanskrit = Array.isArray(gatha.teeka_sanskrit) ? gatha.teeka_sanskrit : [];
-  const kalashas: GathaKalash[] = Array.isArray(gatha.kalashas) ? gatha.kalashas : [];
+  const kalashas: GathaKalash[] = Array.isArray(gatha.kalashas) ? [...gatha.kalashas] : [];
   const topics = topicsResult.topics;
 
   const shastraNk = gatha.shastra.natural_key;
@@ -147,10 +147,31 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
         siblingNums.map((n) =>
           n === gathaNumStr
             ? Promise.resolve(gatha)
-            : getGatha(`${shastraNk}:गाथा:${n}`).catch(() => null),
+            : getGatha(`${shastraNk}:गाथा:${n}`, { include: ['kalashas'] }).catch(() => null),
         ),
       )
     : [gatha];
+
+  // Merge kalashas across sanyukt siblings so the "विशेष देखें" panel appears on every
+  // page of a combined-gatha block (not just the page whose own gatha node owns them).
+  if (isRelated.length > 0) {
+    const seen = new Set(kalashas.map((k) => k.natural_key));
+    for (const sg of siblingGathas) {
+      if (!sg || sg === gatha) continue;
+      const sibKalashas = Array.isArray(sg.kalashas) ? sg.kalashas : [];
+      for (const k of sibKalashas) {
+        if (seen.has(k.natural_key)) continue;
+        seen.add(k.natural_key);
+        kalashas.push(k);
+      }
+    }
+    kalashas.sort((a, b) => {
+      const an = parseInt(a.kalash_number, 10);
+      const bn = parseInt(b.kalash_number, 10);
+      if (isNaN(an) || isNaN(bn)) return a.kalash_number.localeCompare(b.kalash_number);
+      return an - bn;
+    });
+  }
   const verseEntries: GathaVerseEntry[] = siblingGathas.map((g, i) => {
     const num = siblingNums[i];
     if (!g) return { number: num };
