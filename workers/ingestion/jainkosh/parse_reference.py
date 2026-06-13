@@ -772,7 +772,7 @@ def resolve_fields(
                 v_idx += 1
             # else: skip optional group, don't advance v_idx
         else:
-            value_str = value_groups[v_idx]
+            value_str = value_groups[v_idx].lstrip("§")
             partial, mismatch = _assign_group(f_group, value_str)
             resolved.extend(partial)
             if mismatch and config.on_missing_fields:

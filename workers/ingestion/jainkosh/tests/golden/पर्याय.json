@@ -280,12 +280,33 @@
                           {
                             "text": "( कषायपाहुड़ 1/13-14/§181/217/1)",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
                             "shastra_name": "कषायपाहुड़",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "पुस्तक",
+                                "value": 1
+                              },
+                              {
+                                "field": "कषायपाहुड़-गाथा",
+                                "value": "13-14"
+                              },
+                              {
+                                "field": "प्रकरण",
+                                "value": 181
+                              },
+                              {
+                                "field": "पृष्ठ",
+                                "value": 217
+                              },
+                              {
+                                "field": "पंक्ति",
+                                "value": 1
+                              }
+                            ]
                           },
                           {
                             "text": "( नियमसार / तात्पर्यवृत्ति 14 )",
@@ -1270,7 +1291,7 @@
                       {
                         "kind": "sanskrit_text",
                         "text_devanagari": "अथवा द्वितीयप्रकारेणार्थव्यंजनपर्यायरूपेण द्विधा पर्याया भवंति।",
-                        "hindi_translation": "अथवा दूसरे प्रकार से अर्थ-पर्याय व व्यंजन-पर्यायरूप से पर्याय दो प्रकार की होती हैं।\n§77/120)।",
+                        "hindi_translation": "अथवा दूसरे प्रकार से अर्थ-पर्याय व व्यंजन-पर्यायरूप से पर्याय दो प्रकार की होती हैं।",
                         "references": [
                           {
                             "text": "पंचास्तिकाय / तात्पर्यवृत्ति/16/36/8",
@@ -1306,14 +1327,27 @@
                             "resolved_fields": []
                           },
                           {
-                            "text": "( न्यायदीपिका/3/",
+                            "text": "( न्यायदीपिका/3/§77/120)",
                             "inline_reference": true,
-                            "needs_manual_match": true,
+                            "needs_manual_match": false,
                             "is_teeka": false,
                             "teeka_name": "",
                             "shastra_name": "न्यायदीपिका",
                             "match_method": "shastra_name",
-                            "resolved_fields": []
+                            "resolved_fields": [
+                              {
+                                "field": "अधिकार",
+                                "value": 3
+                              },
+                              {
+                                "field": "प्रकरण",
+                                "value": 77
+                              },
+                              {
+                                "field": "पृष्ठ",
+                                "value": 120
+                              }
+                            ]
                           }
                         ],
                         "is_orphan_translation": false,
@@ -2199,12 +2233,29 @@
                       {
                         "text": "न्यायदीपिका/3/ §78/121/4",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "न्यायदीपिका",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 3
+                          },
+                          {
+                            "field": "प्रकरण",
+                            "value": 78
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 121
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 4
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -2478,7 +2529,7 @@
                     "hindi_translation": "जो व्यतिरकी हैं और अनित्य हैं तथा अपने काल में द्रव्य के साथ तन्मय रहती हैं ऐसी द्रव्य की अवस्था विशेष, या धर्म, या अंश पर्याय कहलाती है। 9।",
                     "references": [
                       {
-                        "text": "अध्यात्मकमल मार्तंड। वीरसेवा मंदिर/2/9",
+                        "text": "अध्यात्मकमल मार्तंड/2/9",
                         "inline_reference": false,
                         "needs_manual_match": true,
                         "is_teeka": false,
@@ -2577,7 +2628,7 @@
                     "hindi_translation": "द्रव्य को अनेक रूप परिणति क्रम से हो अर्थात् अनित्यरूप समय-समय उपजे, विनशे, वह पर्याय कही जाती है।",
                     "references": [
                       {
-                        "text": "परमात्मप्रकाश/ मूल/57",
+                        "text": "परमात्मप्रकाश/57",
                         "inline_reference": false,
                         "needs_manual_match": true,
                         "is_teeka": false,
@@ -2659,12 +2710,21 @@
                       {
                         "text": "परीक्षामुख/4/8",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "परीक्षामुख",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "परिच्छेद",
+                            "value": 4
+                          },
+                          {
+                            "field": "परीक्षामुखसूत्र",
+                            "value": 8
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -3136,12 +3196,29 @@
                       {
                         "text": "न्यायदीपिका/3/ §77/120/6",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "न्यायदीपिका",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 3
+                          },
+                          {
+                            "field": "प्रकरण",
+                            "value": 77
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 120
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 6
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -3595,12 +3672,21 @@
                       {
                         "text": "ज्ञानार्णव/6/40",
                         "inline_reference": false,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "ज्ञानार्णव",
                         "match_method": "shastra_name",
-                        "resolved_fields": []
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 6
+                          },
+                          {
+                            "field": "दोहक",
+                            "value": 40
+                          }
+                        ]
                       }
                     ],
                     "is_orphan_translation": false,
@@ -5441,7 +5527,7 @@
                   {
                     "kind": "sanskrit_text",
                     "text_devanagari": "परिणामिनौ जीवपुद्गलौ स्वभावविभावपरिणामाभ्यां शेषचत्वारि द्रव्याणि विभावव्यंजनपर्यायाभावाद् मुख्यवृत्त्या अपरिणामीनि।",
-                    "hindi_translation": null,
+                    "hindi_translation": "स्वभाव तथा विभाव पर्यायों द्वारा जीव व पुद्गल द्रव्य परिणामी हैं। शेष चार द्रव्य विभाव व्यंजन पर्याय के अभाव की मुख्यता से अपरिणामी हैं। 27।",
                     "references": [
                       {
                         "text": "पंचास्तिकाय / तात्पर्यवृत्ति/27/56/14",
@@ -5519,42 +5605,34 @@
                     "list_number": null
                   },
                   {
-                    "kind": "hindi_text",
-                    "text_devanagari": "स्वभाव तथा विभाव पर्यायों द्वारा जीव व पुद्गल द्रव्य परिणामी हैं। शेष चार द्रव्य विभाव व्यंजन पर्याय के अभाव की मुख्यता से अपरिणामी हैं। 27।",
-                    "hindi_translation": null,
-                    "references": [],
-                    "is_orphan_translation": false,
-                    "is_bullet_point": true,
-                    "raw_html": null,
-                    "table_rows": null,
-                    "target_keyword": null,
-                    "target_topic_path": null,
-                    "target_url": null,
-                    "is_self": false,
-                    "target_exists": true,
-                    "list_number": 1
-                  },
-                  {
-                    "kind": "hindi_text",
-                    "text_devanagari": "ये समान जातीय और असमान जातीय अनेक द्रव्यात्मक एक रूप द्रव्य पर्याय जीव पुद्गल में ही होती हैं, तथा अशुद्ध ही होती हैं। क्योंकि ये अनेक द्रव्यों के परस्पर संश्लेश रूप संबंध से होती हैं। धर्मादिक द्रव्यों की परस्पर संश्लेषरूप संबंध से पर्याय घटित नहीं होती, इसलिए परस्पर संबंध से अशुद्ध पर्याय भी उनमें घटित नहीं होती।",
-                    "hindi_translation": null,
-                    "references": [],
-                    "is_orphan_translation": false,
-                    "is_bullet_point": false,
-                    "raw_html": null,
-                    "table_rows": null,
-                    "target_keyword": null,
-                    "target_topic_path": null,
-                    "target_url": null,
-                    "is_self": false,
-                    "target_exists": true,
-                    "list_number": null
-                  },
-                  {
                     "kind": "sanskrit_text",
                     "text_devanagari": "धर्माधर्माकाशकालानां... विभावपर्यायास्तूपचारेण घटाकाशमित्यादि।",
                     "hindi_translation": "धर्माधर्म, आकाश तथा काल द्रव्यों के विभाव गुणपर्याय नहीं हैं। आकाश के घटाकाश, महाकाश इत्यादि की जो कहावत है, वह उपचारमात्र है।",
-                    "references": [],
+                    "references": [
+                      {
+                        "text": "परमात्मप्रकाश/टीका/1/57/57",
+                        "inline_reference": false,
+                        "needs_manual_match": false,
+                        "is_teeka": true,
+                        "teeka_name": "टीका",
+                        "shastra_name": "परमात्मप्रकाश",
+                        "match_method": "shastra_name",
+                        "resolved_fields": [
+                          {
+                            "field": "अधिकार",
+                            "value": 1
+                          },
+                          {
+                            "field": "गाथा",
+                            "value": 57
+                          },
+                          {
+                            "field": "पृष्ठ",
+                            "value": 57
+                          }
+                        ]
+                      }
+                    ],
                     "is_orphan_translation": false,
                     "is_bullet_point": false,
                     "raw_html": null,
@@ -5658,7 +5736,7 @@
       "next": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%B8%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8"
     },
     "parser_version": "jainkosh.rules/1.11.21",
-    "parsed_at": "2026-06-10T16:51:51.014120",
+    "parsed_at": "2026-06-13T10:24:27.526308",
     "warnings": []
   },
   "would_write": {
@@ -6842,12 +6920,33 @@
                 {
                   "text": "( कषायपाहुड़ 1/13-14/§181/217/1)",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "कषायपाहुड़",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "पुस्तक",
+                      "value": 1
+                    },
+                    {
+                      "field": "कषायपाहुड़-गाथा",
+                      "value": "13-14"
+                    },
+                    {
+                      "field": "प्रकरण",
+                      "value": 181
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 217
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 1
+                    }
+                  ]
                 },
                 {
                   "text": "( नियमसार / तात्पर्यवृत्ति 14 )",
@@ -7832,7 +7931,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "अथवा द्वितीयप्रकारेणार्थव्यंजनपर्यायरूपेण द्विधा पर्याया भवंति।",
-              "hindi_translation": "अथवा दूसरे प्रकार से अर्थ-पर्याय व व्यंजन-पर्यायरूप से पर्याय दो प्रकार की होती हैं।\n§77/120)।",
+              "hindi_translation": "अथवा दूसरे प्रकार से अर्थ-पर्याय व व्यंजन-पर्यायरूप से पर्याय दो प्रकार की होती हैं।",
               "references": [
                 {
                   "text": "पंचास्तिकाय / तात्पर्यवृत्ति/16/36/8",
@@ -7868,14 +7967,27 @@
                   "resolved_fields": []
                 },
                 {
-                  "text": "( न्यायदीपिका/3/",
+                  "text": "( न्यायदीपिका/3/§77/120)",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "न्यायदीपिका",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 3
+                    },
+                    {
+                      "field": "प्रकरण",
+                      "value": 77
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 120
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -8767,12 +8879,29 @@
                 {
                   "text": "न्यायदीपिका/3/ §78/121/4",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "न्यायदीपिका",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 3
+                    },
+                    {
+                      "field": "प्रकरण",
+                      "value": 78
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 121
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 4
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -9047,7 +9176,7 @@
               "hindi_translation": "जो व्यतिरकी हैं और अनित्य हैं तथा अपने काल में द्रव्य के साथ तन्मय रहती हैं ऐसी द्रव्य की अवस्था विशेष, या धर्म, या अंश पर्याय कहलाती है। 9।",
               "references": [
                 {
-                  "text": "अध्यात्मकमल मार्तंड। वीरसेवा मंदिर/2/9",
+                  "text": "अध्यात्मकमल मार्तंड/2/9",
                   "inline_reference": false,
                   "needs_manual_match": true,
                   "is_teeka": false,
@@ -9147,7 +9276,7 @@
               "hindi_translation": "द्रव्य को अनेक रूप परिणति क्रम से हो अर्थात् अनित्यरूप समय-समय उपजे, विनशे, वह पर्याय कही जाती है।",
               "references": [
                 {
-                  "text": "परमात्मप्रकाश/ मूल/57",
+                  "text": "परमात्मप्रकाश/57",
                   "inline_reference": false,
                   "needs_manual_match": true,
                   "is_teeka": false,
@@ -9229,12 +9358,21 @@
                 {
                   "text": "परीक्षामुख/4/8",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "परीक्षामुख",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "परिच्छेद",
+                      "value": 4
+                    },
+                    {
+                      "field": "परीक्षामुखसूत्र",
+                      "value": 8
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -9711,12 +9849,29 @@
                 {
                   "text": "न्यायदीपिका/3/ §77/120/6",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "न्यायदीपिका",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 3
+                    },
+                    {
+                      "field": "प्रकरण",
+                      "value": 77
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 120
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 6
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -10175,12 +10330,21 @@
                 {
                   "text": "ज्ञानार्णव/6/40",
                   "inline_reference": false,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "ज्ञानार्णव",
                   "match_method": "shastra_name",
-                  "resolved_fields": []
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 6
+                    },
+                    {
+                      "field": "दोहक",
+                      "value": 40
+                    }
+                  ]
                 }
               ],
               "is_orphan_translation": false,
@@ -12028,7 +12192,7 @@
             {
               "kind": "sanskrit_text",
               "text_devanagari": "परिणामिनौ जीवपुद्गलौ स्वभावविभावपरिणामाभ्यां शेषचत्वारि द्रव्याणि विभावव्यंजनपर्यायाभावाद् मुख्यवृत्त्या अपरिणामीनि।",
-              "hindi_translation": null,
+              "hindi_translation": "स्वभाव तथा विभाव पर्यायों द्वारा जीव व पुद्गल द्रव्य परिणामी हैं। शेष चार द्रव्य विभाव व्यंजन पर्याय के अभाव की मुख्यता से अपरिणामी हैं। 27।",
               "references": [
                 {
                   "text": "पंचास्तिकाय / तात्पर्यवृत्ति/27/56/14",
@@ -12106,42 +12270,34 @@
               "list_number": null
             },
             {
-              "kind": "hindi_text",
-              "text_devanagari": "स्वभाव तथा विभाव पर्यायों द्वारा जीव व पुद्गल द्रव्य परिणामी हैं। शेष चार द्रव्य विभाव व्यंजन पर्याय के अभाव की मुख्यता से अपरिणामी हैं। 27।",
-              "hindi_translation": null,
-              "references": [],
-              "is_orphan_translation": false,
-              "is_bullet_point": true,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true,
-              "list_number": 1
-            },
-            {
-              "kind": "hindi_text",
-              "text_devanagari": "ये समान जातीय और असमान जातीय अनेक द्रव्यात्मक एक रूप द्रव्य पर्याय जीव पुद्गल में ही होती हैं, तथा अशुद्ध ही होती हैं। क्योंकि ये अनेक द्रव्यों के परस्पर संश्लेश रूप संबंध से होती हैं। धर्मादिक द्रव्यों की परस्पर संश्लेषरूप संबंध से पर्याय घटित नहीं होती, इसलिए परस्पर संबंध से अशुद्ध पर्याय भी उनमें घटित नहीं होती।",
-              "hindi_translation": null,
-              "references": [],
-              "is_orphan_translation": false,
-              "is_bullet_point": false,
-              "raw_html": null,
-              "table_rows": null,
-              "target_keyword": null,
-              "target_topic_path": null,
-              "target_url": null,
-              "is_self": false,
-              "target_exists": true,
-              "list_number": null
-            },
-            {
               "kind": "sanskrit_text",
               "text_devanagari": "धर्माधर्माकाशकालानां... विभावपर्यायास्तूपचारेण घटाकाशमित्यादि।",
               "hindi_translation": "धर्माधर्म, आकाश तथा काल द्रव्यों के विभाव गुणपर्याय नहीं हैं। आकाश के घटाकाश, महाकाश इत्यादि की जो कहावत है, वह उपचारमात्र है।",
-              "references": [],
+              "references": [
+                {
+                  "text": "परमात्मप्रकाश/टीका/1/57/57",
+                  "inline_reference": false,
+                  "needs_manual_match": false,
+                  "is_teeka": true,
+                  "teeka_name": "टीका",
+                  "shastra_name": "परमात्मप्रकाश",
+                  "match_method": "shastra_name",
+                  "resolved_fields": [
+                    {
+                      "field": "अधिकार",
+                      "value": 1
+                    },
+                    {
+                      "field": "गाथा",
+                      "value": 57
+                    },
+                    {
+                      "field": "पृष्ठ",
+                      "value": 57
+                    }
+                  ]
+                }
+              ],
               "is_orphan_translation": false,
               "is_bullet_point": false,
               "raw_html": null,
@@ -12357,6 +12513,17 @@
             "teeka_natural_key": "धवला:टीका",
             "publisher_id": "8",
             "page_number": "84"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "कषायपाहुड़:टीका:13:पृष्ठ:217",
+          "props": {
+            "shastra_natural_key": "कषायपाहुड़",
+            "teeka_natural_key": "कषायपाहुड़:टीका",
+            "publisher_id": "13",
+            "page_number": "217"
           },
           "lazy": true
         },
@@ -12763,6 +12930,17 @@
           "lazy": true
         },
         {
+          "label": "Page",
+          "key": "न्यायदीपिका:टीका:24:पृष्ठ:120",
+          "props": {
+            "shastra_natural_key": "न्यायदीपिका",
+            "teeka_natural_key": "न्यायदीपिका:टीका",
+            "publisher_id": "24",
+            "page_number": "120"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:स्वभाव-पर्याय-व-विभाव-पर्याय",
           "props": {
@@ -12985,6 +13163,17 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "Page",
+          "key": "न्यायदीपिका:टीका:24:पृष्ठ:121",
+          "props": {
+            "shastra_natural_key": "न्यायदीपिका",
+            "teeka_natural_key": "न्यायदीपिका:टीका",
+            "publisher_id": "24",
+            "page_number": "121"
+          },
+          "lazy": true
         },
         {
           "label": "Topic",
@@ -13353,6 +13542,15 @@
             "source": "jainkosh",
             "is_leaf": true
           }
+        },
+        {
+          "label": "Gatha",
+          "key": "ज्ञानार्णव:गाथा:40",
+          "props": {
+            "shastra_natural_key": "ज्ञानार्णव",
+            "gatha_number": "40"
+          },
+          "lazy": true
         },
         {
           "label": "GathaTeeka",
@@ -13809,6 +14007,27 @@
           "lazy": true
         },
         {
+          "label": "GathaTeeka",
+          "key": "परमात्मप्रकाश:टीका:गाथा:टीका:57",
+          "props": {
+            "shastra_natural_key": "परमात्मप्रकाश",
+            "teeka_natural_key": "परमात्मप्रकाश:टीका",
+            "gatha_number": "57"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:57",
+          "props": {
+            "shastra_natural_key": "परमात्मप्रकाश",
+            "teeka_natural_key": "परमात्मप्रकाश:टीका",
+            "publisher_id": "23",
+            "page_number": "57"
+          },
+          "lazy": true
+        },
+        {
           "label": "Topic",
           "key": "पर्याय:भेद-व-लक्षण:कर्म-का-अर्थ-पर्याय",
           "props": {
@@ -14041,6 +14260,25 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ/0",
+            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "कषायपाहुड़:टीका:13:पृष्ठ:217"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 1,
             "block_index": 0,
             "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ/0",
             "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ"
@@ -14776,6 +15014,24 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "न्यायदीपिका:टीका:24:पृष्ठ:120"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:अर्थपर्याय-व-व्यंजनपर्याय"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:अर्थपर्याय-व-व्यंजनपर्याय/0",
+            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:अर्थपर्याय-व-व्यंजनपर्याय"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -15442,6 +15698,25 @@
           }
         },
         {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "न्यायदीपिका:टीका:24:पृष्ठ:121"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:पर्याय-सामान्य-निर्देश:गुण-से-पृथक्-पर्याय-निर्देश-का-कारण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 4,
+            "block_index": 0,
+            "mention_path": "पर्याय:पर्याय-सामान्य-निर्देश:गुण-से-पृथक्-पर्याय-निर्देश-का-कारण/0",
+            "source_natural_key": "पर्याय:पर्याय-सामान्य-निर्देश:गुण-से-पृथक्-पर्याय-निर्देश-का-कारण"
+          }
+        },
+        {
           "type": "PART_OF",
           "from": {
             "label": "Topic",
@@ -16082,6 +16357,25 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
+            "label": "Page",
+            "key": "न्यायदीपिका:टीका:24:पृष्ठ:120"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-के-लक्षण-व-उदाहरण"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "pankti": 6,
+            "block_index": 6,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-के-लक्षण-व-उदाहरण/6",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-के-लक्षण-व-उदाहरण"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
             "label": "GathaTeeka",
             "key": "प्रवचनसार:तात्पर्यवृत्ति:गाथा:टीका:80"
           },
@@ -16372,6 +16666,24 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "ज्ञानार्णव:गाथा:40"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-का-स्वामित्व"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-का-स्वामित्व/0",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:अर्थ-व-व्यंजन-पर्याय-का-स्वामित्व"
           }
         },
         {
@@ -17890,6 +18202,42 @@
             "pankti": 17,
             "block_index": 1,
             "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-व-विभाव-पर्यायों-का-स्वामित्व/1",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-व-विभाव-पर्यायों-का-स्वामित्व"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "परमात्मप्रकाश:टीका:गाथा:टीका:57"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-व-विभाव-पर्यायों-का-स्वामित्व"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-व-विभाव-पर्यायों-का-स्वामित्व/2",
+            "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-व-विभाव-पर्यायों-का-स्वामित्व"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Page",
+            "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:57"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-व-विभाव-पर्यायों-का-स्वामित्व"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 2,
+            "mention_path": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-व-विभाव-पर्यायों-का-स्वामित्व/2",
             "source_natural_key": "पर्याय:स्वभाव-विभाव-अर्थ-व्यंजन-व-द्रव्य-गुण-पर्याय-निर्देश:स्वभाव-व-विभाव-पर्यायों-का-स्वामित्व"
           }
         },
