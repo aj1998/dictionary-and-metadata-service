@@ -207,5 +207,12 @@
   },
   "skeleton": {
     "loading": "Loading…"
+  },
+  "common": {
+    "all_sources": "All sources",
+    "apply": "Apply",
+    "show_intermediate": "Show intermediate topics",
+    "search_topic": "Search topic",
+    "search_shastra": "Search shastra"
   }
 }
