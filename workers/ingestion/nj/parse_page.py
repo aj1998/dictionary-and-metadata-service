@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import dataclasses
 import re
 import unicodedata
 from pathlib import Path
@@ -101,6 +102,20 @@ def _parse_page_html_id(soup: BeautifulSoup, cfg: NJConfig) -> str:
 
 
 _VERSE_END_MARKER_RE = re.compile(r"(?:॥\s*[\d०-९]+\s*॥|\|\|\s*[\d०-९]+\s*\|\||॥|\|\|)")
+
+# Mid-verse `<span class=comment>(N)</span>` marker — authoritative primary gatha number when present.
+_COMMENT_NUM_RE = re.compile(r"\(\s*([\d०-९]+)\s*\)")
+
+
+def _extract_primary_comment_number(soup: BeautifulSoup, cfg: NJConfig) -> str | None:
+    gatha_div = soup.select_one(cfg.selectors.gatha_prakrit)
+    if not gatha_div:
+        return None
+    for span in gatha_div.find_all("span", class_="comment"):
+        m = _COMMENT_NUM_RE.search(span.get_text())
+        if m:
+            return m.group(1).translate(_DEV_DIGIT_MAP)
+    return None
 
 
 def _expand_gatha_numbers(gatha_number: str) -> list[str]:
@@ -222,7 +237,7 @@ def _parse_body_fields(
         GathaHindiChhand(
             chhand_index=i + 1,
             chhand_type="harigeet",
-            text_hi=_clean_preserve_newlines(d.get_text("\n", strip=False)),
+            text_hi=_clean_verse_text(d.get_text("\n", strip=False)),
         )
         for i, d in enumerate(body_gadyas)
     ]
@@ -257,6 +272,17 @@ def parse_primary_page(
     global_kalash_start: int,
 ) -> tuple[list[GathaExtract], int]:
     """Parse a primary-gatha page; returns (expanded_gathas, kalash_delta)."""
+    # `<span class=comment>(N)</span>` inside `<div class=gatha>` is the authoritative
+    # primary gatha number for single-gatha pages — overrides myItem.js when present.
+    # Combined pages (e.g. "030-031") carry only one comment value matching the start
+    # of the range; skip the override there and trust myItem.js.
+    comment_num = _extract_primary_comment_number(soup, cfg)
+    if comment_num and "-" not in idx_entry.gatha_number:
+        width = len(idx_entry.gatha_number)
+        normalized = comment_num.zfill(width) if comment_num.isdigit() else comment_num
+        if normalized != idx_entry.gatha_number:
+            idx_entry = dataclasses.replace(idx_entry, gatha_number=normalized)
+
     prakrit_text, sanskrit_text, hindi_chhands, anyavartha, prakrit_verse_markers = _parse_body_fields(soup, cfg)
     # Single-gatha page → first marker is canonical; combined pages override per-chunk below.
     prakrit_verse_marker = prakrit_verse_markers[0] if prakrit_verse_markers else None

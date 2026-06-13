@@ -85,7 +85,7 @@ Each HTML file gets one of three classifications:
 **Body-level content** (before the teeka `<table>`):
 - `div.gatha` → `prakrit_text` — cleaned by `_clean_verse_text`: strips `(N)` mid-verse line-number labels (ASCII and Devanagari digits), strips trailing `॥N॥`/`||N||` verse-end markers. **Before** stripping, `_parse_body_fields` scans the *raw* Prakrit text and captures every numbered marker into `prakrit_verse_markers: list[str]` (NFC-normalised, Devanagari digits converted to ASCII). For single-gatha pages the first marker is assigned to `GathaExtract.prakrit_verse_marker`; for combined pages it is sliced per chunk in source order (see Step 4). This carries the source's per-page verse number — typically the secondary teeka's gatha numbering — through to Postgres `gathas.prakrit_verse_marker` (migration `0023`) and is shown in the UI breadcrumb (e.g. `गाथा १०६ (आत्मख्याति) | गाथा ११३ (तात्पर्यवृत्ति)` for `112-113.html`).
 - `div.gathaS` → `sanskrit_text` (optional) — same `_clean_verse_text` pass applied.
-- `div.gadya` (outside teeka divs) → `hindi_chhands[]` (type defaults to `"harigeet"`)
+- `div.gadya` (outside teeka divs) → `hindi_chhands[]` (type defaults to `"harigeet"`); text cleaned by `_clean_verse_text` — strips `(N)` mid-verse labels and trailing `॥N॥`/`||N||` verse-end markers (same pass as Prakrit/Sanskrit)
 - `div.paragraph` containing `अन्वयार्थ` → `anyavartha` (full text + tagged term list)
 
 **Primary teeka** (`div#teeka0`, only if it starts with the primary teeka label):
