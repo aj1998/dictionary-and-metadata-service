@@ -314,21 +314,25 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
                 highlight={highlightFor(match, kalash.sanskrit.natural_key, joinedLangText(kalash.sanskrit.text))}
               />
             )}
-            {kalash.word_meanings && kalash.word_meanings.entries.length > 0 && (
+            {kalash.word_meanings && (kalash.word_meanings.entries.length > 0 || !!kalash.word_meanings.full_anyavaarth) && (
               <section className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
                 <h2 className="mb-3 font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">शब्दार्थ</h2>
-                <ShabdaArthSection
-                  entries={[...kalash.word_meanings.entries]
-                    .sort((a, b) => a.position - b.position)
-                    .map((e) => ({ word: e.source_word, meaning: e.meaning, position: e.position, startOffset: e.start_offset ?? undefined, endOffset: e.end_offset ?? undefined }))}
-                  anvayarth={
-                    kalash.word_meanings.full_anyavaarth
-                      || [...kalash.word_meanings.entries]
-                        .sort((a, b) => a.position - b.position)
-                        .map((e) => e.meaning)
-                        .join(' ')
-                  }
-                />
+                {kalash.word_meanings.entries.length > 0 ? (
+                  <ShabdaArthSection
+                    entries={[...kalash.word_meanings.entries]
+                      .sort((a, b) => a.position - b.position)
+                      .map((e) => ({ word: e.source_word, meaning: e.meaning, position: e.position, startOffset: e.start_offset ?? undefined, endOffset: e.end_offset ?? undefined }))}
+                    anvayarth={
+                      kalash.word_meanings.full_anyavaarth
+                        || [...kalash.word_meanings.entries]
+                          .sort((a, b) => a.position - b.position)
+                          .map((e) => e.meaning)
+                          .join(' ')
+                    }
+                  />
+                ) : (
+                  <p className="font-serif-hindi text-sm leading-8 text-foreground">{kalash.word_meanings.full_anyavaarth}</p>
+                )}
               </section>
             )}
           </>
@@ -433,13 +437,13 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   ]
     .filter(Boolean)
     .join(' ');
-  // When the source marker is missing (older ingestion, or no ॥N॥ in source) but a
-  // secondary teeka exists, assume both teekas share the same gatha number — show
-  // "गाथा N (आत्मख्याति) | गाथा N (तात्पर्यवृत्ति)". Suppressed when no secondary
-  // teeka is detected at all (single-teeka shastras).
-  const secondaryNumDev = markerDev ?? canonicalGathaDev;
-  const secondarySegment = secondaryTeekaNk
-    ? `${gathaLbl} ${secondaryNumDev} (${teekaShortName(secondaryTeekaNk)})`
+  // Only show the secondary-teeka segment when the source provides an explicit
+  // ॥N॥ verse marker for this gatha. A missing marker means the gatha is not
+  // independently numbered in the secondary teeka (e.g. samaysar 119/120 fall
+  // inside the combined 116-120 तात्पर्यवृत्ति block with bare ॥ ends), so we
+  // must not attribute a secondary-teeka numbering to it.
+  const secondarySegment = secondaryTeekaNk && markerDev
+    ? `${gathaLbl} ${markerDev} (${teekaShortName(secondaryTeekaNk)})`
     : null;
   const gathaLeafLabel = [primarySegment, secondarySegment]
     .filter(Boolean)
