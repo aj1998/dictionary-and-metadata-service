@@ -47,7 +47,10 @@ export function TabbedPanel({ title, items, emptyMessage, bodyClassName, showAct
   const current = items[Math.min(active, items.length - 1)];
 
   return (
-    <section className="rounded-[var(--radius-md)] border border-border bg-surface shadow-node overflow-hidden" style={panelAccentRootStyle(accent)}>
+    <section
+      className="rounded-[var(--radius-md)] border border-border bg-surface shadow-node overflow-hidden"
+      style={panelAccentRootStyle(accent)}
+    >
       {(title || (showActions && current.actionsSourceNk)) && (
         <div
           className={cn('flex items-start justify-between gap-2 px-5 py-3', accent ? 'border-b' : '')}

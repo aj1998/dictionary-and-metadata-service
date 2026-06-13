@@ -45,9 +45,13 @@ export function TeekaPanel({ items, showActions, notice, accent }: TeekaPanelPro
   }
 
   const current = items[active] ?? items[0];
+  const hasAnyHighlight = items.some((it) => it.highlight != null);
 
   return (
-    <section className="rounded-[var(--radius-md)] border border-border bg-surface shadow-node overflow-hidden" style={panelAccentRootStyle(accent)}>
+    <section
+      className="rounded-[var(--radius-md)] border border-border bg-surface shadow-node overflow-hidden"
+      style={panelAccentRootStyle(accent)}
+    >
       <div className={cn('flex items-start justify-between gap-2 px-5 py-3', accent ? 'border-b' : '')} style={panelAccentHeaderStyle(accent)}>
         <div className="flex flex-wrap items-center gap-2">
           <h3 className="font-serif-hindi text-base font-semibold" style={panelAccentTitleStyle(accent)}>{teekaTitle}</h3>
@@ -71,7 +75,8 @@ export function TeekaPanel({ items, showActions, notice, accent }: TeekaPanelPro
                 'shrink-0 pb-2 pt-1 px-3 text-xs font-medium border-b-2 transition-colors whitespace-nowrap',
                 i === active
                   ? 'border-accent text-accent'
-                  : 'border-transparent text-foreground-muted hover:text-foreground'
+                  : 'border-transparent text-foreground-muted hover:text-foreground',
+                item.highlight != null && i !== active && 'text-accent',
               )}
             >
               {item.label}

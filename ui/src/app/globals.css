@@ -233,6 +233,22 @@
   animation: shimmer 1.4s infinite;
 }
 
+/* Pulse the panel that contains a matcher hit just after navigation, so the
+ * user's eye is drawn to it. Uses box-shadow so it doesn't fight the panel's
+ * own border-color (which may be a category-accent tint). */
+@keyframes match-pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 70%, transparent); }
+  50%  { box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 0%, transparent); }
+}
+
+.match-pulse {
+  animation: match-pulse 1.2s ease-out 0s 3;
+  border-color: var(--accent) !important;
+  border-width: 2px !important;
+  border-radius: var(--radius-md);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0ms !important;
@@ -241,5 +257,8 @@
   .shimmer {
     animation: none;
     background: var(--surface-muted);
+  }
+  .match-pulse {
+    animation: none;
   }
 }

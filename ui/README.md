@@ -743,7 +743,11 @@ Flow:
    - `match.status === 'matched'`
    - the current panel `naturalKey` equals `match.target.natural_key`
    - `char_start` and `char_end` are valid in NFC-normalized text
-4. **Window-level match indicator.** `BhaavarthPanel` adds a `ring-2 ring-accent border-accent` outline whenever a `highlight` prop is set, so the matched window is visually outlined in addition to the inline `<mark>`. `TabbedPanel` accepts a per-item `hasMatch` flag: the first item with `hasMatch` becomes the initial active tab, and matching tabs keep an accent-coloured label when not active. The gatha page computes `hasMatch` for kalash tabs (by checking all child natural keys — prakrit / sanskrit / hindi / bhaavarth) and for hindi-bhaavarth tabs (by direct natural-key compare against `match.target.natural_key`).
+4. **Window-level match indicator.** Instead of a static border (which fought every panel's own category-accent and rendered unevenly), the matched window now flashes a three-cycle `match-pulse` animation right after the page mounts. Mechanics:
+   - The CSS keyframes + `.match-pulse` class are defined in `src/app/globals.css`. The class drives a 1.2s × 3 box-shadow ripple in `var(--accent)` and applies a 2px accent border for the duration of the pulse; both are stripped automatically after ~4.2s. `prefers-reduced-motion` disables the animation.
+   - `HighlightScrollIntoView` (already responsible for `scrollIntoView` on `?match=`) finds the element with `data-match-target="<nk>"`, walks up to the closest `<section>` (the panel root), adds `match-pulse`, and removes it on a timeout / on unmount.
+   - All four panel components (`GathaPanel`, `BhaavarthPanel`, `TeekaPanel`, and any plain section that emits `data-match-target`) participate automatically — no per-panel ring/border code, so category-accent styling is preserved.
+   - Tab auto-activation is still wired separately: `TeekaPanel` auto-activates the tab whose item has a `highlight`; `TabbedPanel` does the same via the per-item `hasMatch` flag. The gatha page computes `hasMatch` for kalash tabs (by checking all child natural keys — prakrit / sanskrit / hindi / bhaavarth) and for hindi-bhaavarth tabs (by direct natural-key compare against `match.target.natural_key`). Matching tabs keep an accent-coloured label when not active.
 
 Supported highlighted targets today:
 
