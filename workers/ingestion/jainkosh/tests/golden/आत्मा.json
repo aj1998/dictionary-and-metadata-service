@@ -46,7 +46,7 @@
                         "value": 282
                       },
                       {
-                        "field": "धवलागाथा",
+                        "field": "पंक्ति",
                         "value": 9
                       }
                     ]
@@ -805,7 +805,7 @@
       "next": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%81%E0%A4%B2"
     },
     "parser_version": "jainkosh.rules/1.11.22",
-    "parsed_at": "2026-06-14T19:57:44.614978",
+    "parsed_at": "2026-06-14T22:08:25.329209",
     "warnings": []
   },
   "would_write": {
@@ -999,7 +999,7 @@
                               "value": 282
                             },
                             {
-                              "field": "धवलागाथा",
+                              "field": "पंक्ति",
                               "value": 9
                             }
                           ]
@@ -2579,6 +2579,7 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
+            "pankti": 9,
             "block_index": 0,
             "mention_path": "0/1/0",
             "source_natural_key": "आत्मा",

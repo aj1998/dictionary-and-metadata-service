@@ -845,7 +845,7 @@
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
-                            "field": "भाग",
+                            "field": "पुस्तक",
                             "value": 2
                           },
                           {
@@ -987,7 +987,7 @@
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
-                            "field": "भाग",
+                            "field": "पुस्तक",
                             "value": 7
                           },
                           {
@@ -1095,7 +1095,7 @@
                             "value": 162
                           },
                           {
-                            "field": "धवलागाथा",
+                            "field": "पंक्ति",
                             "value": 103
                           }
                         ]
@@ -1147,7 +1147,7 @@
                             "value": 162
                           },
                           {
-                            "field": "धवलागाथा",
+                            "field": "पंक्ति",
                             "value": 103
                           }
                         ]
@@ -1448,7 +1448,7 @@
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
-                            "field": "भाग",
+                            "field": "पुस्तक",
                             "value": 5
                           },
                           {
@@ -1516,7 +1516,7 @@
                             "value": 450
                           },
                           {
-                            "field": "धवलागाथा",
+                            "field": "पंक्ति",
                             "value": 5
                           }
                         ]
@@ -1568,7 +1568,7 @@
                             "value": 451
                           },
                           {
-                            "field": "धवलागाथा",
+                            "field": "पंक्ति",
                             "value": 5
                           }
                         ]
@@ -1637,7 +1637,7 @@
                             "value": 450
                           },
                           {
-                            "field": "धवलागाथा",
+                            "field": "पंक्ति",
                             "value": 6
                           }
                         ]
@@ -1743,7 +1743,7 @@
                             "value": 450
                           },
                           {
-                            "field": "धवलागाथा",
+                            "field": "पंक्ति",
                             "value": 7
                           }
                         ]
@@ -2111,7 +2111,7 @@
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
-                            "field": "भाग",
+                            "field": "पुस्तक",
                             "value": 5
                           },
                           {
@@ -3888,7 +3888,7 @@
                             "value": 27
                           },
                           {
-                            "field": "धवलागाथा",
+                            "field": "पंक्ति",
                             "value": 6
                           }
                         ]
@@ -4422,7 +4422,7 @@
       "next": "/wiki/Aaaa"
     },
     "parser_version": "jainkosh.rules/1.11.22",
-    "parsed_at": "2026-06-14T19:57:44.810972",
+    "parsed_at": "2026-06-14T22:08:25.518507",
     "warnings": []
   },
   "would_write": {
@@ -5893,7 +5893,7 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "भाग",
+                      "field": "पुस्तक",
                       "value": 2
                     },
                     {
@@ -6035,7 +6035,7 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "भाग",
+                      "field": "पुस्तक",
                       "value": 7
                     },
                     {
@@ -6143,7 +6143,7 @@
                       "value": 162
                     },
                     {
-                      "field": "धवलागाथा",
+                      "field": "पंक्ति",
                       "value": 103
                     }
                   ]
@@ -6195,7 +6195,7 @@
                       "value": 162
                     },
                     {
-                      "field": "धवलागाथा",
+                      "field": "पंक्ति",
                       "value": 103
                     }
                   ]
@@ -6497,7 +6497,7 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "भाग",
+                      "field": "पुस्तक",
                       "value": 5
                     },
                     {
@@ -6565,7 +6565,7 @@
                       "value": 450
                     },
                     {
-                      "field": "धवलागाथा",
+                      "field": "पंक्ति",
                       "value": 5
                     }
                   ]
@@ -6617,7 +6617,7 @@
                       "value": 451
                     },
                     {
-                      "field": "धवलागाथा",
+                      "field": "पंक्ति",
                       "value": 5
                     }
                   ]
@@ -6687,7 +6687,7 @@
                       "value": 450
                     },
                     {
-                      "field": "धवलागाथा",
+                      "field": "पंक्ति",
                       "value": 6
                     }
                   ]
@@ -6794,7 +6794,7 @@
                       "value": 450
                     },
                     {
-                      "field": "धवलागाथा",
+                      "field": "पंक्ति",
                       "value": 7
                     }
                   ]
@@ -7165,7 +7165,7 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "भाग",
+                      "field": "पुस्तक",
                       "value": 5
                     },
                     {
@@ -8957,7 +8957,7 @@
                       "value": 27
                     },
                     {
-                      "field": "धवलागाथा",
+                      "field": "पंक्ति",
                       "value": 6
                     }
                   ]
@@ -11731,6 +11731,7 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
+            "pankti": 103,
             "block_index": 4,
             "mention_path": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग/4",
             "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
@@ -11749,6 +11750,7 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
+            "pankti": 103,
             "block_index": 5,
             "mention_path": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग/5",
             "source_natural_key": "गुण:गुण-निर्देश:गुण-का-अनेक-अर्थों-में-प्रयोग"
@@ -11928,6 +11930,7 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
+            "pankti": 5,
             "block_index": 6,
             "mention_path": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग/6",
             "source_natural_key": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग"
@@ -11946,6 +11949,7 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
+            "pankti": 5,
             "block_index": 7,
             "mention_path": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग/7",
             "source_natural_key": "गुण:गुण-निर्देश:गुणांश-के-अर्थ-में-गुण-शब्द-का-प्रयोग"
@@ -11979,6 +11983,7 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
+            "pankti": 6,
             "block_index": 0,
             "mention_path": "गुण:गुण-निर्देश:एक-अखंड-गुण-में-अविभागी-प्रतिच्छेदरूप-खंड-कल्पना/0",
             "source_natural_key": "गुण:गुण-निर्देश:एक-अखंड-गुण-में-अविभागी-प्रतिच्छेदरूप-खंड-कल्पना"
@@ -12012,6 +12017,7 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
+            "pankti": 7,
             "block_index": 0,
             "mention_path": "गुण:गुण-निर्देश:उपरोक्त-खंड-कल्पना-में-हेतु-तथा-भेदअभेद-समन्वय/0",
             "source_natural_key": "गुण:गुण-निर्देश:उपरोक्त-खंड-कल्पना-में-हेतु-तथा-भेदअभेद-समन्वय"
@@ -13468,6 +13474,7 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
+            "pankti": 6,
             "block_index": 0,
             "mention_path": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं/0",
             "source_natural_key": "गुण:द्रव्य-गुण-संबंध:द्रव्य-में-अनंत-गुण-हैं"

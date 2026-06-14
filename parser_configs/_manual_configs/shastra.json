@@ -129,7 +129,25 @@
     "type": "publication",
     "alternate_name": "",
     "public_url": "https://jainworld.com/languages/jw-in-indian-languages/prakrut/jay-dhavala-hindi/",
-    "link_not_found": false
+    "pustak_offsets": {
+      "1": 134,
+      "2": 16,
+      "3": 11,
+      "4": 15,
+      "5": 22,
+      "6": 5,
+      "7": 20,
+      "8": 6,
+      "9": 19,
+      "10": 13,
+      "11": 14,
+      "12": 45,
+      "13": 35,
+      "14": 36,
+      "15": 27,
+      "16": 25
+    },
+    "pdf_filename": "kashaay_pahud"
   },
   {
     "shastra_name": "कार्तिकेयानुप्रेक्षा",
@@ -558,8 +576,10 @@
     "shastra_name": "धवला",
     "short_form": "ध",
     "format": [
+      "पुस्तक/खण्ड,भाग,धवलासूत्र/{श्लोक/गाथा}धवलागाथा/पृष्ठ/पंक्ति",
+      "पुस्तक/खण्ड,भाग,धवलासूत्र/धवलागाथा/पृष्ठ/पंक्ति",
       "पुस्तक/खण्ड,भाग,धवलासूत्र/{श्लोक/गाथा}धवलागाथा/पृष्ठ",
-      "पुस्तक/खण्ड,भाग,धवलासूत्र/पृष्ठ/धवलागाथा",
+      "पुस्तक/खण्ड,भाग,धवलासूत्र/पृष्ठ/पंक्ति",
       "पुस्तक/खण्ड,भाग,धवलासूत्र/पृष्ठ",
       "पुस्तक/पृष्ठ/पंक्ति"
     ],
@@ -571,8 +591,26 @@
     "edition": "",
     "type": "publication",
     "alternate_name": "",
-    "public_url": "",
-    "link_not_found": false
+    "public_url": "https://jainworld.com/languages/jw-in-indian-languages/prakrut/dhavala-hindi/",
+    "pustak_offsets": {
+      "1": 114,
+      "2": 96,
+      "3": 42,
+      "4": 88,
+      "5": 46,
+      "6": 46,
+      "7": 29,
+      "8": 36,
+      "9": 10,
+      "10": 36,
+      "11": 15,
+      "12": 18,
+      "13": 26,
+      "14": 25,
+      "15": 22,
+      "16": -318
+    },
+    "pdf_filename": "dhavala"
   },
   {
     "shastra_name": "नयचक्र बृहद्",
@@ -1171,7 +1209,7 @@
     "shastra_name": "राजवार्तिक",
     "short_form": "रा.वा.",
     "format": [
-      "भाग/अध्याय/राजवार्तिकसूत्र/पृष्ठ/पंक्ति",
+      "पुस्तक/अध्याय/राजवार्तिकसूत्र/पृष्ठ/पंक्ति",
       "अध्याय/राजवार्तिकसूत्र/पृष्ठ/पंक्ति"
     ],
     "author": "",
@@ -1183,7 +1221,15 @@
     "type": "publication",
     "alternate_name": "",
     "public_url": "",
-    "link_not_found": false
+    "public_urls": {
+      "1": "https://archive.org/details/in.ernet.dli.2015.344486/page/n1/mode/2up",
+      "2": "https://archive.org/details/in.ernet.dli.2015.327372/page/n1/mode/2up"
+    },
+    "pdf_filename": "raajvaartik",
+    "pustak_offsets": {
+      "1": 15,
+      "2": -409
+    }
   },
   {
     "shastra_name": "राजवार्तिक हिन्दी",
@@ -1312,8 +1358,17 @@
     "edition": "",
     "type": "publication",
     "alternate_name": "",
-    "public_url": "",
-    "link_not_found": false
+    "public_url": "https://jainqq.org/?q=Book_Devnagari%20shlokavartik&browse=1",
+    "pdf_filename": "shlokavaartik",
+    "pustak_offsets": {
+      "1": 7,
+      "2": 13,
+      "3": 14,
+      "4": 12,
+      "5": 12,
+      "6": 17,
+      "7": 25
+    }
   },
   {
     "shastra_name": "षट्खण्डागम",
