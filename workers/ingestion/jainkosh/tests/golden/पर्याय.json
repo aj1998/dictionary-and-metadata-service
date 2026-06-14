@@ -4281,7 +4281,7 @@
                   },
                   {
                     "kind": "prakrit_text",
-                    "text_devanagari": "अण्णणिरावेक्खो जो परिणामो सो सहावपज्जावो। 28।",
+                    "text_devanagari": "अण्णणिरावेक्खो जो परिणामो सो सहावपज्जाओ। 28।",
                     "hindi_translation": "अन्य की अपेक्षा से रहित जो (परमाणु का) परिणाम वह (पुद्गल द्रव्य की) स्वभाव पर्याय है। 28।",
                     "references": [
                       {
@@ -4569,7 +4569,7 @@
                 "blocks": [
                   {
                     "kind": "prakrit_text",
-                    "text_devanagari": "णरणारयतिरियसुरा पज्जाया ते विभावमिदि भणिदा। 15।",
+                    "text_devanagari": "णरणारयतिरियसुरा पज्जाया ते विहावमिदि भणिदा। 15।",
                     "hindi_translation": "मनुष्य, नारक, तिर्यंच और देवरूप पर्यायें, वे (जीव द्रव्य की) विभाव पर्यायें कही गयी हैं। 15।",
                     "references": [
                       {
@@ -4863,7 +4863,7 @@
                   },
                   {
                     "kind": "sanskrit_text",
-                    "text_devanagari": "स्कंधपर्यायः स्वजातीयबंधलक्षणलक्षित्वादशुद्धः इति।",
+                    "text_devanagari": "स्कंधपर्यायः स्वजातीयबंधलक्षणलक्षित्वादशुद्ध इति।",
                     "hindi_translation": "स्कंध पर्याय स्व जातीय बंधरूप लक्षण से लक्षित होने के कारण अशुद्ध है।",
                     "references": [
                       {
@@ -5762,8 +5762,8 @@
       "prev": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AA%E0%A5%8D%E0%A4%A4%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%B2",
       "next": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%B8%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8"
     },
-    "parser_version": "jainkosh.rules/1.11.21",
-    "parsed_at": "2026-06-14T19:04:36.537885",
+    "parser_version": "jainkosh.rules/1.11.22",
+    "parsed_at": "2026-06-14T19:57:45.213556",
     "warnings": []
   },
   "would_write": {
@@ -10968,7 +10968,7 @@
             },
             {
               "kind": "prakrit_text",
-              "text_devanagari": "अण्णणिरावेक्खो जो परिणामो सो सहावपज्जावो। 28।",
+              "text_devanagari": "अण्णणिरावेक्खो जो परिणामो सो सहावपज्जाओ। 28।",
               "hindi_translation": "अन्य की अपेक्षा से रहित जो (परमाणु का) परिणाम वह (पुद्गल द्रव्य की) स्वभाव पर्याय है। 28।",
               "references": [
                 {
@@ -11257,7 +11257,7 @@
           "blocks": [
             {
               "kind": "prakrit_text",
-              "text_devanagari": "णरणारयतिरियसुरा पज्जाया ते विभावमिदि भणिदा। 15।",
+              "text_devanagari": "णरणारयतिरियसुरा पज्जाया ते विहावमिदि भणिदा। 15।",
               "hindi_translation": "मनुष्य, नारक, तिर्यंच और देवरूप पर्यायें, वे (जीव द्रव्य की) विभाव पर्यायें कही गयी हैं। 15।",
               "references": [
                 {
@@ -11551,7 +11551,7 @@
             },
             {
               "kind": "sanskrit_text",
-              "text_devanagari": "स्कंधपर्यायः स्वजातीयबंधलक्षणलक्षित्वादशुद्धः इति।",
+              "text_devanagari": "स्कंधपर्यायः स्वजातीयबंधलक्षणलक्षित्वादशुद्ध इति।",
               "hindi_translation": "स्कंध पर्याय स्व जातीय बंधरूप लक्षण से लक्षित होने के कारण अशुद्ध है।",
               "references": [
                 {
@@ -13819,21 +13819,19 @@
           }
         },
         {
-          "label": "GathaTeeka",
-          "key": "नियमसार:टीका:गाथा:टीका:15",
+          "label": "Gatha",
+          "key": "नियमसार:गाथा:15",
           "props": {
             "shastra_natural_key": "नियमसार",
-            "teeka_natural_key": "नियमसार:टीका",
             "gatha_number": "15"
           },
           "lazy": true
         },
         {
-          "label": "GathaTeeka",
-          "key": "नियमसार:टीका:गाथा:टीका:28",
+          "label": "Gatha",
+          "key": "नियमसार:गाथा:28",
           "props": {
             "shastra_natural_key": "नियमसार",
-            "teeka_natural_key": "नियमसार:टीका",
             "gatha_number": "28"
           },
           "lazy": true
@@ -13862,15 +13860,6 @@
           "props": {
             "shastra_natural_key": "नयचक्र बृहद्",
             "gatha_number": "30"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Gatha",
-          "key": "नियमसार:गाथा:28",
-          "props": {
-            "shastra_natural_key": "नियमसार",
-            "gatha_number": "28"
           },
           "lazy": true
         },
@@ -17149,8 +17138,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "नियमसार:टीका:गाथा:टीका:15"
+            "label": "Gatha",
+            "key": "नियमसार:गाथा:15"
           },
           "to": {
             "label": "Topic",
@@ -17167,8 +17156,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "नियमसार:टीका:गाथा:टीका:28"
+            "label": "Gatha",
+            "key": "नियमसार:गाथा:28"
           },
           "to": {
             "label": "Topic",
@@ -17404,8 +17393,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "नियमसार:टीका:गाथा:टीका:15"
+            "label": "Gatha",
+            "key": "नियमसार:गाथा:15"
           },
           "to": {
             "label": "Topic",
@@ -17422,8 +17411,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "GathaTeeka",
-            "key": "नियमसार:टीका:गाथा:टीका:28"
+            "label": "Gatha",
+            "key": "नियमसार:गाथा:28"
           },
           "to": {
             "label": "Topic",

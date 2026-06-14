@@ -4,7 +4,7 @@
 > Covers HTML structure rules, parser implementation, configuration, models,
 > algorithms, CLI, tests, and edge-emission specs.
 >
-> **Current version**: `jainkosh.rules/1.11.21`
+> **Current version**: `jainkosh.rules/1.11.22`
 >
 > Archived source specs (pre-v1.7 detail):
 > `detailed_docs/parsing_rules.md`, `parser_spec.md`,
@@ -759,8 +759,8 @@ These rules apply to the **first non-inline reference** in a block (the "main" r
 | Type | Block kind | Condition | Target node |
 |---|---|---|---|
 | `shastra` | any | — | `Gatha("<shastra>:गाथा:<g>")` |
-| `teeka` | gatha kinds | — | `Gatha` |
-| `teeka` | text kinds | — | `GathaTeeka("<shastra>:<teeka>:गाथा:टीका:<g>")` |
+| `teeka` | gatha kinds + `prakrit_text` | — | `Gatha` |
+| `teeka` | `sanskrit_text`, `hindi_text` | — | `GathaTeeka("<shastra>:<teeka>:गाथा:टीका:<g>")` |
 | `publication` | gatha kinds + `prakrit_text` | — | `Gatha` |
 | `publication` | `sanskrit_text` | — | `GathaTeeka("<shastra>:<teeka or 'टीका'>:गाथा:टीका:<g>")` |
 | `publication` | `hindi_text` | teeka present | 2 edges: `GathaTeeka` + `GathaTeekaBhaavarth` |
@@ -989,6 +989,7 @@ DFS leading-GRef passthrough, paren-`देखें` cleanup, nth-occurrence an
 | `1.11.20` | **`GathaTeekaBhaavarth` key includes `'टीका'` literal when no `teeka_name`**: for `publication` + `hindi_text` + `hindi_translation=null` + `teeka_name=None`, the node key was `"{shastra}:{pub_id}:गाथा:टीका:भावार्थ:{g}"` — missing a teeka segment. Fixed to `"{shastra}:टीका:{pub_id}:गाथा:टीका:भावार्थ:{g}"`, consistent with how other no-teeka cases default to `'टीका'` (e.g. `GathaTeeka` for `sanskrit_text`). Affected: `कार्तिकेयानुप्रेक्षा` bhaavarth blocks in स्वभाव. All goldens updated. |
 | `1.11.22` | **`label_topic_seeds` emitted to all stores**: section-level `label_topic_seeds` (produced by §5.6 `<br/>`-separated `देखें` elements) were silently omitted from `build_pg_fragment`, `build_mongo_fragment`, and `build_neo4j_fragment`. Fix: all three builders now iterate `sec.label_topic_seeds` — Postgres gets a topic row per seed (`source_subkind="label_seed"`); Mongo gets a `topic_extracts` doc per seed (with the seed's `blocks`); Neo4j gets a `Topic` node, a `HAS_TOPIC` edge from `Keyword`, and `RELATED_TO` edges for each `see_also` block in the seed. वस्तु golden updated. |
 | `1.11.21` | **Multiple see_also links after a single देखें trigger**: `'label -देखें X, Y, Z'` now produces a label-seed subsection with three separate `see_also` blocks (one per link) instead of only one. Root cause: `find_see_also_candidates_in_element` and `find_see_alsos_in_element` matched only the first anchor because anchors 2+ lacked the trigger immediately before them (the trigger was `N` chars away, beyond the window). Fix: both functions track the end position of the last matched anchor and include subsequent anchors that are separated only by comma/whitespace/danda/slash characters (`_LINK_LIST_SEP_RE = r'^[\s,।/]+$'`). `extract_label_seed_candidates_from_elements` now collects all candidates from an element when the label is derived from the element-level shared text (one `देखें` trigger); `extract_label_topic_seeds` registers all additional anchor keys in `candidate_target_to_seed` so all corresponding `see_also` blocks get relocated to the child seed. Affected: आत्मा `बहिरात्मा, अंतरात्मा व परमात्मा` seed. |
+| `1.11.22` | **`teeka` type + `prakrit_text` block emits `Gatha`** (parity with v1.11.19): `_emit_gatha` in `reference_edges.py` previously treated `prakrit_text` as a "text kind" for `shastra_type=teeka`, emitting `GathaTeeka("<shastra>:<teeka or 'टीका'>:गाथा:टीका:<g>")`. But `prakrit_text` always contains the original Prakrit verse — same content as `prakrit_gatha` — and the reference resolves to a गाथा number, not a टीका pankti. Fix: moved `prakrit_text` into the gatha branch of the `teeka` case, matching the `publication` rule established in v1.11.19. Affected: any `prakrit_text` block in a topic-extract / keyword-definition whose reference points to a `teeka`-type shastra (e.g. `नियमसार/28` in topic `विभाव-द्रव्य-व-व्यंजन-पर्याय`, block b1 — was creating `GathaTeeka` stub `नियमसार:टीका:गाथा:टीका:28` and yielding no `extract_matches` row because the resolver routing has no `(GathaTeeka, prakrit_text)` entry). Now creates `Gatha("नियमसार:गाथा:28")` and matches against `नियमसार:गाथा:28:prakrit`. |
 | `1.11.7` | **Inline-ref distribution by position in split blocks**: `_do_split` no longer assigns all inline refs to the last split block. A new `_assign_inline_refs_to_segments` helper uses the pre-strip translation text (stored as `Block._hindi_translation_pre_strip` via `PrivateAttr`, set during sibling-`=` absorption and `_emit` translation absorption) to find each inline ref's position relative to verse markers. A ref that appears immediately after `।N।` is assigned to the gatha-N split block rather than the final block. Fixes `नयचक्र बृहद्/22,25,30` where `( परमात्मप्रकाश टीका/1/57 )` appears right after `। 25।` in the HindiText — it is now placed in the gatha-25 block instead of the gatha-30 block. Falls back to last-segment assignment when pre-strip text is unavailable or the ref text is not found. |
 
 ---

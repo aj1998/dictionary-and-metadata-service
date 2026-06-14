@@ -90,10 +90,12 @@ def _emit_gatha(
         return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
 
     if shastra_type == "teeka":
-        if block_kind in {"sanskrit_gatha", "prakrit_gatha", "hindi_gatha"}:
+        # `prakrit_text` is original Prakrit source content (same as `prakrit_gatha`,
+        # see v1.11.19 — extended here to `teeka` type for parity with `publication`).
+        if block_kind in {"sanskrit_gatha", "prakrit_gatha", "hindi_gatha", "prakrit_text"}:
             key = f"{sn}:गाथा:{g}"
             return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
-        if block_kind in {"sanskrit_text", "prakrit_text", "hindi_text"}:
+        if block_kind in {"sanskrit_text", "hindi_text"}:
             key = f"{sn}:{tn or 'टीका'}:गाथा:टीका:{g}"
             return [_make_edge(edge_type, "GathaTeeka", key, target, pankti_props, extra_props)]
         return []

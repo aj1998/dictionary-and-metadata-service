@@ -18,7 +18,7 @@ BlockKind = Literal[
 @dataclass
 class MatchResult:
     matched: bool
-    method: Literal["exact_normalized", "shingle_fuzzy", "none"]
+    method: Literal["exact_normalized", "exact_normalized_ellipsis", "shingle_fuzzy", "none"]
     score: float                   # 0.0–1.0; 1.0 for exact
     char_start: int | None         # offset into ORIGINAL NFC target_text
     char_end: int | None           # exclusive

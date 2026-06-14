@@ -84,6 +84,109 @@ def test_zwj_in_source_and_target_still_exact():
     assert r.method == "exact_normalized"
 
 
+# ── anusvara / nasal-halant / U+1CED equivalence ──────────────────────────────
+
+def test_anusvara_vs_spelled_nasal_equivalent():
+    # Source uses anusvara `ं`; target spells the nasal as `न्` before `ध`.
+    src = "द्रव्यसंबंध"
+    tgt = "परद्रव्‍यसंबन्‍ध इति"
+    r = loc(src, tgt)
+    assert r.matched is True
+    assert r.method == "exact_normalized"
+
+
+def test_vedic_tiryak_treated_as_halant():
+    # OCR'd target uses U+1CED in place of halant; should still match the
+    # source that uses a real halant `्`.
+    src = "तिर्यङ्मनुष्य"
+    tgt = "सुरनारकतिर्यङ᳭मनुष्‍यलक्षणाः"
+    r = loc(src, tgt)
+    assert r.matched is True
+    assert r.method == "exact_normalized"
+
+
+def test_full_ocr_target_with_anusvara_and_tiryak():
+    src = "सुरनारकतिर्यङ्मनुष्यलक्षणाः परद्रव्यसंबंधनिर्वृत्त-त्वादशुद्धाश्चेति।"
+    tgt = "सुरनारकतिर्यङ᳭मनुष्‍यलक्षणा: परद्रव्‍यसंबन्‍धनिर्वृत्तत्‍वादशुद्धाश्‍चेति"
+    r = loc(src, tgt)
+    assert r.matched is True
+    assert r.method == "exact_normalized"
+
+
+def test_word_final_nasal_halant_not_stripped():
+    # `न्` at end of word (no following consonant) must NOT be stripped.
+    src = "तत्त्वान्"
+    tgt = "तत्त्वान् इति"
+    r = loc(src, tgt)
+    assert r.matched is True
+
+
+def test_real_conjunct_not_overcollapsed():
+    # `म्य` in अभ्युपगम्य is a real `mya` conjunct (gerund), NOT a nasalization.
+    # Canonical anusvara conversion must leave it alone so it stays distinct
+    # from अभ्युपगम (the unrelated form without conjunct).
+    from jain_kb_common.matching.normalize import normalize as nrm
+    a = nrm("अभ्युपगम्य").normalized
+    b = nrm("अभ्युपगम").normalized
+    assert a != b, f"distinct conjunct collapsed to same form: {a!r}"
+
+
+def test_shingle_fuzzy_with_canonical_anusvara():
+    # Real-world failing case: OCR/spelling variants in two adjacent words
+    # (अभ्युपगमाः vs अभ्युपगम्याः, पर्य्यायाः vs पर्यायाः). Canonical anusvara
+    # conversion brings the score above the sanskrit_text threshold (0.80).
+    src = "षड्ढानिवृद्धिरूपाः सूक्ष्माः परमागमप्रामाण्यादभ्युपगमाः अर्थपर्य्यायाः"
+    tgt = (
+        "षड्ढानिवृद्धिरूपाः सूक्ष्माः परमागमप्रामाण्यादभ्युपगम्याः "
+        "अर्थपर्यायाः षण्णां"
+    )
+    r = loc(src, tgt, threshold=0.80)
+    assert r.matched is True
+    assert r.method == "shingle_fuzzy"
+
+
+# ── ellipsis-bridged exact match ──────────────────────────────────────────────
+
+def test_ellipsis_bridges_gap_in_target():
+    src = "सर्वेष्वपि... द्रष्टृत्वं प्रत्यक्षत्वात्"
+    tgt = "भावप्रच्छन्नेषु सर्वेष्वपि स्वपरव्यवस्थाव्यवस्थितेष्वस्ति द्रष्टृत्वं, प्रत्यक्षत्वात्"
+    r = loc(src, tgt)
+    assert r.matched is True
+    assert r.method == "exact_normalized_ellipsis"
+    tgt_n = normalize(tgt)
+    span = tgt_n.original[r.char_start : r.char_end]
+    assert "सर्वेष्वपि" in span
+    assert "प्रत्यक्षत्वात्" in span
+
+
+def test_ellipsis_bridges_with_per_segment_ocr_variation():
+    # Real-world: anusvara vs spelled-out nasal (पर्यायां vs पर्यायान्),
+    # OCR letter variation (द्रष्ट्ट vs द्रष्टु), comma inside the gap.
+    src = "भावप्रच्छन्नेषु स्थूलपर्यायांतर्लीनसूक्ष्मपर्यायेषु सर्वेष्वपि... द्रष्ट्टत्वं प्रत्यक्षत्वात्।"
+    tgt = (
+        "भावप्रच्छन्नेषु स्थूल-पर्यायान्तर्लीनसूक्ष्मपर्यायेषु सर्वेष्वपि "
+        "स्वपरव्यवस्थाव्यवस्थितेष्वस्ति द्रष्टुत्वं, प्रत्यक्षत्वात्‌"
+    )
+    r = loc(src, tgt)
+    assert r.matched is True
+    assert r.method == "exact_normalized_ellipsis"
+
+
+def test_ellipsis_four_dots_also_works():
+    src = "अ.... ब"
+    tgt = "क अ XYZ ब ड"
+    r = loc(src, tgt)
+    assert r.matched is True
+    assert r.method == "exact_normalized_ellipsis"
+
+
+def test_ellipsis_segments_must_be_in_order():
+    src = "ब... अ"
+    tgt = "क अ XYZ ब ड"
+    r = loc(src, tgt, threshold=0.99)
+    assert r.matched is False or r.method != "exact_normalized_ellipsis"
+
+
 # ── no match ──────────────────────────────────────────────────────────────────
 
 def test_completely_different_texts():

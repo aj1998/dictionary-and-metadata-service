@@ -105,6 +105,21 @@ Stripping rules currently remove:
 - Devanagari avagraha
 - Devanagari visarga
 
+In addition to stripping, two **preprocess** passes run before the strip pass to canonicalize OCR/spelling variants that would otherwise produce false negatives:
+
+- **Vedic Sign Tiryak (U+1CED `᳭`) → halant (U+094D `्`)**. Some OCR'd shastras emit `᳭` where a real halant belongs (e.g. `तिर्यङ᳭मनुष्य` vs `तिर्यङ्मनुष्य`). The substitution makes the two forms identical and also lets the next pass fire on it.
+- **Anusvara sandhi canonicalization**. Each anusvara `ं` followed by a Devanagari consonant is replaced with the sandhi-class nasal + halant + consonant:
+  - `ं` + क-class (क ख ग घ ङ) → `ङ्` + consonant
+  - `ं` + च-class (च छ ज झ ञ) → `ञ्` + consonant
+  - `ं` + ट-class (ट ठ ड ढ ण) → `ण्` + consonant
+  - `ं` + त-class (त थ द ध न) → `न्` + consonant
+  - `ं` + प-class (प फ ब भ म) → `म्` + consonant
+  - `ं` + semivowel/sibilant/ह → `न्` + consonant (convention varies; we pick `न्` so both forms collapse identically)
+
+  This makes `संबंध` (anusvara form) and `संबन्ध` (spelled-out form) both canonicalize to `सम्बन्ध` → exact match. ZWJ/ZWNJ between anusvara and the consonant is tolerated.
+
+  An earlier attempt that *stripped* anusvara and any `[ङञणनम]्`+consonant bigram was rejected because it over-collapsed legitimate conjuncts: e.g. `अभ्युपगम्य` (gerund) has a real `म्य` conjunct that is not a nasalization, and stripping it would have made `अभ्युपगम्य` look identical to `अभ्युपगम`. Sandhi canonicalization avoids this — only an actual `ं` ever triggers a rewrite, so non-nasalization conjuncts are untouched.
+
 The `n2o` mapping is what makes UI highlighting possible.
 
 ### Locate
@@ -112,13 +127,34 @@ The `n2o` mapping is what makes UI highlighting possible.
 `locate(source, target)` does:
 
 1. exact normalized substring search
-2. fallback to fixed-length character shingle Jaccard search
+2. ellipsis-bridged exact-with-fuzzy fallback (when the source contains a literal run of 3+ dots)
+3. fallback to fixed-length character shingle Jaccard search
 
 Return methods:
 
 - `exact_normalized`
+- `exact_normalized_ellipsis`
 - `shingle_fuzzy`
 - `none`
+
+#### Ellipsis bridging
+
+When the source's original text contains a run of `...` (three or more dots), the matcher treats the ellipsis as a **wildcard gap** and requires the segments around it to appear in order inside the target. This is needed for JainKosh extracts like:
+
+```
+भावप्रच्छन्नेषु ... सर्वेष्वपि... द्रष्टृत्वं प्रत्यक्षत्वात्
+```
+
+where the source quotes only the bookends of a longer commentary passage with `...` standing in for the elided middle.
+
+Procedure:
+
+1. Split `source.original` on `\.{3,}` to get segments; normalize each.
+2. Search each segment sequentially in `target.normalized`, advancing a cursor after each successful match so order is enforced. Each segment first tries exact substring; if that fails, a per-segment shingle window scan with a relaxed threshold (`max(0.6, threshold - 0.15)`) is used to tolerate per-segment OCR variation.
+3. If every segment is found, the returned span covers **first-segment start → last-segment end** in the target's original text, so the UI highlights the whole bridged region (including the elided middle).
+4. If any segment cannot be located (even fuzzily) the method falls through to the shingle fallback (step 3 of the main pipeline).
+
+Method name: `exact_normalized_ellipsis`. Downstream code that switches on `result.method` must accept this new value.
 
 ### Thresholds
 
@@ -305,6 +341,28 @@ The same reading page supports highlights for:
 - `target_missing` means the graph edge exists but the routed Mongo target doc does not.
 - `unmatched` means the target doc exists but the matcher could not clear the threshold.
 
+### Upstream ingestion dependency: stub label correctness
+
+A missing or wrongly-labeled Neo4j stub will cause the resolver to drop the
+edge (no `extract_matches` row at all) — the matcher never even runs. This
+recently surfaced for the routing `(GathaTeeka, prakrit_text)`: when JainKosh's
+`reference_edges._emit_gatha` saw a `prakrit_text` block whose shastra was
+typed as `teeka` (e.g. `नियमसार`), it emitted a `GathaTeeka` stub. Because
+`prakrit_text` always carries the original Prakrit verse — same content as
+`prakrit_gatha` — the correct stub is `Gatha`, matching the routing already
+established for `publication` shastras in [parser.md v1.11.19](../data_sources/jainkosh/parser.md).
+The fix (v1.11.22) extends that rule to `teeka` type so `prakrit_text` blocks
+emit `Gatha` regardless of shastra type. See parser.md §12.2 routing table.
+
+Symptom checklist when a topic-extract / keyword-definition block has no "View in Shastra" link in the modal:
+
+1. Is there an `extract_matches` row for the source block at all?
+   - Yes, status `matched` → UI bug. Check `DefinitionModal` ref correlation.
+   - Yes, status `unmatched` → matcher couldn't clear the threshold (real text divergence or normalization gap).
+   - Yes, status `target_missing` → routing OK, Mongo target absent.
+   - **No row at all** → resolver yielded zero targets. Inspect the stub label and block kind against `_ROUTING` in `target_resolver.py`. If the stub label is "wrong" for the block kind, the fix is in jainkosh ingestion, not in matching.
+2. If the matcher runs but scores below threshold, dump `normalized_source` and `normalized_target` from the stored doc and diff them. Common culprits are anusvara/spelled-nasal divergence (now handled), U+1CED (now handled), per-word OCR variation (handled by shingle fuzzy), and ellipsis-bridged extracts (now handled).
+
 ## 11. Known Gaps
 
 - `Page` stub matching is not implemented.
@@ -336,3 +394,12 @@ At minimum, also review:
 - matching unit tests under `packages/jain_kb_common/jain_kb_common/matching/tests/`
 - worker tests under `tests/workers/matching/`
 - UI tests around `DefinitionModal` and `gatha-content`
+
+## 13. Changelog
+
+| Date | Change |
+|---|---|
+| 2026-06-15 | **Ellipsis-bridged matching.** `locate()` now recognizes a literal run of 3+ dots in the source as a wildcard gap. Source is split into segments; each is located in target sequentially with per-segment exact-then-fuzzy search; the returned span covers first-segment start → last-segment end so the UI highlights the bridged region. New `MatchResult.method = "exact_normalized_ellipsis"`. Files: `locate.py`, `types.py`, `tests/test_locate.py`. |
+| 2026-06-15 | **Vedic Sign Tiryak (U+1CED) → halant substitution.** `normalize()` rewrites `᳭` to `्` before any other pass, fixing OCR'd targets like `तिर्यङ᳭मनुष्य` that should equal `तिर्यङ्मनुष्य`. |
+| 2026-06-15 | **Sandhi anusvara canonicalization.** `normalize()` rewrites each anusvara `ं` followed by a consonant to the sandhi-class nasal + halant + consonant (e.g. `ं`+ब → `म्`+ब). Makes the anusvara form and the spelled-out form (`संबंध` vs `संबन्ध`) match exactly, without over-collapsing real conjuncts like `म्य` in `अभ्युपगम्य`. ZWJ/ZWNJ between anusvara and consonant is tolerated. Replaced an earlier strip-based approach that was rejected for over-collapsing real conjuncts. |
+| 2026-06-15 | **Stub-label correctness for `prakrit_text` blocks in `teeka`-type shastras** (upstream in jainkosh ingestion, [parser.md v1.11.22](../data_sources/jainkosh/parser.md)). `_emit_gatha` now emits a `Gatha` stub (not `GathaTeeka`) for `prakrit_text` blocks regardless of shastra type, matching the `publication` rule from v1.11.19. Unblocks deep-links for topic/keyword extracts whose Prakrit-verse blocks reference `teeka`-typed shastras (e.g. `नियमसार/28`). |

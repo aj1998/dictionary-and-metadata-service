@@ -1,10 +1,13 @@
 from __future__ import annotations
 
 import logging
+import re
 
-from .normalize import NormalizedText
+from .normalize import NormalizedText, normalize
 from .score import DEFAULT_THRESHOLD, jaccard
 from .types import MatchResult
+
+_ELLIPSIS_RE = re.compile(r"\.{3,}")
 
 logger = logging.getLogger("jain_kb.matching")
 
@@ -19,6 +22,35 @@ def _char_ngrams(text: str, n: int) -> set[str]:
     if len(text) < n:
         return {text} if text else set()
     return {text[i : i + n] for i in range(len(text) - n + 1)}
+
+
+def _find_segment(
+    seg: str, tgt: str, cursor: int, shingle_n: int, threshold: float
+) -> tuple[int, int]:
+    """Locate *seg* inside tgt[cursor:]. Returns (start, end) into tgt, or (-1, -1).
+
+    Tries exact substring first, then a sliding shingle window with the given
+    threshold. Window length matches the segment length.
+    """
+    pos = tgt.find(seg, cursor)
+    if pos >= 0:
+        return pos, pos + len(seg)
+    win_len = len(seg)
+    tgt_len = len(tgt)
+    if win_len == 0 or tgt_len - cursor < win_len:
+        return -1, -1
+    src_ng = _char_ngrams(seg, shingle_n)
+    best_score = 0.0
+    best_start = -1
+    for i in range(cursor, tgt_len - win_len + 1):
+        win_ng = _char_ngrams(tgt[i : i + win_len], shingle_n)
+        score = jaccard(src_ng, win_ng)
+        if score > best_score:
+            best_score = score
+            best_start = i
+    if best_score < threshold or best_start < 0:
+        return -1, -1
+    return best_start, best_start + win_len
 
 
 def _no_match(src_norm: str, tgt_norm: str, score: float = 0.0) -> MatchResult:
@@ -77,6 +109,53 @@ def locate(
                 normalized_source=src_norm,
                 normalized_target=tgt_norm,
             )
+
+    # Step 1.5: ellipsis-bridged match.
+    # If the source contains a run of 3+ literal dots (e.g. "AAA... BBB"), treat
+    # the ellipsis as a wildcard gap and require each segment to appear in
+    # order inside the target. Each segment is searched first by exact
+    # substring; if that fails (OCR variants like anusvara vs spelled-out
+    # nasal, or per-akshara differences), a sliding shingle window is used
+    # with a slightly relaxed per-segment threshold. The returned span covers
+    # first-segment start to last-segment end so the UI highlights the whole
+    # bridged region.
+    if _ELLIPSIS_RE.search(source.original):
+        segs_raw = [s for s in _ELLIPSIS_RE.split(source.original) if s]
+        seg_norms = [normalize(s).normalized for s in segs_raw]
+        seg_norms = [s for s in seg_norms if s]
+        if len(seg_norms) >= 2:
+            seg_threshold = max(0.6, threshold - 0.15)
+            cursor = 0
+            first_pos = -1
+            last_end = -1
+            ok = True
+            for seg in seg_norms:
+                pos, end = _find_segment(
+                    seg, tgt_norm, cursor, shingle_n, seg_threshold
+                )
+                if pos < 0:
+                    ok = False
+                    break
+                if first_pos < 0:
+                    first_pos = pos
+                last_end = end
+                cursor = end
+            if ok and first_pos >= 0 and last_end > first_pos:
+                char_start = target.n2o[first_pos]
+                char_end = target.n2o[last_end - 1] + 1
+                logger.debug(
+                    "ellipsis match norm[%d:%d] → orig[%d:%d] segs=%d",
+                    first_pos, last_end, char_start, char_end, len(seg_norms),
+                )
+                return MatchResult(
+                    matched=True,
+                    method="exact_normalized_ellipsis",
+                    score=1.0,
+                    char_start=char_start,
+                    char_end=char_end,
+                    normalized_source=src_norm,
+                    normalized_target=tgt_norm,
+                )
 
     # Step 2: shingle fallback
     win_len = len(src_norm)
