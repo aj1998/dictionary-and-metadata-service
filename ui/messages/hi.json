@@ -214,5 +214,8 @@
   },
   "skeleton": {
     "loading": "लोड हो रहा है…"
+  },
+  "originalShastra": {
+    "viewOriginal": "मूल शास्त्र में देखें"
   }
 }

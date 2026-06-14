@@ -11,7 +11,10 @@ import {
   useMatchEntries,
   type MatchEntry,
 } from '@/components/ViewInShastraButton';
+import { OriginalShastraLink } from '@/components/OriginalShastraLink';
 import { useIngestedShastras } from '@/lib/shastra-registry';
+import { extractOriginalShastraInfo, useShastraPdfOffsets } from '@/lib/shastra-pdf-registry';
+import { GATHA_ENTITY_KEYWORDS } from '@/lib/gatha-content';
 import type { DefinitionBlock, DefinitionReference, KeywordPageSection } from '@/lib/types';
 
 export type MarkdownSegment = { kind: 'text'; text: string } | { kind: 'bold'; text: string } | { kind: 'italic'; text: string };
@@ -173,6 +176,9 @@ function groupRefsBySource(refs: DefinitionReference[]): RefSourceGroup[] {
 // Renders a single ref as a bulleted list row used inside the समान संदर्भ popover.
 function RefListItem({ ref, matchEntry, loading, ingestedShastras }: { ref: DefinitionReference; matchEntry?: MatchEntry; loading?: boolean; ingestedShastras: Set<string> | null }) {
   const sourceLabel = formatRefSourceLabel(ref);
+  const originalInfo = extractOriginalShastraInfo(ref);
+  const { offsets } = useShastraPdfOffsets(originalInfo ? (ref.shastra_name ?? null) : null);
+  const effectiveOffsets = offsets ?? { pdfPageOffset: 0, pustakOffsets: null, available: false };
   return (
     <li className="flex items-baseline gap-2 font-serif-hindi text-xs text-foreground">
       <span className="mt-0.5 shrink-0 text-foreground-subtle">•</span>
@@ -187,14 +193,29 @@ function RefListItem({ ref, matchEntry, loading, ingestedShastras }: { ref: Defi
             )}
           </>
         )}
-        {ref.resolved_fields.map((f, fi) => (
-          <span key={fi} className="flex items-center gap-0.5">
-            {fi > 0 && <span className="opacity-30">·</span>}
-            <span className="text-foreground-muted">{f.field}:</span>
-            <span className="font-medium">{f.value}</span>
-          </span>
-        ))}
-        <RefMatchLink ref={ref} matchEntry={matchEntry} loading={loading} ingestedShastras={ingestedShastras} />
+        {ref.resolved_fields.map((f, fi) => {
+          const isGathaField = (GATHA_ENTITY_KEYWORDS as readonly string[]).includes(f.field);
+          return (
+            <span key={fi} className="inline-flex items-center gap-0.5">
+              {fi > 0 && <span className="opacity-30">·</span>}
+              <span className="text-foreground-muted">{f.field}:</span>
+              <span className="font-medium">{f.value}</span>
+              {isGathaField && (
+                <RefMatchLink ref={ref} matchEntry={matchEntry} loading={loading} ingestedShastras={ingestedShastras} />
+              )}
+            </span>
+          );
+        })}
+        {originalInfo && ref.shastra_name && (
+          <OriginalShastraLink
+            shastraNk={ref.shastra_name}
+            pustak={originalInfo.pustak}
+            publishedPage={originalInfo.publishedPage}
+            pdfPageOffset={effectiveOffsets.pdfPageOffset}
+            pustakOffsets={effectiveOffsets.pustakOffsets}
+            available={effectiveOffsets.available}
+          />
+        )}
       </span>
     </li>
   );
@@ -204,6 +225,9 @@ export function RefBadge({ ref, showShastra = false, matchEntry, loading, ingest
   const badgeLabel = showShastra
     ? formatRefSourceLabel(ref) || null
     : ref.is_teeka ? (ref.teeka_name || null) : null;
+  const originalInfo = extractOriginalShastraInfo(ref);
+  const { offsets } = useShastraPdfOffsets(originalInfo ? (ref.shastra_name ?? null) : null);
+  const effectiveOffsets = offsets ?? { pdfPageOffset: 0, pustakOffsets: null, available: false };
   return (
     <span className={cn('inline-flex items-center gap-0 font-serif-hindi text-xs italic', REF_BADGE_CLASSES)}>
       {badgeLabel && (
@@ -214,14 +238,102 @@ export function RefBadge({ ref, showShastra = false, matchEntry, loading, ingest
           )}
         </>
       )}
-      {ref.resolved_fields.map((f, fi) => (
+      {ref.resolved_fields.map((f, fi) => {
+        const isGathaField = (GATHA_ENTITY_KEYWORDS as readonly string[]).includes(f.field);
+        return (
+          <span key={fi} className="inline-flex items-center">
+            {fi > 0 && <span className="mx-1 opacity-50">·</span>}
+            <span className="opacity-80">{f.field}:</span>
+            <span className="ml-0.5 text-[10px] font-medium not-italic">{f.value}</span>
+            {isGathaField && (
+              <span className="ml-1"><RefMatchLink ref={ref} matchEntry={matchEntry} loading={loading} ingestedShastras={ingestedShastras} /></span>
+            )}
+          </span>
+        );
+      })}
+      {originalInfo && ref.shastra_name && (
+        <span className="ml-1">
+          <OriginalShastraLink
+            shastraNk={ref.shastra_name}
+            pustak={originalInfo.pustak}
+            publishedPage={originalInfo.publishedPage}
+            pdfPageOffset={effectiveOffsets.pdfPageOffset}
+            pustakOffsets={effectiveOffsets.pustakOffsets}
+            available={effectiveOffsets.available}
+          />
+        </span>
+      )}
+    </span>
+  );
+}
+
+// Renders a multi-ref group badge (same shastra+teeka source, multiple refs).
+function MultiRefGroupBadge({ group, showShastra, entries, loading, ingestedShastras }: {
+  group: RefSourceGroup;
+  showShastra: boolean;
+  entries: MatchEntry[] | null;
+  loading: boolean;
+  ingestedShastras: Set<string> | null;
+}) {
+  const shastraNk = group.refs[0]?.shastra_name ?? null;
+  const { offsets } = useShastraPdfOffsets(shastraNk);
+  const effectiveOffsets = offsets ?? { pdfPageOffset: 0, pustakOffsets: null, available: false };
+  const commonFieldKeys = new Set(group.commonFields.map((f) => `${f.field}:${f.value}`));
+  const badgeLabel = showShastra
+    ? group.sourceLabel || null
+    : group.isTeeka ? (group.refs[0].teeka_name || null) : null;
+  return (
+    <span className={cn('inline-flex flex-wrap items-center gap-0 font-serif-hindi text-xs italic', REF_BADGE_CLASSES)}>
+      {badgeLabel && (
+        <>
+          <span className={cn('font-semibold', group.isTeeka ? 'text-amber-700' : '')}>{badgeLabel}</span>
+          <span className="mx-1.5 opacity-30">|</span>
+        </>
+      )}
+      {group.commonFields.map((f, fi) => (
         <span key={fi} className="flex items-center">
           {fi > 0 && <span className="mx-1 opacity-50">·</span>}
           <span className="opacity-80">{f.field}:</span>
           <span className="ml-0.5 text-[10px] font-medium not-italic">{f.value}</span>
         </span>
       ))}
-      <span className="ml-1"><RefMatchLink ref={ref} matchEntry={matchEntry} loading={loading} ingestedShastras={ingestedShastras} /></span>
+      {group.commonFields.length > 0 && <span className="mx-1.5 opacity-30">|</span>}
+      {group.refs.map((ref, ri) => {
+        const diffFields = ref.resolved_fields.filter((f) => !commonFieldKeys.has(`${f.field}:${f.value}`));
+        const originalInfo = extractOriginalShastraInfo(ref);
+        return (
+          <span key={ri} className="inline-flex items-center gap-0">
+            {ri > 0 && <span className="mx-1 opacity-50">·</span>}
+            {diffFields.map((f, fi) => {
+              const isGathaField = (GATHA_ENTITY_KEYWORDS as readonly string[]).includes(f.field);
+              return (
+                <span key={fi} className="inline-flex items-center">
+                  {fi > 0 && <span className="mx-1 opacity-50">·</span>}
+                  <span className="opacity-80">{f.field}:</span>
+                  <span className="ml-0.5 text-[10px] font-medium not-italic">{f.value}</span>
+                  {isGathaField && (
+                    <span className="ml-1">
+                      <RefMatchLink ref={ref} matchEntry={findMatchForRef(ref, entries)} loading={loading} ingestedShastras={ingestedShastras} />
+                    </span>
+                  )}
+                </span>
+              );
+            })}
+            {originalInfo && ref.shastra_name && (
+              <span className="ml-1">
+                <OriginalShastraLink
+                  shastraNk={ref.shastra_name}
+                  pustak={originalInfo.pustak}
+                  publishedPage={originalInfo.publishedPage}
+                  pdfPageOffset={effectiveOffsets.pdfPageOffset}
+                  pustakOffsets={effectiveOffsets.pustakOffsets}
+            available={effectiveOffsets.available}
+                />
+              </span>
+            )}
+          </span>
+        );
+      })}
     </span>
   );
 }
@@ -251,50 +363,86 @@ function GroupedRefRow({ refs, showShastra, entries, loading, ingestedShastras }
             />
           );
         }
-
-        const commonFieldKeys = new Set(group.commonFields.map((f) => `${f.field}:${f.value}`));
-        const badgeLabel = showShastra
-          ? group.sourceLabel || null
-          : group.isTeeka ? (group.refs[0].teeka_name || null) : null;
-
         return (
-          <span key={gi} className={cn('inline-flex flex-wrap items-center gap-0 font-serif-hindi text-xs italic', REF_BADGE_CLASSES)}>
-            {badgeLabel && (
-              <>
-                <span className={cn('font-semibold', group.isTeeka ? 'text-amber-700' : '')}>{badgeLabel}</span>
-                <span className="mx-1.5 opacity-30">|</span>
-              </>
-            )}
-            {group.commonFields.map((f, fi) => (
-              <span key={fi} className="flex items-center">
-                {fi > 0 && <span className="mx-1 opacity-50">·</span>}
-                <span className="opacity-80">{f.field}:</span>
-                <span className="ml-0.5 text-[10px] font-medium not-italic">{f.value}</span>
-              </span>
-            ))}
-            {group.commonFields.length > 0 && <span className="mx-1.5 opacity-30">|</span>}
-            {group.refs.map((ref, ri) => {
-              const diffFields = ref.resolved_fields.filter((f) => !commonFieldKeys.has(`${f.field}:${f.value}`));
-              return (
-                <span key={ri} className="inline-flex items-center gap-0">
-                  {ri > 0 && <span className="mx-1 opacity-50">·</span>}
-                  {diffFields.map((f, fi) => (
-                    <span key={fi} className="flex items-center">
-                      {fi > 0 && <span className="mx-1 opacity-50">·</span>}
-                      <span className="opacity-80">{f.field}:</span>
-                      <span className="ml-0.5 text-[10px] font-medium not-italic">{f.value}</span>
-                    </span>
-                  ))}
-                  <span className="ml-1">
-                    <RefMatchLink ref={ref} matchEntry={findMatchForRef(ref, entries)} loading={loading} ingestedShastras={ingestedShastras} />
-                  </span>
-                </span>
-              );
-            })}
-          </span>
+          <MultiRefGroupBadge
+            key={gi}
+            group={group}
+            showShastra={showShastra}
+            entries={entries}
+            loading={loading}
+            ingestedShastras={ingestedShastras}
+          />
         );
       })}
     </>
+  );
+}
+
+// Renders the multi-ref group list item for the समान संदर्भ popover.
+function MultiRefGroupListItem({ group, entries, loading, ingestedShastras }: {
+  group: RefSourceGroup;
+  entries: MatchEntry[] | null;
+  loading: boolean;
+  ingestedShastras: Set<string> | null;
+}) {
+  const shastraNk = group.refs[0]?.shastra_name ?? null;
+  const { offsets } = useShastraPdfOffsets(shastraNk);
+  const effectiveOffsets = offsets ?? { pdfPageOffset: 0, pustakOffsets: null, available: false };
+  const commonFieldKeys = new Set(group.commonFields.map((f) => `${f.field}:${f.value}`));
+  return (
+    <li className="flex items-baseline gap-2 font-serif-hindi text-xs text-foreground">
+      <span className="mt-0.5 shrink-0 text-foreground-subtle">•</span>
+      <span className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+        {group.sourceLabel && (
+          <>
+            <span className={cn('font-semibold', group.isTeeka ? 'text-amber-700' : 'text-foreground-muted')}>
+              {group.sourceLabel}
+            </span>
+            <span className="opacity-30">|</span>
+          </>
+        )}
+        {group.commonFields.map((f, fi) => (
+          <span key={fi} className="flex items-center gap-0.5">
+            {fi > 0 && <span className="opacity-30">·</span>}
+            <span className="text-foreground-muted">{f.field}:</span>
+            <span className="font-medium">{f.value}</span>
+          </span>
+        ))}
+        {group.commonFields.length > 0 && <span className="opacity-30">|</span>}
+        {group.refs.map((ref, ri) => {
+          const diffFields = ref.resolved_fields.filter((f) => !commonFieldKeys.has(`${f.field}:${f.value}`));
+          const originalInfo = extractOriginalShastraInfo(ref);
+          return (
+            <span key={ri} className="inline-flex items-center gap-0.5">
+              {ri > 0 && <span className="opacity-30">·</span>}
+              {diffFields.map((f, fi) => {
+                const isGathaField = (GATHA_ENTITY_KEYWORDS as readonly string[]).includes(f.field);
+                return (
+                  <span key={fi} className="inline-flex items-center gap-0.5">
+                    {fi > 0 && <span className="opacity-30">·</span>}
+                    <span className="text-foreground-muted">{f.field}:</span>
+                    <span className="font-medium">{f.value}</span>
+                    {isGathaField && (
+                      <RefMatchLink ref={ref} matchEntry={findMatchForRef(ref, entries)} loading={loading} ingestedShastras={ingestedShastras} />
+                    )}
+                  </span>
+                );
+              })}
+              {originalInfo && ref.shastra_name && (
+                <OriginalShastraLink
+                  shastraNk={ref.shastra_name}
+                  pustak={originalInfo.pustak}
+                  publishedPage={originalInfo.publishedPage}
+                  pdfPageOffset={effectiveOffsets.pdfPageOffset}
+                  pustakOffsets={effectiveOffsets.pustakOffsets}
+            available={effectiveOffsets.available}
+                />
+              )}
+            </span>
+          );
+        })}
+      </span>
+    </li>
   );
 }
 
@@ -320,46 +468,14 @@ function GroupedRefList({ refs, entries, loading, ingestedShastras }: {
             />
           );
         }
-
-        const commonFieldKeys = new Set(group.commonFields.map((f) => `${f.field}:${f.value}`));
         return (
-          <li key={gi} className="flex items-baseline gap-2 font-serif-hindi text-xs text-foreground">
-            <span className="mt-0.5 shrink-0 text-foreground-subtle">•</span>
-            <span className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
-              {group.sourceLabel && (
-                <>
-                  <span className={cn('font-semibold', group.isTeeka ? 'text-amber-700' : 'text-foreground-muted')}>
-                    {group.sourceLabel}
-                  </span>
-                  <span className="opacity-30">|</span>
-                </>
-              )}
-              {group.commonFields.map((f, fi) => (
-                <span key={fi} className="flex items-center gap-0.5">
-                  {fi > 0 && <span className="opacity-30">·</span>}
-                  <span className="text-foreground-muted">{f.field}:</span>
-                  <span className="font-medium">{f.value}</span>
-                </span>
-              ))}
-              {group.commonFields.length > 0 && <span className="opacity-30">|</span>}
-              {group.refs.map((ref, ri) => {
-                const diffFields = ref.resolved_fields.filter((f) => !commonFieldKeys.has(`${f.field}:${f.value}`));
-                return (
-                  <span key={ri} className="inline-flex items-center gap-0.5">
-                    {ri > 0 && <span className="opacity-30">·</span>}
-                    {diffFields.map((f, fi) => (
-                      <span key={fi} className="flex items-center gap-0.5">
-                        {fi > 0 && <span className="opacity-30">·</span>}
-                        <span className="text-foreground-muted">{f.field}:</span>
-                        <span className="font-medium">{f.value}</span>
-                      </span>
-                    ))}
-                    <RefMatchLink ref={ref} matchEntry={findMatchForRef(ref, entries)} loading={loading} ingestedShastras={ingestedShastras} />
-                  </span>
-                );
-              })}
-            </span>
-          </li>
+          <MultiRefGroupListItem
+            key={gi}
+            group={group}
+            entries={entries}
+            loading={loading}
+            ingestedShastras={ingestedShastras}
+          />
         );
       })}
     </>

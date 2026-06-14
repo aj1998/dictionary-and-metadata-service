@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ExternalLink } from '@/lib/icons';
+import { ExternalLink, BookOpen } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 import { getExtractMatch } from '@/lib/api/data';
 import { buildGathaHref, buildShastraGathaHref, getRefGathaEntity } from '@/lib/gatha-content';
@@ -181,13 +181,13 @@ export function RefMatchLink({ ref, matchEntry, loading = false, ingestedShastra
       className={cn(
         'inline-flex items-center transition-colors',
         matched
-          ? 'text-blue-600 hover:text-blue-700'
+          ? 'text-[var(--cat-page)] hover:text-amber-900'
           : 'text-foreground-subtle hover:text-foreground-muted',
       )}
       aria-label={`शास्त्र में देखें — ${plan.label}${suffix}`}
       title={`${plan.label}${suffix}`}
     >
-      <ExternalLink className="size-4 shrink-0" />
+      <BookOpen className="size-4 shrink-0" />
     </a>
   );
 }
@@ -202,13 +202,13 @@ export function MatchLink({ entry }: MatchLinkProps) {
       className={cn(
         'inline-flex items-center transition-colors',
         matched
-          ? 'text-blue-600 hover:text-blue-700'
+          ? 'text-[var(--cat-page)] hover:text-amber-900'
           : 'text-foreground-subtle hover:text-foreground-muted',
       )}
       aria-label={`शास्त्र में देखें — ${entry.label}${matched ? '' : ' (मिलान नहीं)'}`}
       title={matched ? entry.label : `${entry.label} — मिलान नहीं`}
     >
-      <ExternalLink className="size-4 shrink-0" />
+      <BookOpen className="size-4 shrink-0" />
     </a>
   );
 }

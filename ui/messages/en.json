@@ -214,5 +214,8 @@
     "show_intermediate": "Show intermediate topics",
     "search_topic": "Search topic",
     "search_shastra": "Search shastra"
+  },
+  "originalShastra": {
+    "viewOriginal": "View original shastra"
   }
 }

@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { getBlockBorderClass, formatRefSourceLabel, parseMarkdownSegments, pickRefsToShow, pickHiddenRefs, groupTopicExtractsByShastra } from '@/components/DefinitionModal';
+import { extractOriginalShastraInfo } from '@/lib/shastra-pdf-registry';
 import type { DefinitionBlock, DefinitionReference } from '@/lib/types';
 
 function makeRef(overrides: Partial<DefinitionReference> = {}): DefinitionReference {
@@ -424,6 +425,42 @@ describe('groupTopicExtractsByShastra', () => {
     const groups = groupTopicExtractsByShastra(blocks);
     const allGroupedBlocks = groups.flatMap((g) => g.blocks);
     expect(allGroupedBlocks).toHaveLength(3); // see_also excluded
+  });
+});
+
+// OriginalShastraLink visibility — driven by extractOriginalShastraInfo on ref.resolved_fields
+describe('OriginalShastraLink visibility (via extractOriginalShastraInfo)', () => {
+  it('returns non-null info when ref has पृष्ठ — OriginalShastraLink should render', () => {
+    const ref = makeRef({ resolved_fields: [{ field: 'पृष्ठ', value: '12' }] });
+    expect(extractOriginalShastraInfo(ref)).not.toBeNull();
+  });
+
+  it('returns null when ref has no पृष्ठ — OriginalShastraLink should not render', () => {
+    const ref = makeRef({ resolved_fields: [{ field: 'गाथा', value: '5' }] });
+    expect(extractOriginalShastraInfo(ref)).toBeNull();
+  });
+
+  it('returns null for ref with empty resolved_fields — no OriginalShastraLink', () => {
+    const ref = makeRef({ resolved_fields: [] });
+    expect(extractOriginalShastraInfo(ref)).toBeNull();
+  });
+
+  it('extracts pustak alongside पृष्ठ for multi-volume shastra refs', () => {
+    const ref = makeRef({
+      resolved_fields: [
+        { field: 'पृष्ठ', value: '20' },
+        { field: 'पुस्तक', value: '3' },
+      ],
+    });
+    const info = extractOriginalShastraInfo(ref);
+    expect(info).not.toBeNull();
+    expect(info?.publishedPage).toBe(20);
+    expect(info?.pustak).toBe('3');
+  });
+
+  it('ref with only पुस्तक and no पृष्ठ returns null — no OriginalShastraLink', () => {
+    const ref = makeRef({ resolved_fields: [{ field: 'पुस्तक', value: '1' }] });
+    expect(extractOriginalShastraInfo(ref)).toBeNull();
   });
 });
 
