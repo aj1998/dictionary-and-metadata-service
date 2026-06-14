@@ -141,7 +141,7 @@
     "author": "",
     "date_format": "ई.",
     "date": "1960",
-    "publisher": "राजचन्द्र ग्रन्थमाला",
+    "publisher": "राजचन्द्र ग्रन्थमाला, परम श्रुत प्रभावक मण्डल, बम्बई",
     "notes": "",
     "edition": "",
     "type": "publication",
@@ -274,7 +274,7 @@
     "author": "",
     "date_format": "ई.",
     "date": "1907",
-    "publisher": "राजचन्द्र ग्रन्थमाला",
+    "publisher": "राजचन्द्र ग्रन्थमाला, परम श्रुत प्रभावक मण्डल, बम्बई",
     "notes": "",
     "edition": "",
     "type": "publication",
@@ -638,7 +638,9 @@
     "edition": "",
     "type": "publication",
     "alternate_name": "",
-    "public_url": "https://archive.org/details/kMOw_nyaya-dipika-by-abhinav-dharm-bhushan-yati-vir-seva-mandir-delhi/page/n1/mode/2up"
+    "public_url": "https://archive.org/details/kMOw_nyaya-dipika-by-abhinav-dharm-bhushan-yati-vir-seva-mandir-delhi/page/n1/mode/2up",
+    "pdf_filename": "nyaya_deepika",
+    "pdf_page_offset": 142
   },
   {
     "shastra_name": "न्यायबिन्दु",
@@ -699,7 +701,7 @@
     "author": "",
     "date_format": "वि.सं.",
     "date": "1972",
-    "publisher": "परम श्रुत प्रभावक मण्डल",
+    "publisher": "राजचन्द्र ग्रन्थमाला, परम श्रुत प्रभावक मण्डल, बम्बई",
     "notes": "",
     "edition": "",
     "type": "publication",
@@ -832,12 +834,14 @@
     "author": "",
     "date_format": "",
     "date": "",
-    "publisher": "राजचन्द्र ग्रन्थमाला",
+    "publisher": "राजचन्द्र ग्रन्थमाला, परम श्रुत प्रभावक मण्डल, बम्बई",
     "notes": "",
     "edition": "द्वितीय संस्करण",
     "type": "publication",
     "alternate_name": "",
-    "public_url": "https://archive.org/details/in.ernet.dli.2015.327220/page/n1/mode/2up"
+    "public_url": "https://archive.org/details/in.ernet.dli.2015.327220/page/n1/mode/2up",
+    "pdf_page_offset": 165,
+    "pdf_filename": "parmatma_prakash"
   },
   {
     "shastra_name": "पाण्डवपुराण",
@@ -887,7 +891,9 @@
     "edition": "",
     "type": "publication",
     "alternate_name": "",
-    "public_url": ""
+    "public_url": "https://jainqq.org/explore/010843/1",
+    "pdf_page_offset": 147,
+    "pdf_filename": "pravachansaar"
   },
   {
     "shastra_name": "प्रतिष्ठासारोद्धार",
@@ -1334,7 +1340,7 @@
     "author": "",
     "date_format": "वि.सं.",
     "date": "1972",
-    "publisher": "परम श्रुत प्रभावक मण्डल",
+    "publisher": "राजचन्द्र ग्रन्थमाला, परम श्रुत प्रभावक मण्डल, बम्बई",
     "notes": "",
     "edition": "द्वितीय संस्करण",
     "type": "publication",
@@ -1350,7 +1356,7 @@
     "author": "",
     "date_format": "वि.सं.",
     "date": "1991",
-    "publisher": "परम श्रुत प्रभावक मण्डल",
+    "publisher": "राजचन्द्र ग्रन्थमाला, परम श्रुत प्रभावक मण्डल, बम्बई",
     "notes": "",
     "edition": "",
     "type": "publication",
@@ -1589,14 +1595,16 @@
     "type": "publication",
     "alternate_name": "",
     "public_url": "https://jainworld.jainworld.com/JWSanskrit/Jainendra+Mahavritti.pdf",
-    "manually_added": true
+    "manually_added": true,
+    "pdf_filename": "jainendra_vyaakaran",
+    "pdf_page_offset": 41
   },
   {
     "shastra_name": "न्यायविनिश्चय",
     "short_form": "न.वि.",
     "format": [
-      "भाग/गाथा/पृष्ठ",
-      "भाग/गाथा"
+      "पुस्तक/गाथा/पृष्ठ",
+      "पुस्तक/गाथा"
     ],
     "author": "",
     "date_format": "",
@@ -1606,7 +1614,16 @@
     "edition": "",
     "type": "publication",
     "alternate_name": "",
-    "public_url": "https://archive.org/details/XURk_nyaya-vinishchaya-vivarana-of-vadiraja-suri-vol.-3-by-mahendra-kumar-jaina-sansk/page/n1/mode/2up",
-    "manually_added": true
+    "public_url": "",
+    "public_urls": {
+      "1": "https://archive.org/details/XURk_nyaya-vinishchaya-vivarana-of-vadiraja-suri-vol.-3-by-mahendra-kumar-jaina-sansk/page/n1/mode/2up",
+      "2": "https://archive.org/details/in.ernet.dli.2015.539616/page/n1/mode/2up"
+    },
+    "manually_added": true,
+    "pdf_filename": "nyaya_vinishchaya",
+    "pustak_offsets": {
+      "1": 74,
+      "2": 77
+    }
   }
 ]

@@ -4422,7 +4422,7 @@
       "next": "/wiki/Aaaa"
     },
     "parser_version": "jainkosh.rules/1.11.21",
-    "parsed_at": "2026-06-13T13:07:22.801260",
+    "parsed_at": "2026-06-14T19:04:36.146999",
     "warnings": []
   },
   "would_write": {
@@ -9816,11 +9816,11 @@
         },
         {
           "label": "Page",
-          "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:58",
+          "key": "परमात्मप्रकाश:टीका:17:पृष्ठ:58",
           "props": {
             "shastra_natural_key": "परमात्मप्रकाश",
             "teeka_natural_key": "परमात्मप्रकाश:टीका",
-            "publisher_id": "23",
+            "publisher_id": "17",
             "page_number": "58"
           },
           "lazy": true
@@ -9891,11 +9891,11 @@
         },
         {
           "label": "Page",
-          "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:56",
+          "key": "परमात्मप्रकाश:टीका:17:पृष्ठ:56",
           "props": {
             "shastra_natural_key": "परमात्मप्रकाश",
             "teeka_natural_key": "परमात्मप्रकाश:टीका",
-            "publisher_id": "23",
+            "publisher_id": "17",
             "page_number": "56"
           },
           "lazy": true
@@ -10801,11 +10801,11 @@
         },
         {
           "label": "Page",
-          "key": "कार्तिकेयानुप्रेक्षा:टीका:23:पृष्ठ:156",
+          "key": "कार्तिकेयानुप्रेक्षा:टीका:17:पृष्ठ:156",
           "props": {
             "shastra_natural_key": "कार्तिकेयानुप्रेक्षा",
             "teeka_natural_key": "कार्तिकेयानुप्रेक्षा:टीका",
-            "publisher_id": "23",
+            "publisher_id": "17",
             "page_number": "156"
           },
           "lazy": true
@@ -11361,7 +11361,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:58"
+            "key": "परमात्मप्रकाश:टीका:17:पृष्ठ:58"
           },
           "to": {
             "label": "Topic",
@@ -11471,7 +11471,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:58"
+            "key": "परमात्मप्रकाश:टीका:17:पृष्ठ:58"
           },
           "to": {
             "label": "Topic",
@@ -11524,7 +11524,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:56"
+            "key": "परमात्मप्रकाश:टीका:17:पृष्ठ:56"
           },
           "to": {
             "label": "Topic",
@@ -12787,7 +12787,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:56"
+            "key": "परमात्मप्रकाश:टीका:17:पृष्ठ:56"
           },
           "to": {
             "label": "Topic",
@@ -13126,7 +13126,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:58"
+            "key": "परमात्मप्रकाश:टीका:17:पृष्ठ:58"
           },
           "to": {
             "label": "Topic",
@@ -13320,7 +13320,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:58"
+            "key": "परमात्मप्रकाश:टीका:17:पृष्ठ:58"
           },
           "to": {
             "label": "Topic",
@@ -13550,7 +13550,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "कार्तिकेयानुप्रेक्षा:टीका:23:पृष्ठ:156"
+            "key": "कार्तिकेयानुप्रेक्षा:टीका:17:पृष्ठ:156"
           },
           "to": {
             "label": "Topic",

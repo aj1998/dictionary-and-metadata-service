@@ -805,7 +805,7 @@
       "next": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%81%E0%A4%B2"
     },
     "parser_version": "jainkosh.rules/1.11.21",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parsed_at": "2026-06-14T19:04:35.958959",
     "warnings": []
   },
   "would_write": {
@@ -1812,11 +1812,11 @@
         },
         {
           "label": "Page",
-          "key": "ज्ञानार्णव:टीका:23:पृष्ठ:317",
+          "key": "ज्ञानार्णव:टीका:17:पृष्ठ:317",
           "props": {
             "shastra_natural_key": "ज्ञानार्णव",
             "teeka_natural_key": "ज्ञानार्णव:टीका",
-            "publisher_id": "23",
+            "publisher_id": "17",
             "page_number": "317"
           },
           "lazy": true
@@ -1943,11 +1943,11 @@
         },
         {
           "label": "Page",
-          "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:19",
+          "key": "परमात्मप्रकाश:टीका:17:पृष्ठ:19",
           "props": {
             "shastra_natural_key": "परमात्मप्रकाश",
             "teeka_natural_key": "परमात्मप्रकाश:टीका",
-            "publisher_id": "23",
+            "publisher_id": "17",
             "page_number": "19"
           },
           "lazy": true
@@ -2154,7 +2154,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "ज्ञानार्णव:टीका:23:पृष्ठ:317"
+            "key": "ज्ञानार्णव:टीका:17:पृष्ठ:317"
           },
           "to": {
             "label": "Topic",
@@ -2426,7 +2426,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "परमात्मप्रकाश:टीका:23:पृष्ठ:19"
+            "key": "परमात्मप्रकाश:टीका:17:पृष्ठ:19"
           },
           "to": {
             "label": "Topic",

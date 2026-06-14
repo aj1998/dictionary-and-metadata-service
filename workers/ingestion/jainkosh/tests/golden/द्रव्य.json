@@ -1399,7 +1399,7 @@
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
-                            "field": "भाग",
+                            "field": "पुस्तक",
                             "value": 1
                           },
                           {
@@ -1682,7 +1682,7 @@
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
-                            "field": "भाग",
+                            "field": "पुस्तक",
                             "value": 1
                           },
                           {
@@ -10624,7 +10624,7 @@
       "next": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF_%E0%A4%86%E0%A4%B8%E0%A5%8D%E0%A4%B0%E0%A4%B5"
     },
     "parser_version": "jainkosh.rules/1.11.21",
-    "parsed_at": "2026-05-04T00:00:00",
+    "parsed_at": "2026-06-14T19:04:36.353345",
     "warnings": []
   },
   "would_write": {
@@ -13265,7 +13265,7 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "भाग",
+                      "field": "पुस्तक",
                       "value": 1
                     },
                     {
@@ -13549,7 +13549,7 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "भाग",
+                      "field": "पुस्तक",
                       "value": 1
                     },
                     {
