@@ -1,0 +1,95 @@
+from __future__ import annotations
+
+import json
+import logging
+import os
+import unicodedata
+from functools import lru_cache
+from pathlib import Path
+
+logger = logging.getLogger(__name__)
+
+_TRAVERSAL_CHARS = frozenset(["/", "\\", ".."])
+
+
+def _has_traversal(value: str) -> bool:
+    if ".." in value:
+        return True
+    if "/" in value or "\\" in value:
+        return True
+    return False
+
+
+@lru_cache(maxsize=1)
+def _load_shastra_config() -> list[dict]:
+    base = os.path.dirname(__file__)
+    path = os.path.normpath(
+        os.path.join(base, "..", "..", "..", "..", "..", "parser_configs", "_manual_configs", "shastra.json")
+    )
+    with open(path) as f:
+        return json.load(f)  # type: ignore[no-any-return]
+
+
+def get_shastra_pdf_offsets(shastra_nk: str) -> tuple[int, dict[str, int] | None]:
+    """Return (pdf_page_offset, pustak_offsets) for a shastra natural key."""
+    entries = _load_shastra_config()
+    nk_nfc = unicodedata.normalize("NFC", shastra_nk)
+    for entry in entries:
+        name = unicodedata.normalize("NFC", entry.get("shastra_name", ""))
+        if name == nk_nfc:
+            offset = int(entry.get("pdf_page_offset", 0))
+            pustak_raw = entry.get("pustak_offsets")
+            pustak = {k: int(v) for k, v in pustak_raw.items()} if pustak_raw else None
+            return offset, pustak
+    return 0, None
+
+
+def resolve_pdf_path(
+    pdf_dir: str,
+    shastra_nk: str,
+    pustak: str | None,
+) -> Path | None:
+    """
+    Resolve the filesystem path for a shastra PDF.
+
+    Returns None if traversal characters are detected (caller should 400).
+    Raises FileNotFoundError if the file doesn't exist (caller should 404).
+
+    Path rules:
+    - If shastra config has pdf_filename: <dir>/<shastra_name>/<pdf_filename>[_<pustak>].pdf
+    - Otherwise: <dir>/<shastra_name>[_<pustak>].pdf
+    """
+    nk_nfc = unicodedata.normalize("NFC", shastra_nk)
+
+    if _has_traversal(nk_nfc):
+        logger.error("Traversal attempt in shastra_nk: %r", shastra_nk)
+        return None
+    if pustak is not None and _has_traversal(pustak):
+        logger.error("Traversal attempt in pustak: %r", pustak)
+        return None
+
+    entries = _load_shastra_config()
+    pdf_filename: str | None = None
+    for entry in entries:
+        name = unicodedata.normalize("NFC", entry.get("shastra_name", ""))
+        if name == nk_nfc:
+            pdf_filename = entry.get("pdf_filename")
+            break
+
+    root = Path(pdf_dir).resolve()
+
+    if pdf_filename is not None:
+        stem = f"{pdf_filename}_{pustak}" if pustak is not None else pdf_filename
+        resolved = (root / nk_nfc / f"{stem}.pdf").resolve()
+    else:
+        stem = f"{nk_nfc}_{pustak}" if pustak is not None else nk_nfc
+        resolved = (root / f"{stem}.pdf").resolve()
+
+    # Defence-in-depth: ensure resolved path stays inside root
+    try:
+        resolved.relative_to(root)
+    except ValueError:
+        logger.error("Path escape attempt: resolved=%s root=%s", resolved, root)
+        return None
+
+    return resolved

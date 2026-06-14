@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+import logging
 import uuid
 
 from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi.responses import FileResponse
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from ....config import settings
 from ....deps import get_session, require_admin
 from ..schemas.common import AnuyogaSummary, AuthorSummary, Pagination
 from ..schemas.shastras import (
@@ -19,6 +22,9 @@ from ..schemas.shastras import (
 from ..schemas.teekas import TeekaListResponse, TeekaSummaryResponse
 from ..services import shastras as svc
 from ..services import teekas as teeka_svc
+from ..services.shastra_pdf import get_shastra_pdf_offsets, resolve_pdf_path
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/v1", tags=["shastras"])
 
@@ -104,6 +110,36 @@ async def list_shastras(
     )
 
 
+@router.api_route("/shastras/{ident}/pdf-file", methods=["GET", "HEAD"])
+async def get_shastra_pdf_file(
+    ident: str,
+    pustak: str | None = Query(None),
+) -> FileResponse:
+    if settings.ORIGINAL_SHASTRA_PDF_DIR is None:
+        raise HTTPException(503, detail={"code": "unavailable", "message": "PDF directory not configured"})
+
+    resolved = resolve_pdf_path(settings.ORIGINAL_SHASTRA_PDF_DIR, ident, pustak)
+    if resolved is None:
+        raise HTTPException(400, detail={"code": "invalid_param", "message": "Invalid shastra_nk or pustak"})
+
+    if not resolved.exists():
+        logger.warning("PDF not found: %s (shastra_nk=%r pustak=%r)", resolved, ident, pustak)
+        raise HTTPException(404, detail={"code": "not_found", "message": "PDF file not found"})
+
+    file_size = resolved.stat().st_size
+    logger.info("Serving PDF: %s size=%d shastra_nk=%r pustak=%r", resolved, file_size, ident, pustak)
+
+    return FileResponse(
+        path=str(resolved),
+        media_type="application/pdf",
+        filename=resolved.name,
+        headers={
+            "Content-Disposition": f'inline; filename="{resolved.name}"',
+            "Accept-Ranges": "bytes",
+        },
+    )
+
+
 @router.get("/shastras/{ident}", response_model=ShastraResponse)
 async def get_shastra(
     ident: str,
@@ -114,6 +150,7 @@ async def get_shastra(
         raise HTTPException(404, detail={"code": "not_found", "message": f"Shastra '{ident}' not found"})
     detail = await svc.get_detail(session, shastra)
     author = detail["author"]
+    pdf_page_offset, pustak_offsets = get_shastra_pdf_offsets(shastra.natural_key)
     return ShastraResponse(
         id=shastra.id,
         natural_key=shastra.natural_key,
@@ -133,6 +170,8 @@ async def get_shastra(
         ),
         created_at=shastra.created_at,
         updated_at=shastra.updated_at,
+        pdf_page_offset=pdf_page_offset,
+        pustak_offsets=pustak_offsets,
     )
 
 
@@ -201,6 +240,7 @@ async def create_shastra(
         raise HTTPException(409, detail={"code": "conflict", "message": "natural_key already exists"})
     detail = await svc.get_detail(session, shastra)
     author = detail["author"]
+    pdf_page_offset, pustak_offsets = get_shastra_pdf_offsets(shastra.natural_key)
     return ShastraResponse(
         id=shastra.id,
         natural_key=shastra.natural_key,
@@ -217,6 +257,8 @@ async def create_shastra(
         stats=ShastraStats(total_gathas=detail["total_gathas"], total_teekas=detail["total_teekas"]),
         created_at=shastra.created_at,
         updated_at=shastra.updated_at,
+        pdf_page_offset=pdf_page_offset,
+        pustak_offsets=pustak_offsets,
     )
 
 
@@ -243,6 +285,7 @@ async def update_shastra(
     await session.commit()
     detail = await svc.get_detail(session, shastra)
     author = detail["author"]
+    pdf_page_offset, pustak_offsets = get_shastra_pdf_offsets(shastra.natural_key)
     return ShastraResponse(
         id=shastra.id,
         natural_key=shastra.natural_key,
@@ -259,4 +302,6 @@ async def update_shastra(
         stats=ShastraStats(total_gathas=detail["total_gathas"], total_teekas=detail["total_teekas"]),
         created_at=shastra.created_at,
         updated_at=shastra.updated_at,
+        pdf_page_offset=pdf_page_offset,
+        pustak_offsets=pustak_offsets,
     )

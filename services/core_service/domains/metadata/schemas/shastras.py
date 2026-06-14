@@ -24,6 +24,8 @@ class ShastraResponse(BaseModel):
     stats: ShastraStats
     created_at: datetime
     updated_at: datetime
+    pdf_page_offset: int = 0
+    pustak_offsets: dict[str, int] | None = None
 
     @field_validator("title", mode="before")
     @classmethod

@@ -26,6 +26,8 @@ class Settings(BaseSettings):
     LOG_LEVEL: str = "INFO"
     PORT: int = 8001
 
+    ORIGINAL_SHASTRA_PDF_DIR: str | None = None
+
     @model_validator(mode="after")
     def apply_neo4j_database_switch(self) -> "Settings":
         if self.NEO4J_USE_DEFAULT_DATABASE:
