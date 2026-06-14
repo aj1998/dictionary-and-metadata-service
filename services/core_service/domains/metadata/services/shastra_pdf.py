@@ -44,6 +44,28 @@ def get_shastra_pdf_offsets(shastra_nk: str) -> tuple[int, dict[str, int] | None
     return 0, None
 
 
+def get_shastra_pdf_offsets_with_availability(
+    shastra_nk: str,
+) -> tuple[int, dict[str, int] | None, bool]:
+    """Return (pdf_page_offset, pustak_offsets, available) for a shastra natural key.
+
+    `available` is True when the shastra entry in shastra.json explicitly carries
+    a `pdf_page_offset` (or `pustak_offsets`), indicating that a local PDF is
+    expected to exist.
+    """
+    entries = _load_shastra_config()
+    nk_nfc = unicodedata.normalize("NFC", shastra_nk)
+    for entry in entries:
+        name = unicodedata.normalize("NFC", entry.get("shastra_name", ""))
+        if name == nk_nfc:
+            has_offset = "pdf_page_offset" in entry or "pustak_offsets" in entry
+            offset = int(entry.get("pdf_page_offset", 0))
+            pustak_raw = entry.get("pustak_offsets")
+            pustak = {k: int(v) for k, v in pustak_raw.items()} if pustak_raw else None
+            return offset, pustak, has_offset
+    return 0, None, False
+
+
 def resolve_pdf_path(
     pdf_dir: str,
     shastra_nk: str,

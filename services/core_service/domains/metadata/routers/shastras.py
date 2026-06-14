@@ -22,7 +22,11 @@ from ..schemas.shastras import (
 from ..schemas.teekas import TeekaListResponse, TeekaSummaryResponse
 from ..services import shastras as svc
 from ..services import teekas as teeka_svc
-from ..services.shastra_pdf import get_shastra_pdf_offsets, resolve_pdf_path
+from ..services.shastra_pdf import (
+    get_shastra_pdf_offsets,
+    get_shastra_pdf_offsets_with_availability,
+    resolve_pdf_path,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -138,6 +142,21 @@ async def get_shastra_pdf_file(
             "Accept-Ranges": "bytes",
         },
     )
+
+
+@router.get("/shastras/{ident}/pdf-offsets")
+async def get_shastra_pdf_offsets_endpoint(ident: str) -> dict:
+    """Return PDF page offsets for a shastra from the shastra.json registry.
+
+    This does not require the shastra to be ingested in the DB — it serves
+    the UI's OriginalShastraLink which only needs offset metadata.
+    """
+    offset, pustak, available = get_shastra_pdf_offsets_with_availability(ident)
+    return {
+        "pdf_page_offset": offset,
+        "pustak_offsets": pustak,
+        "available": available,
+    }
 
 
 @router.get("/shastras/{ident}", response_model=ShastraResponse)

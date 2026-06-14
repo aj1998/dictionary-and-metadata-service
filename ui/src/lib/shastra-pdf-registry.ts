@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getShastra } from '@/lib/api/metadata';
+import { getShastraPdfOffsets } from '@/lib/api/metadata';
 import type { DefinitionReference } from '@/lib/types';
 
 export function extractOriginalShastraInfo(
@@ -40,12 +40,12 @@ export function _resetShastraPdfOffsetsForTest(): void {
 
 function loadShastraPdfOffsets(nk: string): Promise<ShastraPdfOffsets> {
   if (promiseCache.has(nk)) return promiseCache.get(nk)!;
-  const promise = getShastra(nk)
+  const promise = getShastraPdfOffsets(nk)
     .then(
-      (detail): ShastraPdfOffsets => ({
-        pdfPageOffset: detail.pdf_page_offset ?? 0,
-        pustakOffsets: detail.pustak_offsets ?? null,
-        available: detail.pdf_page_offset !== undefined,
+      (res): ShastraPdfOffsets => ({
+        pdfPageOffset: res.pdf_page_offset ?? 0,
+        pustakOffsets: res.pustak_offsets ?? null,
+        available: res.available,
       }),
     )
     .catch((): ShastraPdfOffsets => {

@@ -22,6 +22,16 @@ export async function getShastra(nk: string): Promise<ShastraDetail> {
   return apiFetch<ShastraDetail>(BASE_URL, `/v1/shastras/${nk}`);
 }
 
+export interface ShastraPdfOffsetsResponse {
+  pdf_page_offset: number;
+  pustak_offsets: Record<string, number> | null;
+  available: boolean;
+}
+
+export async function getShastraPdfOffsets(nk: string): Promise<ShastraPdfOffsetsResponse> {
+  return apiFetch<ShastraPdfOffsetsResponse>(BASE_URL, `/v1/shastras/${nk}/pdf-offsets`);
+}
+
 export async function getShastraTeekas(nk: string): Promise<TeekaSummary[]> {
   const result = await apiFetch<{ items: TeekaSummary[] } | TeekaSummary[]>(BASE_URL, `/v1/shastras/${nk}/teekas`);
   if (Array.isArray(result)) return result;
