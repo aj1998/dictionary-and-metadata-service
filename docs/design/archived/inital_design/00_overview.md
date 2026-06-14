@@ -17,7 +17,7 @@ It exposes:
 
 ## SAAR additions
 
-The Jinvani SAAR vision extends the original 4-service platform. The scope and per-feature design specs live in [`scope/`](../scope) and [`design/scope/`](../scope). New services and sources added by SAAR are summarised below; see [`scope/02_foundation_status.md`](../../scope/02_foundation_status.md) for the foundation gap analysis.
+The Jinvani SAAR vision extends the original 4-service platform. The scope and per-feature design specs live in [`scope/`](../../scope) and [`design/scope/`](../../scope). New services and sources added by SAAR are summarised below; see [`scope/02_foundation_status.md`](../../../scope/02_foundation_status.md) for the foundation gap analysis.
 
 ### Additional services
 

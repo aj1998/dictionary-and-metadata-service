@@ -59,7 +59,7 @@ Future -
 
 ## Architecture
 
-> See [`docs/design/00_overview.md`](docs/design/inital_design/00_overview.md) for the full design reading order.
+> See [`docs/design/00_overview.md`](docs/design/archived/inital_design/00_overview.md) for the full design reading order.
 
 ### Services
 
