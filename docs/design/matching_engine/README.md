@@ -105,6 +105,10 @@ Stripping rules currently remove:
 - Devanagari avagraha
 - Devanagari visarga
 
+A third **preprocess** pass also runs alongside the Tiryak and anusvara passes:
+
+- **`र्`-gemination collapse.** The old Sanskrit orthographic convention of doubling a consonant after `र्` (e.g. `पर्य्याय` ↔ `पर्याय`, `धर्म्म` ↔ `धर्म`, `कर्म्म` ↔ `कर्म`) is canonicalized to the single-consonant form. Pattern: `र ् C ् C` → `र ् C` where both `C`s are the same Devanagari consonant. Scoped to "after `र्`" so legitimate same-consonant conjuncts elsewhere (e.g. `क्क` in `मक्का`) are untouched. ZWJ/ZWNJ between the doubled consonant and halant is tolerated.
+
 In addition to stripping, two **preprocess** passes run before the strip pass to canonicalize OCR/spelling variants that would otherwise produce false negatives:
 
 - **Vedic Sign Tiryak (U+1CED `᳭`) → halant (U+094D `्`)**. Some OCR'd shastras emit `᳭` where a real halant belongs (e.g. `तिर्यङ᳭मनुष्य` vs `तिर्यङ्मनुष्य`). The substitution makes the two forms identical and also lets the next pass fire on it.
@@ -399,6 +403,7 @@ At minimum, also review:
 
 | Date | Change |
 |---|---|
+| 2026-06-15 | **`र्`-gemination collapse.** `normalize()` collapses the old Sanskrit orthographic doubling of a consonant after `र्` (पर्य्याय → पर्याय, धर्म्म → धर्म, कर्म्म → कर्म). Scoped to "after `र्`" so unrelated same-consonant conjuncts (क्क in मक्का, real म्य in अभ्युपगम्य) are untouched. Files: `normalize.py`, `tests/test_normalize.py`. |
 | 2026-06-15 | **Ellipsis-bridged matching.** `locate()` now recognizes a literal run of 3+ dots in the source as a wildcard gap. Source is split into segments; each is located in target sequentially with per-segment exact-then-fuzzy search; the returned span covers first-segment start → last-segment end so the UI highlights the bridged region. New `MatchResult.method = "exact_normalized_ellipsis"`. Files: `locate.py`, `types.py`, `tests/test_locate.py`. |
 | 2026-06-15 | **Vedic Sign Tiryak (U+1CED) → halant substitution.** `normalize()` rewrites `᳭` to `्` before any other pass, fixing OCR'd targets like `तिर्यङ᳭मनुष्य` that should equal `तिर्यङ्मनुष्य`. |
 | 2026-06-15 | **Sandhi anusvara canonicalization.** `normalize()` rewrites each anusvara `ं` followed by a consonant to the sandhi-class nasal + halant + consonant (e.g. `ं`+ब → `म्`+ब). Makes the anusvara form and the spelled-out form (`संबंध` vs `संबन्ध`) match exactly, without over-collapsing real conjuncts like `म्य` in `अभ्युपगम्य`. ZWJ/ZWNJ between anusvara and consonant is tolerated. Replaced an earlier strip-based approach that was rejected for over-collapsing real conjuncts. |

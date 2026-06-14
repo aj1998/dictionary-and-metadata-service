@@ -251,3 +251,41 @@ def test_empty_input():
     assert r.normalized == ""
     assert r.n2o == []
     assert r.original == ""
+
+
+# ── Rule 11: र्-gemination collapse ──────────────────────────────────────────
+
+def test_ra_gemination_parayaya():
+    # पर्य्याय (geminated) and पर्याय (single) must canonicalize identically.
+    a = normalize("पर्य्याय").normalized
+    b = normalize("पर्याय").normalized
+    assert a == b == "पर्याय"
+
+
+def test_ra_gemination_dharma():
+    assert normalize("धर्म्म").normalized == normalize("धर्म").normalized
+
+
+def test_ra_gemination_karma():
+    assert normalize("कर्म्म").normalized == normalize("कर्म").normalized
+
+
+def test_ra_gemination_does_not_touch_unrelated_double():
+    # मक्का has क्क but no preceding र् — must not be collapsed.
+    r = normalize("मक्का")
+    assert r.normalized == "मक्का"
+
+
+def test_ra_gemination_does_not_touch_abhyupagamya():
+    # अभ्युपगम्य has a real म्य conjunct (not after र्) — must stay intact.
+    assert normalize("अभ्युपगम्य").normalized == "अभ्युपगम्य"
+
+
+def test_ra_gemination_in_full_extract():
+    src = "षड्ढानिवृद्धिरूपाः सूक्ष्माः परमागमप्रामाण्यादभ्युपगमाः अर्थपर्य्यायाः"
+    tgt = "षड्ढानिवृद्धिरूपाः सूक्ष्माः परमागमप्रामाण्यादभ्युपगम्याः अर्थपर्यायाः षण्णां द्रव्याणां साधारणाः"
+    s = normalize(src).normalized
+    t = normalize(tgt).normalized
+    # After collapse, अर्थपर्याय appears identically in both sides.
+    assert "अर्थपर्याय" in s
+    assert "अर्थपर्याय" in t

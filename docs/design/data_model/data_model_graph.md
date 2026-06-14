@@ -42,8 +42,8 @@ All edges are directed unless noted. Edge type names are uppercase (Neo4j conven
 | `ALIAS_OF` | directed | `Alias → Keyword` | `source` | Synonym / variant spelling |
 | `MENTIONS_KEYWORD` | directed | `Topic → Keyword` | `weight`, `source_chunk_id` (nullable) | Topic body mentions this keyword (used to seed query) |
 | `HAS_TOPIC` | directed | `Keyword → Topic` | `weight`, `source` | Keyword's JainKosh page yielded this topic |
-| `MENTIONS_TOPIC` | directed | `Gatha\|GathaTeeka\|GathaTeekaBhaavarth\|Kalash\|KalashBhaavarth\|Page → Topic` | `weight`, `source` | Source citation node (resolved from a JainKosh ref) cites a topic. Block-kind decides whether the source endpoint is the Gatha vs. the GathaTeeka/Bhaavarth — see `workers/ingestion/jainkosh/reference_edges.py`. |
-| `CONTAINS_DEFINITION` | directed | `Gatha\|GathaTeeka\|GathaTeekaBhaavarth\|Kalash\|KalashBhaavarth\|Page → Keyword` | `weight`, `source`, `mention_path` | Source citation node appears inside a Keyword's JainKosh definition body. (Direction is **citation → Keyword** — the edge points outward from the cited gatha-family node to the keyword whose definition contains it.) |
+| `MENTIONS_TOPIC` | directed, **block-scoped** | `Gatha\|GathaTeeka\|GathaTeekaBhaavarth\|Kalash\|KalashBhaavarth\|Page → Topic` | `weight`, `source`, `block_index`, `section_index` (=-1), `definition_index` (=-1) | Source citation node (resolved from a JainKosh ref) cites a topic. Block-kind decides whether the source endpoint is the Gatha vs. the GathaTeeka/Bhaavarth — see `workers/ingestion/jainkosh/reference_edges.py`. One edge per `(src, tgt, block_index)` — see "Block-scoped edge identity" below. |
+| `CONTAINS_DEFINITION` | directed, **block-scoped** | `Gatha\|GathaTeeka\|GathaTeekaBhaavarth\|Kalash\|KalashBhaavarth\|Page → Keyword` | `weight`, `source`, `mention_path`, `block_index`, `section_index`, `definition_index` | Source citation node appears inside a Keyword's JainKosh definition body. (Direction is **citation → Keyword**.) One edge per `(src, tgt, section_index, definition_index, block_index)` — see "Block-scoped edge identity" below. |
 | `HAS_TEEKA` | directed | `Shastra → Teeka` | — | Structural: shastra owns this teeka |
 | `HAS_PUBLICATION` | directed | `Teeka → Publication` (also `Shastra → Publication` in NJ) | — | Structural: teeka owns this publication |
 | `IN_SHASTRA` | directed | `Gatha → Shastra` | — | Structural: gatha belongs to shastra |
@@ -53,6 +53,27 @@ All edges are directed unless noted. Edge type names are uppercase (Neo4j conven
 | `MENTIONS_TABLE` | directed | `Gatha\|Kalash\|Page → Table` | `weight`, `source`, `mention_path`, `source_natural_key` | Citation node (resolved from a table cell GRef) is cited within this table |
 
 **Extending edge types:** add the new type name to `parser_configs/_meta/edge_types.yaml`. Validation on graph writes consults this file. Adding a type requires no migration.
+
+### Block-scoped edge identity (`MENTIONS_TOPIC` / `CONTAINS_DEFINITION`)
+
+A single Keyword definition or Topic extract may cite the **same** target node (e.g. `नियमसार:तात्पर्यवृत्ति:गाथा:टीका:168`) from multiple blocks. The Neo4j edge from each citation source to that shared target must therefore be discriminated by block position; otherwise the second `MERGE` collapses onto the first edge and `SET` overwrites the earlier block's `block_index`. When that happens, the matcher worker sees no edge for the lost block and silently produces no `extract_matches` row — the UI then has nothing to render a "View in Shastra" link from.
+
+To prevent that collapse, `sync_reference_edge` in [`packages/jain_kb_common/jain_kb_common/db/neo4j/stubs.py`](../../../packages/jain_kb_common/jain_kb_common/db/neo4j/stubs.py) puts the block-position fields **inside** the MERGE pattern:
+
+```cypher
+MERGE (src)-[r:MENTIONS_TOPIC {
+    block_index: $bi,
+    section_index: $si,
+    definition_index: $di
+}]->(tgt)
+SET r += $rel_props
+```
+
+- For `MENTIONS_TOPIC` (Topic source), only `block_index` is meaningful; `section_index` and `definition_index` are stored as `-1` sentinels.
+- For `CONTAINS_DEFINITION` (Keyword source), all three identify a unique block.
+- NJ-emitted `MENTIONS_TOPIC` edges (e.g. `Gatha → Topic`) don't carry block fields and therefore use `-1, -1, -1` — these collapse to a single edge per `(src, tgt)`, which is intentional.
+
+Implication for graph consumers: any traversal that aggregates `MENTIONS_TOPIC` / `CONTAINS_DEFINITION` between the same two nodes must now expect **multiple parallel edges** when the citation comes from multiple blocks. Use `DISTINCT` on the endpoint pair if a per-block expansion is unwanted.
 
 ## Natural-key format conventions (and known edge case)
 

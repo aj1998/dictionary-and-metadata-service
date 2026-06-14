@@ -116,6 +116,14 @@ async def sync_reference_edge(
     rel_props: dict = {"weight": 1.0, "source": "jainkosh"}
     if edge_props:
         rel_props.update(edge_props)
+    # Block-level identifiers must be part of the MERGE key — otherwise a topic
+    # / keyword that references the same target from multiple blocks would
+    # collapse onto a single edge, and the matcher would only see the last
+    # block_index written. -1 is used as a "not applicable" sentinel so the
+    # MERGE pattern stays the same for keyword vs topic edges.
+    merge_block_index = rel_props.get("block_index", -1)
+    merge_section_index = rel_props.get("section_index", -1)
+    merge_definition_index = rel_props.get("definition_index", -1)
     async with driver.session(database=database) as session:
         await session.run(
             f"""
@@ -127,10 +135,17 @@ MERGE (tgt:{tgt_label} {{natural_key: $t}})
   SET tgt.is_stub = coalesce(tgt.is_stub, true),
       tgt.stub_source = CASE WHEN tgt.is_stub = false THEN tgt.stub_source ELSE coalesce(tgt.stub_source, 'jainkosh_ingestion') END,
       tgt.created_at = coalesce(tgt.created_at, datetime())
-MERGE (src)-[r:{edge_type}]->(tgt)
+MERGE (src)-[r:{edge_type} {{
+    block_index: $bi,
+    section_index: $si,
+    definition_index: $di
+}}]->(tgt)
 SET r += $rel_props
 """,
             s=src_nk,
             t=tgt_nk,
             rel_props=rel_props,
+            bi=merge_block_index,
+            si=merge_section_index,
+            di=merge_definition_index,
         )

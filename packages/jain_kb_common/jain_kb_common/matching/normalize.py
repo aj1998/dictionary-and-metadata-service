@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import unicodedata
 from dataclasses import dataclass, field
 
@@ -110,6 +111,28 @@ def _canonicalize_anusvara(nfc: str) -> str:
     return "".join(out)
 
 
+# Rule 11: collapse the old Sanskrit orthographic gemination of a consonant
+# after `र्` (e.g. `पर्य्याय` ↔ `पर्याय`, `धर्म्म` ↔ `धर्म`, `कर्म्म` ↔ `कर्म`).
+# Pattern: र ् C ् C  →  र ् C  (same consonant repeated, joined by halant).
+# Scoped to "after र्" specifically so legitimate same-consonant conjuncts
+# elsewhere (e.g. क्क in मक्का) are untouched. ZWJ/ZWNJ between the doubled
+# consonant and halant is tolerated.
+_RA_GEMINATE_RE = re.compile(
+    r"र्([क-ह])[‌‍]*्[‌‍]*\1"
+)
+
+
+def _collapse_ra_gemination(s: str) -> str:
+    if "र्" not in s:
+        return s
+    prev = None
+    cur = s
+    while prev != cur:
+        prev = cur
+        cur = _RA_GEMINATE_RE.sub(r"र्\1", cur)
+    return cur
+
+
 def _is_digit(ch: str) -> bool:
     cp = ord(ch)
     return ("0" <= ch <= "9") or (0x0966 <= cp <= 0x096F)
@@ -139,6 +162,8 @@ def normalize(text: str) -> NormalizedText:
     # real nasal+consonant conjuncts (e.g. म्य in अभ्युपगम्य stays distinct
     # from a nasalization, since अभ्युपगम has no anusvara to convert).
     nfc = _canonicalize_anusvara(nfc)
+    # Rule 11: collapse OCR/orthographic gemination after र् (पर्य्याय → पर्याय).
+    nfc = _collapse_ra_gemination(nfc)
     n = len(nfc)
     strip = [False] * n
 
