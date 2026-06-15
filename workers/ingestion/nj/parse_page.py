@@ -80,10 +80,14 @@ def _parse_anyavartha(div: Tag, cfg: NJConfig) -> AnyavarthaItem:
 
     full_div = BeautifulSoup(str(div), "lxml").find("div")
     if full_div:
-        for font in full_div.find_all("font"):
-            color = (font.get("color") or "").strip().lower()
-            if color == target_color:
-                font.decompose()
+        # Collect targets before decomposing — decompose() destroys children too,
+        # which corrupts attrs on sibling nodes still in the find_all result list.
+        target_fonts = [
+            f for f in full_div.find_all("font")
+            if (f.get("color") or "").strip().lower() == target_color
+        ]
+        for font in target_fonts:
+            font.decompose()
         full_text = _clean(full_div.get_text(" ", strip=False))
     else:
         full_text = _clean(div.get_text(" ", strip=False))

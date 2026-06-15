@@ -21,7 +21,7 @@ export function teekaMarkdownToHtml(text: string): string {
         const safeHref = String(href).replace(/"/g, '&quot;');
         return `<a href="${safeHref}" target="_blank" rel="noreferrer noopener">${label}</a>`;
       })
-      .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*\*([^\n]+?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*\(\(([^)]+)\)\)\*/g, '<em class="teeka-paren">($1)</em>')
       .replace(/(?<!\*)\*\(([^)\n]+)\)\*(?!\*)/g, '<em class="teeka-paren">($1)</em>')
       .replace(/(?<!\*)\*([^*\n]+)\*(?!\*)/g, '<em>$1</em>')

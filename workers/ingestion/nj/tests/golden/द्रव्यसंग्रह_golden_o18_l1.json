@@ -1,0 +1,950 @@
+{
+  "shastra_parse_result": {
+    "shastra_natural_key": "द्रव्यसंग्रह",
+    "gathas": [
+      {
+        "shastra_natural_key": "द्रव्यसंग्रह",
+        "gatha_number": "18",
+        "page_html_id": "18",
+        "html_filename": "18.html",
+        "adhikaar_hi": "छह-द्रव्य अधिकार",
+        "adhikaar_number": 2,
+        "heading_hi": "अधर्म द्रव्य का स्वरूप",
+        "is_combined_page": false,
+        "related_gatha_numbers": [],
+        "prakrit_text": "ठाणजुदाण अधम्मो, पुग्गलजीवाण ठाणसहयारी\nछाया जह पहियाणं, गच्छंता णेव सो धरई",
+        "sanskrit_text": null,
+        "hindi_chhands": [
+          {
+            "chhand_index": 1,
+            "chhand_type": "harigeet",
+            "text_hi": "छाया निमित्त ज्यों गमनपूर्वक स्वयं ठहरे पथिक को ।\nअधरम त्यों ठहरने में निमित्त पुद्गल-जीव को"
+          }
+        ],
+        "anyavartha": {
+          "full_anyavaarth": "ठहरे हुए पुद्गल और जीवों के ठहरने में सहकारी कारण अधर्मद्रव्य है जैसे पथिकों के ठहरने में छाया सहकारी कारण है वह अधर्मद्रव्य गमन करते हुए जीव और पुद्गलों को नहीं धरता / ठहराता है ।",
+          "tagged_terms": [
+            {
+              "source_word": "ठाणजुदाण पुग्गलजीवाण",
+              "meaning": "ठहरे हुए पुद्गल और जीवों के",
+              "position": 1
+            },
+            {
+              "source_word": "ठाण सहयारी",
+              "meaning": "ठहरने में सहकारी कारण",
+              "position": 2
+            },
+            {
+              "source_word": "अधम्मो",
+              "meaning": "अधर्मद्रव्य है",
+              "position": 3
+            },
+            {
+              "source_word": "जह पहियाणं छाया",
+              "meaning": "जैसे पथिकों के ठहरने में छाया सहकारी कारण है",
+              "position": 4
+            },
+            {
+              "source_word": "सो",
+              "meaning": "वह अधर्मद्रव्य",
+              "position": 5
+            },
+            {
+              "source_word": "गच्छंता",
+              "meaning": "गमन करते हुए जीव और पुद्गलों को",
+              "position": 6
+            },
+            {
+              "source_word": "णेव धरई",
+              "meaning": "नहीं धरता / ठहराता है ।",
+              "position": 7
+            }
+          ]
+        },
+        "prakrit_verse_marker": "18",
+        "primary_teeka": {
+          "kalash_san": [],
+          "gatha_teeka_san": null,
+          "kalash_hindi": [],
+          "kalash_word_meanings": {},
+          "gatha_teeka_bhaavarth_md": "﻿ठहरे हुए पुद्गल तथा जीवों को ठहरने में सहकारी कारण अधर्म-द्रव्य है । उसमें दृष्टान्त -- जैसे छाया पथिकों को ठहरने में सहकारी कारण; परन्तु स्वयं गमन करते हुए जीव व पुद्गलों को अधर्म द्रव्य नहीं ठहराता है । सो ऐसे है --\n\nयद्यपि निश्चयनय से आत्म-अनुभव से उत्पन्न सुखामृत रूप जो परम स्वास्थ्य है वह निज रूप में स्थिति का कारण है;\n\n*((सिद्धोsहं सुद्धोsहं अणंतणाणाइगुणसमिद्धोsहं । देहपमाणो णिच्चो असंखदेसो अमुत्तो य ।।))*\n\nपरन्तु मैं सिद्ध हूँ, शुद्ध हूँ, अनंतज्ञान आदि गुणों का धारक हूँ, शरीर प्रमाण हूँ, नित्य हूँ, असंख्यात प्रदेशी हूँ तथा अमूर्तिक हूँ ॥१॥\n\nइस गाथा में कही हुई सिद्धभक्ति के रूप से पहले सविकल्प अवस्था में सिद्ध भी जैसे भव्य जीवों के लिए बहिरंग सहकारी कारण होते हैं, उसी तरह अपने-अपने उपादान कारण से अपने आप ठहरते हुए जीव पुद्गलों को अधर्मद्रव्य ठहरने का सहकारी कारण होता है । लोक-व्यवहार से जैसे छाया अथवा पृथ्वी ठहरते हुए यात्रियों आदि को ठहरने में सहकारी होती है उसी तरह स्वयं ठहरते हुए जीव पुद्गलों के ठहरने में अधर्मद्रव्य सहकारी होता है । इसी प्रकार अधर्मद्रव्य के कथन द्वारा यह गाथा समाप्त हुई ॥१८॥\n\nअब आकाशद्रव्य का कथन करते हैं --",
+          "gatha_teeka_bhaavarth_shortfont": [],
+          "tables": []
+        },
+        "secondary_teeka": {
+          "gatha_teeka_san": null,
+          "gatha_teeka_bhaavarth_md": "﻿**<span style=\"color:red\">प्रश्न – अधर्म द्रव्य किसे कहते हैं?**\n\n**</span><span style=\"color:darkGreen\">उत्तर –</span>** जो जीव और पुद्गलों को ठहरने में सहायक होता है उसे अधर्म द्रव्य कहते हैं।\n\n**<span style=\"color:red\">प्रश्न – धर्म द्रव्य और अधर्म द्रव्य दोनों कहाँ रहते हैं?**\n\n**</span><span style=\"color:darkGreen\">उत्तर –</span>** ये दोनों द्रव्य सम्पूर्ण लोकाकाश में रहते हैं।\n\n**<span style=\"color:red\">प्रश्न – अधर्म द्रव्य मूर्तिक है या अमूर्तिक ?**\n\n**</span><span style=\"color:darkGreen\">उत्तर –</span>** अधर्म द्रव्य अमूर्तिक है-मूर्तिक नहीं।\n\n**<span style=\"color:red\">प्रश्न – धर्म और अधर्म द्रव्य में समान शक्ति है-या न्यूनाधिक ?**\n\n**</span><span style=\"color:darkGreen\">उत्तर –</span>** दोनों में समान शक्ति है। दोनों में समान शक्ति होते हुए भी परस्पर एक-दूसरे के विरोधी नहीं हैं।",
+          "gatha_teeka_bhaavarth_shortfont": [],
+          "tables": []
+        }
+      }
+    ],
+    "secondary_kalashes": [],
+    "total_html_files_processed": 1,
+    "warnings": [],
+    "parser_version": "1.0.0",
+    "parsed_at": "2026-06-15T16:28:23.563226Z"
+  },
+  "would_write": {
+    "postgres": {
+      "authors": [
+        {
+          "table": "authors",
+          "natural_key": "आचार्य_नेमिचंद्र_सिद्धान्तचक्रवर्ती",
+          "display_name": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "आचार्य नेमिचंद्र सिद्धान्तचक्रवर्ती"
+            }
+          ],
+          "kind": "acharya"
+        },
+        {
+          "table": "authors",
+          "natural_key": "ब्रह्मदेव_सूरि",
+          "display_name": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "ब्रह्मदेव सूरि"
+            }
+          ],
+          "kind": "acharya"
+        }
+      ],
+      "shastras": [
+        {
+          "table": "shastras",
+          "natural_key": "द्रव्यसंग्रह",
+          "title": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "द्रव्यसंग्रह"
+            }
+          ],
+          "author_natural_key": "आचार्य_नेमिचंद्र_सिद्धान्तचक्रवर्ती"
+        }
+      ],
+      "teekas": [
+        {
+          "table": "teekas",
+          "natural_key": "द्रव्यसंग्रह:टीका",
+          "shastra_natural_key": "द्रव्यसंग्रह",
+          "teekakar_natural_key": "ब्रह्मदेव_सूरि",
+          "role": "primary"
+        }
+      ],
+      "publications": [
+        {
+          "table": "publications",
+          "natural_key": "द्रव्यसंग्रह:टीका:0",
+          "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+          "publisher_id": "0"
+        }
+      ],
+      "gathas": [
+        {
+          "table": "gathas",
+          "natural_key": "द्रव्यसंग्रह:गाथा:18",
+          "shastra_natural_key": "द्रव्यसंग्रह",
+          "gatha_number": "18",
+          "adhikaar_number": 2,
+          "adhikaar": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "छह-द्रव्य अधिकार"
+            }
+          ],
+          "heading": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "अधर्म द्रव्य का स्वरूप"
+            }
+          ],
+          "prakrit_verse_marker": "18"
+        }
+      ],
+      "kalashas": [],
+      "teeka_chapters": [
+        {
+          "table": "teeka_chapters",
+          "natural_key": "द्रव्यसंग्रह:टीका:अध्याय:2",
+          "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+          "chapter_number": 2,
+          "name": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "छह-द्रव्य अधिकार"
+            }
+          ],
+          "start_gatha_natural_key": "द्रव्यसंग्रह:गाथा:18",
+          "end_gatha_natural_key": "द्रव्यसंग्रह:गाथा:18"
+        }
+      ]
+    },
+    "mongo": {
+      "gatha_prakrit": [
+        {
+          "collection": "gatha_prakrit",
+          "natural_key": "द्रव्यसंग्रह:गाथा:18:prakrit",
+          "shastra_natural_key": "द्रव्यसंग्रह",
+          "gatha_natural_key": "द्रव्यसंग्रह:गाथा:18",
+          "gatha_number": "18",
+          "text": [
+            {
+              "lang": "pra",
+              "script": "Deva",
+              "text": "ठाणजुदाण अधम्मो, पुग्गलजीवाण ठाणसहयारी\nछाया जह पहियाणं, गच्छंता णेव सो धरई"
+            }
+          ],
+          "is_kalash": false,
+          "raw_html_fragment": null
+        }
+      ],
+      "gatha_sanskrit": [],
+      "gatha_hindi_chhand": [
+        {
+          "collection": "gatha_hindi_chhand",
+          "natural_key": "द्रव्यसंग्रह:गाथा:18:chhand:1",
+          "gatha_natural_key": "द्रव्यसंग्रह:गाथा:18",
+          "chhand_index": 1,
+          "chhand_type": "harigeet",
+          "translator": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "nikkyjain"
+            }
+          ],
+          "text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "छाया निमित्त ज्यों गमनपूर्वक स्वयं ठहरे पथिक को ।\nअधरम त्यों ठहरने में निमित्त पुद्गल-जीव को"
+            }
+          ]
+        }
+      ],
+      "teeka_gatha_mapping": [
+        {
+          "collection": "teeka_gatha_mapping",
+          "natural_key": "द्रव्यसंग्रह:टीका:18",
+          "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+          "gatha_natural_key": "द्रव्यसंग्रह:गाथा:18",
+          "anvayartha": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "ठहरे हुए पुद्गल और जीवों के ठहरने में सहकारी कारण अधर्मद्रव्य है जैसे पथिकों के ठहरने में छाया सहकारी कारण है वह अधर्मद्रव्य गमन करते हुए जीव और पुद्गलों को नहीं धरता / ठहराता है ।"
+            }
+          ],
+          "tagged_terms": [
+            {
+              "source_word": "ठाणजुदाण पुग्गलजीवाण",
+              "meaning": "ठहरे हुए पुद्गल और जीवों के",
+              "position": 1,
+              "start_offset": 0,
+              "end_offset": 27
+            },
+            {
+              "source_word": "ठाण सहयारी",
+              "meaning": "ठहरने में सहकारी कारण",
+              "position": 2,
+              "start_offset": 28,
+              "end_offset": 49
+            },
+            {
+              "source_word": "अधम्मो",
+              "meaning": "अधर्मद्रव्य है",
+              "position": 3,
+              "start_offset": 50,
+              "end_offset": 64
+            },
+            {
+              "source_word": "जह पहियाणं छाया",
+              "meaning": "जैसे पथिकों के ठहरने में छाया सहकारी कारण है",
+              "position": 4,
+              "start_offset": 65,
+              "end_offset": 109
+            },
+            {
+              "source_word": "सो",
+              "meaning": "वह अधर्मद्रव्य",
+              "position": 5,
+              "start_offset": 110,
+              "end_offset": 124
+            },
+            {
+              "source_word": "गच्छंता",
+              "meaning": "गमन करते हुए जीव और पुद्गलों को",
+              "position": 6,
+              "start_offset": 125,
+              "end_offset": 156
+            },
+            {
+              "source_word": "णेव धरई",
+              "meaning": "नहीं धरता / ठहराता है ।",
+              "position": 7,
+              "start_offset": 157,
+              "end_offset": 180
+            }
+          ],
+          "full_anyavaarth": "ठहरे हुए पुद्गल और जीवों के ठहरने में सहकारी कारण अधर्मद्रव्य है जैसे पथिकों के ठहरने में छाया सहकारी कारण है वह अधर्मद्रव्य गमन करते हुए जीव और पुद्गलों को नहीं धरता / ठहराता है ।",
+          "is_related": []
+        }
+      ],
+      "gatha_teeka_sanskrit": [],
+      "gatha_teeka_bhaavarth_hindi": [
+        {
+          "collection": "gatha_teeka_bhaavarth_hindi",
+          "natural_key": "द्रव्यसंग्रह:टीका:0:18:भावार्थ:hi",
+          "gatha_teeka_bhaavarth_natural_key": "द्रव्यसंग्रह:टीका:0:18:भावार्थ:hi",
+          "publication_natural_key": "द्रव्यसंग्रह:टीका:0",
+          "gatha_teeka_natural_key": "द्रव्यसंग्रह:टीका:18",
+          "publisher_id": "0",
+          "gatha_number": "18",
+          "text": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "﻿ठहरे हुए पुद्गल तथा जीवों को ठहरने में सहकारी कारण अधर्म-द्रव्य है । उसमें दृष्टान्त -- जैसे छाया पथिकों को ठहरने में सहकारी कारण; परन्तु स्वयं गमन करते हुए जीव व पुद्गलों को अधर्म द्रव्य नहीं ठहराता है । सो ऐसे है --\n\nयद्यपि निश्चयनय से आत्म-अनुभव से उत्पन्न सुखामृत रूप जो परम स्वास्थ्य है वह निज रूप में स्थिति का कारण है;\n\n*((सिद्धोsहं सुद्धोsहं अणंतणाणाइगुणसमिद्धोsहं । देहपमाणो णिच्चो असंखदेसो अमुत्तो य ।।))*\n\nपरन्तु मैं सिद्ध हूँ, शुद्ध हूँ, अनंतज्ञान आदि गुणों का धारक हूँ, शरीर प्रमाण हूँ, नित्य हूँ, असंख्यात प्रदेशी हूँ तथा अमूर्तिक हूँ ॥१॥\n\nइस गाथा में कही हुई सिद्धभक्ति के रूप से पहले सविकल्प अवस्था में सिद्ध भी जैसे भव्य जीवों के लिए बहिरंग सहकारी कारण होते हैं, उसी तरह अपने-अपने उपादान कारण से अपने आप ठहरते हुए जीव पुद्गलों को अधर्मद्रव्य ठहरने का सहकारी कारण होता है । लोक-व्यवहार से जैसे छाया अथवा पृथ्वी ठहरते हुए यात्रियों आदि को ठहरने में सहकारी होती है उसी तरह स्वयं ठहरते हुए जीव पुद्गलों के ठहरने में अधर्मद्रव्य सहकारी होता है । इसी प्रकार अधर्मद्रव्य के कथन द्वारा यह गाथा समाप्त हुई ॥१८॥\n\nअब आकाशद्रव्य का कथन करते हैं --"
+            }
+          ]
+        }
+      ],
+      "gatha_teeka_bhaavarth_shortfont": [],
+      "kalash_sanskrit": [],
+      "kalash_hindi": [],
+      "kalash_word_meanings": [],
+      "kalash_bhaavarth_shortfont": []
+    },
+    "neo4j": {
+      "nodes": [
+        {
+          "label": "Shastra",
+          "key": "द्रव्यसंग्रह",
+          "props": {
+            "title_hi": "द्रव्यसंग्रह",
+            "author_natural_key": "आचार्य_नेमिचंद्र_सिद्धान्तचक्रवर्ती"
+          }
+        },
+        {
+          "label": "Teeka",
+          "key": "द्रव्यसंग्रह:टीका",
+          "props": {
+            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+            "teekakar_natural_key": "ब्रह्मदेव_सूरि",
+            "shastra_natural_key": "द्रव्यसंग्रह"
+          }
+        },
+        {
+          "label": "Publication",
+          "key": "द्रव्यसंग्रह:टीका:0",
+          "props": {
+            "publication_natural_key": "द्रव्यसंग्रह:टीका:0",
+            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+            "publisher_id": "0"
+          }
+        },
+        {
+          "label": "Topic",
+          "key": "अधर्म द्रव्य का स्वरूप",
+          "props": {
+            "display_text_hi": "अधर्म द्रव्य का स्वरूप",
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "source": "nj"
+          }
+        },
+        {
+          "label": "Gatha",
+          "key": "द्रव्यसंग्रह:गाथा:18",
+          "props": {
+            "shastra_natural_key": "द्रव्यसंग्रह",
+            "gatha_number": "18",
+            "heading_hi": "अधर्म द्रव्य का स्वरूप"
+          }
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "द्रव्यसंग्रह:टीका:गाथा:टीका:18",
+          "props": {
+            "teeka_natural_key": "द्रव्यसंग्रह:टीका",
+            "gatha_natural_key": "द्रव्यसंग्रह:गाथा:18"
+          }
+        },
+        {
+          "label": "GathaTeekaBhaavarth",
+          "key": "द्रव्यसंग्रह:टीका:0:गाथा:टीका:भावार्थ:18",
+          "props": {
+            "publication_natural_key": "द्रव्यसंग्रह:टीका:0",
+            "gatha_natural_key": "द्रव्यसंग्रह:गाथा:18"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "type": "HAS_TEEKA",
+          "from": {
+            "label": "Shastra",
+            "key": "द्रव्यसंग्रह"
+          },
+          "to": {
+            "label": "Teeka",
+            "key": "द्रव्यसंग्रह:टीका"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_PUBLICATION",
+          "from": {
+            "label": "Teeka",
+            "key": "द्रव्यसंग्रह:टीका"
+          },
+          "to": {
+            "label": "Publication",
+            "key": "द्रव्यसंग्रह:टीका:0"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_PUBLICATION",
+          "from": {
+            "label": "Shastra",
+            "key": "द्रव्यसंग्रह"
+          },
+          "to": {
+            "label": "Publication",
+            "key": "द्रव्यसंग्रह:टीका:0"
+          },
+          "props": {}
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "द्रव्यसंग्रह:गाथा:18"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "अधर्म द्रव्य का स्वरूप"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "nj"
+          }
+        },
+        {
+          "type": "IN_TEEKA",
+          "from": {
+            "label": "GathaTeeka",
+            "key": "द्रव्यसंग्रह:टीका:गाथा:टीका:18"
+          },
+          "to": {
+            "label": "Teeka",
+            "key": "द्रव्यसंग्रह:टीका"
+          },
+          "props": {}
+        },
+        {
+          "type": "IN_PUBLICATION",
+          "from": {
+            "label": "GathaTeekaBhaavarth",
+            "key": "द्रव्यसंग्रह:टीका:0:गाथा:टीका:भावार्थ:18"
+          },
+          "to": {
+            "label": "Publication",
+            "key": "द्रव्यसंग्रह:टीका:0"
+          },
+          "props": {}
+        }
+      ]
+    },
+    "tables": [],
+    "idempotency_contracts": {
+      "mongo:gatha_hindi_chhand": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "chhand_index",
+          "chhand_type",
+          "translator",
+          "text"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:gatha_hindi_chhand"
+        ]
+      },
+      "mongo:gatha_prakrit": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "text",
+          "is_kalash",
+          "raw_html_fragment"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:gatha_prakrit"
+        ]
+      },
+      "mongo:gatha_sanskrit": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "text"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:gatha_sanskrit"
+        ]
+      },
+      "mongo:gatha_teeka_bhaavarth_hindi": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "text"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:gatha_teeka_bhaavarth_hindi"
+        ]
+      },
+      "mongo:gatha_teeka_sanskrit": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "text"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:gatha_teeka_sanskrit"
+        ]
+      },
+      "mongo:kalash_hindi": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "text",
+          "chhand_type"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:kalash_hindi"
+        ]
+      },
+      "mongo:kalash_sanskrit": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "text",
+          "chhand_type"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:kalash_sanskrit"
+        ]
+      },
+      "mongo:kalash_word_meanings": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "entries"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:kalash_word_meanings"
+        ]
+      },
+      "mongo:gatha_teeka_bhaavarth_shortfont": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "entries",
+          "ingestion_run_id",
+          "updated_at"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:gatha_teeka_bhaavarth_shortfont"
+        ]
+      },
+      "mongo:kalash_bhaavarth_shortfont": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "entries",
+          "ingestion_run_id",
+          "updated_at"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:kalash_bhaavarth_shortfont"
+        ]
+      },
+      "mongo:teeka_gatha_mapping": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "anvayartha",
+          "tagged_terms",
+          "full_anyavaarth",
+          "is_related"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:teeka_gatha_mapping"
+        ]
+      },
+      "neo4j:Gatha": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "gatha_number",
+          "shastra_natural_key",
+          "heading_hi"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Gatha"
+        ]
+      },
+      "neo4j:GathaTeeka": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "teeka_natural_key",
+          "gatha_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:GathaTeeka"
+        ]
+      },
+      "neo4j:GathaTeekaBhaavarth": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "publication_natural_key",
+          "gatha_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:GathaTeekaBhaavarth"
+        ]
+      },
+      "neo4j:Kalash": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "teeka_natural_key",
+          "kalash_number"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Kalash"
+        ]
+      },
+      "neo4j:KalashBhaavarth": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "publication_natural_key",
+          "kalash_number"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:KalashBhaavarth"
+        ]
+      },
+      "postgres:tables": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "table_type",
+          "caption",
+          "raw_html_doc_id",
+          "seq",
+          "parent_natural_key",
+          "parent_kind"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:tables",
+          "mongo:tables",
+          "neo4j:Table"
+        ]
+      },
+      "mongo:tables": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "table_type",
+          "raw_html",
+          "cells",
+          "cell_refs",
+          "header_rows",
+          "plaintext",
+          "caption",
+          "mentioned_keyword_natural_keys",
+          "mentioned_topic_natural_keys"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:tables"
+        ]
+      },
+      "neo4j:Table": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "table_type",
+          "seq",
+          "caption_hi",
+          "parent_natural_key",
+          "parent_kind",
+          "pg_id",
+          "source"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Table"
+        ]
+      },
+      "neo4j:Publication": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "teeka_natural_key",
+          "publisher_id"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Publication"
+        ]
+      },
+      "neo4j:Shastra": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "title"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Shastra"
+        ]
+      },
+      "neo4j:Teeka": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "teekakar_natural_key",
+          "shastra_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Teeka"
+        ]
+      },
+      "neo4j:Topic": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "name",
+          "shastra_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Topic"
+        ]
+      },
+      "postgres:authors": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "display_name",
+          "kind"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:authors"
+        ]
+      },
+      "postgres:gathas": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "shastra_natural_key",
+          "gatha_number",
+          "adhikaar_number",
+          "adhikaar",
+          "heading"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:gathas",
+          "neo4j:Gatha"
+        ]
+      },
+      "postgres:kalashas": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "teeka_natural_key",
+          "kalash_number",
+          "gatha_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:kalashas"
+        ]
+      },
+      "postgres:publications": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "teeka_natural_key",
+          "publisher_id"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:publications"
+        ]
+      },
+      "postgres:shastras": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "title",
+          "author_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:shastras",
+          "neo4j:Shastra"
+        ]
+      },
+      "postgres:teeka_chapters": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "chapter_number",
+          "name",
+          "start_gatha_natural_key",
+          "end_gatha_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:teeka_chapters"
+        ]
+      },
+      "postgres:teekas": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "shastra_natural_key",
+          "teekakar_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:teekas"
+        ]
+      }
+    }
+  }
+}

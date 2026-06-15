@@ -15,6 +15,9 @@ from .shortfont_parser import extract_shortfont
 from .tables import extract_tables_from_bhaavarth
 
 _KALASH_RE = re.compile(r"\(कलश-([^)]+)\)")
+# Bare "(कलश)" without chhand suffix — used to detect Hindi kalash gadyas
+# in samaysaar pages like 014.html where the notes span just says (कलश).
+_KALASH_NOTES_RE = re.compile(r"\(कलश(?:-[^)]+)?\)")
 # Permissive marker regex: source HTML inconsistently includes the "कलश-" prefix.
 # Some chhand markers appear as bare "(शार्दूलविक्रीडित)" without the prefix
 # (e.g. samaysaar 016.html kalashes 12, 13). Treat any parenthesised content
@@ -114,7 +117,15 @@ def _extract_chhand_type(node: NavigableString | Tag) -> str:
 
 
 def _is_kalash_gadya(node: NavigableString | Tag) -> bool:
-    return isinstance(node, Tag) and node.name == "b" and node.find("div", class_="gadya") is not None
+    if not (isinstance(node, Tag) and node.name == "b"):
+        return False
+    gadya = node.find("div", class_="gadya")
+    if gadya is None:
+        return False
+    notes = gadya.find("span", class_="notes")
+    if notes and _KALASH_NOTES_RE.search(_clean(notes.get_text())):
+        return True
+    return False
 
 
 def _is_kalash_word_meaning(node: NavigableString | Tag, color: str) -> bool:
@@ -376,10 +387,12 @@ def parse_primary_teeka(
     kalash_wm_entries: dict[int, list[KalashWMEntry]] = defaultdict(list)
     bhaavarth_nodes: list[NavigableString | Tag] = []
 
+    has_kalashes = bool(kalash_san_entries) or any(_is_kalash_gadya(n) for n in nodes_after)
+
     i = 0
     while i < len(nodes_after):
         node = nodes_after[i]
-        if _is_kalash_gadya(node):
+        if has_kalashes and _is_kalash_gadya(node):
             hindi_text = _clean_gadya_text(node)
             hindi_verse_num = _extract_verse_number(hindi_text)
             if san_verse_numbers and hindi_verse_num not in san_verse_numbers:
@@ -407,7 +420,7 @@ def parse_primary_teeka(
             )
             i += 1
             continue
-        if _is_kalash_word_meaning(node, cfg.selectors.kalash_word_meaning_color):
+        if has_kalashes and _is_kalash_word_meaning(node, cfg.selectors.kalash_word_meaning_color):
             trailing_parts: list[str] = []
             j = i + 1
             br_streak = 0

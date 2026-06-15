@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import re
+
 from bs4 import NavigableString, Tag
 
 # Colors used as teekakar label decorators — strip these, don't wrap in color spans.
@@ -9,7 +11,7 @@ from bs4 import NavigableString, Tag
 # is already removed from nodes_after by parse_primary_teeka/parse_secondary_teeka,
 # so darkgreen surviving here belongs to in-flow content (e.g. (हरिगीत) translation
 # verses on pages like samaysaar 014.html) and should be preserved as a color span.
-_STRIP_COLORS = {"red"}
+_STRIP_COLORS: set[str] = set()
 
 
 def node_to_markdown(node: NavigableString | Tag, *, _depth: int = 0) -> str:
@@ -57,7 +59,14 @@ def node_to_markdown(node: NavigableString | Tag, *, _depth: int = 0) -> str:
         if node.find("div"):
             return children_md
         inner = children_md.strip()
-        return f"**{inner}**" if inner else children_md
+        if not inner:
+            return children_md
+        # Markdown bold can't span paragraph breaks (blank lines). Source HTML
+        # often wraps शंका…<br><br>उत्तर inside one <b>, which collapses to
+        # `**…\n\n…**` and renders as literal asterisks. Wrap each paragraph
+        # segment individually instead.
+        parts = inner.split("\n\n")
+        return "\n\n".join(f"**{p.strip()}**" if p.strip() else p for p in parts)
 
     if tag == "i":
         inner = children_md.strip()
@@ -76,10 +85,14 @@ def node_to_markdown(node: NavigableString | Tag, *, _depth: int = 0) -> str:
         if isinstance(classes, str):
             classes = classes.split()
         if "notes" in classes:
-            inner = children_md.strip()
+            # Notes spans are inline annotations. Source HTML occasionally
+            # embeds <br><br> inside them; collapse internal whitespace so
+            # the *((…))* italic wrapper stays on a single paragraph and the
+            # downstream markdown renderer can match it.
+            inner = re.sub(r"\s+", " ", children_md).strip()
             return f"*({inner})*"
         if "comment" in classes:
-            inner = children_md.strip()
+            inner = re.sub(r"\s+", " ", children_md).strip()
             return f"*({inner})*"
         return children_md
 

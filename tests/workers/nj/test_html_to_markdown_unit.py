@@ -23,7 +23,7 @@ def test_markdown_font_color_behavior():
         "lxml",
     )
     out = node_to_markdown(soup.div)
-    assert "x" not in out
+    assert '<span style="color:red">x</span>' in out
     assert '<span style="color:blue">y</span>' in out
 
 
