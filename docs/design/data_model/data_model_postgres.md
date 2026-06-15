@@ -270,7 +270,7 @@ CREATE TABLE gathas (
   id                       UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   natural_key              TEXT NOT NULL UNIQUE,        -- e.g. 'pravachansaar:039'
   shastra_id               UUID NOT NULL REFERENCES shastras(id) ON DELETE CASCADE,
-  gatha_number             TEXT NOT NULL,               -- '039' or '004-005' for ranges
+  gatha_number             TEXT NOT NULL,               -- '039' or '004-005' for ranges; from Phase 3 of compound-identifier support, shastras that declare `gatha_identifier` in shastra.json store the full compound NK suffix here (e.g. 'अधिकार:1:गाथा:2' for परमात्मप्रकाश)
   prakrit_verse_marker     TEXT,                        -- ॥N॥ source verse-end marker captured from raw Prakrit text (added 0023); reflects the secondary teeka's gatha numbering when it differs from the primary (e.g. samaysaar canonical 106 carries marker '113' = तात्पर्यवृत्ति's number)
   adhikaar                 JSONB,                       -- chapter title (multilingual)
   heading                  JSONB,                       -- title under which gatha sits, used as a topic seed

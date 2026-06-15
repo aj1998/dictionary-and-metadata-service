@@ -159,12 +159,11 @@ python -m pytest tests/jain_kb_common/test_shastra_identifiers.py -v
 
 ## 4. Implementation notes / done-checklist
 
-- [ ] Add util file
-- [ ] Add tests, all green
-- [ ] Update `shastra.json` for परमात्मप्रकाश
-- [ ] Run full repo test suite (`python -m pytest`) — must remain green
-  (this phase touches no consumer; regressions would indicate import-cycle bugs)
-- [ ] Update authoritative docs per the obligation in
+- [x] Add util file
+- [x] Add tests, all green
+- [x] Update `shastra.json` for परमात्मप्रकाश (already had correct value; added `kalash_identifier: null`)
+- [x] Run full repo test suite (`python -m pytest`) — 41 pre-existing failures (MongoDB/service tests, jainkosh goldens); 0 regressions from this phase
+- [x] Update authoritative docs per the obligation in
       [`00_compound_identifiers_overview.md`](./00_compound_identifiers_overview.md) §"Doc-update obligation":
       - Mark this phase ✓ in the overview phase index.
       - Note in `docs/design/data_model/data_model_postgres.md` that
