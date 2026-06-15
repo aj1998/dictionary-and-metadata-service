@@ -1,6 +1,6 @@
 import uuid
 
-from sqlalchemy import ForeignKey, Index, Text
+from sqlalchemy import ARRAY, ForeignKey, Index, Text
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -23,6 +23,7 @@ class Shastra(Base, TimestampMixin):
     )
     source_url: Mapped[str | None] = mapped_column(Text, nullable=True)
     description: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
+    sources: Mapped[list[str]] = mapped_column(ARRAY(Text), nullable=False, default=list)
 
 
 class ShastrasAnuyoga(Base):

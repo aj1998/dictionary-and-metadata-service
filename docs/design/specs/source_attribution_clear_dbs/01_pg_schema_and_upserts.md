@@ -144,6 +144,23 @@ SELECT natural_key, sources FROM gathas LIMIT 3;
 --  → {nj}
 ```
 
-## Implementation notes (to be filled in by the implementer)
+## Implementation notes
 
-…
+### Completed: 2026-06-15
+
+**Files changed:**
+- `migrations/versions/0024_add_sources.py` — Alembic migration (upgrade + downgrade)
+- `packages/jain_kb_common/jain_kb_common/db/postgres/{authors,shastras,teekas,gathas,kalashas,publications,teeka_chapters,books,pravachans,keywords}.py` — added `sources` column
+- `packages/jain_kb_common/jain_kb_common/db/postgres/upserts.py` — `_merge_sources` helper + all 10 upsert functions updated
+- `tests/db/postgres/test_sources_merge.py` — 5 tests (all pass)
+- `tests/migrations/test_0024_backfill.py` — 3 backfill logic tests (all pass)
+
+**Deviations from spec:**
+
+1. **Python-side `default=list` instead of `server_default` in models** — consistent with the existing `JSONB` array columns (`hindi_chhand_doc_ids`, etc.) to avoid asyncpg DDL issues with typed `server_default` strings. The migration SQL still sets the DB-level `DEFAULT '{}'::text[]` for production correctness.
+
+2. **COALESCE added to co-owned backfill** — the spec's backfill queries for `shastras`/`teekas`/`authors` used a bare `array_agg(...)` subquery which returns `NULL` (not `'{}'`) when `ingestion_runs` is empty, violating the `NOT NULL` constraint. Added `COALESCE(..., '{}'::text[])` to protect against this.
+
+3. **`_merge_sources` implementation** — the spec sketched `func.array(func.unnest(...)).distinct()` which is not valid SQLAlchemy. Implemented using `func.unnest(...).column_valued("src")` and `select(src_elem).distinct().scalar_subquery()`, rendering as: `array((SELECT DISTINCT unnest(array_cat(col, ARRAY[new_source])) AS src))` — valid PostgreSQL and verified by tests.
+
+4. **Test 5 (backfill)** — placed in `tests/migrations/test_0024_backfill.py` and tests the backfill SQL logic directly (not via full Alembic migration chain), seeding rows and running the UPDATE SQL, then asserting results.

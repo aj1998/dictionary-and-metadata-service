@@ -1,6 +1,6 @@
 import uuid
 
-from sqlalchemy import ForeignKey, Index, Text
+from sqlalchemy import ARRAY, ForeignKey, Index, Text
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -32,3 +32,4 @@ class Kalash(Base, TimestampMixin):
     sanskrit_doc_id: Mapped[str | None] = mapped_column(Text, nullable=True)
     hindi_doc_id: Mapped[str | None] = mapped_column(Text, nullable=True)
     bhaavarth_doc_ids: Mapped[list] = mapped_column(JSONB, nullable=False, default=list)
+    sources: Mapped[list[str]] = mapped_column(ARRAY(Text), nullable=False, default=list)

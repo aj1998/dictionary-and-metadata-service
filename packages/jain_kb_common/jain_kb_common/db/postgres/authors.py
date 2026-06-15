@@ -1,6 +1,6 @@
 import uuid
 
-from sqlalchemy import Text
+from sqlalchemy import ARRAY, Text
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -18,3 +18,4 @@ class Author(Base, TimestampMixin):
     display_name: Mapped[dict] = mapped_column(JSONB, nullable=False)
     kind: Mapped[AuthorKind] = mapped_column(author_kind_sa, nullable=False)
     bio: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
+    sources: Mapped[list[str]] = mapped_column(ARRAY(Text), nullable=False, default=list)

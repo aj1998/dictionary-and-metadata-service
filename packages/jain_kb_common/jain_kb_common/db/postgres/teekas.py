@@ -1,6 +1,6 @@
 import uuid
 
-from sqlalchemy import ForeignKey, Index, Text
+from sqlalchemy import ARRAY, ForeignKey, Index, Text
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -36,3 +36,4 @@ class Teeka(Base, TimestampMixin):
     public_url: Mapped[str | None] = mapped_column(Text, nullable=True)
     publisher_url: Mapped[str | None] = mapped_column(Text, nullable=True)
     role: Mapped[str | None] = mapped_column(Text, nullable=True)
+    sources: Mapped[list[str]] = mapped_column(ARRAY(Text), nullable=False, default=list)

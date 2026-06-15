@@ -1,6 +1,6 @@
 import uuid
 
-from sqlalchemy import ForeignKey, Index, Text, UniqueConstraint, func
+from sqlalchemy import ARRAY, ForeignKey, Index, Text, UniqueConstraint, func
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.types import TIMESTAMP
@@ -23,6 +23,7 @@ class Keyword(Base, TimestampMixin):
     source_url: Mapped[str | None] = mapped_column(Text, nullable=True)
     definition_doc_ids: Mapped[list] = mapped_column(JSONB, nullable=False, default=list)
     graph_node_id: Mapped[str | None] = mapped_column(Text, nullable=True)
+    sources: Mapped[list[str]] = mapped_column(ARRAY(Text), nullable=False, default=list)
 
 
 class KeywordAlias(Base):

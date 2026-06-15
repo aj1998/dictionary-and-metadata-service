@@ -1,6 +1,6 @@
 import uuid
 
-from sqlalchemy import ForeignKey, Index, Integer, Text
+from sqlalchemy import ARRAY, ForeignKey, Index, Integer, Text
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -35,3 +35,4 @@ class TeekaChapter(Base, TimestampMixin):
         ForeignKey("gathas.id"),
         nullable=True,
     )
+    sources: Mapped[list[str]] = mapped_column(ARRAY(Text), nullable=False, default=list)

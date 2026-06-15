@@ -1,7 +1,8 @@
 import uuid
 from typing import Any
 
-from sqlalchemy import func
+from sqlalchemy import func, select
+from sqlalchemy.dialects.postgresql import array as pg_array
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -20,6 +21,18 @@ from .teekas import Teeka
 from .topics import Topic
 
 
+def _merge_sources(col, new_source: str | None):
+    """Return SQL expression: distinct union of existing sources and new_source.
+
+    Pass None to leave sources untouched (e.g. re-syncs from graph_sync).
+    Renders as: array((SELECT DISTINCT unnest(array_cat(col, ARRAY[new_source])) AS src))
+    """
+    if new_source is None:
+        return col
+    src_elem = func.unnest(func.array_cat(col, pg_array([new_source]))).column_valued("src")
+    return func.array(select(src_elem).distinct().scalar_subquery())
+
+
 async def upsert_author(
     session: AsyncSession,
     *,
@@ -27,6 +40,7 @@ async def upsert_author(
     display_name: Any,
     kind: AuthorKind,
     bio: Any = None,
+    source: IngestionSource | None = None,
 ) -> uuid.UUID:
     stmt = (
         pg_insert(Author)
@@ -35,6 +49,7 @@ async def upsert_author(
             display_name=display_name,
             kind=kind,
             bio=bio,
+            sources=[source.value] if source else [],
         )
         .on_conflict_do_update(
             index_elements=[Author.natural_key],
@@ -42,6 +57,7 @@ async def upsert_author(
                 "display_name": display_name,
                 "kind": kind,
                 "bio": bio,
+                "sources": _merge_sources(Author.sources, source.value if source else None),
                 "updated_at": func.now(),
             },
         )
@@ -59,6 +75,7 @@ async def upsert_shastra(
     author_id: uuid.UUID,
     source_url: str | None = None,
     description: Any = None,
+    source: IngestionSource | None = None,
 ) -> uuid.UUID:
     stmt = (
         pg_insert(Shastra)
@@ -68,6 +85,7 @@ async def upsert_shastra(
             author_id=author_id,
             source_url=source_url,
             description=description,
+            sources=[source.value] if source else [],
         )
         .on_conflict_do_update(
             index_elements=[Shastra.natural_key],
@@ -76,6 +94,7 @@ async def upsert_shastra(
                 "author_id": author_id,
                 "source_url": source_url,
                 "description": description,
+                "sources": _merge_sources(Shastra.sources, source.value if source else None),
                 "updated_at": func.now(),
             },
         )
@@ -98,6 +117,7 @@ async def upsert_teeka(
     public_url: str | None = None,
     publisher_url: str | None = None,
     role: str | None = None,
+    source: IngestionSource | None = None,
 ) -> uuid.UUID:
     stmt = (
         pg_insert(Teeka)
@@ -112,6 +132,7 @@ async def upsert_teeka(
             public_url=public_url,
             publisher_url=publisher_url,
             role=role,
+            sources=[source.value] if source else [],
         )
         .on_conflict_do_update(
             index_elements=[Teeka.natural_key],
@@ -125,6 +146,7 @@ async def upsert_teeka(
                 "public_url": public_url,
                 "publisher_url": publisher_url,
                 "role": role,
+                "sources": _merge_sources(Teeka.sources, source.value if source else None),
                 "updated_at": func.now(),
             },
         )
@@ -145,6 +167,7 @@ async def upsert_book(
     editor: Any = None,
     public_url: str | None = None,
     publisher_url: str | None = None,
+    source: IngestionSource | None = None,
 ) -> uuid.UUID:
     stmt = (
         pg_insert(Book)
@@ -157,6 +180,7 @@ async def upsert_book(
             editor=editor,
             public_url=public_url,
             publisher_url=publisher_url,
+            sources=[source.value] if source else [],
         )
         .on_conflict_do_update(
             index_elements=[Book.natural_key],
@@ -168,6 +192,7 @@ async def upsert_book(
                 "editor": editor,
                 "public_url": public_url,
                 "publisher_url": publisher_url,
+                "sources": _merge_sources(Book.sources, source.value if source else None),
                 "updated_at": func.now(),
             },
         )
@@ -189,6 +214,7 @@ async def upsert_pravachan(
     editor: Any = None,
     public_url: str | None = None,
     publisher_url: str | None = None,
+    source: IngestionSource | None = None,
 ) -> uuid.UUID:
     stmt = (
         pg_insert(Pravachan)
@@ -202,6 +228,7 @@ async def upsert_pravachan(
             editor=editor,
             public_url=public_url,
             publisher_url=publisher_url,
+            sources=[source.value] if source else [],
         )
         .on_conflict_do_update(
             index_elements=[Pravachan.natural_key],
@@ -214,6 +241,7 @@ async def upsert_pravachan(
                 "editor": editor,
                 "public_url": public_url,
                 "publisher_url": publisher_url,
+                "sources": _merge_sources(Pravachan.sources, source.value if source else None),
                 "updated_at": func.now(),
             },
         )
@@ -231,6 +259,7 @@ async def upsert_keyword(
     source_url: str | None = None,
     definition_doc_ids: list[str] | None = None,
     graph_node_id: str | None = None,
+    source: IngestionSource | None = None,
 ) -> uuid.UUID:
     stmt = (
         pg_insert(Keyword)
@@ -240,6 +269,7 @@ async def upsert_keyword(
             source_url=source_url,
             definition_doc_ids=definition_doc_ids or [],
             graph_node_id=graph_node_id,
+            sources=[source.value] if source else [],
         )
         .on_conflict_do_update(
             index_elements=[Keyword.natural_key],
@@ -248,6 +278,7 @@ async def upsert_keyword(
                 "source_url": source_url,
                 "definition_doc_ids": definition_doc_ids or [],
                 "graph_node_id": graph_node_id,
+                "sources": _merge_sources(Keyword.sources, source.value if source else None),
                 "updated_at": func.now(),
             },
         )
@@ -331,6 +362,7 @@ async def upsert_publication(
     publisher: Any = None,
     public_url: str | None = None,
     publisher_url: str | None = None,
+    source: IngestionSource | None = None,
 ) -> uuid.UUID:
     stmt = (
         pg_insert(Publication)
@@ -341,6 +373,7 @@ async def upsert_publication(
             publisher=publisher,
             public_url=public_url,
             publisher_url=publisher_url,
+            sources=[source.value] if source else [],
         )
         .on_conflict_do_update(
             index_elements=[Publication.natural_key],
@@ -350,6 +383,7 @@ async def upsert_publication(
                 "publisher": publisher,
                 "public_url": public_url,
                 "publisher_url": publisher_url,
+                "sources": _merge_sources(Publication.sources, source.value if source else None),
                 "updated_at": func.now(),
             },
         )
@@ -369,6 +403,7 @@ async def upsert_kalash(
     sanskrit_doc_id: str | None = None,
     hindi_doc_id: str | None = None,
     bhaavarth_doc_ids: list[str] | None = None,
+    source: IngestionSource | None = None,
 ) -> uuid.UUID:
     stmt = (
         pg_insert(Kalash)
@@ -380,6 +415,7 @@ async def upsert_kalash(
             sanskrit_doc_id=sanskrit_doc_id,
             hindi_doc_id=hindi_doc_id,
             bhaavarth_doc_ids=bhaavarth_doc_ids or [],
+            sources=[source.value] if source else [],
         )
         .on_conflict_do_update(
             index_elements=[Kalash.natural_key],
@@ -390,6 +426,7 @@ async def upsert_kalash(
                 "sanskrit_doc_id": sanskrit_doc_id,
                 "hindi_doc_id": hindi_doc_id,
                 "bhaavarth_doc_ids": bhaavarth_doc_ids or [],
+                "sources": _merge_sources(Kalash.sources, source.value if source else None),
                 "updated_at": func.now(),
             },
         )
@@ -408,6 +445,7 @@ async def upsert_teeka_chapter(
     name: Any,
     start_gatha_id: uuid.UUID,
     end_gatha_id: uuid.UUID | None = None,
+    source: IngestionSource | None = None,
 ) -> uuid.UUID:
     stmt = (
         pg_insert(TeekaChapter)
@@ -418,6 +456,7 @@ async def upsert_teeka_chapter(
             name=name,
             start_gatha_id=start_gatha_id,
             end_gatha_id=end_gatha_id,
+            sources=[source.value] if source else [],
         )
         .on_conflict_do_update(
             index_elements=[TeekaChapter.natural_key],
@@ -427,6 +466,7 @@ async def upsert_teeka_chapter(
                 "name": name,
                 "start_gatha_id": start_gatha_id,
                 "end_gatha_id": end_gatha_id,
+                "sources": _merge_sources(TeekaChapter.sources, source.value if source else None),
                 "updated_at": func.now(),
             },
         )
@@ -505,6 +545,7 @@ async def upsert_gatha(
     teeka_mapping_doc_ids: list[str] | None = None,
     keyword_ids: list[str] | None = None,
     topic_ids: list[str] | None = None,
+    source: IngestionSource | None = None,
 ) -> uuid.UUID:
     stmt = (
         pg_insert(Gatha)
@@ -523,6 +564,7 @@ async def upsert_gatha(
             teeka_mapping_doc_ids=teeka_mapping_doc_ids or [],
             keyword_ids=keyword_ids or [],
             topic_ids=topic_ids or [],
+            sources=[source.value] if source else [],
         )
         .on_conflict_do_update(
             index_elements=[Gatha.natural_key],
@@ -540,6 +582,7 @@ async def upsert_gatha(
                 "teeka_mapping_doc_ids": teeka_mapping_doc_ids or [],
                 "keyword_ids": keyword_ids or [],
                 "topic_ids": topic_ids or [],
+                "sources": _merge_sources(Gatha.sources, source.value if source else None),
                 "updated_at": func.now(),
             },
         )

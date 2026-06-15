@@ -1,6 +1,6 @@
 import uuid
 
-from sqlalchemy import ForeignKey, Index, Text
+from sqlalchemy import ARRAY, ForeignKey, Index, Text
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -39,3 +39,4 @@ class Gatha(Base, TimestampMixin):
     teeka_mapping_doc_ids: Mapped[list] = mapped_column(JSONB, nullable=False, default=list)
     keyword_ids: Mapped[list] = mapped_column(JSONB, nullable=False, default=list)
     topic_ids: Mapped[list] = mapped_column(JSONB, nullable=False, default=list)
+    sources: Mapped[list[str]] = mapped_column(ARRAY(Text), nullable=False, default=list)
