@@ -642,22 +642,22 @@ def _derive_props(label: str, key: str) -> dict:
         return {"teeka_natural_key": prefix, "kalash_number": n}
     if label == "GathaTeeka":
         # Legacy: {shastra}:{teeka}:गाथा:टीका:{n}
-        # Compound: {shastra}:{teeka}:...:गाथा:टीका:{n}
-        # teeka_nk is always the first two colon-delimited segments
+        # Compound: {shastra}:{teeka}:<compound-suffix-with-trailing :टीका:{n}>
+        # The trailing gatha-label is shastra-specific (गाथा / सूत्र / श्लोक / …),
+        # so peel off the inserted `:टीका:` rather than matching a literal label.
         segs = key.split(":")
         shastra = segs[0]
         teeka_nk = ":".join(segs[:2])
-        _, n = key.rsplit(":गाथा:टीका:", 1)
+        _, n = key.rsplit(":टीका:", 1)
         return {"shastra_natural_key": shastra, "teeka_natural_key": teeka_nk, "gatha_number": n}
     if label == "GathaTeekaBhaavarth":
         # Legacy: {shastra}:{teeka}:{pub_id}:गाथा:टीका:भावार्थ:{n}
-        # Compound: {shastra}:{teeka}:{pub_id}:...:गाथा:टीका:भावार्थ:{n}
-        # teeka_nk is always first two segments; pub_id is always third segment
+        # Compound: {shastra}:{teeka}:{pub_id}:<compound-suffix ending :टीका:भावार्थ:{n}>
         segs = key.split(":")
         shastra = segs[0]
         teeka_nk = ":".join(segs[:2])
         pub_id = segs[2]
-        _, n = key.rsplit(":गाथा:टीका:भावार्थ:", 1)
+        _, n = key.rsplit(":भावार्थ:", 1)
         return {
             "shastra_natural_key": shastra,
             "teeka_natural_key": teeka_nk,

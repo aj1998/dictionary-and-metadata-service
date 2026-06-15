@@ -610,7 +610,8 @@
       "15": 22,
       "16": -318
     },
-    "pdf_filename": "dhavala"
+    "pdf_filename": "dhavala",
+    "gatha_identifier": "पुस्तक,खण्ड,भाग,धवलासूत्र"
   },
   {
     "shastra_name": "नयचक्र बृहद्",
@@ -859,7 +860,8 @@
     "edition": "",
     "type": "publication",
     "alternate_name": "",
-    "public_url": ""
+    "public_url": "",
+    "gatha_identifier": "परिच्छेद,परीक्षामुखसूत्र"
   },
   {
     "shastra_name": "परमात्मप्रकाश",
@@ -1231,7 +1233,8 @@
     "pustak_offsets": {
       "1": 15,
       "2": -409
-    }
+    },
+    "gatha_identifier": "पुस्तक,अध्याय,राजवार्तिकसूत्र"
   },
   {
     "shastra_name": "राजवार्तिक हिन्दी",
@@ -1370,7 +1373,8 @@
       "5": 12,
       "6": 17,
       "7": 25
-    }
+    },
+    "gatha_identifier": "पुस्तक,अध्याय,सूत्र,श्लोकवार्तिकवार्तिक"
   },
   {
     "shastra_name": "षट्खण्डागम",
@@ -1472,7 +1476,8 @@
     "edition": "",
     "type": "publication",
     "alternate_name": "",
-    "public_url": ""
+    "public_url": "",
+    "gatha_identifier": "अध्याय,सर्वार्थसिद्धिसूत्र"
   },
   {
     "shastra_name": "स्वयम्भू स्तोत्र",
@@ -1654,7 +1659,8 @@
     "public_url": "https://jainworld.jainworld.com/JWSanskrit/Jainendra+Mahavritti.pdf",
     "manually_added": true,
     "pdf_filename": "jainendra_vyaakaran",
-    "pdf_page_offset": 41
+    "pdf_page_offset": 41,
+    "gatha_identifier": "प्रकरण,पाठ,जैनेंद्रव्याकरणसूत्र"
   },
   {
     "shastra_name": "न्यायविनिश्चय",
