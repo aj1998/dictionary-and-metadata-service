@@ -144,4 +144,8 @@ psql jain_kb_dev -c "SELECT count(*) FROM shastras;"        # 0
 
 ## Implementation notes
 
-…
+- Created `packages/jain_kb_common/jain_kb_common/db/neo4j/clear.py` with `clear_source()` helper that runs two-step exclusive-delete + co-owned-shrink using separate sessions (Neo4j doesn't allow mixing DETACH DELETE and SET in one transaction on the same match set).
+- `scripts/clear_dbs.py` now imports `clear_source as neo4j_clear_source` and routes based on the `--source` flag. `--source all` keeps the original TRUNCATE + full DETACH DELETE path.
+- `_clear_postgres_by_source` issues DELETE/UPDATE in FK-safe child-before-parent order: `keyword_aliases` → `topic_candidates` (jainkosh only) → `ingestion_review_queue` → `tables` → `topics` → shared tables (gathas…authors) → `ingestion_runs` → `parser_configs`.
+- Shared tables use `sources <@ ARRAY[$src]::text[]` to guard exclusive-only deletes and `array_remove(sources, $src)` for co-owned shrink.
+- Integration test data must be realistic: if an nj shastra references an author, the author row must also carry `sources=['jainkosh','nj']`, otherwise the `RESTRICT` FK on `shastras.author_id` prevents deleting the jainkosh-exclusive author.
