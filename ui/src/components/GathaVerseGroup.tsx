@@ -114,7 +114,9 @@ export function GathaVerseGroup({ entries }: GathaVerseGroupProps) {
         />
       )}
 
-      <GathaPanel lang="hindi-harigeet" text={current.hindiHarigeet?.text || '—'} />
+      {current.hindiHarigeet?.text ? (
+        <GathaPanel lang="hindi-harigeet" text={current.hindiHarigeet.text} />
+      ) : null}
     </div>
   );
 }

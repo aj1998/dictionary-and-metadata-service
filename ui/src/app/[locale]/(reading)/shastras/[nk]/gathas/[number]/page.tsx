@@ -21,6 +21,7 @@ import { ApiError } from '@/lib/api/_fetch';
 import { getKeywordTopics } from '@/lib/api/navigation';
 import { getHindiText } from '@/lib/content-listing';
 import { normalizeNFC, toDevanagariNumerals } from '@/lib/format/devanagari';
+import { gathaCompactFromNk, isFullGathaNk, parseGathaSuffix } from '@/lib/format/gatha-id';
 
 const formatGathaRange = (nums: number[]): string => {
   if (nums.length > 2) {
@@ -73,23 +74,31 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   const nk = decodeURIComponent(rawNk);
   const number = decodeURIComponent(rawNumber);
 
-  // Detect compound form: "1,2" (compound) vs "8" or "समयसार:गाथा:8" (legacy).
-  const isCompound = number.includes(',');
+  // Normalise URL forms:
+  //   "1,9"                              → compound compact
+  //   "परमात्मप्रकाश:अधिकार:1:गाथा:9" → full compound NK (derive compact)
+  //   "समयसार:गाथा:8"                    → legacy full NK
+  //   "8"                                 → legacy bare number
+  let routeNumber = number;
+  if (isFullGathaNk(number, nk)) {
+    const suffix = number.slice(nk.length + 1);
+    const parsed = parseGathaSuffix(suffix);
+    if (parsed.isCompound) routeNumber = parsed.compact;
+  }
+  const isCompound = routeNumber.includes(',');
 
   // Resolve gatha NK for topic/extract lookups (always the full natural key).
-  // For compound, we get this from the API response; seed with empty string for now.
   let gathaNk: string;
   let gatha: Awaited<ReturnType<typeof getGatha>>;
 
   if (isCompound) {
-    gatha = await getGathaByPath(nk, number, { include: ['teeka_mapping', 'teeka_bhaavarth', 'teeka_sanskrit', 'kalashas'] }).catch((err) => {
+    gatha = await getGathaByPath(nk, routeNumber, { include: ['teeka_mapping', 'teeka_bhaavarth', 'teeka_sanskrit', 'kalashas'] }).catch((err) => {
       if (err instanceof ApiError && err.status === 404) notFound();
       throw err;
     });
     gathaNk = gatha.natural_key;
   } else {
-    // `number` may be a plain gatha number ("8") or a full natural key ("समयसार:गाथा:8").
-    gathaNk = number.includes(':गाथा:') ? number : `${nk}:गाथा:${number}`;
+    gathaNk = routeNumber.includes(':गाथा:') ? routeNumber : `${nk}:गाथा:${routeNumber}`;
     gatha = await getGatha(gathaNk, { include: ['teeka_mapping', 'teeka_bhaavarth', 'teeka_sanskrit', 'kalashas'] }).catch((err) => {
       if (err instanceof ApiError && err.status === 404) notFound();
       throw err;
@@ -98,7 +107,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
 
   // For compound gathas, fetch adjacent navigation server-side.
   const adjacentLinks = isCompound
-    ? await getGathaAdjacent(nk, number).catch(() => null)
+    ? await getGathaAdjacent(nk, routeNumber).catch(() => null)
     : null;
 
   const [topicsResult, extractMatch, tR, tS, locale] = await Promise.all([
@@ -544,7 +553,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
               <h2 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold" style={{ color: 'color-mix(in srgb, var(--cat-keyword) 85%, var(--foreground))' }}>{tR('shabdarth')}</h2>
               {combinedGathaNotice?.ka}
             </div>
-            <PanelActionsMenu sourceNk={gathaNk} sourceLabel={`${gathaLbl} ${gatha.gatha_number || number}`} />
+            <PanelActionsMenu sourceNk={gathaNk} sourceLabel={`${gathaLbl} ${isCompound ? routeNumber : (gatha.gatha_number || number)}`} />
           </div>
           <div className="p-5">
             {primaryMapping?.tagged_terms.length ? (

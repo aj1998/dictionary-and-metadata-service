@@ -39,7 +39,7 @@ selectors:
   # teeka1_div: "div#teeka1"
   steeka0_div: "div.steeka#steeka0"
   # steeka1_div: "div.steeka#steeka1"
-  primary_teeka_label: "ब्रह्मदेव सूरि"
+  primary_teeka_label: "ब्रह्मदेव"
   # secondary_teeka_label: "जयसेनाचार्य"
   kalash_type_marker_color: "DarkSlateGray"
   kalash_word_meaning_color: "maroon"

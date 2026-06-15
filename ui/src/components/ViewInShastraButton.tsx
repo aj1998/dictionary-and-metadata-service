@@ -5,6 +5,7 @@ import { ExternalLink, BookOpen } from '@/lib/icons';
 import { cn } from '@/lib/utils';
 import { getExtractMatch } from '@/lib/api/data';
 import { buildGathaHref, buildShastraGathaHref, getRefGathaEntity } from '@/lib/gatha-content';
+import { buildGathaPathHref, compactFromResolvedFields } from '@/lib/format/gatha-id';
 import type { DefinitionReference, ExtractMatch } from '@/lib/types';
 
 export interface MatchEntry {
@@ -143,6 +144,17 @@ export function planRefLink(
   // variance still matches an NFC-normalized registry entry.
   const shastraNkNFC = ref.shastra_name.normalize('NFC');
   if (!ingestedShastras.has(shastraNkNFC)) return { kind: 'none' };
+  // Compound shastras (e.g. परमात्मप्रकाश) need multiple identifier values
+  // joined by comma. Detect this when the ref resolves more than one
+  // identifier field; fall back to the single-field path otherwise.
+  const compound = compactFromResolvedFields(ref);
+  if (compound && compound.compact.includes(',')) {
+    return {
+      kind: 'fallback',
+      href: buildGathaPathHref(shastraNkNFC, compound.compact),
+      label: `${shastraNkNFC} ${compound.compact}`,
+    };
+  }
   const entity = getRefGathaEntity(ref);
   if (!entity) return { kind: 'none' };
   return {

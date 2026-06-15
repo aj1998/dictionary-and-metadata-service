@@ -969,3 +969,73 @@ See `docs/design/data_sources/nikkyjain/nj_ingestion.md` and `nj_parser.md`.
   - `gatha_teeka_sanskrit` with `gatha_teeka_natural_key = {teeka_j_nk}:कलश:{N}`
   - `gatha_teeka_bhaavarth_hindi` with the same `:कलश:` marker and `gatha_number = norm_kalash_num`
 - The `:कलश:` substring is the canonical discriminator between a real gatha's teeka content and a secondary-kalash extra-gatha's content sharing the same `gatha_number`.
+
+---
+
+## Compound identifiers — UI implementation notes
+
+Full wiki: [`docs/design/specs/compound_identifiers/README.md`](../docs/design/specs/compound_identifiers/README.md).
+
+The UI treats compound shastras (e.g. परमात्मप्रकाश with
+`gatha_identifier = "अधिकार,परमात्मप्रकाशगाथा"`) uniformly with legacy ones
+through a small set of helpers.
+
+### Key helpers
+
+- `src/lib/format/gatha-id.ts`
+  - `parseGathaSuffix` / `gathaCompactFromNk` — split a gatha NK suffix into
+    `(name,value)` segments and produce the URL-path compact form
+    (`अधिकार:1:गाथा:9` → `"1,9"`).
+  - `buildGathaPathHref(shastraNk, compact)` — canonical compound URL.
+  - `isFullGathaNk` — detects when a `[number]` route param is actually a
+    full NK that needs normalising.
+  - `compactFromResolvedFields(ref)` — derives the compact form from a
+    jainkosh ref's `resolved_fields` (used for fallback book-links).
+  - `gathaTileLabel` — `"अधिकार १, गाथा १"` (Devanagari numerals, no leading
+    "गाथा" word that would make `1,001` read as one-thousand-and-one).
+  - `uniqueLeadingIdValues` — de-duplicated list of leading-field values for
+    the search-jump dropdown.
+- `src/lib/gatha-content.ts`
+  - `GATHA_ENTITY_KEYWORDS` — canonical list (mirrors
+    `parser_configs/jainkosh.yaml`).
+  - `isGathaEntityField(field)` — suffix match so compound fields like
+    `परमात्मप्रकाशगाथा` or `कषायपाहुड़-गाथा` are still classified as gatha
+    entities.
+  - `displayFieldLabel(field)` — strips the shastra-name prefix (and any
+    trailing hyphen) so the modal chip reads just `गाथा:` even when the
+    underlying field is `परमात्मप्रकाशगाथा`.
+
+### Bugfixes
+
+- **Breadcrumb `गाथा NaN`** — reading page used to `parseInt(gatha_number)`
+  for the breadcrumb, but compound `gatha_number` is the full compound
+  suffix string. Fixed by routing through `getGathaByPath` and rendering
+  the API's `identifier.fields` block as per-field chips.
+- **Empty `chhand` panel** — `GathaVerseGroup` now skips the chhand panel
+  when its text is empty.
+- **Shastra-page tile titles "गाथा अधिकार:1:गाथा:001"** — replaced with
+  `gathaTileLabel` so each tile reads e.g. `"अधिकार १, गाथा १"`.
+- **Search-jump only accepted zero-padded values, had no adhikaar input** —
+  `GathaSearchJump` now renders a `<select>` for adhikaar (pre-filled from
+  the shastra's distinct values) plus a separate gatha-number input. The
+  server-side fuzzy fallback resolves `1,9` → stored `…:गाथा:009`.
+- **Modal book link missing for compound refs** — `isGathaField` previously
+  did exact match on field name; now uses `isGathaEntityField`. The link
+  plan (`planRefLink`) routes compound refs via `compactFromResolvedFields`
+  to build `/shastras/{nk}/gathas/{val1,val2}` even when the matcher has
+  no entry.
+- **Modal showed verbose field names** — chips now use `displayFieldLabel`
+  so `परमात्मप्रकाशगाथा: 12` displays as `गाथा: 12`. Display-only; the
+  underlying field name (used by matcher / NK builder) is unchanged.
+
+### Reading route normalisation
+
+`src/app/[locale]/(reading)/shastras/[nk]/gathas/[number]/page.tsx`:
+
+- If `[number]` is a full NK (`परमात्मप्रकाश:अधिकार:1:गाथा:9`), it is
+  converted to the compact form (`1,9`) and re-fetched via the compound
+  endpoint.
+- For compound shastras the page calls `/v1/shastras/{nk}/gathas/{raw_id}`
+  and `/adjacent`; for legacy it keeps the legacy single-ID path.
+- The breadcrumb is rendered from the API's `identifier.fields` block (each
+  field as a chip with its canonical Devanagari label).

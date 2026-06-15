@@ -400,3 +400,39 @@ Until Phase 4, JainKosh reference resolution emits legacy NKs for परमा�
 - **`ingest_nj_apply.py` script**: specified in `§5` of the design doc; a thin async wrapper around `apply.py` that reads env vars and accepts `--dry-run`/`--gatha` flags. Status: partially wired; verify before production use.
 - **DB integration tests**: `test_apply_unit.py` is unit-based. Live DB integration tests are deferred; add under `--run-db-tests` flag when CI DB environment is available.
 - **Golden files**: regenerate with `python -m workers.ingestion.nj.cli parse --config parser_configs/nj/samaysaar.yaml --format golden` (requires `NIKKYJAIN_LOCAL_PATH`).
+
+---
+
+## Compound identifiers — implementation notes & bugfixes
+
+See [`docs/design/specs/compound_identifiers/README.md`](../../specs/compound_identifiers/README.md)
+for the full wiki. Bugfixes that touched the NJ ingestion path:
+
+- **Primary-teeka label drift (silent skip)**: `_is_primary_page` in
+  `workers/ingestion/nj/parse_page.py` previously returned `False` without
+  logging when the configured `selectors.primary_teeka_label` did not
+  substring-match the actual `<font color=darkgreen>` text in `div#teeka0`.
+  परमात्मप्रकाश ingestion produced 0 teeka docs because the YAML had
+  `"ब्रह्मदेव सूरि"` but the HTML reads `"श्रीब्रह्मदेव :"`. Fix:
+  - Shorten the configured label to a guaranteed substring (`"ब्रह्मदेव"`).
+  - `_is_primary_page` now emits `WARNING nj.primary_teeka_label.mismatch
+    shastra=… configured_label=… html_label=…` whenever the configured label
+    fails to match — config drift surfaces in logs instead of silently
+    dropping every teeka page.
+- **Postgres `gathas.adhikaar` payload**: confirms the phase-3 diversion that
+  this JSONB column stores the `identifier_values` dict (not a `LangText`
+  list) for compound shastras. The core service schema's `_coerce` was
+  hardened to accept this shape (see API doc).
+- **Per-gatha Mongo segment (`mongo_seg`)**: ingestion writes
+  `gatha_teeka_natural_key = "{publication_nk}:{mongo_seg}"` where
+  `mongo_seg` is the compound suffix for compound shastras and the
+  zero-stripped bare number for legacy. The core service query must anchor on
+  this exact suffix — see the §3 fix in the API design doc.
+
+### Operational checklist after a YAML edit
+```
+python -m workers.ingestion.nj.cli --config parser_configs/nj/<shastra>.yaml --apply
+```
+Then verify:
+1. Mongo `gatha_teeka_*` doc counts are non-zero (no label-mismatch warnings).
+2. Postgres `gathas` row's `natural_key` contains the compound suffix; `adhikaar` JSONB holds the identifier_values dict.

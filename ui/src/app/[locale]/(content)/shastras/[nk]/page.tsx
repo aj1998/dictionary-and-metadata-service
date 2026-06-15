@@ -5,6 +5,7 @@ import { GathaTile } from '@/components/ListCards';
 import { getShastra, getShastraTeekas } from '@/lib/api/metadata';
 import { getGathasByShastraId } from '@/lib/api/data';
 import { getHindiText } from '@/lib/content-listing';
+import { gathaCompactFromNk, gathaTileLabel, uniqueLeadingIdValues } from '@/lib/format/gatha-id';
 import { getTranslations } from 'next-intl/server';
 import type { AuthorSummary } from '@/lib/types';
 
@@ -24,7 +25,7 @@ export default async function ShastraDetailPage({ params }: PageProps) {
 
   const [shastra, t] = await Promise.all([getShastra(nk), getTranslations('shastras')]);
 
-  const [teekas, gathas] = await Promise.all([
+  const [teekas, gathas, gathasAll] = await Promise.all([
     getShastraTeekas(nk).catch((error) => {
       console.error('Failed to fetch shastra teekas', { nk, error });
       return [];
@@ -33,7 +34,18 @@ export default async function ShastraDetailPage({ params }: PageProps) {
       console.error('Failed to fetch shastra gathas', { nk, error });
       return { pagination: { total: 0, limit: 12, offset: 0 }, items: [] };
     }),
+    // Fetch a wide window of gathas to derive the अधिकार list for the search-jump dropdown.
+    // 200 is enough for known compound shastras (परमात्मप्रकाश has 151).
+    getGathasByShastraId(shastra.id, { limit: 200, offset: 0 }).catch(() => ({
+      pagination: { total: 0, limit: 200, offset: 0 },
+      items: [],
+    })),
   ]);
+
+  const adhikaarList = uniqueLeadingIdValues(
+    shastra.natural_key,
+    gathasAll.items.map((g) => g.natural_key),
+  );
 
   const titleHi = getHindiText(shastra.title, shastra.natural_key);
 
@@ -62,18 +74,28 @@ export default async function ShastraDetailPage({ params }: PageProps) {
         <section className="rounded-[var(--radius-md)] border border-border bg-surface p-5 shadow-node">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
             <h2 className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold">{t('gathas')}</h2>
-            <GathaSearchJump shastraNk={nk} totalGathas={gathas.pagination.total} />
+            <GathaSearchJump
+              shastraNk={nk}
+              totalGathas={gathas.pagination.total}
+              adhikaarField={adhikaarList?.fieldName ?? null}
+              adhikaarValues={adhikaarList?.values ?? []}
+            />
           </div>
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
-            {gathas.items.map((gatha) => (
-              <GathaTile
-                key={gatha.id}
-                kind="gatha"
-                titleHi={`${t('gatha_label')} ${gatha.gatha_number}`}
-                meta={getHindiText(gatha.heading, gatha.natural_key)}
-                href={`/shastras/${nk}/gathas/${encodeURIComponent(gatha.natural_key)}`}
-              />
-            ))}
+            {gathas.items.map((gatha) => {
+              const compact = gathaCompactFromNk(shastra.natural_key, gatha.natural_key);
+              const compoundLabel = gathaTileLabel(shastra.natural_key, gatha.natural_key, gatha.gatha_number);
+              const isCompound = compact.includes(',');
+              return (
+                <GathaTile
+                  key={gatha.id}
+                  kind="gatha"
+                  titleHi={isCompound ? compoundLabel : `${t('gatha_label')} ${compact}`}
+                  meta={getHindiText(gatha.heading, gatha.natural_key)}
+                  href={`/shastras/${encodeURIComponent(nk)}/gathas/${encodeURIComponent(compact)}`}
+                />
+              );
+            })}
           </div>
         </section>
 

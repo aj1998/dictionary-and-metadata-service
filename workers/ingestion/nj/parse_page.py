@@ -3,9 +3,12 @@
 from __future__ import annotations
 
 import dataclasses
+import logging
 import re
 import unicodedata
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
 
 from bs4 import BeautifulSoup, NavigableString, Tag
 
@@ -266,7 +269,21 @@ def _is_primary_page(teeka0_div: Tag | None, cfg: NJConfig) -> bool:
     label = teeka0_div.select_one("font[color='darkgreen'], font[color='DarkGreen']")
     if not label:
         return False
-    return cfg.selectors.primary_teeka_label in _clean(label.get_text())
+    label_text = _clean(label.get_text())
+    if cfg.selectors.primary_teeka_label in label_text:
+        return True
+    # Config drift guard: teeka0 with a darkgreen label exists, but the configured
+    # `primary_teeka_label` substring doesn't appear in it. The whole teeka payload
+    # is silently skipped in this case (no gatha_teeka_sanskrit / gatha_teeka_bhaavarth_hindi
+    # docs are written), so surface it loudly to the ingestion logs.
+    logger.warning(
+        "nj.primary_teeka_label.mismatch shastra=%s configured_label=%r html_label=%r — "
+        "teeka skipped for this page; update primary_teeka_label in the shastra YAML",
+        cfg.shastra.natural_key,
+        cfg.selectors.primary_teeka_label,
+        label_text,
+    )
+    return False
 
 
 def parse_primary_page(

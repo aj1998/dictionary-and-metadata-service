@@ -14,7 +14,7 @@ import {
 import { OriginalShastraLink } from '@/components/OriginalShastraLink';
 import { useIngestedShastras } from '@/lib/shastra-registry';
 import { extractOriginalShastraInfo, useShastraPdfOffsets } from '@/lib/shastra-pdf-registry';
-import { GATHA_ENTITY_KEYWORDS } from '@/lib/gatha-content';
+import { isGathaEntityField, displayFieldLabel } from '@/lib/gatha-content';
 import type { DefinitionBlock, DefinitionReference, KeywordPageSection } from '@/lib/types';
 
 export type MarkdownSegment = { kind: 'text'; text: string } | { kind: 'bold'; text: string } | { kind: 'italic'; text: string };
@@ -195,11 +195,11 @@ function RefListItem({ ref, matchEntry, loading, ingestedShastras }: { ref: Defi
           </>
         )}
         {ref.resolved_fields.map((f, fi) => {
-          const isGathaField = (GATHA_ENTITY_KEYWORDS as readonly string[]).includes(f.field);
+          const isGathaField = isGathaEntityField(f.field);
           return (
             <span key={fi} className="inline-flex items-center gap-0.5">
               {fi > 0 && <span className="opacity-30">·</span>}
-              <span className="text-foreground-muted">{f.field}:</span>
+              <span className="text-foreground-muted">{displayFieldLabel(f.field)}:</span>
               <span className="font-medium">{f.value}</span>
               {isGathaField && (
                 <RefMatchLink ref={ref} matchEntry={matchEntry} loading={loading} ingestedShastras={ingestedShastras} />
@@ -240,11 +240,11 @@ export function RefBadge({ ref, showShastra = false, matchEntry, loading, ingest
         </>
       )}
       {ref.resolved_fields.map((f, fi) => {
-        const isGathaField = (GATHA_ENTITY_KEYWORDS as readonly string[]).includes(f.field);
+        const isGathaField = isGathaEntityField(f.field);
         return (
           <span key={fi} className="inline-flex items-center">
             {fi > 0 && <span className="mx-1 opacity-50">·</span>}
-            <span className="opacity-80">{f.field}:</span>
+            <span className="opacity-80">{displayFieldLabel(f.field)}:</span>
             <span className="ml-0.5 text-[10px] font-medium not-italic">{f.value}</span>
             {isGathaField && (
               <span className="ml-1"><RefMatchLink ref={ref} matchEntry={matchEntry} loading={loading} ingestedShastras={ingestedShastras} /></span>
@@ -294,7 +294,7 @@ function MultiRefGroupBadge({ group, showShastra, entries, loading, ingestedShas
       {group.commonFields.map((f, fi) => (
         <span key={fi} className="flex items-center">
           {fi > 0 && <span className="mx-1 opacity-50">·</span>}
-          <span className="opacity-80">{f.field}:</span>
+          <span className="opacity-80">{displayFieldLabel(f.field)}:</span>
           <span className="ml-0.5 text-[10px] font-medium not-italic">{f.value}</span>
         </span>
       ))}
@@ -306,11 +306,11 @@ function MultiRefGroupBadge({ group, showShastra, entries, loading, ingestedShas
           <span key={ri} className="inline-flex items-center gap-0">
             {ri > 0 && <span className="mx-1 opacity-50">·</span>}
             {diffFields.map((f, fi) => {
-              const isGathaField = (GATHA_ENTITY_KEYWORDS as readonly string[]).includes(f.field);
+              const isGathaField = isGathaEntityField(f.field);
               return (
                 <span key={fi} className="inline-flex items-center">
                   {fi > 0 && <span className="mx-1 opacity-50">·</span>}
-                  <span className="opacity-80">{f.field}:</span>
+                  <span className="opacity-80">{displayFieldLabel(f.field)}:</span>
                   <span className="ml-0.5 text-[10px] font-medium not-italic">{f.value}</span>
                   {isGathaField && (
                     <span className="ml-1">
@@ -405,7 +405,7 @@ function MultiRefGroupListItem({ group, entries, loading, ingestedShastras }: {
         {group.commonFields.map((f, fi) => (
           <span key={fi} className="flex items-center gap-0.5">
             {fi > 0 && <span className="opacity-30">·</span>}
-            <span className="text-foreground-muted">{f.field}:</span>
+            <span className="text-foreground-muted">{displayFieldLabel(f.field)}:</span>
             <span className="font-medium">{f.value}</span>
           </span>
         ))}
@@ -417,11 +417,11 @@ function MultiRefGroupListItem({ group, entries, loading, ingestedShastras }: {
             <span key={ri} className="inline-flex items-center gap-0.5">
               {ri > 0 && <span className="opacity-30">·</span>}
               {diffFields.map((f, fi) => {
-                const isGathaField = (GATHA_ENTITY_KEYWORDS as readonly string[]).includes(f.field);
+                const isGathaField = isGathaEntityField(f.field);
                 return (
                   <span key={fi} className="inline-flex items-center gap-0.5">
                     {fi > 0 && <span className="opacity-30">·</span>}
-                    <span className="text-foreground-muted">{f.field}:</span>
+                    <span className="text-foreground-muted">{displayFieldLabel(f.field)}:</span>
                     <span className="font-medium">{f.value}</span>
                     {isGathaField && (
                       <RefMatchLink ref={ref} matchEntry={findMatchForRef(ref, entries)} loading={loading} ingestedShastras={ingestedShastras} />

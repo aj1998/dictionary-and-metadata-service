@@ -459,3 +459,41 @@ If `parent_kind` is not in the map the `CONTAINS_TABLE` edge is skipped with a w
 ### `raw_html_doc_id`
 
 The Postgres `tables.raw_html_doc_id` column is set to `str(stable_id(natural_key))` at insert time (pre-computed from the deterministic SHA-1 hash). This matches the Mongo `_id` exactly so the two stores can cross-reference without a round-trip UPDATE.
+
+---
+
+## Compound identifiers — implementation notes & bugfixes
+
+See [`docs/design/specs/compound_identifiers/README.md`](../../specs/compound_identifiers/README.md)
+for the full wiki. Items relevant to jainkosh ingestion:
+
+- **Reference parser compound NK assembly** (phase 4): the jainkosh reference
+  parser reads `gatha_identifier` from `shastra.json` at resolve time and
+  assembles the same compound NK shape that NJ emits, so jainkosh citations
+  land on the same node as the NJ-ingested gatha. For परमात्मप्रकाश this
+  produces `परमात्मप्रकाश:अधिकार:1:गाथा:001`.
+- **Compound field naming**: jainkosh references use the grammar form
+  `परमात्मप्रकाशगाथा` (shastra-name prefix + `गाथा`); the NK emitter strips
+  the prefix to the canonical `गाथा` segment. Other compound shastras may
+  emit hyphenated forms (e.g. `कषायपाहुड़-गाथा`); the suffix-match strips
+  hyphen + prefix uniformly.
+- **`reference.entity_keywords.gatha`** (`parser_configs/jainkosh.yaml`)
+  remains the canonical list of gatha-like keywords. The UI side mirrors this
+  list as `GATHA_ENTITY_KEYWORDS` in `ui/src/lib/gatha-content.ts` and uses a
+  suffix match (`isGathaEntityField`) so compound field names still classify
+  as gatha-entity refs.
+- **Citations missing the link icon (UI symptom)**: the modal previously
+  only rendered the brown/grey book link for fields whose name was *exactly*
+  `गाथा`/`श्लोक`/etc. Compound refs (`परमात्मप्रकाशगाथा`) failed this check.
+  Fixed on the UI side; jainkosh emits unchanged.
+- **Field-label display**: the UI now strips the shastra-name prefix when
+  rendering the chip (`परमात्मप्रकाशगाथा: 12` → `गाथा: 12`). This is
+  display-only — the underlying `resolved_fields[*].field` value emitted by
+  the jainkosh parser is unchanged so downstream consumers (matcher, NK
+  builder) still see the full grammar form.
+
+### Bug history (parser-side)
+- `parser.reference.compound.missing_field shastra=परमात्मप्रकाश fields=[]`
+  — was emitted before phase 4 wired up `gatha_identifier` lookup at resolve
+  time. Resolved by phase 4; if it reappears, check that the shastra has a
+  `gatha_identifier` entry in `shastra.json`.

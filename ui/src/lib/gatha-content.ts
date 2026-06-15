@@ -8,10 +8,31 @@ export const GATHA_ENTITY_KEYWORDS = ['गाथा', 'श्लोक', 'सू
 
 export type GathaEntityField = { field: string; value: string };
 
+// Field names emitted by the parser can be prefixed with the shastra name —
+// e.g. परमात्मप्रकाशगाथा, कषायपाहुड़-गाथा. Returns true when the field ends with
+// any of the canonical gatha keywords.
+export function isGathaEntityField(field: string): boolean {
+  return (GATHA_ENTITY_KEYWORDS as readonly string[]).some(
+    (k) => field === k || field.endsWith(k),
+  );
+}
+
+// Strip the shastra-name prefix (and trailing hyphen, if any) from a field
+// label so the modal displays just the canonical keyword (e.g.
+// "परमात्मप्रकाशगाथा" → "गाथा", "कषायपाहुड़-गाथा" → "गाथा"). Non-gatha fields
+// are returned unchanged.
+export function displayFieldLabel(field: string): string {
+  for (const k of GATHA_ENTITY_KEYWORDS) {
+    if (field === k) return k;
+    if (field.endsWith(k)) return k;
+  }
+  return field;
+}
+
 // Returns the first resolved field whose name is a gatha entity keyword.
 export function getRefGathaEntity(ref: DefinitionReference): GathaEntityField | null {
   for (const f of ref.resolved_fields) {
-    if ((GATHA_ENTITY_KEYWORDS as readonly string[]).includes(f.field) && f.value) {
+    if (isGathaEntityField(f.field) && f.value) {
       return { field: f.field, value: f.value };
     }
   }

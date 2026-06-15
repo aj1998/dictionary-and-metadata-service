@@ -226,3 +226,72 @@ UI usage:
 
 - `DefinitionModal` fetches these docs to render "View in Shastra" links
 - the reading page consumes the same doc via `?match=<natural_key>` and highlights only for `matched`
+
+---
+
+## Compound identifiers — implementation notes & bugfixes
+
+Full wiki: [`docs/design/specs/compound_identifiers/README.md`](../../specs/compound_identifiers/README.md).
+
+### Endpoints
+
+- `GET /v1/shastras/{shastra_nk}/gathas/{raw_id}` — `raw_id` is the compact
+  form (`1,001` for compound, bare number for legacy). Resolves to the full
+  natural key via `gatha_nk_for_request`. Falls back to numeric-equality
+  fuzzy match (`_find_compound_gatha_fuzzy`) so users can type unpadded
+  values like `1,9`.
+- `GET /v1/shastras/{shastra_nk}/gathas/{raw_id}/adjacent` — returns
+  `previous` / `next` siblings, numerically sorted across the compound key.
+- Response includes an `identifier` block:
+  ```json
+  {
+    "fields": [
+      {"name": "अधिकार", "label": "अधिकार", "value": "1"},
+      {"name": "परमात्मप्रकाशगाथा", "label": "गाथा", "value": "001"}
+    ],
+    "compact": "1,001",
+    "is_compound": true
+  }
+  ```
+
+### Bugfixes
+
+- **`adhikaar` schema ValidationError**
+  `services/core_service/domains/data/schemas/gathas.py:_coerce` previously
+  assumed `adhikaar` was a `LangText[]`. The phase-3 diversion stores the
+  compound `identifier_values` dict in this JSONB column instead. Fix:
+  `_coerce` now drops any dict whose keys aren't exactly `{lang, script, text}`
+  and unwraps single-item dicts safely.
+
+- **`/adjacent` 500 — TypeError on mixed-type sort**
+  `services/core_service/domains/data/services/gathas.py:get_adjacent_gathas`
+  computed sort keys as `(int, str)` tuples whenever any identifier value was
+  non-numeric or a field was missing. Comparison then crashed with
+  `'<' not supported between instances of 'str' and 'int'`. Fix: `_sort_key`
+  now returns uniformly numeric tuples, coercing any non-numeric / missing
+  value to `float("inf")`.
+
+- **Teeka-panel collapse across adhikaars**
+  Symptom: three identical `परमात्मप्रकाश:टीका` tabs, each carrying content
+  from gathas 1, 2, 3 of adhikaar 1 piled together. Root cause: `get_detail`
+  queried Mongo with `gatha_number="1"` and a regex
+  `^परमात्मप्रकाश:अधिकार:1:` — but teeka NKs use the publication NK
+  (`परमात्मप्रकाश:टीका:0:…`) which has no adhikaar segment in front, so the
+  regex over-matched anything sharing the bare gatha_number across
+  publications and adhikaars. Fix: the query is now end-anchored on the
+  per-gatha `mongo_seg` (`gatha_teeka_natural_key` matches
+  `^{shastra_nk}:.*:{mongo_seg}$`). `mongo_seg` is the compound suffix
+  (`अधिकार:1:गाथा:001`) for compound shastras and the zero-stripped bare
+  number for legacy.
+
+- **`mongo_seg` derivation in the service layer**
+  Computed by walking `gatha.natural_key` and trimming the compound suffix
+  whenever `get_identifier_fields(shastra_nk, "gatha")` returns a non-empty
+  list. Bare `gatha_number` (zero-stripped) is retained for legacy NK
+  construction (e.g. the bhaavarth-shortfont attachment lookup).
+
+- **Fuzzy compound lookup**
+  `_find_compound_gatha_fuzzy` (`routers/gathas.py`) re-resolves a missed
+  exact NK by comparing `int(identifier_values[f])` across all gathas of the
+  shastra. Lets the UI route `1,9` to the row stored as
+  `…:अधिकार:1:गाथा:009`.

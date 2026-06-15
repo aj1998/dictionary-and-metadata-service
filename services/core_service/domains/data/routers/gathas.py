@@ -38,6 +38,57 @@ def parse_gatha_path_param(shastra_nk: str, raw: str) -> dict:
     return dict(zip(fields, parts))
 
 
+async def _find_compound_gatha_fuzzy(
+    session: AsyncSession, shastra_nk: str, raw: str,
+):
+    """Locate a compound gatha by numeric equality of identifier values.
+
+    Handles the common case where the user types "1,9" but the stored NK is
+    "...:अधिकार:1:गाथा:009". Returns None for non-compound shastras or no match.
+    """
+    from jain_kb_common.shastra_identifiers import (
+        extract_identifier_values_from_suffix,
+        get_identifier_fields,
+    )
+    from jain_kb_common.db.postgres.gathas import Gatha
+    from jain_kb_common.db.postgres.shastras import Shastra
+    from sqlalchemy import select as sa_select
+
+    fields = get_identifier_fields(shastra_nk, "gatha")
+    if not fields:
+        return None
+    parts = raw.split(",")
+    if len(parts) != len(fields):
+        return None
+    try:
+        wanted = [int(p) for p in parts]
+    except ValueError:
+        return None
+
+    shastra_row = await session.execute(
+        sa_select(Shastra).where(Shastra.natural_key == shastra_nk)
+    )
+    shastra = shastra_row.scalar_one_or_none()
+    if shastra is None:
+        return None
+
+    rows = await session.execute(
+        sa_select(Gatha).where(Gatha.shastra_id == shastra.id)
+    )
+    for g in rows.scalars():
+        suffix = g.natural_key[len(shastra_nk) + 1:]
+        vals = extract_identifier_values_from_suffix(shastra_nk, suffix)
+        if not vals:
+            continue
+        try:
+            got = [int(vals.get(f, "")) for f in fields]
+        except ValueError:
+            continue
+        if got == wanted:
+            return g
+    return None
+
+
 def gatha_nk_for_request(shastra_nk: str, raw: str) -> str:
     """Resolve URL path segment to the full Postgres natural key."""
     from jain_kb_common.shastra_identifiers import build_compound_suffix, get_identifier_fields
@@ -234,6 +285,11 @@ async def get_gatha_by_path(
     full_nk = gatha_nk_for_request(shastra_nk, raw_id)
 
     gatha = await svc.get_by_ident(session, full_nk)
+    if gatha is None:
+        # Fallback: user may have typed values without zero-padding (e.g. "1,9"
+        # while NK is stored as "अधिकार:1:गाथा:009"). Scan gathas in this shastra
+        # and match by numeric equality of identifier values.
+        gatha = await _find_compound_gatha_fuzzy(session, shastra_nk, raw_id)
     if gatha is None:
         raise HTTPException(
             404,

@@ -61,19 +61,19 @@ async def get_adjacent_gathas(
             suffix = g.natural_key[len(shastra_nk) + 1:]
             vals = extract_identifier_values_from_suffix(shastra_nk, suffix)
             if not vals:
-                return (float("inf"),)
+                return tuple(float("inf") for _ in fields)
             parts: list = []
             for f in fields:
                 v = vals.get(f, "")
                 try:
                     parts.append(int(v))
                 except (ValueError, TypeError):
-                    parts.append(v)
+                    parts.append(float("inf"))
             return tuple(parts)
         try:
             return (int(g.gatha_number),)
         except (ValueError, TypeError):
-            return (g.gatha_number,)
+            return (float("inf"),)
 
     all_gathas.sort(key=_sort_key)
 
@@ -177,16 +177,43 @@ async def get_detail(
     # gatha_natural_key field. Build a shared filter from the shastra prefix.
     # Exclude secondary-kalash extra-gatha docs (NK contains ":कलश:") — those
     # share gatha_number with a real gatha but belong to the kalashes payload.
-    shastra_nk_prefix = gatha.natural_key.split(":गाथा:")[0] if ":गाथा:" in gatha.natural_key else ""
+    # Build a per-gatha teeka query. Teeka NKs are emitted as
+    # `{publication_nk}:{mongo_seg}` where `mongo_seg` is either the compound
+    # gatha suffix (e.g. "अधिकार:1:गाथा:001") or the leading-zero-stripped
+    # bare gatha number for legacy shastras. Anchoring the regex on this
+    # suffix avoids the over-match that collapsed multiple adhikaars' gatha 1
+    # into a single result.
+    from jain_kb_common.shastra_identifiers import get_identifier_fields as _gid_fields
     import re as _re
-    teeka_query: dict = {"gatha_number": str(gatha.gatha_number)}
-    if shastra_nk_prefix:
-        teeka_query["gatha_teeka_natural_key"] = {
-            "$regex": f"^{_re.escape(shastra_nk_prefix)}:",
+    if ":गाथा:" in gatha.natural_key:
+        _pre_gatha = gatha.natural_key.split(":गाथा:")[0]
+        _parts = _pre_gatha.split(":")
+        shastra_nk_prefix = _parts[0]
+        if not _gid_fields(shastra_nk_prefix, "gatha"):
+            shastra_nk_prefix = _pre_gatha
+        # Bare gatha number for legacy fallback / shortfont NK building.
+        bare_gatha_num = gatha.natural_key.rsplit(":गाथा:", 1)[1].split(":", 1)[0]
+        try:
+            bare_gatha_num = str(int(bare_gatha_num))
+        except ValueError:
+            pass
+        # mongo_seg matches the ingestion-time per-gatha segment.
+        if _gid_fields(shastra_nk_prefix, "gatha"):
+            mongo_seg = gatha.natural_key[len(shastra_nk_prefix) + 1:]
+        else:
+            mongo_seg = bare_gatha_num
+    else:
+        shastra_nk_prefix = ""
+        bare_gatha_num = str(gatha.gatha_number)
+        mongo_seg = bare_gatha_num
+    teeka_query: dict = {
+        "gatha_teeka_natural_key": {
+            "$regex": f"^{_re.escape(shastra_nk_prefix)}:.*:{_re.escape(mongo_seg)}$"
+            if shastra_nk_prefix
+            else f":{_re.escape(mongo_seg)}$",
             "$not": {"$regex": ":कलश:"},
         }
-    else:
-        teeka_query["gatha_teeka_natural_key"] = {"$not": {"$regex": ":कलश:"}}
+    }
 
     if "teeka_sanskrit" in include:
         include_keys.append("teeka_sanskrit")
@@ -247,7 +274,7 @@ async def get_detail(
         }
         for bh in out["teeka_bhaavarth"]:
             pub_nk = bh.get("publication_natural_key", "")
-            bh_nk = f"{pub_nk}:गाथा:टीका:भावार्थ:{gatha.gatha_number}" if pub_nk else ""
+            bh_nk = f"{pub_nk}:गाथा:टीका:भावार्थ:{bare_gatha_num}" if pub_nk else ""
             bh["shortfont_entries"] = sf_by_nk.get(bh_nk, [])
 
     if "kalashas" in include:

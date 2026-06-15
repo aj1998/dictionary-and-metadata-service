@@ -7,12 +7,18 @@ from pydantic import BaseModel, field_validator
 from .common import LangText, Pagination, ShastraRef
 
 
+_LANG_TEXT_KEYS = {"lang", "script", "text"}
+
+
 def _coerce(v: object) -> list[dict]:
     if v is None:
         return []
     if isinstance(v, dict):
-        return [v]
-    return list(v)  # type: ignore[arg-type]
+        if _LANG_TEXT_KEYS.issubset(v.keys()):
+            return [v]
+        return []
+    items = list(v)  # type: ignore[arg-type]
+    return [it for it in items if isinstance(it, dict) and _LANG_TEXT_KEYS.issubset(it.keys())]
 
 
 class GathaSummary(BaseModel):
