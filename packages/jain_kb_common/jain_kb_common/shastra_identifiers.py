@@ -75,6 +75,47 @@ def canonical_segment_name(shastra_name: str, field_name: str) -> str:
     return f
 
 
+def _insert_trailing_label(suffix: str, label: str) -> str:
+    """Insert `label` before the last colon-delimited value in `suffix`.
+
+    "अधिकार:1:गाथा:2" + "टीका" → "अधिकार:1:गाथा:टीका:2"
+    "गाथा:2"           + "टीका" → "गाथा:टीका:2"
+    """
+    head, _, tail = suffix.rpartition(":")
+    if not head:
+        return f"{label}:{suffix}"
+    return f"{head}:{label}:{tail}"
+
+
+def extract_identifier_values_from_suffix(
+    shastra_name: str,
+    gatha_suffix: str,
+    *,
+    kind: str = "gatha",
+    path: str | None = None,
+) -> dict[str, str] | None:
+    """Reconstruct identifier_values dict from a compound NK suffix.
+
+    For `परमात्मप्रकाश` with suffix `"अधिकार:1:गाथा:19"` returns
+    `{"अधिकार": "1", "परमात्मप्रकाशगाथा": "19"}`.
+    Returns None for legacy (non-compound) shastras or if parsing fails.
+    """
+    fields = get_identifier_fields(shastra_name, kind, path=path)
+    if not fields:
+        return None
+    parts = gatha_suffix.split(":")
+    result: dict[str, str] = {}
+    for i, field_name in enumerate(fields):
+        seg_name = canonical_segment_name(shastra_name, field_name)
+        pos = i * 2  # segment name at pos, value at pos+1
+        if pos + 1 >= len(parts):
+            return None
+        if parts[pos] != seg_name:
+            return None
+        result[field_name] = parts[pos + 1]
+    return result if len(result) == len(fields) else None
+
+
 def build_compound_suffix(
     shastra_name: str,
     values: dict[str, str],

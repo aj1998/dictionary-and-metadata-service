@@ -1832,6 +1832,16 @@
         },
         {
           "label": "Gatha",
+          "key": "परमात्मप्रकाश:अधिकार:1:गाथा:11",
+          "props": {
+            "shastra_natural_key": "परमात्मप्रकाश",
+            "gatha_number": "अधिकार:1:गाथा:11",
+            "identifier_values": "{\"अधिकार\": \"1\", \"परमात्मप्रकाशगाथा\": \"11\"}"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
           "key": "द्रव्यसंग्रह:गाथा:14",
           "props": {
             "shastra_natural_key": "द्रव्यसंग्रह",
@@ -1920,6 +1930,16 @@
             "shastra_natural_key": "समाधिशतक",
             "teeka_natural_key": "समाधिशतक:टीका",
             "gatha_number": "4"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Gatha",
+          "key": "परमात्मप्रकाश:अधिकार:1:गाथा:12",
+          "props": {
+            "shastra_natural_key": "परमात्मप्रकाश",
+            "gatha_number": "अधिकार:1:गाथा:12",
+            "identifier_values": "{\"अधिकार\": \"1\", \"परमात्मप्रकाशगाथा\": \"12\"}"
           },
           "lazy": true
         },
@@ -2173,6 +2193,24 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
+            "key": "परमात्मप्रकाश:अधिकार:1:गाथा:11"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 0,
+            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/0",
+            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
             "key": "द्रव्यसंग्रह:गाथा:14"
           },
           "to": {
@@ -2366,6 +2404,24 @@
             "source": "jainkosh",
             "block_index": 0,
             "mention_path": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन/0",
+            "source_natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
+          }
+        },
+        {
+          "type": "MENTIONS_TOPIC",
+          "from": {
+            "label": "Gatha",
+            "key": "परमात्मप्रकाश:अधिकार:1:गाथा:12"
+          },
+          "to": {
+            "label": "Topic",
+            "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
+          },
+          "props": {
+            "weight": 1.0,
+            "source": "jainkosh",
+            "block_index": 1,
+            "mention_path": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन/1",
             "source_natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
           }
         },

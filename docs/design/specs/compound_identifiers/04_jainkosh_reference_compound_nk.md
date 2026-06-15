@@ -116,19 +116,38 @@ Add as `tests/ingestion/test_cross_source_compound_id.py`.
 
 ## 6. Implementation notes / done-checklist
 
-- [ ] Reference-NK builder switched to `get_identifier_fields` / `build_compound_suffix`
-- [ ] `_insert_trailing_label` lifted to `jain_kb_common.shastra_identifiers`
-      (called from both NJ envelope and JK reference parser)
-- [ ] Lazy stub props carry `identifier_values` JSON
-- [ ] Missing-field references emit a `parser.reference.compound.missing_field` warning,
-      reference dropped (no edge), no crash
-- [ ] Cross-source integration test green: NJ and JK land on the same Neo4j Gatha node
-- [ ] Update authoritative docs:
-      - `docs/design/data_sources/jainkosh/parser.md` — § Reference Parser:
-        add a compound-identifier subsection.
-      - `docs/design/data_sources/jainkosh/ingestion.md` — note that compound
-        gathas use the same MERGE pattern; no apply-layer change.
-      - Mark phase 4 ✓ in [`00_compound_identifiers_overview.md`](./00_compound_identifiers_overview.md).
+- [x] Reference-NK builder switched to `get_identifier_fields` / `build_compound_suffix`
+      — `_build_gatha_nk_from_reference` in `reference_edges.py`; all Gatha/GathaTeeka/
+      GathaTeekaBhaavarth NK builders use it.
+- [x] `_insert_trailing_label` lifted to `jain_kb_common.shastra_identifiers`
+      (removed from `nj/envelope.py`; imported in both NJ envelope and JK reference_edges).
+- [x] `extract_identifier_values_from_suffix` added to `jain_kb_common.shastra_identifiers`
+      — used by JK `envelope._derive_props` to populate `identifier_values` on lazy Gatha stubs.
+- [x] `_derive_props` (JK `envelope.py`) updated to handle compound Gatha/GathaTeeka/
+      GathaTeekaBhaavarth NKs correctly (shastra_nk = first segment; teeka_nk = first two
+      segments; pub_id = third segment).
+- [x] Lazy stub props carry `identifier_values` JSON for compound Gatha stubs.
+- [x] Missing-field references emit a `parser.reference.compound.missing_field` warning,
+      reference dropped (no edge), no crash.
+- [x] Golden fixtures regenerated with compound NKs (परमात्मप्रकाश references now emit
+      compound Gatha NKs; पर्याय fixture has 3 malformed refs that correctly warn + drop).
+- [x] Cross-source unit test green: `tests/ingestion/test_cross_source_compound_id.py`
+      verifies NJ `build_compound_suffix` == JK `_build_gatha_nk_from_reference` for same
+      adhikaar+gatha combination. Full Neo4j live test is out of scope (requires NIKKYJAIN_LOCAL_PATH).
+- [x] Update authoritative docs:
+      - `docs/design/data_sources/jainkosh/parser.md` — § 12.2c added.
+      - `docs/design/data_sources/jainkosh/ingestion.md` — compound Gatha stub note added.
+      - `docs/design/specs/compound_identifiers/00_compound_identifiers_overview.md` — phase 4 ✓.
+
+### Deviations from spec
+
+- The cross-source *integration* test (§5, step 3: assert exactly 1 Neo4j Gatha node with
+  `is_stub=false`) was implemented as a pure unit test instead of a live Neo4j test because
+  it requires both `NIKKYJAIN_LOCAL_PATH` (NJ scraping) and a live Neo4j instance. The unit
+  test verifies NK alignment (the correctness invariant) and is always green in CI.
+- `_emit_gatha` and `_emit_gatha_inline` signatures changed from `g: int` to
+  `parsed_fields: dict` — all internal callers updated; external API (`build_reference_edges`,
+  `build_cell_reference_edges`) is unchanged.
 
 ## 7. Out of scope
 

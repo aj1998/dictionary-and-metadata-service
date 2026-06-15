@@ -791,6 +791,28 @@ Rules:
 
 Implemented in `_emit_inline_only_edges` (called from `build_reference_edges`).
 
+### 12.2c Compound-identifier gatha NKs (phase 4)
+
+For shastras that declare `gatha_identifier` in `shastra.json` (e.g. `परमात्मप्रकाश`), the gatha NK is built from all declared fields rather than a single number. The reference parser already resolves `अधिकार` and `परमात्मप्रकाशगाथा` as named fields via the format string; `reference_edges.py` calls `_build_gatha_nk_from_reference` which uses `build_compound_suffix` from `jain_kb_common.shastra_identifiers` to assemble the NK:
+
+```
+परमात्मप्रकाश + {अधिकार:1, परमात्मप्रकाशगाथा:19}
+  → "परमात्मप्रकाश:अधिकार:1:गाथा:19"
+```
+
+GathaTeeka and GathaTeekaBhaavarth NKs are assembled by inserting trailing labels (`टीका`, `भावार्थ`) before the last value segment using `_insert_trailing_label` (shared with the NJ envelope):
+
+```
+GathaTeeka:          "परमात्मप्रकाश:टीका:अधिकार:1:गाथा:टीका:19"
+GathaTeekaBhaavarth: "परमात्मप्रकाश:टीका:pub_id:अधिकार:1:गाथा:टीका:भावार्थ:19"
+```
+
+Shastras without `gatha_identifier` continue to use the legacy `{shastra}:गाथा:{n}` pattern (backwards-compatible).
+
+**Missing-field guard**: when a compound shastra's reference lacks a required field (e.g. `अधिकार` is absent), `_build_gatha_nk_from_reference` returns `None`. The reference is dropped (no edge emitted) and a `parser.reference.compound.missing_field` warning is logged — no crash.
+
+**Cross-source alignment**: the NJ envelope and the JK reference parser both call `build_compound_suffix` from `jain_kb_common.shastra_identifiers`, guaranteeing that a परमात्मप्रकाश gatha ingested from NJ and cited by a JainKosh keyword land on the same Neo4j node NK. Verified in `tests/ingestion/test_cross_source_compound_id.py`.
+
 ### 12.3 `see_also` edge target resolution
 
 - `target_topic_path` present → `RELATED_TO` emitted from `build_neo4j_fragment`:

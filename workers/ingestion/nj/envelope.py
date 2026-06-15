@@ -6,7 +6,7 @@ import json
 from itertools import groupby
 from typing import Any
 
-from jain_kb_common.shastra_identifiers import build_compound_suffix
+from jain_kb_common.shastra_identifiers import build_compound_suffix, _insert_trailing_label
 
 from .config import NJConfig, TeekaConfig
 from .models import GathaExtract, KalashExtract, ShastraParseResult
@@ -282,16 +282,6 @@ def _primary_secondary(cfg: NJConfig) -> tuple[TeekaConfig, TeekaConfig | None]:
     secondary = cfg.shastra.secondary_teekas[0] if cfg.shastra.secondary_teekas else None
     return primary, secondary
 
-
-def _insert_trailing_label(suffix: str, label: str) -> str:
-    """Insert `label` before the last colon-delimited value in `suffix`.
-
-    "अधिकार:1:गाथा:2" + "टीका" → "अधिकार:1:गाथा:टीका:2"
-    """
-    head, _, tail = suffix.rpartition(":")
-    if not head:
-        return f"{label}:{suffix}"
-    return f"{head}:{label}:{tail}"
 
 
 def _gatha_suffix(shastra_nk: str, gatha: GathaExtract) -> str:

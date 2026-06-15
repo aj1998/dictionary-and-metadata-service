@@ -266,7 +266,7 @@ Per-label stub props:
 |---|---|
 | `Keyword` | `display_text` |
 | `Topic` | `display_text_hi`, `topic_path`, `parent_keyword_natural_key` |
-| `Gatha` | `shastra_natural_key`, `gatha_number` |
+| `Gatha` | `shastra_natural_key`, `gatha_number`, `identifier_values` (compound shastras only — JSON of declared identifier fields, e.g. `{"अधिकार":"1","परमात्मप्रकाशगाथा":"19"}`) |
 | `GathaTeeka` | `shastra_natural_key`, `teeka_natural_key`, `gatha_number` |
 | `GathaTeekaBhaavarth` | `shastra_natural_key`, `teeka_natural_key`, `publisher_id`, `gatha_number` |
 | `Kalash` | `teeka_natural_key`, `kalash_number` |
@@ -275,6 +275,8 @@ Per-label stub props:
 | `Shastra` | *(no extra props — natural_key is the shastra name)* |
 | `Teeka` | `shastra_natural_key` |
 | `Publication` | `teeka_natural_key`, `publisher_id` |
+
+**Compound-identifier Gatha stubs (phase 4)**: for shastras with `gatha_identifier` (e.g. `परमात्मप्रकाश`), the lazy Gatha node's `natural_key` is the full compound NK (e.g. `परमात्मप्रकाश:अधिकार:1:गाथा:19`). The MERGE pattern is unchanged — the NK is still a string and `Gatha.natural_key` uniqueness is already constrained. The stub additionally carries `identifier_values` (JSON) so downstream code has the structured form without re-parsing the NK. When the NJ envelope later runs and ingests a real Gatha node with the same compound NK, `is_stub` is set to `false` and the JK `MENTIONS_TOPIC`/`CONTAINS_DEFINITION` edge already attached to the stub is preserved.
 
 ### `delete_placeholder_stub`
 

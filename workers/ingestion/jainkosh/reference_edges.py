@@ -9,7 +9,39 @@ if TYPE_CHECKING:
     from .config import JainkoshConfig
     from .models import Block, Reference, ResolvedField
 
+from jain_kb_common.shastra_identifiers import (
+    get_identifier_fields,
+    build_compound_suffix,
+    _insert_trailing_label,
+)
+
 logger = logging.getLogger(__name__)
+
+
+def _rf_to_dict(rfields: list) -> dict:
+    """Convert a list of ResolvedField to a plain {field: value} dict."""
+    return {f.field: f.value for f in rfields}
+
+
+def _build_gatha_nk_from_reference(shastra_nk: str, parsed_fields: dict) -> str | None:
+    """Resolve a reference's named fields to a Gatha NK.
+
+    Compound case: use `gatha_identifier` from shastra.json.
+    Legacy case:   fall back to `{shastra_nk}:गाथा:{n}`.
+    Returns None when required fields are missing.
+    """
+    fields = get_identifier_fields(shastra_nk, "gatha")
+    if fields:
+        suffix = build_compound_suffix(shastra_nk, parsed_fields, kind="gatha")
+        if not suffix:
+            return None
+        return f"{shastra_nk}:{suffix}"
+    # Legacy: look for a gatha-type field (int only)
+    for fname in ("गाथा", "श्लोक", "सूत्र", "दोहक", "वार्तिक"):
+        v = parsed_fields.get(fname)
+        if v is not None and isinstance(v, int):
+            return f"{shastra_nk}:गाथा:{v}"
+    return None
 
 
 def _pick_reference(refs: list) -> Optional[object]:
@@ -73,7 +105,7 @@ def _emit_gatha(
     ref,
     shastra_type: str,
     block_kind: str,
-    g: int,
+    parsed_fields: dict,
     publisher_id: str,
     edge_type: str,
     target: dict,
@@ -85,39 +117,51 @@ def _emit_gatha(
     sn = ref.shastra_name
     tn = ref.teeka_name
 
+    gatha_nk = _build_gatha_nk_from_reference(sn, parsed_fields)
+    if gatha_nk is None:
+        if get_identifier_fields(sn, "gatha"):
+            logger.warning(
+                "parser.reference.compound.missing_field shastra=%s fields=%s", sn, list(parsed_fields)
+            )
+        return []
+    gatha_suffix = gatha_nk[len(sn) + 1:]  # suffix after "{shastra}:"
+
     if shastra_type == "shastra":
-        key = f"{sn}:गाथा:{g}"
-        return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
+        return [_make_edge(edge_type, "Gatha", gatha_nk, target, pankti_props, extra_props)]
 
     if shastra_type == "teeka":
         # `prakrit_text` is original Prakrit source content (same as `prakrit_gatha`,
         # see v1.11.19 — extended here to `teeka` type for parity with `publication`).
         if block_kind in {"sanskrit_gatha", "prakrit_gatha", "hindi_gatha", "prakrit_text"}:
-            key = f"{sn}:गाथा:{g}"
-            return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
+            return [_make_edge(edge_type, "Gatha", gatha_nk, target, pankti_props, extra_props)]
         if block_kind in {"sanskrit_text", "hindi_text"}:
-            key = f"{sn}:{tn or 'टीका'}:गाथा:टीका:{g}"
+            teeka_suffix = _insert_trailing_label(gatha_suffix, "टीका")
+            key = f"{sn}:{tn or 'टीका'}:{teeka_suffix}"
             return [_make_edge(edge_type, "GathaTeeka", key, target, pankti_props, extra_props)]
         return []
 
     if shastra_type == "publication":
         if block_kind in {"sanskrit_gatha", "prakrit_gatha", "hindi_gatha", "prakrit_text"}:
-            key = f"{sn}:गाथा:{g}"
-            return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
+            return [_make_edge(edge_type, "Gatha", gatha_nk, target, pankti_props, extra_props)]
         if block_kind == "sanskrit_text":
-            key = f"{sn}:{tn or 'टीका'}:गाथा:टीका:{g}"
+            teeka_suffix = _insert_trailing_label(gatha_suffix, "टीका")
+            key = f"{sn}:{tn or 'टीका'}:{teeka_suffix}"
             return [_make_edge(edge_type, "GathaTeeka", key, target, pankti_props, extra_props)]
         if block_kind == "hindi_text":
             if not tn:
                 if is_bhaavarth:
-                    key = f"{sn}:टीका:{publisher_id}:गाथा:टीका:भावार्थ:{g}"
+                    bhaavarth_suffix = _insert_trailing_label(
+                        _insert_trailing_label(gatha_suffix, "टीका"), "भावार्थ"
+                    )
+                    key = f"{sn}:टीका:{publisher_id}:{bhaavarth_suffix}"
                     return [_make_edge(edge_type, "GathaTeekaBhaavarth", key, target, pankti_props, extra_props)]
-                key = f"{sn}:गाथा:{g}"
-                return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
+                return [_make_edge(edge_type, "Gatha", gatha_nk, target, pankti_props, extra_props)]
+            teeka_suffix = _insert_trailing_label(gatha_suffix, "टीका")
+            key1 = f"{sn}:{tn}:{teeka_suffix}"
+            bhaavarth_suffix = _insert_trailing_label(teeka_suffix, "भावार्थ")
+            key2 = f"{sn}:{tn}:{publisher_id}:{bhaavarth_suffix}"
             edges = []
-            key1 = f"{sn}:{tn}:गाथा:टीका:{g}"
             edges.append(_make_edge(edge_type, "GathaTeeka", key1, target, pankti_props, extra_props))
-            key2 = f"{sn}:{tn}:{publisher_id}:गाथा:टीका:भावार्थ:{g}"
             edges.append(_make_edge(edge_type, "GathaTeekaBhaavarth", key2, target, pankti_props, extra_props))
             return edges
         return []
@@ -190,7 +234,7 @@ def _emit_page(
 def _emit_gatha_inline(
     ref,
     shastra_type: str,
-    g: int,
+    parsed_fields: dict,
     publisher_id: str,
     edge_type: str,
     target: dict,
@@ -205,19 +249,30 @@ def _emit_gatha_inline(
     sn = ref.shastra_name
     tn = ref.teeka_name
 
+    gatha_nk = _build_gatha_nk_from_reference(sn, parsed_fields)
+    if gatha_nk is None:
+        if get_identifier_fields(sn, "gatha"):
+            logger.warning(
+                "parser.reference.compound.missing_field shastra=%s fields=%s", sn, list(parsed_fields)
+            )
+        return []
+    gatha_suffix = gatha_nk[len(sn) + 1:]
+
     if shastra_type == "shastra":
-        key = f"{sn}:गाथा:{g}"
-        return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
+        return [_make_edge(edge_type, "Gatha", gatha_nk, target, pankti_props, extra_props)]
 
     if shastra_type == "teeka":
-        key = f"{sn}:{tn or 'टीका'}:गाथा:टीका:{g}"
+        teeka_suffix = _insert_trailing_label(gatha_suffix, "टीका")
+        key = f"{sn}:{tn or 'टीका'}:{teeka_suffix}"
         return [_make_edge(edge_type, "GathaTeeka", key, target, pankti_props, extra_props)]
 
     if shastra_type == "publication":
         if not tn:
-            key = f"{sn}:गाथा:{g}"
-            return [_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props)]
-        key = f"{sn}:{tn}:{publisher_id}:गाथा:टीका:भावार्थ:{g}"
+            return [_make_edge(edge_type, "Gatha", gatha_nk, target, pankti_props, extra_props)]
+        bhaavarth_suffix = _insert_trailing_label(
+            _insert_trailing_label(gatha_suffix, "टीका"), "भावार्थ"
+        )
+        key = f"{sn}:{tn}:{publisher_id}:{bhaavarth_suffix}"
         return [_make_edge(edge_type, "GathaTeekaBhaavarth", key, target, pankti_props, extra_props)]
 
     return []
@@ -276,13 +331,15 @@ def _emit_inline_ref_edges(
     rf = ref.resolved_fields
     publisher_id = _resolve_publisher_id(ref, config)
     pankti_props = _pankti_props(rf, config)
+    pf = _rf_to_dict(rf)
 
     edges: list[dict] = []
 
     g = _first_value(rf, ek.gatha)
-    if g is not None:
+    has_compound_gatha = get_identifier_fields(ref.shastra_name, "gatha") is not None
+    if g is not None or has_compound_gatha:
         edges.extend(_emit_gatha_inline(
-            ref, shastra_type, g, publisher_id, edge_type, target, pankti_props, config, extra_props,
+            ref, shastra_type, pf, publisher_id, edge_type, target, pankti_props, config, extra_props,
         ))
 
     k = _first_value(rf, ek.kalash)
@@ -333,11 +390,18 @@ def _emit_inline_only_edges(
     tn = ref.teeka_name or "टीका"
 
     edges: list[dict] = []
+    pf = _rf_to_dict(rf)
 
     g = _first_value(rf, ek.gatha)
-    if g is not None:
-        key = f"{sn}:गाथा:{g}"
-        edges.append(_make_edge(edge_type, "Gatha", key, target, pankti_props, extra_props))
+    has_compound_gatha = get_identifier_fields(sn, "gatha") is not None
+    if g is not None or has_compound_gatha:
+        gatha_nk = _build_gatha_nk_from_reference(sn, pf)
+        if gatha_nk is not None:
+            edges.append(_make_edge(edge_type, "Gatha", gatha_nk, target, pankti_props, extra_props))
+        elif has_compound_gatha:
+            logger.warning(
+                "parser.reference.compound.missing_field shastra=%s fields=%s", sn, list(pf)
+            )
 
     k = _first_value(rf, ek.kalash)
     if k is not None and shastra_type in ("teeka", "publication"):
@@ -443,11 +507,14 @@ def build_reference_edges(
                     block_kind == "hindi_text"
                     and getattr(block, "hindi_translation", None) is None
                 )
+                pf = _rf_to_dict(rf)
 
                 g = _first_value(rf, ek.gatha)
-                if g is not None:
+                sn = main_ref.shastra_name
+                has_compound_gatha = get_identifier_fields(sn, "gatha") is not None
+                if g is not None or has_compound_gatha:
                     edges.extend(_emit_gatha(
-                        main_ref, shastra_type, block_kind, g, publisher_id,
+                        main_ref, shastra_type, block_kind, pf, publisher_id,
                         edge_type, target, pankti_props, config, extra_props,
                         is_bhaavarth=is_bhaavarth,
                     ))

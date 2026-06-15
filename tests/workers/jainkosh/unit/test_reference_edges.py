@@ -629,3 +629,142 @@ def test_inline_publication_pankti_in_props():
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     assert len(edges) == 1
     assert edges[0]["props"]["pankti"] == 3
+
+
+# ---------------------------------------------------------------------------
+# Phase 4: compound NK resolution tests
+# ---------------------------------------------------------------------------
+
+def _make_registry_with_parmatma():
+    """Registry with समयसार (legacy shastra) and परमात्मप्रकाश (compound publication)."""
+    norm = _make_norm_config()
+    registry = ShastraRegistry()
+    from workers.ingestion.jainkosh.parse_reference import _normalise
+
+    entries = [
+        ShastraEntry(
+            shastra_name="समयसार",
+            alternate_names=[],
+            short_form="",
+            format_str="गाथा",
+            format_groups=parse_format_string("गाथा"),
+            publisher="",
+            type="shastra",
+        ),
+        ShastraEntry(
+            shastra_name="परमात्मप्रकाश",
+            alternate_names=[],
+            short_form="प.प्र./मू.",
+            format_str="अधिकार/परमात्मप्रकाशगाथा",
+            format_groups=parse_format_string("अधिकार/परमात्मप्रकाशगाथा"),
+            publisher="राजचन्द्र ग्रन्थमाला",
+            type="publication",
+        ),
+        ShastraEntry(
+            shastra_name="परमात्मप्रकाशटीका",
+            alternate_names=[],
+            short_form="",
+            format_str="अधिकार/परमात्मप्रकाशगाथा",
+            format_groups=parse_format_string("अधिकार/परमात्मप्रकाशगाथा"),
+            publisher="",
+            type="teeka",
+        ),
+    ]
+    for entry in entries:
+        registry.entries.append(entry)
+        registry._by_primary[_normalise(entry.shastra_name, norm)] = entry
+        registry._by_exact_name[entry.shastra_name] = entry
+
+    return registry
+
+
+def _make_config_compound() -> JainkoshConfig:
+    """Config backed by real shastra.json so परमात्मप्रकाश compound fields are live."""
+    from workers.ingestion.jainkosh.config import load_config
+    cfg = load_config()
+    # Replace registry with one that includes परमात्मप्रकाश
+    cfg.shastra_registry = _make_registry_with_parmatma()
+    pub = PublisherRegistry()
+    pub._by_name["राजचन्द्र ग्रन्थमाला"] = "pub1"
+    cfg.publisher_registry = pub
+    return cfg
+
+
+def test_compound_gatha_nk_for_parmatmaprakash_single_ref():
+    """`अधिकार=1, परमात्मप्रकाशगाथा=19` → `परमात्मप्रकाश:अधिकार:1:गाथा:19`."""
+    cfg = _make_config_compound()
+    b = _block(
+        "hindi_gatha",
+        "परमात्मप्रकाश",
+        [_rf("अधिकार", 1), _rf("परमात्मप्रकाशगाथा", 19)],
+    )
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert len(edges) == 1
+    assert edges[0]["from"] == {"label": "Gatha", "key": "परमात्मप्रकाश:अधिकार:1:गाथा:19"}
+
+
+def test_compound_gatha_nk_range_expansion():
+    """`अधिकार=1, परमात्मप्रकाशगाथा=19,20,21` resolves to three separate Gatha NKs."""
+    from workers.ingestion.jainkosh.models import Reference
+    cfg = _make_config_compound()
+
+    # Simulate three separate resolved references (each expanded gatha value)
+    # Each gets its own edge via separate block/reference objects.
+    results = []
+    for g_val in (19, 20, 21):
+        b = _block(
+            "hindi_gatha",
+            "परमात्मप्रकाश",
+            [_rf("अधिकार", 1), _rf("परमात्मप्रकाशगाथा", g_val)],
+        )
+        edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+        results.extend(edges)
+
+    nks = {e["from"]["key"] for e in results}
+    assert nks == {
+        "परमात्मप्रकाश:अधिकार:1:गाथा:19",
+        "परमात्मप्रकाश:अधिकार:1:गाथा:20",
+        "परमात्मप्रकाश:अधिकार:1:गाथा:21",
+    }
+
+
+def test_legacy_gatha_nk_unchanged_for_samaysar():
+    """`(स.सा./मू./8)` still produces `समयसार:गाथा:8` (legacy unchanged)."""
+    cfg = _make_config_compound()
+    b = _block("sanskrit_gatha", "समयसार", [_rf("गाथा", 8)])
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert len(edges) == 1
+    assert edges[0]["from"] == {"label": "Gatha", "key": "समयसार:गाथा:8"}
+
+
+def test_gatha_teeka_nk_compound():
+    """Teeka-layer reference for compound shastra inserts टीका before last value."""
+    cfg = _make_config_compound()
+    # block_kind="sanskrit_text" → GathaTeeka path for publication type
+    b = _block(
+        "sanskrit_text",
+        "परमात्मप्रकाश",
+        [_rf("अधिकार", 1), _rf("परमात्मप्रकाशगाथा", 19)],
+        teeka_name="टीका",
+    )
+    edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert len(edges) == 1
+    e = edges[0]
+    assert e["from"]["label"] == "GathaTeeka"
+    assert e["from"]["key"] == "परमात्मप्रकाश:टीका:अधिकार:1:गाथा:टीका:19"
+
+
+def test_missing_field_returns_no_edge(caplog):
+    """Malformed ref (missing अधिकार for compound shastra) → no edge + warning logged."""
+    import logging
+    cfg = _make_config_compound()
+    # Only परमात्मप्रकाशगाथा provided, अधिकार missing → build_compound_suffix returns None
+    b = _block(
+        "hindi_gatha",
+        "परमात्मप्रकाश",
+        [_rf("परमात्मप्रकाशगाथा", 19)],  # missing अधिकार
+    )
+    with caplog.at_level(logging.WARNING):
+        edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
+    assert edges == []
+    assert any("parser.reference.compound.missing_field" in r.message for r in caplog.records)

@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import json
 from copy import deepcopy
 from typing import Optional
+
+from jain_kb_common.shastra_identifiers import extract_identifier_values_from_suffix
 
 from .config import JainkoshConfig, load_config
 from .models import KeywordParseResult, Subsection, WouldWriteEnvelope
@@ -619,25 +622,42 @@ def _resolve_rb_natural_key(
 
 def _derive_props(label: str, key: str) -> dict:
     if label == "Gatha":
-        # key: {shastra}:गाथा:{n}
-        prefix, n = key.rsplit(":गाथा:", 1)
-        return {"shastra_natural_key": prefix, "gatha_number": n}
+        # Legacy: {shastra}:गाथा:{n}
+        # Compound: {shastra}:...:गाथा:{n}  (e.g. "परमात्मप्रकाश:अधिकार:1:गाथा:19")
+        shastra_nk = key.split(":")[0]
+        remainder = key[len(shastra_nk) + 1:]  # suffix after "{shastra}:"
+        if remainder.startswith("गाथा:"):
+            # Legacy: gatha_number is just the trailing number
+            n = remainder[len("गाथा:"):]
+            return {"shastra_natural_key": shastra_nk, "gatha_number": n}
+        # Compound: gatha_number is the full compound suffix; also reconstruct identifier_values
+        props: dict = {"shastra_natural_key": shastra_nk, "gatha_number": remainder}
+        iv = extract_identifier_values_from_suffix(shastra_nk, remainder, kind="gatha")
+        if iv:
+            props["identifier_values"] = json.dumps(iv, ensure_ascii=False)
+        return props
     if label == "Kalash":
         # key: {shastra}:{teeka}:कलश:{n}
         prefix, n = key.rsplit(":कलश:", 1)
         return {"teeka_natural_key": prefix, "kalash_number": n}
     if label == "GathaTeeka":
-        # key: {shastra}:{teeka}:गाथा:टीका:{n}
-        prefix, n = key.rsplit(":गाथा:टीका:", 1)
-        shastra = prefix.split(":")[0]
-        return {"shastra_natural_key": shastra, "teeka_natural_key": prefix, "gatha_number": n}
+        # Legacy: {shastra}:{teeka}:गाथा:टीका:{n}
+        # Compound: {shastra}:{teeka}:...:गाथा:टीका:{n}
+        # teeka_nk is always the first two colon-delimited segments
+        segs = key.split(":")
+        shastra = segs[0]
+        teeka_nk = ":".join(segs[:2])
+        _, n = key.rsplit(":गाथा:टीका:", 1)
+        return {"shastra_natural_key": shastra, "teeka_natural_key": teeka_nk, "gatha_number": n}
     if label == "GathaTeekaBhaavarth":
-        # key: {shastra}:{teeka}:{pub_id}:गाथा:टीका:भावार्थ:{n}
-        prefix, n = key.rsplit(":गाथा:टीका:भावार्थ:", 1)
-        parts = prefix.split(":")
-        shastra = parts[0]
-        pub_id = parts[-1]
-        teeka_nk = ":".join(parts[:-1])
+        # Legacy: {shastra}:{teeka}:{pub_id}:गाथा:टीका:भावार्थ:{n}
+        # Compound: {shastra}:{teeka}:{pub_id}:...:गाथा:टीका:भावार्थ:{n}
+        # teeka_nk is always first two segments; pub_id is always third segment
+        segs = key.split(":")
+        shastra = segs[0]
+        teeka_nk = ":".join(segs[:2])
+        pub_id = segs[2]
+        _, n = key.rsplit(":गाथा:टीका:भावार्थ:", 1)
         return {
             "shastra_natural_key": shastra,
             "teeka_natural_key": teeka_nk,
