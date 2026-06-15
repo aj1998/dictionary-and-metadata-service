@@ -291,7 +291,7 @@
                         "value": 1
                       },
                       {
-                        "field": "गाथा",
+                        "field": "परमात्मप्रकाशगाथा",
                         "value": 11
                       }
                     ]
@@ -548,7 +548,7 @@
                         "value": 1
                       },
                       {
-                        "field": "गाथा",
+                        "field": "परमात्मप्रकाशगाथा",
                         "value": 12
                       },
                       {
@@ -805,7 +805,7 @@
       "next": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%81%E0%A4%B2"
     },
     "parser_version": "jainkosh.rules/1.11.22",
-    "parsed_at": "2026-06-15T13:14:34.180293",
+    "parsed_at": "2026-06-15T17:50:27.613218",
     "warnings": []
   },
   "would_write": {
@@ -1336,7 +1336,7 @@
                       "value": 1
                     },
                     {
-                      "field": "गाथा",
+                      "field": "परमात्मप्रकाशगाथा",
                       "value": 11
                     }
                   ]
@@ -1597,7 +1597,7 @@
                       "value": 1
                     },
                     {
-                      "field": "गाथा",
+                      "field": "परमात्मप्रकाशगाथा",
                       "value": 12
                     },
                     {
@@ -1832,15 +1832,6 @@
         },
         {
           "label": "Gatha",
-          "key": "परमात्मप्रकाश:गाथा:11",
-          "props": {
-            "shastra_natural_key": "परमात्मप्रकाश",
-            "gatha_number": "11"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Gatha",
           "key": "द्रव्यसंग्रह:गाथा:14",
           "props": {
             "shastra_natural_key": "द्रव्यसंग्रह",
@@ -1929,15 +1920,6 @@
             "shastra_natural_key": "समाधिशतक",
             "teeka_natural_key": "समाधिशतक:टीका",
             "gatha_number": "4"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Gatha",
-          "key": "परमात्मप्रकाश:गाथा:12",
-          "props": {
-            "shastra_natural_key": "परमात्मप्रकाश",
-            "gatha_number": "12"
           },
           "lazy": true
         },
@@ -2191,24 +2173,6 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "परमात्मप्रकाश:गाथा:11"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद/0",
-            "source_natural_key": "आत्मा:आत्मा-के-बहिरात्मादि-3-भेद"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Gatha",
             "key": "द्रव्यसंग्रह:गाथा:14"
           },
           "to": {
@@ -2402,24 +2366,6 @@
             "source": "jainkosh",
             "block_index": 0,
             "mention_path": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन/0",
-            "source_natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Gatha",
-            "key": "परमात्मप्रकाश:गाथा:12"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 1,
-            "mention_path": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन/1",
             "source_natural_key": "आत्मा:एक-आत्मा-के-तीन-भेद-करने-का-प्रयोजन"
           }
         },

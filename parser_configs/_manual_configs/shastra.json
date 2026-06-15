@@ -865,9 +865,9 @@
     "shastra_name": "परमात्मप्रकाश",
     "short_form": "प.प्र./मू.",
     "format": [
-      "अधिकार/गाथा/पृष्ठ/पंक्ति",
-      "अधिकार/गाथा/पृष्ठ",
-      "अधिकार/गाथा"
+      "अधिकार/परमात्मप्रकाशगाथा/पृष्ठ/पंक्ति",
+      "अधिकार/परमात्मप्रकाशगाथा/पृष्ठ",
+      "अधिकार/परमात्मप्रकाशगाथा"
     ],
     "author": "",
     "date_format": "",
@@ -879,7 +879,8 @@
     "alternate_name": "",
     "public_url": "https://archive.org/details/in.ernet.dli.2015.327220/page/n1/mode/2up",
     "pdf_page_offset": 165,
-    "pdf_filename": "parmatma_prakash"
+    "pdf_filename": "parmatma_prakash",
+    "gatha_identifier": "अधिकार,परमात्मप्रकाशगाथा"
   },
   {
     "shastra_name": "पाण्डवपुराण",

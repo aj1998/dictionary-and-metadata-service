@@ -1,0 +1,642 @@
+{
+  "shastra_parse_result": {
+    "shastra_natural_key": "परमात्मप्रकाश",
+    "gathas": [],
+    "secondary_kalashes": [],
+    "total_html_files_processed": 3,
+    "warnings": [
+      "unclassified page: 1-001.html",
+      "unclassified page: 1-002.html",
+      "unclassified page: 1-003.html"
+    ],
+    "parser_version": "1.0.0",
+    "parsed_at": "2026-06-15T17:39:00.544641Z"
+  },
+  "would_write": {
+    "postgres": {
+      "authors": [
+        {
+          "table": "authors",
+          "natural_key": "योगींदुदेव",
+          "display_name": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "योगींदुदेव"
+            }
+          ],
+          "kind": "acharya"
+        },
+        {
+          "table": "authors",
+          "natural_key": "ब्रह्मदेव_सूरि",
+          "display_name": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "ब्रह्मदेव सूरि"
+            }
+          ],
+          "kind": "acharya"
+        }
+      ],
+      "shastras": [
+        {
+          "table": "shastras",
+          "natural_key": "परमात्मप्रकाश",
+          "title": [
+            {
+              "lang": "hin",
+              "script": "Deva",
+              "text": "परमात्मप्रकाश"
+            }
+          ],
+          "author_natural_key": "योगींदुदेव"
+        }
+      ],
+      "teekas": [
+        {
+          "table": "teekas",
+          "natural_key": "परमात्मप्रकाश:टीका",
+          "shastra_natural_key": "परमात्मप्रकाश",
+          "teekakar_natural_key": "ब्रह्मदेव_सूरि",
+          "role": "primary"
+        }
+      ],
+      "publications": [
+        {
+          "table": "publications",
+          "natural_key": "परमात्मप्रकाश:टीका:0",
+          "teeka_natural_key": "परमात्मप्रकाश:टीका",
+          "publisher_id": "0"
+        }
+      ],
+      "gathas": [],
+      "kalashas": [],
+      "teeka_chapters": []
+    },
+    "mongo": {
+      "gatha_prakrit": [],
+      "gatha_sanskrit": [],
+      "gatha_hindi_chhand": [],
+      "teeka_gatha_mapping": [],
+      "gatha_teeka_sanskrit": [],
+      "gatha_teeka_bhaavarth_hindi": [],
+      "gatha_teeka_bhaavarth_shortfont": [],
+      "kalash_sanskrit": [],
+      "kalash_hindi": [],
+      "kalash_word_meanings": [],
+      "kalash_bhaavarth_shortfont": []
+    },
+    "neo4j": {
+      "nodes": [
+        {
+          "label": "Shastra",
+          "key": "परमात्मप्रकाश",
+          "props": {
+            "title_hi": "परमात्मप्रकाश",
+            "author_natural_key": "योगींदुदेव"
+          }
+        },
+        {
+          "label": "Teeka",
+          "key": "परमात्मप्रकाश:टीका",
+          "props": {
+            "teeka_natural_key": "परमात्मप्रकाश:टीका",
+            "teekakar_natural_key": "ब्रह्मदेव_सूरि",
+            "shastra_natural_key": "परमात्मप्रकाश"
+          }
+        },
+        {
+          "label": "Publication",
+          "key": "परमात्मप्रकाश:टीका:0",
+          "props": {
+            "publication_natural_key": "परमात्मप्रकाश:टीका:0",
+            "teeka_natural_key": "परमात्मप्रकाश:टीका",
+            "publisher_id": "0"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "type": "HAS_TEEKA",
+          "from": {
+            "label": "Shastra",
+            "key": "परमात्मप्रकाश"
+          },
+          "to": {
+            "label": "Teeka",
+            "key": "परमात्मप्रकाश:टीका"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_PUBLICATION",
+          "from": {
+            "label": "Teeka",
+            "key": "परमात्मप्रकाश:टीका"
+          },
+          "to": {
+            "label": "Publication",
+            "key": "परमात्मप्रकाश:टीका:0"
+          },
+          "props": {}
+        },
+        {
+          "type": "HAS_PUBLICATION",
+          "from": {
+            "label": "Shastra",
+            "key": "परमात्मप्रकाश"
+          },
+          "to": {
+            "label": "Publication",
+            "key": "परमात्मप्रकाश:टीका:0"
+          },
+          "props": {}
+        }
+      ]
+    },
+    "tables": [],
+    "idempotency_contracts": {
+      "mongo:gatha_hindi_chhand": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "chhand_index",
+          "chhand_type",
+          "translator",
+          "text"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:gatha_hindi_chhand"
+        ]
+      },
+      "mongo:gatha_prakrit": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "text",
+          "is_kalash",
+          "raw_html_fragment"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:gatha_prakrit"
+        ]
+      },
+      "mongo:gatha_sanskrit": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "text"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:gatha_sanskrit"
+        ]
+      },
+      "mongo:gatha_teeka_bhaavarth_hindi": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "text"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:gatha_teeka_bhaavarth_hindi"
+        ]
+      },
+      "mongo:gatha_teeka_sanskrit": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "text"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:gatha_teeka_sanskrit"
+        ]
+      },
+      "mongo:kalash_hindi": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "text",
+          "chhand_type"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:kalash_hindi"
+        ]
+      },
+      "mongo:kalash_sanskrit": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "text",
+          "chhand_type"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:kalash_sanskrit"
+        ]
+      },
+      "mongo:kalash_word_meanings": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "entries"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:kalash_word_meanings"
+        ]
+      },
+      "mongo:gatha_teeka_bhaavarth_shortfont": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "entries",
+          "ingestion_run_id",
+          "updated_at"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:gatha_teeka_bhaavarth_shortfont"
+        ]
+      },
+      "mongo:kalash_bhaavarth_shortfont": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "entries",
+          "ingestion_run_id",
+          "updated_at"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:kalash_bhaavarth_shortfont"
+        ]
+      },
+      "mongo:teeka_gatha_mapping": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "anvayartha",
+          "tagged_terms",
+          "full_anyavaarth",
+          "is_related"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:teeka_gatha_mapping"
+        ]
+      },
+      "neo4j:Gatha": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "gatha_number",
+          "shastra_natural_key",
+          "heading_hi"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Gatha"
+        ]
+      },
+      "neo4j:GathaTeeka": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "teeka_natural_key",
+          "gatha_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:GathaTeeka"
+        ]
+      },
+      "neo4j:GathaTeekaBhaavarth": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "publication_natural_key",
+          "gatha_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:GathaTeekaBhaavarth"
+        ]
+      },
+      "neo4j:Kalash": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "teeka_natural_key",
+          "kalash_number"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Kalash"
+        ]
+      },
+      "neo4j:KalashBhaavarth": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "publication_natural_key",
+          "kalash_number"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:KalashBhaavarth"
+        ]
+      },
+      "postgres:tables": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "table_type",
+          "caption",
+          "raw_html_doc_id",
+          "seq",
+          "parent_natural_key",
+          "parent_kind"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:tables",
+          "mongo:tables",
+          "neo4j:Table"
+        ]
+      },
+      "mongo:tables": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "table_type",
+          "raw_html",
+          "cells",
+          "cell_refs",
+          "header_rows",
+          "plaintext",
+          "caption",
+          "mentioned_keyword_natural_keys",
+          "mentioned_topic_natural_keys"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "mongo:tables"
+        ]
+      },
+      "neo4j:Table": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "table_type",
+          "seq",
+          "caption_hi",
+          "parent_natural_key",
+          "parent_kind",
+          "pg_id",
+          "source"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Table"
+        ]
+      },
+      "neo4j:Publication": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "teeka_natural_key",
+          "publisher_id"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Publication"
+        ]
+      },
+      "neo4j:Shastra": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "title"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Shastra"
+        ]
+      },
+      "neo4j:Teeka": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "teekakar_natural_key",
+          "shastra_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Teeka"
+        ]
+      },
+      "neo4j:Topic": {
+        "conflict_key": [
+          "key"
+        ],
+        "on_conflict": "merge",
+        "fields_replace": [
+          "name",
+          "shastra_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "neo4j:Topic"
+        ]
+      },
+      "postgres:authors": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "display_name",
+          "kind"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:authors"
+        ]
+      },
+      "postgres:gathas": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "shastra_natural_key",
+          "gatha_number",
+          "adhikaar_number",
+          "adhikaar",
+          "heading"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:gathas",
+          "neo4j:Gatha"
+        ]
+      },
+      "postgres:kalashas": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "teeka_natural_key",
+          "kalash_number",
+          "gatha_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:kalashas"
+        ]
+      },
+      "postgres:publications": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "teeka_natural_key",
+          "publisher_id"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:publications"
+        ]
+      },
+      "postgres:shastras": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "title",
+          "author_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:shastras",
+          "neo4j:Shastra"
+        ]
+      },
+      "postgres:teeka_chapters": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "chapter_number",
+          "name",
+          "start_gatha_natural_key",
+          "end_gatha_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:teeka_chapters"
+        ]
+      },
+      "postgres:teekas": {
+        "conflict_key": [
+          "natural_key"
+        ],
+        "on_conflict": "do_update",
+        "fields_replace": [
+          "shastra_natural_key",
+          "teekakar_natural_key"
+        ],
+        "fields_append": [],
+        "fields_skip_if_set": [],
+        "stores": [
+          "postgres:teekas"
+        ]
+      }
+    }
+  }
+}

@@ -3121,7 +3121,7 @@
                             "value": 2
                           },
                           {
-                            "field": "गाथा",
+                            "field": "परमात्मप्रकाशगाथा",
                             "value": 27
                           }
                         ]
@@ -10040,7 +10040,7 @@
                             "value": 2
                           },
                           {
-                            "field": "गाथा",
+                            "field": "परमात्मप्रकाशगाथा",
                             "value": 25
                           }
                         ]
@@ -10140,7 +10140,7 @@
                             "value": 1
                           },
                           {
-                            "field": "गाथा",
+                            "field": "परमात्मप्रकाशगाथा",
                             "value": 67
                           }
                         ]
@@ -10624,7 +10624,7 @@
       "next": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF_%E0%A4%86%E0%A4%B8%E0%A5%8D%E0%A4%B0%E0%A4%B5"
     },
     "parser_version": "jainkosh.rules/1.11.22",
-    "parsed_at": "2026-06-15T13:14:34.552883",
+    "parsed_at": "2026-06-15T17:50:27.992252",
     "warnings": []
   },
   "would_write": {
@@ -14998,7 +14998,7 @@
                       "value": 2
                     },
                     {
-                      "field": "गाथा",
+                      "field": "परमात्मप्रकाशगाथा",
                       "value": 27
                     }
                   ]
@@ -21931,7 +21931,7 @@
                       "value": 2
                     },
                     {
-                      "field": "गाथा",
+                      "field": "परमात्मप्रकाशगाथा",
                       "value": 25
                     }
                   ]
@@ -22032,7 +22032,7 @@
                       "value": 1
                     },
                     {
-                      "field": "गाथा",
+                      "field": "परमात्मप्रकाशगाथा",
                       "value": 67
                     }
                   ]
@@ -23826,15 +23826,6 @@
         },
         {
           "label": "Gatha",
-          "key": "परमात्मप्रकाश:गाथा:27",
-          "props": {
-            "shastra_natural_key": "परमात्मप्रकाश",
-            "gatha_number": "27"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Gatha",
           "key": "नयचक्र बृहद्:गाथा:284",
           "props": {
             "shastra_natural_key": "नयचक्र बृहद्",
@@ -25469,15 +25460,6 @@
         },
         {
           "label": "Gatha",
-          "key": "परमात्मप्रकाश:गाथा:25",
-          "props": {
-            "shastra_natural_key": "परमात्मप्रकाश",
-            "gatha_number": "25"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Gatha",
           "key": "समयसार:गाथा:3",
           "props": {
             "shastra_natural_key": "समयसार",
@@ -25505,15 +25487,6 @@
             "source": "jainkosh",
             "is_leaf": true
           }
-        },
-        {
-          "label": "Gatha",
-          "key": "परमात्मप्रकाश:गाथा:67",
-          "props": {
-            "shastra_natural_key": "परमात्मप्रकाश",
-            "gatha_number": "67"
-          },
-          "lazy": true
         },
         {
           "label": "GathaTeeka",
@@ -28104,24 +28077,6 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Gatha",
-            "key": "परमात्मप्रकाश:गाथा:27"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:षट्द्रव्यों-को-जानने-का-प्रयोजन"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:षट्द्रव्यों-को-जानने-का-प्रयोजन/0",
-            "source_natural_key": "द्रव्य:द्रव्य-निर्देश-व-शंका-समाधान:षट्द्रव्यों-को-जानने-का-प्रयोजन"
           }
         },
         {
@@ -32713,24 +32668,6 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "परमात्मप्रकाश:गाथा:25"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "द्रव्य:द्रव्य-की-स्वतंत्रता:द्रव्य-अपना-स्वभाव-कभी-नहीं-छोड़ता"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "द्रव्य:द्रव्य-की-स्वतंत्रता:द्रव्य-अपना-स्वभाव-कभी-नहीं-छोड़ता/0",
-            "source_natural_key": "द्रव्य:द्रव्य-की-स्वतंत्रता:द्रव्य-अपना-स्वभाव-कभी-नहीं-छोड़ता"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Gatha",
             "key": "समयसार:गाथा:3"
           },
           "to": {
@@ -32776,24 +32713,6 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Gatha",
-            "key": "परमात्मप्रकाश:गाथा:67"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "द्रव्य:द्रव्य-की-स्वतंत्रता:एक-द्रव्य-अन्य-रूप-परिणमन-नहीं-करता"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "द्रव्य:द्रव्य-की-स्वतंत्रता:एक-द्रव्य-अन्य-रूप-परिणमन-नहीं-करता/0",
-            "source_natural_key": "द्रव्य:द्रव्य-की-स्वतंत्रता:एक-द्रव्य-अन्य-रूप-परिणमन-नहीं-करता"
           }
         },
         {
