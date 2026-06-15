@@ -30,8 +30,8 @@ async def _seed_pg(factory) -> None:
     async with factory() as session:
         await session.execute(
             text(
-                "INSERT INTO keywords (id, natural_key, display_text, definition_doc_ids) "
-                "VALUES (:id, :nk, :dt, '[]'::jsonb)"
+                "INSERT INTO keywords (id, natural_key, display_text, sources, definition_doc_ids) "
+                "VALUES (:id, :nk, :dt, ARRAY[]::text[], '[]'::jsonb)"
             ),
             {"id": kid, "nk": "द्रव्य", "dt": "द्रव्य"},
         )

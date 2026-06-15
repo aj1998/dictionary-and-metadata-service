@@ -15,8 +15,8 @@ async def _insert_keyword(factory, natural_key: str, display_text: str) -> str:
     async with factory() as session:
         await session.execute(
             text(
-                "INSERT INTO keywords (id, natural_key, display_text, definition_doc_ids) "
-                "VALUES (:id, :nk, :dt, '[]'::jsonb)"
+                "INSERT INTO keywords (id, natural_key, display_text, sources, definition_doc_ids) "
+                "VALUES (:id, :nk, :dt, ARRAY[]::text[], '[]'::jsonb)"
             ),
             {"id": kid, "nk": natural_key, "dt": display_text},
         )

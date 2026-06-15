@@ -34,8 +34,8 @@ async def test_mixed_tokens_partial_resolve(client_with_neo4j: AsyncClient) -> N
     async with factory() as session:
         await session.execute(
             text(
-                "INSERT INTO keywords (id, natural_key, display_text, definition_doc_ids) "
-                "VALUES (:id, :nk, :dt, '[]'::jsonb)"
+                "INSERT INTO keywords (id, natural_key, display_text, sources, definition_doc_ids) "
+                "VALUES (:id, :nk, :dt, ARRAY[]::text[], '[]'::jsonb)"
             ),
             {"id": str(uuid.uuid4()), "nk": "द्रव्य", "dt": "द्रव्य"},
         )
@@ -66,8 +66,8 @@ async def test_empty_traversal_returns_empty_ranked(client_with_neo4j: AsyncClie
     async with factory() as session:
         await session.execute(
             text(
-                "INSERT INTO keywords (id, natural_key, display_text, definition_doc_ids) "
-                "VALUES (:id, :nk, :dt, '[]'::jsonb)"
+                "INSERT INTO keywords (id, natural_key, display_text, sources, definition_doc_ids) "
+                "VALUES (:id, :nk, :dt, ARRAY[]::text[], '[]'::jsonb)"
             ),
             {"id": str(uuid.uuid4()), "nk": "आत्मा", "dt": "आत्मा"},
         )
