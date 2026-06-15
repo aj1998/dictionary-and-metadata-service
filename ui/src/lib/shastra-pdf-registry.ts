@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getShastraPdfOffsets } from '@/lib/api/metadata';
+import { getShastraPdfOffsets, type OffsetSpec } from '@/lib/api/metadata';
 import type { DefinitionReference } from '@/lib/types';
 
 export function extractOriginalShastraInfo(
@@ -26,8 +26,8 @@ export function extractOriginalShastraInfo(
 }
 
 export interface ShastraPdfOffsets {
-  pdfPageOffset: number;
-  pustakOffsets: Record<string, number> | null;
+  pdfPageOffset: OffsetSpec;
+  pustakOffsets: Record<string, OffsetSpec> | null;
   // true only when pdf_page_offset is explicitly configured on the shastra
   available: boolean;
 }

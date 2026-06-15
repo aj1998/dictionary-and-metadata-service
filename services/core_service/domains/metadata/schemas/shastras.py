@@ -24,8 +24,10 @@ class ShastraResponse(BaseModel):
     stats: ShastraStats
     created_at: datetime
     updated_at: datetime
-    pdf_page_offset: int = 0
-    pustak_offsets: dict[str, int] | None = None
+    # Either a scalar offset (legacy) or a list of [up_to_published_page, offset]
+    # pairs, applied in ascending order of threshold.
+    pdf_page_offset: int | list[list[int]] = 0
+    pustak_offsets: dict[str, int | list[list[int]]] | None = None
 
     @field_validator("title", mode="before")
     @classmethod

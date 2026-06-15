@@ -22,9 +22,14 @@ export async function getShastra(nk: string): Promise<ShastraDetail> {
   return apiFetch<ShastraDetail>(BASE_URL, `/v1/shastras/${nk}`);
 }
 
+// Either a scalar offset or an array of [upToPublishedPage, offset] pairs.
+// Pairs are applied in ascending order of threshold: for a published page P,
+// the first pair where P <= upToPublishedPage wins.
+export type OffsetSpec = number | Array<[number, number]>;
+
 export interface ShastraPdfOffsetsResponse {
-  pdf_page_offset: number;
-  pustak_offsets: Record<string, number> | null;
+  pdf_page_offset: OffsetSpec;
+  pustak_offsets: Record<string, OffsetSpec> | null;
   available: boolean;
 }
 

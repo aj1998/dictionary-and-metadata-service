@@ -138,8 +138,8 @@ export interface ShastraSummary {
 export interface ShastraDetail extends ShastraSummary {
   source_url?: string;
   teekas?: TeekaSummary[];
-  pdf_page_offset?: number;
-  pustak_offsets?: Record<string, number> | null;
+  pdf_page_offset?: number | Array<[number, number]>;
+  pustak_offsets?: Record<string, number | Array<[number, number]>> | null;
 }
 
 export interface TeekaSummary {

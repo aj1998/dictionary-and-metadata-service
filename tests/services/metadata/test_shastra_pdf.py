@@ -53,6 +53,25 @@ class TestShastraPdfOffsets:
         assert offset == 3
         assert pustak == {"1": 0, "2": -2}
 
+    def test_pdf_page_offset_array_form(self):
+        from services.core_service.domains.metadata.services.shastra_pdf import get_shastra_pdf_offsets
+        config = [{"shastra_name": "धवला", "pdf_page_offset": [[204, 26], [215, 27]]}]
+        with self._patch_config(config):
+            offset, pustak = get_shastra_pdf_offsets("धवला")
+        assert offset == [[204, 26], [215, 27]]
+        assert pustak is None
+
+    def test_pustak_offsets_array_form(self):
+        from services.core_service.domains.metadata.services.shastra_pdf import get_shastra_pdf_offsets
+        config = [{
+            "shastra_name": "धवला",
+            "pustak_offsets": {"13": [[204, 26], [215, 27]], "14": 25},
+        }]
+        with self._patch_config(config):
+            offset, pustak = get_shastra_pdf_offsets("धवला")
+        assert offset == 0
+        assert pustak == {"13": [[204, 26], [215, 27]], "14": 25}
+
     def test_unknown_shastra_returns_defaults(self):
         from services.core_service.domains.metadata.services.shastra_pdf import get_shastra_pdf_offsets
         with self._patch_config([{"shastra_name": "धवला"}]):

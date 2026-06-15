@@ -106,6 +106,35 @@ describe('computePdfPage', () => {
     const pustakOffsets = { '1': 0 };
     expect(computePdfPage(12, 5, pustakOffsets, '1')).toBe(12);
   });
+
+  it('resolves array-form pdfPageOffset by published page threshold', () => {
+    const spec: Array<[number, number]> = [[204, 26], [215, 27]];
+    expect(computePdfPage(178, spec, null, null)).toBe(178 + 26);
+    expect(computePdfPage(204, spec, null, null)).toBe(204 + 26);
+    expect(computePdfPage(205, spec, null, null)).toBe(205 + 27);
+    expect(computePdfPage(215, spec, null, null)).toBe(215 + 27);
+  });
+
+  it('falls back to last bucket offset beyond all thresholds', () => {
+    const spec: Array<[number, number]> = [[204, 26], [215, 27]];
+    expect(computePdfPage(500, spec, null, null)).toBe(500 + 27);
+  });
+
+  it('resolves array-form pustakOffsets by published page', () => {
+    const pustakOffsets: Record<string, number | Array<[number, number]>> = {
+      '13': [[204, 26], [215, 27]],
+      '14': 25,
+    };
+    expect(computePdfPage(178, 0, pustakOffsets, '13')).toBe(178 + 26);
+    expect(computePdfPage(210, 0, pustakOffsets, '13')).toBe(210 + 27);
+    expect(computePdfPage(50, 0, pustakOffsets, '14')).toBe(75);
+  });
+
+  it('sorts unordered array thresholds', () => {
+    const spec: Array<[number, number]> = [[215, 27], [204, 26]];
+    expect(computePdfPage(180, spec, null, null)).toBe(206);
+    expect(computePdfPage(210, spec, null, null)).toBe(237);
+  });
 });
 
 describe('buildOriginalShastraHref', () => {

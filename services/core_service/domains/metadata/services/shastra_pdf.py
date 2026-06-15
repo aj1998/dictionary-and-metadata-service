@@ -30,23 +30,43 @@ def _load_shastra_config() -> list[dict]:
         return json.load(f)  # type: ignore[no-any-return]
 
 
-def get_shastra_pdf_offsets(shastra_nk: str) -> tuple[int, dict[str, int] | None]:
+# An OffsetSpec is either a single integer (single offset applied to all pages),
+# or a list of [up_to_published_page, offset] pairs. For a given published page P,
+# the offset of the first pair (sorted by up_to_published_page asc) where
+# P <= up_to_published_page is applied. Pages beyond the last threshold fall
+# back to the last entry's offset.
+OffsetSpec = int | list[list[int]]
+
+
+def _coerce_offset_spec(value: object) -> OffsetSpec:
+    if isinstance(value, list):
+        return [[int(pair[0]), int(pair[1])] for pair in value]
+    return int(value)  # type: ignore[arg-type]
+
+
+def get_shastra_pdf_offsets(
+    shastra_nk: str,
+) -> tuple[OffsetSpec, dict[str, OffsetSpec] | None]:
     """Return (pdf_page_offset, pustak_offsets) for a shastra natural key."""
     entries = _load_shastra_config()
     nk_nfc = unicodedata.normalize("NFC", shastra_nk)
     for entry in entries:
         name = unicodedata.normalize("NFC", entry.get("shastra_name", ""))
         if name == nk_nfc:
-            offset = int(entry.get("pdf_page_offset", 0))
+            offset = _coerce_offset_spec(entry.get("pdf_page_offset", 0))
             pustak_raw = entry.get("pustak_offsets")
-            pustak = {k: int(v) for k, v in pustak_raw.items()} if pustak_raw else None
+            pustak = (
+                {k: _coerce_offset_spec(v) for k, v in pustak_raw.items()}
+                if pustak_raw
+                else None
+            )
             return offset, pustak
     return 0, None
 
 
 def get_shastra_pdf_offsets_with_availability(
     shastra_nk: str,
-) -> tuple[int, dict[str, int] | None, bool]:
+) -> tuple[OffsetSpec, dict[str, OffsetSpec] | None, bool]:
     """Return (pdf_page_offset, pustak_offsets, available) for a shastra natural key.
 
     `available` is True when the shastra entry in shastra.json explicitly carries
@@ -59,9 +79,13 @@ def get_shastra_pdf_offsets_with_availability(
         name = unicodedata.normalize("NFC", entry.get("shastra_name", ""))
         if name == nk_nfc:
             has_offset = "pdf_page_offset" in entry or "pustak_offsets" in entry
-            offset = int(entry.get("pdf_page_offset", 0))
+            offset = _coerce_offset_spec(entry.get("pdf_page_offset", 0))
             pustak_raw = entry.get("pustak_offsets")
-            pustak = {k: int(v) for k, v in pustak_raw.items()} if pustak_raw else None
+            pustak = (
+                {k: _coerce_offset_spec(v) for k, v in pustak_raw.items()}
+                if pustak_raw
+                else None
+            )
             return offset, pustak, has_offset
     return 0, None, False
 

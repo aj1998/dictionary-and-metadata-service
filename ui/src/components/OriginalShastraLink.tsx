@@ -2,14 +2,25 @@
 
 import { useTranslations } from 'next-intl';
 import { ExternalLink } from '@/lib/icons';
+import type { OffsetSpec } from '@/lib/api/metadata';
 
 interface OriginalShastraLinkProps {
   shastraNk: string;
   pustak: string | null;
   publishedPage: number;
-  pdfPageOffset: number;
-  pustakOffsets: Record<string, number> | null;
+  pdfPageOffset: OffsetSpec;
+  pustakOffsets: Record<string, OffsetSpec> | null;
   available: boolean;
+}
+
+export function resolveOffset(spec: OffsetSpec, publishedPage: number): number {
+  if (typeof spec === 'number') return spec;
+  if (spec.length === 0) return 0;
+  const sorted = [...spec].sort((a, b) => a[0] - b[0]);
+  for (const [upTo, off] of sorted) {
+    if (publishedPage <= upTo) return off;
+  }
+  return sorted[sorted.length - 1][1];
 }
 
 export function buildOriginalShastraHref(
@@ -24,15 +35,15 @@ export function buildOriginalShastraHref(
 
 export function computePdfPage(
   publishedPage: number,
-  pdfPageOffset: number,
-  pustakOffsets: Record<string, number> | null,
+  pdfPageOffset: OffsetSpec,
+  pustakOffsets: Record<string, OffsetSpec> | null,
   pustak: string | null,
 ): number {
-  const offset =
+  const spec =
     pustakOffsets !== null && pustak !== null && pustak in pustakOffsets
       ? pustakOffsets[pustak]
       : pdfPageOffset;
-  return publishedPage + offset;
+  return publishedPage + resolveOffset(spec, publishedPage);
 }
 
 export function OriginalShastraLink({

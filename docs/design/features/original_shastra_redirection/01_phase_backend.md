@@ -23,18 +23,20 @@ Add the following optional fields to each shastra entry (do **not** touch `publi
 {
   "shastra_name": "धवला",
   // ... existing fields ...
-  "pdf_page_offset": 0,                  // Optional. int. Default 0 when absent.
+  "pdf_page_offset": 0,                  // Optional. int OR [[upToPublishedPage, offset], ...]. Default 0 when absent.
   "pustak_offsets": {                    // Optional. Only for multi-volume shastras.
     "1": 0,
     "2": -2,
-    "3": 5
+    "3": 5,
+    "13": [[204, 26], [215, 27]]         // Piecewise: pages <= 204 use offset 26; <= 215 use 27; ...
   }
 }
 ```
 
 Rules:
-- `pdf_page_offset`: integer (can be negative). Used when `pustak` is absent or no override matches.
-- `pustak_offsets`: object keyed by the **string form of the pustak value** (matches how `pustak` appears in `resolved_fields`). If a key is present, it wins over `pdf_page_offset`.
+- `pdf_page_offset`: either an integer (can be negative) OR a list of `[upToPublishedPage, offset]` pairs. Used when `pustak` is absent or no override matches.
+- `pustak_offsets`: object keyed by the **string form of the pustak value** (matches how `pustak` appears in `resolved_fields`). Each value follows the same shape as `pdf_page_offset` (scalar OR piecewise list). If a key is present, it wins over `pdf_page_offset`.
+- Piecewise resolution: pairs are sorted by `upToPublishedPage` ascending; for a given published page P, the first pair where `P <= upToPublishedPage` wins. Pages beyond the last threshold inherit the last bucket's offset.
 - Both fields are optional. A missing field means "offset = 0".
 
 **Do not bulk-fill** for existing entries — the user will fill these as they download each PDF.
@@ -80,8 +82,8 @@ The metadata domain already exposes shastra entity-detail (used by `getEntityDet
 ```jsonc
 {
   // ... existing fields ...
-  "pdf_page_offset": 0,                   // int, defaults to 0 if absent in config
-  "pustak_offsets": { "1": 0, "2": -2 }   // object<str, int> | null
+  "pdf_page_offset": 0,                   // int | [[upToPublishedPage, offset], ...], defaults to 0 if absent
+  "pustak_offsets": { "1": 0, "2": -2, "13": [[204, 26], [215, 27]] }   // object<str, OffsetSpec> | null
 }
 ```
 

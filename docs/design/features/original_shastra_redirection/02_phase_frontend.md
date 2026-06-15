@@ -27,7 +27,7 @@ No backend calls beyond what already exists + the offset payload from Phase 1.
 ### Modify
 
 - `ui/src/components/DefinitionModal.tsx` — wire the new link into ref renderers, move `RefMatchLink` to the gatha-type slot.
-- `ui/src/lib/types.ts` — extend `EntityDetail` (or whichever type backs the shastra detail) with `pdf_page_offset?: number; pustak_offsets?: Record<string, number> | null`.
+- `ui/src/lib/types.ts` — extend `EntityDetail` (or whichever type backs the shastra detail) with `pdf_page_offset?: OffsetSpec; pustak_offsets?: Record<string, OffsetSpec> | null`, where `OffsetSpec = number | Array<[upToPublishedPage, offset]>`. Piecewise resolution lives in `resolveOffset` in `OriginalShastraLink.tsx`.
 - `ui/messages/hi.json` and `ui/messages/en.json` — add a single string under a new `originalShastra` namespace (or extend `shastras`): `"viewOriginal": "मूल शास्त्र में देखें"` / `"View original shastra"`.
 - `ui/README.md` §8 — add a row for `OriginalShastraLink` in the component catalogue and a sentence about the repositioned `RefMatchLink`.
 - `ui/src/styles/theme.css` (optional) — confirm `--cat-page` (`#B5645A`) already exists; if so, reuse it. The brown link color should be `--cat-page` for the icon stroke + `text-amber-800` for the title attribute hover state, OR introduce `--link-original` if a precise brown is preferred. Reuse `--cat-page` to avoid sprawl.

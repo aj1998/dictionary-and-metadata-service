@@ -26,7 +26,7 @@ For any definition / topic-extract reference that carries a `पृष्ठ` (p
 | Topic | Decision |
 |---|---|
 | Storage | Flat directory; filename = `<shastra_name>.pdf`; multi-volume = `<shastra_name>_<pustak>.pdf` |
-| Page mapping | `pdf_page = published_प्रिष्ठ + pdf_page_offset` (per-pustak override allowed) |
+| Page mapping | `pdf_page = published_प्रिष्ठ + offset` where offset is either a scalar or a piecewise spec `[[upToPublishedPage, offset], ...]` (per-pustak override allowed). The piecewise form handles books where insert pages (e.g. "178 अ") shift the offset partway through a volume. |
 | Open behavior | New tab → raw PDF with `#page=N` URL fragment |
 | When to render brown link | Always, whenever ref has `पृष्ठ` field; 404 on click if file missing |
 | Offset config home | New fields on each shastra.json entry |
