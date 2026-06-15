@@ -106,6 +106,9 @@ export function TopicNavAction({
         topicExtracts={modal.detail?.topicExtracts ?? undefined}
         navigateHref={navigateHref}
         navigateLabel="शब्दकोश में देखें"
+        navigateLinks={[
+          { href: `${prefix}/graph?node=${encodeURIComponent(topicNk)}`, label: 'ग्राफ में देखें' },
+        ]}
       />
     </>
   );

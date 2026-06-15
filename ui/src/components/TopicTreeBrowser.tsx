@@ -46,7 +46,7 @@ export function TopicTreeBrowser({ initialItems, targetTopicNk, currentKeywordNk
   const [columns, setColumns] = useState<Column[]>([
     { parentNk: null, parentPath: '', items: initialItems, selectedNk: null, selectedIndex: null, loading: false },
   ]);
-  const [modal, setModal] = useState<{ open: boolean; title: string; detail: EntityDetail | null; loading: boolean; navigateHref?: string }>({
+  const [modal, setModal] = useState<{ open: boolean; title: string; detail: EntityDetail | null; loading: boolean; navigateHref?: string; topicNk?: string }>({
     open: false,
     title: '',
     detail: null,
@@ -293,10 +293,11 @@ export function TopicTreeBrowser({ initialItems, targetTopicNk, currentKeywordNk
         detail: cached,
         loading: false,
         navigateHref: buildNavigateHref(cached, nk),
+        topicNk: nk,
       });
       return;
     }
-    setModal({ open: true, title: displayText, detail: null, loading: true });
+    setModal({ open: true, title: displayText, detail: null, loading: true, topicNk: nk });
     try {
       const detail = await getEntityDetail('topic', nk);
       detailCache.current.set(nk, detail);
@@ -306,6 +307,7 @@ export function TopicTreeBrowser({ initialItems, targetTopicNk, currentKeywordNk
         detail,
         loading: false,
         navigateHref: buildNavigateHref(detail, nk),
+        topicNk: nk,
       });
     } catch (e) {
       console.error('Failed to load topic detail', e);
@@ -429,6 +431,7 @@ export function TopicTreeBrowser({ initialItems, targetTopicNk, currentKeywordNk
           detail: detail!,
           loading: false,
           navigateHref: buildNavigateHref(detail, r.nk),
+          topicNk: r.nk,
         });
         return;
       }
@@ -678,6 +681,7 @@ export function TopicTreeBrowser({ initialItems, targetTopicNk, currentKeywordNk
         topicExtracts={modal.detail?.topicExtracts}
         navigateHref={modal.navigateHref}
         navigateLabel="शब्द पृष्ठ पर इस विषय पर जाएँ"
+        navigateLinks={modal.topicNk ? [{ href: `${localePrefix}/graph?node=${encodeURIComponent(modal.topicNk)}`, label: 'ग्राफ में देखें' }] : undefined}
       />
 
       <TableModal naturalKey={tableModalNk} onClose={() => setTableModalNk(null)} />

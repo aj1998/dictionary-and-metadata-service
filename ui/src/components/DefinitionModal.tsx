@@ -62,6 +62,7 @@ interface DefinitionModalProps {
   topicExtracts?: DefinitionBlock[];
   navigateHref?: string;
   navigateLabel?: string;
+  navigateLinks?: Array<{ href: string; label: string }>;
 }
 
 // Returns the left-border colour class for a block.
@@ -795,8 +796,12 @@ function ViewToggle({ mode, onChange }: { mode: ViewMode; onChange: (m: ViewMode
   );
 }
 
-export function DefinitionModal({ open, onClose, title, definitionSections, topicExtracts, navigateHref, navigateLabel }: DefinitionModalProps) {
+export function DefinitionModal({ open, onClose, title, definitionSections, topicExtracts, navigateHref, navigateLabel, navigateLinks }: DefinitionModalProps) {
   const [viewMode, setViewMode] = useState<ViewMode>('sequential');
+  const allLinks = [
+    ...(navigateHref ? [{ href: navigateHref, label: navigateLabel ?? 'इस विषय पर जाएँ' }] : []),
+    ...(navigateLinks ?? []),
+  ];
 
   return (
     <Dialog.Root open={open} onOpenChange={(v) => { if (!v) onClose(); }}>
@@ -818,17 +823,20 @@ export function DefinitionModal({ open, onClose, title, definitionSections, topi
             </div>
           </div>
 
-          {navigateHref && (
-            <div className="shrink-0 border-b border-border bg-surface-muted px-5 py-2">
-              <a
-                href={navigateHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
-              >
-                {navigateLabel ?? 'इस विषय पर जाएँ'}
-                <ChevronRight className="size-4" strokeWidth={1.75} />
-              </a>
+          {allLinks.length > 0 && (
+            <div className="flex shrink-0 flex-wrap items-center gap-x-5 gap-y-2 border-b border-border bg-surface-muted px-5 py-2">
+              {allLinks.map((link) => (
+                <a
+                  key={link.href + link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
+                >
+                  {link.label}
+                  <ChevronRight className="size-4" strokeWidth={1.75} />
+                </a>
+              ))}
             </div>
           )}
 

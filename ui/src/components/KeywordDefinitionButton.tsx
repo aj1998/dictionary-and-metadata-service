@@ -50,6 +50,9 @@ export function KeywordDefinitionButton({ keywordNk, displayText }: KeywordDefin
         onClose={() => setModal({ open: false, detail: null })}
         title={displayText}
         definitionSections={modal.detail?.definitionSections ?? undefined}
+        navigateLinks={[
+          { href: `/graph?node=${encodeURIComponent(keywordNk)}`, label: 'ग्राफ में देखें' },
+        ]}
       />
     </>
   );

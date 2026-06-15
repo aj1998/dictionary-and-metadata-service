@@ -247,6 +247,20 @@ export function DetailsPanel({ open, selected, nodes, edges, depth, onClose, onS
 
   if (!open || !body) return null;
 
+  const shabdkoshHref = (() => {
+    if (!selectedNode) return undefined;
+    if (selectedNode.kind === 'keyword') {
+      return `/dictionary/${encodeURIComponent(selectedNode.nk)}`;
+    }
+    if (selectedNode.kind === 'topic') {
+      const parentKw = detail?.connected.find((c) => c.kind === 'keyword' && c.edge_kind === 'HAS_TOPIC')?.nk;
+      if (parentKw) {
+        return `/dictionary/${encodeURIComponent(parentKw)}?topic=${encodeURIComponent(selectedNode.nk)}`;
+      }
+    }
+    return undefined;
+  })();
+
   const modal = selectedNode && hasDefinitionContent ? (
     <DefinitionModal
       open={definitionModalOpen}
@@ -254,6 +268,7 @@ export function DetailsPanel({ open, selected, nodes, edges, depth, onClose, onS
       title={selectedNode.title_hi}
       definitionSections={detail?.definitionSections}
       topicExtracts={detail?.topicExtracts}
+      navigateLinks={shabdkoshHref ? [{ href: shabdkoshHref, label: 'शब्दकोश में देखें' }] : undefined}
     />
   ) : null;
 
