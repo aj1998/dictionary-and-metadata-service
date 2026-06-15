@@ -25,7 +25,7 @@
 | 2 ✓ | [`02_nj_parser_compound_id_support.md`](./02_nj_parser_compound_id_support.md) | Fix NJ `parse_myitem.py` (no-`<optgroup>` form), expand multi-gatha range, emit compound `gatha_identifier_values` per Gatha/Kalash extract. |
 | 3 ✓ | [`03_envelope_and_apply_compound_nk.md`](./03_envelope_and_apply_compound_nk.md) | Compound NK builder; Postgres `gathas.gatha_number` stores full NK suffix; Neo4j Gatha/Kalash/GathaTeeka/GathaTeekaBhaavarth/KalashBhaavarth NKs all use compound suffix. |
 | 4 ✓ | [`04_jainkosh_reference_compound_nk.md`](./04_jainkosh_reference_compound_nk.md) | Reference parser pulls `gatha_identifier` from shastra.json at resolve time and assembles the compound NK so jainkosh-side citations land on the same node as the NJ-emitted one. |
-| 5 | [`05_api_and_ui_compound_routes.md`](./05_api_and_ui_compound_routes.md) | API: accept compound `gatha_id` path segment. UI: `/shastras/{nk}/gathas/{compound}` route + breadcrumb. |
+| 5 ✓ | [`05_api_and_ui_compound_routes.md`](./05_api_and_ui_compound_routes.md) | API: accept compound `gatha_id` path segment. UI: `/shastras/{nk}/gathas/{compound}` route + breadcrumb. |
 
 ---
 

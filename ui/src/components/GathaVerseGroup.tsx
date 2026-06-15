@@ -119,16 +119,56 @@ export function GathaVerseGroup({ entries }: GathaVerseGroupProps) {
   );
 }
 
+type AdjacentLinks = {
+  prev: string | null;
+  next: string | null;
+  prevLabel: string | null;
+  nextLabel: string | null;
+};
+
 export function GathaPageBottomNav({
   shastraNk,
   shastraDisplayNk,
   gathaLabel,
+  adjacentLinks,
 }: {
   shastraNk: string;
   shastraDisplayNk: string;
   gathaLabel: string;
+  adjacentLinks?: AdjacentLinks;
 }) {
   const { currentNumber } = useGathaVerseState();
+
+  // Compound shastras: use server-fetched adjacent links instead of arithmetic.
+  if (adjacentLinks) {
+    const { prev, next, prevLabel, nextLabel } = adjacentLinks;
+    return (
+      <div className="flex items-center justify-between gap-3 pt-1">
+        {prev ? (
+          <Link
+            href={`/shastras/${shastraDisplayNk}/gathas/${encodeURIComponent(prev)}`}
+            className="flex items-center gap-1 rounded-[var(--radius-md)] border border-border bg-surface px-4 py-2 text-sm hover:border-accent hover:text-accent"
+          >
+            ← {gathaLabel} {prevLabel ?? prev}
+          </Link>
+        ) : (
+          <span />
+        )}
+        {next ? (
+          <Link
+            href={`/shastras/${shastraDisplayNk}/gathas/${encodeURIComponent(next)}`}
+            className="flex items-center gap-1 rounded-[var(--radius-md)] border border-border bg-surface px-4 py-2 text-sm hover:border-accent hover:text-accent"
+          >
+            {gathaLabel} {nextLabel ?? next} →
+          </Link>
+        ) : (
+          <span />
+        )}
+      </div>
+    );
+  }
+
+  // Legacy shastras: arithmetic prev/next.
   const num = parseInt(currentNumber, 10);
   if (isNaN(num)) return null;
   const prevNk = num > 1 ? `${shastraNk}:गाथा:${num - 1}` : null;

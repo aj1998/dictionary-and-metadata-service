@@ -18,6 +18,8 @@
 - `GET /v1/topics/{ident}`
 - `GET /v1/gathas`
 - `GET /v1/gathas/{ident}`
+- `GET /v1/shastras/{shastra_nk}/gathas/{raw_id}` — compound-aware gatha fetch (phase 5)
+- `GET /v1/shastras/{shastra_nk}/gathas/{raw_id}/adjacent` — prev/next navigation (phase 5)
 - `GET /v1/kalashas`
 - `GET /v1/kalashas/{ident}`
 - `GET /v1/browse/letters`
@@ -57,6 +59,56 @@ Query params:
 
 - `extract_count` is the total number of `blocks[]` entries across all Mongo `topic_extracts` documents whose `natural_key` matches this topic. Computed in a single batched `$match` + `$size` + `$group` aggregation over the natural_keys returned by the current page (one round-trip per page). The UI topics-page card displays this as the right-side numeric badge.
 
+
+## `GET /v1/shastras/{shastra_nk}/gathas/{raw_id}` — compound-aware gatha route (phase 5)
+
+`raw_id` is the **compact URL form** of the gatha identifier:
+- Legacy shastras: plain gatha number, e.g. `8`
+- Compound shastras: comma-separated values in declaration order, e.g. `1,2`
+
+The route resolves `raw_id` → full Postgres natural key by looking up `gatha_identifier`
+in `shastra.json` and calling `build_compound_suffix`. Returns the same shape as
+`GET /v1/gathas/{ident}` plus an `identifier` block:
+
+```json
+{
+  "natural_key": "परमात्मप्रकाश:अधिकार:1:गाथा:2",
+  "gatha_number": "अधिकार:1:गाथा:2",
+  "identifier": {
+    "fields": [
+      { "name": "अधिकार", "label": "अधिकार", "value": "1" },
+      { "name": "परमात्मप्रकाशगाथा", "label": "गाथा", "value": "2" }
+    ],
+    "compact": "1,2",
+    "is_compound": true
+  },
+  ...
+}
+```
+
+For legacy shastras: `is_compound: false`, `fields` has one entry, `compact` is the gatha number.
+
+**Error codes:**
+- `400` — `raw_id` has wrong number of comma-separated values for a compound shastra
+- `404` — gatha not found
+
+## `GET /v1/shastras/{shastra_nk}/gathas/{raw_id}/adjacent` — prev/next navigation (phase 5)
+
+Returns the previous and next gathas relative to `raw_id`, sorted **numerically**
+(not lexically). Cross-adhikaar navigation is enabled: last gatha in adhikaar 1 →
+first gatha in adhikaar 2.
+
+Response shape:
+```json
+{
+  "shastra_nk": "परमात्मप्रकाश",
+  "current_nk": "परमात्मप्रकाश:अधिकार:1:गाथा:21",
+  "previous": { "natural_key": "...", "compact": "1,10", "gatha_number": "अधिकार:1:गाथा:10" },
+  "next":     { "natural_key": "...", "compact": "2,1",  "gatha_number": "अधिकार:2:गाथा:1"  }
+}
+```
+
+`previous` / `next` are `null` when the gatha is the first / last in the shastra.
 
 ## `GET /v1/gathas/{ident}?include=kalashas` — GathaKalash shape
 

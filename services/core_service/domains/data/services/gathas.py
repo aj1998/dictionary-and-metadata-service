@@ -29,6 +29,63 @@ from jain_kb_common.db.postgres.shastras import Shastra
 from jain_kb_common.db.postgres.teekas import Teeka
 
 
+async def get_adjacent_gathas(
+    session: AsyncSession,
+    shastra_nk: str,
+    current_nk: str,
+) -> tuple[Gatha | None, Gatha | None]:
+    """Return (previous, next) gathas sorted numerically for both legacy and compound shastras."""
+    from jain_kb_common.shastra_identifiers import (
+        get_identifier_fields,
+        extract_identifier_values_from_suffix,
+    )
+
+    shastra_row = await session.execute(
+        select(Shastra).where(Shastra.natural_key == shastra_nk)
+    )
+    shastra = shastra_row.scalar_one_or_none()
+    if shastra is None:
+        return None, None
+
+    result = await session.execute(
+        select(Gatha).where(Gatha.shastra_id == shastra.id)
+    )
+    all_gathas = list(result.scalars())
+    if not all_gathas:
+        return None, None
+
+    fields = get_identifier_fields(shastra_nk, "gatha")
+
+    def _sort_key(g: Gatha) -> tuple:
+        if fields:
+            suffix = g.natural_key[len(shastra_nk) + 1:]
+            vals = extract_identifier_values_from_suffix(shastra_nk, suffix)
+            if not vals:
+                return (float("inf"),)
+            parts: list = []
+            for f in fields:
+                v = vals.get(f, "")
+                try:
+                    parts.append(int(v))
+                except (ValueError, TypeError):
+                    parts.append(v)
+            return tuple(parts)
+        try:
+            return (int(g.gatha_number),)
+        except (ValueError, TypeError):
+            return (g.gatha_number,)
+
+    all_gathas.sort(key=_sort_key)
+
+    current_idx = next((i for i, g in enumerate(all_gathas) if g.natural_key == current_nk), None)
+    if current_idx is None:
+        return None, None
+
+    prev_g = all_gathas[current_idx - 1] if current_idx > 0 else None
+    next_g = all_gathas[current_idx + 1] if current_idx < len(all_gathas) - 1 else None
+    return prev_g, next_g
+
+
 async def get_by_ident(session: AsyncSession, ident: str) -> Gatha | None:
     try:
         uid = uuid.UUID(ident)

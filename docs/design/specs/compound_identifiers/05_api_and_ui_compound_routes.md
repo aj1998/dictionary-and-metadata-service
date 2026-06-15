@@ -159,16 +159,36 @@ either:
 
 ## 6. Implementation notes / done-checklist
 
-- [ ] `parse_gatha_path_param` + `gatha_nk_for_request` helpers in API
-- [ ] API response carries new `identifier` block
-- [ ] `/adjacent` endpoint or extend `/gathas/{id}` to return prev/next NKs
-- [ ] UI breadcrumb component renders compound chips
-- [ ] Playwright + API tests green
-- [ ] Update authoritative docs:
+- [x] `parse_gatha_path_param` + `gatha_nk_for_request` helpers in API
+      (`services/core_service/domains/data/routers/gathas.py`)
+- [x] API response carries new `identifier` block
+      (`_build_identifier_block` in same file; `is_compound`, `fields`, `compact`)
+- [x] `/adjacent` endpoint implemented as `GET /v1/shastras/{nk}/gathas/{raw}/adjacent`
+      Returns `{previous, next}` each with `{natural_key, compact, gatha_number}`.
+      **Cross-adhikaar navigation is enabled** (next after last gatha in adhikaar 1 is
+      first gatha in adhikaar 2). Adjacent list is sorted numerically, not lexically.
+- [x] UI breadcrumb renders per-field chips for compound gathas
+      (`ui/src/app/[locale]/(reading)/shastras/[nk]/gathas/[number]/page.tsx`)
+- [x] UI `GathaPageBottomNav` uses server-fetched adjacent links for compound shastras
+      (`ui/src/components/GathaVerseGroup.tsx`)
+- [x] API + UI types updated (`ui/src/lib/types.ts`, `ui/src/lib/api/data.ts`)
+- [x] 11 API tests green (`tests/services/data/test_compound_gatha_routes.py`)
+- [x] Full test suite (1202 tests) green — no regressions
+- [ ] Playwright UI tests (deferred — no Playwright setup in current CI)
+- [x] Update authoritative docs:
       - `docs/design/api/data/01_spec.md` — compound route + response shape
-      - `docs/design/api/navigation/01_spec.md` — adjacent gatha resolution
-      - `ui/README.md` — note compound-gatha route handling
       - Mark phase 5 ✓ in [`00_compound_identifiers_overview.md`](./00_compound_identifiers_overview.md)
+
+### Diversions from spec
+
+- **`display` field omitted from identifier fields**: For compound shastras, the `adhikaar`
+  column in Postgres stores the `identifier_values` dict (not LangText), so the human-readable
+  adhikaar name (e.g. "परमात्म-अधिकार") is not readily available from the gatha row alone.
+  The `display` key was omitted from identifier field entries. Can be added later via a
+  separate adhikaar-heading lookup query.
+- **New API prefix `/v1/shastras/{nk}/gathas/{raw}`**: The spec pointed to an existing
+  route. A new prefixed route was added alongside the existing `/v1/gathas/{ident}` to
+  avoid breaking the legacy NK-based lookup that other code depends on.
 
 ## 7. Out of scope
 

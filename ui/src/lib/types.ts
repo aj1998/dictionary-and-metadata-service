@@ -346,6 +346,32 @@ export interface GathaKalash {
   } | null;
 }
 
+export interface GathaIdentifierField {
+  name: string;
+  label: string;
+  value: string;
+  display?: string;
+}
+
+export interface GathaIdentifier {
+  fields: GathaIdentifierField[];
+  compact: string;
+  is_compound: boolean;
+}
+
+export interface AdjacentGathaItem {
+  natural_key: string;
+  compact: string;
+  gatha_number: string;
+}
+
+export interface GathaAdjacentResponse {
+  shastra_nk: string;
+  current_nk: string;
+  previous: AdjacentGathaItem | null;
+  next: AdjacentGathaItem | null;
+}
+
 export interface GathaDetail extends GathaSummary {
   prakrit_verse_marker?: string | null;
   prakrit: { natural_key: string; text: LangText[]; is_kalash: boolean } | null;
@@ -356,6 +382,7 @@ export interface GathaDetail extends GathaSummary {
   teeka_bhaavarth?: TeekaBhaavarth[];
   teeka_sanskrit?: GathaTeekaSanskrit[];
   kalashas?: GathaKalash[];
+  identifier?: GathaIdentifier;
 }
 
 export type ExtractMatchTargetCollection =

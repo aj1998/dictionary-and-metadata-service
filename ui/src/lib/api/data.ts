@@ -15,6 +15,7 @@ import type {
   TopicDetail,
   GathaDetail,
   GathaSummary,
+  GathaAdjacentResponse,
   KalashDetail,
   KalashWordMeanings,
   ShastraDetail,
@@ -208,6 +209,23 @@ export async function getGatha(nk: string, options?: { include?: string[] }): Pr
   const inc = options?.include;
   const qs = inc?.length ? `?include=${inc.join(',')}` : '';
   return apiFetch<GathaDetail>(BASE_URL, `/v1/gathas/${nk}${qs}`);
+}
+
+export async function getGathaByPath(
+  shastraNk: string,
+  rawId: string,
+  options?: { include?: string[] }
+): Promise<GathaDetail> {
+  const inc = options?.include;
+  const qs = inc?.length ? `?include=${inc.join(',')}` : '';
+  return apiFetch<GathaDetail>(BASE_URL, `/v1/shastras/${shastraNk}/gathas/${rawId}${qs}`);
+}
+
+export async function getGathaAdjacent(
+  shastraNk: string,
+  rawId: string
+): Promise<GathaAdjacentResponse> {
+  return apiFetch<GathaAdjacentResponse>(BASE_URL, `/v1/shastras/${shastraNk}/gathas/${rawId}/adjacent`);
 }
 
 export async function getKalash(nk: string): Promise<KalashDetail> {

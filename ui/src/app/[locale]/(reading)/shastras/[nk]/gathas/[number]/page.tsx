@@ -16,7 +16,7 @@ import { TeekaPanel } from '@/components/TeekaPanel';
 import { TopicNavAction } from '@/components/TopicNavAction';
 import type { TeekaPanelItem } from '@/components/TeekaPanel';
 import { notFound } from 'next/navigation';
-import { getExtractMatch, getGatha } from '@/lib/api/data';
+import { getExtractMatch, getGatha, getGathaByPath, getGathaAdjacent } from '@/lib/api/data';
 import { ApiError } from '@/lib/api/_fetch';
 import { getKeywordTopics } from '@/lib/api/navigation';
 import { getHindiText } from '@/lib/content-listing';
@@ -72,15 +72,36 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   const { match: matchNk } = await searchParams;
   const nk = decodeURIComponent(rawNk);
   const number = decodeURIComponent(rawNumber);
-  // `number` may be a plain gatha number ("8") or a full natural key ("समयसार:गाथा:8").
-  // Normalize to the gatha natural key the API expects.
-  const gathaNk = number.includes(':गाथा:') ? number : `${nk}:गाथा:${number}`;
 
-  const [gatha, topicsResult, extractMatch, tR, tS, locale] = await Promise.all([
-    getGatha(gathaNk, { include: ['teeka_mapping', 'teeka_bhaavarth', 'teeka_sanskrit', 'kalashas'] }).catch((err) => {
+  // Detect compound form: "1,2" (compound) vs "8" or "समयसार:गाथा:8" (legacy).
+  const isCompound = number.includes(',');
+
+  // Resolve gatha NK for topic/extract lookups (always the full natural key).
+  // For compound, we get this from the API response; seed with empty string for now.
+  let gathaNk: string;
+  let gatha: Awaited<ReturnType<typeof getGatha>>;
+
+  if (isCompound) {
+    gatha = await getGathaByPath(nk, number, { include: ['teeka_mapping', 'teeka_bhaavarth', 'teeka_sanskrit', 'kalashas'] }).catch((err) => {
       if (err instanceof ApiError && err.status === 404) notFound();
       throw err;
-    }),
+    });
+    gathaNk = gatha.natural_key;
+  } else {
+    // `number` may be a plain gatha number ("8") or a full natural key ("समयसार:गाथा:8").
+    gathaNk = number.includes(':गाथा:') ? number : `${nk}:गाथा:${number}`;
+    gatha = await getGatha(gathaNk, { include: ['teeka_mapping', 'teeka_bhaavarth', 'teeka_sanskrit', 'kalashas'] }).catch((err) => {
+      if (err instanceof ApiError && err.status === 404) notFound();
+      throw err;
+    });
+  }
+
+  // For compound gathas, fetch adjacent navigation server-side.
+  const adjacentLinks = isCompound
+    ? await getGathaAdjacent(nk, number).catch(() => null)
+    : null;
+
+  const [topicsResult, extractMatch, tR, tS, locale] = await Promise.all([
     getKeywordTopics(gathaNk).catch(() => ({ keyword_natural_key: gathaNk, topics: [] })),
     matchNk
       ? getExtractMatch(matchNk).catch(() => null)
@@ -434,52 +455,54 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   const scrollTargetNk =
     match?.match.status === 'matched' ? match.target.natural_key : null;
 
-  // Breadcrumb leaf: canonical gatha number (from primary teeka — आत्मख्याति in समयसार) +
-  // primary teeka name in parens + the source-printed ॥N॥ verse marker in brackets.
-  // The marker is captured by the NJ parser as `prakrit_verse_marker`; it is the per-page
-  // source verse number (typically reflects the secondary teeka's numbering), so when a
-  // secondary teeka is present on this gatha we attribute the marker to it.
-  const canonicalGathaDev = toDevanagariNumerals(parseInt(gatha.gatha_number, 10));
-  const primaryTeekaName = primaryMapping
-    ? teekaShortName(primaryMapping.teeka_natural_key)
-    : null;
-  // Secondary teeka name: first non-primary teeka seen across teeka_mapping,
-  // teeka_bhaavarth (parsed from `{sn}:{tn}:{g}` natural keys), teeka_sanskrit, and
-  // is_secondary kalashes.
-  const primaryTeekaNk = primaryMapping?.teeka_natural_key ?? null;
-  const teekaNkFromGathaTeekaKey = (key: string | undefined): string | null => {
-    if (!key) return null;
-    const parts = key.split(':');
-    return parts.length >= 3 ? parts.slice(0, -1).join(':') : null;
-  };
-  const secondaryTeekaCandidates: Array<string | null> = [
-    ...teekaMapping.map((m) => m.teeka_natural_key),
-    ...teekaBhaavarth.map((b) => teekaNkFromGathaTeekaKey(b.gatha_teeka_natural_key)),
-    ...teekaSanskrit.map((s) => s.teeka_natural_key ?? null),
-    ...kalashas.filter((k) => k.is_secondary).map((k) => k.teeka_natural_key),
-  ];
-  const secondaryTeekaNk =
-    secondaryTeekaCandidates.find((k): k is string => !!k && k !== primaryTeekaNk) ?? null;
-  const markerDev = gatha.prakrit_verse_marker
-    ? toDevanagariNumerals(parseInt(gatha.prakrit_verse_marker, 10))
-    : null;
-  const primarySegment = [
-    `${gathaLbl} ${canonicalGathaDev}`,
-    primaryTeekaName ? `(${primaryTeekaName})` : null,
-  ]
-    .filter(Boolean)
-    .join(' ');
-  // Only show the secondary-teeka segment when the source provides an explicit
-  // ॥N॥ verse marker for this gatha. A missing marker means the gatha is not
-  // independently numbered in the secondary teeka (e.g. samaysar 119/120 fall
-  // inside the combined 116-120 तात्पर्यवृत्ति block with bare ॥ ends), so we
-  // must not attribute a secondary-teeka numbering to it.
-  const secondarySegment = secondaryTeekaNk && markerDev
-    ? `${gathaLbl} ${markerDev} (${teekaShortName(secondaryTeekaNk)})`
-    : null;
-  const gathaLeafLabel = [primarySegment, secondarySegment]
-    .filter(Boolean)
-    .join(' | ');
+  // Breadcrumb leaf for compound shastras: one chip per identifier field.
+  // For legacy shastras: "गाथा N (teeka)" format unchanged.
+  const identifier = gatha.identifier;
+  let gathaLeafLabel: string;
+  let breadcrumbExtraSegments: Array<{ label: string }> = [];
+
+  if (identifier?.is_compound) {
+    // Compound: build per-field chips, e.g. "अधिकार १ › गाथा २"
+    breadcrumbExtraSegments = identifier.fields.map((f) => ({
+      label: `${f.label} ${toDevanagariNumerals(parseInt(f.value, 10)) || f.value}`,
+    }));
+    gathaLeafLabel = breadcrumbExtraSegments.map((s) => s.label).join(' › ');
+  } else {
+    const canonicalGathaDev = toDevanagariNumerals(parseInt(gatha.gatha_number, 10));
+    const primaryTeekaName = primaryMapping
+      ? teekaShortName(primaryMapping.teeka_natural_key)
+      : null;
+    const primaryTeekaNk = primaryMapping?.teeka_natural_key ?? null;
+    const teekaNkFromGathaTeekaKey = (key: string | undefined): string | null => {
+      if (!key) return null;
+      const parts = key.split(':');
+      return parts.length >= 3 ? parts.slice(0, -1).join(':') : null;
+    };
+    const secondaryTeekaCandidates: Array<string | null> = [
+      ...teekaMapping.map((m) => m.teeka_natural_key),
+      ...teekaBhaavarth.map((b) => teekaNkFromGathaTeekaKey(b.gatha_teeka_natural_key)),
+      ...teekaSanskrit.map((s) => s.teeka_natural_key ?? null),
+      ...kalashas.filter((k) => k.is_secondary).map((k) => k.teeka_natural_key),
+    ];
+    const secondaryTeekaNk =
+      secondaryTeekaCandidates.find((k): k is string => !!k && k !== primaryTeekaNk) ?? null;
+    const markerDev = gatha.prakrit_verse_marker
+      ? toDevanagariNumerals(parseInt(gatha.prakrit_verse_marker, 10))
+      : null;
+    const primarySegment = [
+      `${gathaLbl} ${canonicalGathaDev}`,
+      primaryTeekaName ? `(${primaryTeekaName})` : null,
+    ]
+      .filter(Boolean)
+      .join(' ');
+    // Only show the secondary-teeka segment when the source provides an explicit
+    // ॥N॥ verse marker for this gatha. A missing marker means the gatha is not
+    // independently numbered in the secondary teeka.
+    const secondarySegment = secondaryTeekaNk && markerDev
+      ? `${gathaLbl} ${markerDev} (${teekaShortName(secondaryTeekaNk)})`
+      : null;
+    gathaLeafLabel = [primarySegment, secondarySegment].filter(Boolean).join(' | ');
+  }
 
   const mainColumn = (
     <div key="main" className="space-y-4">
@@ -489,7 +512,9 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
             segments={[
               { label: tS('title'), href: '/shastras' },
               { label: nk, href: `/shastras/${nk}` },
-              { label: gathaLeafLabel },
+              ...(identifier?.is_compound && breadcrumbExtraSegments.length > 0
+                ? breadcrumbExtraSegments
+                : [{ label: gathaLeafLabel }]),
             ]}
           />
         </section>
@@ -549,8 +574,24 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
           <TabbedPanel title={tR('related')} items={kalashItems} showActions accent="kalash" />
         )}
 
-        {/* Prev / Next navigation — tracks the currently-viewed verse in GathaVerseGroup */}
-        <GathaPageBottomNav shastraNk={shastraNk} shastraDisplayNk={nk} gathaLabel={gathaLbl} />
+        {/* Prev / Next navigation — for compound shastras uses server-fetched adjacent links */}
+        <GathaPageBottomNav
+          shastraNk={shastraNk}
+          shastraDisplayNk={nk}
+          gathaLabel={gathaLbl}
+          adjacentLinks={adjacentLinks
+            ? {
+                prev: adjacentLinks.previous?.compact ?? null,
+                next: adjacentLinks.next?.compact ?? null,
+                prevLabel: adjacentLinks.previous
+                  ? adjacentLinks.previous.compact
+                  : null,
+                nextLabel: adjacentLinks.next
+                  ? adjacentLinks.next.compact
+                  : null,
+              }
+            : undefined}
+        />
       </div>
   );
 
