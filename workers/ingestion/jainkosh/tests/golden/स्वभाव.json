@@ -2117,7 +2117,7 @@
       "next": "/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5_%E0%A4%A8%E0%A4%AF"
     },
     "parser_version": "jainkosh.rules/1.11.22",
-    "parsed_at": "2026-06-14T22:08:26.247503",
+    "parsed_at": "2026-06-15T13:14:35.048084",
     "warnings": []
   },
   "would_write": {
@@ -4859,12 +4859,13 @@
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पृष्ठ:539",
+          "key": "राजवार्तिक:टीका:18:पुस्तक:7:पृष्ठ:539",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "539"
+            "page_number": "539",
+            "pustak_number": "7"
           },
           "lazy": true
         },
@@ -4940,23 +4941,25 @@
         },
         {
           "label": "Page",
-          "key": "कषायपाहुड़:टीका:13:पृष्ठ:387",
+          "key": "कषायपाहुड़:टीका:13:पुस्तक:1:पृष्ठ:387",
           "props": {
             "shastra_natural_key": "कषायपाहुड़",
             "teeka_natural_key": "कषायपाहुड़:टीका",
             "publisher_id": "13",
-            "page_number": "387"
+            "page_number": "387",
+            "pustak_number": "1"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:8:पृष्ठ:238",
+          "key": "धवला:टीका:8:पुस्तक:7:पृष्ठ:238",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
             "publisher_id": "8",
-            "page_number": "238"
+            "page_number": "238",
+            "pustak_number": "7"
           },
           "lazy": true
         },
@@ -5242,12 +5245,13 @@
         },
         {
           "label": "Page",
-          "key": "श्लोकवार्तिक:टीका:4:पृष्ठ:529",
+          "key": "श्लोकवार्तिक:टीका:4:पुस्तक:2:पृष्ठ:529",
           "props": {
             "shastra_natural_key": "श्लोकवार्तिक",
             "teeka_natural_key": "श्लोकवार्तिक:टीका",
             "publisher_id": "4",
-            "page_number": "529"
+            "page_number": "529",
+            "pustak_number": "2"
           },
           "lazy": true
         },
@@ -5285,12 +5289,13 @@
         },
         {
           "label": "Page",
-          "key": "न्यायविनिश्चय:टीका:18:पृष्ठ:488",
+          "key": "न्यायविनिश्चय:टीका:18:पुस्तक:1:पृष्ठ:488",
           "props": {
             "shastra_natural_key": "न्यायविनिश्चय",
             "teeka_natural_key": "न्यायविनिश्चय:टीका",
             "publisher_id": "18",
-            "page_number": "488"
+            "page_number": "488",
+            "pustak_number": "1"
           },
           "lazy": true
         },
@@ -5347,34 +5352,37 @@
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:8:पृष्ठ:199",
+          "key": "धवला:टीका:8:पुस्तक:1:पृष्ठ:199",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
             "publisher_id": "8",
-            "page_number": "199"
+            "page_number": "199",
+            "pustak_number": "1"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:8:पृष्ठ:121",
+          "key": "धवला:टीका:8:पुस्तक:9:पृष्ठ:121",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
             "publisher_id": "8",
-            "page_number": "121"
+            "page_number": "121",
+            "pustak_number": "9"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "धवला:टीका:8:पृष्ठ:56",
+          "key": "धवला:टीका:8:पुस्तक:5:पृष्ठ:56",
           "props": {
             "shastra_natural_key": "धवला",
             "teeka_natural_key": "धवला:टीका",
             "publisher_id": "8",
-            "page_number": "56"
+            "page_number": "56",
+            "pustak_number": "5"
           },
           "lazy": true
         },
@@ -5451,12 +5459,13 @@
         },
         {
           "label": "Page",
-          "key": "न्यायविनिश्चय:वृहद्:18:पृष्ठ:37",
+          "key": "न्यायविनिश्चय:वृहद्:18:पुस्तक:2:पृष्ठ:37",
           "props": {
             "shastra_natural_key": "न्यायविनिश्चय",
             "teeka_natural_key": "न्यायविनिश्चय:वृहद्",
             "publisher_id": "18",
-            "page_number": "37"
+            "page_number": "37",
+            "pustak_number": "2"
           },
           "lazy": true
         },
@@ -5888,7 +5897,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पृष्ठ:539"
+            "key": "राजवार्तिक:टीका:18:पुस्तक:7:पृष्ठ:539"
           },
           "to": {
             "label": "Topic",
@@ -6032,7 +6041,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "कषायपाहुड़:टीका:13:पृष्ठ:387"
+            "key": "कषायपाहुड़:टीका:13:पुस्तक:1:पृष्ठ:387"
           },
           "to": {
             "label": "Topic",
@@ -6051,7 +6060,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:8:पृष्ठ:238"
+            "key": "धवला:टीका:8:पुस्तक:7:पृष्ठ:238"
           },
           "to": {
             "label": "Topic",
@@ -6592,7 +6601,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "श्लोकवार्तिक:टीका:4:पृष्ठ:529"
+            "key": "श्लोकवार्तिक:टीका:4:पुस्तक:2:पृष्ठ:529"
           },
           "to": {
             "label": "Topic",
@@ -6659,7 +6668,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "न्यायविनिश्चय:टीका:18:पृष्ठ:488"
+            "key": "न्यायविनिश्चय:टीका:18:पुस्तक:1:पृष्ठ:488"
           },
           "to": {
             "label": "Topic",
@@ -6764,7 +6773,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:8:पृष्ठ:199"
+            "key": "धवला:टीका:8:पुस्तक:1:पृष्ठ:199"
           },
           "to": {
             "label": "Topic",
@@ -6783,7 +6792,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:8:पृष्ठ:121"
+            "key": "धवला:टीका:8:पुस्तक:9:पृष्ठ:121"
           },
           "to": {
             "label": "Topic",
@@ -6802,7 +6811,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "धवला:टीका:8:पृष्ठ:56"
+            "key": "धवला:टीका:8:पुस्तक:5:पृष्ठ:56"
           },
           "to": {
             "label": "Topic",
@@ -6958,7 +6967,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "न्यायविनिश्चय:वृहद्:18:पृष्ठ:37"
+            "key": "न्यायविनिश्चय:वृहद्:18:पुस्तक:2:पृष्ठ:37"
           },
           "to": {
             "label": "Topic",

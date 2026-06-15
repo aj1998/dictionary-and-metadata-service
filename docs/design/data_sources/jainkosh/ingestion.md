@@ -271,7 +271,7 @@ Per-label stub props:
 | `GathaTeekaBhaavarth` | `shastra_natural_key`, `teeka_natural_key`, `publisher_id`, `gatha_number` |
 | `Kalash` | `teeka_natural_key`, `kalash_number` |
 | `KalashBhaavarth` | `shastra_natural_key`, `teeka_natural_key`, `publisher_id`, `kalash_number` |
-| `Page` | `shastra_natural_key`, `teeka_natural_key`, `publisher_id`, `page_number` |
+| `Page` | `shastra_natural_key`, `teeka_natural_key`, `publisher_id`, `page_number`, `pustak_number` (only when the source reference resolved a `पुस्तक` field — multi-volume shastras like धवला, कषायपाहुड़, जयधवला) |
 | `Shastra` | *(no extra props — natural_key is the shastra name)* |
 | `Teeka` | `shastra_natural_key` |
 | `Publication` | `teeka_natural_key`, `publisher_id` |

@@ -24,7 +24,7 @@ Authoritative for: keyword↔topic relationships used by the GraphRAG query path
 | `GathaTeekaBhaavarth` | `natural_key` (e.g. `pravachansaar:amritchandra:todarmal:039`) | `shastra_natural_key`, `teeka_natural_key`, `publisher_id`, `gatha_number`, `is_stub` | Derived during ingestion |
 | `Kalash` | `natural_key` (e.g. `pravachansaar:amritchandra:kalash:001`) | `teeka_natural_key`, `kalash_number`, `is_stub` | Postgres `kalashas` |
 | `KalashBhaavarth` | `natural_key` (e.g. `pravachansaar:amritchandra:todarmal:kalash:001`) | `shastra_natural_key`, `teeka_natural_key`, `publisher_id`, `kalash_number`, `is_stub` | Derived during ingestion |
-| `Page` | `natural_key` (e.g. `pravachansaar:amritchandra:todarmal:p-042`) | `shastra_natural_key`, `teeka_natural_key`, `publisher_id`, `page_number`, `is_stub` | Derived during ingestion |
+| `Page` | `natural_key` (e.g. `pravachansaar:amritchandra:todarmal:p-042`; multi-pustak: `धवला:टीका:dhavala_pub:पुस्तक:8:पृष्ठ:282`) | `shastra_natural_key`, `teeka_natural_key`, `publisher_id`, `page_number`, `pustak_number` (optional — only set for refs that include a `पुस्तक` field), `is_stub` | Derived during ingestion |
 
 **Stub nodes**: Nodes created during ingestion before the full Postgres row is approved carry `is_stub = true`. The real sync (`sync_keyword`, `sync_topic`, etc.) sets `is_stub = false`. Stub properties use `coalesce()` to never overwrite real data.
 
@@ -86,7 +86,7 @@ The canonical Neo4j `natural_key` for citation-target labels (Gatha-family + Kal
 | `GathaTeekaBhaavarth` | `{shastra}:{teeka}:{publisher_id}:गाथा:टीका:भावार्थ:{n}` | `समयसार:आत्मख्याति:राजचंद्र:गाथा:टीका:भावार्थ:8` |
 | `Kalash` | `{shastra}:{teeka}:कलश:{k}` | `समयसार:आत्मख्याति:कलश:8` |
 | `KalashBhaavarth` | `{shastra}:{teeka}:{publisher_id}:कलश:भावार्थ:{k}` | — |
-| `Page` | `{shastra}:{teeka}:{publisher_id}:पृष्ठ:{p}` | — |
+| `Page` | `{shastra}:{teeka}:{publisher_id}[:पुस्तक:{pu}]:पृष्ठ:{p}` — the `:पुस्तक:{pu}` segment is inserted only when the source reference resolves a `पुस्तक` field (multi-volume shastras like धवला, कषायपाहुड़, जयधवला). Single-pustak shastras omit it. | `धवला:टीका:dhavala_pub:पुस्तक:8:पृष्ठ:282` / `समयसार:आत्मख्याति:राजचंद्र:पृष्ठ:42` |
 
 **⚠ Edge case — Mongo text-doc `natural_key` ≠ Neo4j node `natural_key`.** The NJ ingester (`workers/ingestion/nj/envelope.py`) writes the gatha-text Mongo documents (`gatha_teeka_sanskrit`, `gatha_teeka_bhaavarth_hindi`, etc.) with a `natural_key` that identifies the **text document**, not the abstract entity node:
 

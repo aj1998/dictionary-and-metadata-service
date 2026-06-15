@@ -658,18 +658,24 @@ def _derive_props(label: str, key: str) -> dict:
             "kalash_number": n,
         }
     if label == "Page":
-        # key: {shastra}:{teeka}:{pub_id}:पृष्ठ:{n}
+        # key: {shastra}:{teeka}:{pub_id}[:पुस्तक:{pu}]:पृष्ठ:{n}
         prefix, n = key.rsplit(":पृष्ठ:", 1)
+        pustak: Optional[str] = None
+        if ":पुस्तक:" in prefix:
+            prefix, pustak = prefix.rsplit(":पुस्तक:", 1)
         parts = prefix.split(":")
         shastra = parts[0]
         pub_id = parts[-1]
         teeka_nk = ":".join(parts[:-1])
-        return {
+        props = {
             "shastra_natural_key": shastra,
             "teeka_natural_key": teeka_nk,
             "publisher_id": pub_id,
             "page_number": n,
         }
+        if pustak is not None:
+            props["pustak_number"] = pustak
+        return props
     return {}
 
 

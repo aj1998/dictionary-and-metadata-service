@@ -1711,6 +1711,7 @@ def _make_ref(
     shlok: int | None = None,
     kalash: int | None = None,
     page: int | None = None,
+    pustak: int | None = None,
 ) -> Reference:
     rf = []
     if gatha is not None:
@@ -1721,6 +1722,8 @@ def _make_ref(
         rf.append(ResolvedField(field="कलश", value=kalash))
     if page is not None:
         rf.append(ResolvedField(field="पृष्ठ", value=page))
+    if pustak is not None:
+        rf.append(ResolvedField(field="पुस्तक", value=pustak))
     return Reference(
         text=text,
         inline_reference=inline,
@@ -1781,6 +1784,21 @@ class TestInlineOnlyEdges:
         edges = _emit_inline_only_edges(ref, "MENTIONS_TOPIC", TARGET, cfg)
         page_edges = [e for e in edges if e["from"]["label"] == "Page"]
         assert len(page_edges) == 1, "Page node must be emitted for publication inline ref"
+        # Single-pustak shastra: no पुस्तक segment in key
+        assert ":पुस्तक:" not in page_edges[0]["from"]["key"]
+
+    def test_page_field_with_pustak_emits_pustak_segment(self, cfg: JainkoshConfig):
+        """Multi-pustak shastra: pustak number must appear in the Page nk to avoid
+        collisions across volumes (e.g. धवला:पुस्तक:8:पृष्ठ:282 vs पुस्तक:13:पृष्ठ:282)."""
+        ref = _make_ref(
+            "(धवला 13/5/5/50/282)", shastra_name="धवला", inline=True, page=282, pustak=13,
+        )
+        ref.teeka_name = "टीका"
+        edges = _emit_inline_only_edges(ref, "MENTIONS_TOPIC", TARGET, cfg)
+        page_edges = [e for e in edges if e["from"]["label"] == "Page"]
+        assert len(page_edges) == 1
+        key = page_edges[0]["from"]["key"]
+        assert ":पुस्तक:13:पृष्ठ:282" in key, f"unexpected key: {key}"
 
     def test_no_edges_for_unregistered_shastra(self, cfg: JainkoshConfig):
         ref = _make_ref("(अज्ञात/1)", shastra_name="अज्ञात_अज्ञात", inline=True, gatha=1)

@@ -176,12 +176,14 @@ def _emit_page(
     target: dict,
     pankti_props: dict,
     extra_props: Optional[dict] = None,
+    pustak: Optional[int] = None,
 ) -> list[dict]:
     if shastra_type != "publication":
         return []
     sn = ref.shastra_name
     tn = ref.teeka_name or "टीका"
-    key = f"{sn}:{tn}:{publisher_id}:पृष्ठ:{p}"
+    pu_seg = f":पुस्तक:{pustak}" if pustak is not None else ""
+    key = f"{sn}:{tn}:{publisher_id}{pu_seg}:पृष्ठ:{p}"
     return [_make_edge(edge_type, "Page", key, target, pankti_props, extra_props)]
 
 
@@ -291,8 +293,10 @@ def _emit_inline_ref_edges(
 
     p = _first_value(rf, ek.page)
     if p is not None:
+        pu = _first_value(rf, ["पुस्तक"])
         edges.extend(_emit_page(
             ref, shastra_type, block_kind, p, publisher_id, edge_type, target, pankti_props, extra_props,
+            pustak=pu,
         ))
 
     return edges
@@ -342,7 +346,9 @@ def _emit_inline_only_edges(
 
     p = _first_value(rf, ek.page)
     if p is not None and shastra_type == "publication":
-        key = f"{sn}:{tn}:{publisher_id}:पृष्ठ:{p}"
+        pu = _first_value(rf, ["पुस्तक"])
+        pu_seg = f":पुस्तक:{pu}" if pu is not None else ""
+        key = f"{sn}:{tn}:{publisher_id}{pu_seg}:पृष्ठ:{p}"
         edges.append(_make_edge(edge_type, "Page", key, target, pankti_props, extra_props))
 
     return edges
@@ -455,9 +461,11 @@ def build_reference_edges(
 
                 p = _first_value(rf, ek.page)
                 if p is not None:
+                    pu = _first_value(rf, ["पुस्तक"])
                     edges.extend(_emit_page(
                         main_ref, shastra_type, block_kind, p, publisher_id,
                         edge_type, target, pankti_props, extra_props,
+                        pustak=pu,
                     ))
 
         # Remaining non-inline refs use simplified rules
