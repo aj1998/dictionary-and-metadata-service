@@ -5,6 +5,17 @@ from neo4j import AsyncDriver
 
 STUB_SOURCE_DEFAULT = "jainkosh_ingestion"
 
+
+def _sources_clause(var: str, param: str = "src") -> str:
+    """Return a Cypher fragment that performs a set-union of ${param} into {var}.sources."""
+    return (
+        f"{var}.sources = CASE\n"
+        f"  WHEN ${param} IS NULL THEN coalesce({var}.sources, [])\n"
+        f"  WHEN ${param} IN coalesce({var}.sources, []) THEN {var}.sources\n"
+        f"  ELSE coalesce({var}.sources, []) + ${param}\n"
+        f"END"
+    )
+
 _STUB_PROPS_BY_LABEL: dict[str, list[str]] = {
     "Keyword": ["display_text"],
     "Topic": ["display_text_hi", "topic_path", "parent_keyword_natural_key"],
@@ -36,12 +47,15 @@ async def sync_stub_node(
     natural_key: str,
     props: dict,
     stub_source: str = STUB_SOURCE_DEFAULT,
+    source: str | None = None,
     database: str = "jainkb",
 ) -> None:
     """Idempotent MERGE: creates stub if missing, leaves real data intact.
 
     Uses coalesce() so real nodes are never clobbered — is_stub stays false
     once a real sync has run.
+    `source` (e.g. "jainkosh"/"nj") is union-merged into the node's `sources`
+    list; pass None to leave `sources` untouched.
     """
     if label not in _STUB_PROPS_BY_LABEL:
         raise ValueError(f"Unknown label for stub: {label!r}")
@@ -51,6 +65,7 @@ async def sync_stub_node(
         "n.created_at = coalesce(n.created_at, datetime())",
         "n.is_stub = coalesce(n.is_stub, true)",
         "n.stub_source = coalesce(n.stub_source, $stub_source)",
+        _sources_clause("n"),
     ]
     for p in allowed:
         if p in props:
@@ -59,7 +74,7 @@ async def sync_stub_node(
 MERGE (n:{label} {{natural_key: $nk}})
 SET {',\n    '.join(set_lines)}
 """
-    params: dict = {"nk": natural_key, "stub_source": stub_source}
+    params: dict = {"nk": natural_key, "stub_source": stub_source, "src": source}
     params.update({k: v for k, v in props.items() if k in allowed})
     async with driver.session(database=database) as session:
         await session.run(cypher, **params)

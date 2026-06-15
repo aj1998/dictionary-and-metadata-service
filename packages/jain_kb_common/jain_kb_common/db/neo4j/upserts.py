@@ -10,6 +10,17 @@ _VALID_LABELS = frozenset({
 })
 
 
+def _sources_clause(var: str, param: str = "src") -> str:
+    """Return a Cypher fragment that performs a set-union of ${param} into {var}.sources."""
+    return (
+        f"{var}.sources = CASE\n"
+        f"  WHEN ${param} IS NULL THEN coalesce({var}.sources, [])\n"
+        f"  WHEN ${param} IN coalesce({var}.sources, []) THEN {var}.sources\n"
+        f"  ELSE coalesce({var}.sources, []) + ${param}\n"
+        f"END"
+    )
+
+
 async def sync_keyword(
     driver: AsyncDriver,
     *,
@@ -18,41 +29,46 @@ async def sync_keyword(
     display_text: str,
     source_url: str | None = None,
     aliases: list[dict[str, Any]] | None = None,
+    source: str | None = None,
     database: str = "jainkb",
 ) -> None:
     async with driver.session(database=database) as session:
         await session.run(
-            """
-            MERGE (k:Keyword {natural_key: $nk})
+            f"""
+            MERGE (k:Keyword {{natural_key: $nk}})
             SET k.pg_id = $pg_id,
                 k.display_text = $display,
                 k.source_url = $url,
                 k.is_stub = false,
                 k.stub_source = null,
                 k.updated_at = datetime(),
-                k.created_at = coalesce(k.created_at, datetime())
+                k.created_at = coalesce(k.created_at, datetime()),
+                {_sources_clause('k')}
             """,
             nk=natural_key,
             pg_id=pg_id,
             display=display_text,
             url=source_url,
+            src=source,
         )
 
         for alias in aliases or []:
             await session.run(
-                """
-                MERGE (a:Alias {alias_text: $alias})
+                f"""
+                MERGE (a:Alias {{alias_text: $alias}})
                 SET a.pg_id = $alias_pg_id,
-                    a.source = $src,
-                    a.created_at = coalesce(a.created_at, datetime())
+                    a.source = $alias_src,
+                    a.created_at = coalesce(a.created_at, datetime()),
+                    {_sources_clause('a')}
                 WITH a
-                MATCH (k:Keyword {natural_key: $nk})
+                MATCH (k:Keyword {{natural_key: $nk}})
                 MERGE (a)-[r:ALIAS_OF]->(k)
-                SET r.source = $src
+                SET r.source = $alias_src
                 """,
                 alias=alias["alias_text"],
                 alias_pg_id=alias["pg_id"],
-                src=alias["source"],
+                alias_src=alias["source"],
+                src=source,
                 nk=natural_key,
             )
 
@@ -72,8 +88,8 @@ async def sync_topic(
 ) -> None:
     async with driver.session(database=database) as session:
         await session.run(
-            """
-            MERGE (t:Topic {natural_key: $nk})
+            f"""
+            MERGE (t:Topic {{natural_key: $nk}})
             SET t.pg_id = $pg_id,
                 t.display_text_hi = $display,
                 t.source = $source,
@@ -83,7 +99,8 @@ async def sync_topic(
                 t.is_stub = false,
                 t.stub_source = null,
                 t.updated_at = datetime(),
-                t.created_at = coalesce(t.created_at, datetime())
+                t.created_at = coalesce(t.created_at, datetime()),
+                {_sources_clause('t', 'source')}
             """,
             nk=natural_key,
             pg_id=pg_id,
@@ -118,24 +135,27 @@ async def sync_shastra(
     pg_id: str,
     title_hi: str,
     author_natural_key: str | None = None,
+    source: str | None = None,
     database: str = "jainkb",
 ) -> None:
     async with driver.session(database=database) as session:
         await session.run(
-            """
-            MERGE (s:Shastra {natural_key: $nk})
+            f"""
+            MERGE (s:Shastra {{natural_key: $nk}})
             SET s.pg_id = $pg_id,
                 s.title_hi = $title,
                 s.author_natural_key = $author,
                 s.is_stub = false,
                 s.stub_source = null,
                 s.updated_at = datetime(),
-                s.created_at = coalesce(s.created_at, datetime())
+                s.created_at = coalesce(s.created_at, datetime()),
+                {_sources_clause('s')}
             """,
             nk=natural_key,
             pg_id=pg_id,
             title=title_hi,
             author=author_natural_key,
+            src=source,
         )
 
 
@@ -146,27 +166,30 @@ async def sync_teeka(
     pg_id: str,
     shastra_natural_key: str,
     teekakar_natural_key: str | None = None,
+    source: str | None = None,
     database: str = "jainkb",
 ) -> None:
     async with driver.session(database=database) as session:
         await session.run(
-            """
-            MERGE (t:Teeka {natural_key: $nk})
+            f"""
+            MERGE (t:Teeka {{natural_key: $nk}})
             SET t.pg_id = $pg_id,
                 t.shastra_natural_key = $snk,
                 t.teekakar_natural_key = $teekakar,
                 t.is_stub = false,
                 t.stub_source = null,
                 t.updated_at = datetime(),
-                t.created_at = coalesce(t.created_at, datetime())
+                t.created_at = coalesce(t.created_at, datetime()),
+                {_sources_clause('t')}
             WITH t
-            MATCH (s:Shastra {natural_key: $snk})
+            MATCH (s:Shastra {{natural_key: $snk}})
             MERGE (s)-[:HAS_TEEKA]->(t)
             """,
             nk=natural_key,
             pg_id=pg_id,
             snk=shastra_natural_key,
             teekakar=teekakar_natural_key,
+            src=source,
         )
 
 
@@ -177,27 +200,30 @@ async def sync_publication(
     pg_id: str,
     teeka_natural_key: str,
     publisher_id: str,
+    source: str | None = None,
     database: str = "jainkb",
 ) -> None:
     async with driver.session(database=database) as session:
         await session.run(
-            """
-            MERGE (p:Publication {natural_key: $nk})
+            f"""
+            MERGE (p:Publication {{natural_key: $nk}})
             SET p.pg_id = $pg_id,
                 p.teeka_natural_key = $tnk,
                 p.publisher_id = $pub_id,
                 p.is_stub = false,
                 p.stub_source = null,
                 p.updated_at = datetime(),
-                p.created_at = coalesce(p.created_at, datetime())
+                p.created_at = coalesce(p.created_at, datetime()),
+                {_sources_clause('p')}
             WITH p
-            MATCH (t:Teeka {natural_key: $tnk})
+            MATCH (t:Teeka {{natural_key: $tnk}})
             MERGE (t)-[:HAS_PUBLICATION]->(p)
             """,
             nk=natural_key,
             pg_id=pg_id,
             tnk=teeka_natural_key,
             pub_id=publisher_id,
+            src=source,
         )
 
 
@@ -208,27 +234,30 @@ async def sync_kalash(
     pg_id: str,
     teeka_natural_key: str,
     kalash_number: str,
+    source: str | None = None,
     database: str = "jainkb",
 ) -> None:
     async with driver.session(database=database) as session:
         await session.run(
-            """
-            MERGE (k:Kalash {natural_key: $nk})
+            f"""
+            MERGE (k:Kalash {{natural_key: $nk}})
             SET k.pg_id = $pg_id,
                 k.teeka_natural_key = $tnk,
                 k.kalash_number = $num,
                 k.is_stub = false,
                 k.stub_source = null,
                 k.updated_at = datetime(),
-                k.created_at = coalesce(k.created_at, datetime())
+                k.created_at = coalesce(k.created_at, datetime()),
+                {_sources_clause('k')}
             WITH k
-            MATCH (t:Teeka {natural_key: $tnk})
+            MATCH (t:Teeka {{natural_key: $tnk}})
             MERGE (k)-[:IN_TEEKA]->(t)
             """,
             nk=natural_key,
             pg_id=pg_id,
             tnk=teeka_natural_key,
             num=kalash_number,
+            src=source,
         )
 
 
@@ -238,25 +267,28 @@ async def sync_gatha_teeka(
     natural_key: str,
     teeka_natural_key: str,
     gatha_natural_key: str,
+    source: str | None = None,
     database: str = "jainkb",
 ) -> None:
     async with driver.session(database=database) as session:
         await session.run(
-            """
-            MERGE (gt:GathaTeeka {natural_key: $nk})
+            f"""
+            MERGE (gt:GathaTeeka {{natural_key: $nk}})
             SET gt.teeka_natural_key = $tnk,
                 gt.gatha_natural_key = $gnk,
                 gt.is_stub = false,
                 gt.stub_source = null,
                 gt.updated_at = datetime(),
-                gt.created_at = coalesce(gt.created_at, datetime())
+                gt.created_at = coalesce(gt.created_at, datetime()),
+                {_sources_clause('gt')}
             WITH gt
-            MATCH (t:Teeka {natural_key: $tnk})
+            MATCH (t:Teeka {{natural_key: $tnk}})
             MERGE (gt)-[:IN_TEEKA]->(t)
             """,
             nk=natural_key,
             tnk=teeka_natural_key,
             gnk=gatha_natural_key,
+            src=source,
         )
 
 
@@ -266,25 +298,28 @@ async def sync_gatha_teeka_bhaavarth(
     natural_key: str,
     publication_natural_key: str,
     gatha_natural_key: str,
+    source: str | None = None,
     database: str = "jainkb",
 ) -> None:
     async with driver.session(database=database) as session:
         await session.run(
-            """
-            MERGE (gtb:GathaTeekaBhaavarth {natural_key: $nk})
+            f"""
+            MERGE (gtb:GathaTeekaBhaavarth {{natural_key: $nk}})
             SET gtb.publication_natural_key = $pnk,
                 gtb.gatha_natural_key = $gnk,
                 gtb.is_stub = false,
                 gtb.stub_source = null,
                 gtb.updated_at = datetime(),
-                gtb.created_at = coalesce(gtb.created_at, datetime())
+                gtb.created_at = coalesce(gtb.created_at, datetime()),
+                {_sources_clause('gtb')}
             WITH gtb
-            MATCH (p:Publication {natural_key: $pnk})
+            MATCH (p:Publication {{natural_key: $pnk}})
             MERGE (gtb)-[:IN_PUBLICATION]->(p)
             """,
             nk=natural_key,
             pnk=publication_natural_key,
             gnk=gatha_natural_key,
+            src=source,
         )
 
 
@@ -294,25 +329,28 @@ async def sync_kalash_bhaavarth(
     natural_key: str,
     publication_natural_key: str,
     kalash_number: str,
+    source: str | None = None,
     database: str = "jainkb",
 ) -> None:
     async with driver.session(database=database) as session:
         await session.run(
-            """
-            MERGE (kb:KalashBhaavarth {natural_key: $nk})
+            f"""
+            MERGE (kb:KalashBhaavarth {{natural_key: $nk}})
             SET kb.publication_natural_key = $pnk,
                 kb.kalash_number = $num,
                 kb.is_stub = false,
                 kb.stub_source = null,
                 kb.updated_at = datetime(),
-                kb.created_at = coalesce(kb.created_at, datetime())
+                kb.created_at = coalesce(kb.created_at, datetime()),
+                {_sources_clause('kb')}
             WITH kb
-            MATCH (p:Publication {natural_key: $pnk})
+            MATCH (p:Publication {{natural_key: $pnk}})
             MERGE (kb)-[:IN_PUBLICATION]->(p)
             """,
             nk=natural_key,
             pnk=publication_natural_key,
             num=kalash_number,
+            src=source,
         )
 
 
@@ -331,8 +369,8 @@ async def sync_table(
 ) -> None:
     async with driver.session(database=database) as session:
         await session.run(
-            """
-            MERGE (t:Table {natural_key: $nk})
+            f"""
+            MERGE (t:Table {{natural_key: $nk}})
             SET t.pg_id = $pg_id,
                 t.source = $source,
                 t.parent_natural_key = $parent_nk,
@@ -343,7 +381,8 @@ async def sync_table(
                 t.is_stub = false,
                 t.stub_source = null,
                 t.updated_at = datetime(),
-                t.created_at = coalesce(t.created_at, datetime())
+                t.created_at = coalesce(t.created_at, datetime()),
+                {_sources_clause('t', 'source')}
             """,
             nk=natural_key,
             pg_id=pg_id,
@@ -418,12 +457,13 @@ async def sync_gatha(
     shastra_natural_key: str,
     gatha_number: str,
     heading_hi: str | None = None,
+    source: str | None = None,
     database: str = "jainkb",
 ) -> None:
     async with driver.session(database=database) as session:
         await session.run(
-            """
-            MERGE (g:Gatha {natural_key: $nk})
+            f"""
+            MERGE (g:Gatha {{natural_key: $nk}})
             SET g.pg_id = $pg_id,
                 g.shastra_natural_key = $snk,
                 g.gatha_number = $num,
@@ -431,13 +471,15 @@ async def sync_gatha(
                 g.is_stub = false,
                 g.stub_source = null,
                 g.updated_at = datetime(),
-                g.created_at = coalesce(g.created_at, datetime())
+                g.created_at = coalesce(g.created_at, datetime()),
+                {_sources_clause('g')}
             """,
             nk=natural_key,
             pg_id=pg_id,
             snk=shastra_natural_key,
             num=gatha_number,
             heading=heading_hi,
+            src=source,
         )
 
         await session.run(

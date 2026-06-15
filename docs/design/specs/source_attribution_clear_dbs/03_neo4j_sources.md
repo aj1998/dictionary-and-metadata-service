@@ -74,4 +74,9 @@ MATCH (g:Gatha) RETURN DISTINCT g.sources LIMIT 3;
 
 ## Implementation notes
 
-…
+- Added `_sources_clause(var, param="src")` helper in both `stubs.py` and `upserts.py`; returns the CASE WHEN set-union Cypher fragment parameterised by node variable and param name.
+- `sync_stub_node` gains `source: str | None = None`; `$src` param passed alongside existing `$stub_source`. The `stub_source` field is kept for one cycle (rollback safety) as specified.
+- All upsert helpers (`sync_keyword`, `sync_shastra`, `sync_teeka`, `sync_publication`, `sync_kalash`, `sync_gatha`, `sync_gatha_teeka`, `sync_gatha_teeka_bhaavarth`, `sync_kalash_bhaavarth`) gain `source: str | None = None` and pass `src=source` to Cypher.
+- `sync_topic` and `sync_table` are dual-write: their existing required `source: str` parameter is reused as the CASE WHEN param (`_sources_clause('t', 'source')` / `_sources_clause('t', 'source')`), so no new parameter is needed and `source` is never `None`.
+- `sync_keyword` alias sub-query: renamed the existing `$src` param to `$alias_src` (the alias provenance field) to avoid collision with the new `$src` ingestion source param.
+- All 13 new tests pass; full Neo4j suite (42 tests) passes with no regressions.
