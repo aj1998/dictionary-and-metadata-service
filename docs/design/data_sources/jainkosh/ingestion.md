@@ -45,6 +45,14 @@ Indexes:
 
 Constraint: `natural_key NOT LIKE 'jainkosh:%' AND natural_key NOT LIKE 'nj:%'`
 
+### `sources` column (source attribution)
+
+Every shared table (`authors`, `shastras`, `teekas`, `keywords`, `books`, `pravachans`) carries a `sources TEXT[] NOT NULL DEFAULT '{}'` column (GIN-indexed) tracking which ingestors wrote the row. JainKosh stamps `sources = ['jainkosh']` on every `upsert_keyword` call via `source=IngestionSource.jainkosh`.
+
+The array is a distinct set union: re-running the same ingestion never introduces duplicates. If NJ also writes the same `shastra`, the row's `sources` becomes `{jainkosh, nj}`.
+
+Migration: `migrations/versions/0024_add_sources.py`. See the [source attribution spec](../../../../docs/design/specs/source_attribution_clear_dbs/00_overview.md) for full design.
+
 ### `upsert_keyword_alias` (`jain_kb_common/db/postgres/upserts.py`)
 
 ```python
@@ -131,6 +139,8 @@ await db[TOPIC_EXTRACTS].create_index("parent_natural_key", name="parent_natural
 ### Real-sync functions (`jain_kb_common/db/neo4j/upserts.py`)
 
 All real-sync functions unconditionally set `is_stub = false, stub_source = null` so that a previously stubbed node is upgraded in a single MERGE round-trip.
+
+Every node also carries a `sources: list<string>` property maintained as a distinct set union via a plain Cypher CASE WHEN pattern (no APOC). JainKosh writes `sources = ['jainkosh']` on sync; if a node is later also written by NJ, the list becomes `['jainkosh', 'nj']`. `Topic` and `Table` nodes also get `sources` alongside their existing single-valued `source` property. `sync_stub_node` accepts an optional `source: str | None` kwarg threaded from the apply layer.
 
 | Function | Node/Edge written |
 |---|---|

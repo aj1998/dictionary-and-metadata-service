@@ -13,7 +13,10 @@ A structured, knowledge-graph-backed retrieval layer for Jain texts. Companion t
 |  | [Data service API](./api/data/01_spec.md) | Keywords / gathas / topics / kalashas / browse / public search |
 |  | [Navigation service API](./api/navigation/01_spec.md) | Neo4j graph navigation, alias writes, topic graph traversal |
 |  | parser: [jainkosh](./data_sources/jainkosh/parser.md) | Orchestrator pipeline, fetch, alias mining |
+|  | ingestion: [jainkosh](./data_sources/jainkosh/ingestion.md) | apply layer — Postgres/Mongo/Neo4j writes, stub pattern, source attribution |
 |  | parser: [nikkyjain](./data_sources/nikkyjain/archived/01_parser_nj.md) | Local-clone parser for shastras, gathas, anvayartha |
+|  | ingestion: [nikkyjain](./data_sources/nikkyjain/nj_ingestion.md) | apply layer — Postgres/Mongo/Neo4j writes, NJ entity map, source attribution |
+|  | [source attribution & per-source clear](./specs/source_attribution_clear_dbs/00_overview.md) | `sources[]` column on shared tables, `clear_dbs.py --source {all,jainkosh,nj}` |
 |  | [Query engine](./query_engine/00_overview.md) | Tokenize → normalize → resolve → traverse → rank  |
 |  | [UI](/ui/README.md) | Common web app for exploring above services |
 |  | [Deployment](./deployment.md) | docker-compose, nginx, env vars, backups, sizing |

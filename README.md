@@ -316,9 +316,11 @@ cd ui && npm test
 
 All scripts live under `scripts/` and expect the standard env vars (`DATABASE_URL`, `NEO4J_URL`, `NEO4J_PASSWORD`, `MONGO_URL`, `MONGO_DB_NAME`) to be exported before running.
 
-### `clear_dbs.py` — wipe all ingestion databases
+### `clear_dbs.py` — wipe ingestion databases
 
 Truncates every Postgres table (cascading), drops all Mongo collections written by any ingestor, and deletes all Neo4j nodes. Use this before a fresh re-ingest.
+
+Supports a `--source` flag to wipe only one ingestor's data, leaving the other intact:
 
 ```bash
 export DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_dev"
@@ -328,12 +330,38 @@ export NEO4J_URL="bolt://localhost:7687"
 export NEO4J_USER="neo4j"
 export NEO4J_PASSWORD="jainkb_password"
 
+# wipe everything (default)
 python scripts/clear_dbs.py
+python scripts/clear_dbs.py --source all
+
+# wipe only jainkosh-produced rows/nodes/docs
+python scripts/clear_dbs.py --source jainkosh
+
+# wipe only nj-produced rows/nodes/docs
+python scripts/clear_dbs.py --source nj
+
 # optional: target a non-default Neo4j database
 python scripts/clear_dbs.py --neo4j-database neo4j
 ```
 
-Mongo collections cleared: `keyword_definitions`, `topic_extracts`, `raw_html_snapshots`, `tables` (JainKosh) + `gatha_hindi_chhand`, `gatha_prakrit`, `gatha_sanskrit`, `gatha_teeka_bhaavarth_hindi`, `gatha_teeka_sanskrit`, `kalash_hindi`, `kalash_sanskrit`, `kalash_word_meanings`, `teeka_gatha_mapping` (NJ).
+**`--source all` (default)**: truncates Postgres, drops all Mongo collections, and `DETACH DELETE`s all Neo4j nodes.
+
+**`--source jainkosh` / `--source nj`**: issues `DELETE WHERE $src = ANY(sources)` in FK-safe order for shared Postgres tables; removes exclusively-owned Mongo collections and shrinks `extract_matches`; two-step Neo4j delete (exclusive nodes `DETACH DELETE`, co-owned nodes shrink their `sources` list).
+
+Two consecutive single-source clears bring the DB to the same empty state as `--source all`:
+```bash
+python scripts/clear_dbs.py --source jainkosh
+python scripts/clear_dbs.py --source nj
+# DB is now empty — identical to --source all
+```
+
+**Mongo collections by source:**
+
+| Group | Collections |
+|---|---|
+| JainKosh | `keyword_definitions`, `topic_extracts`, `raw_html_snapshots`, `ocr_pages`, `tables` |
+| NJ | `gatha_hindi_chhand`, `gatha_prakrit`, `gatha_sanskrit`, `gatha_teeka_hindi`, `gatha_word_meanings`, `gatha_teeka_bhaavarth_hindi`, `gatha_teeka_bhaavarth_shortfont`, `gatha_teeka_sanskrit`, `kalash_bhaavarth_hindi`, `kalash_bhaavarth_shortfont`, `kalash_hindi`, `kalash_sanskrit`, `kalash_word_meanings`, `teeka_gatha_mapping` |
+| Shared | `extract_matches` (dropped under either single-source clear) |
 
 ### `ingest_goldens_apply.py` — apply JainKosh golden envelopes
 
