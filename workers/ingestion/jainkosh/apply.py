@@ -184,6 +184,7 @@ async def apply_approved_keyword_payload(
         display_text=keyword_nk,
         source_url=keyword_row.get("source_url"),
         definition_doc_ids=[str(stable_id(keyword_nk))],
+        source=IngestionSource.jainkosh,
     )
 
     # Topological sort: parents before children (handles None topic_path correctly)

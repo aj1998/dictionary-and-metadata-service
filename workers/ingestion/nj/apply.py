@@ -129,6 +129,7 @@ async def apply_nj_shastra_payload(
             natural_key=row["natural_key"],
             display_name=row.get("display_name", []),
             kind=row.get("kind", "acharya"),
+            source=IngestionSource.nj,
         )
         author_ids[row["natural_key"]] = aid
 
@@ -142,6 +143,7 @@ async def apply_nj_shastra_payload(
             natural_key=row["natural_key"],
             title=row.get("title", []),
             author_id=author_id,
+            source=IngestionSource.nj,
         )
         shastra_ids[row["natural_key"]] = sid
 
@@ -158,6 +160,7 @@ async def apply_nj_shastra_payload(
             shastra_id=shastra_id,
             teekakar_id=teekakar_id,
             role=row.get("role"),
+            source=IngestionSource.nj,
         )
         teeka_ids[row["natural_key"]] = tid
 
@@ -171,6 +174,7 @@ async def apply_nj_shastra_payload(
             natural_key=row["natural_key"],
             teeka_id=teeka_id,
             publisher_id=row.get("publisher_id", ""),
+            source=IngestionSource.nj,
         )
 
     # --- Gathas: Postgres + Mongo + Neo4j ---
@@ -190,6 +194,7 @@ async def apply_nj_shastra_payload(
             prakrit_verse_marker=row.get("prakrit_verse_marker"),
             adhikaar=row.get("adhikaar"),
             heading=row.get("heading"),
+            source=IngestionSource.nj,
         )
         gatha_ids[row["natural_key"]] = gid
 
@@ -276,6 +281,7 @@ async def apply_nj_shastra_payload(
             gatha_id=gatha_id,
             sanskrit_doc_id=str(stable_id(san_doc["natural_key"])) if san_doc else None,
             hindi_doc_id=str(stable_id(hi_doc["natural_key"])) if hi_doc else None,
+            source=IngestionSource.nj,
         )
 
         await sync_kalash(
@@ -312,6 +318,7 @@ async def apply_nj_shastra_payload(
             name=row.get("name", []),
             start_gatha_id=start_gid,
             end_gatha_id=end_gid,
+            source=IngestionSource.nj,
         )
 
     # --- Postgres: table rows ---

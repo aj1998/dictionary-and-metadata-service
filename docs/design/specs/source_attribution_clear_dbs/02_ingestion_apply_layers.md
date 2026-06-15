@@ -77,4 +77,21 @@ Expect `samaysaar` and other shastras referenced by goldens to show
 
 ## Implementation notes
 
-…
+### Changes made
+
+**`workers/ingestion/jainkosh/apply.py`**
+- Added `source=IngestionSource.jainkosh` to the `upsert_keyword` call inside `apply_approved_keyword_payload`.
+- `upsert_topic` and `upsert_table` already passed `source=IngestionSource.jainkosh` — left unchanged.
+- `upsert_shastra`, `upsert_teeka`, `upsert_author`, `upsert_publication` are not currently called from jainkosh apply (no Postgres upserts for those entities happen here). The spec lists them as future/conditional — nothing to wire now.
+
+**`workers/ingestion/nj/apply.py`**
+- Added `source=IngestionSource.nj` to all seven entity upserts: `upsert_author`, `upsert_shastra`, `upsert_teeka`, `upsert_publication`, `upsert_gatha`, `upsert_kalash`, `upsert_teeka_chapter`.
+- `upsert_table` already passed `source=IngestionSource.nj` — left unchanged.
+
+### Tests created
+
+- `tests/ingestion/jainkosh/test_apply_sources.py` — applies the `आत्मा` golden; asserts `keywords` rows have `sources=['jainkosh']`.
+- `tests/ingestion/nj/test_apply_sources.py` — applies `समयसार_golden_o0_l10.json`; asserts `gathas`, `kalashas`, `teeka_chapters`, `publications` have `sources=['nj']`; `shastras`, `teekas`, `authors` contain `'nj'`.
+- `tests/ingestion/test_cross_source_union.py` — seeds `samaysaar` with `source=jainkosh`, then applies nj golden; verifies `sources = {jainkosh, nj}` with no duplicate after re-apply.
+
+All 34 ingestion tests pass (`python -m pytest tests/ingestion/ -q`).
