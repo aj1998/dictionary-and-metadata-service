@@ -89,7 +89,7 @@ Every shared table (`authors`, `shastras`, `teekas`, `publications`, `gathas`, `
 
 The array is a distinct set union: if JainKosh already wrote a `shastra` stub, re-upserting from NJ merges the sources to `{jainkosh, nj}`. Tables exclusively written by NJ (`gathas`, `kalashas`, `teeka_chapters`, `publications`) will always have `sources = ['nj']`.
 
-Migration: `migrations/versions/0024_add_sources.py`. Use `clear_dbs.py --source nj` to wipe only NJ-produced rows/nodes/docs without touching JainKosh data. See the [source attribution spec](../../../../docs/design/specs/source_attribution_clear_dbs/00_overview.md) for full design.
+Migration: `migrations/versions/0024_add_sources.py`. Use `clear_dbs.py --source nj` to wipe only NJ-produced rows/nodes/docs without touching JainKosh data. See the [source attribution spec](../../archived/source_attribution_clear_dbs/00_overview.md) for full design.
 
 ### `gathas.prakrit_verse_marker`
 

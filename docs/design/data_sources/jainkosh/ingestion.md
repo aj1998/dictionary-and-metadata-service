@@ -51,7 +51,7 @@ Every shared table (`authors`, `shastras`, `teekas`, `keywords`, `books`, `prava
 
 The array is a distinct set union: re-running the same ingestion never introduces duplicates. If NJ also writes the same `shastra`, the row's `sources` becomes `{jainkosh, nj}`.
 
-Migration: `migrations/versions/0024_add_sources.py`. See the [source attribution spec](../../../../docs/design/specs/source_attribution_clear_dbs/00_overview.md) for full design.
+Migration: `migrations/versions/0024_add_sources.py`. See the [source attribution spec](../../archived/source_attribution_clear_dbs/00_overview.md) for full design.
 
 ### `upsert_keyword_alias` (`jain_kb_common/db/postgres/upserts.py`)
 
