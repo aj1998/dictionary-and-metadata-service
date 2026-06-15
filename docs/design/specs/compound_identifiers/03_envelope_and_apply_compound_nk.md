@@ -201,23 +201,17 @@ cross-impact).
 
 ## 6. Implementation notes / done-checklist
 
-- [ ] `_gatha_nk`, `_gatha_teeka_nk`, `_gatha_teeka_bhaavarth_nk`, `_kalash_nk`,
-      `_kalash_bhaavarth_nk` all routed through the compound builder
-- [ ] Stub props allowlist extended (`identifier_values`)
-- [ ] Postgres `upsert_gatha` called with compound suffix as `gatha_number` +
-      structured dict as `adhikaar`
-- [ ] Mongo doc NKs updated
-- [ ] All existing goldens (समयसार, प्रवचनसार, …) regenerated and confirmed
-      **byte-identical** to the pre-change goldens — proves zero regression
-      on legacy shastras
-- [ ] परमात्मप्रकाश new golden checked in
-- [ ] Update authoritative docs:
-      - `docs/design/data_model/data_model_graph.md` — replace the "Natural-key
-        format conventions" table with the compound shapes; add a "Compound
-        identifiers" subsection explaining `gatha_identifier`.
-      - `docs/design/data_sources/nikkyjain/nj_ingestion.md` — add "Compound
-        identifier flow" section.
-      - Mark phase 3 ✓ in [`00_compound_identifiers_overview.md`](./00_compound_identifiers_overview.md).
+- [x] `_gatha_nk`, GathaTeeka NK, GathaTeekaBhaavarth NK, Kalash NK, KalashBhaavarth NK
+      all routed through the compound builder via `_gatha_suffix` + `_insert_trailing_label`
+- [x] Stub props allowlist extended (`identifier_values` added to `_STUB_PROPS_BY_LABEL["Gatha"]`)
+- [x] Postgres `gatha_number` stores compound suffix; `adhikaar` stores `identifier_values` dict
+- [x] Mongo doc NKs updated (gatha_teeka_sanskrit, gatha_teeka_bhaavarth_hindi, teeka_gatha_mapping, shortfont)
+- [x] All existing (समयसार, …) tests pass byte-identical — 42 pre-existing tests green
+- [ ] परमात्मप्रकाश new golden checked in (requires `NIKKYJAIN_LOCAL_PATH` — deferred)
+- [x] Update authoritative docs:
+      - `docs/design/data_model/data_model_graph.md` ✓
+      - `docs/design/data_sources/nikkyjain/nj_ingestion.md` ✓
+      - `docs/design/specs/compound_identifiers/00_compound_identifiers_overview.md` ✓ (phase 3 marked)
 
 ## 7. Out of scope
 

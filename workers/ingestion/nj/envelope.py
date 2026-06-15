@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import json
 from itertools import groupby
 from typing import Any
+
+from jain_kb_common.shastra_identifiers import build_compound_suffix
 
 from .config import NJConfig, TeekaConfig
 from .models import GathaExtract, KalashExtract, ShastraParseResult
@@ -104,7 +107,7 @@ _NJ_CONTRACTS: dict[str, dict] = {
     "neo4j:Gatha": {
         "conflict_key": ["key"],
         "on_conflict": "merge",
-        "fields_replace": ["gatha_number", "shastra_natural_key", "heading_hi"],
+        "fields_replace": ["gatha_number", "shastra_natural_key", "heading_hi", "identifier_values"],
         "fields_append": [],
         "fields_skip_if_set": [],
         "stores": ["neo4j:Gatha"],
@@ -280,8 +283,45 @@ def _primary_secondary(cfg: NJConfig) -> tuple[TeekaConfig, TeekaConfig | None]:
     return primary, secondary
 
 
-def _gatha_nk(shastra_nk: str, gatha_number: str) -> str:
-    return f"{shastra_nk}:{_GATHA}:{_norm_num(gatha_number)}"
+def _insert_trailing_label(suffix: str, label: str) -> str:
+    """Insert `label` before the last colon-delimited value in `suffix`.
+
+    "अधिकार:1:गाथा:2" + "टीका" → "अधिकार:1:गाथा:टीका:2"
+    """
+    head, _, tail = suffix.rpartition(":")
+    if not head:
+        return f"{label}:{suffix}"
+    return f"{head}:{label}:{tail}"
+
+
+def _gatha_suffix(shastra_nk: str, gatha: GathaExtract) -> str:
+    """NK suffix following the shastra prefix for a gatha.
+
+    Compound shastras → "अधिकार:1:गाथा:2".
+    Legacy shastras   → "गाथा:8".
+    """
+    if gatha.identifier_values:
+        s = build_compound_suffix(shastra_nk, gatha.identifier_values, kind="gatha")
+        if s:
+            return s
+    return f"{_GATHA}:{_norm_num(gatha.gatha_number)}"
+
+
+def _gatha_nk(shastra_nk: str, gatha: GathaExtract) -> str:
+    return f"{shastra_nk}:{_gatha_suffix(shastra_nk, gatha)}"
+
+
+def _gatha_mongo_segment(shastra_nk: str, gatha: GathaExtract) -> str:
+    """Mongo NK segment for a gatha (compound full suffix, or legacy bare number).
+
+    Compound: "अधिकार:1:गाथा:2" — keeps existing Mongo NKs intact for legacy shastras.
+    Legacy:   "9"
+    """
+    if gatha.identifier_values:
+        s = build_compound_suffix(shastra_nk, gatha.identifier_values, kind="gatha")
+        if s:
+            return s
+    return _norm_num(gatha.gatha_number)
 
 
 def _related(g: GathaExtract) -> list[str]:
@@ -343,7 +383,9 @@ def _build_mongo_for_gatha(
     secondary: TeekaConfig | None,
 ) -> dict[str, list[dict[str, Any]]]:
     shastra_nk = g.shastra_natural_key
-    gatha_nk = _gatha_nk(shastra_nk, g.gatha_number)
+    gatha_nk = _gatha_nk(shastra_nk, g)
+    mongo_seg = _gatha_mongo_segment(shastra_nk, g)
+    gatha_suffix = _gatha_suffix(shastra_nk, g)
     out: dict[str, list[dict[str, Any]]] = {
         "gatha_prakrit": [],
         "gatha_sanskrit": [],
@@ -419,7 +461,7 @@ def _build_mongo_for_gatha(
     # Only populate teeka_gatha_mapping for the primary teeka
     out["teeka_gatha_mapping"].append({
         "collection": "teeka_gatha_mapping",
-        "natural_key": f"{primary.natural_key}:{norm_gatha_num}",
+        "natural_key": f"{primary.natural_key}:{mongo_seg}",
         "teeka_natural_key": primary.natural_key,
         "gatha_natural_key": gatha_nk,
         "anvayartha": _lang_text("hin", full_anyavaarth) if full_anyavaarth else [],
@@ -431,8 +473,8 @@ def _build_mongo_for_gatha(
     if g.primary_teeka and g.primary_teeka.gatha_teeka_san:
         out["gatha_teeka_sanskrit"].append({
             "collection": "gatha_teeka_sanskrit",
-            "natural_key": f"{primary.natural_key}:{norm_gatha_num}:{_TEEKA}:san",
-            "gatha_teeka_natural_key": f"{primary.natural_key}:{norm_gatha_num}",
+            "natural_key": f"{primary.natural_key}:{mongo_seg}:{_TEEKA}:san",
+            "gatha_teeka_natural_key": f"{primary.natural_key}:{mongo_seg}",
             "teeka_natural_key": primary.natural_key,
             "gatha_number": norm_gatha_num,
             "text": _lang_text("san", g.primary_teeka.gatha_teeka_san),
@@ -440,8 +482,8 @@ def _build_mongo_for_gatha(
     if secondary and g.secondary_teeka and g.secondary_teeka.gatha_teeka_san:
         out["gatha_teeka_sanskrit"].append({
             "collection": "gatha_teeka_sanskrit",
-            "natural_key": f"{secondary.natural_key}:{norm_gatha_num}:{_TEEKA}:san",
-            "gatha_teeka_natural_key": f"{secondary.natural_key}:{norm_gatha_num}",
+            "natural_key": f"{secondary.natural_key}:{mongo_seg}:{_TEEKA}:san",
+            "gatha_teeka_natural_key": f"{secondary.natural_key}:{mongo_seg}",
             "teeka_natural_key": secondary.natural_key,
             "gatha_number": norm_gatha_num,
             "text": _lang_text("san", g.secondary_teeka.gatha_teeka_san),
@@ -450,16 +492,20 @@ def _build_mongo_for_gatha(
     if g.primary_teeka and g.primary_teeka.gatha_teeka_bhaavarth_md:
         out["gatha_teeka_bhaavarth_hindi"].append({
             "collection": "gatha_teeka_bhaavarth_hindi",
-            "natural_key": f"{primary.publication_natural_key}:{norm_gatha_num}:{_BHAAVARTH}:hi",
-            "gatha_teeka_bhaavarth_natural_key": f"{primary.publication_natural_key}:{norm_gatha_num}:{_BHAAVARTH}:hi",
+            "natural_key": f"{primary.publication_natural_key}:{mongo_seg}:{_BHAAVARTH}:hi",
+            "gatha_teeka_bhaavarth_natural_key": f"{primary.publication_natural_key}:{mongo_seg}:{_BHAAVARTH}:hi",
             "publication_natural_key": primary.publication_natural_key,
-            "gatha_teeka_natural_key": f"{primary.natural_key}:{norm_gatha_num}",
+            "gatha_teeka_natural_key": f"{primary.natural_key}:{mongo_seg}",
             "publisher_id": primary.publisher_id,
             "gatha_number": norm_gatha_num,
             "text": _lang_text("hin", g.primary_teeka.gatha_teeka_bhaavarth_md),
         })
     if g.primary_teeka and g.primary_teeka.gatha_teeka_bhaavarth_shortfont:
-        bhaavarth_nk = f"{primary.publication_natural_key}:{_GATHA}:{_TEEKA}:{_BHAAVARTH}:{norm_gatha_num}"
+        # Shortfont bhaavarth NK uses label-embedded suffix (mirrors Neo4j GathaTeekaBhaavarth NK)
+        bhaavarth_suffix = _insert_trailing_label(
+            _insert_trailing_label(gatha_suffix, _TEEKA), _BHAAVARTH
+        )
+        bhaavarth_nk = f"{primary.publication_natural_key}:{bhaavarth_suffix}"
         out["gatha_teeka_bhaavarth_shortfont"].append({
             "collection": "gatha_teeka_bhaavarth_shortfont",
             "natural_key": f"{bhaavarth_nk}:shortfont",
@@ -472,16 +518,19 @@ def _build_mongo_for_gatha(
     if secondary and g.secondary_teeka and g.secondary_teeka.gatha_teeka_bhaavarth_md:
         out["gatha_teeka_bhaavarth_hindi"].append({
             "collection": "gatha_teeka_bhaavarth_hindi",
-            "natural_key": f"{secondary.publication_natural_key}:{norm_gatha_num}:{_BHAAVARTH}:hi",
-            "gatha_teeka_bhaavarth_natural_key": f"{secondary.publication_natural_key}:{norm_gatha_num}:{_BHAAVARTH}:hi",
+            "natural_key": f"{secondary.publication_natural_key}:{mongo_seg}:{_BHAAVARTH}:hi",
+            "gatha_teeka_bhaavarth_natural_key": f"{secondary.publication_natural_key}:{mongo_seg}:{_BHAAVARTH}:hi",
             "publication_natural_key": secondary.publication_natural_key,
-            "gatha_teeka_natural_key": f"{secondary.natural_key}:{norm_gatha_num}",
+            "gatha_teeka_natural_key": f"{secondary.natural_key}:{mongo_seg}",
             "publisher_id": secondary.publisher_id,
             "gatha_number": norm_gatha_num,
             "text": _lang_text("hin", g.secondary_teeka.gatha_teeka_bhaavarth_md),
         })
     if secondary and g.secondary_teeka and g.secondary_teeka.gatha_teeka_bhaavarth_shortfont:
-        bhaavarth_j_nk = f"{secondary.publication_natural_key}:{_GATHA}:{_TEEKA}:{_BHAAVARTH}:{norm_gatha_num}"
+        bhaavarth_j_suffix = _insert_trailing_label(
+            _insert_trailing_label(gatha_suffix, _TEEKA), _BHAAVARTH
+        )
+        bhaavarth_j_nk = f"{secondary.publication_natural_key}:{bhaavarth_j_suffix}"
         out["gatha_teeka_bhaavarth_shortfont"].append({
             "collection": "gatha_teeka_bhaavarth_shortfont",
             "natural_key": f"{bhaavarth_j_nk}:shortfont",
@@ -704,14 +753,18 @@ def _build_neo4j(
 
     # Per-gatha nodes and edges
     for g in result.gathas:
-        gatha_nk = _gatha_nk(shastra_nk, g.gatha_number)
-        norm_gatha_num = _norm_num(g.gatha_number)
+        g_suffix = _gatha_suffix(shastra_nk, g)
+        gatha_nk = f"{shastra_nk}:{g_suffix}"
+        gatha_number_prop = _gatha_mongo_segment(shastra_nk, g)
 
-        nodes.append(_neo4j_node("Gatha", gatha_nk, {
+        gatha_props: dict[str, Any] = {
             "shastra_natural_key": shastra_nk,
-            "gatha_number": norm_gatha_num,
+            "gatha_number": gatha_number_prop,
             "heading_hi": g.heading_hi,
-        }))
+        }
+        if g.identifier_values:
+            gatha_props["identifier_values"] = json.dumps(g.identifier_values, ensure_ascii=False)
+        nodes.append(_neo4j_node("Gatha", gatha_nk, gatha_props))
         if g.heading_hi:
             edges.append(_neo4j_edge(
                 "MENTIONS_TOPIC",
@@ -721,8 +774,8 @@ def _build_neo4j(
             ))
 
         if g.primary_teeka is not None:
-            # GathaTeeka node (primary): {teeka_nk}:गाथा:टीका:{gatha_num}
-            gt_nk = f"{primary.natural_key}:{_GATHA}:{_TEEKA}:{norm_gatha_num}"
+            # GathaTeeka NK: {teeka_nk}:{gatha_suffix_with_teeka_label}
+            gt_nk = f"{primary.natural_key}:{_insert_trailing_label(g_suffix, _TEEKA)}"
             nodes.append(_neo4j_node("GathaTeeka", gt_nk, {
                 "teeka_natural_key": primary.natural_key,
                 "gatha_natural_key": gatha_nk,
@@ -730,8 +783,11 @@ def _build_neo4j(
             edges.append(_neo4j_edge("IN_TEEKA", "GathaTeeka", gt_nk, "Teeka", primary.natural_key))
 
             if g.primary_teeka.gatha_teeka_bhaavarth_md:
-                # GathaTeekaBhaavarth node: {pub_nk}:गाथा:टीका:भावार्थ:{gatha_num}
-                gtb_nk = f"{primary.publication_natural_key}:{_GATHA}:{_TEEKA}:{_BHAAVARTH}:{norm_gatha_num}"
+                # GathaTeekaBhaavarth NK: {pub_nk}:{gatha_suffix_with_teeka_and_bhaavarth_labels}
+                gtb_suffix = _insert_trailing_label(
+                    _insert_trailing_label(g_suffix, _TEEKA), _BHAAVARTH
+                )
+                gtb_nk = f"{primary.publication_natural_key}:{gtb_suffix}"
                 nodes.append(_neo4j_node("GathaTeekaBhaavarth", gtb_nk, {
                     "publication_natural_key": primary.publication_natural_key,
                     "gatha_natural_key": gatha_nk,
@@ -761,7 +817,7 @@ def _build_neo4j(
 
         if secondary and g.secondary_teeka is not None:
             # GathaTeeka node (secondary)
-            gt_j_nk = f"{secondary.natural_key}:{_GATHA}:{_TEEKA}:{norm_gatha_num}"
+            gt_j_nk = f"{secondary.natural_key}:{_insert_trailing_label(g_suffix, _TEEKA)}"
             nodes.append(_neo4j_node("GathaTeeka", gt_j_nk, {
                 "teeka_natural_key": secondary.natural_key,
                 "gatha_natural_key": gatha_nk,
@@ -769,7 +825,10 @@ def _build_neo4j(
             edges.append(_neo4j_edge("IN_TEEKA", "GathaTeeka", gt_j_nk, "Teeka", secondary.natural_key))
 
             if g.secondary_teeka.gatha_teeka_bhaavarth_md:
-                gtb_j_nk = f"{secondary.publication_natural_key}:{_GATHA}:{_TEEKA}:{_BHAAVARTH}:{norm_gatha_num}"
+                gtb_j_suffix = _insert_trailing_label(
+                    _insert_trailing_label(g_suffix, _TEEKA), _BHAAVARTH
+                )
+                gtb_j_nk = f"{secondary.publication_natural_key}:{gtb_j_suffix}"
                 nodes.append(_neo4j_node("GathaTeekaBhaavarth", gtb_j_nk, {
                     "publication_natural_key": secondary.publication_natural_key,
                     "gatha_natural_key": gatha_nk,
@@ -824,8 +883,8 @@ def _build_teeka_chapters(
             "teeka_natural_key": primary.natural_key,
             "chapter_number": adhikaar_num,
             "name": _lang_text("hin", first.adhikaar_hi) if first.adhikaar_hi else [],
-            "start_gatha_natural_key": _gatha_nk(first.shastra_natural_key, first.gatha_number),
-            "end_gatha_natural_key": _gatha_nk(last.shastra_natural_key, last.gatha_number),
+            "start_gatha_natural_key": _gatha_nk(first.shastra_natural_key, first),
+            "end_gatha_natural_key": _gatha_nk(last.shastra_natural_key, last),
         })
     return chapters
 
@@ -899,15 +958,22 @@ def build_envelope(result: ShastraParseResult, cfg: NJConfig) -> dict[str, Any]:
         "author_natural_key": cfg.shastra.author.natural_key,
     })
 
+    # Build gatha lookup by raw gatha_number for secondary kalash preceding-gatha resolve
+    gatha_by_number = {g.gatha_number: g for g in result.gathas}
+
     for g in result.gathas:
-        gatha_nk = _gatha_nk(g.shastra_natural_key, g.gatha_number)
+        gatha_nk = _gatha_nk(g.shastra_natural_key, g)
+        pg_gatha_number = _gatha_mongo_segment(g.shastra_natural_key, g)
+        pg_adhikaar = g.identifier_values if g.identifier_values else (
+            _lang_text("hin", g.adhikaar_hi) if g.adhikaar_hi else []
+        )
         ww["postgres"]["gathas"].append({
             "table": "gathas",
             "natural_key": gatha_nk,
             "shastra_natural_key": g.shastra_natural_key,
-            "gatha_number": _norm_num(g.gatha_number),
+            "gatha_number": pg_gatha_number,
             "adhikaar_number": g.adhikaar_number,
-            "adhikaar": _lang_text("hin", g.adhikaar_hi) if g.adhikaar_hi else [],
+            "adhikaar": pg_adhikaar,
             "heading": _lang_text("hin", g.heading_hi) if g.heading_hi else [],
             "prakrit_verse_marker": g.prakrit_verse_marker,
         })
@@ -930,7 +996,7 @@ def build_envelope(result: ShastraParseResult, cfg: NJConfig) -> dict[str, Any]:
         nk_suffix = nk.rsplit(":", 1)[1]
         gatha_ref = next(
             (
-                _gatha_nk(g.shastra_natural_key, g.gatha_number)
+                _gatha_nk(g.shastra_natural_key, g)
                 for g in result.gathas
                 if g.primary_teeka and any(
                     (k.verse_number or str(k.global_kalash_index)) == nk_suffix
@@ -955,9 +1021,15 @@ def build_envelope(result: ShastraParseResult, cfg: NJConfig) -> dict[str, Any]:
                 "teeka_natural_key": secondary.natural_key,
                 "kalash_number": _norm_num(k.kalash_number),
                 "gatha_natural_key": (
-                    _gatha_nk(result.shastra_natural_key, k.preceding_primary_gatha_number)
-                    if k.preceding_primary_gatha_number
-                    else None
+                    _gatha_nk(
+                        result.shastra_natural_key,
+                        gatha_by_number[k.preceding_primary_gatha_number],
+                    )
+                    if k.preceding_primary_gatha_number and k.preceding_primary_gatha_number in gatha_by_number
+                    else (
+                        f"{result.shastra_natural_key}:{_GATHA}:{_norm_num(k.preceding_primary_gatha_number)}"
+                        if k.preceding_primary_gatha_number else None
+                    )
                 ),
             })
             ms = _build_mongo_for_secondary_kalash(k, secondary)

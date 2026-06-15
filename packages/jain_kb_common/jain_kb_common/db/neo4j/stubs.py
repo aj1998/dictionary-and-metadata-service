@@ -19,7 +19,7 @@ def _sources_clause(var: str, param: str = "src") -> str:
 _STUB_PROPS_BY_LABEL: dict[str, list[str]] = {
     "Keyword": ["display_text"],
     "Topic": ["display_text_hi", "topic_path", "parent_keyword_natural_key"],
-    "Gatha": ["shastra_natural_key", "gatha_number"],
+    "Gatha": ["shastra_natural_key", "gatha_number", "identifier_values"],
     "GathaTeeka": ["shastra_natural_key", "teeka_natural_key", "gatha_number"],
     "GathaTeekaBhaavarth": ["shastra_natural_key", "teeka_natural_key", "publisher_id", "gatha_number"],
     "Kalash": ["teeka_natural_key", "kalash_number"],

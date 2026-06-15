@@ -79,6 +79,8 @@ Implication for graph consumers: any traversal that aggregates `MENTIONS_TOPIC` 
 
 The canonical Neo4j `natural_key` for citation-target labels (Gatha-family + Kalash-family + Page) is built by `workers/ingestion/jainkosh/reference_edges.py` and used as the endpoint of `MENTIONS_TOPIC` / `CONTAINS_DEFINITION` / `MENTIONS_TABLE` edges:
 
+### Legacy shastras (single `gatha_number` field — समयसार, प्रवचनसार, …)
+
 | Label | Canonical nk format | Example |
 |---|---|---|
 | `Gatha` | `{shastra}:गाथा:{n}` | `समयसार:गाथा:8` |
@@ -87,6 +89,24 @@ The canonical Neo4j `natural_key` for citation-target labels (Gatha-family + Kal
 | `Kalash` | `{shastra}:{teeka}:कलश:{k}` | `समयसार:आत्मख्याति:कलश:8` |
 | `KalashBhaavarth` | `{shastra}:{teeka}:{publisher_id}:कलश:भावार्थ:{k}` | — |
 | `Page` | `{shastra}:{teeka}:{publisher_id}[:पुस्तक:{pu}]:पृष्ठ:{p}` — the `:पुस्तक:{pu}` segment is inserted only when the source reference resolves a `पुस्तक` field (multi-volume shastras like धवला, कषायपाहुड़, जयधवला). Single-pustak shastras omit it. | `धवला:टीका:dhavala_pub:पुस्तक:8:पृष्ठ:282` / `समयसार:आत्मख्याति:राजचंद्र:पृष्ठ:42` |
+
+### Compound identifiers (shastras with `gatha_identifier` in `shastra.json`)
+
+Some shastras identify each gatha by more than one field (e.g. **परमात्मप्रकाश** uses `अधिकार` + `गाथा`). When `gatha_identifier` is set, the NK uses a *compound suffix* — `<field>:<value>` pairs in declaration order, where the field name has the shastra-name prefix stripped:
+
+| Label | Compound nk format | Example |
+|---|---|---|
+| `Gatha` | `{shastra}:अधिकार:{a}:गाथा:{n}` | `परमात्मप्रकाश:अधिकार:1:गाथा:2` |
+| `GathaTeeka` | `{shastra}:{teeka}:अधिकार:{a}:गाथा:टीका:{n}` | `परमात्मप्रकाश:टीका:अधिकार:1:गाथा:टीका:2` |
+| `GathaTeekaBhaavarth` | `{shastra}:{teeka}:{publisher_id}:अधिकार:{a}:गाथा:टीका:भावार्थ:{n}` | `परमात्मप्रकाश:टीका:0:अधिकार:1:गाथा:टीका:भावार्थ:2` |
+| `Kalash` | `{shastra}:{teeka}:अधिकार:{a}:कलश:{k}` *(when `kalash_identifier` set)* | — |
+| `KalashBhaavarth` | `{shastra}:{teeka}:{publisher_id}:अधिकार:{a}:कलश:भावार्थ:{k}` *(when `kalash_identifier` set)* | — |
+
+The compound suffix is assembled by `jain_kb_common.shastra_identifiers.build_compound_suffix` using the `identifier_values` dict emitted by the NJ parser. The `gatha_identifier` / `kalash_identifier` fields in `shastra.json` are the single source of truth.
+
+Compound `Gatha` nodes also carry an `identifier_values` JSON string prop (e.g. `{"अधिकार":"1","परमात्मप्रकाशगाथा":"2"}`) for downstream consumers.
+
+> **Note**: JainKosh reference resolution still emits **legacy** NKs for परमात्मप्रकाश until Phase 4. Until then, JK references land on stub Gatha nodes with legacy NKs (`परमात्मप्रकाश:गाथा:1`) — these are inert stubs and do not pollute the compound nodes.
 
 **⚠ Edge case — Mongo text-doc `natural_key` ≠ Neo4j node `natural_key`.** The NJ ingester (`workers/ingestion/nj/envelope.py`) writes the gatha-text Mongo documents (`gatha_teeka_sanskrit`, `gatha_teeka_bhaavarth_hindi`, etc.) with a `natural_key` that identifies the **text document**, not the abstract entity node:
 

@@ -798,3 +798,147 @@ def test_tables_idempotency_contract_present():
     assert c["conflict_key"] == ["natural_key"]
     assert c["on_conflict"] == "do_update"
     assert "table_type" in c["fields_replace"]
+
+
+# ---------------------------------------------------------------------------
+# Phase 3 — compound natural keys
+# ---------------------------------------------------------------------------
+
+_PMP = "परमात्मप्रकाश"  # compound shastra (gatha_identifier = "अधिकार,परमात्मप्रकाशगाथा")
+
+
+def _make_pmp_result(gathas=None, secondary_kalashes=None):
+    return ShastraParseResult(
+        shastra_natural_key=_PMP,
+        gathas=gathas or [],
+        secondary_kalashes=secondary_kalashes or [],
+        total_html_files_processed=1,
+        parser_version="1.0.0",
+        parsed_at="2026-01-01T00:00:00Z",
+    )
+
+
+def _make_pmp_gatha(**kwargs) -> GathaExtract:
+    defaults = dict(
+        shastra_natural_key=_PMP,
+        gatha_number="1-002",
+        page_html_id="1-002",
+        html_filename="1-002.html",
+        adhikaar_hi="परमात्म-अधिकार",
+        adhikaar_number=1,
+        heading_hi="परमात्मा का स्वरूप",
+        identifier_values={"अधिकार": "1", "परमात्मप्रकाशगाथा": "2"},
+    )
+    defaults.update(kwargs)
+    return GathaExtract(**defaults)
+
+
+def _pmp_cfg():
+    return load_config_for_shastra("parmatmaprakash")
+
+
+def test_gatha_nk_compound_shape():
+    """परमात्मप्रकाश fixture produces compound NK: परमात्मप्रकाश:अधिकार:1:गाथा:2."""
+    cfg = _pmp_cfg()
+    g = _make_pmp_gatha()
+    result = _make_pmp_result(gathas=[g])
+    ww = build_envelope(result, cfg)["would_write"]
+
+    pg_gatha = ww["postgres"]["gathas"][0]
+    assert pg_gatha["natural_key"] == f"{_PMP}:अधिकार:1:गाथा:2"
+    assert pg_gatha["gatha_number"] == "अधिकार:1:गाथा:2"
+
+    neo4j_gatha = next(n for n in ww["neo4j"]["nodes"] if n["label"] == "Gatha")
+    assert neo4j_gatha["key"] == f"{_PMP}:अधिकार:1:गाथा:2"
+    assert neo4j_gatha["props"]["gatha_number"] == "अधिकार:1:गाथा:2"
+
+
+def test_gatha_teeka_nk_inserts_label_before_value():
+    """GathaTeeka NK for compound shastra: …:अधिकार:1:गाथा:टीका:2."""
+    cfg = _pmp_cfg()
+    g = _make_pmp_gatha(primary_teeka=PrimaryTeeka(gatha_teeka_san="अथ सूत्रावतार"))
+    result = _make_pmp_result(gathas=[g])
+    ww = build_envelope(result, cfg)["would_write"]
+
+    gt_nodes = [n for n in ww["neo4j"]["nodes"] if n["label"] == "GathaTeeka"]
+    assert len(gt_nodes) == 1
+    assert gt_nodes[0]["key"] == f"{_PMP}:टीका:अधिकार:1:गाथा:टीका:2"
+
+
+def test_gatha_teeka_bhaavarth_nk_compound():
+    """GathaTeekaBhaavarth NK for compound shastra: …:अधिकार:1:गाथा:टीका:भावार्थ:2."""
+    cfg = _pmp_cfg()
+    g = _make_pmp_gatha(
+        primary_teeka=PrimaryTeeka(gatha_teeka_bhaavarth_md="भावार्थ text")
+    )
+    result = _make_pmp_result(gathas=[g])
+    ww = build_envelope(result, cfg)["would_write"]
+
+    gtb_nodes = [n for n in ww["neo4j"]["nodes"] if n["label"] == "GathaTeekaBhaavarth"]
+    assert len(gtb_nodes) == 1
+    assert gtb_nodes[0]["key"] == f"{_PMP}:टीका:0:अधिकार:1:गाथा:टीका:भावार्थ:2"
+
+
+def test_legacy_shastra_nk_unchanged():
+    """समयसार (no gatha_identifier) produces identical legacy NKs — no regression."""
+    cfg = _cfg()
+    g = _make_gatha(gatha_number="009", heading_hi="test")
+    result = _make_result(gathas=[g])
+    ww = build_envelope(result, cfg)["would_write"]
+
+    assert ww["postgres"]["gathas"][0]["natural_key"] == "समयसार:गाथा:9"
+    assert ww["postgres"]["gathas"][0]["gatha_number"] == "9"
+    neo4j_gatha = next(n for n in ww["neo4j"]["nodes"] if n["label"] == "Gatha")
+    assert neo4j_gatha["key"] == "समयसार:गाथा:9"
+    assert neo4j_gatha["props"]["gatha_number"] == "9"
+    assert "identifier_values" not in neo4j_gatha["props"]
+
+
+def test_mongo_natural_key_compound():
+    """Mongo gatha_teeka_sanskrit NK carries compound suffix for परमात्मप्रकाश."""
+    cfg = _pmp_cfg()
+    g = _make_pmp_gatha(primary_teeka=PrimaryTeeka(gatha_teeka_san="अथ सूत्रावतार"))
+    result = _make_pmp_result(gathas=[g])
+    ww = build_envelope(result, cfg)["would_write"]
+
+    san_docs = ww["mongo"]["gatha_teeka_sanskrit"]
+    assert len(san_docs) == 1
+    expected_nk = f"{_PMP}:टीका:अधिकार:1:गाथा:2:टीका:san"
+    assert san_docs[0]["natural_key"] == expected_nk
+    assert san_docs[0]["gatha_teeka_natural_key"] == f"{_PMP}:टीका:अधिकार:1:गाथा:2"
+
+
+def test_hierarchy_lazy_stub_props_carry_identifier_values():
+    """Compound Gatha node in Neo4j carries identifier_values as JSON string."""
+    import json as _json
+    cfg = _pmp_cfg()
+    g = _make_pmp_gatha()
+    result = _make_pmp_result(gathas=[g])
+    ww = build_envelope(result, cfg)["would_write"]
+
+    gatha_node = next(n for n in ww["neo4j"]["nodes"] if n["label"] == "Gatha")
+    assert "identifier_values" in gatha_node["props"]
+    parsed = _json.loads(gatha_node["props"]["identifier_values"])
+    assert parsed == {"अधिकार": "1", "परमात्मप्रकाशगाथा": "2"}
+
+
+def test_idempotency_re_apply_compound_envelope():
+    """Building the envelope twice from the same extract produces the same NKs (MERGE-safe)."""
+    cfg = _pmp_cfg()
+    g = _make_pmp_gatha(
+        primary_teeka=PrimaryTeeka(
+            gatha_teeka_san="अथ सूत्रावतार",
+            gatha_teeka_bhaavarth_md="भावार्थ",
+        ),
+    )
+    result = _make_pmp_result(gathas=[g])
+    ww1 = build_envelope(result, cfg)["would_write"]
+    ww2 = build_envelope(result, cfg)["would_write"]
+
+    # All natural_keys in postgres and mongo should be identical across two calls
+    assert ww1["postgres"]["gathas"] == ww2["postgres"]["gathas"]
+    assert ww1["mongo"]["gatha_teeka_sanskrit"] == ww2["mongo"]["gatha_teeka_sanskrit"]
+    assert ww1["mongo"]["gatha_teeka_bhaavarth_hindi"] == ww2["mongo"]["gatha_teeka_bhaavarth_hindi"]
+    neo4j_keys_1 = {n["key"] for n in ww1["neo4j"]["nodes"]}
+    neo4j_keys_2 = {n["key"] for n in ww2["neo4j"]["nodes"]}
+    assert neo4j_keys_1 == neo4j_keys_2

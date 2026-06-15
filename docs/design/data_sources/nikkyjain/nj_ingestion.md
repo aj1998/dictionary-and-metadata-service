@@ -349,9 +349,54 @@ Total idempotency contracts: **30** (was 27 before Phase 3).
 
 ---
 
+## Compound identifier flow (Phase 3)
+
+Some shastras declare a `gatha_identifier` in `parser_configs/_manual_configs/shastra.json` (e.g. **परमात्मप्रकाश** with `"अधिकार,परमात्मप्रकाशगाथा"`). When present, the NJ envelope builder emits compound natural keys instead of the legacy `{shastra}:गाथा:{n}` shape.
+
+### NK assembly
+
+`workers/ingestion/nj/envelope.py` uses three helpers:
+
+| Helper | Returns | Use |
+|---|---|---|
+| `_gatha_suffix(shastra_nk, gatha)` | `"अधिकार:1:गाथा:2"` (compound) or `"गाथा:8"` (legacy) | Neo4j NK, shortfont NK |
+| `_gatha_nk(shastra_nk, gatha)` | full NK string | Everywhere a Gatha NK is needed |
+| `_gatha_mongo_segment(shastra_nk, gatha)` | `"अधिकार:1:गाथा:2"` (compound) or `"9"` (legacy bare number) | Mongo doc NKs (preserves backward compat) |
+| `_insert_trailing_label(suffix, label)` | inserts label before last value | GathaTeeka / GathaTeekaBhaavarth / Kalash/BhaavarthNKs |
+
+### Postgres `gathas.gatha_number`
+
+For compound shastras, `gatha_number` stores the full compound suffix (e.g. `अधिकार:1:गाथा:2`). For legacy shastras it continues storing the normalised bare number (`8`). The `adhikaar` JSONB column stores the raw `identifier_values` dict for compound shastras; for legacy it stores `[{lang, script, text}]` as before.
+
+### Neo4j `Gatha` node
+
+Compound Gatha nodes carry an additional `identifier_values` prop (JSON string) e.g. `{"अधिकार":"1","परमात्मप्रकाशगाथा":"2"}`. This prop is in the `_STUB_PROPS_BY_LABEL["Gatha"]` allowlist in `stubs.py`.
+
+### Mongo NK vs Neo4j NK
+
+The Mongo NK ≠ Neo4j NK caveat (see `data_model_graph.md`) persists. Mongo NKs use `_gatha_mongo_segment` (bare number for legacy, compound suffix for compound), while Neo4j NKs always include the label (e.g. `गाथा`). This is intentional and documented; Phase 5 (API/UI) will expose the compound NK in routes.
+
+### JainKosh temporary divergence
+
+Until Phase 4, JainKosh reference resolution emits legacy NKs for परमात्मप्रकाश (e.g. `परमात्मप्रकाश:गाथा:1`). These land on inert stub nodes and do not merge with the compound NJ nodes. Phase 4 closes this gap.
+
+### Tests
+
+- 7 new tests in `tests/workers/nj/test_envelope.py` cover:
+  - Compound Gatha NK shape (`test_gatha_nk_compound_shape`)
+  - GathaTeeka NK inserts label before value (`test_gatha_teeka_nk_inserts_label_before_value`)
+  - GathaTeekaBhaavarth NK compound (`test_gatha_teeka_bhaavarth_nk_compound`)
+  - Legacy शास्त्र NK unchanged (`test_legacy_shastra_nk_unchanged`)
+  - Mongo gatha_teeka_sanskrit NK compound (`test_mongo_natural_key_compound`)
+  - Lazy Gatha stub carries `identifier_values` (`test_hierarchy_lazy_stub_props_carry_identifier_values`)
+  - Idempotency: apply twice → same output (`test_idempotency_re_apply_compound_envelope`)
+
+---
+
 ## Known open items
 
 - **Cross-source Gatha NK (NJ × JK)**: NJ emits `समयसार:गाथा:8`; JK lazy GathaTeeka stubs may still derive `समयसार:8`. JK parser must adopt the `गाथा` label for cross-source MERGE to work.
+- **परमात्मप्रकाश JK references**: until Phase 4 ships, JK references to परमात्मप्रकाश gathas land on legacy-NK stub nodes. See Phase 4 spec.
 - **`ingest_nj_apply.py` script**: specified in `§5` of the design doc; a thin async wrapper around `apply.py` that reads env vars and accepts `--dry-run`/`--gatha` flags. Status: partially wired; verify before production use.
 - **DB integration tests**: `test_apply_unit.py` is unit-based. Live DB integration tests are deferred; add under `--run-db-tests` flag when CI DB environment is available.
 - **Golden files**: regenerate with `python -m workers.ingestion.nj.cli parse --config parser_configs/nj/samaysaar.yaml --format golden` (requires `NIKKYJAIN_LOCAL_PATH`).
