@@ -203,11 +203,13 @@ Full NJ suite **must remain green** (currently ~105 tests).
 
 ## 7. Implementation notes / done-checklist
 
-- [ ] `parse_myitem.py` accepts both optgroup and bare forms; tests added
-- [ ] `_split_leading_adhikaar` covers 2-part / 3-part / no-prefix cases
-- [ ] `_expand_gatha_numbers` confirmed working on canonical (stripped) numbers
-- [ ] `GathaExtract.identifier_values` / `KalashExtract.identifier_values` added
-- [ ] `NJShastra.adhikaars` config wired; parmatmaprakash.yaml updated
+- [x] `parse_myitem.py` accepts both optgroup and bare forms; tests added
+- [x] `_split_leading_adhikaar` covers 2-part / 3-part / no-prefix cases
+      **Implementation note**: heuristic is `len(prefix) < len(trailing_first_segment)` to
+      avoid misclassifying gatha ranges like `"009-010"` as an adhikaar-prefixed value.
+- [x] `_expand_gatha_numbers` confirmed working on canonical (stripped) numbers
+- [x] `GathaExtract.identifier_values` / `KalashExtract.identifier_values` added
+- [x] `NJShastra.adhikaars` config wired; parmatmaprakash.yaml updated
 - [ ] CLI golden run produces non-empty `gathas[]` with zero `unclassified` warnings
 - [ ] Update `docs/design/data_sources/nikkyjain/nj_parser.md`:
       add a top-level **Compound identifier** section explaining the

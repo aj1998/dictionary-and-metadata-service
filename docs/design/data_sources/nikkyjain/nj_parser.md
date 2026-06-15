@@ -297,6 +297,73 @@ Full NJ suite: **101 tests green**.
 
 ---
 
+## Compound identifier support (Phase 2 — implemented 2026-06-16)
+
+Some shastras (e.g. **परमात्मप्रकाश**) identify each gatha by more than one field
+(`अधिकार` + `परमात्मप्रकाशगाथा`). The compound identifier scheme is declared in
+`parser_configs/_manual_configs/shastra.json` via the `gatha_identifier` key (comma-separated
+field list). When `gatha_identifier` is absent, behaviour is unchanged for that shastra.
+
+### Bare `mySel.append` format
+
+परमात्मप्रकाश's `myItem.js` has **no `<optgroup>` wrapper** — options are appended directly:
+
+```js
+mySel.append("<option value='1-001.html'><b>1-001</b> - आत्मस्वरूप</option>")
+```
+
+A new regex `_OPTION_BARE_RE` in `parse_myitem.py` matches this form. The existing
+`_OPTION_RE` (optgroup path) is unchanged.
+
+### `_split_leading_adhikaar`
+
+Gatha-number values like `"1-001"` and `"1-019-021"` carry an adhikaar prefix. The helper
+`_split_leading_adhikaar(value)` strips it and returns `(adhikaar_int, canonical_gatha_str)`.
+
+**Heuristic**: the prefix is only stripped when `len(prefix_digits) < len(first_trailing_segment)`.
+This distinguishes `"1-001"` (1 < 3 → split) from `"009-010"` (3 == 3 → keep as range).
+
+Applied in both `_OPTION_RE` and `_OPTION_BARE_RE` paths. For the optgroup path, the
+optgroup-derived `current_adhikaar_number` takes precedence over the value-parsed `adh_num`.
+
+### `NJAdhikaar` / `ShastraConfig.adhikaars`
+
+`config.py` now accepts an optional `adhikaars: list[NJAdhikaar]` in the `shastra:` block.
+After `parse_myitem` returns its indexes, the orchestrator calls `_enrich_adhikaar_hi` to
+fill in the Hindi adhikaar name from config when the index entry doesn't carry one (which
+happens in the bare-append layout since there are no optgroup labels).
+
+परमात्मप्रकाश config (`parser_configs/nj/parmatmaprakash.yaml`) declares:
+```yaml
+adhikaars:
+  - { number: 1, name_hi: "परमात्म-अधिकार" }
+  - { number: 2, name_hi: "मोक्ष-अधिकार" }
+```
+
+### `identifier_values` field
+
+`GathaExtract.identifier_values: dict[str, str]` and `KalashExtract.identifier_values`
+carry the structured compound identifier for each extract. Built by `_build_identifier_values`
+in `orchestrator.py` after page parsing:
+
+```python
+{"अधिकार": "1", "परमात्मप्रकाशगाथा": "001"}
+```
+
+Fields are declared in declaration order from `shastra.json`. When `gatha_identifier` is
+absent (single-identifier shastra), `identifier_values` is `{}`.
+
+Phase 3 (envelope) uses these values to build the compound NK suffix.
+
+### Known edge case update
+
+| Case | Handling |
+|---|---|
+| परमात्मप्रकाश bare `mySel.append` (no optgroups) | `_OPTION_BARE_RE` in `parse_myitem._parse_block`; adhikaar number extracted from value prefix via `_split_leading_adhikaar` |
+| Gatha-range value vs adhikaar-prefix value (`009-010` vs `1-001`) | `_split_leading_adhikaar` only strips prefix when its digit width is strictly less than the first trailing segment |
+
+---
+
 ## Known open items
 
 - `ingest_nj_apply.py` script (§5 of ingestion doc) is specified but not yet wired as a standalone CLI — ingestion is done via `apply.py` + `envelope.py` + manual invocation.

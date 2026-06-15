@@ -7,6 +7,9 @@ shastra:
     natural_key: योगींदुदेव
     display_name_hi: योगींदुदेव
     kind: acharya
+  adhikaars:
+    - { number: 1, name_hi: "परमात्म-अधिकार" }
+    - { number: 2, name_hi: "मोक्ष-अधिकार" }
   teekas:
     - natural_key: परमात्मप्रकाश:टीका
       teekakar_natural_key: ब्रह्मदेव_सूरि

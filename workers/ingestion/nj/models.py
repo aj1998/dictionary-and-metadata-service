@@ -93,6 +93,7 @@ class GathaExtract(BaseModel):
     heading_hi: Optional[str] = None       # option text from myItem.js
     is_combined_page: bool = False
     related_gatha_numbers: list[str] = Field(default_factory=list)
+    identifier_values: dict[str, str] = Field(default_factory=dict)  # compound id fields → values
 
     # Gatha content
     prakrit_text: Optional[str] = None
@@ -119,6 +120,7 @@ class KalashExtract(BaseModel):
     html_filename: str
     heading_hi: Optional[str] = None
     preceding_primary_gatha_number: Optional[str] = None
+    identifier_values: dict[str, str] = Field(default_factory=dict)  # compound id fields → values
 
     prakrit_text: Optional[str] = None
     anyavartha: Optional[AnyavarthaItem] = None

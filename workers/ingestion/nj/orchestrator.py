@@ -2,15 +2,53 @@
 
 from __future__ import annotations
 
+import logging
 from datetime import datetime, timezone
 
 from bs4 import BeautifulSoup
 
+from jain_kb_common.shastra_identifiers import get_identifier_fields
+
 from .classify_pages import classify_page, preceding_primary_gatha
 from .config import NJConfig
 from .models import GathaExtract, KalashExtract, ShastraParseResult
-from .parse_myitem import parse_myitem
+from .parse_myitem import GathaIndexEntry, parse_myitem
 from .parse_page import parse_primary_page, parse_secondary_kalash_page
+
+logger = logging.getLogger(__name__)
+
+
+def _build_identifier_values(
+    cfg: NJConfig,
+    adhikaar_number: int | None,
+    gatha_number_str: str,
+    *,
+    kind: str = "gatha",
+) -> dict[str, str]:
+    """Build compound identifier field→value map for a single gatha/kalash."""
+    fields = get_identifier_fields(cfg.shastra.natural_key, kind) or []
+    if not fields:
+        return {}
+    values: dict[str, str] = {}
+    for f in fields[:-1]:
+        if f == "अधिकार" and adhikaar_number is not None:
+            values[f] = str(adhikaar_number)
+    values[fields[-1]] = gatha_number_str
+    return values
+
+
+def _enrich_adhikaar_hi(cfg: NJConfig, index: dict[str, GathaIndexEntry]) -> None:
+    """Fill in adhikaar_hi from config.adhikaars when the index didn't carry one."""
+    if not cfg.shastra.adhikaars:
+        return
+    for entry in index.values():
+        if not entry.adhikaar_hi and entry.adhikaar_number is not None:
+            name = next(
+                (a.name_hi for a in cfg.shastra.adhikaars if a.number == entry.adhikaar_number),
+                "",
+            )
+            if name:
+                entry.adhikaar_hi = name
 
 
 def parse_shastra(
@@ -26,6 +64,9 @@ def parse_shastra(
     batch_limit: max number of eligible pages to process (None = all remaining pages).
     """
     primary_index, secondary_index = parse_myitem(cfg)
+
+    _enrich_adhikaar_hi(cfg, primary_index)
+    _enrich_adhikaar_hi(cfg, secondary_index)
 
     html_dir = cfg.input.resolved_html_dir
     all_files = sorted(f.name for f in html_dir.iterdir() if f.is_file() and f.name.endswith(".html"))
@@ -57,20 +98,33 @@ def parse_shastra(
                 global_kalash_start=global_kalash_counter + 1,
             )
             global_kalash_counter += delta
+            gathas = [
+                g.model_copy(update={
+                    "identifier_values": _build_identifier_values(cfg, g.adhikaar_number, g.gatha_number),
+                })
+                for g in gathas
+            ]
             all_gathas.extend(gathas)
         elif kind == "secondary_kalash":
             # preceding primary reference is computed in full eligible ordering,
             # not only within the current batch window.
             preceding = preceding_primary_gatha(filename, eligible_files, primary_index)
-            secondary_kalashes.extend(
-                parse_secondary_kalash_page(
-                    soup,
-                    filename,
-                    preceding,
-                    cfg,
-                    secondary_entry=secondary_index.get(filename),
-                )
+            kalashes = parse_secondary_kalash_page(
+                soup,
+                filename,
+                preceding,
+                cfg,
+                secondary_entry=secondary_index.get(filename),
             )
+            kalashes = [
+                k.model_copy(update={
+                    "identifier_values": _build_identifier_values(
+                        cfg, None, k.kalash_number, kind="kalash"
+                    ),
+                })
+                for k in kalashes
+            ]
+            secondary_kalashes.extend(kalashes)
         else:
             warnings.append(f"unclassified page: {filename}")
 

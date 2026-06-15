@@ -12,6 +12,11 @@ from pydantic import BaseModel, Field
 _NJ_CONFIG_DIR = Path(__file__).parents[3] / "parser_configs" / "nj"
 
 
+class NJAdhikaar(BaseModel):
+    number: int
+    name_hi: str
+
+
 class AuthorConfig(BaseModel):
     natural_key: str
     display_name_hi: str
@@ -32,6 +37,7 @@ class ShastraConfig(BaseModel):
     title_hi: str
     author: AuthorConfig
     teekas: list[TeekaConfig] = Field(default_factory=list)
+    adhikaars: list[NJAdhikaar] = Field(default_factory=list)
 
     @property
     def primary_teeka(self) -> Optional[TeekaConfig]:
