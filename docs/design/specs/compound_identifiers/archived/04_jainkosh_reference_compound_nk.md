@@ -1,8 +1,8 @@
 # Phase 4 — JainKosh reference parser: compound NK resolution
 
-> **Read first**: phases [`00`](./00_compound_identifiers_overview.md),
-> [`01`](./01_shastra_json_and_config_loader.md),
-> [`03`](./03_envelope_and_apply_compound_nk.md).
+> **Read first**: phases [`00`](../00_compound_identifiers_overview.md),
+> [`01`](../01_shastra_json_and_config_loader.md),
+> [`03`](../03_envelope_and_apply_compound_nk.md).
 >
 > **Goal**: when a JainKosh page cites a परमात्मप्रकाश gatha — e.g.
 > `(प.प्र./मू./1/19/...)` — the reference parser must resolve it to the

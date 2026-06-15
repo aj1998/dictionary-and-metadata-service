@@ -71,6 +71,38 @@ Current stub-to-collection routing:
 | `Kalash` | `hindi_gatha`, `hindi_text` | `kalash_hindi` |
 | `KalashBhaavarth` | `hindi_text` | `kalash_bhaavarth_hindi` |
 
+### Compound-identifier shastras (परमात्मप्रकाश and similar)
+
+For shastras declared with a `gatha_identifier` in
+[`shastra.json`](../../../parser_configs/_manual_configs/shastra.json) — see the
+[Compound Identifiers wiki](../specs/compound_identifiers/README.md) — the Gatha
+NK carries the full compound suffix
+(`परमात्मप्रकाश:अधिकार:1:गाथा:001`). The resolver derives the per-gatha Mongo
+segment via `_mongo_seg_from_gatha_nk`, which mirrors
+`workers/ingestion/nj/envelope._gatha_mongo_segment`:
+
+- compound shastra → strip the `{shastra_nk}:` prefix and keep the full suffix
+  (`अधिकार:1:गाथा:001`)
+- legacy shastra → use only the trailing numeric segment (`8`)
+
+This affects `GathaTeeka` and `GathaTeekaBhaavarth` Mongo NK assembly —
+previously they used `gatha_nk.split(":")[-1]`, which dropped the
+`अधिकार:N:गाथा:` prefix for compound shastras and silently produced
+`target_missing` for every compound teeka/bhaavarth row.
+
+#### Zero-padding fallback
+
+JainKosh's reference parser builds Neo4j Gatha stub NKs from raw citation
+values (`…:गाथा:12`), but NJ ingestion zero-pads the trailing numeric to
+3 digits (`…:गाथा:012`). When the resolver's primary Mongo lookup misses,
+`_padded_variant_nk` re-pads (or strips padding from) the last numeric
+colon-segment and retries — so both citation forms hit the same stored doc.
+This mirrors the `_find_compound_gatha_fuzzy` server-side fallback in
+`services/core_service/domains/data/routers/gathas.py`. The fallback applies
+to any Mongo NK shape, so it also covers compound teeka/bhaavarth lookups
+where the trailing number lives mid-NK (e.g. `…:गाथा:012:टीका:san`). Successful
+fallbacks emit `INFO target_resolver fuzzy zero-pad match: <unpadded> → <padded>`.
+
 Current non-goal:
 
 - `Page` stubs are discovered but explicitly skipped in v1
@@ -104,6 +136,9 @@ Stripping rules currently remove:
 - bounded digit runs
 - Devanagari avagraha
 - Devanagari visarga
+- Devanagari chandrabindu (`ँ` U+0901) — Apabhramsha-era prints (e.g.
+  परमात्मप्रकाश) emit chandrabindu inconsistently, so stripping it makes
+  `सण्णाणेँ` and `सण्णाणे` collapse identically.
 
 A third **preprocess** pass also runs alongside the Tiryak and anusvara passes:
 
@@ -403,6 +438,8 @@ At minimum, also review:
 
 | Date | Change |
 |---|---|
+| 2026-06-16 | **Compound-identifier support in `target_resolver`.** Two fixes for compound shastras (परमात्मप्रकाश etc.): (a) `GathaTeeka` / `GathaTeekaBhaavarth` Mongo NK now uses the full compound suffix (`अधिकार:1:गाथा:001`) via the new `_mongo_seg_from_gatha_nk` helper, mirroring `envelope._gatha_mongo_segment` — previously `gatha_nk.split(":")[-1]` dropped the prefix and silently produced `target_missing` for every compound teeka/bhaavarth. (b) `_padded_variant_nk` zero-padding fallback retries the Mongo lookup with the alternate padding of the last numeric segment so JainKosh's raw citation NKs (`…:गाथा:12`) hit NJ's zero-padded docs (`…:गाथा:012`). Mirrors the `_find_compound_gatha_fuzzy` server-side fallback. Files: `workers/matching/target_resolver.py`, `tests/workers/matching/test_target_resolver.py`. |
+| 2026-06-16 | **Chandrabindu (U+0901) stripped.** Apabhramsha-era OCR (परमात्मप्रकाश) emits chandrabindu inconsistently — e.g. target `सण्णाणेँ` vs JainKosh extract `सण्णाणे`. `_is_strip_char` rule 8b now strips chandrabindu the same way visarga / avagraha are stripped, so the two forms collapse identically. Files: `normalize.py`, `tests/test_normalize.py`. |
 | 2026-06-15 | **`र्`-gemination collapse.** `normalize()` collapses the old Sanskrit orthographic doubling of a consonant after `र्` (पर्य्याय → पर्याय, धर्म्म → धर्म, कर्म्म → कर्म). Scoped to "after `र्`" so unrelated same-consonant conjuncts (क्क in मक्का, real म्य in अभ्युपगम्य) are untouched. Files: `normalize.py`, `tests/test_normalize.py`. |
 | 2026-06-15 | **Ellipsis-bridged matching.** `locate()` now recognizes a literal run of 3+ dots in the source as a wildcard gap. Source is split into segments; each is located in target sequentially with per-segment exact-then-fuzzy search; the returned span covers first-segment start → last-segment end so the UI highlights the bridged region. New `MatchResult.method = "exact_normalized_ellipsis"`. Files: `locate.py`, `types.py`, `tests/test_locate.py`. |
 | 2026-06-15 | **Vedic Sign Tiryak (U+1CED) → halant substitution.** `normalize()` rewrites `᳭` to `्` before any other pass, fixing OCR'd targets like `तिर्यङ᳭मनुष्य` that should equal `तिर्यङ्मनुष्य`. |

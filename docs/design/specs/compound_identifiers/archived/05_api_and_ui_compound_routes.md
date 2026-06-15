@@ -1,7 +1,7 @@
 # Phase 5 — API + UI for compound gatha identifiers
 
-> **Read first**: phases [`00`](./00_compound_identifiers_overview.md),
-> [`03`](./03_envelope_and_apply_compound_nk.md).
+> **Read first**: phases [`00`](../00_compound_identifiers_overview.md),
+> [`03`](../03_envelope_and_apply_compound_nk.md).
 >
 > **Goal**: expose compound-identifier gathas through the data API and the
 > reading UI without breaking single-identifier shastras. The chosen URL
@@ -177,7 +177,7 @@ either:
 - [ ] Playwright UI tests (deferred — no Playwright setup in current CI)
 - [x] Update authoritative docs:
       - `docs/design/api/data/01_spec.md` — compound route + response shape
-      - Mark phase 5 ✓ in [`00_compound_identifiers_overview.md`](./00_compound_identifiers_overview.md)
+      - Mark phase 5 ✓ in [`00_compound_identifiers_overview.md`](../00_compound_identifiers_overview.md)
 
 ### Diversions from spec
 

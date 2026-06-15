@@ -47,6 +47,13 @@ def _is_strip_char(ch: str) -> bool:
     if cp == 0x0903:
         return True
 
+    # Rule 8b: Devanagari chandrabindu (U+0901). Apabhramsha-era OCR (e.g.
+    # परमात्मप्रकाश) emits chandrabindu inconsistently — `सण्णाणेँ` in the
+    # gatha vs `सण्णाणे` in the JainKosh extract is a representative case.
+    # Treat like visarga/avagraha and strip so both forms collapse identically.
+    if cp == 0x0901:
+        return True
+
     return False
 
 

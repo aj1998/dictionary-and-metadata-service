@@ -160,6 +160,140 @@ async def test_gatha_teeka_stub_routes_to_teeka_sanskrit():
 
 
 @pytest.mark.asyncio
+async def test_compound_gatha_teeka_uses_full_compound_seg():
+    """For a compound shastra (परमात्मप्रकाश), GathaTeeka Mongo NK must include
+    the full compound suffix (अधिकार:1:गाथा:001), not just the trailing number."""
+    shastra = "परमात्मप्रकाश"
+    teeka_nk = f"{shastra}:टीका:0"
+    gatha_nk = f"{shastra}:अधिकार:1:गाथा:001"
+    records = [
+        _make_neo4j_record(
+            stub_nk=f"{teeka_nk}:अधिकार:1:गाथा:टीका:001",
+            stub_labels=["GathaTeeka"],
+            teeka_natural_key=teeka_nk,
+            gatha_natural_key=gatha_nk,
+            shastra_natural_key=shastra,
+        )
+    ]
+    driver = _make_driver(records)
+    expected_mongo_nk = f"{teeka_nk}:अधिकार:1:गाथा:001:टीका:san"
+    mongo = _make_mongo({
+        "gatha_teeka_sanskrit": {
+            "natural_key": expected_mongo_nk,
+            "text": [{"lang": "san", "text": "अथ"}],
+        }
+    })
+
+    source = SourceBlock(
+        kind="keyword_definition",
+        parent_natural_key="आत्मा",
+        section_index=0,
+        definition_index=0,
+        block_index=1,
+        block_kind="sanskrit_text",
+        text_devanagari="अथ",
+        reference_text=None,
+        references=[],
+    )
+
+    targets = await resolve_targets(driver, mongo, source)
+    assert len(targets) == 1
+    assert targets[0].natural_key == expected_mongo_nk
+    assert targets[0].text == "अथ"
+
+
+@pytest.mark.asyncio
+async def test_compound_gatha_teeka_bhaavarth_uses_full_compound_seg():
+    """For परमात्मप्रकाश, GathaTeekaBhaavarth Mongo NK must include the full
+    compound suffix in front of :भावार्थ:hi."""
+    shastra = "परमात्मप्रकाश"
+    pub_nk = f"{shastra}:टीका:0:प्रकाशन:0"
+    gatha_nk = f"{shastra}:अधिकार:2:गाथा:005"
+    records = [
+        _make_neo4j_record(
+            stub_nk=f"{pub_nk}:अधिकार:2:गाथा:टीका:भावार्थ:005",
+            stub_labels=["GathaTeekaBhaavarth"],
+            publication_natural_key=pub_nk,
+            gatha_natural_key=gatha_nk,
+            shastra_natural_key=shastra,
+        )
+    ]
+    driver = _make_driver(records)
+    expected_mongo_nk = f"{pub_nk}:अधिकार:2:गाथा:005:भावार्थ:hi"
+    mongo = _make_mongo({
+        "gatha_teeka_bhaavarth_hindi": {
+            "natural_key": expected_mongo_nk,
+            "text": [{"lang": "hin", "text": "हिंदी भावार्थ"}],
+        }
+    })
+
+    source = SourceBlock(
+        kind="topic_extract",
+        parent_natural_key=f"{shastra}:विषय:1",
+        section_index=None,
+        definition_index=None,
+        block_index=0,
+        block_kind="hindi_text",
+        text_devanagari="हिंदी भावार्थ",
+        reference_text=None,
+        references=[],
+    )
+
+    targets = await resolve_targets(driver, mongo, source)
+    assert len(targets) == 1
+    assert targets[0].natural_key == expected_mongo_nk
+    assert targets[0].text == "हिंदी भावार्थ"
+
+
+@pytest.mark.asyncio
+async def test_compound_gatha_zero_pad_fuzzy_fallback():
+    """JainKosh emits stub NKs with raw values from citations (…:गाथा:12), but
+    NJ ingestion zero-pads to 3 digits (…:गाथा:012). Resolver must find the
+    padded Mongo doc when the unpadded stub NK misses."""
+    shastra = "परमात्मप्रकाश"
+    stub_nk = f"{shastra}:अधिकार:1:गाथा:12"
+    padded_mongo_nk = f"{shastra}:अधिकार:1:गाथा:012:prakrit"
+    records = [
+        _make_neo4j_record(
+            stub_nk=stub_nk,
+            stub_labels=["Gatha"],
+            shastra_natural_key=shastra,
+        )
+    ]
+    driver = _make_driver(records)
+    # Only the padded NK exists in Mongo. The first lookup (unpadded) misses;
+    # the fuzzy fallback must hit.
+    class _PaddedOnly:
+        def __getitem__(self, name):
+            class _Col:
+                async def find_one(self, query):
+                    if query.get("natural_key") == padded_mongo_nk:
+                        return {"natural_key": padded_mongo_nk,
+                                "text": [{"lang": "pra", "text": "अप्पा"}]}
+                    return None
+            return _Col()
+    mongo = _PaddedOnly()
+
+    source = SourceBlock(
+        kind="topic_extract",
+        parent_natural_key=f"{shastra}:विषय:1",
+        section_index=None,
+        definition_index=None,
+        block_index=0,
+        block_kind="prakrit_gatha",
+        text_devanagari="अप्पा",
+        reference_text=None,
+        references=[],
+    )
+
+    targets = await resolve_targets(driver, mongo, source)
+    assert len(targets) == 1
+    assert targets[0].natural_key == padded_mongo_nk
+    assert targets[0].status_hint is None
+    assert targets[0].text == "अप्पा"
+
+
+@pytest.mark.asyncio
 async def test_page_stub_skipped():
     """Page label → target skipped in v1."""
     records = [

@@ -1,8 +1,8 @@
 # Phase 3 — NJ envelope + apply: compound natural keys end-to-end
 
-> **Read first**: phases [`00`](./00_compound_identifiers_overview.md),
-> [`01`](./01_shastra_json_and_config_loader.md),
-> [`02`](./02_nj_parser_compound_id_support.md).
+> **Read first**: phases [`00`](../00_compound_identifiers_overview.md),
+> [`01`](../01_shastra_json_and_config_loader.md),
+> [`02`](../02_nj_parser_compound_id_support.md).
 >
 > **Goal**: produce compound NKs for `Gatha`, `GathaTeeka`, `GathaTeekaBhaavarth`,
 > `Kalash`, `KalashBhaavarth` in NJ's `would_write` envelope, and persist them

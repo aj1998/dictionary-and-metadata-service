@@ -7,6 +7,8 @@ from dataclasses import dataclass
 
 from neo4j import AsyncDriver
 
+from jain_kb_common.shastra_identifiers import get_identifier_fields
+
 from .source_iter import SourceBlock
 
 logger = logging.getLogger("jain_kb.matching.target_resolver")
@@ -55,6 +57,55 @@ class Target:
     status_hint: str | None     # "target_missing" when Mongo doc absent
 
 
+def _padded_variant_nk(nk: str, width: int = 3) -> str | None:
+    """Return a copy of `nk` with the last all-numeric colon-segment re-padded
+    to (or stripped from) `width` digits.
+
+    Used as a zero-padding fallback for compound-shastra Mongo lookups, where
+    JainKosh emits raw numeric values from citations ("…:गाथा:12") while NJ
+    ingestion stores zero-padded ones ("…:गाथा:012").
+
+    Walks segments right-to-left so suffixes like `:prakrit` / `:sanskrit` /
+    `:टीका:san` are skipped, and only the actual gatha-number segment is
+    rewritten. Returns the alternate-padding form (padded if input was
+    unpadded, unpadded if input was padded). Returns None if no numeric
+    segment is found.
+    """
+    if not nk:
+        return None
+    parts = nk.split(":")
+    for i in range(len(parts) - 1, -1, -1):
+        seg = parts[i]
+        if seg.isdigit():
+            stripped = seg.lstrip("0") or "0"
+            padded = stripped.rjust(width, "0")
+            new_seg = padded if seg == stripped else stripped
+            if new_seg == seg:
+                return None
+            parts[i] = new_seg
+            return ":".join(parts)
+    return None
+
+
+def _mongo_seg_from_gatha_nk(gatha_nk: str, shastra_nk: str | None) -> str:
+    """Recover the Mongo per-gatha segment from a compound or legacy Gatha NK.
+
+    Compound (e.g. परमात्मप्रकाश): `परमात्मप्रकाश:अधिकार:1:गाथा:001`
+      → `अधिकार:1:गाथा:001` (full suffix after the shastra prefix).
+    Legacy (e.g. समयसार): `समयसार:गाथा:8` → `8` (bare number only).
+
+    Mirrors `workers/ingestion/nj/envelope._gatha_mongo_segment` so the keys
+    constructed here line up with what NJ ingestion wrote to Mongo.
+    """
+    if not gatha_nk:
+        return ""
+    if shastra_nk and get_identifier_fields(shastra_nk, "gatha"):
+        prefix = f"{shastra_nk}:"
+        if gatha_nk.startswith(prefix):
+            return gatha_nk[len(prefix):]
+    return gatha_nk.split(":")[-1]
+
+
 def _derive_mongo_nk(
     stub_label: str,
     block_kind: str,
@@ -71,16 +122,18 @@ def _derive_mongo_nk(
     if stub_label == "GathaTeeka":
         teeka_nk = stub_props.get("teeka_natural_key") or ""
         gatha_nk = stub_props.get("gatha_natural_key") or ""
-        gnum = gatha_nk.split(":")[-1] if gatha_nk else ""
-        if block_kind == "sanskrit_text" and teeka_nk and gnum:
-            return f"{teeka_nk}:{gnum}:{_TEEKA}:san"
+        shastra_nk = stub_props.get("shastra_natural_key") or ""
+        gseg = _mongo_seg_from_gatha_nk(gatha_nk, shastra_nk)
+        if block_kind == "sanskrit_text" and teeka_nk and gseg:
+            return f"{teeka_nk}:{gseg}:{_TEEKA}:san"
 
     if stub_label == "GathaTeekaBhaavarth":
         pub_nk = stub_props.get("publication_natural_key") or ""
         gatha_nk = stub_props.get("gatha_natural_key") or ""
-        gnum = gatha_nk.split(":")[-1] if gatha_nk else ""
-        if block_kind == "hindi_text" and pub_nk and gnum:
-            return f"{pub_nk}:{gnum}:{_BHAAVARTH}:hi"
+        shastra_nk = stub_props.get("shastra_natural_key") or ""
+        gseg = _mongo_seg_from_gatha_nk(gatha_nk, shastra_nk)
+        if block_kind == "hindi_text" and pub_nk and gseg:
+            return f"{pub_nk}:{gseg}:{_BHAAVARTH}:hi"
 
     if stub_label == "Kalash":
         if block_kind in ("sanskrit_gatha", "sanskrit_text"):
@@ -215,6 +268,26 @@ RETURN
 
         # Fetch the Mongo doc
         mongo_doc = await mongo[collection].find_one({"natural_key": mongo_nk})
+        if mongo_doc is None:
+            # Compound-shastra zero-padding fallback: JainKosh's reference parser
+            # builds stub NKs with raw values from the citation (e.g.
+            # "…:गाथा:12"), but NJ ingestion zero-pads gatha numbers in the
+            # compound suffix ("…:गाथा:012"). Try alternate paddings of the
+            # last numeric segment in the stored NK so both citation forms hit
+            # the same Mongo doc. Mirrors `_find_compound_gatha_fuzzy` on the
+            # API side (services/core_service/.../routers/gathas.py).
+            alt_nk = _padded_variant_nk(mongo_nk)
+            if alt_nk and alt_nk != mongo_nk:
+                mongo_doc = await mongo[collection].find_one({"natural_key": alt_nk})
+                if mongo_doc is not None:
+                    logger.info(
+                        "fuzzy zero-pad match: %s → %s", mongo_nk, alt_nk
+                    )
+                    mongo_nk = alt_nk
+                    # Keep the metadata gatha_nk consistent with what the doc
+                    # actually lives under, so UI deep-links resolve.
+                    if stub_label == "Gatha" and gatha_nk:
+                        gatha_nk = _padded_variant_nk(gatha_nk) or gatha_nk
         text: str | None = None
         status_hint: str | None = None
 

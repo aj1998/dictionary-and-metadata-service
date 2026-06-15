@@ -1,7 +1,7 @@
 # Phase 2 — NJ parser: parse परमात्मप्रकाश + emit compound identifier values
 
-> **Read first**: [`00_compound_identifiers_overview.md`](./00_compound_identifiers_overview.md),
-> [`01_shastra_json_and_config_loader.md`](./01_shastra_json_and_config_loader.md).
+> **Read first**: [`00_compound_identifiers_overview.md`](../00_compound_identifiers_overview.md),
+> [`01_shastra_json_and_config_loader.md`](../01_shastra_json_and_config_loader.md).
 >
 > **Today's failure**: every परमात्मप्रकाश page logs `unclassified page`
 > because `parse_myitem._OPTION_RE` only matches `$optgrp.append(...)`. The
@@ -215,7 +215,7 @@ Full NJ suite **must remain green** (currently ~105 tests).
       add a top-level **Compound identifier** section explaining the
       `identifier_values` field and the bare-`mySel.append` regex; update the
       "Known edge cases" table; mark phase 2 ✓ in
-      [`00_compound_identifiers_overview.md`](./00_compound_identifiers_overview.md).
+      [`00_compound_identifiers_overview.md`](../00_compound_identifiers_overview.md).
 
 ## 8. Out of scope
 

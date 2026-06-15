@@ -219,6 +219,23 @@ def test_visarga_and_ascii_colon_match():
     assert a.normalized == b.normalized
 
 
+# ── rule 8b: chandrabindu ────────────────────────────────────────────────────
+
+def test_chandrabindu_stripped():
+    r = normalize("सण्णाणेँ")
+    assert "ँ" not in r.normalized
+    assert r.normalized == "सण्णाणे"
+
+
+def test_chandrabindu_apabhramsha_gatha_matches_extract():
+    # परमात्मप्रकाश अधिकार 1 / गाथा 12 — target has chandrabindu after े-matra,
+    # JainKosh extract omits it. After normalize, both must collapse to the
+    # same string so the matcher can score them above threshold.
+    target = normalize("अप्पा ति-विहु मुणेवि लहु मूढउ मेल्लहि भाउ मुणि सण्णाणेँ णाणमउ जो परमप्प-सहाउ")
+    source = normalize("अप्पा तिविहु मुणेवि लहु मूढउ मेल्लहि भाउ। मुणि सण्णाणे णाणमउ जो परमप्प-सहाउ॥12॥")
+    assert source.normalized == target.normalized
+
+
 # ── NFC normalization ────────────────────────────────────────────────────────
 
 def test_nfc_applied():
