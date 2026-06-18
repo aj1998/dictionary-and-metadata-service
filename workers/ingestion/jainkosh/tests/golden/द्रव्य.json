@@ -518,10 +518,6 @@
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
-                            "field": "पुस्तक",
-                            "value": 1
-                          },
-                          {
                             "field": "अध्याय",
                             "value": 33
                           },
@@ -636,10 +632,6 @@
                         "shastra_name": "राजवार्तिक",
                         "match_method": "shastra_name",
                         "resolved_fields": [
-                          {
-                            "field": "पुस्तक",
-                            "value": 5
-                          },
                           {
                             "field": "अध्याय",
                             "value": 2
@@ -892,10 +884,6 @@
                         "shastra_name": "राजवार्तिक",
                         "match_method": "shastra_name",
                         "resolved_fields": [
-                          {
-                            "field": "पुस्तक",
-                            "value": 5
-                          },
                           {
                             "field": "अध्याय",
                             "value": 2
@@ -2812,10 +2800,6 @@
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
-                            "field": "पुस्तक",
-                            "value": 5
-                          },
-                          {
                             "field": "अध्याय",
                             "value": 2
                           },
@@ -4163,10 +4147,6 @@
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
-                            "field": "पुस्तक",
-                            "value": 5
-                          },
-                          {
                             "field": "अध्याय",
                             "value": 6
                           },
@@ -5382,10 +5362,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 8
                               },
@@ -5464,10 +5440,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 8
                               },
@@ -5527,10 +5499,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 8
                               },
@@ -5574,10 +5542,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 8
@@ -5623,10 +5587,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 8
                               },
@@ -5670,10 +5630,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 8
@@ -5785,10 +5741,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 8
                               },
@@ -5881,10 +5833,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 8
                               },
@@ -5944,10 +5892,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 8
@@ -6038,10 +5982,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 8
                               },
@@ -6086,10 +6026,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 8
                               },
@@ -6133,10 +6069,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 8
@@ -6215,10 +6147,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 8
@@ -6438,10 +6366,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 8
                               },
@@ -6485,10 +6409,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 8
@@ -7038,10 +6958,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 1
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 1
                               },
@@ -7228,10 +7144,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 2
@@ -7498,10 +7410,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 2
@@ -7833,10 +7741,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 2
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 8
@@ -8244,10 +8148,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 2
                               },
@@ -8292,10 +8192,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 2
                               },
@@ -8322,10 +8218,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 2
@@ -8370,10 +8262,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 2
@@ -8468,10 +8356,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 38
@@ -8634,10 +8518,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 2
                               },
@@ -8713,10 +8593,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 1
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 9
@@ -8796,10 +8672,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 2
                               },
@@ -8826,10 +8698,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 1
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 1
@@ -8875,10 +8743,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 2
                               },
@@ -8922,10 +8786,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 2
@@ -9002,10 +8862,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 2
@@ -9088,10 +8944,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 1
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 9
                               },
@@ -9119,10 +8971,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 2
                               },
@@ -9149,10 +8997,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 2
@@ -9306,10 +9150,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 1
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 1
                               },
@@ -9336,10 +9176,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 2
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 8
@@ -9385,10 +9221,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 1
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 9
                               },
@@ -9415,10 +9247,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 2
@@ -9463,10 +9291,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 1
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 10
@@ -9608,10 +9432,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 1
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 1
                               },
@@ -9670,10 +9490,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 1
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 33
@@ -9749,10 +9565,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 1
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 1
                               },
@@ -9780,10 +9592,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 1
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 33
                               },
@@ -9810,10 +9618,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 2
@@ -9859,10 +9663,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 1
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 1
                               },
@@ -9889,10 +9689,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 1
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 9
@@ -9937,10 +9733,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 5
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 2
@@ -10464,10 +10256,6 @@
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
-                            "field": "पुस्तक",
-                            "value": 5
-                          },
-                          {
                             "field": "अध्याय",
                             "value": 12
                           },
@@ -10494,10 +10282,6 @@
                         "shastra_name": "राजवार्तिक",
                         "match_method": "shastra_name",
                         "resolved_fields": [
-                          {
-                            "field": "पुस्तक",
-                            "value": 5
-                          },
                           {
                             "field": "अध्याय",
                             "value": 12
@@ -10624,7 +10408,7 @@
       "next": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF_%E0%A4%86%E0%A4%B8%E0%A5%8D%E0%A4%B0%E0%A4%B5"
     },
     "parser_version": "jainkosh.rules/1.11.22",
-    "parsed_at": "2026-06-18T17:16:37.882268",
+    "parsed_at": "2026-06-18T21:10:22.338595",
     "warnings": []
   },
   "would_write": {
@@ -12381,10 +12165,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 1
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 33
                     },
@@ -12499,10 +12279,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 2
@@ -12755,10 +12531,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 2
@@ -14687,10 +14459,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 2
                     },
@@ -16045,10 +15813,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 6
                     },
@@ -17273,10 +17037,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 8
                     },
@@ -17355,10 +17115,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 8
                     },
@@ -17418,10 +17174,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 8
                     },
@@ -17465,10 +17217,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 8
@@ -17514,10 +17262,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 8
                     },
@@ -17561,10 +17305,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 8
@@ -17676,10 +17416,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 8
                     },
@@ -17772,10 +17508,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 8
                     },
@@ -17835,10 +17567,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 8
@@ -17929,10 +17657,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 8
                     },
@@ -17977,10 +17701,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 8
                     },
@@ -18024,10 +17744,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 8
@@ -18106,10 +17822,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 8
@@ -18329,10 +18041,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 8
                     },
@@ -18376,10 +18084,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 8
@@ -18929,10 +18633,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 1
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 1
                     },
@@ -19119,10 +18819,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 2
@@ -19389,10 +19085,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 2
@@ -19724,10 +19416,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 2
-                    },
                     {
                       "field": "अध्याय",
                       "value": 8
@@ -20135,10 +19823,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 2
                     },
@@ -20183,10 +19867,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 2
                     },
@@ -20213,10 +19893,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 2
@@ -20261,10 +19937,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 2
@@ -20359,10 +20031,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 38
@@ -20525,10 +20193,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 2
                     },
@@ -20604,10 +20268,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 1
-                    },
                     {
                       "field": "अध्याय",
                       "value": 9
@@ -20687,10 +20347,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 2
                     },
@@ -20717,10 +20373,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 1
-                    },
                     {
                       "field": "अध्याय",
                       "value": 1
@@ -20766,10 +20418,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 2
                     },
@@ -20813,10 +20461,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 2
@@ -20893,10 +20537,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 2
@@ -20979,10 +20619,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 1
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 9
                     },
@@ -21010,10 +20646,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 2
                     },
@@ -21040,10 +20672,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 2
@@ -21197,10 +20825,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 1
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 1
                     },
@@ -21227,10 +20851,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 2
-                    },
                     {
                       "field": "अध्याय",
                       "value": 8
@@ -21276,10 +20896,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 1
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 9
                     },
@@ -21306,10 +20922,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 2
@@ -21354,10 +20966,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 1
-                    },
                     {
                       "field": "अध्याय",
                       "value": 10
@@ -21499,10 +21107,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 1
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 1
                     },
@@ -21561,10 +21165,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 1
-                    },
                     {
                       "field": "अध्याय",
                       "value": 33
@@ -21640,10 +21240,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 1
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 1
                     },
@@ -21671,10 +21267,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 1
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 33
                     },
@@ -21701,10 +21293,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 2
@@ -21750,10 +21338,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 1
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 1
                     },
@@ -21780,10 +21364,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 1
-                    },
                     {
                       "field": "अध्याय",
                       "value": 9
@@ -21828,10 +21408,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 2
@@ -22358,10 +21934,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 12
                     },
@@ -22388,10 +21960,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 5
-                    },
                     {
                       "field": "अध्याय",
                       "value": 12
@@ -22913,23 +22481,22 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:1:अध्याय:33:सूत्र:1",
+          "key": "राजवार्तिक:अध्याय:33:सूत्र:1",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:1:अध्याय:33:सूत्र:1",
-            "identifier_values": "{\"पुस्तक\": \"1\", \"अध्याय\": \"33\", \"राजवार्तिकसूत्र\": \"1\"}"
+            "gatha_number": "अध्याय:33:सूत्र:1",
+            "identifier_values": "{\"अध्याय\": \"33\", \"राजवार्तिकसूत्र\": \"1\"}"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:95",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:95",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "95",
-            "pustak_number": "1"
+            "page_number": "95"
           },
           "lazy": true
         },
@@ -22977,23 +22544,22 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:1",
+          "key": "राजवार्तिक:अध्याय:2:सूत्र:1",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:2:सूत्र:1",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"2\", \"राजवार्तिकसूत्र\": \"1\"}"
+            "gatha_number": "अध्याय:2:सूत्र:1",
+            "identifier_values": "{\"अध्याय\": \"2\", \"राजवार्तिकसूत्र\": \"1\"}"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:436",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:436",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "436",
-            "pustak_number": "5"
+            "page_number": "436"
           },
           "lazy": true
         },
@@ -23116,7 +22682,7 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "राजवार्तिक:टीका:पुस्तक:5:अध्याय:2:सूत्र:टीका:2",
+          "key": "राजवार्तिक:टीका:अध्याय:2:सूत्र:टीका:2",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
@@ -23847,7 +23413,7 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "राजवार्तिक:टीका:पुस्तक:5:अध्याय:2:सूत्र:टीका:12",
+          "key": "राजवार्तिक:टीका:अध्याय:2:सूत्र:टीका:12",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
@@ -23857,13 +23423,12 @@
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:441",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:441",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "441",
-            "pustak_number": "5"
+            "page_number": "441"
           },
           "lazy": true
         },
@@ -24362,7 +23927,7 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "राजवार्तिक:टीका:पुस्तक:5:अध्याय:6:सूत्र:टीका:6",
+          "key": "राजवार्तिक:टीका:अध्याय:6:सूत्र:टीका:6",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
@@ -24372,13 +23937,12 @@
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:445",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:445",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "445",
-            "pustak_number": "5"
+            "page_number": "445"
           },
           "lazy": true
         },
@@ -24728,23 +24292,22 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:15",
+          "key": "राजवार्तिक:अध्याय:8:सूत्र:15",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:8:सूत्र:15",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"15\"}"
+            "gatha_number": "अध्याय:8:सूत्र:15",
+            "identifier_values": "{\"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"15\"}"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:451",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:451",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "451",
-            "pustak_number": "5"
+            "page_number": "451"
           },
           "lazy": true
         },
@@ -24761,23 +24324,22 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:5",
+          "key": "राजवार्तिक:अध्याय:8:सूत्र:5",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:8:सूत्र:5",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"5\"}"
+            "gatha_number": "अध्याय:8:सूत्र:5",
+            "identifier_values": "{\"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"5\"}"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:450",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:450",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "450",
-            "pustak_number": "5"
+            "page_number": "450"
           },
           "lazy": true
         },
@@ -24792,31 +24354,31 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:18",
+          "key": "राजवार्तिक:अध्याय:8:सूत्र:18",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:8:सूत्र:18",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"18\"}"
+            "gatha_number": "अध्याय:8:सूत्र:18",
+            "identifier_values": "{\"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"18\"}"
           },
           "lazy": true
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:19",
+          "key": "राजवार्तिक:अध्याय:8:सूत्र:19",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:8:सूत्र:19",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"19\"}"
+            "gatha_number": "अध्याय:8:सूत्र:19",
+            "identifier_values": "{\"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"19\"}"
           },
           "lazy": true
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:20",
+          "key": "राजवार्तिक:अध्याय:8:सूत्र:20",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:8:सूत्र:20",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"20\"}"
+            "gatha_number": "अध्याय:8:सूत्र:20",
+            "identifier_values": "{\"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"20\"}"
           },
           "lazy": true
         },
@@ -24842,33 +24404,32 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:17",
+          "key": "राजवार्तिक:अध्याय:8:सूत्र:17",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:8:सूत्र:17",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"17\"}"
+            "gatha_number": "अध्याय:8:सूत्र:17",
+            "identifier_values": "{\"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"17\"}"
           },
           "lazy": true
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:22",
+          "key": "राजवार्तिक:अध्याय:8:सूत्र:22",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:8:सूत्र:22",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"22\"}"
+            "gatha_number": "अध्याय:8:सूत्र:22",
+            "identifier_values": "{\"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"22\"}"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:452",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:452",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "452",
-            "pustak_number": "5"
+            "page_number": "452"
           },
           "lazy": true
         },
@@ -24885,21 +24446,21 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:11",
+          "key": "राजवार्तिक:अध्याय:8:सूत्र:11",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:8:सूत्र:11",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"11\"}"
+            "gatha_number": "अध्याय:8:सूत्र:11",
+            "identifier_values": "{\"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"11\"}"
           },
           "lazy": true
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:13",
+          "key": "राजवार्तिक:अध्याय:8:सूत्र:13",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:8:सूत्र:13",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"13\"}"
+            "gatha_number": "अध्याय:8:सूत्र:13",
+            "identifier_values": "{\"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"13\"}"
           },
           "lazy": true
         },
@@ -24916,11 +24477,11 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:6",
+          "key": "राजवार्तिक:अध्याय:8:सूत्र:6",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:8:सूत्र:6",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"6\"}"
+            "gatha_number": "अध्याय:8:सूत्र:6",
+            "identifier_values": "{\"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"6\"}"
           },
           "lazy": true
         },
@@ -24991,11 +24552,11 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:21",
+          "key": "राजवार्तिक:अध्याय:8:सूत्र:21",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:8:सूत्र:21",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"21\"}"
+            "gatha_number": "अध्याय:8:सूत्र:21",
+            "identifier_values": "{\"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"21\"}"
           },
           "lazy": true
         },
@@ -25114,23 +24675,22 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:1:अध्याय:1:सूत्र:19",
+          "key": "राजवार्तिक:अध्याय:1:सूत्र:19",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:1:अध्याय:1:सूत्र:19",
-            "identifier_values": "{\"पुस्तक\": \"1\", \"अध्याय\": \"1\", \"राजवार्तिकसूत्र\": \"19\"}"
+            "gatha_number": "अध्याय:1:सूत्र:19",
+            "identifier_values": "{\"अध्याय\": \"1\", \"राजवार्तिकसूत्र\": \"19\"}"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:7",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:7",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "7",
-            "pustak_number": "1"
+            "page_number": "7"
           },
           "lazy": true
         },
@@ -25198,23 +24758,22 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:10",
+          "key": "राजवार्तिक:अध्याय:2:सूत्र:10",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:2:सूत्र:10",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"2\", \"राजवार्तिकसूत्र\": \"10\"}"
+            "gatha_number": "अध्याय:2:सूत्र:10",
+            "identifier_values": "{\"अध्याय\": \"2\", \"राजवार्तिकसूत्र\": \"10\"}"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:439",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:439",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "439",
-            "pustak_number": "5"
+            "page_number": "439"
           },
           "lazy": true
         },
@@ -25299,23 +24858,22 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:11",
+          "key": "राजवार्तिक:अध्याय:2:सूत्र:11",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:2:सूत्र:11",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"2\", \"राजवार्तिकसूत्र\": \"11\"}"
+            "gatha_number": "अध्याय:2:सूत्र:11",
+            "identifier_values": "{\"अध्याय\": \"2\", \"राजवार्तिकसूत्र\": \"11\"}"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:440",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:440",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "440",
-            "pustak_number": "5"
+            "page_number": "440"
           },
           "lazy": true
         },
@@ -25383,24 +24941,13 @@
           "lazy": true
         },
         {
-          "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:2:अध्याय:8:सूत्र:6",
-          "props": {
-            "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:2:अध्याय:8:सूत्र:6",
-            "identifier_values": "{\"पुस्तक\": \"2\", \"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"6\"}"
-          },
-          "lazy": true
-        },
-        {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:2:पृष्ठ:119",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:119",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "119",
-            "pustak_number": "2"
+            "page_number": "119"
           },
           "lazy": true
         },
@@ -25510,21 +25057,21 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:9",
+          "key": "राजवार्तिक:अध्याय:2:सूत्र:9",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:2:सूत्र:9",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"2\", \"राजवार्तिकसूत्र\": \"9\"}"
+            "gatha_number": "अध्याय:2:सूत्र:9",
+            "identifier_values": "{\"अध्याय\": \"2\", \"राजवार्तिकसूत्र\": \"9\"}"
           },
           "lazy": true
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:12",
+          "key": "राजवार्तिक:अध्याय:2:सूत्र:12",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:2:सूत्र:12",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"2\", \"राजवार्तिकसूत्र\": \"12\"}"
+            "gatha_number": "अध्याय:2:सूत्र:12",
+            "identifier_values": "{\"अध्याय\": \"2\", \"राजवार्तिकसूत्र\": \"12\"}"
           },
           "lazy": true
         },
@@ -25541,23 +25088,22 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:38:सूत्र:4",
+          "key": "राजवार्तिक:अध्याय:38:सूत्र:4",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:38:सूत्र:4",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"38\", \"राजवार्तिकसूत्र\": \"4\"}"
+            "gatha_number": "अध्याय:38:सूत्र:4",
+            "identifier_values": "{\"अध्याय\": \"38\", \"राजवार्तिकसूत्र\": \"4\"}"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:501",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:501",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "501",
-            "pustak_number": "5"
+            "page_number": "501"
           },
           "lazy": true
         },
@@ -25610,23 +25156,22 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:1:अध्याय:9:सूत्र:11",
+          "key": "राजवार्तिक:अध्याय:9:सूत्र:11",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:1:अध्याय:9:सूत्र:11",
-            "identifier_values": "{\"पुस्तक\": \"1\", \"अध्याय\": \"9\", \"राजवार्तिकसूत्र\": \"11\"}"
+            "gatha_number": "अध्याय:9:सूत्र:11",
+            "identifier_values": "{\"अध्याय\": \"9\", \"राजवार्तिकसूत्र\": \"11\"}"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:46",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:46",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "46",
-            "pustak_number": "1"
+            "page_number": "46"
           },
           "lazy": true
         },
@@ -25643,55 +25188,53 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:4",
+          "key": "राजवार्तिक:अध्याय:2:सूत्र:4",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:2:सूत्र:4",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"2\", \"राजवार्तिकसूत्र\": \"4\"}"
+            "gatha_number": "अध्याय:2:सूत्र:4",
+            "identifier_values": "{\"अध्याय\": \"2\", \"राजवार्तिकसूत्र\": \"4\"}"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:43",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:43",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "43",
-            "pustak_number": "5"
+            "page_number": "43"
           },
           "lazy": true
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:1:अध्याय:1:सूत्र:12",
+          "key": "राजवार्तिक:अध्याय:1:सूत्र:12",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:1:अध्याय:1:सूत्र:12",
-            "identifier_values": "{\"पुस्तक\": \"1\", \"अध्याय\": \"1\", \"राजवार्तिकसूत्र\": \"12\"}"
+            "gatha_number": "अध्याय:1:सूत्र:12",
+            "identifier_values": "{\"अध्याय\": \"1\", \"राजवार्तिकसूत्र\": \"12\"}"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:6",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:6",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "6",
-            "pustak_number": "1"
+            "page_number": "6"
           },
           "lazy": true
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:3",
+          "key": "राजवार्तिक:अध्याय:2:सूत्र:3",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:2:सूत्र:3",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"2\", \"राजवार्तिकसूत्र\": \"3\"}"
+            "gatha_number": "अध्याय:2:सूत्र:3",
+            "identifier_values": "{\"अध्याय\": \"2\", \"राजवार्तिकसूत्र\": \"3\"}"
           },
           "lazy": true
         },
@@ -25745,67 +25288,54 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:1:अध्याय:1:सूत्र:10",
+          "key": "राजवार्तिक:अध्याय:1:सूत्र:10",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:1:अध्याय:1:सूत्र:10",
-            "identifier_values": "{\"पुस्तक\": \"1\", \"अध्याय\": \"1\", \"राजवार्तिकसूत्र\": \"10\"}"
+            "gatha_number": "अध्याय:1:सूत्र:10",
+            "identifier_values": "{\"अध्याय\": \"1\", \"राजवार्तिकसूत्र\": \"10\"}"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:5",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:5",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "5",
-            "pustak_number": "1"
+            "page_number": "5"
+          },
+          "lazy": true
+        },
+        {
+          "label": "Page",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:437",
+          "props": {
+            "shastra_natural_key": "राजवार्तिक",
+            "teeka_natural_key": "राजवार्तिक:टीका",
+            "publisher_id": "18",
+            "page_number": "437"
           },
           "lazy": true
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:2:अध्याय:8:सूत्र:5",
+          "key": "राजवार्तिक:अध्याय:10:सूत्र:9",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:2:अध्याय:8:सूत्र:5",
-            "identifier_values": "{\"पुस्तक\": \"2\", \"अध्याय\": \"8\", \"राजवार्तिकसूत्र\": \"5\"}"
+            "gatha_number": "अध्याय:10:सूत्र:9",
+            "identifier_values": "{\"अध्याय\": \"10\", \"राजवार्तिकसूत्र\": \"9\"}"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:437",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:50",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "437",
-            "pustak_number": "5"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:1:अध्याय:10:सूत्र:9",
-          "props": {
-            "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:1:अध्याय:10:सूत्र:9",
-            "identifier_values": "{\"पुस्तक\": \"1\", \"अध्याय\": \"10\", \"राजवार्तिकसूत्र\": \"9\"}"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:50",
-          "props": {
-            "shastra_natural_key": "राजवार्तिक",
-            "teeka_natural_key": "राजवार्तिक:टीका",
-            "publisher_id": "18",
-            "page_number": "50",
-            "pustak_number": "1"
+            "page_number": "50"
           },
           "lazy": true
         },
@@ -25840,11 +25370,11 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:1:अध्याय:1:सूत्र:14",
+          "key": "राजवार्तिक:अध्याय:1:सूत्र:14",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:1:अध्याय:1:सूत्र:14",
-            "identifier_values": "{\"पुस्तक\": \"1\", \"अध्याय\": \"1\", \"राजवार्तिकसूत्र\": \"14\"}"
+            "gatha_number": "अध्याय:1:सूत्र:14",
+            "identifier_values": "{\"अध्याय\": \"1\", \"राजवार्तिकसूत्र\": \"14\"}"
           },
           "lazy": true
         },
@@ -25859,23 +25389,22 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:1:अध्याय:33:सूत्र:5",
+          "key": "राजवार्तिक:अध्याय:33:सूत्र:5",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:1:अध्याय:33:सूत्र:5",
-            "identifier_values": "{\"पुस्तक\": \"1\", \"अध्याय\": \"33\", \"राजवार्तिकसूत्र\": \"5\"}"
+            "gatha_number": "अध्याय:33:सूत्र:5",
+            "identifier_values": "{\"अध्याय\": \"33\", \"राजवार्तिकसूत्र\": \"5\"}"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:96",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:96",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "96",
-            "pustak_number": "1"
+            "page_number": "96"
           },
           "lazy": true
         },
@@ -25899,21 +25428,21 @@
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:1:अध्याय:1:सूत्र:9",
+          "key": "राजवार्तिक:अध्याय:1:सूत्र:9",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:1:अध्याय:1:सूत्र:9",
-            "identifier_values": "{\"पुस्तक\": \"1\", \"अध्याय\": \"1\", \"राजवार्तिकसूत्र\": \"9\"}"
+            "gatha_number": "अध्याय:1:सूत्र:9",
+            "identifier_values": "{\"अध्याय\": \"1\", \"राजवार्तिकसूत्र\": \"9\"}"
           },
           "lazy": true
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:1:अध्याय:1:सूत्र:13",
+          "key": "राजवार्तिक:अध्याय:1:सूत्र:13",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:1:अध्याय:1:सूत्र:13",
-            "identifier_values": "{\"पुस्तक\": \"1\", \"अध्याय\": \"1\", \"राजवार्तिकसूत्र\": \"13\"}"
+            "gatha_number": "अध्याय:1:सूत्र:13",
+            "identifier_values": "{\"अध्याय\": \"1\", \"राजवार्तिकसूत्र\": \"13\"}"
           },
           "lazy": true
         },
@@ -26090,7 +25619,7 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "राजवार्तिक:टीका:पुस्तक:5:अध्याय:12:सूत्र:टीका:5",
+          "key": "राजवार्तिक:टीका:अध्याय:12:सूत्र:टीका:5",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
@@ -26100,23 +25629,22 @@
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:454",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:454",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "454",
-            "pustak_number": "5"
+            "page_number": "454"
           },
           "lazy": true
         },
         {
           "label": "Gatha",
-          "key": "राजवार्तिक:पुस्तक:5:अध्याय:12:सूत्र:6",
+          "key": "राजवार्तिक:अध्याय:12:सूत्र:6",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
-            "gatha_number": "पुस्तक:5:अध्याय:12:सूत्र:6",
-            "identifier_values": "{\"पुस्तक\": \"5\", \"अध्याय\": \"12\", \"राजवार्तिकसूत्र\": \"6\"}"
+            "gatha_number": "अध्याय:12:सूत्र:6",
+            "identifier_values": "{\"अध्याय\": \"12\", \"राजवार्तिकसूत्र\": \"6\"}"
           },
           "lazy": true
         },
@@ -26796,7 +26324,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:1:अध्याय:33:सूत्र:1"
+            "key": "राजवार्तिक:अध्याय:33:सूत्र:1"
           },
           "to": {
             "label": "Topic",
@@ -26815,7 +26343,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:95"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:95"
           },
           "to": {
             "label": "Topic",
@@ -26910,7 +26438,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:1"
+            "key": "राजवार्तिक:अध्याय:2:सूत्र:1"
           },
           "to": {
             "label": "Topic",
@@ -26929,7 +26457,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:436"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:436"
           },
           "to": {
             "label": "Topic",
@@ -27154,7 +26682,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "राजवार्तिक:टीका:पुस्तक:5:अध्याय:2:सूत्र:टीका:2"
+            "key": "राजवार्तिक:टीका:अध्याय:2:सूत्र:टीका:2"
           },
           "to": {
             "label": "Topic",
@@ -27173,7 +26701,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:436"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:436"
           },
           "to": {
             "label": "Topic",
@@ -28767,7 +28295,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "राजवार्तिक:टीका:पुस्तक:5:अध्याय:2:सूत्र:टीका:12"
+            "key": "राजवार्तिक:टीका:अध्याय:2:सूत्र:टीका:12"
           },
           "to": {
             "label": "Topic",
@@ -28786,7 +28314,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:441"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:441"
           },
           "to": {
             "label": "Topic",
@@ -29957,7 +29485,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "राजवार्तिक:टीका:पुस्तक:5:अध्याय:6:सूत्र:टीका:6"
+            "key": "राजवार्तिक:टीका:अध्याय:6:सूत्र:टीका:6"
           },
           "to": {
             "label": "Topic",
@@ -29976,7 +29504,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:445"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:445"
           },
           "to": {
             "label": "Topic",
@@ -31034,7 +30562,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:15"
+            "key": "राजवार्तिक:अध्याय:8:सूत्र:15"
           },
           "to": {
             "label": "Topic",
@@ -31053,7 +30581,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:451"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:451"
           },
           "to": {
             "label": "Topic",
@@ -31087,7 +30615,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:5"
+            "key": "राजवार्तिक:अध्याय:8:सूत्र:5"
           },
           "to": {
             "label": "Topic",
@@ -31106,7 +30634,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:450"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:450"
           },
           "to": {
             "label": "Topic",
@@ -31143,7 +30671,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:18"
+            "key": "राजवार्तिक:अध्याय:8:सूत्र:18"
           },
           "to": {
             "label": "Topic",
@@ -31162,7 +30690,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:451"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:451"
           },
           "to": {
             "label": "Topic",
@@ -31181,7 +30709,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:19"
+            "key": "राजवार्तिक:अध्याय:8:सूत्र:19"
           },
           "to": {
             "label": "Topic",
@@ -31200,7 +30728,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:451"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:451"
           },
           "to": {
             "label": "Topic",
@@ -31219,7 +30747,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:19"
+            "key": "राजवार्तिक:अध्याय:8:सूत्र:19"
           },
           "to": {
             "label": "Topic",
@@ -31238,7 +30766,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:451"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:451"
           },
           "to": {
             "label": "Topic",
@@ -31257,7 +30785,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:20"
+            "key": "राजवार्तिक:अध्याय:8:सूत्र:20"
           },
           "to": {
             "label": "Topic",
@@ -31276,7 +30804,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:451"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:451"
           },
           "to": {
             "label": "Topic",
@@ -31343,7 +30871,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:15"
+            "key": "राजवार्तिक:अध्याय:8:सूत्र:15"
           },
           "to": {
             "label": "Topic",
@@ -31362,7 +30890,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:451"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:451"
           },
           "to": {
             "label": "Topic",
@@ -31411,7 +30939,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:17"
+            "key": "राजवार्तिक:अध्याय:8:सूत्र:17"
           },
           "to": {
             "label": "Topic",
@@ -31430,7 +30958,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:451"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:451"
           },
           "to": {
             "label": "Topic",
@@ -31464,7 +30992,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:22"
+            "key": "राजवार्तिक:अध्याय:8:सूत्र:22"
           },
           "to": {
             "label": "Topic",
@@ -31483,7 +31011,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:452"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:452"
           },
           "to": {
             "label": "Topic",
@@ -31517,7 +31045,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:11"
+            "key": "राजवार्तिक:अध्याय:8:सूत्र:11"
           },
           "to": {
             "label": "Topic",
@@ -31536,7 +31064,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:450"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:450"
           },
           "to": {
             "label": "Topic",
@@ -31555,7 +31083,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:11"
+            "key": "राजवार्तिक:अध्याय:8:सूत्र:11"
           },
           "to": {
             "label": "Topic",
@@ -31574,7 +31102,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:450"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:450"
           },
           "to": {
             "label": "Topic",
@@ -31593,7 +31121,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:13"
+            "key": "राजवार्तिक:अध्याय:8:सूत्र:13"
           },
           "to": {
             "label": "Topic",
@@ -31612,7 +31140,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:450"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:450"
           },
           "to": {
             "label": "Topic",
@@ -31646,7 +31174,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:6"
+            "key": "राजवार्तिक:अध्याय:8:सूत्र:6"
           },
           "to": {
             "label": "Topic",
@@ -31665,7 +31193,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:450"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:450"
           },
           "to": {
             "label": "Topic",
@@ -31825,7 +31353,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:21"
+            "key": "राजवार्तिक:अध्याय:8:सूत्र:21"
           },
           "to": {
             "label": "Topic",
@@ -31844,7 +31372,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:452"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:452"
           },
           "to": {
             "label": "Topic",
@@ -31863,7 +31391,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:8:सूत्र:21"
+            "key": "राजवार्तिक:अध्याय:8:सूत्र:21"
           },
           "to": {
             "label": "Topic",
@@ -31882,7 +31410,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:452"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:452"
           },
           "to": {
             "label": "Topic",
@@ -32215,7 +31743,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:1:अध्याय:1:सूत्र:19"
+            "key": "राजवार्तिक:अध्याय:1:सूत्र:19"
           },
           "to": {
             "label": "Topic",
@@ -32234,7 +31762,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:7"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:7"
           },
           "to": {
             "label": "Topic",
@@ -32391,7 +31919,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:10"
+            "key": "राजवार्तिक:अध्याय:2:सूत्र:10"
           },
           "to": {
             "label": "Topic",
@@ -32410,7 +31938,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:439"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:439"
           },
           "to": {
             "label": "Topic",
@@ -32612,7 +32140,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:11"
+            "key": "राजवार्तिक:अध्याय:2:सूत्र:11"
           },
           "to": {
             "label": "Topic",
@@ -32631,7 +32159,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:440"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:440"
           },
           "to": {
             "label": "Topic",
@@ -32847,7 +32375,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:2:अध्याय:8:सूत्र:6"
+            "key": "राजवार्तिक:अध्याय:8:सूत्र:6"
           },
           "to": {
             "label": "Topic",
@@ -32866,7 +32394,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:2:पृष्ठ:119"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:119"
           },
           "to": {
             "label": "Topic",
@@ -33205,7 +32733,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:9"
+            "key": "राजवार्तिक:अध्याय:2:सूत्र:9"
           },
           "to": {
             "label": "Topic",
@@ -33224,7 +32752,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:439"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:439"
           },
           "to": {
             "label": "Topic",
@@ -33243,7 +32771,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:9"
+            "key": "राजवार्तिक:अध्याय:2:सूत्र:9"
           },
           "to": {
             "label": "Topic",
@@ -33262,7 +32790,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:439"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:439"
           },
           "to": {
             "label": "Topic",
@@ -33281,7 +32809,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:12"
+            "key": "राजवार्तिक:अध्याय:2:सूत्र:12"
           },
           "to": {
             "label": "Topic",
@@ -33300,7 +32828,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:440"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:440"
           },
           "to": {
             "label": "Topic",
@@ -33319,7 +32847,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:1"
+            "key": "राजवार्तिक:अध्याय:2:सूत्र:1"
           },
           "to": {
             "label": "Topic",
@@ -33338,7 +32866,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:440"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:440"
           },
           "to": {
             "label": "Topic",
@@ -33390,7 +32918,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:38:सूत्र:4"
+            "key": "राजवार्तिक:अध्याय:38:सूत्र:4"
           },
           "to": {
             "label": "Topic",
@@ -33409,7 +32937,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:501"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:501"
           },
           "to": {
             "label": "Topic",
@@ -33538,7 +33066,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:9"
+            "key": "राजवार्तिक:अध्याय:2:सूत्र:9"
           },
           "to": {
             "label": "Topic",
@@ -33557,7 +33085,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:439"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:439"
           },
           "to": {
             "label": "Topic",
@@ -33594,7 +33122,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:1:अध्याय:9:सूत्र:11"
+            "key": "राजवार्तिक:अध्याय:9:सूत्र:11"
           },
           "to": {
             "label": "Topic",
@@ -33613,7 +33141,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:46"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:46"
           },
           "to": {
             "label": "Topic",
@@ -33647,7 +33175,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:4"
+            "key": "राजवार्तिक:अध्याय:2:सूत्र:4"
           },
           "to": {
             "label": "Topic",
@@ -33666,7 +33194,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:43"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:43"
           },
           "to": {
             "label": "Topic",
@@ -33685,7 +33213,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:1:अध्याय:1:सूत्र:12"
+            "key": "राजवार्तिक:अध्याय:1:सूत्र:12"
           },
           "to": {
             "label": "Topic",
@@ -33704,7 +33232,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:6"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:6"
           },
           "to": {
             "label": "Topic",
@@ -33723,7 +33251,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:11"
+            "key": "राजवार्तिक:अध्याय:2:सूत्र:11"
           },
           "to": {
             "label": "Topic",
@@ -33742,7 +33270,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:439"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:439"
           },
           "to": {
             "label": "Topic",
@@ -33761,7 +33289,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:10"
+            "key": "राजवार्तिक:अध्याय:2:सूत्र:10"
           },
           "to": {
             "label": "Topic",
@@ -33780,7 +33308,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:439"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:439"
           },
           "to": {
             "label": "Topic",
@@ -33817,7 +33345,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:9"
+            "key": "राजवार्तिक:अध्याय:2:सूत्र:9"
           },
           "to": {
             "label": "Topic",
@@ -33836,7 +33364,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:439"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:439"
           },
           "to": {
             "label": "Topic",
@@ -33893,7 +33421,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:1:अध्याय:9:सूत्र:11"
+            "key": "राजवार्तिक:अध्याय:9:सूत्र:11"
           },
           "to": {
             "label": "Topic",
@@ -33912,7 +33440,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:46"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:46"
           },
           "to": {
             "label": "Topic",
@@ -33931,7 +33459,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:10"
+            "key": "राजवार्तिक:अध्याय:2:सूत्र:10"
           },
           "to": {
             "label": "Topic",
@@ -33950,7 +33478,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:439"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:439"
           },
           "to": {
             "label": "Topic",
@@ -33969,7 +33497,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:3"
+            "key": "राजवार्तिक:अध्याय:2:सूत्र:3"
           },
           "to": {
             "label": "Topic",
@@ -33988,7 +33516,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:436"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:436"
           },
           "to": {
             "label": "Topic",
@@ -34098,7 +33626,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:1:अध्याय:1:सूत्र:10"
+            "key": "राजवार्तिक:अध्याय:1:सूत्र:10"
           },
           "to": {
             "label": "Topic",
@@ -34117,7 +33645,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:5"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:5"
           },
           "to": {
             "label": "Topic",
@@ -34136,7 +33664,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:2:अध्याय:8:सूत्र:5"
+            "key": "राजवार्तिक:अध्याय:8:सूत्र:5"
           },
           "to": {
             "label": "Topic",
@@ -34155,7 +33683,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:2:पृष्ठ:119"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:119"
           },
           "to": {
             "label": "Topic",
@@ -34174,7 +33702,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:1:अध्याय:9:सूत्र:11"
+            "key": "राजवार्तिक:अध्याय:9:सूत्र:11"
           },
           "to": {
             "label": "Topic",
@@ -34193,7 +33721,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:46"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:46"
           },
           "to": {
             "label": "Topic",
@@ -34212,7 +33740,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:3"
+            "key": "राजवार्तिक:अध्याय:2:सूत्र:3"
           },
           "to": {
             "label": "Topic",
@@ -34231,7 +33759,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:437"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:437"
           },
           "to": {
             "label": "Topic",
@@ -34250,7 +33778,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:1:अध्याय:10:सूत्र:9"
+            "key": "राजवार्तिक:अध्याय:10:सूत्र:9"
           },
           "to": {
             "label": "Topic",
@@ -34269,7 +33797,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:50"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:50"
           },
           "to": {
             "label": "Topic",
@@ -34354,7 +33882,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:1:अध्याय:1:सूत्र:14"
+            "key": "राजवार्तिक:अध्याय:1:सूत्र:14"
           },
           "to": {
             "label": "Topic",
@@ -34373,7 +33901,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:6"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:6"
           },
           "to": {
             "label": "Topic",
@@ -34410,7 +33938,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:1:अध्याय:33:सूत्र:5"
+            "key": "राजवार्तिक:अध्याय:33:सूत्र:5"
           },
           "to": {
             "label": "Topic",
@@ -34429,7 +33957,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:96"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:96"
           },
           "to": {
             "label": "Topic",
@@ -34484,7 +34012,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:1:अध्याय:1:सूत्र:9"
+            "key": "राजवार्तिक:अध्याय:1:सूत्र:9"
           },
           "to": {
             "label": "Topic",
@@ -34503,7 +34031,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:5"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:5"
           },
           "to": {
             "label": "Topic",
@@ -34522,7 +34050,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:1:अध्याय:33:सूत्र:5"
+            "key": "राजवार्तिक:अध्याय:33:सूत्र:5"
           },
           "to": {
             "label": "Topic",
@@ -34541,7 +34069,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:96"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:96"
           },
           "to": {
             "label": "Topic",
@@ -34560,7 +34088,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:3"
+            "key": "राजवार्तिक:अध्याय:2:सूत्र:3"
           },
           "to": {
             "label": "Topic",
@@ -34579,7 +34107,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:437"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:437"
           },
           "to": {
             "label": "Topic",
@@ -34598,7 +34126,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:1:अध्याय:1:सूत्र:13"
+            "key": "राजवार्तिक:अध्याय:1:सूत्र:13"
           },
           "to": {
             "label": "Topic",
@@ -34617,7 +34145,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:6"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:6"
           },
           "to": {
             "label": "Topic",
@@ -34636,7 +34164,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:1:अध्याय:9:सूत्र:11"
+            "key": "राजवार्तिक:अध्याय:9:सूत्र:11"
           },
           "to": {
             "label": "Topic",
@@ -34655,7 +34183,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:46"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:46"
           },
           "to": {
             "label": "Topic",
@@ -34674,7 +34202,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:2:सूत्र:3"
+            "key": "राजवार्तिक:अध्याय:2:सूत्र:3"
           },
           "to": {
             "label": "Topic",
@@ -34693,7 +34221,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:437"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:437"
           },
           "to": {
             "label": "Topic",
@@ -35039,7 +34567,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "राजवार्तिक:टीका:पुस्तक:5:अध्याय:12:सूत्र:टीका:5"
+            "key": "राजवार्तिक:टीका:अध्याय:12:सूत्र:टीका:5"
           },
           "to": {
             "label": "Topic",
@@ -35058,7 +34586,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:5:पृष्ठ:454"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:454"
           },
           "to": {
             "label": "Topic",
@@ -35077,7 +34605,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "राजवार्तिक:पुस्तक:5:अध्याय:12:सूत्र:6"
+            "key": "राजवार्तिक:अध्याय:12:सूत्र:6"
           },
           "to": {
             "label": "Topic",

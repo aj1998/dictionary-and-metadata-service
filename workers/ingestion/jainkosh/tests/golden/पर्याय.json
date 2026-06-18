@@ -221,10 +221,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 1
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 33
                               },
@@ -458,10 +454,6 @@
                             "shastra_name": "राजवार्तिक",
                             "match_method": "shastra_name",
                             "resolved_fields": [
-                              {
-                                "field": "पुस्तक",
-                                "value": 1
-                              },
                               {
                                 "field": "अध्याय",
                                 "value": 29
@@ -2886,7 +2878,7 @@
                     "hindi_translation": "पर्यायरूप से अनित्य होने पर भी शुद्ध द्रव्यार्थिक नय से अविनश्वर अनंत ज्ञानादि रूप शुद्ध जीवास्तिकाय नाम का शुद्धात्म द्रव्य है उसको रागादि के परिहार के द्वारा उपादेय रूप से भाना चाहिए, ऐसा भावार्थ है।",
                     "references": [
                       {
-                        "text": "पंचास्तिकाय / तात्पर्यवृत्ति/19/4/5",
+                        "text": "पंचास्तिकाय / तात्पर्यवृत्ति/19/41/5",
                         "inline_reference": false,
                         "needs_manual_match": false,
                         "is_teeka": true,
@@ -2900,7 +2892,7 @@
                           },
                           {
                             "field": "पृष्ठ",
-                            "value": 4
+                            "value": 41
                           },
                           {
                             "field": "पंक्ति",
@@ -5763,7 +5755,7 @@
       "next": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%B8%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8"
     },
     "parser_version": "jainkosh.rules/1.11.22",
-    "parsed_at": "2026-06-18T17:16:38.055601",
+    "parsed_at": "2026-06-18T21:10:22.518787",
     "warnings": []
   },
   "would_write": {
@@ -6888,10 +6880,6 @@
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
-                      "field": "पुस्तक",
-                      "value": 1
-                    },
-                    {
                       "field": "अध्याय",
                       "value": 33
                     },
@@ -7125,10 +7113,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 1
-                    },
                     {
                       "field": "अध्याय",
                       "value": 29
@@ -9564,7 +9548,7 @@
               "hindi_translation": "पर्यायरूप से अनित्य होने पर भी शुद्ध द्रव्यार्थिक नय से अविनश्वर अनंत ज्ञानादि रूप शुद्ध जीवास्तिकाय नाम का शुद्धात्म द्रव्य है उसको रागादि के परिहार के द्वारा उपादेय रूप से भाना चाहिए, ऐसा भावार्थ है।",
               "references": [
                 {
-                  "text": "पंचास्तिकाय / तात्पर्यवृत्ति/19/4/5",
+                  "text": "पंचास्तिकाय / तात्पर्यवृत्ति/19/41/5",
                   "inline_reference": false,
                   "needs_manual_match": false,
                   "is_teeka": true,
@@ -9578,7 +9562,7 @@
                     },
                     {
                       "field": "पृष्ठ",
-                      "value": 4
+                      "value": 41
                     },
                     {
                       "field": "पंक्ति",
@@ -12550,7 +12534,7 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "राजवार्तिक:टीका:पुस्तक:1:अध्याय:33:सूत्र:टीका:1",
+          "key": "राजवार्तिक:टीका:अध्याय:33:सूत्र:टीका:1",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
@@ -12560,13 +12544,12 @@
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:95",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:95",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "95",
-            "pustak_number": "1"
+            "page_number": "95"
           },
           "lazy": true
         },
@@ -12668,7 +12651,7 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "राजवार्तिक:टीका:पुस्तक:1:अध्याय:29:सूत्र:टीका:4",
+          "key": "राजवार्तिक:टीका:अध्याय:29:सूत्र:टीका:4",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
@@ -12678,13 +12661,12 @@
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:89",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:89",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "89",
-            "pustak_number": "1"
+            "page_number": "89"
           },
           "lazy": true
         },
@@ -13520,12 +13502,12 @@
         },
         {
           "label": "Page",
-          "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:पृष्ठ:4",
+          "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:पृष्ठ:41",
           "props": {
             "shastra_natural_key": "पंचास्तिकाय",
             "teeka_natural_key": "पंचास्तिकाय:तात्पर्यवृत्ति",
             "publisher_id": "17",
-            "page_number": "4"
+            "page_number": "41"
           },
           "lazy": true
         },
@@ -14407,7 +14389,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "राजवार्तिक:टीका:पुस्तक:1:अध्याय:33:सूत्र:टीका:1"
+            "key": "राजवार्तिक:टीका:अध्याय:33:सूत्र:टीका:1"
           },
           "to": {
             "label": "Topic",
@@ -14426,7 +14408,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:95"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:95"
           },
           "to": {
             "label": "Topic",
@@ -14609,7 +14591,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "राजवार्तिक:टीका:पुस्तक:1:अध्याय:29:सूत्र:टीका:4"
+            "key": "राजवार्तिक:टीका:अध्याय:29:सूत्र:टीका:4"
           },
           "to": {
             "label": "Topic",
@@ -14628,7 +14610,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:1:पृष्ठ:89"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:89"
           },
           "to": {
             "label": "Topic",
@@ -16528,7 +16510,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:पृष्ठ:4"
+            "key": "पंचास्तिकाय:तात्पर्यवृत्ति:17:पृष्ठ:41"
           },
           "to": {
             "label": "Topic",

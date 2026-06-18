@@ -980,6 +980,31 @@ class TestPassthroughFormatGroup:
         field_map = {rf.field: rf for rf in expanded[0]}
         assert field_map["कषायपाहुड़-गाथा"].value == "13-14"
 
+    def test_parse_format_string_detects_ignored_field(self):
+        from workers.ingestion.jainkosh.parse_reference import parse_format_string
+        groups = parse_format_string("#राजवार्तिकपुस्तक/अध्याय/राजवार्तिकसूत्र/पृष्ठ/पंक्ति")
+        assert len(groups) == 5
+        assert groups[0].fields[0].ignored is True
+        assert groups[0].fields[0].name == "राजवार्तिकपुस्तक"
+        assert groups[1].fields[0].ignored is False
+
+    def test_ignored_field_matched_but_dropped(self, cfg: JainkoshConfig):
+        from workers.ingestion.jainkosh.parse_reference import (
+            parse_format_string, resolve_fields
+        )
+        fmt_groups = parse_format_string("#राजवार्तिकपुस्तक/अध्याय/राजवार्तिकसूत्र/पृष्ठ/पंक्ति")
+        resolved, needs_manual, _ = resolve_fields(
+            "1/9/2/600/12", fmt_groups, cfg.reference.needs_manual_match
+        )
+        assert needs_manual is False
+        field_map = {rf.field: rf.value for rf in resolved}
+        # Ignored field consumed the leading "1" positionally but is absent.
+        assert "राजवार्तिकपुस्तक" not in field_map
+        assert field_map["अध्याय"] == 9
+        assert field_map["राजवार्तिकसूत्र"] == 2
+        assert field_map["पृष्ठ"] == 600
+        assert field_map["पंक्ति"] == 12
+
     def test_kashayapaahud_end_to_end(self, cfg: JainkoshConfig):
         """Full parse_reference_text for कषायपाहुड़ 1/13-14/§181/217/1.
 

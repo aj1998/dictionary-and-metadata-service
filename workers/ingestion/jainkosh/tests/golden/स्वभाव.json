@@ -349,10 +349,6 @@
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
-                                "field": "पुस्तक",
-                                "value": 7
-                              },
-                              {
                                 "field": "अध्याय",
                                 "value": 12
                               },
@@ -2117,7 +2113,7 @@
       "next": "/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5_%E0%A4%A8%E0%A4%AF"
     },
     "parser_version": "jainkosh.rules/1.11.22",
-    "parsed_at": "2026-06-18T17:16:38.355882",
+    "parsed_at": "2026-06-18T21:10:22.835389",
     "warnings": []
   },
   "would_write": {
@@ -2863,10 +2859,6 @@
                   "shastra_name": "राजवार्तिक",
                   "match_method": "shastra_name",
                   "resolved_fields": [
-                    {
-                      "field": "पुस्तक",
-                      "value": 7
-                    },
                     {
                       "field": "अध्याय",
                       "value": 12
@@ -4859,7 +4851,7 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "राजवार्तिक:टीका:पुस्तक:7:अध्याय:12:सूत्र:टीका:2",
+          "key": "राजवार्तिक:टीका:अध्याय:12:सूत्र:टीका:2",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
@@ -4869,13 +4861,12 @@
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पुस्तक:7:पृष्ठ:539",
+          "key": "राजवार्तिक:टीका:18:पृष्ठ:539",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
             "publisher_id": "18",
-            "page_number": "539",
-            "pustak_number": "7"
+            "page_number": "539"
           },
           "lazy": true
         },
@@ -5947,7 +5938,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "राजवार्तिक:टीका:पुस्तक:7:अध्याय:12:सूत्र:टीका:2"
+            "key": "राजवार्तिक:टीका:अध्याय:12:सूत्र:टीका:2"
           },
           "to": {
             "label": "Topic",
@@ -5966,7 +5957,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पुस्तक:7:पृष्ठ:539"
+            "key": "राजवार्तिक:टीका:18:पृष्ठ:539"
           },
           "to": {
             "label": "Topic",

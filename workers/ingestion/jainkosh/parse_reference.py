@@ -31,6 +31,10 @@ from .models import ResolvedField
 class FormatField:
     name: str
     optional: bool
+    ignored: bool = False
+    # When True (field name prefixed with '#' in the format string), the field
+    # still participates in matching/positioning but is dropped from the final
+    # resolved_fields output.
 
 
 @dataclass
@@ -300,6 +304,18 @@ def _split_format_string_groups(fmt: str) -> list[str]:
     return groups
 
 
+def _split_ignored(name: str) -> tuple[str, bool]:
+    """Strip a leading '#' ignore-marker from a field name.
+
+    A field name prefixed with '#' (e.g. '#राजवार्तिकपुस्तक') is still matched
+    positionally but excluded from the resolved_fields output.
+    """
+    name = name.strip()
+    if name.startswith("#"):
+        return name[1:].strip(), True
+    return name, False
+
+
 def parse_format_string(fmt: str) -> list[FormatGroup]:
     if not fmt:
         return []
@@ -312,9 +328,9 @@ def parse_format_string(fmt: str) -> list[FormatGroup]:
         # Passthrough group: <fieldname>  — value stored as-is, no numeric parsing
         m_pt = _PASSTHROUGH_GROUP_RE.match(group_str)
         if m_pt:
-            field_name = m_pt.group(1).strip()
+            field_name, ignored = _split_ignored(m_pt.group(1))
             groups.append(FormatGroup(
-                fields=[FormatField(name=field_name, optional=False)],
+                fields=[FormatField(name=field_name, optional=False, ignored=ignored)],
                 sub_separator=None,
                 is_passthrough=True,
             ))
@@ -324,9 +340,9 @@ def parse_format_string(fmt: str) -> list[FormatGroup]:
         m_kw = _KEYWORD_GROUP_RE.match(group_str)
         if m_kw:
             triggers = [t.strip() for t in m_kw.group(1).split("/") if t.strip()]
-            field_name = m_kw.group(2).strip()
+            field_name, ignored = _split_ignored(m_kw.group(2))
             groups.append(FormatGroup(
-                fields=[FormatField(name=field_name, optional=False)],
+                fields=[FormatField(name=field_name, optional=False, ignored=ignored)],
                 sub_separator=None,
                 keyword_triggers=triggers,
             ))
@@ -349,8 +365,8 @@ def parse_format_string(fmt: str) -> list[FormatGroup]:
             if not m:
                 continue
             optional = m.group(1) == "§"
-            name = m.group(2).strip()
-            fields.append(FormatField(name=name, optional=optional))
+            name, ignored = _split_ignored(m.group(2))
+            fields.append(FormatField(name=name, optional=optional, ignored=ignored))
 
         if fields:
             groups.append(FormatGroup(fields=fields, sub_separator=sub_sep))
@@ -696,6 +712,8 @@ def _assign_group(
                 mismatch = True
                 continue  # non-numeric part → don't emit a field
             value = coerced
+        if f.ignored:
+            continue  # matched positionally but excluded from output
         resolved.append(ResolvedField(field=f.name, value=value))
 
     return resolved, mismatch
@@ -715,8 +733,10 @@ def _assign_keyword_group(
             numeric_part = value_str[len(trigger):]
             coerced = _coerce_value(numeric_part)
             if coerced is not None:
-                field_name = f_group.fields[0].name
-                return [ResolvedField(field=field_name, value=coerced)], False, trigger
+                f = f_group.fields[0]
+                if f.ignored:
+                    return [], False, trigger
+                return [ResolvedField(field=f.name, value=coerced)], False, trigger
     return [], True, ""
 
 
@@ -750,8 +770,9 @@ def resolve_fields(
 
         if f_group.is_passthrough:
             value_str = value_groups[v_idx]
-            field_name = f_group.fields[0].name
-            resolved.append(ResolvedField(field=field_name, value=value_str, is_passthrough=True))
+            f = f_group.fields[0]
+            if not f.ignored:
+                resolved.append(ResolvedField(field=f.name, value=value_str, is_passthrough=True))
             v_idx += 1
         elif f_group.is_keyword_group:
             value_str = value_groups[v_idx]
