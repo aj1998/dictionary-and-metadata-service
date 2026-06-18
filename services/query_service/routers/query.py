@@ -148,8 +148,12 @@ async def topics_match(
 
     extracts_map: dict[str, list[dict]] = {}
     raw_blocks_map: dict[str, list[dict]] = {}
-    if hits and (body.include_extracts or body.include_references):
+    extract_counts: dict[str, int] = {}
+    if hits:
         natural_keys = [h.natural_key for h in hits]
+        # Always provide a total block count (mirrors the data-service topics
+        # listing) so cards can show the count and gate the "पढ़ें" button.
+        extract_counts = await tm_pipeline.count_topic_extract_blocks(mongo, natural_keys)
         if body.include_extracts:
             extracts_map = await tm_pipeline.fetch_topic_extracts_batch(mongo, natural_keys)
         if body.include_references:
@@ -178,6 +182,7 @@ async def topics_match(
             source=hit.source,
             similarity=hit.similarity,
             score=hit.score,
+            extract_count=extract_counts.get(nk, 0),
             extracts_hi=extracts_hi,
             references=references,
         ))

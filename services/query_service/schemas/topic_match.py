@@ -48,6 +48,7 @@ class TopicMatchItem(BaseModel):
     source: str
     similarity: float
     score: float
+    extract_count: int = 0
     extracts_hi: Optional[list[ExtractBlock]] = None
     references: Optional[list[TopicReference]] = None
 

@@ -1,11 +1,14 @@
 import { Link } from '@/i18n/navigation';
 import { BookOpen, ScrollText, Sparkles, Tag } from '@/lib/icons';
-import { getKeywords, getTopics } from '@/lib/api/data';
+import { keywordResolveBatch, topicsMatch } from '@/lib/api/query';
 import { getShastras } from '@/lib/api/metadata';
 import { TopicNavAction } from '@/components/TopicNavAction';
+import { meaningfulTokens } from '@/lib/content-listing';
 import { normalizeNFC, toDevanagariNumerals } from '@/lib/format/devanagari';
 import { getLocale, getTranslations } from 'next-intl/server';
-import type { KeywordSummary, ShastraSummary, TopicSummary } from '@/lib/types';
+import type { ShastraSummary, TopicMatchItem } from '@/lib/types';
+
+type KeywordResult = { natural_key: string; display_text: string };
 
 export const revalidate = 0;
 
@@ -24,31 +27,89 @@ function norm(s: string): string {
   return normalizeNFC(s).trim().toLowerCase();
 }
 
-function topicLeafName(t: TopicSummary): string {
-  const hi = t.display_text.find((r) => r.lang === 'hi')?.text?.trim();
-  if (hi && !hi.includes(':')) return hi;
-  const segments = (hi && hi.includes(':') ? hi : t.natural_key).split(':');
-  const last = segments[segments.length - 1] ?? t.natural_key;
-  return last.replace(/-/g, ' ');
-}
-
 function shastraHi(s: ShastraSummary): string {
   return s.title.find((r) => r.lang === 'hi')?.text ?? s.natural_key;
 }
 
-async function fetchKeywords(q: string): Promise<KeywordSummary[]> {
+/**
+ * Build the list of search terms for a query. Always includes the full phrase;
+ * for multi-word queries it also adds each meaningful (non-stopword) token, so
+ * "विभाव पर्याय" resolves both विभाव and पर्याय while "द्रव्यों की स्वतंत्रता"
+ * does not fan out on the particle "की".
+ */
+function searchTerms(q: string): string[] {
+  const tokens = meaningfulTokens(q);
+  const terms = tokens.length > 1 ? [q, ...tokens] : [q];
+  return Array.from(new Set(terms));
+}
+
+async function fetchKeywords(q: string): Promise<KeywordResult[]> {
   try {
-    const r = await getKeywords({ q, limit: LIMIT });
-    return r.items ?? [];
+    // Query engine keyword resolution (01_keyword_resolve_api): per-token
+    // exact → alias → suffix-strip → fuzzy. So "द्रव्यों" resolves to the
+    // keyword "द्रव्य" (suffix_strip), and misses surface fuzzy suggestions.
+    const tokens = meaningfulTokens(q);
+    const { resolutions } = await keywordResolveBatch({
+      tokens: tokens.length ? tokens : [q],
+      fuzzyTopK: 3,
+      minSimilarity: 0.35,
+      includeDefinitions: false,
+    });
+    const seen = new Set<string>();
+    const out: KeywordResult[] = [];
+    const add = (nk?: string | null) => {
+      if (!nk || seen.has(nk)) return;
+      seen.add(nk);
+      out.push({ natural_key: nk, display_text: nk });
+    };
+    for (const r of resolutions) {
+      if (r.match_kind !== 'none') {
+        add(r.keyword_natural_key);
+      } else {
+        // Unresolved token → show only the single best "did you mean"
+        // suggestion. Showing the full fuzzy list floods results with weak
+        // phonetic coincidences (e.g. परद्रव्य → पर्याय) alongside the genuine
+        // near-match (परद्रव्य → द्रव्य).
+        add(r.suggestions?.[0]?.keyword_natural_key);
+      }
+    }
+    return out.slice(0, LIMIT);
   } catch (e) {
     console.error('search: keywords failed', e);
     return [];
   }
 }
-async function fetchTopics(q: string): Promise<TopicSummary[]> {
+async function fetchTopics(q: string): Promise<TopicMatchItem[]> {
   try {
-    const r = await getTopics({ q, limit: LIMIT });
-    return r.items ?? [];
+    // Same shared backend the /topics page uses (ILIKE leaf-substring +
+    // parent-aware trigram). searchTerms() puts the FULL phrase first, then
+    // each meaningful token. We preserve that priority when merging: the
+    // full-phrase relevance ranking comes first (so the genuinely best match
+    // always surfaces), then token-only topics fill the rest — this is how
+    // "विभाव पर्याय" still surfaces topics under both विभाव and पर्याय without
+    // the common-token substring 1.0s drowning the best phrase match.
+    const results = await Promise.all(
+      searchTerms(q).map((term) =>
+        topicsMatch({
+          phrase: term,
+          limit: LIMIT,
+          minSimilarity: 0.3,
+          includeExtracts: false,
+          includeReferences: false,
+        }),
+      ),
+    );
+    const seen = new Set<string>();
+    const ordered: TopicMatchItem[] = [];
+    for (const r of results) {
+      const sorted = [...r.matches].sort((a, b) => b.similarity - a.similarity);
+      for (const item of sorted) {
+        if (seen.has(item.topic_natural_key)) continue;
+        seen.add(item.topic_natural_key);
+        ordered.push(item);
+      }
+    }
+    return ordered.slice(0, LIMIT);
   } catch (e) {
     console.error('search: topics failed', e);
     return [];
@@ -56,7 +117,13 @@ async function fetchTopics(q: string): Promise<TopicSummary[]> {
 }
 async function fetchShastras(q: string): Promise<ShastraSummary[]> {
   try {
-    const r = await getShastras({ q, limit: LIMIT });
+    // Query engine metadata fuzzy match (03_metadata_fuzzy_match): pg_trgm
+    // similarity over name + natural_key, so "समयसर" still finds "समयसार".
+    // The default 0.25 cutoff lets concept phrases (e.g. "द्रव्यों की
+    // स्वतंत्रता") incidentally match unrelated shastra names like पंचास्तिकाय
+    // (~0.36); a 0.4 cutoff drops that noise while real name typos still pass
+    // (समयसर→समयसार ≈ 0.44).
+    const r = await getShastras({ q, limit: LIMIT, fuzzy: true, minSimilarity: 0.4 });
     return r.items ?? [];
   } catch (e) {
     console.error('search: shastras failed', e);
@@ -77,7 +144,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
 
   const nq = norm(q);
   const exactKeyword = keywords.find((k) => norm(k.display_text) === nq);
-  const exactTopic = topics.find((tp) => norm(topicLeafName(tp)) === nq);
+  const exactTopic = topics.find((tp) => norm(tp.display_text_hi) === nq);
   const exactShastra = shastras.find((s) => norm(shastraHi(s)) === nq);
   const anyExact = exactKeyword ?? exactTopic ?? exactShastra;
 
@@ -120,7 +187,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
                 </Link>
               )}
               {!exactKeyword && exactTopic && (
-                <TopicNavAction topicNk={exactTopic.natural_key} displayText={topicLeafName(exactTopic)} variant="inline" />
+                <TopicNavAction topicNk={exactTopic.topic_natural_key} displayText={exactTopic.display_text_hi} variant="inline" />
               )}
               {!exactKeyword && !exactTopic && exactShastra && (
                 <Link href={`/shastras/${exactShastra.natural_key}`} className={`${fontHi} text-[length:var(--font-size-h2)] font-semibold text-foreground hover:text-accent`}>
@@ -145,7 +212,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
           >
             {keywords.map((k) => (
               <Link
-                key={k.id}
+                key={k.natural_key}
                 href={`/dictionary/${k.natural_key}`}
                 className="block rounded-[var(--radius-sm)] border border-border bg-background px-3 py-2 text-sm hover:bg-accent-soft hover:border-accent/30"
               >
@@ -164,15 +231,16 @@ export default async function SearchPage({ searchParams }: PageProps) {
             fontHi={fontHi}
           >
             {topics.map((tp) => {
-              const name = topicLeafName(tp);
-              const hasExtracts = tp.extract_count > 0 || !!tp.topic_path;
-              const parentKw = tp.parent_keyword?.natural_key;
+              const name = tp.display_text_hi;
+              const extractCount = tp.extract_count;
+              const hasExtracts = extractCount > 0;
+              const parentKw = tp.topic_natural_key.split(':')[0];
               const href = parentKw
-                ? `/dictionary/${parentKw}?topic=${encodeURIComponent(tp.natural_key)}`
+                ? `/dictionary/${parentKw}?topic=${encodeURIComponent(tp.topic_natural_key)}`
                 : null;
               return (
                 <div
-                  key={tp.id}
+                  key={tp.topic_natural_key}
                   className="flex items-center justify-between gap-2 rounded-[var(--radius-sm)] border border-border bg-background px-3 py-2 text-sm hover:bg-accent-soft hover:border-accent/30"
                 >
                   {href ? (
@@ -185,17 +253,17 @@ export default async function SearchPage({ searchParams }: PageProps) {
                   <div className="flex shrink-0 items-center gap-2">
                     {hasExtracts && (
                       <TopicNavAction
-                        topicNk={tp.natural_key}
+                        topicNk={tp.topic_natural_key}
                         displayText={name}
-                        isLeaf={true}
+                        isLeaf={tp.is_leaf}
                         parentKeywordNk={parentKw}
                         variant="inline"
                         className="inline-flex items-center gap-1 text-xs font-medium text-accent hover:underline"
                       />
                     )}
-                    {tp.extract_count > 0 && (
+                    {hasExtracts && (
                       <span className="rounded-full bg-accent-soft px-2 py-0.5 font-mono text-xs text-accent">
-                        {isHi ? toDevanagariNumerals(tp.extract_count) : tp.extract_count}
+                        {isHi ? toDevanagariNumerals(extractCount) : extractCount}
                       </span>
                     )}
                   </div>

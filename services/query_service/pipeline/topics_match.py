@@ -6,6 +6,7 @@ from dataclasses import dataclass, field
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from jain_kb_common.db.mongo.collections import TOPIC_EXTRACTS
 from jain_kb_common.hydration.topic_extracts import (
     extract_references,
     hydrate_topic_extracts_hi,
@@ -44,9 +45,17 @@ def get_display_text_hi(display_text: object) -> str:
 
 
 def ancestors_from_natural_key(natural_key: str) -> list[str]:
-    """Split a slash-separated natural_key and return all but the last segment."""
-    parts = natural_key.split("/")
-    return parts[:-1]
+    """Return the human-readable ancestor segments of a topic natural_key.
+
+    Real jainkosh topic keys are colon-separated with kebab-cased Hindi
+    segments (e.g. ``द्रव्य:द्रव्य-के-भेद-व-लक्षण:...``); legacy/spec keys use
+    ``/`` (e.g. ``द्रव्य/स्वतंत्रता/लक्षण``). We pick whichever separator is
+    present (preferring ``:``), drop the leaf segment, and turn ``-`` back into
+    spaces so the breadcrumb reads naturally.
+    """
+    sep = ":" if ":" in natural_key else "/"
+    parts = natural_key.split(sep)
+    return [p.replace("-", " ") for p in parts[:-1]]
 
 
 async def search_topics_trigram(
@@ -56,7 +65,24 @@ async def search_topics_trigram(
     min_similarity: float,
     leaf_only: bool,
 ) -> list[TopicTrigramHit]:
-    """Run pg_trgm similarity search over topics.natural_key (slashes replaced with spaces)."""
+    """Match topics over their natural_key path, merging two logics:
+
+    1. **Leaf substring (ILIKE)** — a literal match of the search string inside
+       the topic's own Hindi ``display_text`` (the leaf heading). This catches
+       exact occurrences (e.g. ``विभाव`` inside ``स्वभाव विभाव गुणों के लक्षण``)
+       without phonetically over-matching neighbours like ``विभाग``. Crucially
+       it matches the *leaf* only, **not** the ancestor path — otherwise every
+       descendant of a matching ancestor (the whole ``द्रव्य/…/स्वतंत्रता``
+       branch) would spuriously score 1.0. Leaf substring hits get ``sim = 1.0``.
+    2. **Trigram similarity** — parent-aware fuzzy match against the full
+       natural_key path (slashes → spaces), so multi-word phrase queries such as
+       ``द्रव्य स्वतंत्रता`` still resolve ``द्रव्य/स्वतंत्रता/लक्षण`` even when
+       no exact leaf substring is present. These contextual matches score below
+       1.0 and rank under the direct leaf matches.
+
+    A topic qualifies if *either* logic matches; the reported ``sim`` is the
+    greater of the two. ``score`` then applies the leaf/container weighting.
+    """
     leaf_filter = "AND t.is_leaf = true" if leaf_only else ""
     sql = text(f"""
         WITH ranked AS (
@@ -66,9 +92,18 @@ async def search_topics_trigram(
                 t.display_text,
                 t.is_leaf,
                 t.source,
-                similarity(REPLACE(t.natural_key, '/', ' '), :search_str) AS sim
+                GREATEST(
+                    similarity(REPLACE(t.natural_key, '/', ' '), :search_str),
+                    CASE
+                        WHEN t.display_text::text ILIKE :like_pat
+                        THEN 1.0 ELSE 0.0
+                    END
+                ) AS sim
             FROM topics t
-            WHERE similarity(REPLACE(t.natural_key, '/', ' '), :search_str) >= :min_similarity
+            WHERE (
+                similarity(REPLACE(t.natural_key, '/', ' '), :search_str) >= :min_similarity
+                OR t.display_text::text ILIKE :like_pat
+            )
             {leaf_filter}
         )
         SELECT *,
@@ -79,6 +114,7 @@ async def search_topics_trigram(
     """)
     rows = await session.execute(sql, {
         "search_str": search_str,
+        "like_pat": f"%{search_str}%",
         "min_similarity": min_similarity,
         "limit": limit,
     })
@@ -113,6 +149,29 @@ async def fetch_topic_extracts_batch(
         nk: [{"block_index": b["block_index"], "text_hi": b["text_hi"]} for b in blocks]
         for nk, blocks in rich.items()
     }
+
+
+async def count_topic_extract_blocks(
+    mongo_db: object,
+    natural_keys: list[str],
+) -> dict[str, int]:
+    """Return {natural_key: total block count} for the given topics.
+
+    Mirrors the data-service topics listing aggregation (counts *all* blocks,
+    not just Hindi ones) so the public search/topic cards show the same extract
+    count and can gate the "पढ़ें" affordance on it.
+    """
+    if not natural_keys:
+        return {}
+    cursor = mongo_db[TOPIC_EXTRACTS].aggregate([  # type: ignore[index]
+        {"$match": {"natural_key": {"$in": natural_keys}}},
+        {"$project": {"natural_key": 1, "n": {"$size": {"$ifNull": ["$blocks", []]}}}},
+        {"$group": {"_id": "$natural_key", "total": {"$sum": "$n"}}},
+    ])
+    counts: dict[str, int] = {}
+    async for doc in cursor:
+        counts[doc["_id"]] = int(doc["total"])
+    return counts
 
 
 # Alias kept for existing callers in this module and graphrag.py

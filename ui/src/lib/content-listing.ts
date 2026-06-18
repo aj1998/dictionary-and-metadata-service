@@ -21,3 +21,23 @@ export function paginatedMeta(pagination: Paginated<unknown>['pagination']) {
     hasNext: page < totalPages,
   };
 }
+
+// Hindi particles / stopwords that carry no search meaning on their own. Used
+// to keep multi-token search expansion from matching common connectives — e.g.
+// the "की" in "द्रव्यों की स्वतंत्रता" would otherwise substring-match nearly
+// every topic.
+const SEARCH_STOPWORDS = new Set([
+  'की', 'के', 'का', 'को', 'कि', 'व', 'में', 'से', 'पर', 'और', 'है', 'हैं',
+  'तथा', 'या', 'एवं', 'हेतु', 'एक',
+]);
+
+/**
+ * Split a query into meaningful search tokens: whitespace-separated, with Hindi
+ * particle stopwords and very short (< 3 grapheme) tokens removed.
+ */
+export function meaningfulTokens(q: string): string[] {
+  return q
+    .split(/\s+/)
+    .filter(Boolean)
+    .filter((tok) => !SEARCH_STOPWORDS.has(tok) && [...tok].length >= 3);
+}

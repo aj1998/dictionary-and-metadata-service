@@ -64,12 +64,16 @@ async def list_shastras(
     anuyoga: str | None = None,
     q: str | None = None,
     fuzzy: bool = Query(False),
+    min_similarity: float | None = Query(None, ge=0.0, le=1.0),
     session: AsyncSession = Depends(get_session),
     lo: tuple[int, int] = Depends(_limit_offset),
 ) -> ShastraListResponse:
     limit, offset = lo
     if fuzzy and q is not None:
-        results = await svc.fuzzy_search_shastras(session, q, limit)
+        if min_similarity is not None:
+            results = await svc.fuzzy_search_shastras(session, q, limit, min_similarity=min_similarity)
+        else:
+            results = await svc.fuzzy_search_shastras(session, q, limit)
         items = []
         for s, sim in results:
             author = await svc.get_author_for(session, s)

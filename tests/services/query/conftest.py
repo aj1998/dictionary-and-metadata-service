@@ -82,6 +82,18 @@ def make_mock_mongo(docs: list[dict] | None = None) -> object:
             filtered = [d for d in self._data if d.get("natural_key") in natural_keys]
             return FakeCursor(filtered)
 
+        def aggregate(self, pipeline: list[dict]) -> FakeCursor:
+            # Minimal support for the topic-extract block-count aggregation:
+            # match by natural_key $in → group total block count per natural_key.
+            match = next((s["$match"] for s in pipeline if "$match" in s), {})
+            natural_keys = match.get("natural_key", {}).get("$in", [])
+            totals: dict[str, int] = {}
+            for d in self._data:
+                nk = d.get("natural_key")
+                if nk in natural_keys:
+                    totals[nk] = totals.get(nk, 0) + len(d.get("blocks", []))
+            return FakeCursor([{"_id": nk, "total": n} for nk, n in totals.items()])
+
     class FakeDB:
         def __init__(self, data: list[dict]) -> None:
             self._data = data

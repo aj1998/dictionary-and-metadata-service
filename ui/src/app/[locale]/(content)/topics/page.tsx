@@ -78,7 +78,14 @@ export default async function TopicsPage({ searchParams }: PageProps) {
     return `/topics?${params.toString()}`;
   };
 
-  // Use trigram topics_match when a search query is present
+  // Search query present: use the shared topics_match backend (query-service),
+  // the same query-engine endpoint the global search uses for its विषय section.
+  // Here we send the *full phrase* as a single relevance-ranked query (no
+  // per-token fan-out): the trigram parent-aware similarity ranks topics by how
+  // well the whole query matches, and the leaf-substring boost lifts exact
+  // single-word hits (e.g. "विभाव") to 100%. Token fan-out is intentionally NOT
+  // used here — it would score every topic sharing a common word like "द्रव्य"
+  // at 100%, destroying the ranking the match-percentage badge depends on.
   if (q) {
     let matchItems: TopicMatchItem[] = [];
     let matchError = false;
@@ -86,7 +93,8 @@ export default async function TopicsPage({ searchParams }: PageProps) {
       const result = await topicsMatch({
         phrase: q,
         limit: PAGE_SIZE,
-        minSimilarity: 0.25,
+        minSimilarity: 0.3,
+        leafOnly: !includeOther,
         includeExtracts: false,
         includeReferences: false,
       });
@@ -133,7 +141,7 @@ export default async function TopicsPage({ searchParams }: PageProps) {
     );
   }
 
-  // Default: exact/ILIKE listing from data-service
+  // No search query: default paginated listing from the data-service.
   const topics = await getTopics({
     source: source || undefined,
     limit: PAGE_SIZE,

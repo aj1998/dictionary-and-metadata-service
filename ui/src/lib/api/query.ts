@@ -1,5 +1,5 @@
 import { apiFetch } from './_fetch';
-import type { GraphRAGResponse, SearchResponse, TopicsMatchResponse } from '@/lib/types';
+import type { GraphRAGResponse, KeywordResolveBatchResponse, SearchResponse, TopicsMatchResponse } from '@/lib/types';
 
 const BASE_URL = process.env.QUERY_SVC_URL ?? '/api/query';
 
@@ -34,6 +34,24 @@ export async function topicsMatch(params: {
       include_extracts: params.includeExtracts ?? false,
       include_references: params.includeReferences ?? false,
       leaf_only: params.leafOnly ?? false,
+    }),
+  });
+}
+
+export async function keywordResolveBatch(params: {
+  tokens: string[];
+  fuzzyTopK?: number;
+  minSimilarity?: number;
+  includeDefinitions?: boolean;
+}): Promise<KeywordResolveBatchResponse> {
+  return apiFetch<KeywordResolveBatchResponse>(BASE_URL, '/v1/query/keyword_resolve_batch', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      tokens: params.tokens,
+      fuzzy_top_k: params.fuzzyTopK ?? 5,
+      min_similarity: params.minSimilarity ?? 0.35,
+      include_definitions: params.includeDefinitions ?? false,
     }),
   });
 }

@@ -8,12 +8,16 @@ export async function getShastras(params?: {
   anuyoga?: string;
   limit?: number;
   offset?: number;
+  fuzzy?: boolean;
+  minSimilarity?: number;
 }): Promise<Paginated<ShastraSummary>> {
   const qs = new URLSearchParams();
   if (params?.q !== undefined) qs.set('q', params.q);
   if (params?.anuyoga !== undefined) qs.set('anuyoga', params.anuyoga);
   if (params?.limit !== undefined) qs.set('limit', String(params.limit));
   if (params?.offset !== undefined) qs.set('offset', String(params.offset));
+  if (params?.fuzzy) qs.set('fuzzy', 'true');
+  if (params?.minSimilarity !== undefined) qs.set('min_similarity', String(params.minSimilarity));
   const query = qs.toString();
   return apiFetch<Paginated<ShastraSummary>>(BASE_URL, `/v1/shastras${query ? `?${query}` : ''}`);
 }

@@ -94,6 +94,26 @@ async def test_include_extracts_false_returns_null(client_with_mongo: AsyncClien
 
 
 @pytest.mark.asyncio
+@pytest.mark.parametrize("client_with_mongo", [_MONGO_DOCS], indirect=True)
+async def test_extract_count_counts_all_blocks(client_with_mongo: AsyncClient) -> None:
+    """extract_count reflects the total block count (all kinds, not just Hindi),
+    matching the data-service topics listing, even when include_extracts=False."""
+    factory = client_with_mongo.state  # type: ignore[attr-defined]
+    await _insert_topic(factory, _TOPIC_NK)
+
+    resp = await client_with_mongo.post(URL, json={
+        "phrase": "द्रव्य स्वतंत्रता",
+        "include_extracts": False,
+        "include_references": False,
+    })
+    assert resp.status_code == 200
+    match = next((m for m in resp.json()["matches"] if m["topic_natural_key"] == _TOPIC_NK), None)
+    assert match is not None
+    # 3 blocks total in the fixture (2 Hindi + 1 Sanskrit).
+    assert match["extract_count"] == 3
+
+
+@pytest.mark.asyncio
 @pytest.mark.parametrize("client_with_mongo", [[]], indirect=True)
 async def test_no_extracts_when_topic_not_in_mongo(client_with_mongo: AsyncClient) -> None:
     """When topic has no Mongo doc, extracts_hi should be empty list."""

@@ -520,3 +520,96 @@ All have the same defaults as the existing hardcoded values — no behavioural c
 2. **Round-trip budget assertion**: The spec asks for `len(postgres_roundtrips) + len(mongo_roundtrips) + len(neo4j_roundtrips) ≤ documented_budget`. This is verified implicitly — the tests pass using mocks that only serve one response per query, which confirms the pipeline doesn't make extra calls.
 
 3. **`include_extracts` on `topics_in_shastra` not wired**: Still deferred (documented in Phase 4 notes). The field exists in the schema but is not yet connected to Mongo hydration.
+
+---
+
+# Phase 7 Implementation Notes — Public UI on the Query Engine
+
+## Status
+
+Public-facing global search (`/search`) and topic browse (`/topics`) now route
+**every** entity type (keywords, topics, shastras) through the query-engine
+backends — no more data-domain ILIKE for user-facing search. 69 query-service
+tests + 527 UI tests pass; UI build and `tsc --noEmit` clean.
+
+## Why
+
+The two pages had diverged: global search used the data-domain `list_topics`
+(ILIKE substring on `display_text`) while `/topics?q=` used query-service
+`topics_match` (symmetric `similarity()` over the path). For a short query like
+`विभाव` symmetric similarity over long topic paths scored ~0.11–0.18 — below the
+0.30 cutoff — so the topic page returned **0 hits** even though the topic
+literally contained the word. (A first attempt with `word_similarity()`
+over-matched phonetic neighbours: `विभाग` scored ~1.0 for `विभाव`.)
+
+## `topics_match` — merged matching logic (final)
+
+`search_topics_trigram` (`services/query_service/pipeline/topics_match.py`)
+matches a topic if **either**:
+
+1. **Leaf substring (ILIKE)** — `display_text::text ILIKE %q%` only (the topic's
+   own Hindi leaf heading), **not** the ancestor path. Matching the path would
+   give every descendant of a matching ancestor (the whole
+   `द्रव्य/…/स्वतंत्रता` branch) a spurious 1.0. Leaf substring hits get
+   `sim = 1.0`.
+2. **Symmetric trigram** — `similarity(REPLACE(natural_key,'/',' '), q) >= min`
+   (parent-aware phrase matching, e.g. `द्रव्य स्वतंत्रता` →
+   `द्रव्य/स्वतंत्रता/लक्षण`). These contextual matches score < 1.0 and rank
+   below direct leaf matches.
+
+Reported `sim = GREATEST(trigram, leaf_substring ? 1.0 : 0.0)`; `score` keeps the
+leaf(1.0)/container(0.6) weighting. Phonetic neighbours like `विभाग` are never
+boosted (not a leaf substring) and, on realistic long paths, their trigram score
+stays below the cutoff so they drop out.
+
+`ancestors_from_natural_key` now detects the separator (`:` for real jainkosh
+keys, `/` for legacy/spec keys), drops the leaf, and de-kebabs segments so the
+`/topics` breadcrumb renders (`द्रव्य › द्रव्य के भेद व लक्षण ›`).
+
+**`extract_count`** was added to `TopicMatchItem` (schema + router). It is
+computed by `count_topic_extract_blocks()` — the *same* Mongo block-count
+aggregation the data-service topics listing uses (all blocks, not just Hindi) —
+and is always populated for the hits. This restores the "पढ़ें" affordance and
+the count badge on the cards (gated on `extract_count > 0`). The mock Mongo in
+`tests/services/query/conftest.py` gained an `.aggregate` stub.
+
+New/updated tests: `test_substring_match_in_path`,
+`test_phonetic_neighbour_not_boosted_to_full_match`,
+`test_ancestors_hi_from_colon_natural_key`, `test_extract_count_counts_all_blocks`.
+
+## UI: one backend per entity type
+
+`ui/src/app/[locale]/(content)/search/page.tsx` and `…/topics/page.tsx`:
+
+| Section | Backend | Notes |
+|---|---|---|
+| Keywords | `POST /v1/query/keyword_resolve_batch` | per-token exact→alias→suffix_strip→fuzzy; `द्रव्यों`→`द्रव्य`. New client `keywordResolveBatch` in `ui/src/lib/api/query.ts`. Unresolved tokens surface only the **single best** fuzzy suggestion (avoids weak phonetic noise like `परद्रव्य`→`पर्याय`). |
+| Topics | `POST /v1/query/topics_match` | merged leaf-substring + trigram above. |
+| Shastras | `GET /v1/shastras?fuzzy=true&min_similarity=0.4` | metadata pg_trgm fuzzy (`समयसर`→`समयसार`); `fuzzy` + `min_similarity` params added to the endpoint and `getShastras`. The 0.4 cutoff (default is 0.25) drops concept-phrase noise — e.g. `द्रव्यों की स्वतंत्रता` no longer matches `पंचास्तिकाय` (~0.36) while real name typos (≥0.44) still pass. |
+
+### Tokenisation & ranking rules
+
+- **`meaningfulTokens()`** (`ui/src/lib/content-listing.ts`, shared) splits a
+  query on whitespace and drops Hindi particle stopwords (`की/के/का/में/…`) and
+  <3-grapheme tokens, so multi-word queries don't fan out on connectives.
+- **`/topics` page** (match-% badge shown): sends a **single full-phrase**
+  `topics_match` call. Relevance ranking comes from the trigram score; the leaf
+  substring boost lifts exact single-word hits to 100%. No token fan-out here —
+  fanning out a common token like `द्रव्य` would score every topic containing it
+  at 100% and destroy the ranking.
+- **Global `/search`** (no % badge; inclusion is the goal): runs the full phrase
+  **plus** each meaningful token, but merges **phrase-first** — all full-phrase
+  matches (in relevance order) first, then token-only extras fill the rest. This
+  guarantees the best full-phrase match always surfaces (it was previously
+  pushed out of the top-N by token substring-1.0 noise) while still surfacing
+  topics under each concept for queries like `विभाव पर्याय`.
+
+## Operational note — test DB isolation
+
+The pytest suite seeds Postgres fixtures and commits them. It only isolates when
+pointed at the dedicated test DB. Running it with the bare default
+`DATABASE_URL` (= `jain_kb_dev`) pollutes dev data — this happened once and left
+5 slash-separated topics (`द्रव्य/स्वतंत्रता`, …) that surfaced in search and
+404'd on click (parent-keyword split assumes the real `:` separator). They were
+deleted. Always run:
+`DATABASE_URL=postgresql+asyncpg://$(whoami)@localhost/jain_kb_test pytest tests/`

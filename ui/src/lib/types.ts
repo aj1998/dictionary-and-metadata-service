@@ -478,12 +478,34 @@ export interface TopicMatchItem {
   source: string;
   similarity: number;
   score: number;
+  extract_count: number;
   extracts_hi: TopicExtractBlock[] | null;
   references: TopicRef[] | null;
 }
 
 export interface TopicsMatchResponse {
   matches: TopicMatchItem[];
+  tool_trace_id: string;
+}
+
+export type KeywordMatchKind = 'exact' | 'alias' | 'suffix_strip' | 'none';
+
+export interface KeywordResolveSuggestion {
+  keyword_natural_key: string;
+  similarity: number;
+}
+
+export interface KeywordResolution {
+  input_token: string;
+  match_kind: KeywordMatchKind;
+  keyword_natural_key?: string | null;
+  keyword_id?: string | null;
+  definitions?: { source_natural_key: string; block_index: number; text_hi: string }[] | null;
+  suggestions?: KeywordResolveSuggestion[] | null;
+}
+
+export interface KeywordResolveBatchResponse {
+  resolutions: KeywordResolution[];
   tool_trace_id: string;
 }
 
