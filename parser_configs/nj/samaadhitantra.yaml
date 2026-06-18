@@ -1,0 +1,48 @@
+version: 1.0.0
+source: nj
+shastra:
+  natural_key: समाधितंत्र
+  title_hi: समाधितंत्र
+  author:
+    natural_key: आचार्य_पूज्यपाद
+    display_name_hi: आचार्य पूज्यपाद
+    kind: acharya
+  teekas:
+    - natural_key: समाधितंत्र:टीका
+      teekakar_natural_key: श्रीमद्_प्रभाचन्द्र
+      teekakar_display_name_hi: श्रीमद् प्रभाचन्द्र
+      publication_natural_key: समाधितंत्र:टीका:0
+      publisher_id: "0"
+      role: primary
+
+input:
+  html_dir: "{NIKKYJAIN_LOCAL_PATH}/jainDataBase/shastra/01_द्रव्यानुयोग/07_समाधितन्त्र--आचार्य‌-पूज्यपाद/html"
+  my_item_js: "myItem.js"
+  encoding: utf-8
+  skip_files:
+    - "0000_शास्त्र-मंगलाचरण.html"
+
+selectors:
+  primary_teeka_select: "select#select-native-0"
+  # secondary_teeka_select: "select#select-native-1"
+  gatha_title_div: "div.title[id^='gatha-']"
+  gatha_heading_link: "div.title > span > a"
+  gatha_prakrit: "div.gatha"
+  gatha_sanskrit: "div.gathaS"
+  gatha_hindi_chhand_body: "div.gadya"
+  anyavartha_para: "div.paragraph"
+  anyavartha_marker: "अन्वयार्थ"
+  teeka0_div: "div#teeka0"
+  # teeka1_div: "div#teeka1"
+  steeka0_div: "div.steeka#steeka0"
+  # steeka1_div: "div.steeka#steeka1"
+  primary_teeka_label: "प्रभाचन्द्र"
+  # secondary_teeka_label: "जयसेनाचार्य"
+  kalash_type_marker_color: "DarkSlateGray"
+  kalash_word_meaning_color: "maroon"
+  gatha_word_meaning_color: "darkRed"
+  teeka_separator: "hr.type_7"
+
+parsing:
+  strip_zwj: false
+  notes_teeka_index: 2
