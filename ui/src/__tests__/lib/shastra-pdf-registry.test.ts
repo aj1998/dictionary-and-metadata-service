@@ -30,6 +30,14 @@ describe('pdfShastraNkOf', () => {
     expect(pdfShastraNkOf(ref)).toBe('श्लोकवार्तिक');
   });
 
+  it('returns the parent shastra name for a teeka without its own PDF (no teeka_of)', () => {
+    const ref = makeRef([{ field: 'पृष्ठ', value: '36' }]);
+    ref.is_teeka = true;
+    ref.teeka_name = 'तात्पर्यवृत्ति';
+    ref.shastra_name = 'पंचास्तिकाय';
+    expect(pdfShastraNkOf(ref)).toBe('पंचास्तिकाय');
+  });
+
   it('falls back to the shastra name when a teeka ref has no teeka name', () => {
     const ref = makeRef([{ field: 'पृष्ठ', value: '1' }]);
     ref.is_teeka = true;

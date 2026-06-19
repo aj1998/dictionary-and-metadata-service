@@ -25,12 +25,28 @@ export function extractOriginalShastraInfo(
   return { publishedPage, pustak };
 }
 
-// The shastra whose ORIGINAL PDF this ref points to. For a teeka ref (e.g.
-// श्लोकवार्तिक of तत्त्वार्थसूत्र) the published page + पुस्तक belong to the
-// teeka's own printed volume, so the PDF link must resolve against the teeka
-// name, not the parent shastra. Non-teeka refs use the shastra name as before.
+// Teekas that have their own printed volume (a `teeka_of` entry in
+// parser_configs/_manual_configs/shastra.json). For these the published page +
+// पुस्तक belong to the teeka's own PDF, so the link must resolve against the
+// teeka name. Every other teeka is nested under its parent shastra and shares
+// the parent's PDF, so its page must resolve against the parent shastra name.
+const TEEKAS_WITH_OWN_PDF = new Set(
+  ['राजवार्तिक', 'श्लोकवार्तिक', 'सर्वार्थसिद्धि'].map((s) => s.normalize('NFC')),
+);
+
+// The shastra whose ORIGINAL PDF this ref points to. For a teeka ref that has
+// its own printed volume (see TEEKAS_WITH_OWN_PDF) the published page + पुस्तक
+// belong to the teeka's own PDF, so the link must resolve against the teeka
+// name. All other refs (non-teeka, or teekas nested under a parent shastra)
+// resolve against the parent shastra name.
 export function pdfShastraNkOf(ref: DefinitionReference): string | null {
-  if (ref.is_teeka && ref.teeka_name) return ref.teeka_name;
+  if (
+    ref.is_teeka &&
+    ref.teeka_name &&
+    TEEKAS_WITH_OWN_PDF.has(ref.teeka_name.normalize('NFC'))
+  ) {
+    return ref.teeka_name;
+  }
   return ref.shastra_name ?? null;
 }
 
