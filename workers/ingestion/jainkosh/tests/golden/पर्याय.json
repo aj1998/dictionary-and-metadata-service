@@ -3683,7 +3683,7 @@
                             "value": 6
                           },
                           {
-                            "field": "दोहक",
+                            "field": "ज्ञानार्णवदोहक",
                             "value": 40
                           }
                         ]
@@ -5763,7 +5763,7 @@
       "next": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%B8%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8"
     },
     "parser_version": "jainkosh.rules/1.11.24",
-    "parsed_at": "2026-06-19T19:05:37.099458",
+    "parsed_at": "2026-06-19T21:13:09.296993",
     "warnings": []
   },
   "would_write": {
@@ -10368,7 +10368,7 @@
                       "value": 6
                     },
                     {
-                      "field": "दोहक",
+                      "field": "ज्ञानार्णवदोहक",
                       "value": 40
                     }
                   ]
@@ -13707,10 +13707,11 @@
         },
         {
           "label": "Gatha",
-          "key": "ज्ञानार्णव:गाथा:40",
+          "key": "ज्ञानार्णव:अधिकार:6:दोहक:40",
           "props": {
             "shastra_natural_key": "ज्ञानार्णव",
-            "gatha_number": "40"
+            "gatha_number": "अधिकार:6:दोहक:40",
+            "identifier_values": "{\"अधिकार\": \"6\", \"ज्ञानार्णवदोहक\": \"40\"}"
           },
           "lazy": true
         },
@@ -17083,7 +17084,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "ज्ञानार्णव:गाथा:40"
+            "key": "ज्ञानार्णव:अधिकार:6:दोहक:40"
           },
           "to": {
             "label": "Topic",

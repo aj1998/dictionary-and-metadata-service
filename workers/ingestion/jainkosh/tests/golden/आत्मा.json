@@ -253,7 +253,7 @@
                         "value": 32
                       },
                       {
-                        "field": "दोहक",
+                        "field": "ज्ञानार्णवदोहक",
                         "value": 5
                       },
                       {
@@ -805,7 +805,7 @@
       "next": "/wiki/%E0%A4%86%E0%A4%A4%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%82%E0%A4%97%E0%A5%81%E0%A4%B2"
     },
     "parser_version": "jainkosh.rules/1.11.24",
-    "parsed_at": "2026-06-19T19:05:36.549157",
+    "parsed_at": "2026-06-19T21:13:08.746575",
     "warnings": []
   },
   "would_write": {
@@ -1298,7 +1298,7 @@
                       "value": 32
                     },
                     {
-                      "field": "दोहक",
+                      "field": "ज्ञानार्णवदोहक",
                       "value": 5
                     },
                     {
@@ -1803,10 +1803,11 @@
         },
         {
           "label": "Gatha",
-          "key": "ज्ञानार्णव:गाथा:5",
+          "key": "ज्ञानार्णव:अधिकार:32:दोहक:5",
           "props": {
             "shastra_natural_key": "ज्ञानार्णव",
-            "gatha_number": "5"
+            "gatha_number": "अधिकार:32:दोहक:5",
+            "identifier_values": "{\"अधिकार\": \"32\", \"ज्ञानार्णवदोहक\": \"5\"}"
           },
           "lazy": true
         },
@@ -2149,7 +2150,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "ज्ञानार्णव:गाथा:5"
+            "key": "ज्ञानार्णव:अधिकार:32:दोहक:5"
           },
           "to": {
             "label": "Topic",

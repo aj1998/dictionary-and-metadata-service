@@ -286,8 +286,8 @@
     "shastra_name": "ज्ञानार्णव",
     "short_form": "ज्ञा",
     "format": [
-      "अधिकार/दोहक/पृष्ठ",
-      "अधिकार/दोहक"
+      "अधिकार/ज्ञानार्णवदोहक/पृष्ठ",
+      "अधिकार/ज्ञानार्णवदोहक"
     ],
     "author": "",
     "date_format": "ई.",
@@ -297,7 +297,10 @@
     "edition": "",
     "type": "publication",
     "alternate_name": "",
-    "public_url": ""
+    "public_url": "https://archive.org/details/dli.ernet.426303/page/n3/mode/2up",
+    "pdf_filename": "gyaanarnav",
+    "pdf_page_offset": 21,
+    "gatha_identifier": "अधिकार,ज्ञानार्णवदोहक"
   },
   {
     "shastra_name": "ज्ञानसार",
