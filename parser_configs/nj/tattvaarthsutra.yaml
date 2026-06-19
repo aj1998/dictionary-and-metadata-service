@@ -1,0 +1,65 @@
+version: 1.0.0
+source: nj
+shastra:
+  natural_key: तत्त्वार्थसूत्र
+  title_hi: तत्त्वार्थसूत्र
+  author:
+    natural_key: आचार्य_उमास्वामी
+    display_name_hi: आचार्य उमास्वामी
+    kind: acharya
+  adhikaars:
+    - { number: 1, name_hi: "प्रथम-अध्याय" }
+    - { number: 2, name_hi: "द्वितीय-अध्याय" }
+    - { number: 3, name_hi: "तृतीय-अध्याय" }
+    - { number: 4, name_hi: "चतुर्थ-अध्याय" }
+    - { number: 5, name_hi: "पंचम-अध्याय" }
+    - { number: 6, name_hi: "षष्ठ-अध्याय" }
+    - { number: 7, name_hi: "सप्तम-अध्याय" }
+    - { number: 8, name_hi: "अष्टम-अध्याय" }
+    - { number: 9, name_hi: "नवम-अध्याय" }
+    - { number: 10, name_hi: "दशम-अध्याय" }
+  teekas:
+    - natural_key: तत्त्वार्थसूत्र:सर्वार्थसिद्धि
+      teekakar_natural_key: आचार्य_पूज्यपाद
+      teekakar_display_name_hi: आचार्य पूज्यपाद
+      publication_natural_key: तत्त्वार्थसूत्र:सर्वार्थसिद्धि:0
+      publisher_id: "0"
+      role: primary
+    - natural_key: तत्त्वार्थसूत्र:राजवार्तिक
+      teekakar_natural_key: आचार्य_अकलंकदेव
+      teekakar_display_name_hi: आचार्य अकलंकदेव
+      publication_natural_key: तत्त्वार्थसूत्र:राजवार्तिक:0
+      publisher_id: "0"
+      role: secondary
+
+input:
+  html_dir: "{NIKKYJAIN_LOCAL_PATH}/jainDataBase/shastra/01_द्रव्यानुयोग/13_तत्त्वार्थसूत्र--आचार्य-उमास्वामी/html"
+  my_item_js: "myItem.js"
+  encoding: utf-8
+  skip_files:
+    - "0000_शास्त्र-मंगलाचरण.html"
+
+selectors:
+  primary_teeka_select: "select#select-native-0"
+  secondary_teeka_select: "select#select-native-1"
+  gatha_title_div: "div.title[id^='gatha-']"
+  gatha_heading_link: "div.title > span > a"
+  gatha_prakrit: "div.gatha"
+  gatha_sanskrit: "div.gathaS"
+  gatha_hindi_chhand_body: "div.gadya"
+  anyavartha_para: "div.paragraph"
+  anyavartha_marker: "अन्वयार्थ"
+  teeka0_div: "div#teeka0"
+  teeka1_div: "div#teeka1"
+  steeka0_div: "div.steeka#steeka0"
+  steeka1_div: "div.steeka#steeka1"
+  primary_teeka_label: "सर्वार्थसिद्धि"
+  secondary_teeka_label: "राजवार्तिक"
+  kalash_type_marker_color: "DarkSlateGray"
+  kalash_word_meaning_color: "maroon"
+  gatha_word_meaning_color: "darkRed"
+  teeka_separator: "hr.type_7"
+
+parsing:
+  strip_zwj: false
+  notes_teeka_index: 2

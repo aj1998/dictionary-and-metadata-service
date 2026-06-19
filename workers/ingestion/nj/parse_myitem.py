@@ -51,25 +51,43 @@ def _strip_bom(text: str) -> str:
 _LEADING_ADHIKAAR_RE = re.compile(r"^(\d+)-(\d+.*)$")
 
 
-def _split_leading_adhikaar(value: str) -> tuple[int | None, str]:
+def _split_leading_adhikaar(
+    value: str, expected_adhikaar: int | None = None
+) -> tuple[int | None, str]:
     """Strip a leading N- adhikaar prefix from a gatha value.
 
-    Only strips when the prefix has *fewer* digits than the first digit-group
-    in the trailing portion — distinguishing an adhikaar prefix ("1-001")
-    from a gatha range endpoint pair ("009-010").
+    Two strip modes:
+
+    1. **Explicit match** (`expected_adhikaar` given — compound optgroup shastras
+       like तत्त्वार्थसूत्र): strip whenever the leading prefix numerically equals
+       the optgroup-derived adhikaar ordinal, *regardless of digit width*. This
+       handles zero-padded equal-width pairs the width heuristic can't, e.g.
+       "01-01" (अध्याय 1, सूत्र 01) → (1, "01").
+
+    2. **Width heuristic** (no `expected_adhikaar`): strip only when the prefix has
+       *fewer* digits than the first digit-group of the trailing portion —
+       distinguishing an adhikaar prefix ("1-001") from a gatha range endpoint
+       pair ("009-010").
 
     "1-001"     → (1, "001")
     "1-019-021" → (1, "019-021")
     "2-001"     → (2, "001")
     "009-010"   → (None, "009-010")   ← range, not split
     "019"       → (None, "019")
+    "01-01" (expected_adhikaar=1) → (1, "01")
     """
     m = _LEADING_ADHIKAAR_RE.match(value)
     if m:
         prefix = m.group(1)
         trailing = m.group(2)
-        # Only treat as an adhikaar prefix when its digit width is strictly less
-        # than the first numeric segment of the trailing part.
+        # Mode 1: explicit adhikaar match for compound optgroup shastras.
+        if expected_adhikaar is not None and prefix.isdigit() and int(prefix) == expected_adhikaar:
+            logger.debug(
+                "_split_leading_adhikaar: stripped matching prefix %d from %r → %r",
+                expected_adhikaar, value, trailing,
+            )
+            return expected_adhikaar, trailing
+        # Mode 2: width heuristic.
         trailing_first = trailing.split("-")[0]
         if trailing_first.isdigit() and len(prefix) < len(trailing_first):
             adh = int(prefix)
@@ -78,8 +96,13 @@ def _split_leading_adhikaar(value: str) -> tuple[int | None, str]:
     return None, value
 
 
-def _parse_block(lines: list[str]) -> dict[str, GathaIndexEntry]:
-    """Parse a single select block (lines between two mySel= markers) into a filename→entry map."""
+def _parse_block(lines: list[str], *, is_compound: bool = False) -> dict[str, GathaIndexEntry]:
+    """Parse a single select block (lines between two mySel= markers) into a filename→entry map.
+
+    `is_compound` enables the explicit adhikaar-prefix strip for compound optgroup
+    shastras (e.g. तत्त्वार्थसूत्र), where the gatha value carries a zero-padded
+    adhyaaya prefix that is redundant with the optgroup ordinal.
+    """
     result: dict[str, GathaIndexEntry] = {}
     current_adhikaar = ""
     current_adhikaar_number = 0
@@ -98,7 +121,10 @@ def _parse_block(lines: list[str]) -> dict[str, GathaIndexEntry]:
             html_filename = m.group(1).strip()
             gatha_number = m.group(2).strip()
             heading_hi = _strip_bom(m.group(3))
-            adh_num, gatha_canonical = _split_leading_adhikaar(gatha_number)
+            adh_num, gatha_canonical = _split_leading_adhikaar(
+                gatha_number,
+                expected_adhikaar=current_adhikaar_number if is_compound and current_adhikaar_number else None,
+            )
             result[html_filename] = GathaIndexEntry(
                 html_filename=html_filename,
                 gatha_number=gatha_canonical,
@@ -158,10 +184,13 @@ def parse_myitem(cfg: NJConfig) -> tuple[dict[str, GathaIndexEntry], dict[str, G
     primary_key = cfg.selectors.primary_teeka_select.lstrip("#")   # "select#select-native-0"
     secondary_key = cfg.selectors.secondary_teeka_select.lstrip("#") if cfg.selectors.secondary_teeka_select else None
 
-    primary_index = _parse_block(blocks.get(primary_key, []))
-    secondary_index = _parse_block(blocks.get(secondary_key, [])) if secondary_key else {}
-
     is_compound = bool(get_identifier_fields(cfg.shastra.natural_key, "gatha"))
+
+    primary_index = _parse_block(blocks.get(primary_key, []), is_compound=is_compound)
+    secondary_index = (
+        _parse_block(blocks.get(secondary_key, []), is_compound=is_compound) if secondary_key else {}
+    )
+
     logger.info(
         "myItem.js parsed: %d primary entries (compound=%s), %d secondary entries",
         len(primary_index),

@@ -116,11 +116,14 @@ async def _clear_postgres_by_source(conn, src: str) -> None:
     await conn.execute(text("DELETE FROM topics WHERE source = :src"), {"src": src})
     print("  deleted topics")
 
-    # Shared tables: delete exclusively-owned rows, shrink co-owned arrays
+    # Shared tables: delete exclusively-owned rows, shrink co-owned arrays.
+    # Order matters — child tables that carry FKs to gathas (teeka_chapters via
+    # start/end_gatha_id, kalashas via gatha_id) must be deleted *before* gathas
+    # to avoid ForeignKeyViolationError.
     _shared_tables = (
-        "gathas",
-        "kalashas",
         "teeka_chapters",
+        "kalashas",
+        "gathas",
         "publications",
         "teekas",
         "keywords",

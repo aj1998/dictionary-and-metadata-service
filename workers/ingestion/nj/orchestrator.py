@@ -30,8 +30,11 @@ def _build_identifier_values(
     if not fields:
         return {}
     values: dict[str, str] = {}
+    # Every leading field is an adhikaar-style grouping (अधिकार / अध्याय / परिच्छेद —
+    # all aliases of the adhikaar ordinal per shastra.json). Populate them from the
+    # adhikaar_number rather than matching a single hard-coded field name.
     for f in fields[:-1]:
-        if f == "अधिकार" and adhikaar_number is not None:
+        if adhikaar_number is not None:
             values[f] = str(adhikaar_number)
     values[fields[-1]] = gatha_number_str
     return values

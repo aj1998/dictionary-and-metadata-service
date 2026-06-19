@@ -318,13 +318,32 @@ A new regex `_OPTION_BARE_RE` in `parse_myitem.py` matches this form. The existi
 ### `_split_leading_adhikaar`
 
 Gatha-number values like `"1-001"` and `"1-019-021"` carry an adhikaar prefix. The helper
-`_split_leading_adhikaar(value)` strips it and returns `(adhikaar_int, canonical_gatha_str)`.
+`_split_leading_adhikaar(value, expected_adhikaar=None)` strips it and returns
+`(adhikaar_int, canonical_gatha_str)`. It has two strip modes:
 
-**Heuristic**: the prefix is only stripped when `len(prefix_digits) < len(first_trailing_segment)`.
-This distinguishes `"1-001"` (1 < 3 → split) from `"009-010"` (3 == 3 → keep as range).
+1. **Width heuristic** (default, `expected_adhikaar=None`): strip only when
+   `len(prefix_digits) < len(first_trailing_segment)`. This distinguishes `"1-001"`
+   (1 < 3 → split) from `"009-010"` (3 == 3 → keep as range).
+2. **Explicit adhikaar match** (`expected_adhikaar` given): strip whenever the leading
+   prefix numerically equals the optgroup-derived adhikaar ordinal, *regardless of digit
+   width*. This is required for **compound optgroup shastras** like **तत्त्वार्थसूत्र**,
+   whose `myItem.js` encodes each sutra as a zero-padded `AA-SS` pair (`01-02` = अध्याय 1,
+   सूत्र 02) that the width heuristic can't strip (`01` vs `02` → equal width). `_parse_block`
+   passes `expected_adhikaar=current_adhikaar_number` only when the shastra is compound
+   (`is_compound`), so non-compound shastras (e.g. samaysaar `009-010`) keep their genuine
+   ranges unsplit.
+
+**Why this matters**: without the explicit-match mode, `01-02` survived into
+`_expand_gatha_numbers`, which read the 2-part hyphenated value as an **inclusive range
+1→2** — fabricating/duplicating sutras and corrupting both the सर्वार्थसिद्धि (empty टीका)
+and राजवार्तिक (mixed tabs, garbled `गाथा प्राकृत`) sides, and collapsing every adhyaaya's
+sutras onto colliding flat NKs.
 
 Applied in both `_OPTION_RE` and `_OPTION_BARE_RE` paths. For the optgroup path, the
 optgroup-derived `current_adhikaar_number` takes precedence over the value-parsed `adh_num`.
+**Note**: `current_adhikaar_number` is a positional counter (one increment per `<optgroup>`),
+so it equals the true adhikaar number only when the source lists adhyaayas sequentially —
+which तत्त्वार्थसूत्र does (1…10).
 
 ### `NJAdhikaar` / `ShastraConfig.adhikaars`
 
@@ -347,11 +366,20 @@ carry the structured compound identifier for each extract. Built by `_build_iden
 in `orchestrator.py` after page parsing:
 
 ```python
-{"अधिकार": "1", "परमात्मप्रकाशगाथा": "001"}
+{"अधिकार": "1", "परमात्मप्रकाशगाथा": "001"}       # परमात्मप्रकाश
+{"अध्याय": "1", "तत्त्वार्थसूत्रसूत्र": "02"}        # तत्त्वार्थसूत्र
 ```
 
 Fields are declared in declaration order from `shastra.json`. When `gatha_identifier` is
 absent (single-identifier shastra), `identifier_values` is `{}`.
+
+**Leading field is adhikaar-agnostic.** `_build_identifier_values` populates **every** leading
+field (all of `fields[:-1]`) from `adhikaar_number`, not only the literal `"अधिकार"`. The
+leading grouping field is an alias of the adhikaar ordinal per `shastra.json` — `अधिकार`
+(परमात्मप्रकाश), `अध्याय` (तत्त्वार्थसूत्र), `परिच्छेद` (परीक्षामुख), etc. Previously only the
+hard-coded `"अधिकार"` name was filled, so तत्त्वार्थसूत्र's `अध्याय` stayed empty →
+`build_compound_suffix` returned `None` (it requires *all* declared fields) → the NK collapsed
+to the flat legacy `तत्त्वार्थसूत्र:गाथा:N`, colliding all 10 adhyaayas.
 
 Phase 3 (envelope) uses these values to build the compound NK suffix.
 
@@ -360,11 +388,23 @@ Phase 3 (envelope) uses these values to build the compound NK suffix.
 | Case | Handling |
 |---|---|
 | परमात्मप्रकाश bare `mySel.append` (no optgroups) | `_OPTION_BARE_RE` in `parse_myitem._parse_block`; adhikaar number extracted from value prefix via `_split_leading_adhikaar` |
-| Gatha-range value vs adhikaar-prefix value (`009-010` vs `1-001`) | `_split_leading_adhikaar` only strips prefix when its digit width is strictly less than the first trailing segment |
+| Gatha-range value vs adhikaar-prefix value (`009-010` vs `1-001`) | `_split_leading_adhikaar` width heuristic only strips prefix when its digit width is strictly less than the first trailing segment |
+| तत्त्वार्थसूत्र compound optgroup with zero-padded `AA-SS` values (`01-02` = अध्याय 1, सूत्र 02) | `_parse_block` passes `expected_adhikaar=current_adhikaar_number` (compound shastras only) so `_split_leading_adhikaar` strips the equal-width adhyaaya prefix; prevents `01-02` being misread as a range 1→2 |
+| Compound leading field is not literally `अधिकार` (e.g. तत्त्वार्थसूत्र `अध्याय`, परीक्षामुख `परिच्छेद`) | `_build_identifier_values` fills *all* `fields[:-1]` from `adhikaar_number`, so `build_compound_suffix` gets every field and the NK doesn't fall back to the flat `गाथा:N` |
 
 ---
 
+## Re-ingestion & DB cleanup
+
+`scripts/ingest_nj_apply.py` is the standalone CLI for applying NJ envelopes to Postgres +
+Mongo + Neo4j: `--config parser_configs/nj/<shastra>.yaml` for one shastra, or `--all` for
+every config under `parser_configs/nj/`. Idempotency is keyed on the natural key, so when a
+fix **changes** a shastra's NK scheme (as the तत्त्वार्थसूत्र compound fix did), the old
+records are not overwritten — they linger as stale rows. Clear NJ data first with
+`python scripts/clear_dbs.py --source nj` (leaves jainkosh intact), then re-run
+`ingest_nj_apply.py --all`. (`clear_dbs.py`'s per-source path deletes `teeka_chapters` and
+`kalashas` before `gathas` to respect the `start_gatha_id` / `gatha_id` foreign keys.)
+
 ## Known open items
 
-- `ingest_nj_apply.py` script (§5 of ingestion doc) is specified but not yet wired as a standalone CLI — ingestion is done via `apply.py` + `envelope.py` + manual invocation.
 - JK parser must adopt `गाथा` label in gatha NKs for cross-source Neo4j MERGE to work correctly (currently `समयसार:गाथा:8` in NJ vs `समयसार:8` in JK).

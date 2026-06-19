@@ -124,6 +124,53 @@ mySel.append("<option value='2-001.html'><b>2-001</b> - शीर्षक 2</op
     assert g2.identifier_values == {"अधिकार": "2", "परमात्मप्रकाशगाथा": "001"}
 
 
+def _fake_adhyaaya_identifier_fields(shastra_name, kind="gatha", *, path=None):
+    """Simulates तत्त्वार्थसूत्र: leading field is अध्याय (alias of adhikaar), not अधिकार."""
+    if kind == "gatha":
+        return ["अध्याय", "तत्त्वार्थसूत्रसूत्र"]
+    return None
+
+
+def test_identifier_values_populated_for_adhyaaya_alias_optgroup(nj_cfg, monkeypatch):
+    """End-to-end regression for तत्त्वार्थसूत्र: optgroup `AA-SS` values must strip
+    the zero-padded adhyaaya prefix AND populate the अध्याय (non-"अधिकार") leading
+    field, so NKs don't collapse to a flat colliding `गाथा:N`.
+    """
+    monkeypatch.setattr(_orch_mod, "get_identifier_fields", _fake_adhyaaya_identifier_fields)
+    monkeypatch.setattr(_pm_mod, "get_identifier_fields", _fake_adhyaaya_identifier_fields)
+
+    js = """
+mySel=$('select#select-native-0')
+$optgrp=$('<optgroup label="﻿1-प्रथम-अध्याय"')
+$optgrp.append("<option value='01-01.html'><b>01-01</b> - शीर्षक 1</option>")
+$optgrp.append("<option value='01-02.html'><b>01-02</b> - शीर्षक 2</option>")
+""".strip()
+    root = nj_cfg.input.resolved_html_dir
+    (root / "myItem.js").write_text(js, encoding="utf-8")
+    _write_html(root / "01-01.html", """
+<div class="title" id="gatha-001"><span><a>h</a></span></div>
+<div class="gatha">g1</div><div id="teeka0"><b><font color="darkgreen">अमृतचंद्राचार्य</font></b></div>
+""")
+    _write_html(root / "01-02.html", """
+<div class="title" id="gatha-002"><span><a>h2</a></span></div>
+<div class="gatha">g2</div><div id="teeka0"><b><font color="darkgreen">अमृतचंद्राचार्य</font></b></div>
+""")
+
+    res = parse_shastra(nj_cfg)
+    assert res.warnings == []
+    # No false range expansion: exactly 2 gathas (not 3 from 01-02 → 1,2).
+    assert len(res.gathas) == 2
+
+    g1 = next(g for g in res.gathas if g.html_filename == "01-01.html")
+    assert g1.adhikaar_number == 1
+    assert g1.gatha_number == "01"
+    assert g1.identifier_values == {"अध्याय": "1", "तत्त्वार्थसूत्रसूत्र": "01"}
+
+    g2 = next(g for g in res.gathas if g.html_filename == "01-02.html")
+    assert g2.gatha_number == "02"
+    assert g2.identifier_values == {"अध्याय": "1", "तत्त्वार्थसूत्रसूत्र": "02"}
+
+
 def test_identifier_values_empty_for_single_identifier(nj_cfg, monkeypatch):
     monkeypatch.setattr(_orch_mod, "get_identifier_fields", _fake_single_identifier_fields)
     monkeypatch.setattr(_pm_mod, "get_identifier_fields", _fake_single_identifier_fields)
