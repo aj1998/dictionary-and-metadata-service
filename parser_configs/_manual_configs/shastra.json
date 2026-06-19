@@ -698,22 +698,6 @@
     "public_url": ""
   },
   {
-    "shastra_name": "न्यायविनिश्चय",
-    "short_form": "न्या.वि./मू.",
-    "format": [
-      "अधिकार/श्लोक/पृष्ठ/पंक्ति"
-    ],
-    "author": "",
-    "date_format": "",
-    "date": "",
-    "publisher": "भारतीय ज्ञानपीठ, बनारस",
-    "notes": "",
-    "edition": "",
-    "type": "publication",
-    "alternate_name": "",
-    "public_url": ""
-  },
-  {
     "shastra_name": "न्यायदर्शन सूत्र",
     "short_form": "न्या.सू./मू.",
     "format": [
@@ -1350,7 +1334,7 @@
     "short_form": "श्लो.वा.",
     "format": [
       "पुस्तक/अध्याय/श्लोकवार्तिकसूत्र/श्लोकवार्तिकवार्तिक/पृष्ठ/पंक्ति",
-      "पुस्तक/अध्याय/श्लोकवार्तिकसूत्र/श्लोकवार्तिकवार्तिक/पृष्ठ"
+      "पुस्तक/अध्याय/श्लोकवार्तिकसूत्र/पृष्ठ/पंक्ति"
     ],
     "author": "",
     "date_format": "ई.",
@@ -1473,7 +1457,9 @@
     "edition": "",
     "type": "publication",
     "alternate_name": "",
-    "public_url": "",
+    "public_url": "https://archive.org/details/in.ernet.dli.2015.327047/page/n413/mode/2up",
+    "pdf_filename": "sarvaarthsiddhi",
+    "pdf_page_offset": 129,
     "gatha_identifier": "अध्याय,सर्वार्थसिद्धिसूत्र"
   },
   {
@@ -1661,10 +1647,11 @@
   },
   {
     "shastra_name": "न्यायविनिश्चय",
-    "short_form": "न.वि.",
+    "short_form": "न्या.वि.",
     "format": [
-      "पुस्तक/गाथा/पृष्ठ",
-      "पुस्तक/गाथा"
+      "पुस्तक/श्लोक/पृष्ठ/पंक्ति",
+      "पुस्तक/श्लोक/पृष्ठ",
+      "पुस्तक/श्लोक"
     ],
     "author": "",
     "date_format": "",
@@ -1684,6 +1671,7 @@
     "pustak_offsets": {
       "1": 74,
       "2": 77
-    }
+    },
+    "gatha_identifier": "पुस्तक,श्लोक"
   }
 ]
