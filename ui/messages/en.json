@@ -157,7 +157,10 @@
     "exact_match": "Exact match",
     "best_match": "Best match",
     "view_all": "View all →",
-    "no_section_results": "No results in this category"
+    "no_section_results": "No results in this category",
+    "match_via_author": "Author",
+    "match_via_teeka": "Teeka",
+    "match_via_teekakar": "Teekakar"
   },
   "feedback": {
     "title": "Feedback",

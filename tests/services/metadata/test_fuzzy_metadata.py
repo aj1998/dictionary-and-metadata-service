@@ -51,13 +51,28 @@ async def shastra_samaysaar(client: AsyncClient, author_kundkund):
 
 
 @pytest_asyncio.fixture
-async def teeka_samaysaar(client: AsyncClient, shastra_samaysaar, author_kundkund):
+async def author_amritchandra(client: AsyncClient):
+    r = await client.post(
+        "/v1/admin/authors",
+        json={
+            "natural_key": "amritchandracharya",
+            "display_name": [{"lang": "hin", "script": "Deva", "text": "अमृतचंद्राचार्य"}],
+            "kind": "acharya",
+        },
+        auth=ADMIN_AUTH,
+    )
+    assert r.status_code == 201
+    return r.json()
+
+
+@pytest_asyncio.fixture
+async def teeka_samaysaar(client: AsyncClient, shastra_samaysaar, author_amritchandra):
     r = await client.post(
         "/v1/admin/teekas",
         json={
             "natural_key": "samaysaar:amritchandra",
             "shastra_id": shastra_samaysaar["id"],
-            "teekakar_id": author_kundkund["id"],
+            "teekakar_id": author_amritchandra["id"],
         },
         auth=ADMIN_AUTH,
     )
@@ -127,6 +142,51 @@ class TestShastrasFuzzy:
         assert "total" in pagination
         assert "limit" in pagination
         assert "offset" in pagination
+
+
+    async def test_fuzzy_matches_teeka_name_returns_parent_shastra(
+        self, client: AsyncClient, shastra_samaysaar, teeka_samaysaar
+    ):
+        """Searching a teeka's name surfaces the shastra that contains it.
+
+        Mirrors the UI global search: typing a teeka name (e.g. राजवार्तिक, a
+        teeka of तत्त्वार्थसूत्र) should list the parent shastra.
+        """
+        r = await client.get("/v1/shastras?q=amritchandra&fuzzy=true&limit=5")
+        assert r.status_code == 200
+        items = r.json()["items"]
+        nks = [item["natural_key"] for item in items]
+        assert "samaysaar" in nks
+        match = next(i for i in items if i["natural_key"] == "samaysaar")
+        assert match["match_field"] == "teeka"
+        assert match["match_detail"] == "amritchandra"
+
+    async def test_fuzzy_matches_teekakar_name_returns_parent_shastra(
+        self, client: AsyncClient, shastra_samaysaar, teeka_samaysaar
+    ):
+        """Searching a teeka's teekakar (commentator) surfaces the parent shastra.
+
+        Mirrors अकलंक → तत्त्वार्थसूत्र (whose राजवार्तिक teeka is by आचार्य अकलंकदेव).
+        """
+        r = await client.get("/v1/shastras?q=अमृतचंद्र&fuzzy=true&limit=5")
+        assert r.status_code == 200
+        items = r.json()["items"]
+        match = next((i for i in items if i["natural_key"] == "samaysaar"), None)
+        assert match is not None
+        assert match["match_field"] == "teekakar"
+        assert "अमृतचंद्र" in (match["match_detail"] or "")
+
+    async def test_fuzzy_matches_author_name_returns_their_shastras(
+        self, client: AsyncClient, author_kundkund, shastra_samaysaar
+    ):
+        """Searching an author's name surfaces shastras authored by them."""
+        r = await client.get("/v1/shastras?q=कुन्दकुन्द&fuzzy=true&limit=5")
+        assert r.status_code == 200
+        items = r.json()["items"]
+        nks = [item["natural_key"] for item in items]
+        assert "samaysaar" in nks
+        match = next(i for i in items if i["natural_key"] == "samaysaar")
+        assert match["match_field"] == "author"
 
 
 # ---------------------------------------------------------------------------

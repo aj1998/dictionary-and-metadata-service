@@ -75,7 +75,8 @@ async def list_shastras(
         else:
             results = await svc.fuzzy_search_shastras(session, q, limit)
         items = []
-        for s, sim in results:
+        for match in results:
+            s = match["shastra"]
             author = await svc.get_author_for(session, s)
             anuyogas_list = await svc.get_anuyogas_for(session, s)
             items.append(ShastraSummaryResponse(
@@ -89,7 +90,9 @@ async def list_shastras(
                     kind=author.kind,
                 ) if author else None,
                 anuyogas=[AnuyogaSummary(kind=a.kind, display_name=a.display_name) for a in anuyogas_list],
-                similarity=sim,
+                similarity=match["similarity"],
+                match_field=match["match_field"],
+                match_detail=match["match_detail"],
             ))
         return ShastraListResponse(
             items=items,

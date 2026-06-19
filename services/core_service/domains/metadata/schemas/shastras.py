@@ -49,6 +49,12 @@ class ShastraSummaryResponse(BaseModel):
     author: AuthorSummary | None = None
     anuyogas: list[AnuyogaSummary] = []
     similarity: float | None = None
+    # Fuzzy search only: why this shastra matched — "name", "author", "teeka",
+    # or "teekakar". Lets the UI badge results that surfaced via a related entity.
+    match_field: str | None = None
+    # Fuzzy search only: the matched name when match_field is "teeka" (teeka
+    # name) or "teekakar" (commentator name).
+    match_detail: str | None = None
 
     @field_validator("title", mode="before")
     @classmethod

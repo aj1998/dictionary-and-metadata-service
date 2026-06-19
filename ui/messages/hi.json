@@ -157,7 +157,10 @@
     "exact_match": "सटीक मिलान",
     "best_match": "सर्वोत्तम मिलान",
     "view_all": "सभी देखें →",
-    "no_section_results": "इस श्रेणी में कोई परिणाम नहीं"
+    "no_section_results": "इस श्रेणी में कोई परिणाम नहीं",
+    "match_via_author": "लेखक",
+    "match_via_teeka": "टीका",
+    "match_via_teekakar": "टीकाकार"
   },
   "feedback": {
     "title": "प्रतिक्रिया",

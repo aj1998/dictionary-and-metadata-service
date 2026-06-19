@@ -69,3 +69,46 @@ CREATE INDEX shastras_nk_trgm        ON shastras USING gin (natural_key gin_trgm
 - [x] Three migrations + indexes. (`migrations/versions/0017_metadata_trgm_indexes.py`)
 - [x] Three endpoints updated; OpenAPI regenerated.
 - [x] Existing tests still green; new fuzzy tests added. (84 passed, 24 new)
+
+## Implementation Notes — relational fan-out for shastra fuzzy match
+
+The shastra fuzzy search (`fuzzy_search_shastras`,
+`services/core_service/domains/metadata/services/shastras.py`) was widened
+beyond the shastra's own name so the UI global search behaves the way users
+expect:
+
+- **Teeka-name match → parent shastra.** Searching a teeka name such as
+  `राजवार्तिक` (a teeka of `तत्त्वार्थसूत्र`) now surfaces the parent shastra. The
+  query LEFT JOINs an aggregate over `teekas`, taking the max trigram
+  similarity of both the full `natural_key` and `split_part(natural_key, ':', 2)`
+  (the bare teeka name, so the shastra prefix doesn't dilute the score).
+- **Teekakar (commentator) match → parent shastra.** Searching a teekakar name
+  such as `अकलंक` surfaces `तत्त्वार्थसूत्र` (whose `राजवार्तिक` teeka is by आचार्य
+  अकलंकदेव). The teeka aggregate joins `authors` via `teekakar_id` and also
+  scores `word_similarity(:q, display_name_text)` (gated at 0.5) so a bare name
+  fragment matches a longer honorific name — plain `similarity` drops too low
+  once the `आचार्य …देव` affixes dilute the trigram (0.29 < 0.4 cutoff, vs
+  word_similarity 0.83). The 0.5 gate keeps out coincidental single-syllable
+  overlaps (`कुन्दकुन्द` vs `नेमिचंद्र` ≈ 0.4). The same gated word_similarity is
+  applied to the shastra-author match.
+- **Author-name match → their shastras.** Searching an author name such as
+  `कुन्दकुन्द` now surfaces every shastra authored by them. The query LEFT JOINs
+  per-author similarity over `natural_key` and the concatenated `display_name`
+  text values (`string_agg(elem->>'text', ' ')` over the JSONB array — extracting
+  the text avoids the JSON-key noise that diluted a naive `display_name::text`).
+
+A shastra's final score is the GREATEST of its own name/title similarity, its
+best teeka-name similarity, and its author similarity. Verified on dev data at
+the UI's 0.4 cutoff: `राजवार्तिक` → `तत्त्वार्थसूत्र` (1.0), `कुन्दकुन्द` → all five
+Kundkund shastras (0.57) while non-Kundkund shastras stay below cutoff.
+
+Each fuzzy shastra row also carries **why it matched** so the UI can badge it:
+`match_field` (`"name"` | `"author"` | `"teeka"` | `"teekakar"`) and `match_detail`
+(the matched teeka or teekakar name; null for name/author — the author name is
+already on the row's `author` field). On ties the shastra's own name wins, so a
+badge only appears for related-entity matches. The UI global search renders a
+"लेखक" / "टीका" / "टीकाकार" pill on these rows (`ui/.../search/page.tsx`).
+
+Tests: `tests/services/metadata/test_fuzzy_metadata.py` —
+`test_fuzzy_matches_teeka_name_returns_parent_shastra`,
+`test_fuzzy_matches_author_name_returns_their_shastras`.

@@ -31,6 +31,12 @@ function shastraHi(s: ShastraSummary): string {
   return s.title.find((r) => r.lang === 'hi')?.text ?? s.natural_key;
 }
 
+function authorName(s: ShastraSummary): string | null {
+  const a = s.author;
+  if (!a || typeof a === 'string') return typeof a === 'string' ? a : null;
+  return a.display_name?.find((r) => r.lang === 'hi')?.text ?? a.display_name?.[0]?.text ?? a.natural_key ?? null;
+}
+
 /**
  * Build the list of search terms for a query. Always includes the full phrase;
  * for multi-word queries it also adds each meaningful (non-stopword) token, so
@@ -281,15 +287,35 @@ export default async function SearchPage({ searchParams }: PageProps) {
             count={shastras.length}
             fontHi={fontHi}
           >
-            {shastras.map((s) => (
-              <Link
-                key={s.id}
-                href={`/shastras/${s.natural_key}`}
-                className="block rounded-[var(--radius-sm)] border border-border bg-background px-3 py-2 text-sm hover:bg-accent-soft hover:border-accent/30"
-              >
-                <span className={`${fontHi} font-medium`}>{shastraHi(s)}</span>
-              </Link>
-            ))}
+            {shastras.map((s) => {
+              const via =
+                s.match_field === 'teeka'
+                  ? { label: t('match_via_teeka'), detail: s.match_detail }
+                  : s.match_field === 'teekakar'
+                    ? { label: t('match_via_teekakar'), detail: s.match_detail }
+                    : s.match_field === 'author'
+                      ? { label: t('match_via_author'), detail: authorName(s) }
+                      : null;
+              return (
+                <Link
+                  key={s.id}
+                  href={`/shastras/${s.natural_key}`}
+                  className="block rounded-[var(--radius-sm)] border border-border bg-background px-3 py-2 text-sm hover:bg-accent-soft hover:border-accent/30"
+                >
+                  <span className={`${fontHi} font-medium`}>{shastraHi(s)}</span>
+                  {via && (
+                    <span className="mt-1 flex flex-wrap items-center gap-1">
+                      <span className="inline-flex items-center rounded-full bg-accent-soft px-2 py-0.5 text-[length:var(--font-size-xs)] font-medium uppercase tracking-wide text-accent">
+                        {via.label}
+                      </span>
+                      {via.detail && (
+                        <span className={`${fontHi} text-xs text-foreground-muted`}>{via.detail}</span>
+                      )}
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
           </SectionCard>
         </div>
       )}

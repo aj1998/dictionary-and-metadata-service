@@ -102,26 +102,137 @@ _FUZZY_MIN_SIMILARITY = 0.25
 _FUZZY_HARD_CAP = 50
 
 
+class FuzzyShastraMatch(TypedDict):
+    shastra: Shastra
+    similarity: float
+    # Why this shastra surfaced: "name" (own title/nk), "author", "teeka", or
+    # "teekakar" (a teeka's commentator).
+    match_field: str
+    # Human-readable detail for the badge — the matched teeka or teekakar name,
+    # or None (author name is already available on the response's author field).
+    match_detail: str | None
+
+
 async def fuzzy_search_shastras(
     session: AsyncSession,
     q: str,
     limit: int,
     min_similarity: float = _FUZZY_MIN_SIMILARITY,
-) -> list[tuple[Shastra, float]]:
-    """pg_trgm similarity search over natural_key and title JSONB text."""
+) -> list[FuzzyShastraMatch]:
+    """pg_trgm similarity search over a shastra and its related metadata.
+
+    A shastra matches on any of:
+      - its own ``natural_key`` / ``title`` text;
+      - any of its teekas' names (so searching a teeka name like ``राजवार्तिक``
+        surfaces the parent shastra ``तत्त्वार्थसूत्र``). The teeka name is taken
+        both from the full ``natural_key`` and from the part after ``:`` so the
+        bare name matches without the shastra prefix diluting the trigram score;
+      - any of its teekas' teekakar (commentator) names (so searching
+        ``अकलंक`` surfaces ``तत्त्वार्थसूत्र``, whose राजवार्तिक teeka is by आचार्य
+        अकलंकदेव);
+      - its author's ``natural_key`` / ``display_name`` text (so searching an
+        author name like ``कुन्दकुन्द`` surfaces all of their shastras).
+    """
     capped = min(limit, _FUZZY_HARD_CAP)
     sql = text("""
-        WITH ranked AS (
+        WITH teeka_sim AS (
+            SELECT DISTINCT ON (shastra_id) shastra_id, sim, kind, detail
+            FROM (
+                SELECT
+                    t.shastra_id,
+                    GREATEST(name_sim, teekakar_sim) AS sim,
+                    CASE WHEN teekakar_sim > name_sim THEN 'teekakar' ELSE 'teeka' END AS kind,
+                    CASE WHEN teekakar_sim > name_sim THEN teekakar_name ELSE teeka_name END AS detail
+                FROM (
+                    SELECT
+                        t.shastra_id,
+                        GREATEST(
+                            similarity(t.natural_key, :q),
+                            similarity(split_part(t.natural_key, ':', 2), :q)
+                        ) AS name_sim,
+                        COALESCE(NULLIF(split_part(t.natural_key, ':', 2), ''), t.natural_key) AS teeka_name,
+                        COALESCE(GREATEST(
+                            similarity(ta.natural_key, :q),
+                            similarity(ta.display_text, :q),
+                            -- word_similarity matches a name fragment within a
+                            -- longer name (अकलंक → "आचार्य अकलंकदेव"); gate at
+                            -- 0.5 so coincidental single-syllable overlaps
+                            -- (कुन्दकुन्द vs नेमिचंद्र ≈ 0.4) don't leak in.
+                            (CASE WHEN word_similarity(:q, ta.display_text) >= 0.5
+                                  THEN word_similarity(:q, ta.display_text) ELSE 0 END)
+                        ), 0) AS teekakar_sim,
+                        ta.display_text AS teekakar_name
+                    FROM teekas t
+                    LEFT JOIN LATERAL (
+                        SELECT
+                            au.natural_key,
+                            COALESCE(
+                                (SELECT string_agg(elem->>'text', ' ')
+                                 FROM jsonb_array_elements(au.display_name) AS elem),
+                                ''
+                            ) AS display_text
+                        FROM authors au
+                        WHERE au.id = t.teekakar_id
+                    ) ta ON TRUE
+                ) t
+            ) m
+            ORDER BY shastra_id, sim DESC
+        ),
+        author_sim AS (
             SELECT
-                id,
+                id AS author_id,
                 GREATEST(
                     similarity(natural_key, :q),
-                    similarity(title::text, :q)
+                    similarity(
+                        COALESCE(
+                            (SELECT string_agg(elem->>'text', ' ')
+                             FROM jsonb_array_elements(display_name) AS elem),
+                            ''
+                        ),
+                        :q
+                    ),
+                    -- Fragment match within a longer author name, gated at 0.5
+                    -- (see teekakar_sim note) to avoid coincidental overlaps.
+                    (CASE WHEN word_similarity(
+                              :q,
+                              COALESCE(
+                                  (SELECT string_agg(elem->>'text', ' ')
+                                   FROM jsonb_array_elements(display_name) AS elem),
+                                  ''
+                              )
+                          ) >= 0.5
+                          THEN word_similarity(
+                              :q,
+                              COALESCE(
+                                  (SELECT string_agg(elem->>'text', ' ')
+                                   FROM jsonb_array_elements(display_name) AS elem),
+                                  ''
+                              )
+                          ) ELSE 0 END)
                 ) AS sim
-            FROM shastras
+            FROM authors
+        ),
+        ranked AS (
+            SELECT
+                s.id,
+                GREATEST(
+                    similarity(s.natural_key, :q),
+                    similarity(s.title::text, :q)
+                ) AS name_sim,
+                COALESCE(ts.sim, 0) AS teeka_sim,
+                ts.kind AS teeka_kind,
+                ts.detail AS teeka_detail,
+                COALESCE(a.sim, 0) AS author_sim
+            FROM shastras s
+            LEFT JOIN teeka_sim ts ON ts.shastra_id = s.id
+            LEFT JOIN author_sim a ON a.author_id = s.author_id
         )
-        SELECT id::text AS id, sim FROM ranked
-        WHERE sim >= :min_sim
+        SELECT
+            id::text AS id,
+            GREATEST(name_sim, teeka_sim, author_sim) AS sim,
+            name_sim, teeka_sim, teeka_kind, teeka_detail, author_sim
+        FROM ranked
+        WHERE GREATEST(name_sim, teeka_sim, author_sim) >= :min_sim
         ORDER BY sim DESC
         LIMIT :limit
     """)
@@ -129,11 +240,37 @@ async def fuzzy_search_shastras(
     logger.debug("fuzzy_search_shastras q=%r min_sim=%.2f → %d rows", q, min_similarity, len(rows))
     if not rows:
         return []
-    id_to_sim = {uuid.UUID(row.id): float(row.sim) for row in rows}
     id_order = [uuid.UUID(row.id) for row in rows]
     shastra_rows = await session.execute(select(Shastra).where(Shastra.id.in_(id_order)))
     shastra_map = {s.id: s for s in shastra_rows.scalars()}
-    return [(shastra_map[sid], id_to_sim[sid]) for sid in id_order if sid in shastra_map]
+
+    out: list[FuzzyShastraMatch] = []
+    for row in rows:
+        sid = uuid.UUID(row.id)
+        shastra = shastra_map.get(sid)
+        if shastra is None:
+            continue
+        # Priority on ties: the shastra's own name wins (no badge needed), then
+        # author, then teeka — so a badge only appears when the match came from
+        # a related entity rather than the shastra's own title.
+        name_sim = float(row.name_sim)
+        author_sim = float(row.author_sim)
+        teeka_sim = float(row.teeka_sim)
+        if name_sim >= author_sim and name_sim >= teeka_sim:
+            match_field, match_detail = "name", None
+        elif author_sim >= teeka_sim:
+            match_field, match_detail = "author", None
+        else:
+            # teeka_kind is "teeka" (matched the teeka name) or "teekakar"
+            # (matched the commentator); detail carries the matched name.
+            match_field, match_detail = row.teeka_kind, row.teeka_detail
+        out.append(FuzzyShastraMatch(
+            shastra=shastra,
+            similarity=float(row.sim),
+            match_field=match_field,
+            match_detail=match_detail,
+        ))
+    return out
 
 
 async def get_author_for(session: AsyncSession, shastra: Shastra) -> Author | None:

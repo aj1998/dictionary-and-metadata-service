@@ -133,6 +133,11 @@ export interface ShastraSummary {
   author?: AuthorSummary | string | null;
   anuyogas?: string[];
   gatha_count?: number;
+  similarity?: number;
+  /** Fuzzy search only: why this shastra matched. */
+  match_field?: 'name' | 'author' | 'teeka' | 'teekakar' | null;
+  /** Fuzzy search only: matched teeka/teekakar name when applicable. */
+  match_detail?: string | null;
 }
 
 export interface ShastraDetail extends ShastraSummary {
