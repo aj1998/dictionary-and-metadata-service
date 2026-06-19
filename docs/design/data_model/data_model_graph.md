@@ -108,6 +108,30 @@ Compound `Gatha` nodes also carry an `identifier_values` JSON string prop (e.g. 
 
 > **Note**: JainKosh reference resolution still emits **legacy** NKs for परमात्मप्रकाश until Phase 4. Until then, JK references land on stub Gatha nodes with legacy NKs (`परमात्मप्रकाश:गाथा:1`) — these are inert stubs and do not pollute the compound nodes.
 
+### `teeka_of` — multiple teekas sharing one parent shastra's gathas
+
+A `shastra.json` entry may declare `teeka_of: "<parent shastra>"` to model the case where one underlying shastra has **several teekas published as separate works**. The canonical example is **तत्त्वार्थसूत्र**, whose sūtras are commented on by three teekas, each a `type: publication` entry with `teeka_of: "तत्त्वार्थसूत्र"`:
+
+| Teeka entry | `gatha_identifier` | extra (teeka-specific) field |
+|---|---|---|
+| `सर्वार्थसिद्धि` | `अध्याय,तत्त्वार्थसूत्रसूत्र` | — |
+| `राजवार्तिक` | `अध्याय,तत्त्वार्थसूत्रसूत्र` | `राजवार्तिकवार्तिक` |
+| `श्लोकवार्तिक` | `अध्याय,तत्त्वार्थसूत्रसूत्र` | `पुस्तक`, `श्लोकवार्तिकवार्तिक` |
+
+Each teeka's format fields use the **parent-aligned** identifier name (`तत्त्वार्थसूत्रसूत्र`, canonical `सूत्र`), so a reference resolving to any of them reports `shastra_name = तत्त्वार्थसूत्र` and `teeka_name = <the teeka>` (`is_teeka = True`). The shared `Gatha` node is therefore keyed off the **parent's** `gatha_identifier`, and all three teekas of the same sūtra collapse onto one Gatha:
+
+| Label | NK format | Example (स.सि. / रा.वा., अध्याय 1, सूत्र 1) |
+|---|---|---|
+| `Gatha` | `तत्त्वार्थसूत्र:अध्याय:{a}:सूत्र:{s}` | `तत्त्वार्थसूत्र:अध्याय:1:सूत्र:1` (shared) |
+| `GathaTeeka` | `तत्त्वार्थसूत्र:{teeka}:अध्याय:{a}:सूत्र:टीका:{s}` | `तत्त्वार्थसूत्र:सर्वार्थसिद्धि:अध्याय:1:सूत्र:टीका:1` |
+| `GathaTeekaBhaavarth` / `Page` | rooted at `तत्त्वार्थसूत्र:{teeka}:{publisher_id}:…` (publisher resolved from the **teeka's** own entry) | `तत्त्वार्थसूत्र:सर्वार्थसिद्धि:{pub}:पृष्ठ:100` |
+
+Teeka-specific extra fields (`राजवार्तिकवार्तिक`, `श्लोकवार्तिकवार्तिक`) are **not** part of any node key — they are emitted as **edge props** keyed by canonical segment name (e.g. `वार्तिक`). `पुस्तक` is the exception: it continues to feed the multi-volume `Page` NK segment.
+
+Edge-routing `type` and `publisher` come from the teeka's own entry (`publication`), not the parent shastra (`shastra`). Implemented in `parse_reference.py` (`ShastraEntry.teeka_of`, remap in `parse_reference_text`) and `reference_edges.py` (`_effective_entry` / `_effective_shastra_type` / `_teeka_extra_props`).
+
+> **Postgres/Mongo:** the existing schema already supports many teekas per shastra — `teekas.shastra_id` and `publications.teeka_id` are plain FKs, so तत्त्वार्थसूत्र owning सर्वार्थसिद्धि/राजवार्तिक/श्लोकवार्तिक needs **no migration**. These JK-parser changes only emit Neo4j citation edges; the corresponding Postgres/Mongo rows are created (when needed) by NJ ingestion.
+
 **⚠ Edge case — Mongo text-doc `natural_key` ≠ Neo4j node `natural_key`.** The NJ ingester (`workers/ingestion/nj/envelope.py`) writes the gatha-text Mongo documents (`gatha_teeka_sanskrit`, `gatha_teeka_bhaavarth_hindi`, etc.) with a `natural_key` that identifies the **text document**, not the abstract entity node:
 
 | Mongo collection | `natural_key` field | Sibling field carrying the entity key |

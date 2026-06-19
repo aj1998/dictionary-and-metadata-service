@@ -1052,9 +1052,9 @@ class TestPassthroughFormatGroup:
     def test_kashayapaahud_end_to_end(self, cfg: JainkoshConfig):
         """Full parse_reference_text for कषायपाहुड़ 1/13-14/§181/217/1.
 
-        The format string 'पुस्तक/<कषायपाहुड़-गाथा>/प्रकरण/...' does not have §
-        before प्रकरण, so '§181' in the input cannot be resolved and the result
-        falls back to needs_manual_match=True.
+        Format 'पुस्तक/<कषायपाहुड़-गाथा>/प्रकरण/पृष्ठ/पंक्ति': the passthrough
+        gatha group keeps '13-14' verbatim, '§181' resolves to प्रकरण, and पृष्ठ/पंक्ति
+        follow — so the reference resolves fully (needs_manual_match=False).
         """
         from workers.ingestion.jainkosh.parse_reference import parse_reference_text
         if cfg.shastra_registry is None:
@@ -1067,8 +1067,16 @@ class TestPassthroughFormatGroup:
         )
         assert len(results) == 1
         r = results[0]
-        assert r.needs_manual_match is True
+        assert r.needs_manual_match is False
         assert unicodedata.normalize("NFC", r.shastra_name or "") == unicodedata.normalize("NFC", "कषायपाहुड़")
+        # NFC-normalise field names: the passthrough gatha field contains a nukta
+        # (ड़) whose composition can differ between the source literal and config.
+        fields = {unicodedata.normalize("NFC", rf.field): rf.value for rf in r.resolved_fields}
+        assert fields.get("पुस्तक") == 1
+        assert fields.get(unicodedata.normalize("NFC", "कषायपाहुड़-गाथा")) == "13-14"  # passthrough kept verbatim
+        assert fields.get("प्रकरण") == 181
+        assert fields.get("पृष्ठ") == 217
+        assert fields.get("पंक्ति") == 1
 
     def test_passthrough_field_name_in_brackets_with_hyphen(self):
         """Hyphens inside <> are part of the field name, not a separator."""
@@ -1278,7 +1286,9 @@ class TestTeekaSpaceSuffixDetection:
         assert r.shastra_name == "परमात्मप्रकाश"
         field_values = {rf.field: rf.value for rf in r.resolved_fields}
         assert field_values.get("अधिकार") == 1
-        assert field_values.get("गाथा") == 57
+        # Compound identifier: gatha field keeps its raw shastra-prefixed name
+        # (परमात्मप्रकाशगाथा); the prefix is stripped only when building the NK.
+        assert field_values.get("परमात्मप्रकाशगाथा") == 57
 
     def test_full_reference_teeka_space_single_num(self, cfg: JainkoshConfig):
         """parse_reference_text: '( परमात्मप्रकाश टीका/57 )' — is_teeka set even
@@ -2370,3 +2380,119 @@ class TestLabelTopicSeedsEnvelopeEmission:
         assert len(sa_blocks) == 1
         assert sa_blocks[0]["target_keyword"] == "द्रव्य"
         assert sa_blocks[0]["target_topic_path"] == "1.7"
+
+
+# ---------------------------------------------------------------------------
+# teeka_of: teekas of तत्त्वार्थसूत्र (सर्वार्थसिद्धि / राजवार्तिक / श्लोकवार्तिक)
+# share the parent's Gatha node; teeka-specific extra fields (वार्तिक) become
+# edge props.
+# ---------------------------------------------------------------------------
+
+class TestTeekaOfResolution:
+    """parse_reference_text remaps teeka_of entries onto the parent shastra."""
+
+    def _resolve(self, text: str, cfg: JainkoshConfig):
+        from workers.ingestion.jainkosh.parse_reference import parse_reference_text
+        return parse_reference_text(text, cfg.shastra_registry, cfg.reference)
+
+    def _ref_from(self, res) -> Reference:
+        return Reference(
+            text="t",
+            inline_reference=False,
+            needs_manual_match=res.needs_manual_match,
+            is_teeka=res.is_teeka,
+            teeka_name=res.teeka_name,
+            shastra_name=res.shastra_name,
+            resolved_fields=res.resolved_fields,
+        )
+
+    def test_sarvaarthsiddhi_maps_to_tattvarthsutra(self, cfg: JainkoshConfig):
+        if cfg.shastra_registry is None:
+            pytest.skip("structured parse strategy not enabled")
+        res = self._resolve("सर्वार्थसिद्धि 1/1/100/5", cfg)[0]
+        assert res.needs_manual_match is False
+        assert res.shastra_name == "तत्त्वार्थसूत्र"
+        assert res.teeka_name == "सर्वार्थसिद्धि"
+        assert res.is_teeka is True
+        fields = {rf.field: rf.value for rf in res.resolved_fields}
+        assert fields.get("अध्याय") == 1
+        assert fields.get("तत्त्वार्थसूत्रसूत्र") == 1
+
+    def test_rajvaartik_maps_to_tattvarthsutra(self, cfg: JainkoshConfig):
+        if cfg.shastra_registry is None:
+            pytest.skip("structured parse strategy not enabled")
+        res = self._resolve("राजवार्तिक 1/1/2/100/5", cfg)[0]
+        assert res.shastra_name == "तत्त्वार्थसूत्र"
+        assert res.teeka_name == "राजवार्तिक"
+        fields = {rf.field: rf.value for rf in res.resolved_fields}
+        assert fields.get("राजवार्तिकवार्तिक") == 2
+
+    def test_shlokvaartik_maps_to_tattvarthsutra(self, cfg: JainkoshConfig):
+        if cfg.shastra_registry is None:
+            pytest.skip("structured parse strategy not enabled")
+        res = self._resolve("श्लोकवार्तिक 1/1/1/3/100/5", cfg)[0]
+        assert res.shastra_name == "तत्त्वार्थसूत्र"
+        assert res.teeka_name == "श्लोकवार्तिक"
+        fields = {rf.field: rf.value for rf in res.resolved_fields}
+        # पुस्तक/अध्याय/तत्त्वार्थसूत्रसूत्र/श्लोकवार्तिकवार्तिक/पृष्ठ/पंक्ति
+        assert fields.get("तत्त्वार्थसूत्रसूत्र") == 1
+        assert fields.get("श्लोकवार्तिकवार्तिक") == 3
+
+    def test_two_teekas_share_same_gatha_node(self, cfg: JainkoshConfig):
+        """स.सि. and रा.वा. for the same (अध्याय, सूत्र) land on the SAME Gatha NK."""
+        if cfg.shastra_registry is None:
+            pytest.skip("structured parse strategy not enabled")
+        ssi = self._ref_from(self._resolve("सर्वार्थसिद्धि 1/1/100/5", cfg)[0])
+        rva = self._ref_from(self._resolve("राजवार्तिक 1/1/2/100/5", cfg)[0])
+        ssi_edges = build_reference_edges(
+            _block_with_refs([ssi], kind="prakrit_gatha"),
+            target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg,
+        )
+        rva_edges = build_reference_edges(
+            _block_with_refs([rva], kind="prakrit_gatha"),
+            target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg,
+        )
+        ssi_gatha = next(e["from"]["key"] for e in ssi_edges if e["from"]["label"] == "Gatha")
+        rva_gatha = next(e["from"]["key"] for e in rva_edges if e["from"]["label"] == "Gatha")
+        assert ssi_gatha == "तत्त्वार्थसूत्र:अध्याय:1:सूत्र:1"
+        assert rva_gatha == ssi_gatha
+
+    def test_gatha_teeka_key_uses_parent_and_teeka_name(self, cfg: JainkoshConfig):
+        if cfg.shastra_registry is None:
+            pytest.skip("structured parse strategy not enabled")
+        ref = self._ref_from(self._resolve("सर्वार्थसिद्धि 1/1/100/5", cfg)[0])
+        edges = build_reference_edges(
+            _block_with_refs([ref], kind="sanskrit_text"),
+            target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg,
+        )
+        gt = next(e["from"]["key"] for e in edges if e["from"]["label"] == "GathaTeeka")
+        assert gt == "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:अध्याय:1:सूत्र:टीका:1"
+
+    def test_vaartik_is_edge_prop_not_in_node_key(self, cfg: JainkoshConfig):
+        """राजवार्तिकवार्तिक → वार्तिक edge prop; not part of any node key."""
+        if cfg.shastra_registry is None:
+            pytest.skip("structured parse strategy not enabled")
+        ref = self._ref_from(self._resolve("राजवार्तिक 1/1/2/100/5", cfg)[0])
+        edges = build_reference_edges(
+            _block_with_refs([ref], kind="sanskrit_text"),
+            target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg,
+        )
+        assert edges, "expected edges for राजवार्तिक ref"
+        for e in edges:
+            assert ":वार्तिक:" not in e["from"]["key"], f"वार्तिक value leaked into node key: {e['from']['key']}"
+            assert e["props"].get("वार्तिक") == 2, f"वार्तिक edge prop missing: {e['props']}"
+
+    def test_page_uses_teeka_publisher(self, cfg: JainkoshConfig):
+        """Page NK is rooted at parent:teeka:<publisher> using the teeka's publisher."""
+        if cfg.shastra_registry is None:
+            pytest.skip("structured parse strategy not enabled")
+        ref = self._ref_from(self._resolve("सर्वार्थसिद्धि 1/1/100/5", cfg)[0])
+        edges = build_reference_edges(
+            _block_with_refs([ref], kind="sanskrit_text"),
+            target=TARGET, edge_type="MENTIONS_TOPIC", config=cfg,
+        )
+        page = next((e["from"]["key"] for e in edges if e["from"]["label"] == "Page"), None)
+        assert page is not None
+        assert page.startswith("तत्त्वार्थसूत्र:सर्वार्थसिद्धि:")
+        assert page.endswith(":पृष्ठ:100")
+        assert "publisher_to_be_added" not in page

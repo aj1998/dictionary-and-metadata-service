@@ -79,6 +79,11 @@ class ShastraEntry:
     # for entries built by old test helpers that don't set this field.
     publisher: str = ""
     type: str = ""
+    teeka_of: str = ""
+    # When set, this entry is a teeka/publication of the named parent shastra.
+    # References resolving to it report shastra_name=<parent>, teeka_name=<this
+    # entry's name>, is_teeka=True, so all teekas of one shastra share the same
+    # Gatha node (keyed off the parent's gatha_identifier).
 
 
 @dataclass
@@ -129,6 +134,7 @@ class ShastraRegistry:
                 all_format_groups=all_fmt_groups,
                 publisher=item.get("publisher", ""),
                 type=item.get("type", ""),
+                teeka_of=item.get("teeka_of", ""),
             )
             registry.entries.append(entry)
             registry._by_primary[_normalise(entry.shastra_name, norm_config)] = entry
@@ -858,6 +864,20 @@ def parse_reference_text(
 
     entry, method, is_teeka, teeka_name = match_shastra(name_raw, registry, config)
 
+    # teeka_of remapping: a matched entry declaring `teeka_of` is itself a teeka of
+    # a parent shastra. Report the parent as shastra_name and this entry's own name
+    # as teeka_name so all teekas of one shastra collapse onto the same Gatha node
+    # (built from the parent's gatha_identifier). The teeka entry's format fields use
+    # the parent-aligned identifier name (e.g. तत्त्वार्थसूत्रसूत्र), so resolution is
+    # unchanged; only the reported shastra/teeka names differ.
+    out_shastra = entry.shastra_name if entry is not None else None
+    out_teeka_name = teeka_name
+    out_is_teeka = is_teeka
+    if entry is not None and entry.teeka_of:
+        out_shastra = entry.teeka_of
+        out_teeka_name = entry.shastra_name
+        out_is_teeka = True
+
     if entry is None:
         return [_ResolutionResult(
             needs_manual_match=True,
@@ -940,9 +960,9 @@ def parse_reference_text(
     if needs_manual:
         return [_ResolutionResult(
             needs_manual_match=True,
-            is_teeka=is_teeka,
-            teeka_name=teeka_name,
-            shastra_name=entry.shastra_name,
+            is_teeka=out_is_teeka,
+            teeka_name=out_teeka_name,
+            shastra_name=out_shastra,
             match_method=method,
             resolved_fields=resolved_fields,
         )]
@@ -953,9 +973,9 @@ def parse_reference_text(
         # Overflow: too many expansions → needs_manual
         return [_ResolutionResult(
             needs_manual_match=True,
-            is_teeka=is_teeka,
-            teeka_name=teeka_name,
-            shastra_name=entry.shastra_name,
+            is_teeka=out_is_teeka,
+            teeka_name=out_teeka_name,
+            shastra_name=out_shastra,
             match_method=method,
             resolved_fields=[],
         )]
@@ -963,9 +983,9 @@ def parse_reference_text(
     return [
         _ResolutionResult(
             needs_manual_match=False,
-            is_teeka=is_teeka,
-            teeka_name=teeka_name,
-            shastra_name=entry.shastra_name,
+            is_teeka=out_is_teeka,
+            teeka_name=out_teeka_name,
+            shastra_name=out_shastra,
             match_method=method,
             resolved_fields=fields,
         )

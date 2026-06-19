@@ -812,6 +812,17 @@ GathaTeekaBhaavarth: "परमात्मप्रकाश:टीका:pub_i
 
 Shastras without `gatha_identifier` continue to use the legacy `{shastra}:गाथा:{n}` pattern (backwards-compatible).
 
+### 12.2d `teeka_of` — teekas remapped onto a parent shastra
+
+A `shastra.json` entry may declare `teeka_of: "<parent>"` to mark it as one of several teekas/publications of a shared shastra (e.g. `सर्वार्थसिद्धि`, `राजवार्तिक`, `श्लोकवार्तिक` are all `teeka_of: "तत्त्वार्थसूत्र"`). Each such entry's format fields use the **parent-aligned** identifier name (`तत्त्वार्थसूत्रसूत्र`), so resolution is unchanged except for the reported names:
+
+- `parse_reference_text` remaps the match so `shastra_name = <parent>`, `teeka_name = <the teeka's own name>`, `is_teeka = True` (`ShastraEntry.teeka_of`, `out_shastra`/`out_teeka_name`).
+- The shared `Gatha` NK is built from the **parent's** `gatha_identifier`, so all teekas of one sūtra collapse onto one Gatha (`तत्त्वार्थसूत्र:अध्याय:1:सूत्र:1`).
+- `GathaTeeka`/`Page`/`GathaTeekaBhaavarth` are rooted at `{parent}:{teeka}:…`; edge-routing `type` and `publisher` come from the **teeka's own** registry entry (`_effective_entry` / `_effective_shastra_type` in `reference_edges.py`), not the parent (which is `type: shastra`).
+- Teeka-specific extra fields (`राजवार्तिकवार्तिक`, `श्लोकवार्तिकवार्तिक`) are emitted as **edge props** (canonical name `वार्तिक`) via `_teeka_extra_props`, never as part of a node key. `पुस्तक` is excluded (it still feeds the multi-volume `Page` NK segment).
+
+See `docs/design/data_model/data_model_graph.md` → "`teeka_of` — multiple teekas sharing one parent shastra's gathas" for the full NK table.
+
 **Missing-field guard**: when a compound shastra's reference lacks a required field (e.g. `अधिकार` is absent), `_build_gatha_nk_from_reference` returns `None`. The reference is dropped (no edge emitted) and a `parser.reference.compound.missing_field` warning is logged — no crash.
 
 **Cross-source alignment**: the NJ envelope and the JK reference parser both call `build_compound_suffix` from `jain_kb_common.shastra_identifiers`, guaranteeing that a परमात्मप्रकाश gatha ingested from NJ and cited by a JainKosh keyword land on the same Neo4j node NK. Verified in `tests/ingestion/test_cross_source_compound_id.py`.

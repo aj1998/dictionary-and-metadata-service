@@ -343,9 +343,9 @@
                             "text": "राजवार्तिक/7/12/2/539/8",
                             "inline_reference": false,
                             "needs_manual_match": false,
-                            "is_teeka": false,
-                            "teeka_name": "",
-                            "shastra_name": "राजवार्तिक",
+                            "is_teeka": true,
+                            "teeka_name": "राजवार्तिक",
+                            "shastra_name": "तत्त्वार्थसूत्र",
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
@@ -353,7 +353,7 @@
                                 "value": 7
                               },
                               {
-                                "field": "राजवार्तिकसूत्र",
+                                "field": "तत्त्वार्थसूत्रसूत्र",
                                 "value": 12
                               },
                               {
@@ -1340,9 +1340,9 @@
                         "text": "श्लोकवार्तिक 2/1/7/9/529/27",
                         "inline_reference": false,
                         "needs_manual_match": false,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": "श्लोकवार्तिक",
+                        "is_teeka": true,
+                        "teeka_name": "श्लोकवार्तिक",
+                        "shastra_name": "तत्त्वार्थसूत्र",
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
@@ -1354,7 +1354,7 @@
                             "value": 1
                           },
                           {
-                            "field": "श्लोकवार्तिकसूत्र",
+                            "field": "तत्त्वार्थसूत्रसूत्र",
                             "value": 7
                           },
                           {
@@ -1772,9 +1772,9 @@
                         "text": "( श्लोकवार्तिक 2/",
                         "inline_reference": true,
                         "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": "श्लोकवार्तिक",
+                        "is_teeka": true,
+                        "teeka_name": "श्लोकवार्तिक",
+                        "shastra_name": "तत्त्वार्थसूत्र",
                         "match_method": "shastra_name",
                         "resolved_fields": []
                       },
@@ -2117,7 +2117,7 @@
       "next": "/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5_%E0%A4%A8%E0%A4%AF"
     },
     "parser_version": "jainkosh.rules/1.11.24",
-    "parsed_at": "2026-06-19T18:22:22.110273",
+    "parsed_at": "2026-06-19T19:05:37.381112",
     "warnings": []
   },
   "would_write": {
@@ -2858,9 +2858,9 @@
                   "text": "राजवार्तिक/7/12/2/539/8",
                   "inline_reference": false,
                   "needs_manual_match": false,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": "राजवार्तिक",
+                  "is_teeka": true,
+                  "teeka_name": "राजवार्तिक",
+                  "shastra_name": "तत्त्वार्थसूत्र",
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
@@ -2868,7 +2868,7 @@
                       "value": 7
                     },
                     {
-                      "field": "राजवार्तिकसूत्र",
+                      "field": "तत्त्वार्थसूत्रसूत्र",
                       "value": 12
                     },
                     {
@@ -3854,9 +3854,9 @@
                   "text": "श्लोकवार्तिक 2/1/7/9/529/27",
                   "inline_reference": false,
                   "needs_manual_match": false,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": "श्लोकवार्तिक",
+                  "is_teeka": true,
+                  "teeka_name": "श्लोकवार्तिक",
+                  "shastra_name": "तत्त्वार्थसूत्र",
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
@@ -3868,7 +3868,7 @@
                       "value": 1
                     },
                     {
-                      "field": "श्लोकवार्तिकसूत्र",
+                      "field": "तत्त्वार्थसूत्रसूत्र",
                       "value": 7
                     },
                     {
@@ -4289,9 +4289,9 @@
                   "text": "( श्लोकवार्तिक 2/",
                   "inline_reference": true,
                   "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": "श्लोकवार्तिक",
+                  "is_teeka": true,
+                  "teeka_name": "श्लोकवार्तिक",
+                  "shastra_name": "तत्त्वार्थसूत्र",
                   "match_method": "shastra_name",
                   "resolved_fields": []
                 },
@@ -4859,20 +4859,20 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "राजवार्तिक:टीका:अध्याय:7:सूत्र:टीका:12",
+          "key": "तत्त्वार्थसूत्र:राजवार्तिक:अध्याय:7:सूत्र:टीका:12",
           "props": {
-            "shastra_natural_key": "राजवार्तिक",
-            "teeka_natural_key": "राजवार्तिक:टीका",
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "teeka_natural_key": "तत्त्वार्थसूत्र:राजवार्तिक",
             "gatha_number": "12"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पृष्ठ:539",
+          "key": "तत्त्वार्थसूत्र:राजवार्तिक:18:पृष्ठ:539",
           "props": {
-            "shastra_natural_key": "राजवार्तिक",
-            "teeka_natural_key": "राजवार्तिक:टीका",
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "teeka_natural_key": "तत्त्वार्थसूत्र:राजवार्तिक",
             "publisher_id": "18",
             "page_number": "539"
           },
@@ -5254,20 +5254,20 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "श्लोकवार्तिक:टीका:पुस्तक:2:अध्याय:1:सूत्र:टीका:7",
+          "key": "तत्त्वार्थसूत्र:श्लोकवार्तिक:अध्याय:1:सूत्र:टीका:7",
           "props": {
-            "shastra_natural_key": "श्लोकवार्तिक",
-            "teeka_natural_key": "श्लोकवार्तिक:टीका",
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "teeka_natural_key": "तत्त्वार्थसूत्र:श्लोकवार्तिक",
             "gatha_number": "7"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "श्लोकवार्तिक:टीका:4:पुस्तक:2:पृष्ठ:529",
+          "key": "तत्त्वार्थसूत्र:श्लोकवार्तिक:4:पुस्तक:2:पृष्ठ:529",
           "props": {
-            "shastra_natural_key": "श्लोकवार्तिक",
-            "teeka_natural_key": "श्लोकवार्तिक:टीका",
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "teeka_natural_key": "तत्त्वार्थसूत्र:श्लोकवार्तिक",
             "publisher_id": "4",
             "page_number": "529",
             "pustak_number": "2"
@@ -5946,7 +5946,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "राजवार्तिक:टीका:अध्याय:7:सूत्र:टीका:12"
+            "key": "तत्त्वार्थसूत्र:राजवार्तिक:अध्याय:7:सूत्र:टीका:12"
           },
           "to": {
             "label": "Topic",
@@ -5958,14 +5958,15 @@
             "pankti": 8,
             "block_index": 0,
             "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ/0",
-            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ"
+            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ",
+            "वार्तिक": 2
           }
         },
         {
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पृष्ठ:539"
+            "key": "तत्त्वार्थसूत्र:राजवार्तिक:18:पृष्ठ:539"
           },
           "to": {
             "label": "Topic",
@@ -5977,7 +5978,8 @@
             "pankti": 8,
             "block_index": 0,
             "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ/0",
-            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ"
+            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:स्वभाव-सामान्य-का-लक्षण:स्वभाव-का-निरुक्ति-अर्थ",
+            "वार्तिक": 2
           }
         },
         {
@@ -6669,7 +6671,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "श्लोकवार्तिक:टीका:पुस्तक:2:अध्याय:1:सूत्र:टीका:7"
+            "key": "तत्त्वार्थसूत्र:श्लोकवार्तिक:अध्याय:1:सूत्र:टीका:7"
           },
           "to": {
             "label": "Topic",
@@ -6681,14 +6683,15 @@
             "pankti": 27,
             "block_index": 0,
             "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:वस्तु-में-कल्पित-व-वस्तुभूत-धर्मों-का-निर्देश/0",
-            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:वस्तु-में-कल्पित-व-वस्तुभूत-धर्मों-का-निर्देश"
+            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:वस्तु-में-कल्पित-व-वस्तुभूत-धर्मों-का-निर्देश",
+            "वार्तिक": 9
           }
         },
         {
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "श्लोकवार्तिक:टीका:4:पुस्तक:2:पृष्ठ:529"
+            "key": "तत्त्वार्थसूत्र:श्लोकवार्तिक:4:पुस्तक:2:पृष्ठ:529"
           },
           "to": {
             "label": "Topic",
@@ -6700,7 +6703,8 @@
             "pankti": 27,
             "block_index": 0,
             "mention_path": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:वस्तु-में-कल्पित-व-वस्तुभूत-धर्मों-का-निर्देश/0",
-            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:वस्तु-में-कल्पित-व-वस्तुभूत-धर्मों-का-निर्देश"
+            "source_natural_key": "स्वभाव:स्वभाव-के-भेद-लक्षण-व-विभाजन:वस्तु-में-कल्पित-व-वस्तुभूत-धर्मों-का-निर्देश",
+            "वार्तिक": 9
           }
         },
         {

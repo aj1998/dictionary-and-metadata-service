@@ -59,7 +59,7 @@ def _make_registry():
             type="teeka",
         ),
         ShastraEntry(
-            shastra_name="धवला",
+            shastra_name="कार्तिकेयानुप्रेक्षा",
             alternate_names=[],
             short_form="",
             format_str="गाथा",
@@ -242,7 +242,7 @@ def test_teeka_missing_teeka_name_falls_back_to_default(caplog):
 
 def test_publication_gatha_kind_uses_gatha():
     cfg = _make_config()
-    b = _block("prakrit_gatha", "धवला", [_rf("गाथा", 6)], teeka_name="जयधवला")
+    b = _block("prakrit_gatha", "कार्तिकेयानुप्रेक्षा", [_rf("गाथा", 6)], teeka_name="जयसेन")
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     assert len(edges) == 1
     assert edges[0]["from"]["label"] == "Gatha"
@@ -250,22 +250,22 @@ def test_publication_gatha_kind_uses_gatha():
 
 def test_publication_sanskrit_text_uses_gathateeka():
     cfg = _make_config()
-    b = _block("sanskrit_text", "धवला", [_rf("गाथा", 6)], teeka_name="जयधवला")
+    b = _block("sanskrit_text", "कार्तिकेयानुप्रेक्षा", [_rf("गाथा", 6)], teeka_name="जयसेन")
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     assert len(edges) == 1
     assert edges[0]["from"]["label"] == "GathaTeeka"
-    assert edges[0]["from"]["key"] == "धवला:जयधवला:गाथा:टीका:6"
+    assert edges[0]["from"]["key"] == "कार्तिकेयानुप्रेक्षा:जयसेन:गाथा:टीका:6"
 
 
 def test_publication_hindi_text_two_edges():
     cfg = _make_config()
-    b = _block("hindi_text", "धवला", [_rf("गाथा", 6)], teeka_name="जयधवला")
+    b = _block("hindi_text", "कार्तिकेयानुप्रेक्षा", [_rf("गाथा", 6)], teeka_name="जयसेन")
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     assert len(edges) == 2
     labels = {e["from"]["label"] for e in edges}
     assert labels == {"GathaTeeka", "GathaTeekaBhaavarth"}
     gt_edge = next(e for e in edges if e["from"]["label"] == "GathaTeekaBhaavarth")
-    assert gt_edge["from"]["key"] == "धवला:जयधवला:1:गाथा:टीका:भावार्थ:6"
+    assert gt_edge["from"]["key"] == "कार्तिकेयानुप्रेक्षा:जयसेन:1:गाथा:टीका:भावार्थ:6"
 
 
 # ---------------------------------------------------------------------------
@@ -282,10 +282,10 @@ def test_teeka_kalash_gatha_kind():
 
 def test_publication_kalash_hindi_text():
     cfg = _make_config()
-    b = _block("hindi_text", "धवला", [_rf("कलश", 3)], teeka_name="जयधवला")
+    b = _block("hindi_text", "कार्तिकेयानुप्रेक्षा", [_rf("कलश", 3)], teeka_name="जयसेन")
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     assert len(edges) == 1
-    assert edges[0]["from"] == {"label": "KalashBhaavarth", "key": "धवला:जयधवला:1:कलश:भावार्थ:3"}
+    assert edges[0]["from"] == {"label": "KalashBhaavarth", "key": "कार्तिकेयानुप्रेक्षा:जयसेन:1:कलश:भावार्थ:3"}
 
 
 def test_teeka_kalash_sanskrit_text_kind():
@@ -311,10 +311,10 @@ def test_publication_kalash_sanskrit_text_kind():
     समयसार is registered as 'publication' but kalash verses appear as sanskrit_text blocks.
     """
     cfg = _make_config()
-    b = _block("sanskrit_text", "धवला", [_rf("कलश", 2)], teeka_name="जयधवला")
+    b = _block("sanskrit_text", "कार्तिकेयानुप्रेक्षा", [_rf("कलश", 2)], teeka_name="जयसेन")
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     assert len(edges) == 1
-    assert edges[0]["from"] == {"label": "Kalash", "key": "धवला:जयधवला:कलश:2"}
+    assert edges[0]["from"] == {"label": "Kalash", "key": "कार्तिकेयानुप्रेक्षा:जयसेन:कलश:2"}
 
 
 def test_shastra_no_kalash_edge():
@@ -330,10 +330,10 @@ def test_shastra_no_kalash_edge():
 
 def test_publication_page_edge():
     cfg = _make_config()
-    b = _block("sanskrit_gatha", "धवला", [_rf("पृष्ठ", 98)], teeka_name="जयधवला")
+    b = _block("sanskrit_gatha", "कार्तिकेयानुप्रेक्षा", [_rf("पृष्ठ", 98)], teeka_name="जयसेन")
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     assert len(edges) == 1
-    assert edges[0]["from"] == {"label": "Page", "key": "धवला:जयधवला:1:पृष्ठ:98"}
+    assert edges[0]["from"] == {"label": "Page", "key": "कार्तिकेयानुप्रेक्षा:जयसेन:1:पृष्ठ:98"}
 
 
 def test_shastra_no_page_edge():
@@ -356,7 +356,7 @@ def test_teeka_no_page_edge():
 
 def test_gatha_and_page_from_same_block():
     cfg = _make_config()
-    b = _block("sanskrit_gatha", "धवला", [_rf("गाथा", 5), _rf("पृष्ठ", 98)], teeka_name="जयधवला")
+    b = _block("sanskrit_gatha", "कार्तिकेयानुप्रेक्षा", [_rf("गाथा", 5), _rf("पृष्ठ", 98)], teeka_name="जयसेन")
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     assert len(edges) == 2
     labels = {e["from"]["label"] for e in edges}
@@ -527,33 +527,33 @@ def test_inline_teeka_kalash_no_block_kind_check():
 def test_inline_publication_gatha_emits_gatha():
     """Inline publication ref emits plain Gatha — shastra type ignored for gatha in inline path."""
     cfg = _make_config()
-    inline = _make_inline_ref("धवला", [_rf("गाथा", 6)], teeka_name="जयधवला")
+    inline = _make_inline_ref("कार्तिकेयानुप्रेक्षा", [_rf("गाथा", 6)], teeka_name="जयसेन")
     b = Block(kind="hindi_gatha", references=[_main_no_fields(), inline])
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     assert len(edges) == 1
     e = edges[0]
     assert e["from"]["label"] == "Gatha"
-    assert e["from"]["key"] == "धवला:गाथा:6"
+    assert e["from"]["key"] == "कार्तिकेयानुप्रेक्षा:गाथा:6"
 
 
 def test_inline_publication_kalash_emits_kalash():
     """Inline publication ref with kalash emits Kalash (same key as teeka — no BhaaVarth in inline path)."""
     cfg = _make_config()
-    inline = _make_inline_ref("धवला", [_rf("कलश", 3)], teeka_name="जयधवला")
+    inline = _make_inline_ref("कार्तिकेयानुप्रेक्षा", [_rf("कलश", 3)], teeka_name="जयसेन")
     b = Block(kind="hindi_gatha", references=[_main_no_fields(), inline])
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     assert len(edges) == 1
-    assert edges[0]["from"] == {"label": "Kalash", "key": "धवला:जयधवला:कलश:3"}
+    assert edges[0]["from"] == {"label": "Kalash", "key": "कार्तिकेयानुप्रेक्षा:जयसेन:कलश:3"}
 
 
 def test_inline_publication_page_emits_page():
     """Inline publication ref with page emits Page edge."""
     cfg = _make_config()
-    inline = _make_inline_ref("धवला", [_rf("पृष्ठ", 50)], teeka_name="जयधवला")
+    inline = _make_inline_ref("कार्तिकेयानुप्रेक्षा", [_rf("पृष्ठ", 50)], teeka_name="जयसेन")
     b = Block(kind="hindi_text", references=[_main_no_fields(), inline])
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     assert len(edges) == 1
-    assert edges[0]["from"] == {"label": "Page", "key": "धवला:जयधवला:1:पृष्ठ:50"}
+    assert edges[0]["from"] == {"label": "Page", "key": "कार्तिकेयानुप्रेक्षा:जयसेन:1:पृष्ठ:50"}
 
 
 def test_inline_teeka_missing_teeka_name_emits_gatha():
@@ -610,7 +610,7 @@ def test_multiple_inline_refs_all_processed():
     main = Reference(text="main", inline_reference=False, shastra_name="समयसार",
                      resolved_fields=[_rf("गाथा", 1)])
     inline1 = _make_inline_ref("नियमसार", [_rf("गाथा", 10)], teeka_name="त.प्र.")
-    inline2 = _make_inline_ref("धवला", [_rf("गाथा", 20)], teeka_name="जयधवला")
+    inline2 = _make_inline_ref("कार्तिकेयानुप्रेक्षा", [_rf("गाथा", 20)], teeka_name="जयसेन")
     b = Block(kind="hindi_text", references=[main, inline1, inline2])
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     # main (shastra/hindi_text) → Gatha(1)
@@ -624,7 +624,7 @@ def test_multiple_inline_refs_all_processed():
 def test_inline_publication_pankti_in_props():
     """Inline publication ref with pankti surfaces pankti in edge props."""
     cfg = _make_config()
-    inline = _make_inline_ref("धवला", [_rf("गाथा", 6), _rf("पंक्ति", 3)], teeka_name="जयधवला")
+    inline = _make_inline_ref("कार्तिकेयानुप्रेक्षा", [_rf("गाथा", 6), _rf("पंक्ति", 3)], teeka_name="जयसेन")
     b = Block(kind="hindi_gatha", references=[_main_no_fields(), inline])
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg)
     assert len(edges) == 1

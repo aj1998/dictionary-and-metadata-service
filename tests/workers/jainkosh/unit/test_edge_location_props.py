@@ -53,7 +53,7 @@ def _make_config() -> JainkoshConfig:
             publisher="", type="teeka",
         ),
         ShastraEntry(
-            shastra_name="धवला", alternate_names=[], short_form="",
+            shastra_name="कार्तिकेयानुप्रेक्षा", alternate_names=[], short_form="",
             format_str="गाथा", format_groups=parse_format_string("गाथा"),
             publisher="अनन्तकीर्ति ग्रन्थमाला", type="publication",
         ),
@@ -115,7 +115,7 @@ def test_block_index_on_gathateeka():
 def test_block_index_on_two_edges_publication_hindi():
     """Both edges emitted for publication hindi_text get the same block_index."""
     cfg = _make_config()
-    b = _block("hindi_text", "धवला", [_rf("गाथा", 5)], teeka_name="जयधवला")
+    b = _block("hindi_text", "कार्तिकेयानुप्रेक्षा", [_rf("गाथा", 5)], teeka_name="जयसेन")
     edges = build_reference_edges(b, target=TOPIC_TARGET, edge_type="MENTIONS_TOPIC", config=cfg,
                                   block_index=7)
     assert len(edges) == 2

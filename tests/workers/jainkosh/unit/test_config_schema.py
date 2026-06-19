@@ -43,8 +43,10 @@ def test_missing_block_classes_fails(raw_config, schema):
 def test_load_config_succeeds():
     from workers.ingestion.jainkosh.config import load_config
     config = load_config()
-    assert config.version == "1.11.22"
-    assert config.parser_rules_version == "jainkosh.rules/1.11.22"
+    # Don't pin an exact version (drifts every release); assert the invariant
+    # that parser_rules_version is derived from version.
+    assert config.version.startswith("1.11.")
+    assert config.parser_rules_version == f"jainkosh.rules/{config.version}"
     assert config.envelope.idempotency_mode == "envelope_root"
     assert len(config.headings.variants) >= 4
 

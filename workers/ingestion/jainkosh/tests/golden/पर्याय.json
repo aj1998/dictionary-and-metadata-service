@@ -215,9 +215,9 @@
                             "text": "राजवार्तिक/1/33/1/95/6",
                             "inline_reference": false,
                             "needs_manual_match": false,
-                            "is_teeka": false,
-                            "teeka_name": "",
-                            "shastra_name": "राजवार्तिक",
+                            "is_teeka": true,
+                            "teeka_name": "राजवार्तिक",
+                            "shastra_name": "तत्त्वार्थसूत्र",
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
@@ -225,7 +225,7 @@
                                 "value": 1
                               },
                               {
-                                "field": "राजवार्तिकसूत्र",
+                                "field": "तत्त्वार्थसूत्रसूत्र",
                                 "value": 33
                               },
                               {
@@ -409,9 +409,9 @@
                             "text": "सर्वार्थसिद्धि/1/33/141/1",
                             "inline_reference": false,
                             "needs_manual_match": false,
-                            "is_teeka": false,
-                            "teeka_name": "",
-                            "shastra_name": "सर्वार्थसिद्धि",
+                            "is_teeka": true,
+                            "teeka_name": "सर्वार्थसिद्धि",
+                            "shastra_name": "तत्त्वार्थसूत्र",
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
@@ -419,7 +419,7 @@
                                 "value": 1
                               },
                               {
-                                "field": "सर्वार्थसिद्धिसूत्र",
+                                "field": "तत्त्वार्थसूत्रसूत्र",
                                 "value": 33
                               },
                               {
@@ -453,9 +453,9 @@
                             "text": "राजवार्तिक/1/29/4/89/4",
                             "inline_reference": false,
                             "needs_manual_match": false,
-                            "is_teeka": false,
-                            "teeka_name": "",
-                            "shastra_name": "राजवार्तिक",
+                            "is_teeka": true,
+                            "teeka_name": "राजवार्तिक",
+                            "shastra_name": "तत्त्वार्थसूत्र",
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
@@ -463,7 +463,7 @@
                                 "value": 1
                               },
                               {
-                                "field": "राजवार्तिकसूत्र",
+                                "field": "तत्त्वार्थसूत्रसूत्र",
                                 "value": 29
                               },
                               {
@@ -748,9 +748,9 @@
                             "text": "सर्वार्थसिद्धि/5/38/309-310/7",
                             "inline_reference": false,
                             "needs_manual_match": false,
-                            "is_teeka": false,
-                            "teeka_name": "",
-                            "shastra_name": "सर्वार्थसिद्धि",
+                            "is_teeka": true,
+                            "teeka_name": "सर्वार्थसिद्धि",
+                            "shastra_name": "तत्त्वार्थसूत्र",
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
@@ -758,7 +758,7 @@
                                 "value": 5
                               },
                               {
-                                "field": "सर्वार्थसिद्धिसूत्र",
+                                "field": "तत्त्वार्थसूत्रसूत्र",
                                 "value": 38
                               },
                               {
@@ -775,9 +775,9 @@
                             "text": "सर्वार्थसिद्धि/5/38/309-310/7",
                             "inline_reference": false,
                             "needs_manual_match": false,
-                            "is_teeka": false,
-                            "teeka_name": "",
-                            "shastra_name": "सर्वार्थसिद्धि",
+                            "is_teeka": true,
+                            "teeka_name": "सर्वार्थसिद्धि",
+                            "shastra_name": "तत्त्वार्थसूत्र",
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
@@ -785,7 +785,7 @@
                                 "value": 5
                               },
                               {
-                                "field": "सर्वार्थसिद्धिसूत्र",
+                                "field": "तत्त्वार्थसूत्रसूत्र",
                                 "value": 38
                               },
                               {
@@ -879,9 +879,9 @@
                             "text": "सर्वार्थसिद्धि/1/33/141",
                             "inline_reference": false,
                             "needs_manual_match": false,
-                            "is_teeka": false,
-                            "teeka_name": "",
-                            "shastra_name": "सर्वार्थसिद्धि",
+                            "is_teeka": true,
+                            "teeka_name": "सर्वार्थसिद्धि",
+                            "shastra_name": "तत्त्वार्थसूत्र",
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
@@ -889,7 +889,7 @@
                                 "value": 1
                               },
                               {
-                                "field": "सर्वार्थसिद्धिसूत्र",
+                                "field": "तत्त्वार्थसूत्रसूत्र",
                                 "value": 33
                               },
                               {
@@ -1062,9 +1062,9 @@
                             "text": "श्लोकवार्तिक/4/1/33/60/245/1",
                             "inline_reference": false,
                             "needs_manual_match": false,
-                            "is_teeka": false,
-                            "teeka_name": "",
-                            "shastra_name": "श्लोकवार्तिक",
+                            "is_teeka": true,
+                            "teeka_name": "श्लोकवार्तिक",
+                            "shastra_name": "तत्त्वार्थसूत्र",
                             "match_method": "shastra_name",
                             "resolved_fields": [
                               {
@@ -1076,7 +1076,7 @@
                                 "value": 1
                               },
                               {
-                                "field": "श्लोकवार्तिकसूत्र",
+                                "field": "तत्त्वार्थसूत्रसूत्र",
                                 "value": 33
                               },
                               {
@@ -2295,9 +2295,9 @@
                         "text": "सर्वार्थसिद्धि/5/35/309/5",
                         "inline_reference": false,
                         "needs_manual_match": false,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": "सर्वार्थसिद्धि",
+                        "is_teeka": true,
+                        "teeka_name": "सर्वार्थसिद्धि",
+                        "shastra_name": "तत्त्वार्थसूत्र",
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
@@ -2305,7 +2305,7 @@
                             "value": 5
                           },
                           {
-                            "field": "सर्वार्थसिद्धिसूत्र",
+                            "field": "तत्त्वार्थसूत्रसूत्र",
                             "value": 35
                           },
                           {
@@ -2845,9 +2845,9 @@
                         "text": "राजवार्तिक/5/22/21/4/81/19",
                         "inline_reference": false,
                         "needs_manual_match": true,
-                        "is_teeka": false,
-                        "teeka_name": "",
-                        "shastra_name": "राजवार्तिक",
+                        "is_teeka": true,
+                        "teeka_name": "राजवार्तिक",
+                        "shastra_name": "तत्त्वार्थसूत्र",
                         "match_method": "shastra_name",
                         "resolved_fields": []
                       }
@@ -5763,7 +5763,7 @@
       "next": "/wiki/%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%AF_%E0%A4%B8%E0%A4%AE%E0%A4%BE%E0%A4%B8%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8"
     },
     "parser_version": "jainkosh.rules/1.11.24",
-    "parsed_at": "2026-06-19T18:22:21.822591",
+    "parsed_at": "2026-06-19T19:05:37.099458",
     "warnings": []
   },
   "would_write": {
@@ -6882,9 +6882,9 @@
                   "text": "राजवार्तिक/1/33/1/95/6",
                   "inline_reference": false,
                   "needs_manual_match": false,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": "राजवार्तिक",
+                  "is_teeka": true,
+                  "teeka_name": "राजवार्तिक",
+                  "shastra_name": "तत्त्वार्थसूत्र",
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
@@ -6892,7 +6892,7 @@
                       "value": 1
                     },
                     {
-                      "field": "राजवार्तिकसूत्र",
+                      "field": "तत्त्वार्थसूत्रसूत्र",
                       "value": 33
                     },
                     {
@@ -7076,9 +7076,9 @@
                   "text": "सर्वार्थसिद्धि/1/33/141/1",
                   "inline_reference": false,
                   "needs_manual_match": false,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": "सर्वार्थसिद्धि",
+                  "is_teeka": true,
+                  "teeka_name": "सर्वार्थसिद्धि",
+                  "shastra_name": "तत्त्वार्थसूत्र",
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
@@ -7086,7 +7086,7 @@
                       "value": 1
                     },
                     {
-                      "field": "सर्वार्थसिद्धिसूत्र",
+                      "field": "तत्त्वार्थसूत्रसूत्र",
                       "value": 33
                     },
                     {
@@ -7120,9 +7120,9 @@
                   "text": "राजवार्तिक/1/29/4/89/4",
                   "inline_reference": false,
                   "needs_manual_match": false,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": "राजवार्तिक",
+                  "is_teeka": true,
+                  "teeka_name": "राजवार्तिक",
+                  "shastra_name": "तत्त्वार्थसूत्र",
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
@@ -7130,7 +7130,7 @@
                       "value": 1
                     },
                     {
-                      "field": "राजवार्तिकसूत्र",
+                      "field": "तत्त्वार्थसूत्रसूत्र",
                       "value": 29
                     },
                     {
@@ -7415,9 +7415,9 @@
                   "text": "सर्वार्थसिद्धि/5/38/309-310/7",
                   "inline_reference": false,
                   "needs_manual_match": false,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": "सर्वार्थसिद्धि",
+                  "is_teeka": true,
+                  "teeka_name": "सर्वार्थसिद्धि",
+                  "shastra_name": "तत्त्वार्थसूत्र",
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
@@ -7425,7 +7425,7 @@
                       "value": 5
                     },
                     {
-                      "field": "सर्वार्थसिद्धिसूत्र",
+                      "field": "तत्त्वार्थसूत्रसूत्र",
                       "value": 38
                     },
                     {
@@ -7442,9 +7442,9 @@
                   "text": "सर्वार्थसिद्धि/5/38/309-310/7",
                   "inline_reference": false,
                   "needs_manual_match": false,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": "सर्वार्थसिद्धि",
+                  "is_teeka": true,
+                  "teeka_name": "सर्वार्थसिद्धि",
+                  "shastra_name": "तत्त्वार्थसूत्र",
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
@@ -7452,7 +7452,7 @@
                       "value": 5
                     },
                     {
-                      "field": "सर्वार्थसिद्धिसूत्र",
+                      "field": "तत्त्वार्थसूत्रसूत्र",
                       "value": 38
                     },
                     {
@@ -7546,9 +7546,9 @@
                   "text": "सर्वार्थसिद्धि/1/33/141",
                   "inline_reference": false,
                   "needs_manual_match": false,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": "सर्वार्थसिद्धि",
+                  "is_teeka": true,
+                  "teeka_name": "सर्वार्थसिद्धि",
+                  "shastra_name": "तत्त्वार्थसूत्र",
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
@@ -7556,7 +7556,7 @@
                       "value": 1
                     },
                     {
-                      "field": "सर्वार्थसिद्धिसूत्र",
+                      "field": "तत्त्वार्थसूत्रसूत्र",
                       "value": 33
                     },
                     {
@@ -7729,9 +7729,9 @@
                   "text": "श्लोकवार्तिक/4/1/33/60/245/1",
                   "inline_reference": false,
                   "needs_manual_match": false,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": "श्लोकवार्तिक",
+                  "is_teeka": true,
+                  "teeka_name": "श्लोकवार्तिक",
+                  "shastra_name": "तत्त्वार्थसूत्र",
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
@@ -7743,7 +7743,7 @@
                       "value": 1
                     },
                     {
-                      "field": "श्लोकवार्तिकसूत्र",
+                      "field": "तत्त्वार्थसूत्रसूत्र",
                       "value": 33
                     },
                     {
@@ -8969,9 +8969,9 @@
                   "text": "सर्वार्थसिद्धि/5/35/309/5",
                   "inline_reference": false,
                   "needs_manual_match": false,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": "सर्वार्थसिद्धि",
+                  "is_teeka": true,
+                  "teeka_name": "सर्वार्थसिद्धि",
+                  "shastra_name": "तत्त्वार्थसूत्र",
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
@@ -8979,7 +8979,7 @@
                       "value": 5
                     },
                     {
-                      "field": "सर्वार्थसिद्धिसूत्र",
+                      "field": "तत्त्वार्थसूत्रसूत्र",
                       "value": 35
                     },
                     {
@@ -9522,9 +9522,9 @@
                   "text": "राजवार्तिक/5/22/21/4/81/19",
                   "inline_reference": false,
                   "needs_manual_match": true,
-                  "is_teeka": false,
-                  "teeka_name": "",
-                  "shastra_name": "राजवार्तिक",
+                  "is_teeka": true,
+                  "teeka_name": "राजवार्तिक",
+                  "shastra_name": "तत्त्वार्थसूत्र",
                   "match_method": "shastra_name",
                   "resolved_fields": []
                 }
@@ -12550,20 +12550,20 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "राजवार्तिक:टीका:अध्याय:1:सूत्र:टीका:33",
+          "key": "तत्त्वार्थसूत्र:राजवार्तिक:अध्याय:1:सूत्र:टीका:33",
           "props": {
-            "shastra_natural_key": "राजवार्तिक",
-            "teeka_natural_key": "राजवार्तिक:टीका",
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "teeka_natural_key": "तत्त्वार्थसूत्र:राजवार्तिक",
             "gatha_number": "33"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पृष्ठ:95",
+          "key": "तत्त्वार्थसूत्र:राजवार्तिक:18:पृष्ठ:95",
           "props": {
-            "shastra_natural_key": "राजवार्तिक",
-            "teeka_natural_key": "राजवार्तिक:टीका",
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "teeka_natural_key": "तत्त्वार्थसूत्र:राजवार्तिक",
             "publisher_id": "18",
             "page_number": "95"
           },
@@ -12646,20 +12646,20 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "सर्वार्थसिद्धि:टीका:अध्याय:1:सूत्र:टीका:33",
+          "key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:अध्याय:1:सूत्र:टीका:33",
           "props": {
-            "shastra_natural_key": "सर्वार्थसिद्धि",
-            "teeka_natural_key": "सर्वार्थसिद्धि:टीका",
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "teeka_natural_key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि",
             "gatha_number": "33"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "सर्वार्थसिद्धि:टीका:18:पृष्ठ:141",
+          "key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:18:पृष्ठ:141",
           "props": {
-            "shastra_natural_key": "सर्वार्थसिद्धि",
-            "teeka_natural_key": "सर्वार्थसिद्धि:टीका",
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "teeka_natural_key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि",
             "publisher_id": "18",
             "page_number": "141"
           },
@@ -12667,20 +12667,20 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "राजवार्तिक:टीका:अध्याय:1:सूत्र:टीका:29",
+          "key": "तत्त्वार्थसूत्र:राजवार्तिक:अध्याय:1:सूत्र:टीका:29",
           "props": {
-            "shastra_natural_key": "राजवार्तिक",
-            "teeka_natural_key": "राजवार्तिक:टीका",
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "teeka_natural_key": "तत्त्वार्थसूत्र:राजवार्तिक",
             "gatha_number": "29"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "राजवार्तिक:टीका:18:पृष्ठ:89",
+          "key": "तत्त्वार्थसूत्र:राजवार्तिक:18:पृष्ठ:89",
           "props": {
-            "shastra_natural_key": "राजवार्तिक",
-            "teeka_natural_key": "राजवार्तिक:टीका",
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "teeka_natural_key": "तत्त्वार्थसूत्र:राजवार्तिक",
             "publisher_id": "18",
             "page_number": "89"
           },
@@ -12794,41 +12794,42 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "सर्वार्थसिद्धि:टीका:अध्याय:5:सूत्र:टीका:38",
+          "key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:अध्याय:5:सूत्र:टीका:38",
           "props": {
-            "shastra_natural_key": "सर्वार्थसिद्धि",
-            "teeka_natural_key": "सर्वार्थसिद्धि:टीका",
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "teeka_natural_key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि",
             "gatha_number": "38"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "सर्वार्थसिद्धि:टीका:18:पृष्ठ:309",
+          "key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:18:पृष्ठ:309",
           "props": {
-            "shastra_natural_key": "सर्वार्थसिद्धि",
-            "teeka_natural_key": "सर्वार्थसिद्धि:टीका",
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "teeka_natural_key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि",
             "publisher_id": "18",
             "page_number": "309"
           },
           "lazy": true
         },
         {
-          "label": "Gatha",
-          "key": "सर्वार्थसिद्धि:अध्याय:5:सूत्र:38",
+          "label": "GathaTeekaBhaavarth",
+          "key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:18:अध्याय:5:सूत्र:टीका:भावार्थ:38",
           "props": {
-            "shastra_natural_key": "सर्वार्थसिद्धि",
-            "gatha_number": "अध्याय:5:सूत्र:38",
-            "identifier_values": "{\"अध्याय\": \"5\", \"सर्वार्थसिद्धिसूत्र\": \"38\"}"
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "teeka_natural_key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि",
+            "publisher_id": "18",
+            "gatha_number": "38"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "सर्वार्थसिद्धि:टीका:18:पृष्ठ:310",
+          "key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:18:पृष्ठ:310",
           "props": {
-            "shastra_natural_key": "सर्वार्थसिद्धि",
-            "teeka_natural_key": "सर्वार्थसिद्धि:टीका",
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "teeka_natural_key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि",
             "publisher_id": "18",
             "page_number": "310"
           },
@@ -12929,20 +12930,20 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "श्लोकवार्तिक:टीका:पुस्तक:4:अध्याय:1:सूत्र:टीका:33",
+          "key": "तत्त्वार्थसूत्र:श्लोकवार्तिक:अध्याय:1:सूत्र:टीका:33",
           "props": {
-            "shastra_natural_key": "श्लोकवार्तिक",
-            "teeka_natural_key": "श्लोकवार्तिक:टीका",
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "teeka_natural_key": "तत्त्वार्थसूत्र:श्लोकवार्तिक",
             "gatha_number": "33"
           },
           "lazy": true
         },
         {
           "label": "Page",
-          "key": "श्लोकवार्तिक:टीका:4:पुस्तक:4:पृष्ठ:245",
+          "key": "तत्त्वार्थसूत्र:श्लोकवार्तिक:4:पुस्तक:4:पृष्ठ:245",
           "props": {
-            "shastra_natural_key": "श्लोकवार्तिक",
-            "teeka_natural_key": "श्लोकवार्तिक:टीका",
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "teeka_natural_key": "तत्त्वार्थसूत्र:श्लोकवार्तिक",
             "publisher_id": "4",
             "page_number": "245",
             "pustak_number": "4"
@@ -13318,10 +13319,10 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "सर्वार्थसिद्धि:टीका:अध्याय:5:सूत्र:टीका:35",
+          "key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:अध्याय:5:सूत्र:टीका:35",
           "props": {
-            "shastra_natural_key": "सर्वार्थसिद्धि",
-            "teeka_natural_key": "सर्वार्थसिद्धि:टीका",
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "teeka_natural_key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि",
             "gatha_number": "35"
           },
           "lazy": true
@@ -14406,7 +14407,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "राजवार्तिक:टीका:अध्याय:1:सूत्र:टीका:33"
+            "key": "तत्त्वार्थसूत्र:राजवार्तिक:अध्याय:1:सूत्र:टीका:33"
           },
           "to": {
             "label": "Topic",
@@ -14418,14 +14419,15 @@
             "pankti": 6,
             "block_index": 0,
             "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ/0",
-            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ"
+            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ",
+            "वार्तिक": 1
           }
         },
         {
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पृष्ठ:95"
+            "key": "तत्त्वार्थसूत्र:राजवार्तिक:18:पृष्ठ:95"
           },
           "to": {
             "label": "Topic",
@@ -14437,7 +14439,8 @@
             "pankti": 6,
             "block_index": 0,
             "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ/0",
-            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ"
+            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:निरुक्ति-अर्थ",
+            "वार्तिक": 1
           }
         },
         {
@@ -14570,7 +14573,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "सर्वार्थसिद्धि:टीका:अध्याय:1:सूत्र:टीका:33"
+            "key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:अध्याय:1:सूत्र:टीका:33"
           },
           "to": {
             "label": "Topic",
@@ -14589,7 +14592,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "सर्वार्थसिद्धि:टीका:18:पृष्ठ:141"
+            "key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:18:पृष्ठ:141"
           },
           "to": {
             "label": "Topic",
@@ -14608,7 +14611,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "राजवार्तिक:टीका:अध्याय:1:सूत्र:टीका:29"
+            "key": "तत्त्वार्थसूत्र:राजवार्तिक:अध्याय:1:सूत्र:टीका:29"
           },
           "to": {
             "label": "Topic",
@@ -14620,14 +14623,15 @@
             "pankti": 4,
             "block_index": 1,
             "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में/1",
-            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में"
+            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में",
+            "वार्तिक": 4
           }
         },
         {
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "राजवार्तिक:टीका:18:पृष्ठ:89"
+            "key": "तत्त्वार्थसूत्र:राजवार्तिक:18:पृष्ठ:89"
           },
           "to": {
             "label": "Topic",
@@ -14639,7 +14643,8 @@
             "pankti": 4,
             "block_index": 1,
             "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में/1",
-            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में"
+            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-सामान्य-का-लक्षण:द्रव्यांश-या-वस्तु-विशेष-के-अर्थ-में",
+            "वार्तिक": 4
           }
         },
         {
@@ -14825,7 +14830,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "सर्वार्थसिद्धि:टीका:अध्याय:5:सूत्र:टीका:38"
+            "key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:अध्याय:5:सूत्र:टीका:38"
           },
           "to": {
             "label": "Topic",
@@ -14844,7 +14849,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "सर्वार्थसिद्धि:टीका:18:पृष्ठ:309"
+            "key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:18:पृष्ठ:309"
           },
           "to": {
             "label": "Topic",
@@ -14862,8 +14867,8 @@
         {
           "type": "MENTIONS_TOPIC",
           "from": {
-            "label": "Gatha",
-            "key": "सर्वार्थसिद्धि:अध्याय:5:सूत्र:38"
+            "label": "GathaTeekaBhaavarth",
+            "key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:18:अध्याय:5:सूत्र:टीका:भावार्थ:38"
           },
           "to": {
             "label": "Topic",
@@ -14882,7 +14887,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "सर्वार्थसिद्धि:टीका:18:पृष्ठ:310"
+            "key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:18:पृष्ठ:310"
           },
           "to": {
             "label": "Topic",
@@ -14934,7 +14939,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "सर्वार्थसिद्धि:टीका:अध्याय:1:सूत्र:टीका:33"
+            "key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:अध्याय:1:सूत्र:टीका:33"
           },
           "to": {
             "label": "Topic",
@@ -14952,7 +14957,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "सर्वार्थसिद्धि:टीका:18:पृष्ठ:141"
+            "key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:18:पृष्ठ:141"
           },
           "to": {
             "label": "Topic",
@@ -15092,7 +15097,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "श्लोकवार्तिक:टीका:पुस्तक:4:अध्याय:1:सूत्र:टीका:33"
+            "key": "तत्त्वार्थसूत्र:श्लोकवार्तिक:अध्याय:1:सूत्र:टीका:33"
           },
           "to": {
             "label": "Topic",
@@ -15104,14 +15109,15 @@
             "pankti": 1,
             "block_index": 0,
             "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:सहभावी-व-क्रमभावी/0",
-            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:सहभावी-व-क्रमभावी"
+            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:सहभावी-व-क्रमभावी",
+            "वार्तिक": 60
           }
         },
         {
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "श्लोकवार्तिक:टीका:4:पुस्तक:4:पृष्ठ:245"
+            "key": "तत्त्वार्थसूत्र:श्लोकवार्तिक:4:पुस्तक:4:पृष्ठ:245"
           },
           "to": {
             "label": "Topic",
@@ -15123,7 +15129,8 @@
             "pankti": 1,
             "block_index": 0,
             "mention_path": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:सहभावी-व-क्रमभावी/0",
-            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:सहभावी-व-क्रमभावी"
+            "source_natural_key": "पर्याय:भेद-व-लक्षण:पर्याय-के-दो-भेद:सहभावी-व-क्रमभावी",
+            "वार्तिक": 60
           }
         },
         {
@@ -16062,7 +16069,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "सर्वार्थसिद्धि:टीका:अध्याय:5:सूत्र:टीका:35"
+            "key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:अध्याय:5:सूत्र:टीका:35"
           },
           "to": {
             "label": "Topic",
@@ -16081,7 +16088,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Page",
-            "key": "सर्वार्थसिद्धि:टीका:18:पृष्ठ:309"
+            "key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:18:पृष्ठ:309"
           },
           "to": {
             "label": "Topic",
