@@ -134,6 +134,10 @@
   html[lang="en"] .font-sans {
     font-family: var(--font-serif-hindi) !important;
   }
+
+  .font-latin {
+    font-family: var(--font-sans) !important;
+  }
 }
 
 @layer base {

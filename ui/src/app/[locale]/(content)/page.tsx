@@ -55,7 +55,7 @@ export default async function HomePage() {
         <div
           aria-hidden
           className="pointer-events-none absolute -right-24 -top-24 hidden size-72 rounded-full opacity-30 blur-3xl md:block"
-          style={{ background: 'var(--cat-gatha-teeka)' }}
+          style={{ background: 'var(--cat-keyword)' }}
         />
         <div
           aria-hidden
@@ -76,7 +76,7 @@ export default async function HomePage() {
             {t('hero_badge')}
           </span>
 
-          <h1 className={`${isHi ? 'font-serif-hindi font-semibold md:text-6xl' : 'font-sans font-medium tracking-tight md:text-5xl'} mt-5 text-[length:var(--font-size-display)] leading-tight text-foreground`}>
+          <h1 className={`${isHi ? 'font-serif-hindi font-semibold md:text-6xl' : 'font-sans font-semibold tracking-tight md:text-5xl'} mt-5 text-[length:var(--font-size-display)] leading-tight text-foreground`}>
             {t('hero')}
           </h1>
           <p className={`${isHi ? 'font-sans' : 'font-serif-hindi'} mt-2 text-[length:var(--font-size-h2)] text-foreground-muted`}>
@@ -100,8 +100,7 @@ export default async function HomePage() {
             </div>
             <button
               type="submit"
-              className="h-11 rounded-[var(--radius-pill)] px-6 text-sm font-semibold text-white shadow-sm transition-colors"
-              style={{ background: 'var(--cat-teeka)' }}
+              className="h-11 rounded-[var(--radius-pill)] bg-accent px-6 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-accent-hover"
             >
               {t('search_label')}
             </button>
@@ -164,9 +163,6 @@ export default async function HomePage() {
                 <div>
                   <p className={`${isHi ? 'font-serif-hindi' : 'font-sans'} text-[length:var(--font-size-h2)] font-semibold leading-tight`}>
                     {t(`entry_${card.key}` as const)}
-                  </p>
-                  <p className="font-sans text-xs uppercase tracking-wide text-foreground-muted">
-                    {entryLabels[card.key].en}
                   </p>
                   <p className={`${isHi ? 'font-serif-hindi' : 'font-sans'} mt-2 line-clamp-2 text-sm text-foreground-muted`}>
                     {entryLabels[card.key].desc}

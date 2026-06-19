@@ -65,12 +65,13 @@ export default async function ShastrasPage({ searchParams }: PageProps) {
           <input name="q" defaultValue={q} placeholder={tS('search_within')} className="h-10 rounded-[var(--radius-md)] border border-border bg-background px-3 text-sm" />
           <select name="anuyoga" defaultValue={anuyoga} className="h-10 rounded-[var(--radius-md)] border border-border bg-background px-3 text-sm">
             <option value="">{tS('all_anuyoga')}</option>
-            <option value="charananuyoga">चर्यानुयोग</option>
+            <option value="prathmanuyoga">प्रथमानुयोग</option>
+            <option value="karnanuoyga ">कर्णानुयोग</option>
+            <option value="charnanuyoga">चरणानुयोग</option>
             <option value="dravyanuyoga">द्रव्यानुयोग</option>
-            <option value="kathanuyoga">कथानुयोग</option>
           </select>
           <div className="h-10 rounded-[var(--radius-md)] border border-border bg-background px-3 text-sm leading-10 text-foreground-muted">{tS('sort_label')}</div>
-          <button type="submit" className="h-10 rounded-[var(--radius-md)] bg-accent px-4 text-sm font-semibold text-white">{isHi ? 'लागू करें' : 'Apply'}</button>
+          <button type="submit" className="h-10 rounded-[var(--radius-md)] bg-accent px-4 text-sm font-semibold text-white">{isHi ? 'खोजें' : 'Search'}</button>
         </div>
       </form>
 

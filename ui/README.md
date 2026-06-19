@@ -350,7 +350,7 @@ Previously this component only set the `NEXT_LOCALE` cookie and called `router.r
 
 When adding a string: prefer extending an existing namespace; only add a new top-level namespace when crossing a different domain (e.g. a new shell). Always update both `messages/hi.json` and `messages/en.json` in the same change — the leaf-key set must match.
 
-**Verse-language tags stay native.** Inside the gatha reader, badges like `प्राकृत`, `संस्कृत`, `छंद` label the script the verse is written in — they are not translated even in English mode, since they refer to specific writing systems. The same applies to anuyog taxonomy values (`चर्यानुयोग`/`द्रव्यानुयोग`/`कथानुयोग`) since they are data identifiers.
+**Verse-language tags stay native.** Inside the gatha reader, badges like `प्राकृत`, `संस्कृत`, `छंद` label the script the verse is written in — they are not translated even in English mode, since they refer to specific writing systems. The same applies to anuyog taxonomy values (`प्रथमानुयोग`,`चरणानुयोग`/`द्रव्यानुयोग`/`कर्णानुयोग`) since they are data identifiers.
 
 ---
 
@@ -651,7 +651,7 @@ Actions: `selectNode`, `selectEdge`, `clearSelection`, `togglePin`, `expandFromN
 
 ## 12. Content Pages
 
-All content pages are server components (ISR unless noted). **All listing and detail pages now translate their static chrome via `next-intl`** — see §7 "Translation namespaces" for the mapping. Hardcoded Devanagari labels are reserved for verse content, script-name badges (`प्राकृत`/`संस्कृत`/`छंद`), and taxonomy values (`चर्यानुयोग`/`द्रव्यानुयोग`/`कथानुयोग`).
+All content pages are server components (ISR unless noted). **All listing and detail pages now translate their static chrome via `next-intl`** — see §7 "Translation namespaces" for the mapping. Hardcoded Devanagari labels are reserved for verse content, script-name badges (`प्राकृत`/`संस्कृत`/`छंद`), and taxonomy values (`प्रथमानुयोग`,`चरणानुयोग`/`द्रव्यानुयोग`/`कर्णानुयोग`).
 
 ### Home page (`/`)
 

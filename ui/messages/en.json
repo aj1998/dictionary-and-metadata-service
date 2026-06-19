@@ -64,7 +64,7 @@
     "hero": "Jain Knowledge Base",
     "hero_sub": "जैन ज्ञान कोष",
     "hero_badge": "A structured corpus of Jain literature",
-    "hero_tagline": "A single, structured search layer over shastras, gathas, teekas, bhaavarths and topics.",
+    "hero_tagline": "A single, structured search layer over shastras, gathas, teekas, keywords and topics.",
     "search_placeholder": "Search gatha, shastra, keyword...",
     "search_label": "Search",
     "search_alt": "Browse topics",
@@ -137,7 +137,7 @@
     "search_within": "Search topics",
     "all_sources": "All sources",
     "show_intermediate": "Include intermediate topics",
-    "apply": "Apply",
+    "apply": "Search",
     "no_results": "No topics found for \"{q}\".",
     "match_pct": "% match",
     "search_error": "Search failed. Please try again."
@@ -210,7 +210,7 @@
   },
   "common": {
     "all_sources": "All sources",
-    "apply": "Apply",
+    "apply": "Search",
     "show_intermediate": "Show intermediate topics",
     "search_topic": "Search topic",
     "search_shastra": "Search shastra"
