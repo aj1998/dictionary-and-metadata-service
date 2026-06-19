@@ -444,10 +444,10 @@
     "public_url": ""
   },
   {
-    "shastra_name": "तत्त्वार्थ सूत्र",
+    "shastra_name": "तत्त्वार्थसूत्र",
     "short_form": "त.सू.",
     "format": [
-      "अध्याय/सूत्र"
+      "अध्याय/तत्त्वार्थसूत्रसूत्र"
     ],
     "author": "",
     "date_format": "",
@@ -457,7 +457,8 @@
     "edition": "",
     "type": "shastra",
     "alternate_name": "",
-    "public_url": ""
+    "public_url": "",
+    "gatha_identifier": "अध्याय,तत्त्वार्थसूत्रसूत्र"
   },
   {
     "shastra_name": "तिलोयपण्णत्ति",
@@ -1231,7 +1232,13 @@
     "edition": "",
     "type": "publication",
     "alternate_name": "",
-    "public_url": ""
+    "public_url": "",
+    "public_urls": {
+      "1": "https://archive.org/details/in.ernet.dli.2015.344486/page/n1/mode/2up",
+      "2": "https://archive.org/details/in.ernet.dli.2015.327372/page/n1/mode/2up"
+    },
+    "pdf_filename": "raajvaartik",
+    "pdf_page_offset": 28
   },
   {
     "shastra_name": "लब्धिसार",

@@ -1256,7 +1256,7 @@
                         "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
-                        "shastra_name": "तत्त्वार्थ सूत्र",
+                        "shastra_name": "तत्त्वार्थसूत्र",
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
@@ -1264,7 +1264,7 @@
                             "value": 5
                           },
                           {
-                            "field": "सूत्र",
+                            "field": "तत्त्वार्थसूत्रसूत्र",
                             "value": 33
                           }
                         ]
@@ -1292,7 +1292,7 @@
                         "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
-                        "shastra_name": "तत्त्वार्थ सूत्र",
+                        "shastra_name": "तत्त्वार्थसूत्र",
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
@@ -1300,7 +1300,7 @@
                             "value": 5
                           },
                           {
-                            "field": "सूत्र",
+                            "field": "तत्त्वार्थसूत्रसूत्र",
                             "value": 34
                           }
                         ]
@@ -1328,7 +1328,7 @@
                         "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
-                        "shastra_name": "तत्त्वार्थ सूत्र",
+                        "shastra_name": "तत्त्वार्थसूत्र",
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
@@ -1336,7 +1336,7 @@
                             "value": 5
                           },
                           {
-                            "field": "सूत्र",
+                            "field": "तत्त्वार्थसूत्रसूत्र",
                             "value": 35
                           }
                         ]
@@ -1364,7 +1364,7 @@
                         "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
-                        "shastra_name": "तत्त्वार्थ सूत्र",
+                        "shastra_name": "तत्त्वार्थसूत्र",
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
@@ -1372,7 +1372,7 @@
                             "value": 5
                           },
                           {
-                            "field": "सूत्र",
+                            "field": "तत्त्वार्थसूत्रसूत्र",
                             "value": 36
                           }
                         ]
@@ -1764,7 +1764,7 @@
                         "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
-                        "shastra_name": "तत्त्वार्थ सूत्र",
+                        "shastra_name": "तत्त्वार्थसूत्र",
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
@@ -1772,7 +1772,7 @@
                             "value": 5
                           },
                           {
-                            "field": "सूत्र",
+                            "field": "तत्त्वार्थसूत्रसूत्र",
                             "value": 34
                           }
                         ]
@@ -3095,7 +3095,7 @@
                         "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
-                        "shastra_name": "तत्त्वार्थ सूत्र",
+                        "shastra_name": "तत्त्वार्थसूत्र",
                         "match_method": "shastra_name",
                         "resolved_fields": [
                           {
@@ -3103,7 +3103,7 @@
                             "value": 5
                           },
                           {
-                            "field": "सूत्र",
+                            "field": "तत्त्वार्थसूत्रसूत्र",
                             "value": 41
                           }
                         ]
@@ -4421,8 +4421,8 @@
       "prev": "/wiki/%E0%A4%97%E0%A5%80%E0%A4%A4%E0%A4%97%E0%A5%8B%E0%A4%B7%E0%A5%8D%E0%A4%A0%E0%A5%80",
       "next": "/wiki/Aaaa"
     },
-    "parser_version": "jainkosh.rules/1.11.22",
-    "parsed_at": "2026-06-19T17:59:11.948506",
+    "parser_version": "jainkosh.rules/1.11.24",
+    "parsed_at": "2026-06-19T18:22:21.430267",
     "warnings": []
   },
   "would_write": {
@@ -6305,7 +6305,7 @@
                   "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": "तत्त्वार्थ सूत्र",
+                  "shastra_name": "तत्त्वार्थसूत्र",
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
@@ -6313,7 +6313,7 @@
                       "value": 5
                     },
                     {
-                      "field": "सूत्र",
+                      "field": "तत्त्वार्थसूत्रसूत्र",
                       "value": 33
                     }
                   ]
@@ -6341,7 +6341,7 @@
                   "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": "तत्त्वार्थ सूत्र",
+                  "shastra_name": "तत्त्वार्थसूत्र",
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
@@ -6349,7 +6349,7 @@
                       "value": 5
                     },
                     {
-                      "field": "सूत्र",
+                      "field": "तत्त्वार्थसूत्रसूत्र",
                       "value": 34
                     }
                   ]
@@ -6377,7 +6377,7 @@
                   "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": "तत्त्वार्थ सूत्र",
+                  "shastra_name": "तत्त्वार्थसूत्र",
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
@@ -6385,7 +6385,7 @@
                       "value": 5
                     },
                     {
-                      "field": "सूत्र",
+                      "field": "तत्त्वार्थसूत्रसूत्र",
                       "value": 35
                     }
                   ]
@@ -6413,7 +6413,7 @@
                   "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": "तत्त्वार्थ सूत्र",
+                  "shastra_name": "तत्त्वार्थसूत्र",
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
@@ -6421,7 +6421,7 @@
                       "value": 5
                     },
                     {
-                      "field": "सूत्र",
+                      "field": "तत्त्वार्थसूत्रसूत्र",
                       "value": 36
                     }
                   ]
@@ -6815,7 +6815,7 @@
                   "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": "तत्त्वार्थ सूत्र",
+                  "shastra_name": "तत्त्वार्थसूत्र",
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
@@ -6823,7 +6823,7 @@
                       "value": 5
                     },
                     {
-                      "field": "सूत्र",
+                      "field": "तत्त्वार्थसूत्रसूत्र",
                       "value": 34
                     }
                   ]
@@ -8159,7 +8159,7 @@
                   "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
-                  "shastra_name": "तत्त्वार्थ सूत्र",
+                  "shastra_name": "तत्त्वार्थसूत्र",
                   "match_method": "shastra_name",
                   "resolved_fields": [
                     {
@@ -8167,7 +8167,7 @@
                       "value": 5
                     },
                     {
-                      "field": "सूत्र",
+                      "field": "तत्त्वार्थसूत्रसूत्र",
                       "value": 41
                     }
                   ]
@@ -10081,37 +10081,41 @@
         },
         {
           "label": "Gatha",
-          "key": "तत्त्वार्थ सूत्र:गाथा:33",
+          "key": "तत्त्वार्थसूत्र:अध्याय:5:सूत्र:33",
           "props": {
-            "shastra_natural_key": "तत्त्वार्थ सूत्र",
-            "gatha_number": "33"
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "gatha_number": "अध्याय:5:सूत्र:33",
+            "identifier_values": "{\"अध्याय\": \"5\", \"तत्त्वार्थसूत्रसूत्र\": \"33\"}"
           },
           "lazy": true
         },
         {
           "label": "Gatha",
-          "key": "तत्त्वार्थ सूत्र:गाथा:34",
+          "key": "तत्त्वार्थसूत्र:अध्याय:5:सूत्र:34",
           "props": {
-            "shastra_natural_key": "तत्त्वार्थ सूत्र",
-            "gatha_number": "34"
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "gatha_number": "अध्याय:5:सूत्र:34",
+            "identifier_values": "{\"अध्याय\": \"5\", \"तत्त्वार्थसूत्रसूत्र\": \"34\"}"
           },
           "lazy": true
         },
         {
           "label": "Gatha",
-          "key": "तत्त्वार्थ सूत्र:गाथा:35",
+          "key": "तत्त्वार्थसूत्र:अध्याय:5:सूत्र:35",
           "props": {
-            "shastra_natural_key": "तत्त्वार्थ सूत्र",
-            "gatha_number": "35"
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "gatha_number": "अध्याय:5:सूत्र:35",
+            "identifier_values": "{\"अध्याय\": \"5\", \"तत्त्वार्थसूत्रसूत्र\": \"35\"}"
           },
           "lazy": true
         },
         {
           "label": "Gatha",
-          "key": "तत्त्वार्थ सूत्र:गाथा:36",
+          "key": "तत्त्वार्थसूत्र:अध्याय:5:सूत्र:36",
           "props": {
-            "shastra_natural_key": "तत्त्वार्थ सूत्र",
-            "gatha_number": "36"
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "gatha_number": "अध्याय:5:सूत्र:36",
+            "identifier_values": "{\"अध्याय\": \"5\", \"तत्त्वार्थसूत्रसूत्र\": \"36\"}"
           },
           "lazy": true
         },
@@ -10679,10 +10683,11 @@
         },
         {
           "label": "Gatha",
-          "key": "तत्त्वार्थ सूत्र:गाथा:41",
+          "key": "तत्त्वार्थसूत्र:अध्याय:5:सूत्र:41",
           "props": {
-            "shastra_natural_key": "तत्त्वार्थ सूत्र",
-            "gatha_number": "41"
+            "shastra_natural_key": "तत्त्वार्थसूत्र",
+            "gatha_number": "अध्याय:5:सूत्र:41",
+            "identifier_values": "{\"अध्याय\": \"5\", \"तत्त्वार्थसूत्रसूत्र\": \"41\"}"
           },
           "lazy": true
         },
@@ -12073,7 +12078,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "तत्त्वार्थ सूत्र:गाथा:33"
+            "key": "तत्त्वार्थसूत्र:अध्याय:5:सूत्र:33"
           },
           "to": {
             "label": "Topic",
@@ -12091,7 +12096,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "तत्त्वार्थ सूत्र:गाथा:34"
+            "key": "तत्त्वार्थसूत्र:अध्याय:5:सूत्र:34"
           },
           "to": {
             "label": "Topic",
@@ -12109,7 +12114,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "तत्त्वार्थ सूत्र:गाथा:35"
+            "key": "तत्त्वार्थसूत्र:अध्याय:5:सूत्र:35"
           },
           "to": {
             "label": "Topic",
@@ -12127,7 +12132,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "तत्त्वार्थ सूत्र:गाथा:36"
+            "key": "तत्त्वार्थसूत्र:अध्याय:5:सूत्र:36"
           },
           "to": {
             "label": "Topic",
@@ -12403,7 +12408,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "तत्त्वार्थ सूत्र:गाथा:34"
+            "key": "तत्त्वार्थसूत्र:अध्याय:5:सूत्र:34"
           },
           "to": {
             "label": "Topic",
@@ -13333,7 +13338,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "Gatha",
-            "key": "तत्त्वार्थ सूत्र:गाथा:41"
+            "key": "तत्त्वार्थसूत्र:अध्याय:5:सूत्र:41"
           },
           "to": {
             "label": "Topic",

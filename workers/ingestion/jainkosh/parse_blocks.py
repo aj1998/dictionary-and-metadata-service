@@ -982,9 +982,18 @@ def _try_split_multi_verse(block: Block, config: JainkoshConfig) -> list[Block]:
 
     gatha_field_names = set(config.reference.entity_keywords.gatha)
 
+    def _is_gatha_field(name: str) -> bool:
+        # Exact match for legacy single-field shastras (गाथा/श्लोक/सूत्र/…),
+        # plus suffix match for compound-shastra grammar fields where the entity
+        # keyword is prefixed with the shastra name (e.g. तत्त्वार्थसूत्र + सूत्र →
+        # "तत्त्वार्थसूत्रसूत्र", परमात्मप्रकाश + गाथा → "परमात्मप्रकाशगाथा").
+        return name in gatha_field_names or any(
+            name.endswith(k) for k in gatha_field_names
+        )
+
     def _gatha_value(r: Reference) -> Optional[int]:
         for rf in r.resolved_fields:
-            if rf.field in gatha_field_names and isinstance(rf.value, int):
+            if _is_gatha_field(rf.field) and isinstance(rf.value, int):
                 return rf.value
         return None
 
@@ -1079,12 +1088,12 @@ def _try_split_multi_verse(block: Block, config: JainkoshConfig) -> list[Block]:
                     if base_ref.shastra_name is not None:
                         from .models import ResolvedField
                         gatha_field_name = next(
-                            (rf.field for rf in base_ref.resolved_fields if rf.field in gatha_field_names),
+                            (rf.field for rf in base_ref.resolved_fields if _is_gatha_field(rf.field)),
                             "गाथा",
                         )
                         new_resolved = [ResolvedField(field=rf.field, value=rf.value)
                                         for rf in base_ref.resolved_fields
-                                        if rf.field not in gatha_field_names]
+                                        if not _is_gatha_field(rf.field)]
                         new_resolved.append(ResolvedField(field=gatha_field_name, value=n))
                     else:
                         new_resolved = []

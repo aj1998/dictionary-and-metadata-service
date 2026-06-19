@@ -485,6 +485,50 @@ class TestCaseBSplitUnregisteredShastra:
             )
 
 
+class TestCaseBSplitCompoundShastra:
+    """Case B split for a compound shastra whose gatha-entity field is named in
+    the shastra-grammar form (e.g. तत्त्वार्थसूत्र → field 'तत्त्वार्थसूत्रसूत्र').
+
+    The split must (a) NOT fabricate a separate 'गाथा' field and (b) vary the
+    compound entity field value per verse marker — not leave it pinned to the
+    base ref's value while a phantom गाथा varies.
+    """
+
+    def _make_block(self, src: str, tl: str, cfg: JainkoshConfig) -> Block:
+        # तत्त्वार्थसूत्र/5/33-36 — base ref carries अध्याय + तत्त्वार्थसूत्रसूत्र.
+        return Block(
+            kind="sanskrit_text",
+            text_devanagari=src,
+            hindi_translation=tl,
+            references=[
+                Reference(
+                    text="तत्त्वार्थसूत्र/5/33-36",
+                    inline_reference=False,
+                    needs_manual_match=False,
+                    shastra_name="तत्त्वार्थसूत्र",
+                    resolved_fields=[
+                        ResolvedField(field="अध्याय", value=5),
+                        ResolvedField(field="तत्त्वार्थसूत्रसूत्र", value=33),
+                    ],
+                )
+            ],
+        )
+
+    def test_no_phantom_gatha_and_entity_varies(self, cfg: JainkoshConfig):
+        src = "a।33।b।34।c।35।d।36।"
+        tl = "w।33।x।34।y।35।z।36।"
+        block = self._make_block(src, tl, cfg)
+        result = _try_split_multi_verse(block, cfg)
+        assert len(result) == 4
+        for split_block, expected in zip(result, [33, 34, 35, 36]):
+            fields = {rf.field: rf.value for rf in split_block.references[0].resolved_fields}
+            assert "गाथा" not in fields, f"phantom गाथा field present: {fields}"
+            assert fields.get("अध्याय") == 5
+            assert fields.get("तत्त्वार्थसूत्रसूत्र") == expected, (
+                f"entity field should be {expected}, got {fields}"
+            )
+
+
 # ---------------------------------------------------------------------------
 # Teeka name: trailing section keyword cleanup
 # ---------------------------------------------------------------------------

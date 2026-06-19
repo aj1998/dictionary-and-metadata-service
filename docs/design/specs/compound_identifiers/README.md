@@ -218,6 +218,29 @@ chronological order with file/line pointers.
   returns uniformly numeric tuples, coercing any non-numeric / missing value to
   `float("inf")` so it sorts last without crashing.
 
+### #10 — Multi-verse split fabricated a phantom `गाथा` + pinned the compound entity field
+- **Symptom**: a ranged compound citation like `तत्त्वार्थसूत्र/5/33-36` produced
+  per-verse refs whose `resolved_fields` carried **both** a stale
+  `तत्त्वार्थसूत्रसूत्र=33` (same on every split, 33–36) **and** a phantom
+  `गाथा` field holding the value that should have been on the entity field
+  (33, 34, 35, 36). The emitted Gatha NK
+  (`तत्त्वार्थसूत्र:अध्याय:5:सूत्र:36`) was already correct — only the
+  `resolved_fields` were wrong.
+- **Root cause**: `_try_split_multi_verse`
+  (`workers/ingestion/jainkosh/parse_blocks.py`) matched the gatha-entity field
+  by **exact** name against `entity_keywords.gatha` (`गाथा`/`श्लोक`/`सूत्र`/…).
+  Compound shastras name the field in the shastra-grammar form
+  (`तत्त्वार्थसूत्र` → `तत्त्वार्थसूत्रसूत्र`, `परमात्मप्रकाश` →
+  `परमात्मप्रकाशगाथा`), so the field was neither recognised as the gatha field
+  to vary nor stripped from the base ref — and the `"गाथा"` fallback added a
+  phantom field.
+- **Fix**: introduced a suffix-aware `_is_gatha_field(name)` helper (`name` in
+  `entity_keywords.gatha` **or** `name.endswith(<keyword>)`), used at
+  `_gatha_value`, the per-split field-name pick, and the strip filter. The
+  compound entity field now varies per marker and no phantom `गाथा` is emitted.
+  Versioned `jainkosh.rules/1.11.24`; test
+  `TestCaseBSplitCompoundShastra::test_no_phantom_gatha_and_entity_varies`.
+
 ---
 
 ## 6. Files touched (cheat-sheet)
