@@ -25,7 +25,7 @@ export default async function ShastraDetailPage({ params }: PageProps) {
 
   const [shastra, t] = await Promise.all([getShastra(nk), getTranslations('shastras')]);
 
-  const [teekas, gathas, gathasAll] = await Promise.all([
+  const [teekas, gathas] = await Promise.all([
     getShastraTeekas(nk).catch((error) => {
       console.error('Failed to fetch shastra teekas', { nk, error });
       return [];
@@ -34,13 +34,20 @@ export default async function ShastraDetailPage({ params }: PageProps) {
       console.error('Failed to fetch shastra gathas', { nk, error });
       return { pagination: { total: 0, limit: 12, offset: 0 }, items: [] };
     }),
-    // Fetch a wide window of gathas to derive the अधिकार list for the search-jump dropdown.
-    // 200 is enough for known compound shastras (परमात्मप्रकाश has 151).
-    getGathasByShastraId(shastra.id, { limit: 200, offset: 0 }).catch(() => ({
-      pagination: { total: 0, limit: 200, offset: 0 },
-      items: [],
-    })),
   ]);
+
+  // Fetch the full gatha set to derive the complete अधिकार/अध्याय list for the
+  // search-jump dropdown. A fixed window (e.g. 200) is unsafe: gathas come back
+  // string-sorted by natural_key, so "10" sorts before "2" and a truncated
+  // window silently drops middle adhyayas (तत्त्वार्थसूत्र has 349 gathas across
+  // 10 अध्याय — a 200-row window showed only 1,2,3,4,5,10). Bound the request by
+  // the real total (capped to keep huge legacy shastras in check; those are
+  // single-id and don't populate the dropdown anyway).
+  const adhikaarWindow = Math.min(Math.max(gathas.pagination.total, 1), 2000);
+  const gathasAll = await getGathasByShastraId(shastra.id, { limit: adhikaarWindow, offset: 0 }).catch(() => ({
+    pagination: { total: 0, limit: adhikaarWindow, offset: 0 },
+    items: [],
+  }));
 
   const adhikaarList = uniqueLeadingIdValues(
     shastra.natural_key,

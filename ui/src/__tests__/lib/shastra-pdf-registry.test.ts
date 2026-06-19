@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { extractOriginalShastraInfo } from '@/lib/shastra-pdf-registry';
+import { extractOriginalShastraInfo, pdfShastraNkOf } from '@/lib/shastra-pdf-registry';
 import { computePdfPage, buildOriginalShastraHref } from '@/components/OriginalShastraLink';
 import type { DefinitionReference } from '@/lib/types';
 
@@ -15,6 +15,29 @@ function makeRef(fields: Array<{ field: string; value: string }>): DefinitionRef
     resolved_fields: fields,
   };
 }
+
+describe('pdfShastraNkOf', () => {
+  it('returns the shastra name for a non-teeka ref', () => {
+    const ref = makeRef([{ field: 'पृष्ठ', value: '42' }]);
+    expect(pdfShastraNkOf(ref)).toBe('समयसार');
+  });
+
+  it('returns the teeka name for a teeka ref so the PDF resolves to the teeka volume', () => {
+    const ref = makeRef([{ field: 'पृष्ठ', value: '529' }]);
+    ref.is_teeka = true;
+    ref.teeka_name = 'श्लोकवार्तिक';
+    ref.shastra_name = 'तत्त्वार्थसूत्र';
+    expect(pdfShastraNkOf(ref)).toBe('श्लोकवार्तिक');
+  });
+
+  it('falls back to the shastra name when a teeka ref has no teeka name', () => {
+    const ref = makeRef([{ field: 'पृष्ठ', value: '1' }]);
+    ref.is_teeka = true;
+    ref.teeka_name = '';
+    ref.shastra_name = 'तत्त्वार्थसूत्र';
+    expect(pdfShastraNkOf(ref)).toBe('तत्त्वार्थसूत्र');
+  });
+});
 
 describe('extractOriginalShastraInfo', () => {
   it('returns null when ref has no पृष्ठ field', () => {

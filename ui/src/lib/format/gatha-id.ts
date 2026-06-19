@@ -13,6 +13,15 @@ import { toDevanagariNumerals } from '@/lib/format/devanagari';
 // Mirrors `reference.entity_keywords.{page,kalash,pankti}` in jainkosh.yaml.
 const NON_ID_FIELD_NAMES = new Set(['पृष्ठ', 'कलश', 'पंक्ति']);
 
+// For teeka refs (a teeka that is `teeka_of` a parent shastra — e.g. श्लोकवार्तिक
+// of तत्त्वार्थसूत्र), the gatha link must target the PARENT shastra whose gatha
+// identifier (अध्याय,तत्त्वार्थसूत्रसूत्र) does NOT include the teeka's own
+// multi-volume `पुस्तक` segment. `पुस्तक` only selects the physical volume of the
+// teeka and is not part of the parent gatha's compound key, so it is dropped when
+// building the compact form for a teeka ref. (Legacy shastras like धवला where
+// पुस्तक *is* the identifier are not teekas, so they are unaffected.)
+const TEEKA_VOLUME_FIELD_NAMES = new Set(['पुस्तक']);
+
 const GATHA_KEYWORD_SUFFIXES = ['गाथा', 'श्लोक', 'सूत्र', 'दोहक', 'वार्तिक'];
 
 export interface ParsedGathaSuffix {
@@ -118,7 +127,11 @@ export function compactFromResolvedFields(
   ref: DefinitionReference,
 ): { compact: string; gathaValue: string } | null {
   const usable = ref.resolved_fields.filter(
-    (f) => f.value !== '' && f.value != null && !NON_ID_FIELD_NAMES.has(f.field),
+    (f) =>
+      f.value !== '' &&
+      f.value != null &&
+      !NON_ID_FIELD_NAMES.has(f.field) &&
+      !(ref.is_teeka && TEEKA_VOLUME_FIELD_NAMES.has(f.field)),
   );
   if (usable.length === 0) return null;
   const gathaIdx = usable.findIndex((f) =>
@@ -130,4 +143,24 @@ export function compactFromResolvedFields(
     compact: idFields.map((f) => String(f.value)).join(','),
     gathaValue: String(usable[gathaIdx].value),
   };
+}
+
+// The single resolved-field name that is the PRIMARY gatha identifier for a ref —
+// i.e. the field a "शास्त्र में देखें" gatha link should hang off. This is the first
+// gatha-keyword field in identifier order (e.g. सूत्र/तत्त्वार्थसूत्रसूत्र), NOT later
+// sub-locators that merely share a gatha-like suffix (e.g. राजवार्तिक's वार्तिक or
+// श्लोकवार्तिक's श्लोकवार्तिकवार्तिक). Returns null when the ref names no gatha entity.
+// Used to avoid rendering duplicate book links on the same reference row.
+export function primaryGathaFieldName(ref: DefinitionReference): string | null {
+  const usable = ref.resolved_fields.filter(
+    (f) =>
+      f.value !== '' &&
+      f.value != null &&
+      !NON_ID_FIELD_NAMES.has(f.field) &&
+      !(ref.is_teeka && TEEKA_VOLUME_FIELD_NAMES.has(f.field)),
+  );
+  const gathaField = usable.find((f) =>
+    GATHA_KEYWORD_SUFFIXES.some((s) => f.field.endsWith(s)),
+  );
+  return gathaField?.field ?? null;
 }

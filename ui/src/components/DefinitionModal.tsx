@@ -13,8 +13,9 @@ import {
 } from '@/components/ViewInShastraButton';
 import { OriginalShastraLink } from '@/components/OriginalShastraLink';
 import { useIngestedShastras } from '@/lib/shastra-registry';
-import { extractOriginalShastraInfo, useShastraPdfOffsets } from '@/lib/shastra-pdf-registry';
-import { isGathaEntityField, displayFieldLabel } from '@/lib/gatha-content';
+import { extractOriginalShastraInfo, pdfShastraNkOf, useShastraPdfOffsets } from '@/lib/shastra-pdf-registry';
+import { displayFieldLabel } from '@/lib/gatha-content';
+import { primaryGathaFieldName } from '@/lib/format/gatha-id';
 import type { DefinitionBlock, DefinitionReference, KeywordPageSection } from '@/lib/types';
 
 export type MarkdownSegment = { kind: 'text'; text: string } | { kind: 'bold'; text: string } | { kind: 'italic'; text: string };
@@ -178,7 +179,9 @@ function groupRefsBySource(refs: DefinitionReference[]): RefSourceGroup[] {
 function RefListItem({ ref, matchEntry, loading, ingestedShastras }: { ref: DefinitionReference; matchEntry?: MatchEntry; loading?: boolean; ingestedShastras: Set<string> | null }) {
   const sourceLabel = formatRefSourceLabel(ref);
   const originalInfo = extractOriginalShastraInfo(ref);
-  const { offsets } = useShastraPdfOffsets(originalInfo ? (ref.shastra_name ?? null) : null);
+  const pdfShastraNk = pdfShastraNkOf(ref);
+  const primaryGathaField = primaryGathaFieldName(ref);
+  const { offsets } = useShastraPdfOffsets(originalInfo ? pdfShastraNk : null);
   const effectiveOffsets = offsets ?? { pdfPageOffset: 0, pustakOffsets: null, available: false };
   return (
     <li className="flex items-baseline gap-2 font-serif-hindi text-xs text-foreground">
@@ -195,7 +198,7 @@ function RefListItem({ ref, matchEntry, loading, ingestedShastras }: { ref: Defi
           </>
         )}
         {ref.resolved_fields.map((f, fi) => {
-          const isGathaField = isGathaEntityField(f.field);
+          const isGathaField = f.field === primaryGathaField;
           const isPrishtha = f.field === 'पृष्ठ';
           return (
             <span key={fi} className="inline-flex items-end gap-0.5">
@@ -207,10 +210,10 @@ function RefListItem({ ref, matchEntry, loading, ingestedShastras }: { ref: Defi
                   <RefMatchLink ref={ref} matchEntry={matchEntry} loading={loading} ingestedShastras={ingestedShastras} />
                 </span>
               )}
-              {isPrishtha && originalInfo && ref.shastra_name && (
+              {isPrishtha && originalInfo && pdfShastraNk && (
                 <span className="[&_svg]:size-3 leading-none">
                   <OriginalShastraLink
-                    shastraNk={ref.shastra_name}
+                    shastraNk={pdfShastraNk}
                     pustak={originalInfo.pustak}
                     publishedPage={originalInfo.publishedPage}
                     pdfPageOffset={effectiveOffsets.pdfPageOffset}
@@ -232,7 +235,9 @@ export function RefBadge({ ref, showShastra = false, matchEntry, loading, ingest
     ? formatRefSourceLabel(ref) || null
     : ref.is_teeka ? (ref.teeka_name || null) : null;
   const originalInfo = extractOriginalShastraInfo(ref);
-  const { offsets } = useShastraPdfOffsets(originalInfo ? (ref.shastra_name ?? null) : null);
+  const pdfShastraNk = pdfShastraNkOf(ref);
+  const primaryGathaField = primaryGathaFieldName(ref);
+  const { offsets } = useShastraPdfOffsets(originalInfo ? pdfShastraNk : null);
   const effectiveOffsets = offsets ?? { pdfPageOffset: 0, pustakOffsets: null, available: false };
   return (
     <span className={cn('inline-flex items-center gap-0 font-serif-hindi text-xs italic', REF_BADGE_CLASSES)}>
@@ -245,7 +250,7 @@ export function RefBadge({ ref, showShastra = false, matchEntry, loading, ingest
         </>
       )}
       {ref.resolved_fields.map((f, fi) => {
-        const isGathaField = isGathaEntityField(f.field);
+        const isGathaField = f.field === primaryGathaField;
         const isPrishtha = f.field === 'पृष्ठ';
         return (
           <span key={fi} className="inline-flex items-center">
@@ -255,10 +260,10 @@ export function RefBadge({ ref, showShastra = false, matchEntry, loading, ingest
             {isGathaField && (
               <span className="ml-1"><RefMatchLink ref={ref} matchEntry={matchEntry} loading={loading} ingestedShastras={ingestedShastras} /></span>
             )}
-            {isPrishtha && originalInfo && ref.shastra_name && (
+            {isPrishtha && originalInfo && pdfShastraNk && (
               <span className="ml-1">
                 <OriginalShastraLink
-                  shastraNk={ref.shastra_name}
+                  shastraNk={pdfShastraNk}
                   pustak={originalInfo.pustak}
                   publishedPage={originalInfo.publishedPage}
                   pdfPageOffset={effectiveOffsets.pdfPageOffset}
@@ -282,12 +287,13 @@ function MultiRefGroupBadge({ group, showShastra, entries, loading, ingestedShas
   loading: boolean;
   ingestedShastras: Set<string> | null;
 }) {
-  const shastraNk = group.refs[0]?.shastra_name ?? null;
+  const shastraNk = group.refs[0] ? pdfShastraNkOf(group.refs[0]) : null;
   const { offsets } = useShastraPdfOffsets(shastraNk);
   const effectiveOffsets = offsets ?? { pdfPageOffset: 0, pustakOffsets: null, available: false };
   const commonFieldKeys = new Set(group.commonFields.map((f) => `${f.field}:${f.value}`));
   const firstRef = group.refs[0];
   const firstRefOriginalInfo = firstRef ? extractOriginalShastraInfo(firstRef) : null;
+  const firstRefPdfShastraNk = firstRef ? pdfShastraNkOf(firstRef) : null;
   const badgeLabel = showShastra
     ? group.sourceLabel || null
     : group.isTeeka ? (group.refs[0].teeka_name || null) : null;
@@ -306,10 +312,10 @@ function MultiRefGroupBadge({ group, showShastra, entries, loading, ingestedShas
             {fi > 0 && <span className="mx-1 opacity-50">·</span>}
             <span className="opacity-80">{displayFieldLabel(f.field)}:</span>
             <span className="ml-0.5 text-[10px] font-medium not-italic">{f.value}</span>
-            {isPrishtha && firstRefOriginalInfo && firstRef?.shastra_name && (
+            {isPrishtha && firstRefOriginalInfo && firstRefPdfShastraNk && (
               <span className="ml-1">
                 <OriginalShastraLink
-                  shastraNk={firstRef.shastra_name}
+                  shastraNk={firstRefPdfShastraNk}
                   pustak={firstRefOriginalInfo.pustak}
                   publishedPage={firstRefOriginalInfo.publishedPage}
                   pdfPageOffset={effectiveOffsets.pdfPageOffset}
@@ -325,11 +331,13 @@ function MultiRefGroupBadge({ group, showShastra, entries, loading, ingestedShas
       {group.refs.map((ref, ri) => {
         const diffFields = ref.resolved_fields.filter((f) => !commonFieldKeys.has(`${f.field}:${f.value}`));
         const originalInfo = extractOriginalShastraInfo(ref);
+        const refPdfShastraNk = pdfShastraNkOf(ref);
+        const primaryGathaField = primaryGathaFieldName(ref);
         return (
           <span key={ri} className="inline-flex items-center gap-0">
             {ri > 0 && <span className="mx-1 opacity-50">·</span>}
             {diffFields.map((f, fi) => {
-              const isGathaField = isGathaEntityField(f.field);
+              const isGathaField = f.field === primaryGathaField;
               const isPrishtha = f.field === 'पृष्ठ';
               return (
                 <span key={fi} className="inline-flex items-center">
@@ -341,10 +349,10 @@ function MultiRefGroupBadge({ group, showShastra, entries, loading, ingestedShas
                       <RefMatchLink ref={ref} matchEntry={findMatchForRef(ref, entries)} loading={loading} ingestedShastras={ingestedShastras} />
                     </span>
                   )}
-                  {isPrishtha && originalInfo && ref.shastra_name && (
+                  {isPrishtha && originalInfo && refPdfShastraNk && (
                     <span className="ml-1">
                       <OriginalShastraLink
-                        shastraNk={ref.shastra_name}
+                        shastraNk={refPdfShastraNk}
                         pustak={originalInfo.pustak}
                         publishedPage={originalInfo.publishedPage}
                         pdfPageOffset={effectiveOffsets.pdfPageOffset}
@@ -410,12 +418,13 @@ function MultiRefGroupListItem({ group, entries, loading, ingestedShastras }: {
   loading: boolean;
   ingestedShastras: Set<string> | null;
 }) {
-  const shastraNk = group.refs[0]?.shastra_name ?? null;
+  const shastraNk = group.refs[0] ? pdfShastraNkOf(group.refs[0]) : null;
   const { offsets } = useShastraPdfOffsets(shastraNk);
   const effectiveOffsets = offsets ?? { pdfPageOffset: 0, pustakOffsets: null, available: false };
   const commonFieldKeys = new Set(group.commonFields.map((f) => `${f.field}:${f.value}`));
   const firstRef = group.refs[0];
   const firstRefOriginalInfo = firstRef ? extractOriginalShastraInfo(firstRef) : null;
+  const firstRefPdfShastraNk = firstRef ? pdfShastraNkOf(firstRef) : null;
   return (
     <li className="flex flex-col gap-1.5 font-serif-hindi text-xs text-foreground">
       <span className="flex items-baseline gap-2">
@@ -434,10 +443,10 @@ function MultiRefGroupListItem({ group, entries, loading, ingestedShastras }: {
                 {fi > 0 && <span className="opacity-30 self-center">·</span>}
                 <span className="italic text-foreground-muted">{displayFieldLabel(f.field)}:</span>
                 <span className="text-[10px] font-medium text-foreground-muted">{f.value}</span>
-                {isPrishtha && firstRefOriginalInfo && firstRef?.shastra_name && (
+                {isPrishtha && firstRefOriginalInfo && firstRefPdfShastraNk && (
                   <span className="[&_svg]:size-3 leading-none">
                     <OriginalShastraLink
-                      shastraNk={firstRef.shastra_name}
+                      shastraNk={firstRefPdfShastraNk}
                       pustak={firstRefOriginalInfo.pustak}
                       publishedPage={firstRefOriginalInfo.publishedPage}
                       pdfPageOffset={effectiveOffsets.pdfPageOffset}
@@ -455,12 +464,14 @@ function MultiRefGroupListItem({ group, entries, loading, ingestedShastras }: {
         {group.refs.map((ref, ri) => {
           const diffFields = ref.resolved_fields.filter((f) => !commonFieldKeys.has(`${f.field}:${f.value}`));
           const originalInfo = extractOriginalShastraInfo(ref);
+          const refPdfShastraNk = pdfShastraNkOf(ref);
+          const primaryGathaField = primaryGathaFieldName(ref);
           return (
             <li key={ri} className="flex items-center gap-1.5">
               <span className="shrink-0 text-[10px] text-foreground-subtle">–</span>
               <span className="flex flex-wrap items-center gap-x-1 gap-y-0.5">
                 {diffFields.map((f, fi) => {
-                  const isGathaField = isGathaEntityField(f.field);
+                  const isGathaField = f.field === primaryGathaField;
                   const isPrishtha = f.field === 'पृष्ठ';
                   return (
                     <span key={fi} className="inline-flex items-end gap-0.5">
@@ -472,10 +483,10 @@ function MultiRefGroupListItem({ group, entries, loading, ingestedShastras }: {
                           <RefMatchLink ref={ref} matchEntry={findMatchForRef(ref, entries)} loading={loading} ingestedShastras={ingestedShastras} />
                         </span>
                       )}
-                      {isPrishtha && originalInfo && ref.shastra_name && (
+                      {isPrishtha && originalInfo && refPdfShastraNk && (
                         <span className="[&_svg]:size-3 leading-none">
                           <OriginalShastraLink
-                            shastraNk={ref.shastra_name}
+                            shastraNk={refPdfShastraNk}
                             pustak={originalInfo.pustak}
                             publishedPage={originalInfo.publishedPage}
                             pdfPageOffset={effectiveOffsets.pdfPageOffset}
