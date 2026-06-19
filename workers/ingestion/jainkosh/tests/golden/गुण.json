@@ -846,10 +846,14 @@
                         "resolved_fields": [
                           {
                             "field": "अध्याय",
-                            "value": 34
+                            "value": 2
                           },
                           {
                             "field": "राजवार्तिकसूत्र",
+                            "value": 34
+                          },
+                          {
+                            "field": "राजवार्तिकवार्तिक",
                             "value": 2
                           },
                           {
@@ -984,10 +988,14 @@
                         "resolved_fields": [
                           {
                             "field": "अध्याय",
-                            "value": 11
+                            "value": 7
                           },
                           {
                             "field": "राजवार्तिकसूत्र",
+                            "value": 11
+                          },
+                          {
+                            "field": "राजवार्तिकवार्तिक",
                             "value": 6
                           },
                           {
@@ -1441,10 +1449,14 @@
                         "resolved_fields": [
                           {
                             "field": "अध्याय",
-                            "value": 34
+                            "value": 5
                           },
                           {
                             "field": "राजवार्तिकसूत्र",
+                            "value": 34
+                          },
+                          {
+                            "field": "राजवार्तिकवार्तिक",
                             "value": 2
                           },
                           {
@@ -2100,10 +2112,14 @@
                         "resolved_fields": [
                           {
                             "field": "अध्याय",
-                            "value": 24
+                            "value": 5
                           },
                           {
                             "field": "राजवार्तिकसूत्र",
+                            "value": 24
+                          },
+                          {
+                            "field": "राजवार्तिकवार्तिक",
                             "value": 25
                           },
                           {
@@ -4406,7 +4422,7 @@
       "next": "/wiki/Aaaa"
     },
     "parser_version": "jainkosh.rules/1.11.22",
-    "parsed_at": "2026-06-18T21:10:22.126744",
+    "parsed_at": "2026-06-18T21:35:22.780491",
     "warnings": []
   },
   "would_write": {
@@ -5878,10 +5894,14 @@
                   "resolved_fields": [
                     {
                       "field": "अध्याय",
-                      "value": 34
+                      "value": 2
                     },
                     {
                       "field": "राजवार्तिकसूत्र",
+                      "value": 34
+                    },
+                    {
+                      "field": "राजवार्तिकवार्तिक",
                       "value": 2
                     },
                     {
@@ -6016,10 +6036,14 @@
                   "resolved_fields": [
                     {
                       "field": "अध्याय",
-                      "value": 11
+                      "value": 7
                     },
                     {
                       "field": "राजवार्तिकसूत्र",
+                      "value": 11
+                    },
+                    {
+                      "field": "राजवार्तिकवार्तिक",
                       "value": 6
                     },
                     {
@@ -6474,10 +6498,14 @@
                   "resolved_fields": [
                     {
                       "field": "अध्याय",
-                      "value": 34
+                      "value": 5
                     },
                     {
                       "field": "राजवार्तिकसूत्र",
+                      "value": 34
+                    },
+                    {
+                      "field": "राजवार्तिकवार्तिक",
                       "value": 2
                     },
                     {
@@ -7138,10 +7166,14 @@
                   "resolved_fields": [
                     {
                       "field": "अध्याय",
-                      "value": 24
+                      "value": 5
                     },
                     {
                       "field": "राजवार्तिकसूत्र",
+                      "value": 24
+                    },
+                    {
+                      "field": "राजवार्तिकवार्तिक",
                       "value": 25
                     },
                     {
@@ -9903,11 +9935,11 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "राजवार्तिक:टीका:अध्याय:34:सूत्र:टीका:2",
+          "key": "राजवार्तिक:टीका:अध्याय:2:सूत्र:टीका:34",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
-            "gatha_number": "2"
+            "gatha_number": "34"
           },
           "lazy": true
         },
@@ -9986,11 +10018,11 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "राजवार्तिक:टीका:अध्याय:11:सूत्र:टीका:6",
+          "key": "राजवार्तिक:टीका:अध्याय:7:सूत्र:टीका:11",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
-            "gatha_number": "6"
+            "gatha_number": "11"
           },
           "lazy": true
         },
@@ -10101,6 +10133,16 @@
             "teeka_natural_key": "सर्वार्थसिद्धि:टीका",
             "publisher_id": "18",
             "page_number": "305"
+          },
+          "lazy": true
+        },
+        {
+          "label": "GathaTeeka",
+          "key": "राजवार्तिक:टीका:अध्याय:5:सूत्र:टीका:34",
+          "props": {
+            "shastra_natural_key": "राजवार्तिक",
+            "teeka_natural_key": "राजवार्तिक:टीका",
+            "gatha_number": "34"
           },
           "lazy": true
         },
@@ -10268,11 +10310,11 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "राजवार्तिक:टीका:अध्याय:24:सूत्र:टीका:25",
+          "key": "राजवार्तिक:टीका:अध्याय:5:सूत्र:टीका:24",
           "props": {
             "shastra_natural_key": "राजवार्तिक",
             "teeka_natural_key": "राजवार्तिक:टीका",
-            "gatha_number": "25"
+            "gatha_number": "24"
           },
           "lazy": true
         },
@@ -11699,7 +11741,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "राजवार्तिक:टीका:अध्याय:34:सूत्र:टीका:2"
+            "key": "राजवार्तिक:टीका:अध्याय:2:सूत्र:टीका:34"
           },
           "to": {
             "label": "Topic",
@@ -11847,7 +11889,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "राजवार्तिक:टीका:अध्याय:11:सूत्र:टीका:6"
+            "key": "राजवार्तिक:टीका:अध्याय:7:सूत्र:टीका:11"
           },
           "to": {
             "label": "Topic",
@@ -12141,7 +12183,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "राजवार्तिक:टीका:अध्याय:34:सूत्र:टीका:2"
+            "key": "राजवार्तिक:टीका:अध्याय:5:सूत्र:टीका:34"
           },
           "to": {
             "label": "Topic",
@@ -12535,7 +12577,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "राजवार्तिक:टीका:अध्याय:24:सूत्र:टीका:25"
+            "key": "राजवार्तिक:टीका:अध्याय:5:सूत्र:टीका:24"
           },
           "to": {
             "label": "Topic",
