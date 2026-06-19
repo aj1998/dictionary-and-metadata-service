@@ -187,7 +187,7 @@ export function DetailsPanel({ open, selected, nodes, edges, depth, onClose, onS
     <div className="flex flex-1 min-h-0 flex-col">
       <div className="shrink-0 border-b border-border p-4">
         <BadgeChip kind={selectedNode.kind} />
-        <h2 className="mt-2 font-serif-hindi text-[length:var(--font-size-h1)] font-semibold text-foreground">{resolveNodeTitle(selectedNode.nk, selectedNode.kind, selectedNode.title_hi)}</h2>
+        <h2 className="mt-2 font-serif-hindi text-[length:var(--font-size-h1)] font-semibold text-foreground break-words [overflow-wrap:anywhere]">{resolveNodeTitle(selectedNode.nk, selectedNode.kind, selectedNode.title_hi)}</h2>
         {selectedNode.title_en && <p className="text-[length:var(--font-size-sm)] text-foreground-muted">{selectedNode.title_en}</p>}
       </div>
       <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-4">

@@ -36,23 +36,30 @@ export default async function ShastraDetailPage({ params }: PageProps) {
     }),
   ]);
 
-  // Fetch the full gatha set to derive the complete अधिकार/अध्याय list for the
-  // search-jump dropdown. A fixed window (e.g. 200) is unsafe: gathas come back
+  // Derive the complete अधिकार/अध्याय list for the search-jump dropdown from the
+  // full gatha set. A fixed window (e.g. 200) is unsafe: gathas come back
   // string-sorted by natural_key, so "10" sorts before "2" and a truncated
   // window silently drops middle adhyayas (तत्त्वार्थसूत्र has 349 gathas across
-  // 10 अध्याय — a 200-row window showed only 1,2,3,4,5,10). Bound the request by
-  // the real total (capped to keep huge legacy shastras in check; those are
-  // single-id and don't populate the dropdown anyway).
-  const adhikaarWindow = Math.min(Math.max(gathas.pagination.total, 1), 2000);
-  const gathasAll = await getGathasByShastraId(shastra.id, { limit: adhikaarWindow, offset: 0 }).catch(() => ({
-    pagination: { total: 0, limit: adhikaarWindow, offset: 0 },
-    items: [],
-  }));
+  // 10 अध्याय — a 200-row window showed only 1,2,3,4,5,10). The API caps `limit`
+  // at 200 per request (a single oversized request returns 422 and empties the
+  // dropdown entirely), so page through in 200-row batches up to the real total
+  // (capped to keep huge legacy shastras in check; those are single-id and don't
+  // populate the dropdown anyway).
+  const PAGE_SIZE = 200;
+  const ADHIKAAR_CAP = 2000;
+  const targetCount = Math.min(Math.max(gathas.pagination.total, 1), ADHIKAAR_CAP);
+  const allGathaNks: string[] = [];
+  for (let offset = 0; offset < targetCount; offset += PAGE_SIZE) {
+    const limit = Math.min(PAGE_SIZE, targetCount - offset);
+    const page = await getGathasByShastraId(shastra.id, { limit, offset }).catch((error) => {
+      console.error('Failed to fetch shastra gathas page', { nk, offset, limit, error });
+      return { pagination: { total: 0, limit, offset }, items: [] };
+    });
+    if (page.items.length === 0) break;
+    allGathaNks.push(...page.items.map((g) => g.natural_key));
+  }
 
-  const adhikaarList = uniqueLeadingIdValues(
-    shastra.natural_key,
-    gathasAll.items.map((g) => g.natural_key),
-  );
+  const adhikaarList = uniqueLeadingIdValues(shastra.natural_key, allGathaNks);
 
   const titleHi = getHindiText(shastra.title, shastra.natural_key);
 
