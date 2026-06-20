@@ -7,6 +7,7 @@ from typing import Optional
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from jain_kb_common.db.mongo.collections import KEYWORD_DEFINITIONS
 from jain_kb_common.hydration.definitions import hydrate_definitions_hi
 from .normalize import nfc, strip_one_suffix
 
@@ -188,3 +189,31 @@ async def fetch_definitions_batch(
         natural_keys,
         cap_per_keyword=definitions_per_keyword,
     )
+
+
+async def fetch_keyword_source_urls(
+    mongo_db: object,
+    natural_keys: list[str],
+) -> dict[str, str]:
+    """Return {natural_key: source_url} for matched keywords.
+
+    Reads the top-level ``source_url`` of each keyword_definitions doc (the
+    canonical jainkosh wiki page for the keyword). Keys with no doc or no
+    source_url are simply absent from the result.
+    """
+    if not natural_keys:
+        return {}
+    out: dict[str, str] = {}
+    cursor = mongo_db[KEYWORD_DEFINITIONS].find(  # type: ignore[index]
+        {"natural_key": {"$in": natural_keys}},
+        {"natural_key": 1, "source_url": 1, "_id": 0},
+    )
+    async for doc in cursor:
+        url = doc.get("source_url")
+        if url:
+            out[doc["natural_key"]] = url
+    logger.debug(
+        "fetch_keyword_source_urls keywords=%d → urls=%d",
+        len(natural_keys), len(out),
+    )
+    return out

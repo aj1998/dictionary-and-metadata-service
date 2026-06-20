@@ -48,6 +48,9 @@ class TopicMatchItem(BaseModel):
     source: str
     similarity: float
     score: float
+    # Canonical jainkosh URL for the topic extract (from the topic_extracts
+    # doc, typically a wiki page + section anchor); None when absent in source.
+    source_url: Optional[str] = None
     extract_count: int = 0
     extracts_hi: Optional[list[ExtractBlock]] = None
     references: Optional[list[TopicReference]] = None

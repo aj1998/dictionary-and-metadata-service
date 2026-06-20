@@ -81,13 +81,19 @@ async def keyword_resolve_batch(
         min_similarity=body.min_similarity,
     )
 
+    matched_nks = [r.keyword_natural_key for r in resolutions if r.keyword_natural_key]
+
     definitions_map: dict[str, list] = {}
-    if body.include_definitions:
-        matched_nks = [r.keyword_natural_key for r in resolutions if r.keyword_natural_key]
-        if matched_nks:
-            definitions_map = await resolve_pipeline.fetch_definitions_batch(
-                mongo, matched_nks, body.definitions_per_keyword
-            )
+    if body.include_definitions and matched_nks:
+        definitions_map = await resolve_pipeline.fetch_definitions_batch(
+            mongo, matched_nks, body.definitions_per_keyword
+        )
+
+    # Canonical jainkosh page URL per matched keyword — surfaced regardless of
+    # include_definitions so callers can cite the source even without bodies.
+    source_url_map: dict[str, str] = {}
+    if matched_nks:
+        source_url_map = await resolve_pipeline.fetch_keyword_source_urls(mongo, matched_nks)
 
     response_resolutions = []
     counts: dict[str, int] = {"exact": 0, "alias": 0, "suffix_strip": 0, "fuzzy": 0, "none": 0}
@@ -113,6 +119,7 @@ async def keyword_resolve_batch(
             match_kind=kind,  # type: ignore[arg-type]
             keyword_natural_key=r.keyword_natural_key,
             keyword_id=r.keyword_id,
+            source_url=source_url_map.get(r.keyword_natural_key) if r.keyword_natural_key else None,
             definitions=defs,
             suggestions=suggs,
         ))
@@ -154,11 +161,15 @@ async def topics_match(
     extracts_map: dict[str, list[dict]] = {}
     raw_blocks_map: dict[str, list[dict]] = {}
     extract_counts: dict[str, int] = {}
+    source_url_map: dict[str, str] = {}
     if hits:
         natural_keys = [h.natural_key for h in hits]
         # Always provide a total block count (mirrors the data-service topics
         # listing) so cards can show the count and gate the "पढ़ें" button.
         extract_counts = await tm_pipeline.count_topic_extract_blocks(mongo, natural_keys)
+        # Canonical jainkosh URL per topic — surfaced regardless of
+        # include_extracts so callers can cite the source.
+        source_url_map = await tm_pipeline.fetch_topic_source_urls(mongo, natural_keys)
         if body.include_extracts:
             extracts_map = await tm_pipeline.fetch_topic_extracts_batch(mongo, natural_keys)
         if body.include_references:
@@ -187,6 +198,7 @@ async def topics_match(
             source=hit.source,
             similarity=hit.similarity,
             score=hit.score,
+            source_url=source_url_map.get(nk),
             extract_count=extract_counts.get(nk, 0),
             extracts_hi=extracts_hi,
             references=references,

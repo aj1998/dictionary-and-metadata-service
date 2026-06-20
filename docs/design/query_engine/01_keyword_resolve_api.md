@@ -55,6 +55,7 @@ that wraps the third pass and is callable independently.
       "match_kind": "exact",
       "keyword_natural_key": "आत्मा",
       "keyword_id": "uuid-…",
+      "source_url": "https://www.jainkosh.org/wiki/आत्मा",
       "definitions": [
         { "source_natural_key": "आत्मा", "block_index": 0, "text_hi": "…" }
       ]
@@ -89,6 +90,12 @@ Order of `resolutions[]` matches order of `tokens[]` in the request.
 
 `match_kind ∈ { exact, alias, suffix_strip, none }`. Suggestions are only
 present when `match_kind = none`.
+
+`source_url` (added) — the canonical jainkosh wiki page for the matched
+keyword, read from the top-level `source_url` of the `keyword_definitions`
+doc. Present for every matched token (independent of `include_definitions`);
+`null` for `none` matches or when the doc has no `source_url`. Consumers use it
+to cite/link the keyword definition in the final answer.
 
 Hindi definitions: pull from Mongo `keyword_definitions` collection; project
 only `blocks[].text` whose `lang = "hi"`, in original block order. Truncate

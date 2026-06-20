@@ -151,6 +151,34 @@ async def fetch_topic_extracts_batch(
     }
 
 
+async def fetch_topic_source_urls(
+    mongo_db: object,
+    natural_keys: list[str],
+) -> dict[str, str]:
+    """Return {natural_key: source_url} for the given topics.
+
+    Reads the top-level ``source_url`` of each topic_extracts doc (the canonical
+    jainkosh wiki page + section anchor for the extract). Topics with no doc or
+    no source_url are simply absent from the result.
+    """
+    if not natural_keys:
+        return {}
+    out: dict[str, str] = {}
+    cursor = mongo_db[TOPIC_EXTRACTS].find(  # type: ignore[index]
+        {"natural_key": {"$in": natural_keys}},
+        {"natural_key": 1, "source_url": 1, "_id": 0},
+    )
+    async for doc in cursor:
+        url = doc.get("source_url")
+        if url:
+            out[doc["natural_key"]] = url
+    logger.debug(
+        "fetch_topic_source_urls topics=%d → urls=%d",
+        len(natural_keys), len(out),
+    )
+    return out
+
+
 async def count_topic_extract_blocks(
     mongo_db: object,
     natural_keys: list[str],

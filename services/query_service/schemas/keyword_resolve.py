@@ -37,6 +37,9 @@ class Resolution(BaseModel):
     match_kind: Literal["exact", "alias", "suffix_strip", "none"]
     keyword_natural_key: Optional[str] = None
     keyword_id: Optional[str] = None
+    # Canonical jainkosh page URL for the matched keyword (from the
+    # keyword_definitions doc); None when unmatched or absent in source.
+    source_url: Optional[str] = None
     definitions: Optional[list[DefinitionBlock]] = None
     suggestions: Optional[list[Suggestion]] = None
 

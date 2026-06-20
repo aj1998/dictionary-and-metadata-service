@@ -78,6 +78,7 @@ because we have *less* context to reject containers).
       "source": "jainkosh",
       "similarity": 0.71,
       "score": 0.71,
+      "source_url": "https://www.jainkosh.org/wiki/द्रव्य#3.1",
       "extracts_hi": [
         { "block_index": 2, "text_hi": "…" }
       ],
@@ -89,6 +90,13 @@ because we have *less* context to reject containers).
   "tool_trace_id": "uuid-…"
 }
 ```
+
+`source_url` (added) — the canonical jainkosh URL for the topic extract: the
+keyword wiki page plus the topic's numbered section-path anchor (e.g.
+`/wiki/द्रव्य#3.1`). Read **verbatim** from the top-level `source_url` of the
+`topic_extracts` doc — the API never derives or reconstructs the anchor. Present for every match (independent of
+`include_extracts`); `null` when the doc has no `source_url`. Consumers use it
+to cite/link the topic extract in the final answer.
 
 ### Indexes
 
