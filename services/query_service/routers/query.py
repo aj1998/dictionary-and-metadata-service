@@ -13,6 +13,7 @@ from ..pipeline import resolve as resolve_pipeline
 from ..pipeline import topics_match as tm_pipeline
 from ..pipeline import graphrag as graphrag_pipeline
 from ..pipeline import subworkflow as sw_pipeline
+from ..pipeline import topic_neighbors as tn_pipeline
 from ..schemas.keyword_resolve import (
     DefinitionBlock,
     KeywordResolveBatchRequest,
@@ -21,6 +22,8 @@ from ..schemas.keyword_resolve import (
     Suggestion,
 )
 from ..schemas.topic_match import (
+    AnchorTopicNeighbors,
+    ExpandedNeighborTopic,
     ExtractBlock,
     GraphRAGRequest,
     GraphRAGResponse,
@@ -30,6 +33,8 @@ from ..schemas.topic_match import (
     RankedTopicItem,
     TopicMatchItem,
     TopicNeighbors,
+    TopicNeighborsRequest,
+    TopicNeighborsResponse,
     TopicReference,
     TopicsMatchRequest,
     TopicsMatchResponse,
@@ -386,5 +391,76 @@ async def shastras_for_topic(
     return ShastrasForTopicResponse(
         topic_natural_key=topic_nk,
         shastras=shastras,
+        tool_trace_id=trace_id,
+    )
+
+
+@router.post("/topic_neighbors", response_model=TopicNeighborsResponse)
+async def topic_neighbors(
+    body: TopicNeighborsRequest,
+    mongo: AsyncIOMotorDatabase = Depends(get_mongo_db),
+    neo4j: object = Depends(get_neo4j_driver),
+) -> TopicNeighborsResponse:
+    if not body.topic_natural_keys:
+        raise HTTPException(
+            400,
+            detail={"code": "empty_anchors", "message": "topic_natural_keys must not be empty"},
+        )
+
+    t0 = time.monotonic()
+    trace_id = str(uuid.uuid4())
+
+    bucketed, unresolved = await tn_pipeline.expand_neighbors(
+        neo4j_driver=neo4j,
+        anchors=body.topic_natural_keys,
+        max_neighbors_per_topic=body.max_neighbors_per_topic,
+        edge_types=body.edge_types,
+        mongo_db=mongo,
+        database=settings.NEO4J_DATABASE,
+        include_extracts=body.include_extracts,
+        include_references=body.include_references,
+    )
+
+    neighbors_by_anchor: list[AnchorTopicNeighbors] = []
+    for anchor_nk in body.topic_natural_keys:
+        if anchor_nk not in bucketed:
+            continue
+        data = bucketed[anchor_nk]
+
+        related_topics = [
+            ExpandedNeighborTopic(
+                topic_natural_key=t["topic_natural_key"],
+                display_text_hi=t.get("display_text_hi", ""),
+                ancestors_hi=t.get("ancestors_hi", []),
+                is_leaf=t.get("is_leaf", True),
+                source=t.get("source", ""),
+                extracts_hi=[ExtractBlock(**b) for b in t.get("extracts_hi", [])],
+                references=[TopicReference(**r) for r in t.get("references", [])],
+            )
+            for t in data.get("related_topics", [])
+        ]
+        related_keywords = [
+            NeighborKeyword(**k) for k in data.get("related_keywords", [])
+        ]
+        mentioned_in_gathas = [
+            NeighborGatha(**g) for g in data.get("mentioned_in_gathas", [])
+        ]
+
+        neighbors_by_anchor.append(AnchorTopicNeighbors(
+            anchor_topic_natural_key=anchor_nk,
+            related_topics=related_topics,
+            related_keywords=related_keywords,
+            mentioned_in_gathas=mentioned_in_gathas,
+        ))
+
+    elapsed_ms = int((time.monotonic() - t0) * 1000)
+    logger.info(
+        "topic_neighbors trace=%s anchors=%d resolved=%d unresolved=%d ms=%d",
+        trace_id, len(body.topic_natural_keys), len(neighbors_by_anchor), len(unresolved), elapsed_ms,
+    )
+
+    return TopicNeighborsResponse(
+        neighbors_by_anchor=neighbors_by_anchor,
+        unresolved_topic_keys=unresolved,
         tool_trace_id=trace_id,
     )

@@ -113,3 +113,39 @@ class GraphRAGResponse(BaseModel):
     ranked_topics: list[RankedTopicItem]
     unresolved_tokens: list[str]
     tool_trace_id: str
+
+
+# ---------------------------------------------------------------------------
+# Topic Neighbors endpoint schemas
+# ---------------------------------------------------------------------------
+
+
+class TopicNeighborsRequest(BaseModel):
+    topic_natural_keys: list[str]
+    max_neighbors_per_topic: int = 25
+    include_extracts: bool = False
+    include_references: bool = False
+    edge_types: Optional[list[str]] = None
+
+
+class ExpandedNeighborTopic(BaseModel):
+    topic_natural_key: str
+    display_text_hi: str
+    ancestors_hi: list[str] = []
+    is_leaf: bool = True
+    source: str = ""
+    extracts_hi: list[ExtractBlock] = []
+    references: list[TopicReference] = []
+
+
+class AnchorTopicNeighbors(BaseModel):
+    anchor_topic_natural_key: str
+    related_topics: list[ExpandedNeighborTopic] = []
+    related_keywords: list[NeighborKeyword] = []
+    mentioned_in_gathas: list[NeighborGatha] = []
+
+
+class TopicNeighborsResponse(BaseModel):
+    neighbors_by_anchor: list[AnchorTopicNeighbors]
+    unresolved_topic_keys: list[str]
+    tool_trace_id: str

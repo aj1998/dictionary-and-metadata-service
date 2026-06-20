@@ -62,6 +62,8 @@ class NeighborRow:
     neighbor_hi: str
     gatha_number: object = None
     shastra_nk: object = None
+    is_leaf: bool | None = None
+    source: str | None = None
 
 
 async def traverse_topics(
@@ -135,10 +137,15 @@ def bucket_neighbors(rows: list[NeighborRow]) -> dict[str, dict]:
         })
         labels = set(row.node_labels)
         if "Topic" in labels:
-            bucket["related_topics"].append({
+            entry: dict = {
                 "topic_natural_key": row.neighbor_nk,
                 "display_text_hi": row.neighbor_hi,
-            })
+            }
+            if row.is_leaf is not None:
+                entry["is_leaf"] = row.is_leaf
+            if row.source is not None:
+                entry["source"] = row.source
+            bucket["related_topics"].append(entry)
         elif "Keyword" in labels:
             bucket["related_keywords"].append({"keyword_natural_key": row.neighbor_nk})
         elif "Gatha" in labels:

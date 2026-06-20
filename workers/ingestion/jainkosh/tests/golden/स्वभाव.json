@@ -1422,7 +1422,7 @@
                     "hindi_translation": "दूसरे पदार्थ की अपेक्षा न होने से वह स्वभाव कहा गया है।",
                     "references": [
                       {
-                        "text": "न्यायविनिश्चय/ टीका/1/136/488 पर प्रमाण वार्तिक से उद्धृत",
+                        "text": "न्यायविनिश्चय/ टीका/1/136/488/9",
                         "inline_reference": false,
                         "needs_manual_match": false,
                         "is_teeka": true,
@@ -1441,6 +1441,10 @@
                           {
                             "field": "पृष्ठ",
                             "value": 488
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": 9
                           }
                         ]
                       }
@@ -2117,7 +2121,7 @@
       "next": "/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%AD%E0%A4%BE%E0%A4%B5_%E0%A4%A8%E0%A4%AF"
     },
     "parser_version": "jainkosh.rules/1.11.24",
-    "parsed_at": "2026-06-19T21:13:09.581379",
+    "parsed_at": "2026-06-20T21:12:33.361905",
     "warnings": []
   },
   "would_write": {
@@ -3938,7 +3942,7 @@
               "hindi_translation": "दूसरे पदार्थ की अपेक्षा न होने से वह स्वभाव कहा गया है।",
               "references": [
                 {
-                  "text": "न्यायविनिश्चय/ टीका/1/136/488 पर प्रमाण वार्तिक से उद्धृत",
+                  "text": "न्यायविनिश्चय/ टीका/1/136/488/9",
                   "inline_reference": false,
                   "needs_manual_match": false,
                   "is_teeka": true,
@@ -3957,6 +3961,10 @@
                     {
                       "field": "पृष्ठ",
                       "value": 488
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": 9
                     }
                   ]
                 }
@@ -6750,6 +6758,7 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
+            "pankti": 9,
             "block_index": 0,
             "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-पर-की-अपेक्षा-नहीं-रखता/0",
             "source_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-पर-की-अपेक्षा-नहीं-रखता"
@@ -6768,6 +6777,7 @@
           "props": {
             "weight": 1.0,
             "source": "jainkosh",
+            "pankti": 9,
             "block_index": 0,
             "mention_path": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-पर-की-अपेक्षा-नहीं-रखता/0",
             "source_natural_key": "स्वभाव:स्वभाव-व-शक्ति-निर्देश:स्वभाव-पर-की-अपेक्षा-नहीं-रखता"

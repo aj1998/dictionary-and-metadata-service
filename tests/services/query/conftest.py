@@ -157,6 +157,55 @@ def make_mock_neo4j(
     return FakeDriver(traverse_rows, neighbor_rows)
 
 
+def make_mock_neo4j_topic_neighbors(
+    neighbor_rows: list[dict] | None = None,
+) -> object:
+    """Mock Neo4j driver for the topic_neighbors endpoint.
+
+    All queries return the given neighbor rows (which must include anchor_nk).
+    """
+    rows = neighbor_rows or []
+
+    class FakeResult:
+        def __init__(self, data: list[dict]) -> None:
+            self._rows = data
+
+        async def data(self) -> list[dict]:
+            return list(self._rows)
+
+        def __aiter__(self) -> "FakeResult":
+            self._iter = iter(self._rows)
+            return self
+
+        async def __anext__(self) -> dict:
+            try:
+                return next(self._iter)  # type: ignore[attr-defined]
+            except StopIteration:
+                raise StopAsyncIteration
+
+    class FakeSession:
+        def __init__(self, data: list[dict]) -> None:
+            self._rows = data
+
+        async def run(self, cypher: str, **kwargs: object) -> FakeResult:
+            return FakeResult(self._rows)
+
+        async def __aenter__(self) -> "FakeSession":
+            return self
+
+        async def __aexit__(self, *args: object) -> None:
+            pass
+
+    class FakeDriver:
+        def __init__(self, data: list[dict]) -> None:
+            self._rows = data
+
+        def session(self, database: str | None = None) -> FakeSession:
+            return FakeSession(self._rows)
+
+    return FakeDriver(rows)
+
+
 def make_mock_neo4j_subworkflow(
     topics_in_shastra_rows: list[dict] | None = None,
     shastras_for_topic_rows: list[dict] | None = None,
@@ -369,6 +418,59 @@ async def client_with_neo4j_subworkflow(request):  # type: ignore[return]
     factory = async_sessionmaker(engine, expire_on_commit=False)
     mock_mongo = make_mock_mongo()
     mock_neo4j = make_mock_neo4j_subworkflow(topics_rows, shastras_rows)
+
+    from services.query_service.main import app
+    from services.query_service import deps
+
+    async def _override_pg() -> AsyncSession:  # type: ignore[return]
+        async with factory() as s:
+            yield s  # type: ignore[misc]
+
+    async def _override_mongo() -> object:
+        return mock_mongo
+
+    def _override_neo4j() -> object:
+        return mock_neo4j
+
+    app.dependency_overrides[deps.get_session] = _override_pg
+    app.dependency_overrides[deps.get_mongo_db] = _override_mongo
+    app.dependency_overrides[deps.get_neo4j_driver] = _override_neo4j
+
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as c:
+        c.state = factory  # type: ignore[attr-defined]
+        yield c
+
+    app.dependency_overrides.clear()
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
+        for stmt in _TEARDOWN_STMTS:
+            await conn.execute(text(stmt))
+    await engine.dispose()
+
+
+@pytest_asyncio.fixture
+async def client_with_neo4j_topic_neighbors(request):  # type: ignore[return]
+    """Client for the topic_neighbors endpoint.
+
+    Pass (mongo_docs, neighbor_rows) via request.param.
+    neighbor_rows must include anchor_nk field (returned by the topic_neighbors Cypher).
+    """
+    if not DATABASE_URL:
+        pytest.skip("DATABASE_URL not set")
+
+    params = getattr(request, "param", ([], []))
+    mongo_docs: list[dict] = params[0] if len(params) > 0 else []
+    neighbor_rows: list[dict] = params[1] if len(params) > 1 else []
+
+    engine = create_async_engine(DATABASE_URL, echo=False)
+    async with engine.begin() as conn:
+        for stmt in _SETUP_STMTS:
+            await conn.execute(text(stmt))
+        await conn.run_sync(Base.metadata.create_all)
+
+    factory = async_sessionmaker(engine, expire_on_commit=False)
+    mock_mongo = make_mock_mongo(mongo_docs)
+    mock_neo4j = make_mock_neo4j_topic_neighbors(neighbor_rows)
 
     from services.query_service.main import app
     from services.query_service import deps
