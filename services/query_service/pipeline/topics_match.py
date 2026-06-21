@@ -151,6 +151,39 @@ async def fetch_topic_extracts_batch(
     }
 
 
+async def fetch_topic_references_batch(
+    mongo_db: object,
+    natural_keys: list[str],
+) -> dict[str, list[dict]]:
+    """Fetch flattened, de-duplicated references per topic from Mongo.
+
+    Delegates to the common ``hydrate_topic_extracts_hi`` (which already extracts
+    per-block references) and flattens them per topic in document order, mirroring
+    the reference-assembly logic used by ``graphrag.hydrate_topics``. Returns
+    ``{natural_key: [reference_dict, ...]}``.
+    """
+    if not natural_keys:
+        return {}
+    rich = await hydrate_topic_extracts_hi(mongo_db, natural_keys)
+    out: dict[str, list[dict]] = {}
+    for nk, blocks in rich.items():
+        seen: set[tuple] = set()
+        flat_refs: list[dict] = []
+        for b in blocks:
+            for r in b.get("references", []):
+                key = (
+                    r.get("shastra_natural_key"),
+                    r.get("gatha_number"),
+                    r.get("teeka_natural_key"),
+                    r.get("page_number"),
+                )
+                if key not in seen:
+                    seen.add(key)
+                    flat_refs.append(r)
+        out[nk] = flat_refs
+    return out
+
+
 async def fetch_topic_source_urls(
     mongo_db: object,
     natural_keys: list[str],

@@ -84,7 +84,7 @@ class NeighborTopic(BaseModel):
 
 class NeighborGatha(BaseModel):
     shastra_natural_key: str
-    gatha_number: int
+    gatha_number: Optional[int] = None
 
 
 class NeighborKeyword(BaseModel):

@@ -159,7 +159,7 @@ async def topics_match(
     )
 
     extracts_map: dict[str, list[dict]] = {}
-    raw_blocks_map: dict[str, list[dict]] = {}
+    references_map: dict[str, list[dict]] = {}
     extract_counts: dict[str, int] = {}
     source_url_map: dict[str, str] = {}
     if hits:
@@ -173,7 +173,7 @@ async def topics_match(
         if body.include_extracts:
             extracts_map = await tm_pipeline.fetch_topic_extracts_batch(mongo, natural_keys)
         if body.include_references:
-            raw_blocks_map = await graphrag_pipeline._fetch_raw_blocks(mongo, natural_keys)
+            references_map = await tm_pipeline.fetch_topic_references_batch(mongo, natural_keys)
 
     matches: list[TopicMatchItem] = []
     for hit in hits:
@@ -185,8 +185,7 @@ async def topics_match(
 
         references = None
         if body.include_references:
-            raw_blocks = raw_blocks_map.get(nk, [])
-            refs = tm_pipeline.extract_references_from_blocks(raw_blocks)
+            refs = references_map.get(nk, [])
             references = [TopicReference(**r) for r in refs]
 
         matches.append(TopicMatchItem(
