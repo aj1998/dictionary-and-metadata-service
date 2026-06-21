@@ -84,3 +84,27 @@ WHERE similarity(REPLACE(natural_key,'/',' '), 'द्रव्य स्वत�
 ORDER BY sim DESC LIMIT 5;
 ```
 Expected: `Bitmap Index Scan on topics_natural_key_trgm_idx` (not Seq Scan).
+
+---
+
+## content_only (query_engine/08 Part A)
+
+Default `content_only=true` drops container/index topics (`extract_count == 0`)
+before applying `limit`, so callers never anchor on an empty topic.
+
+```bash
+# default (content_only=true): only content-bearing topics
+curl -s -X POST http://localhost:8002/v1/query/topics_match \
+  -H 'Content-Type: application/json' \
+  -d '{"phrase":"द्रव्य स्वतंत्रता","include_extracts":false}' \
+  | python3 -c "import json,sys; d=json.load(sys.stdin); print([(m['topic_natural_key'], m['extract_count']) for m in d['matches']])"
+
+# content_only=false: content-less intermediates kept too
+curl -s -X POST http://localhost:8002/v1/query/topics_match \
+  -H 'Content-Type: application/json' \
+  -d '{"phrase":"द्रव्य स्वतंत्रता","content_only":false,"include_extracts":false}' \
+  | python3 -c "import json,sys; d=json.load(sys.stdin); print([(m['topic_natural_key'], m['extract_count']) for m in d['matches']])"
+```
+
+Expected: with `content_only=true` every returned `extract_count > 0`; with
+`false` topics whose `extract_count == 0` may also appear.

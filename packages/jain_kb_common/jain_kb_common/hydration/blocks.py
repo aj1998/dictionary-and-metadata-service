@@ -42,3 +42,25 @@ def block_text_hi(block: dict) -> str:
     if len(raw) > BLOCK_TEXT_CAP:
         return raw[:BLOCK_TEXT_CAP] + "…"
     return raw
+
+
+def is_displayable_block(block: dict) -> bool:
+    """Single source of truth for "this block carries readable Hindi content".
+
+    A block is displayable when its ``kind`` is not in ``EXCLUDED_BLOCK_KINDS``
+    **and** it carries some text (``text_devanagari`` or ``hindi_translation``).
+    Both ``count_displayable_extract_blocks`` (Mongo aggregation) and the
+    denormalized ``Topic.displayable_extract_count`` node prop are derived from
+    this predicate so the count and the hydrator can never disagree.
+    """
+    if block.get("kind", "") in EXCLUDED_BLOCK_KINDS:
+        return False
+    return bool(
+        (block.get("text_devanagari") or "").strip()
+        or (block.get("hindi_translation") or "").strip()
+    )
+
+
+def count_displayable_blocks(blocks: list[dict] | None) -> int:
+    """Count displayable blocks in an in-memory ``blocks[]`` list."""
+    return sum(1 for b in (blocks or []) if is_displayable_block(b))

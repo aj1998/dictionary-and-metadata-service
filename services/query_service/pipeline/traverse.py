@@ -64,6 +64,7 @@ class NeighborRow:
     shastra_nk: object = None
     is_leaf: bool | None = None
     source: str | None = None
+    extract_count: int | None = None
 
 
 async def traverse_topics(
@@ -145,6 +146,8 @@ def bucket_neighbors(rows: list[NeighborRow]) -> dict[str, dict]:
                 entry["is_leaf"] = row.is_leaf
             if row.source is not None:
                 entry["source"] = row.source
+            if row.extract_count is not None:
+                entry["extract_count"] = row.extract_count
             bucket["related_topics"].append(entry)
         elif "Keyword" in labels:
             bucket["related_keywords"].append({"keyword_natural_key": row.neighbor_nk})

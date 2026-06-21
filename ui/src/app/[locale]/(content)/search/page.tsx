@@ -262,15 +262,14 @@ export default async function SearchPage({ searchParams }: PageProps) {
                   )}
                   <div className="flex shrink-0 items-center gap-2">
                     {hasExtracts && (
-                      // The card only renders this when the topic has displayable
-                      // extracts (extract_count counts modal-renderable blocks),
-                      // so always offer the "पढ़ें" modal — even for non-leaf
-                      // containers that carry their own extracts. Passing isLeaf
-                      // here would wrongly send containers to the dictionary link
-                      // instead of opening their extracts.
+                      // query_engine/08 Part C/E: drive पढ़ें off hasExtracts and
+                      // the expand link off isLeaf===false, so a content-bearing
+                      // non-leaf topic offers BOTH — consistent with /topics.
                       <TopicNavAction
                         topicNk={tp.topic_natural_key}
                         displayText={name}
+                        isLeaf={tp.is_leaf}
+                        hasExtracts={hasExtracts}
                         parentKeywordNk={parentKw}
                         variant="inline"
                         className="inline-flex items-center gap-1 text-xs font-medium text-accent hover:underline"

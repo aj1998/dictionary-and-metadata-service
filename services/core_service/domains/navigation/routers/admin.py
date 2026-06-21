@@ -7,7 +7,7 @@ from neo4j import AsyncDriver
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ....config import settings
-from ....deps import get_neo4j_driver, get_session, require_admin
+from ....deps import get_mongo_db, get_neo4j_driver, get_session, require_admin
 from ..schemas.admin import (
     AliasCreate,
     AliasResponse,
@@ -137,6 +137,7 @@ async def graph_resync(
     x_confirm: str | None = Header(None, alias="X-Confirm"),
     session: AsyncSession = Depends(get_session),
     driver: AsyncDriver = Depends(get_neo4j_driver),
+    mongo=Depends(get_mongo_db),
     _: None = Depends(require_admin),
 ) -> ResyncResponse:
     if scope == "full" and x_confirm != "resync-full":
@@ -154,6 +155,7 @@ async def graph_resync(
         driver,
         scope=scope,
         database=settings.NEO4J_DATABASE,
+        mongo_db=mongo,
     )
     return ResyncResponse(status="completed", scope=scope, task_id=task_id)
 

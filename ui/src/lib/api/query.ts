@@ -22,6 +22,9 @@ export async function topicsMatch(params: {
   includeExtracts?: boolean;
   includeReferences?: boolean;
   leafOnly?: boolean;
+  // content_only (query_engine/08 Part A): keep only topics with extract_count>0
+  // (leaf AND content-bearing intermediates), dropping content-less containers.
+  contentOnly?: boolean;
 }): Promise<TopicsMatchResponse> {
   return apiFetch<TopicsMatchResponse>(BASE_URL, '/v1/query/topics_match', {
     method: 'POST',
@@ -34,6 +37,9 @@ export async function topicsMatch(params: {
       include_extracts: params.includeExtracts ?? false,
       include_references: params.includeReferences ?? false,
       leaf_only: params.leafOnly ?? false,
+      // content_only defaults to false here so existing callers keep "show all";
+      // the /topics search page sets it explicitly from the filter.
+      content_only: params.contentOnly ?? false,
     }),
   });
 }

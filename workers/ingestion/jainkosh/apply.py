@@ -27,6 +27,7 @@ from jain_kb_common.db.postgres.upserts import (
     upsert_topic,
     upsert_table as upsert_table_pg,
 )
+from jain_kb_common.hydration.blocks import count_displayable_blocks
 from jain_kb_common.db.neo4j.stubs import sync_stub_node, sync_reference_edge, delete_placeholder_stub
 from jain_kb_common.db.neo4j.upserts import (
     sync_keyword,
@@ -297,9 +298,16 @@ async def apply_approved_keyword_payload(
         kdef.pop("natural_key", None)
         await upsert_keyword_definition(mongo_db, natural_key=keyword_nk, doc=kdef)
 
+    # Displayable extract count per topic — denormalized onto the Topic graph
+    # node (see query_engine/08) so neighbor BFS / topics_match never round-trip
+    # to Mongo just to learn "has readable content". Uses the shared block
+    # predicate so it can never disagree with the hydrator / Mongo aggregation.
+    topic_extract_counts: dict[str, int] = {}
     for te in mongo.get("topic_extracts", []):
         te_doc = dict(te)
         te_nk = te_doc.get("natural_key") or te_doc.get("natural_key", "")
+        if te_nk:
+            topic_extract_counts[te_nk] = count_displayable_blocks(te_doc.get("blocks"))
         if run_id_str:
             te_doc["ingestion_run_id"] = run_id_str
         # inject parent_keyword_natural_key if missing
@@ -383,6 +391,7 @@ async def apply_approved_keyword_payload(
             parent_keyword_natural_key=row.get("parent_keyword_natural_key") or keyword_nk,
             topic_path=row.get("topic_path"),
             is_leaf=row.get("is_leaf", True),
+            displayable_extract_count=topic_extract_counts.get(tnk, 0),
             database=neo4j_database,
         )
 

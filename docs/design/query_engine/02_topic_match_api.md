@@ -1,5 +1,9 @@
 # Phase 2 — Topic Match APIs
 
+> **`topics_match` gains a `content_only` flag** in
+> [`08_content_gated_topic_neighbors.md`](08_content_gated_topic_neighbors.md)
+> (Part A) — default true, drops topics with no displayable extracts.
+
 Two endpoints. Chat calls **both** in parallel and merges. Rationale (per
 user): trigram catches keyword phrases that appear in a parent topic but not
 the current node; GraphRAG catches sub-topics / related topics / cross-shastra

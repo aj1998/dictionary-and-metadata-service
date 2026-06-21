@@ -74,3 +74,30 @@ Expected: each bucket has at most 2 entries.
 ## OpenAPI
 
 Visit `http://localhost:8002/docs` → find `POST /v1/query/topic_neighbors` — verify request/response schema rendered.
+
+---
+
+## max_hops content-gated BFS (query_engine/08 Part B)
+
+`max_hops` counts only arrivals at content-bearing (hydrated) topics. Content-less
+topics are free passthroughs; keywords/gathas are terminal. Each related topic
+carries `hops` and `extract_count` (sourced from the Part D node prop).
+
+```bash
+curl -s -X POST http://localhost:8002/v1/query/topic_neighbors \
+  -H 'Content-Type: application/json' \
+  -d '{"topic_natural_keys":["<anchor nk>"],"max_hops":2,"include_extracts":true,"include_references":true}' \
+  | python3 -c "
+import json,sys
+d=json.load(sys.stdin)
+for g in d['neighbors_by_anchor']:
+    print(g['anchor_natural_key'])
+    for t in g['related_topics']:
+        print('  hops=%d extract_count=%d %s' % (t['hops'], t.get('extract_count',0), t['topic_natural_key']))
+"
+```
+
+Expected: topics reached through a content-less container appear at `hops=1`
+(passthrough did not consume a hop); genuine 2-content-hop topics appear at
+`hops=2`; `max_hops=1` excludes the hop-2 topics. No topic appears as its own
+neighbour (forward-only BFS).

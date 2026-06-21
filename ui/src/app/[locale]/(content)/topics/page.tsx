@@ -48,6 +48,8 @@ function TopicMatchCard({ item }: { item: TopicMatchItem }) {
           topicNk={item.topic_natural_key}
           displayText={item.display_text_hi}
           dictionaryHref={dictionaryHref}
+          extractCount={item.extract_count}
+          isLeaf={item.is_leaf}
         />
       </div>
     </article>
@@ -94,7 +96,10 @@ export default async function TopicsPage({ searchParams }: PageProps) {
         phrase: q,
         limit: PAGE_SIZE,
         minSimilarity: 0.3,
-        leafOnly: !includeOther,
+        // Part C: filter by content, not by leaf. Off → content_only=true keeps
+        // leaf AND content-bearing intermediates, hiding only content-less
+        // containers. On → content_only=false shows everything.
+        contentOnly: !includeOther,
         includeExtracts: false,
         includeReferences: false,
       });
@@ -180,11 +185,12 @@ export default async function TopicsPage({ searchParams }: PageProps) {
             </div>
             <div className="mt-4 flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
-                {item.topic_path && item.is_leaf && (
+                {item.topic_path && (item.is_leaf || (item.extract_count ?? 0) > 0) && (
                   <TopicNavAction
                     topicNk={item.natural_key}
                     displayText={getHindiText(item.display_text, item.natural_key)}
                     isLeaf={item.is_leaf}
+                    hasExtracts={(item.extract_count ?? 0) > 0}
                     parentKeywordNk={item.parent_keyword?.natural_key}
                   />
                 )}

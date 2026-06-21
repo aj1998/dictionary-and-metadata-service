@@ -13,7 +13,7 @@ Authoritative for: keyword↔topic relationships used by the GraphRAG query path
 | Label | Identifier | Stored properties | Source of truth |
 |---|---|---|---|
 | `Keyword` | `natural_key` (NFC Devanagari, e.g. `आत्मा`) | `pg_id` (uuid string), `display_text`, `source_url`, `is_stub`, `created_at`, `updated_at` | Postgres `keywords` |
-| `Topic` | `natural_key` (e.g. `आत्मा:बहिरात्मादि-3-भेद`) | `pg_id`, `display_text_hi`, `source` (enum), `parent_keyword_natural_key`, `topic_path`, `is_stub`, `created_at`, `updated_at` | Postgres `topics` |
+| `Topic` | `natural_key` (e.g. `आत्मा:बहिरात्मादि-3-भेद`) | `pg_id`, `display_text_hi`, `source` (enum), `parent_keyword_natural_key`, `topic_path`, `is_leaf`, `displayable_extract_count` (int; count of modal-renderable extract blocks — `kind ∉ {see_also, table}` carrying `text_devanagari`/`hindi_translation`; `0` ⇒ content-less; denormalized by `sync_topic`/resync so "has content" is answerable from Neo4j alone — see `query_engine/08`), `is_stub`, `created_at`, `updated_at` | Postgres `topics` + Mongo `topic_extracts` |
 | `Alias` | `alias_text` (NFC Devanagari) | `pg_id`, `source` (`jainkosh_redirect` \| `admin` \| `manual_seed`), `created_at` | Postgres `keyword_aliases` |
 | `Table` | `natural_key` (e.g. `table:jainkosh:द्रव्य:षट्द्रव्य:01`) | `pg_id`, `source`, `parent_natural_key`, `parent_kind`, `seq`, `caption_hi`, `is_stub`, `created_at`, `updated_at` | Postgres `tables` |
 | `Gatha` | `natural_key` (e.g. `pravachansaar:039`) | `pg_id`, `shastra_natural_key`, `gatha_number`, `heading_hi`, `is_stub` | Postgres `gathas` |

@@ -11,6 +11,13 @@ interface TopicNavActionProps {
   topicNk: string;
   displayText: string;
   isLeaf?: boolean;
+  /**
+   * Whether the topic has its own readable extracts (query_engine/08 Part C/E).
+   * When provided, drives the पढ़ें affordance independently of `isLeaf` so a
+   * content-bearing non-leaf topic shows BOTH पढ़ें and the expand link. When
+   * omitted, falls back to the legacy behaviour (पढ़ें iff not a non-leaf).
+   */
+  hasExtracts?: boolean;
   parentKeywordNk?: string;
   variant?: 'button' | 'inline';
   className?: string;
@@ -20,6 +27,7 @@ export function TopicNavAction({
   topicNk,
   displayText,
   isLeaf,
+  hasExtracts,
   parentKeywordNk,
   variant = 'button',
   className,
@@ -31,6 +39,12 @@ export function TopicNavAction({
     detail: null,
   });
   const detailRef = useRef<EntityDetail | null>(null);
+
+  // Part C/E: read action driven by hasExtracts when known; expand link driven
+  // by isLeaf === false. Legacy fallback keeps the either/or when hasExtracts
+  // is not supplied.
+  const showRead = hasExtracts ?? isLeaf !== false;
+  const showExpand = isLeaf === false;
 
   const ensureDetail = useCallback(async (): Promise<EntityDetail | null> => {
     if (detailRef.current) return detailRef.current;
@@ -45,30 +59,23 @@ export function TopicNavAction({
   }, [topicNk]);
 
   const navigateToKeyword = useCallback(
-    (parentKw: string) => {
-      const url = `${prefix}/dictionary/${encodeURIComponent(parentKw)}?topic=${encodeURIComponent(topicNk)}`;
-      window.open(url, '_blank', 'noopener,noreferrer');
-    },
-    [prefix, topicNk]
-  );
-
-  const onClick = useCallback(async () => {
-    if (isLeaf === false) {
+    async () => {
       const parentKw =
         parentKeywordNk ?? (await ensureDetail())?.connected.find(
           (c) => c.kind === 'keyword' && c.edge_kind === 'HAS_TOPIC'
         )?.nk;
-      if (parentKw) navigateToKeyword(parentKw);
-      return;
-    }
+      if (!parentKw) return;
+      const url = `${prefix}/dictionary/${encodeURIComponent(parentKw)}?topic=${encodeURIComponent(topicNk)}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    },
+    [prefix, topicNk, parentKeywordNk, ensureDetail]
+  );
+
+  const onRead = useCallback(async () => {
     const detail = await ensureDetail();
     if (!detail) return;
     setModal({ open: true, detail });
-  }, [isLeaf, parentKeywordNk, ensureDetail, navigateToKeyword]);
-
-  const showReadIcon = isLeaf !== false;
-  const label = showReadIcon ? 'पढ़ें' : null;
-  const Icon = showReadIcon ? BookOpen : ExternalLink;
+  }, [ensureDetail]);
 
   const navigateHref = (() => {
     const d = modal.detail;
@@ -79,26 +86,44 @@ export function TopicNavAction({
     return `${prefix}/dictionary/${encodeURIComponent(parentKw)}?topic=${encodeURIComponent(topicNk)}`;
   })();
 
-  const buttonClass =
+  const readClass =
     variant === 'inline'
       ? className ?? 'inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline'
       : className ??
-        (showReadIcon
-          ? 'inline-flex items-center gap-1.5 rounded border border-accent/40 bg-accent-soft px-3 py-1 text-sm font-medium text-accent hover:bg-accent/20'
-          : 'inline-flex items-center gap-1.5 rounded border border-accent px-3 py-1 text-sm font-medium text-accent hover:bg-accent-soft');
+        'inline-flex items-center gap-1.5 rounded border border-accent/40 bg-accent-soft px-3 py-1 text-sm font-medium text-accent hover:bg-accent/20';
+
+  const expandClass =
+    variant === 'inline'
+      ? 'inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline'
+      : 'inline-flex items-center gap-1.5 rounded border border-accent px-3 py-1 text-sm font-medium text-accent hover:bg-accent-soft';
 
   return (
     <>
-      <button
-        type="button"
-        onClick={onClick}
-        className={buttonClass}
-        aria-label={label ?? 'शब्दकोश में देखें'}
-        title={label ?? 'शब्दकोश में देखें'}
-      >
-        <Icon className="size-4" strokeWidth={1.75} />
-        {label}
-      </button>
+      <span className="inline-flex items-center gap-2">
+        {showRead && (
+          <button
+            type="button"
+            onClick={onRead}
+            className={readClass}
+            aria-label="पढ़ें"
+            title="पढ़ें"
+          >
+            <BookOpen className="size-4" strokeWidth={1.75} />
+            पढ़ें
+          </button>
+        )}
+        {showExpand && (
+          <button
+            type="button"
+            onClick={navigateToKeyword}
+            className={expandClass}
+            aria-label="शब्दकोश में देखें"
+            title="शब्दकोश में देखें"
+          >
+            <ExternalLink className="size-4" strokeWidth={1.75} />
+          </button>
+        )}
+      </span>
       <DefinitionModal
         open={modal.open}
         onClose={() => setModal({ open: false, detail: null })}

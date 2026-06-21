@@ -56,6 +56,7 @@ async def test_topic_source_url_returned(client_with_mongo: AsyncClient) -> None
 
     resp = await client_with_mongo.post(URL, json={
         "phrase": "द्रव्य स्वतंत्रता",
+        "content_only": False,
         "include_extracts": True,
         "include_references": False,
     })
@@ -74,6 +75,7 @@ async def test_topic_source_url_returned_without_extracts(client_with_mongo: Asy
 
     resp = await client_with_mongo.post(URL, json={
         "phrase": "द्रव्य स्वतंत्रता",
+        "content_only": False,
         "include_extracts": False,
         "include_references": False,
     })
@@ -92,6 +94,7 @@ async def test_topic_source_url_null_when_absent(client_with_mongo: AsyncClient)
 
     resp = await client_with_mongo.post(URL, json={
         "phrase": "द्रव्य स्वतंत्रता",
+        "content_only": False,
         "include_extracts": True,
         "include_references": False,
     })

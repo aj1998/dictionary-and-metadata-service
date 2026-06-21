@@ -84,6 +84,7 @@ async def sync_topic(
     mentioned_keyword_natural_keys: list[str] | None = None,
     topic_path: str | None = None,
     is_leaf: bool = True,
+    displayable_extract_count: int = 0,
     database: str = "jainkb",
 ) -> None:
     async with driver.session(database=database) as session:
@@ -96,6 +97,7 @@ async def sync_topic(
                 t.parent_keyword_natural_key = $parent,
                 t.topic_path = $topic_path,
                 t.is_leaf = $is_leaf,
+                t.displayable_extract_count = $displayable_extract_count,
                 t.is_stub = false,
                 t.stub_source = null,
                 t.updated_at = datetime(),
@@ -109,6 +111,7 @@ async def sync_topic(
             parent=parent_keyword_natural_key,
             topic_path=topic_path,
             is_leaf=is_leaf,
+            displayable_extract_count=int(displayable_extract_count or 0),
         )
 
         for kw_nk in mentioned_keyword_natural_keys or []:

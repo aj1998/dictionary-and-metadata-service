@@ -150,10 +150,14 @@ async def topics_match(
     trace_id = str(uuid.uuid4())
 
     search_str = body.search_str
+    # When content_only, over-fetch trigram candidates so that after dropping
+    # content-less (container/index) topics we can still return up to `limit`
+    # content-bearing matches (see query_engine/08 Part A).
+    fetch_limit = body.limit * 5 if body.content_only else body.limit
     hits = await tm_pipeline.search_topics_trigram(
         session,
         search_str=search_str,
-        limit=body.limit,
+        limit=fetch_limit,
         min_similarity=body.min_similarity,
         leaf_only=body.leaf_only,
     )
@@ -167,6 +171,19 @@ async def topics_match(
         # Always provide a total block count (mirrors the data-service topics
         # listing) so cards can show the count and gate the "पढ़ें" button.
         extract_counts = await tm_pipeline.count_topic_extract_blocks(mongo, natural_keys)
+
+        if body.content_only:
+            hits_before = len(hits)
+            hits = [h for h in hits if extract_counts.get(h.natural_key, 0) > 0]
+            hits = hits[: body.limit]
+            logger.info(
+                "topics_match content_only filter hits_before=%d hits_after=%d",
+                hits_before, len(hits),
+            )
+            natural_keys = [h.natural_key for h in hits]
+        else:
+            hits = hits[: body.limit]
+            natural_keys = [h.natural_key for h in hits]
         # Canonical jainkosh URL per topic — surfaced regardless of
         # include_extracts so callers can cite the source.
         source_url_map = await tm_pipeline.fetch_topic_source_urls(mongo, natural_keys)
@@ -430,6 +447,7 @@ async def topic_neighbors(
         database=settings.NEO4J_DATABASE,
         include_extracts=body.include_extracts,
         include_references=body.include_references,
+        max_hops=body.max_hops,
     )
 
     neighbors_by_anchor: list[AnchorTopicNeighbors] = []
@@ -445,6 +463,8 @@ async def topic_neighbors(
                 ancestors_hi=t.get("ancestors_hi", []),
                 is_leaf=t.get("is_leaf", True),
                 source=t.get("source", ""),
+                hops=t.get("hops", 1),
+                extract_count=t.get("extract_count", 0) or 0,
                 extracts_hi=[ExtractBlock(**b) for b in t.get("extracts_hi", [])],
                 references=[TopicReference(**r) for r in t.get("references", [])],
             )

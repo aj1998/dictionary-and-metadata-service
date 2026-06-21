@@ -13,6 +13,7 @@ class TopicsMatchRequest(BaseModel):
     include_extracts: bool = True
     include_references: bool = True
     leaf_only: bool = False
+    content_only: bool = True
 
     @model_validator(mode="after")
     def require_keywords_or_phrase(self) -> "TopicsMatchRequest":
@@ -143,6 +144,7 @@ class TopicNeighborsRequest(BaseModel):
     max_neighbors_per_topic: int = 25
     include_extracts: bool = False
     include_references: bool = False
+    max_hops: int = 1
     edge_types: Optional[list[str]] = None
 
 
@@ -152,6 +154,11 @@ class ExpandedNeighborTopic(BaseModel):
     ancestors_hi: list[str] = []
     is_leaf: bool = True
     source: str = ""
+    # Content depth at which this topic was collected (1 = direct neighbor).
+    hops: int = 1
+    # Denormalized displayable extract count (from the Topic node prop) so
+    # consumers can decide the "पढ़ें" affordance without a Mongo round-trip.
+    extract_count: int = 0
     extracts_hi: list[ExtractBlock] = []
     references: list[TopicReference] = []
 

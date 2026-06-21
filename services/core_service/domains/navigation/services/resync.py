@@ -20,6 +20,7 @@ from jain_kb_common.db.neo4j.upserts import (
     sync_shastra,
     sync_gatha,
 )
+from jain_kb_common.hydration.topic_extracts import count_displayable_extract_blocks
 
 
 def _extract_display_text_hi(display_text: list | dict | str | None) -> str:
@@ -71,8 +72,17 @@ async def _resync_topics(
     session: AsyncSession,
     driver: AsyncDriver,
     database: str,
+    mongo_db: object | None = None,
 ) -> None:
     topics = (await session.execute(select(Topic))).scalars().all()
+    # Recompute displayable extract counts from Mongo in one batched call so the
+    # denormalized Topic.displayable_extract_count node prop (query_engine/08)
+    # is rebuilt on resync rather than clobbered to 0.
+    extract_counts: dict[str, int] = {}
+    if mongo_db is not None and topics:
+        extract_counts = await count_displayable_extract_blocks(
+            mongo_db, [t.natural_key for t in topics]
+        )
     for t in topics:
         display_hi = _extract_display_text_hi(t.display_text)
         # Resolve parent keyword natural_key if set
@@ -91,6 +101,7 @@ async def _resync_topics(
             parent_keyword_natural_key=parent_kw_nk,
             topic_path=t.topic_path,
             is_leaf=t.is_leaf,
+            displayable_extract_count=extract_counts.get(t.natural_key, 0),
             database=database,
         )
 
@@ -135,16 +146,17 @@ async def run_resync(
     driver: AsyncDriver,
     scope: str,
     database: str = "jainkb",
+    mongo_db: object | None = None,
 ) -> None:
     if scope == "full":
         await _wipe_all(driver, database)
         await _resync_keywords(session, driver, database)
-        await _resync_topics(session, driver, database)
+        await _resync_topics(session, driver, database, mongo_db)
         await _resync_shastras(session, driver, database)
     elif scope == "keyword":
         await _resync_keywords(session, driver, database)
     elif scope == "topic":
-        await _resync_topics(session, driver, database)
+        await _resync_topics(session, driver, database, mongo_db)
     elif scope == "shastra":
         await _resync_shastras(session, driver, database)
     else:

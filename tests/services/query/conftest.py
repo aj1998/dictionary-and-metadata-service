@@ -84,14 +84,17 @@ def make_mock_mongo(docs: list[dict] | None = None) -> object:
 
         def aggregate(self, pipeline: list[dict]) -> FakeCursor:
             # Minimal support for the topic-extract block-count aggregation:
-            # match by natural_key $in → group total block count per natural_key.
+            # match by natural_key $in → group *displayable* block count per
+            # natural_key, mirroring count_displayable_extract_blocks via the
+            # shared is_displayable_block predicate.
+            from jain_kb_common.hydration.blocks import count_displayable_blocks
             match = next((s["$match"] for s in pipeline if "$match" in s), {})
             natural_keys = match.get("natural_key", {}).get("$in", [])
             totals: dict[str, int] = {}
             for d in self._data:
                 nk = d.get("natural_key")
                 if nk in natural_keys:
-                    totals[nk] = totals.get(nk, 0) + len(d.get("blocks", []))
+                    totals[nk] = totals.get(nk, 0) + count_displayable_blocks(d.get("blocks", []))
             return FakeCursor([{"_id": nk, "total": n} for nk, n in totals.items()])
 
     class FakeDB:
@@ -163,8 +166,17 @@ def make_mock_neo4j_topic_neighbors(
     """Mock Neo4j driver for the topic_neighbors endpoint.
 
     All queries return the given neighbor rows (which must include anchor_nk).
+
+    Rows that omit ``extract_count`` (the denormalized Topic.displayable_extract_count
+    node prop the BFS gates depth on) default to ``1`` so they are treated as
+    content-bearing — gating-specific tests set it explicitly (0 = container).
     """
-    rows = neighbor_rows or []
+    rows = []
+    for r in (neighbor_rows or []):
+        r = dict(r)
+        if "Topic" in (r.get("node_labels") or []):
+            r.setdefault("extract_count", 1)
+        rows.append(r)
 
     class FakeResult:
         def __init__(self, data: list[dict]) -> None:

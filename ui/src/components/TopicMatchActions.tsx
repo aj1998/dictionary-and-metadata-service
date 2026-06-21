@@ -1,40 +1,29 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { TopicNavAction } from '@/components/TopicNavAction';
 import { TopicPathInfo } from '@/components/TopicPathInfo';
-import { getEntityDetail } from '@/lib/api/data';
 
 interface Props {
   topicNk: string;
   displayText: string;
   dictionaryHref?: string;
+  // query_engine/08 Part E: content/leaf signals come from the topics_match
+  // result itself — no per-card getEntityDetail round-trip.
+  extractCount: number;
+  isLeaf: boolean;
 }
 
-export function TopicMatchActions({ topicNk, displayText, dictionaryHref }: Props) {
-  const [state, setState] = useState<{ loaded: boolean; hasExtracts: boolean; isLeaf: boolean }>(
-    { loaded: false, hasExtracts: false, isLeaf: false },
-  );
-
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const d = await getEntityDetail('topic', topicNk);
-        if (cancelled) return;
-        const hasExtracts = !!(d.topicExtracts && d.topicExtracts.length > 0);
-        const isLeaf = d.stats?.is_leaf === 1;
-        setState({ loaded: true, hasExtracts, isLeaf });
-      } catch {
-        if (!cancelled) setState({ loaded: true, hasExtracts: false, isLeaf: false });
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [topicNk]);
-
-  const showAction = state.loaded && state.hasExtracts;
+export function TopicMatchActions({
+  topicNk,
+  displayText,
+  dictionaryHref,
+  extractCount,
+  isLeaf,
+}: Props) {
+  const hasExtracts = extractCount > 0;
+  // Render the action group when there is anything to show: पढ़ें (has extracts)
+  // and/or the expand link (non-leaf). Detail is fetched lazily on click.
+  const showAction = hasExtracts || !isLeaf;
 
   return (
     <>
@@ -42,7 +31,8 @@ export function TopicMatchActions({ topicNk, displayText, dictionaryHref }: Prop
         <TopicNavAction
           topicNk={topicNk}
           displayText={displayText}
-          isLeaf={state.isLeaf}
+          isLeaf={isLeaf}
+          hasExtracts={hasExtracts}
         />
       ) : (
         <span />

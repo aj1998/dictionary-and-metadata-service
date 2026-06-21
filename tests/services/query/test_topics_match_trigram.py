@@ -44,6 +44,7 @@ async def test_phrase_matches_parent_aware(client: AsyncClient) -> None:
 
     resp = await client.post(URL, json={
         "phrase": "द्रव्य स्वतंत्रता",
+        "content_only": False,
         "include_extracts": False,
         "include_references": False,
     })
@@ -63,6 +64,7 @@ async def test_top_match_is_most_similar(client: AsyncClient) -> None:
 
     resp = await client.post(URL, json={
         "phrase": "द्रव्य स्वतंत्रता",
+        "content_only": False,
         "include_extracts": False,
         "include_references": False,
         "limit": 5,
@@ -85,6 +87,7 @@ async def test_leaf_only_filter(client: AsyncClient) -> None:
     resp = await client.post(URL, json={
         "phrase": "द्रव्य स्वतंत्रता",
         "leaf_only": True,
+        "content_only": False,
         "include_extracts": False,
         "include_references": False,
     })
@@ -102,6 +105,7 @@ async def test_ancestors_hi_derived_from_natural_key(client: AsyncClient) -> Non
 
     resp = await client.post(URL, json={
         "phrase": "द्रव्य स्वतंत्रता",
+        "content_only": False,
         "include_extracts": False,
         "include_references": False,
     })
@@ -127,6 +131,7 @@ async def test_ancestors_hi_from_colon_natural_key(client: AsyncClient) -> None:
 
     resp = await client.post(URL, json={
         "phrase": "निरुक्त्यर्थ",
+        "content_only": False,
         "include_extracts": False,
         "include_references": False,
     })
@@ -147,6 +152,7 @@ async def test_keywords_input_joined_as_phrase(client: AsyncClient) -> None:
 
     resp = await client.post(URL, json={
         "keywords": ["द्रव्य", "स्वतंत्रता"],
+        "content_only": False,
         "include_extracts": False,
         "include_references": False,
     })
@@ -171,6 +177,7 @@ async def test_min_similarity_cutoff(client: AsyncClient) -> None:
     resp = await client.post(URL, json={
         "phrase": "द्रव्य स्वतंत्रता",
         "min_similarity": 0.95,
+        "content_only": False,
         "include_extracts": False,
         "include_references": False,
     })
@@ -191,6 +198,7 @@ async def test_substring_match_in_path(client: AsyncClient) -> None:
 
     resp = await client.post(URL, json={
         "phrase": "विभाव",
+        "content_only": False,
         "include_extracts": False,
         "include_references": False,
     })
@@ -216,6 +224,7 @@ async def test_phonetic_neighbour_not_boosted_to_full_match(client: AsyncClient)
 
     resp = await client.post(URL, json={
         "phrase": "विभाव",
+        "content_only": False,
         "include_extracts": False,
         "include_references": False,
     })
@@ -241,6 +250,7 @@ async def test_container_topic_scored_lower(client: AsyncClient) -> None:
 
     resp = await client.post(URL, json={
         "phrase": "द्रव्य स्वतंत्रता लक्षण",
+        "content_only": False,
         "include_extracts": False,
         "include_references": False,
         "limit": 5,

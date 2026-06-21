@@ -221,6 +221,52 @@ async def test_sync_topic_idempotent(driver):
 
 
 @skip_no_neo4j
+async def test_sync_topic_sets_displayable_extract_count(driver):
+    """query_engine/08 Part D: sync_topic denormalizes the displayable extract
+    count onto the Topic node; a recompute updates it (N->M)."""
+    pg_id = str(uuid.uuid4())
+    await sync_topic(
+        driver, natural_key="topic:dec", pg_id=pg_id, display_text_hi="v1",
+        source="jainkosh", displayable_extract_count=3, database=TEST_DB,
+    )
+    async with driver.session(database=TEST_DB) as session:
+        result = await session.run(
+            "MATCH (t:Topic {natural_key: $nk}) RETURN t.displayable_extract_count AS c",
+            nk="topic:dec",
+        )
+        assert (await result.single())["c"] == 3
+
+    # recompute after an extract edit: count drops to 0
+    await sync_topic(
+        driver, natural_key="topic:dec", pg_id=pg_id, display_text_hi="v1",
+        source="jainkosh", displayable_extract_count=0, database=TEST_DB,
+    )
+    async with driver.session(database=TEST_DB) as session:
+        result = await session.run(
+            "MATCH (t:Topic {natural_key: $nk}) RETURN t.displayable_extract_count AS c",
+            nk="topic:dec",
+        )
+        assert (await result.single())["c"] == 0
+
+
+@skip_no_neo4j
+async def test_sync_topic_displayable_extract_count_defaults_zero(driver):
+    """When the caller doesn't supply a count (e.g. a content-less topic), the
+    node prop is 0 — consumers can gate "has content" on > 0 without a null."""
+    pg_id = str(uuid.uuid4())
+    await sync_topic(
+        driver, natural_key="topic:dec0", pg_id=pg_id, display_text_hi="empty",
+        source="jainkosh", database=TEST_DB,
+    )
+    async with driver.session(database=TEST_DB) as session:
+        result = await session.run(
+            "MATCH (t:Topic {natural_key: $nk}) RETURN t.displayable_extract_count AS c",
+            nk="topic:dec0",
+        )
+        assert (await result.single())["c"] == 0
+
+
+@skip_no_neo4j
 async def test_sync_topic_with_mentioned_keywords(driver):
     kw_pg_id = str(uuid.uuid4())
     tp_pg_id = str(uuid.uuid4())

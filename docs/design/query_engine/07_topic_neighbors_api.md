@@ -1,5 +1,9 @@
 # 07 — Topic Neighbors API (anchored related-topic expansion)
 
+> **Extended by [`08_content_gated_topic_neighbors.md`](08_content_gated_topic_neighbors.md)**
+> — adds `max_hops` (content-gated multi-hop depth) to this endpoint and a
+> `content_only` filter to `topics_match`. This doc describes the 1-hop v1.
+
 Adds one endpoint: **`POST /v1/query/topic_neighbors`**. It takes an explicit
 set of `topic_natural_key`s (the *anchors*) and returns their graph neighbors
 (related topics / related keywords / mentioned-in gathas), optionally hydrated.

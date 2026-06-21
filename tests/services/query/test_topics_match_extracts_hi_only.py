@@ -66,6 +66,7 @@ async def test_translations_in_extracts_see_also_excluded(client_with_mongo: Asy
 
     resp = await client_with_mongo.post(URL, json={
         "phrase": "द्रव्य स्वतंत्रता",
+        "content_only": False,
         "include_extracts": True,
         "include_references": False,
     })
@@ -93,6 +94,7 @@ async def test_include_extracts_false_returns_null(client_with_mongo: AsyncClien
 
     resp = await client_with_mongo.post(URL, json={
         "phrase": "द्रव्य स्वतंत्रता",
+        "content_only": False,
         "include_extracts": False,
         "include_references": False,
     })
@@ -114,6 +116,7 @@ async def test_extract_count_counts_displayable_blocks(client_with_mongo: AsyncC
 
     resp = await client_with_mongo.post(URL, json={
         "phrase": "द्रव्य स्वतंत्रता",
+        "content_only": False,
         "include_extracts": False,
         "include_references": False,
     })
@@ -134,6 +137,7 @@ async def test_no_extracts_when_topic_not_in_mongo(client_with_mongo: AsyncClien
 
     resp = await client_with_mongo.post(URL, json={
         "phrase": "द्रव्य स्वतंत्रता",
+        "content_only": False,
         "include_extracts": True,
         "include_references": False,
     })

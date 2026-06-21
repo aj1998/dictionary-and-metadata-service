@@ -25,6 +25,7 @@ _INDEXES = [
     "CREATE INDEX topic_kw_path IF NOT EXISTS FOR (n:Topic) ON (n.parent_keyword_natural_key, n.topic_path)",
     "CREATE INDEX keyword_is_stub IF NOT EXISTS FOR (n:Keyword) ON (n.is_stub)",
     "CREATE INDEX topic_is_stub IF NOT EXISTS FOR (n:Topic) ON (n.is_stub)",
+    "CREATE INDEX topic_displayable_extract_count IF NOT EXISTS FOR (n:Topic) ON (n.displayable_extract_count)",
     "CREATE INDEX gatha_is_stub IF NOT EXISTS FOR (n:Gatha) ON (n.is_stub)",
     "CREATE INDEX gatha_teeka_is_stub IF NOT EXISTS FOR (n:GathaTeeka) ON (n.is_stub)",
     "CREATE INDEX gatha_teeka_bhaavarth_is_stub IF NOT EXISTS FOR (n:GathaTeekaBhaavarth) ON (n.is_stub)",
