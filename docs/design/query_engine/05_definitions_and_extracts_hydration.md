@@ -44,3 +44,38 @@ import.
 - [ ] Three functions live in `jain_kb_common`.
 - [ ] Phases 1, 2, 4 import from here (no duplicated projection code).
 - [ ] Unit tests in `tests/hydration/`.
+
+## Implementation Notes (2026-06-21) — block-kind selection fix
+
+The original hydrators kept only blocks whose `kind` was in
+`{"hindi_text", "hindi_gatha"}` and read `text_devanagari`. Against the real
+`topic_extracts` / `keyword_definitions` data this dropped almost everything:
+the scriptural content lives in `prakrit_text` / `sanskrit_text` /
+`prakrit_gatha` / `sanskrit_gatha` blocks (the original verse in
+`text_devanagari`, its **Hindi meaning** in `hindi_translation`), and the gatha
+kinds are `prakrit_gatha` / `sanskrit_gatha` — `hindi_gatha` never appears in
+the data. Net effect: topics whose extracts were all verse returned
+`extracts_hi: []` even though `extract_count > 0` (e.g. the
+`आत्मा:…बहिरात्मादि-3-भेद` topics), so the chat Step2 context showed topic
+headings with no extracts.
+
+Fix: a shared helper `jain_kb_common/hydration/blocks.py` now drives both
+`hydrate_definitions_hi` and `hydrate_topic_extracts_hi`:
+
+- `EXCLUDED_BLOCK_KINDS = {"see_also", "table"}` — the only kinds with no inline
+  text. Every other kind is kept.
+- `block_text_hi(block)` emits `hindi_translation` (the Hindi meaning), falling
+  back to `text_devanagari` when there is no translation (pure-Hindi blocks and
+  any verse lacking a translation). Same 1500-char `…` truncation as before.
+
+So non-Hindi verse now contributes its **Hindi meaning only** (the raw
+prakrit/sanskrit verse is not emitted when a translation exists). `block_index`
+on topic extracts remains the absolute position in `blocks[]`, so
+`block_index`-aware slicing is unchanged.
+
+This is purely additive for consumers (topics_match, graphrag, topic_neighbors,
+keyword definitions): previously-empty `extracts_hi` now populate; `hindi_text`
+content is unchanged. The public UI is unaffected — it renders raw blocks from
+the data-service (`/v1/topics/{nk}`, `/v1/keywords/{nk}`) itself and does not
+consume these hydrators (its query-service search calls pass
+`include_extracts=false`).

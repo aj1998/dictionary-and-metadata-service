@@ -71,8 +71,10 @@ _DEF_DOC_MIXED = {
         "definitions": [{
             "blocks": [
                 {"kind": "hindi_text", "text_devanagari": "यह आत्मा का हिंदी विवरण है।"},
-                {"kind": "sanskrit_text", "text_devanagari": "आत्मा संस्कृत पाठ।"},
-                {"kind": "hindi_gatha", "text_devanagari": "आत्मा गाथा पाठ।"},
+                # Sanskrit verse: original in text_devanagari, Hindi meaning in hindi_translation.
+                {"kind": "sanskrit_text", "text_devanagari": "आत्मसंस्कृतम्।", "hindi_translation": "आत्मा का संस्कृत अर्थ।"},
+                # see_also is a pointer with no usable text → excluded.
+                {"kind": "see_also", "text_devanagari": "", "target_keyword": "मोक्ष"},
             ]
         }]
     }]
@@ -104,16 +106,17 @@ _DEF_DOC_MULTI = {
 
 
 @pytest.mark.asyncio
-async def test_definitions_hi_only_hindi_blocks() -> None:
-    """Only hindi_text and hindi_gatha blocks are returned; sanskrit_text excluded."""
+async def test_definitions_include_translations_exclude_see_also() -> None:
+    """Hindi prose + the Hindi meaning of sanskrit/prakrit verse are returned;
+    the raw sanskrit and the see_also pointer are not."""
     mongo = _make_mongo([_DEF_DOC_MIXED])
     result = await hydrate_definitions_hi(mongo, [_KW_NK])
     blocks = result[_KW_NK]
-    assert len(blocks) == 2
+    assert len(blocks) == 2  # hindi_text + sanskrit translation; see_also dropped
     texts = {b["text_hi"] for b in blocks}
     assert "यह आत्मा का हिंदी विवरण है।" in texts
-    assert "आत्मा गाथा पाठ।" in texts
-    assert not any("संस्कृत" in b["text_hi"] for b in blocks)
+    assert "आत्मा का संस्कृत अर्थ।" in texts  # hindi_translation, not the raw verse
+    assert not any("आत्मसंस्कृतम्" in t for t in texts), "raw sanskrit leaked instead of its translation"
 
 
 @pytest.mark.asyncio
@@ -200,8 +203,12 @@ _EXTRACT_DOC_MIXED = {
     "natural_key": _TOPIC_NK,
     "blocks": [
         {"kind": "hindi_text", "text_devanagari": "द्रव्य का हिंदी विवरण।", "references": []},
-        {"kind": "sanskrit_text", "text_devanagari": "द्रव्यं स्वतन्त्रम्।", "references": []},
-        {"kind": "hindi_gatha", "text_devanagari": "जो है सो है।", "references": []},
+        # Sanskrit verse: original in text_devanagari, Hindi meaning in hindi_translation.
+        {"kind": "sanskrit_text", "text_devanagari": "द्रव्यं स्वतन्त्रम्।", "hindi_translation": "द्रव्य स्वतंत्र है।", "references": []},
+        # Prakrit gatha likewise carries its Hindi meaning in hindi_translation.
+        {"kind": "prakrit_gatha", "text_devanagari": "दव्वं सतंतं।", "hindi_translation": "जो है सो है।", "references": []},
+        # see_also is a pointer with no usable text → excluded.
+        {"kind": "see_also", "text_devanagari": "", "target_keyword": "गुण", "references": []},
     ],
 }
 
@@ -253,15 +260,18 @@ _EXTRACT_DOC_WITH_REFS = {
 
 
 @pytest.mark.asyncio
-async def test_extracts_hi_only_hindi_blocks() -> None:
-    """Sanskrit blocks must not appear in topic extracts."""
+async def test_extracts_include_translations_exclude_see_also() -> None:
+    """Hindi prose + the Hindi meaning of sanskrit/prakrit verse are returned;
+    the raw sanskrit verse and the see_also pointer are not."""
     mongo = _make_mongo([_EXTRACT_DOC_MIXED])
     result = await hydrate_topic_extracts_hi(mongo, [_TOPIC_NK])
     blocks = result[_TOPIC_NK]
     texts = [b["text_hi"] for b in blocks]
+    assert len(blocks) == 3  # hindi_text + sanskrit translation + gatha translation; see_also dropped
     assert any("द्रव्य का हिंदी" in t for t in texts)
-    assert any("जो है सो है" in t for t in texts)
-    assert not any("द्रव्यं स्वतन्त्रम्" in t for t in texts), "Sanskrit block leaked"
+    assert any("द्रव्य स्वतंत्र है।" in t for t in texts)  # sanskrit translation
+    assert any("जो है सो है" in t for t in texts)  # gatha translation
+    assert not any("द्रव्यं स्वतन्त्रम्" in t for t in texts), "raw sanskrit leaked instead of its translation"
 
 
 @pytest.mark.asyncio
@@ -303,7 +313,7 @@ async def test_extracts_cap_zero_means_no_cap() -> None:
 async def test_extracts_block_index_per_topic_slicing() -> None:
     """block_index_per_topic slices to only that absolute block index."""
     mongo = _make_mongo([_EXTRACT_DOC_MIXED])
-    # Block 0 = hindi_text (idx=0), Block 1 = sanskrit (idx=1, skipped), Block 2 = hindi_gatha (idx=2)
+    # idx0 hindi_text, idx1 sanskrit (translation), idx2 prakrit_gatha (translation), idx3 see_also
     result = await hydrate_topic_extracts_hi(
         mongo, [_TOPIC_NK], block_index_per_topic={_TOPIC_NK: 2}
     )
@@ -314,12 +324,12 @@ async def test_extracts_block_index_per_topic_slicing() -> None:
 
 
 @pytest.mark.asyncio
-async def test_extracts_block_index_per_topic_non_hindi_skipped() -> None:
-    """block_index_per_topic pointing to a sanskrit block returns empty."""
+async def test_extracts_block_index_per_topic_excluded_kind_skipped() -> None:
+    """block_index_per_topic pointing to a no-text block (see_also) returns empty."""
     mongo = _make_mongo([_EXTRACT_DOC_MIXED])
-    # Index 1 is sanskrit_text — must be filtered
+    # Index 3 is see_also — must be filtered
     result = await hydrate_topic_extracts_hi(
-        mongo, [_TOPIC_NK], block_index_per_topic={_TOPIC_NK: 1}
+        mongo, [_TOPIC_NK], block_index_per_topic={_TOPIC_NK: 3}
     )
     assert result.get(_TOPIC_NK, []) == []
 

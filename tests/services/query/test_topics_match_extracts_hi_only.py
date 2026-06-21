@@ -22,11 +22,19 @@ _MONGO_DOCS = [
             {
                 "kind": "sanskrit_text",
                 "text_devanagari": "द्रव्यं स्वतन्त्रम्।",
+                "hindi_translation": "द्रव्य स्वतंत्र है।",
                 "references": [],
             },
             {
-                "kind": "hindi_gatha",
-                "text_devanagari": "जो है सो है।",
+                "kind": "prakrit_gatha",
+                "text_devanagari": "दव्वं सतंतं।",
+                "hindi_translation": "जो है सो है।",
+                "references": [],
+            },
+            {
+                "kind": "see_also",
+                "text_devanagari": "",
+                "target_keyword": "गुण",
                 "references": [],
             },
         ],
@@ -50,8 +58,9 @@ async def _insert_topic(factory, natural_key: str) -> None:
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("client_with_mongo", [_MONGO_DOCS], indirect=True)
-async def test_only_hindi_blocks_in_extracts(client_with_mongo: AsyncClient) -> None:
-    """Non-Hindi blocks (sanskrit_text) must not appear in extracts_hi."""
+async def test_translations_in_extracts_see_also_excluded(client_with_mongo: AsyncClient) -> None:
+    """Hindi prose + the Hindi meaning of sanskrit/prakrit verse appear in
+    extracts_hi; the raw sanskrit verse and the see_also pointer do not."""
     factory = client_with_mongo.state  # type: ignore[attr-defined]
     await _insert_topic(factory, _TOPIC_NK)
 
@@ -69,9 +78,10 @@ async def test_only_hindi_blocks_in_extracts(client_with_mongo: AsyncClient) -> 
     # Only hindi_text and hindi_gatha should appear
     texts = [e["text_hi"] for e in extracts]
     assert any("द्रव्य का स्वतंत्र" in t for t in texts), "Expected hindi_text block"
-    assert any("जो है सो है" in t for t in texts), "Expected hindi_gatha block"
-    # Sanskrit block must not appear
-    assert not any("द्रव्यं स्वतन्त्रम्" in t for t in texts), "Sanskrit block leaked"
+    assert any("द्रव्य स्वतंत्र है।" in t for t in texts), "Expected sanskrit hindi_translation"
+    assert any("जो है सो है" in t for t in texts), "Expected gatha hindi_translation"
+    # Raw sanskrit verse must not appear (we emit its translation instead)
+    assert not any("द्रव्यं स्वतन्त्रम्" in t for t in texts), "raw sanskrit leaked"
 
 
 @pytest.mark.asyncio
@@ -109,8 +119,9 @@ async def test_extract_count_counts_all_blocks(client_with_mongo: AsyncClient) -
     assert resp.status_code == 200
     match = next((m for m in resp.json()["matches"] if m["topic_natural_key"] == _TOPIC_NK), None)
     assert match is not None
-    # 3 blocks total in the fixture (2 Hindi + 1 Sanskrit).
-    assert match["extract_count"] == 3
+    # extract_count counts ALL blocks in the fixture (hindi_text + sanskrit_text
+    # + prakrit_gatha + see_also), independent of hydration filtering.
+    assert match["extract_count"] == 4
 
 
 @pytest.mark.asyncio

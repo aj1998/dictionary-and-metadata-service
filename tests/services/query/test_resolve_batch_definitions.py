@@ -26,11 +26,13 @@ _MONGO_DOC_MIXED = {
                         },
                         {
                             "kind": "sanskrit_text",
-                            "text_devanagari": "आत्मा संस्कृत पाठ।",
+                            "text_devanagari": "आत्मसंस्कृतम्।",
+                            "hindi_translation": "आत्मा का संस्कृत अर्थ।",
                         },
                         {
-                            "kind": "hindi_gatha",
-                            "text_devanagari": "आत्मा गाथा पाठ।",
+                            "kind": "see_also",
+                            "text_devanagari": "",
+                            "target_keyword": "मोक्ष",
                         },
                     ],
                 }
@@ -95,8 +97,9 @@ async def _insert_keyword(factory, natural_key: str) -> str:
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("client_with_mongo", [[ _MONGO_DOC_MIXED]], indirect=True)
-async def test_only_hindi_blocks_returned(client_with_mongo: AsyncClient) -> None:
-    """Only hindi_text and hindi_gatha blocks are included; sanskrit_text is excluded."""
+async def test_translations_included_see_also_excluded(client_with_mongo: AsyncClient) -> None:
+    """Hindi prose + the Hindi meaning of sanskrit verse are included; the
+    raw sanskrit and the see_also pointer are excluded."""
     factory = client_with_mongo.state  # type: ignore[attr-defined]
     await _insert_keyword(factory, _ATMA_NATURAL_KEY)
 
@@ -109,10 +112,11 @@ async def test_only_hindi_blocks_returned(client_with_mongo: AsyncClient) -> Non
     r = data["resolutions"][0]
     assert r["match_kind"] == "exact"
     assert r["definitions"] is not None
-    assert len(r["definitions"]) == 2  # hindi_text + hindi_gatha, not sanskrit_text
+    assert len(r["definitions"]) == 2  # hindi_text + sanskrit translation; see_also dropped
     kinds_texts = {d["text_hi"] for d in r["definitions"]}
     assert "यह आत्मा का हिंदी विवरण है।" in kinds_texts
-    assert "आत्मा गाथा पाठ।" in kinds_texts
+    assert "आत्मा का संस्कृत अर्थ।" in kinds_texts  # hindi_translation of the sanskrit block
+    assert "आत्मसंस्कृतम्।" not in kinds_texts  # raw sanskrit not emitted
 
 
 @pytest.mark.asyncio

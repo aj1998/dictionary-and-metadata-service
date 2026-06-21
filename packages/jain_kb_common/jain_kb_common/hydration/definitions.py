@@ -3,11 +3,9 @@ from __future__ import annotations
 import logging
 
 from jain_kb_common.db.mongo.collections import KEYWORD_DEFINITIONS
+from jain_kb_common.hydration.blocks import EXCLUDED_BLOCK_KINDS, block_text_hi
 
 logger = logging.getLogger(__name__)
-
-HINDI_BLOCK_KINDS = frozenset({"hindi_text", "hindi_gatha"})
-BLOCK_TEXT_CAP = 1500
 
 
 async def hydrate_definitions_hi(
@@ -18,14 +16,16 @@ async def hydrate_definitions_hi(
     """
     Single find() against keyword_definitions.
 
-    For each doc, walks page_sections[].definitions[].blocks[], keeps only
-    Hindi blocks (hindi_text / hindi_gatha), truncates text to 1500 chars
+    For each doc, walks page_sections[].definitions[].blocks[], keeps every
+    block except the no-text kinds (see_also / table), emitting each block's
+    Hindi meaning (hindi_translation) and falling back to the original
+    text_devanagari when no translation exists. Text is truncated to 1500 chars
     (appends '…' if truncated).
 
     cap_per_keyword > 0 → keep at most N blocks per keyword.
 
     Returns {keyword_nk: [{source_natural_key, block_index, text_hi}]}.
-    block_index counts only Hindi blocks within that keyword doc.
+    block_index counts only the kept (non-excluded) blocks within that doc.
     """
     result: dict[str, list[dict]] = {}
     cursor = mongo_db[KEYWORD_DEFINITIONS].find(  # type: ignore[index]
@@ -39,13 +39,9 @@ async def hydrate_definitions_hi(
         for section in doc.get("page_sections", []):
             for defn in section.get("definitions", []):
                 for block in defn.get("blocks", []):
-                    if block.get("kind", "") not in HINDI_BLOCK_KINDS:
+                    if block.get("kind", "") in EXCLUDED_BLOCK_KINDS:
                         continue
-                    raw = block.get("text_devanagari") or ""
-                    if len(raw) > BLOCK_TEXT_CAP:
-                        text_hi = raw[:BLOCK_TEXT_CAP] + "…"
-                    else:
-                        text_hi = raw
+                    text_hi = block_text_hi(block)
                     if text_hi:
                         blocks_out.append({
                             "source_natural_key": nk,

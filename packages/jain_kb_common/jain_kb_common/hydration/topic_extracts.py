@@ -3,11 +3,9 @@ from __future__ import annotations
 import logging
 
 from jain_kb_common.db.mongo.collections import TOPIC_EXTRACTS
+from jain_kb_common.hydration.blocks import EXCLUDED_BLOCK_KINDS, block_text_hi
 
 logger = logging.getLogger(__name__)
-
-HINDI_BLOCK_KINDS = frozenset({"hindi_text", "hindi_gatha"})
-BLOCK_TEXT_CAP = 1500
 
 
 def extract_references(blocks: list[dict]) -> list[dict]:
@@ -87,15 +85,11 @@ async def hydrate_topic_extracts_hi(
         target_idx = (block_index_per_topic or {}).get(nk)
         blocks_out: list[dict] = []
         for idx, block in enumerate(doc.get("blocks", [])):
-            if block.get("kind", "") not in HINDI_BLOCK_KINDS:
+            if block.get("kind", "") in EXCLUDED_BLOCK_KINDS:
                 continue
             if target_idx is not None and idx != target_idx:
                 continue
-            raw = block.get("text_devanagari") or ""
-            if len(raw) > BLOCK_TEXT_CAP:
-                text_hi = raw[:BLOCK_TEXT_CAP] + "…"
-            else:
-                text_hi = raw
+            text_hi = block_text_hi(block)
             if not text_hi:
                 continue
             blocks_out.append({
