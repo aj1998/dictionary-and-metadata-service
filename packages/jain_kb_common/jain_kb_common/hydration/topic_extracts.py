@@ -4,8 +4,36 @@ import logging
 
 from jain_kb_common.db.mongo.collections import TOPIC_EXTRACTS
 from jain_kb_common.hydration.blocks import EXCLUDED_BLOCK_KINDS, block_text_hi
+from jain_kb_common.matching.ref_selection import pick_refs_to_show
 
 logger = logging.getLogger(__name__)
+
+
+def main_reference_for_block(block: dict) -> dict | None:
+    """Return the single *main* reference for a block, or None.
+
+    The "main" reference is the first one the DefinitionModal would surface for
+    the block — i.e. ``pick_refs_to_show(block.references)[0]`` (the first
+    non-inline reference with resolved_fields, falling back to the first inline
+    resolved reference). Carries the full ``resolved_fields`` plus the source
+    labels so a consumer can render every field; field filtering/relabelling is
+    left to the presentation layer.
+
+    Returns ``{shastra_name, teeka_name, resolved_fields[{field, value}]}`` or
+    None when the block has no displayable reference.
+    """
+    shown = pick_refs_to_show(block.get("references", []))
+    if not shown:
+        return None
+    r = shown[0]
+    return {
+        "shastra_name": (r.get("shastra_name") or None),
+        "teeka_name": (r.get("teeka_name") or None),
+        "resolved_fields": [
+            {"field": f["field"], "value": f["value"]}
+            for f in r.get("resolved_fields", [])
+        ],
+    }
 
 
 def extract_references(blocks: list[dict]) -> list[dict]:
@@ -56,6 +84,44 @@ def extract_references(blocks: list[dict]) -> list[dict]:
     return refs
 
 
+async def count_displayable_extract_blocks(
+    mongo_db: object,
+    natural_keys: list[str],
+) -> dict[str, int]:
+    """Return {natural_key: count} of *displayable* extract blocks per topic.
+
+    A block is displayable when its ``kind`` is not in ``EXCLUDED_BLOCK_KINDS``
+    (``see_also`` / ``table`` carry no readable inline text) **and** it has some
+    text (``text_devanagari`` or ``hindi_translation``). This mirrors what the
+    DefinitionModal actually renders and what ``hydrate_topic_extracts_hi``
+    emits, so a topic whose blocks are all ``see_also`` pointers (e.g. the
+    container ``बहिरात्मा, अंतरात्मा व परमात्मा``) counts 0 — instead of counting
+    every raw block and falsely advertising a "पढ़ें" affordance over an empty
+    modal.
+    """
+    if not natural_keys:
+        return {}
+    cursor = mongo_db[TOPIC_EXTRACTS].aggregate([  # type: ignore[index]
+        {"$match": {"natural_key": {"$in": natural_keys}}},
+        {"$project": {"natural_key": 1, "n": {"$size": {"$filter": {
+            "input": {"$ifNull": ["$blocks", []]},
+            "as": "b",
+            "cond": {"$and": [
+                {"$not": [{"$in": ["$$b.kind", list(EXCLUDED_BLOCK_KINDS)]}]},
+                {"$or": [
+                    {"$gt": [{"$strLenCP": {"$ifNull": ["$$b.text_devanagari", ""]}}, 0]},
+                    {"$gt": [{"$strLenCP": {"$ifNull": ["$$b.hindi_translation", ""]}}, 0]},
+                ]},
+            ]},
+        }}}}},
+        {"$group": {"_id": "$natural_key", "total": {"$sum": "$n"}}},
+    ])
+    counts: dict[str, int] = {}
+    async for doc in cursor:
+        counts[doc["_id"]] = int(doc["total"])
+    return counts
+
+
 async def hydrate_topic_extracts_hi(
     mongo_db: object,
     topic_nks: list[str],
@@ -96,6 +162,7 @@ async def hydrate_topic_extracts_hi(
                 "block_index": idx,
                 "text_hi": text_hi,
                 "references": extract_references([block]),
+                "main_reference": main_reference_for_block(block),
             })
         if cap_per_topic > 0:
             blocks_out = blocks_out[:cap_per_topic]

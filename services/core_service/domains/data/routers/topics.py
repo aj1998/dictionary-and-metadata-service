@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Response
 from motor.motor_asyncio import AsyncIOMotorDatabase
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from jain_kb_common.db.mongo.collections import TOPIC_EXTRACTS
+from jain_kb_common.hydration.topic_extracts import count_displayable_extract_blocks
 
 from ....deps import get_mongo_db, get_session
 from ..schemas.common import KeywordRef, Pagination
@@ -39,16 +39,11 @@ async def list_topics(
     )
     response.headers["Cache-Control"] = _CACHE_CONTROL
 
-    extract_counts: dict[str, int] = {}
+    # Count only displayable extract blocks (excludes see_also/table + text-less
+    # blocks) so the count and the "पढ़ें" affordance match what the modal
+    # renders. Shared with the query-service search cards.
     nks = [t.natural_key for t in items]
-    if nks:
-        cursor = mongo[TOPIC_EXTRACTS].aggregate([
-            {"$match": {"natural_key": {"$in": nks}}},
-            {"$project": {"natural_key": 1, "n": {"$size": {"$ifNull": ["$blocks", []]}}}},
-            {"$group": {"_id": "$natural_key", "total": {"$sum": "$n"}}},
-        ])
-        async for doc in cursor:
-            extract_counts[doc["_id"]] = int(doc["total"])
+    extract_counts = await count_displayable_extract_blocks(mongo, nks)
 
     result = []
     for t in items:

@@ -8,6 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from jain_kb_common.db.mongo.collections import TOPIC_EXTRACTS
 from jain_kb_common.hydration.topic_extracts import (
+    count_displayable_extract_blocks,
     extract_references,
     hydrate_topic_extracts_hi,
 )
@@ -146,7 +147,14 @@ async def fetch_topic_extracts_batch(
     """
     rich = await hydrate_topic_extracts_hi(mongo_db, natural_keys)
     return {
-        nk: [{"block_index": b["block_index"], "text_hi": b["text_hi"]} for b in blocks]
+        nk: [
+            {
+                "block_index": b["block_index"],
+                "text_hi": b["text_hi"],
+                "main_reference": b.get("main_reference"),
+            }
+            for b in blocks
+        ]
         for nk, blocks in rich.items()
     }
 
@@ -216,23 +224,15 @@ async def count_topic_extract_blocks(
     mongo_db: object,
     natural_keys: list[str],
 ) -> dict[str, int]:
-    """Return {natural_key: total block count} for the given topics.
+    """Return {natural_key: displayable block count} for the given topics.
 
-    Mirrors the data-service topics listing aggregation (counts *all* blocks,
-    not just Hindi ones) so the public search/topic cards show the same extract
-    count and can gate the "पढ़ें" affordance on it.
+    Delegates to the shared ``count_displayable_extract_blocks`` so the search
+    cards count only blocks the modal would actually render (excluding
+    ``see_also`` / ``table`` and text-less blocks) and gate the "पढ़ें"
+    affordance accurately. Mirrors the data-service topics listing, which uses
+    the same shared helper.
     """
-    if not natural_keys:
-        return {}
-    cursor = mongo_db[TOPIC_EXTRACTS].aggregate([  # type: ignore[index]
-        {"$match": {"natural_key": {"$in": natural_keys}}},
-        {"$project": {"natural_key": 1, "n": {"$size": {"$ifNull": ["$blocks", []]}}}},
-        {"$group": {"_id": "$natural_key", "total": {"$sum": "$n"}}},
-    ])
-    counts: dict[str, int] = {}
-    async for doc in cursor:
-        counts[doc["_id"]] = int(doc["total"])
-    return counts
+    return await count_displayable_extract_blocks(mongo_db, natural_keys)
 
 
 # Alias kept for existing callers in this module and graphrag.py

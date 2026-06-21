@@ -105,9 +105,10 @@ async def test_include_extracts_false_returns_null(client_with_mongo: AsyncClien
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("client_with_mongo", [_MONGO_DOCS], indirect=True)
-async def test_extract_count_counts_all_blocks(client_with_mongo: AsyncClient) -> None:
-    """extract_count reflects the total block count (all kinds, not just Hindi),
-    matching the data-service topics listing, even when include_extracts=False."""
+async def test_extract_count_counts_displayable_blocks(client_with_mongo: AsyncClient) -> None:
+    """extract_count counts only *displayable* blocks (modal-renderable) — i.e.
+    excludes see_also/table and text-less blocks — even when include_extracts=False.
+    This keeps the count and the "पढ़ें" affordance aligned with the modal."""
     factory = client_with_mongo.state  # type: ignore[attr-defined]
     await _insert_topic(factory, _TOPIC_NK)
 
@@ -119,9 +120,9 @@ async def test_extract_count_counts_all_blocks(client_with_mongo: AsyncClient) -
     assert resp.status_code == 200
     match = next((m for m in resp.json()["matches"] if m["topic_natural_key"] == _TOPIC_NK), None)
     assert match is not None
-    # extract_count counts ALL blocks in the fixture (hindi_text + sanskrit_text
-    # + prakrit_gatha + see_also), independent of hydration filtering.
-    assert match["extract_count"] == 4
+    # Fixture: hindi_text + sanskrit_text + prakrit_gatha (3 displayable) +
+    # see_also (excluded) → 3.
+    assert match["extract_count"] == 3
 
 
 @pytest.mark.asyncio

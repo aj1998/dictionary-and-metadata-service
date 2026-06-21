@@ -227,10 +227,14 @@ export default async function SearchPage({ searchParams }: PageProps) {
             ))}
           </SectionCard>
 
+          {/* Global search lists leaf + intermediate topics (no leaf_only), so
+              "view all" carries include_other=1 to preserve that same result set
+              on /topics — otherwise /topics' leaf-only default hides the
+              intermediate matches shown here. */}
           <SectionCard
             title={t('section_topics')}
             icon={<Tag className="size-4" strokeWidth={1.5} />}
-            viewAllHref={`/topics?q=${encodeURIComponent(q)}`}
+            viewAllHref={`/topics?q=${encodeURIComponent(q)}&include_other=1`}
             viewAllLabel={t('view_all')}
             empty={t('no_section_results')}
             count={topics.length}
@@ -258,10 +262,15 @@ export default async function SearchPage({ searchParams }: PageProps) {
                   )}
                   <div className="flex shrink-0 items-center gap-2">
                     {hasExtracts && (
+                      // The card only renders this when the topic has displayable
+                      // extracts (extract_count counts modal-renderable blocks),
+                      // so always offer the "पढ़ें" modal — even for non-leaf
+                      // containers that carry their own extracts. Passing isLeaf
+                      // here would wrongly send containers to the dictionary link
+                      // instead of opening their extracts.
                       <TopicNavAction
                         topicNk={tp.topic_natural_key}
                         displayText={name}
-                        isLeaf={tp.is_leaf}
                         parentKeywordNk={parentKw}
                         variant="inline"
                         className="inline-flex items-center gap-1 text-xs font-medium text-accent hover:underline"

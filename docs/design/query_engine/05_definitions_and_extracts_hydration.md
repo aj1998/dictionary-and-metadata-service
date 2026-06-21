@@ -79,3 +79,53 @@ content is unchanged. The public UI is unaffected — it renders raw blocks from
 the data-service (`/v1/topics/{nk}`, `/v1/keywords/{nk}`) itself and does not
 consume these hydrators (its query-service search calls pass
 `include_extracts=false`).
+
+## Implementation Notes (2026-06-21) — per-extract `main_reference`
+
+To let the chat Step2 context attach a reference to **each** extract (instead of
+one flattened topic-level ref list merged across blocks),
+`hydrate_topic_extracts_hi` now attaches a `main_reference` to every block dict:
+
+```jsonc
+{ "block_index": 7, "text_hi": "…", "references": [...],
+  "main_reference": { "shastra_name": "मोक्ष पाहुड़", "teeka_name": null,
+                      "resolved_fields": [{ "field": "गाथा", "value": 8 }] } }
+```
+
+- `main_reference` is `pick_refs_to_show(block.references)[0]` (the first
+  non-inline resolved reference — the same "primary" ref the DefinitionModal
+  surfaces), or `None` when the block has none. Computed by the new
+  `main_reference_for_block(block)` helper in `hydration/topic_extracts.py`.
+- It carries the **full** `resolved_fields` plus `shastra_name`/`teeka_name`;
+  field filtering (dropping पुस्तक/पृष्ठ/पंक्ति) and shastra-prefix stripping are
+  left to the presentation layer (chat), not the hydrator.
+- Exposed through the query-service `ExtractBlock` schema (new `MainReference` /
+  `ResolvedFieldOut` models) on all three hydration paths: `topics_match`
+  (`fetch_topic_extracts_batch`), `graphrag.hydrate_topics`, and
+  `topic_neighbors.expand_neighbors`. Additive and optional — existing consumers
+  that ignore the field are unaffected; the topic-level flattened `references`
+  list is unchanged.
+
+## Implementation Notes (2026-06-21) — displayable extract count
+
+After the block-kind fix above made verse topics hydrate, a regression surfaced
+in the UI: `extract_count` (which the `/search` and `/topics` cards use to show
+a count badge and gate the "पढ़ें" affordance) still counted **every** raw block
+via `$size(blocks)` — including `see_also` / `table` pointers and text-less
+blocks. So a container/seed topic whose blocks are all `see_also` pointers
+(e.g. `बहिरात्मा, अंतरात्मा व परमात्मा`) advertised `पढ़ें` over an empty modal.
+
+Fix: a shared `count_displayable_extract_blocks(mongo_db, natural_keys)` in
+`hydration/topic_extracts.py` counts only blocks that are **not** in
+`EXCLUDED_BLOCK_KINDS` **and** carry text (`text_devanagari` or
+`hindi_translation`) — i.e. exactly the blocks the modal/hydrator render. Both
+consumers now use it:
+
+- query-service `topics_match.count_topic_extract_blocks` delegates to it.
+- core-service `/v1/topics` listing router calls it directly (replacing its
+  inline `$size` aggregation).
+
+Net effect: pointer-only topics count 0 (no false `पढ़ें`); topics with real
+Hindi extracts count their displayable blocks. UI `/search` additionally stops
+passing `isLeaf` to `TopicNavAction`, so a non-leaf container that *does* carry
+its own extracts opens the `पढ़ें` modal instead of the dictionary link.

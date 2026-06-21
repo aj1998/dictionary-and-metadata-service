@@ -27,9 +27,24 @@ class TopicsMatchRequest(BaseModel):
         return " ".join(self.keywords or [])
 
 
+class ResolvedFieldOut(BaseModel):
+    field: str
+    value: int | str
+
+
+class MainReference(BaseModel):
+    """The single primary reference for an extract block (the one the
+    DefinitionModal surfaces first). Carries the full ``resolved_fields`` so
+    consumers can render every field and apply their own filtering."""
+    shastra_name: Optional[str] = None
+    teeka_name: Optional[str] = None
+    resolved_fields: list[ResolvedFieldOut] = []
+
+
 class ExtractBlock(BaseModel):
     block_index: int
     text_hi: str
+    main_reference: Optional[MainReference] = None
 
 
 class TopicReference(BaseModel):

@@ -121,7 +121,11 @@ async def expand_neighbors(
                     rich_blocks = rich_map.get(nk, [])
                     if include_extracts:
                         t["extracts_hi"] = [
-                            {"block_index": b["block_index"], "text_hi": b["text_hi"]}
+                            {
+                                "block_index": b["block_index"],
+                                "text_hi": b["text_hi"],
+                                "main_reference": b.get("main_reference"),
+                            }
                             for b in rich_blocks
                         ]
                     else:

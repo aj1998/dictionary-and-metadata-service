@@ -18,8 +18,10 @@ sys.path.insert(
 
 from jain_kb_common.hydration.definitions import hydrate_definitions_hi  # noqa: E402
 from jain_kb_common.hydration.topic_extracts import (  # noqa: E402
+    count_displayable_extract_blocks,
     extract_references,
     hydrate_topic_extracts_hi,
+    main_reference_for_block,
 )
 
 # ---------------------------------------------------------------------------
@@ -48,6 +50,26 @@ def _make_mongo(docs: list[dict]) -> object:
             nks = query.get("natural_key", {}).get("$in", [])
             filtered = [d for d in self._data if d.get("natural_key") in nks]
             return FakeCursor(filtered)
+
+        def aggregate(self, pipeline: list[dict]) -> FakeCursor:
+            # Minimal interpreter for count_displayable_extract_blocks' pipeline:
+            # match $in → count displayable blocks per doc → group total.
+            # Mirrors the intended semantics (real $filter expr is covered by the
+            # query/core-service endpoint tests against a real Mongo).
+            from jain_kb_common.hydration.blocks import EXCLUDED_BLOCK_KINDS
+            nks = pipeline[0]["$match"]["natural_key"]["$in"]
+            rows = []
+            for d in self._data:
+                if d.get("natural_key") not in nks:
+                    continue
+                n = 0
+                for b in d.get("blocks", []):
+                    if b.get("kind", "") in EXCLUDED_BLOCK_KINDS:
+                        continue
+                    if (b.get("text_devanagari") or "") or (b.get("hindi_translation") or ""):
+                        n += 1
+                rows.append({"_id": d["natural_key"], "total": n})
+            return FakeCursor(rows)
 
     class FakeDB:
         def __init__(self, data: list[dict]) -> None:
@@ -356,6 +378,120 @@ async def test_extracts_references_populated_correctly() -> None:
     # Second block refs pravachansaar:12
     assert blocks[1]["references"][0]["shastra_natural_key"] == "pravachansaar"
     assert blocks[1]["references"][0]["gatha_number"] == 12
+
+
+# ---------------------------------------------------------------------------
+# main_reference_for_block tests
+# ---------------------------------------------------------------------------
+
+_BLOCK_WITH_MIXED_REFS = {
+    "kind": "hindi_text",
+    "text_devanagari": "बहुसंदर्भ पाठ।",
+    "references": [
+        # inline ref first — must be skipped in favour of the non-inline one
+        {
+            "shastra_name": "समाधिशतक",
+            "teeka_name": "",
+            "inline_reference": True,
+            "resolved_fields": [{"field": "गाथा", "value": 4}],
+        },
+        # first non-inline resolved ref → the "main" reference
+        {
+            "shastra_name": "मोक्ष पाहुड़",
+            "teeka_name": "",
+            "inline_reference": False,
+            "resolved_fields": [{"field": "गाथा", "value": 8}],
+        },
+        # another non-inline ref — not the main one
+        {
+            "shastra_name": "द्रव्यसंग्रह",
+            "teeka_name": "टीका",
+            "inline_reference": False,
+            "resolved_fields": [{"field": "गाथा", "value": 57}, {"field": "पृष्ठ", "value": 267}],
+        },
+    ],
+}
+
+
+def test_main_reference_picks_first_non_inline() -> None:
+    """main_reference_for_block returns pick_refs_to_show()[0] with full fields."""
+    mr = main_reference_for_block(_BLOCK_WITH_MIXED_REFS)
+    assert mr is not None
+    assert mr["shastra_name"] == "मोक्ष पाहुड़"
+    assert mr["teeka_name"] is None  # empty teeka normalised to None
+    assert mr["resolved_fields"] == [{"field": "गाथा", "value": 8}]
+
+
+def test_main_reference_none_when_no_refs() -> None:
+    assert main_reference_for_block({"kind": "hindi_text", "references": []}) is None
+
+
+def test_main_reference_keeps_all_resolved_fields() -> None:
+    """All resolved_fields (incl. पुस्तक/पृष्ठ/पंक्ति) are preserved — filtering
+    is the presentation layer's job, not the hydrator's."""
+    block = {
+        "kind": "hindi_text",
+        "references": [
+            {
+                "shastra_name": "धवला",
+                "teeka_name": "",
+                "inline_reference": False,
+                "resolved_fields": [
+                    {"field": "पुस्तक", "value": 13},
+                    {"field": "धवलासूत्र", "value": 50},
+                    {"field": "पृष्ठ", "value": 282},
+                    {"field": "पंक्ति", "value": 11},
+                ],
+            }
+        ],
+    }
+    mr = main_reference_for_block(block)
+    assert [f["field"] for f in mr["resolved_fields"]] == ["पुस्तक", "धवलासूत्र", "पृष्ठ", "पंक्ति"]
+
+
+@pytest.mark.asyncio
+async def test_extracts_include_main_reference() -> None:
+    """hydrate_topic_extracts_hi attaches main_reference per block."""
+    mongo = _make_mongo([_EXTRACT_DOC_WITH_REFS])
+    result = await hydrate_topic_extracts_hi(mongo, [_TOPIC_NK])
+    for block in result[_TOPIC_NK]:
+        assert "main_reference" in block
+
+
+# ---------------------------------------------------------------------------
+# count_displayable_extract_blocks tests
+# ---------------------------------------------------------------------------
+
+@pytest.mark.asyncio
+async def test_count_displayable_excludes_see_also_and_table() -> None:
+    """Only modal-renderable blocks count: see_also/table and text-less blocks
+    are excluded so a pointer-only topic counts 0 (no false 'पढ़ें')."""
+    docs = [
+        {  # 2 displayable (hindi_text + sanskrit translation), see_also dropped
+            "natural_key": "त1",
+            "blocks": [
+                {"kind": "hindi_text", "text_devanagari": "पाठ।"},
+                {"kind": "sanskrit_text", "text_devanagari": "श्लोक।", "hindi_translation": "अर्थ।"},
+                {"kind": "see_also", "text_devanagari": "", "target_keyword": "x"},
+            ],
+        },
+        {  # all see_also → 0 (the बहिरात्मा-style container)
+            "natural_key": "त2",
+            "blocks": [
+                {"kind": "see_also", "text_devanagari": "", "target_keyword": "a"},
+                {"kind": "see_also", "text_devanagari": "", "target_keyword": "b"},
+            ],
+        },
+    ]
+    mongo = _make_mongo(docs)
+    counts = await count_displayable_extract_blocks(mongo, ["त1", "त2"])
+    assert counts["त1"] == 2
+    assert counts["त2"] == 0
+
+
+@pytest.mark.asyncio
+async def test_count_displayable_empty_input() -> None:
+    assert await count_displayable_extract_blocks(_make_mongo([]), []) == {}
 
 
 @pytest.mark.asyncio
