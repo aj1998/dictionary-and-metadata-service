@@ -152,3 +152,59 @@ RETURN s, gathas[0..$limit_gathas_per_shastra] AS gathas, c
 - [ ] Two new query-service endpoints + OpenAPI.
 - [ ] Cypher queries indexed-safe (verified via `EXPLAIN` on testcontainer).
 - [ ] Manual test commands documented.
+
+---
+
+## Implementation Notes (2026-06-22) — live-bug fixes
+
+Three live-data bugs were found that made the chat sub-workflows return empty
+results; all fixed:
+
+1. **`topics_in_shastra` per-gatha always empty.** `_TOPICS_IN_GATHA_CYPHER`
+   matched `(g:Gatha {number: $gatha_n})` with an integer, but the Neo4j node
+   has **no `number` property** — the real one is `gatha_number`, stored as a
+   **string** (`"15"`). Fixed in
+   `services/query_service/pipeline/subworkflow.py`: property → `gatha_number`,
+   and `fetch_topics_in_shastra` now coerces the int to `str(gatha_number)`.
+   The whole-shastra path was unaffected (it doesn't filter by number).
+
+2. **`shastras_for_topic` referenced non-existent props.**
+   `_SHASTRAS_FOR_TOPIC_CYPHER` used `g.number` (→ `g.gatha_number`),
+   `g.page_number` (does not exist → dropped), and `s.name_hi` (→ `s.title_hi`,
+   aliased back to `name_hi` in `RETURN` to keep the response schema).
+
+3. **`direct_retrieval` had no `(shastra, integer)` → gatha-content endpoint.**
+   The chat client previously hit `GET /v1/gathas?shastra=&number=`, whose
+   params are ignored by the list endpoint. Instead of a query-service endpoint,
+   a **core-service** route was added where gatha content + identifier helpers
+   already live:
+
+   `GET /v1/shastras/{shastra_nk}/gathas/by-number/{number}` (in
+   `services/core_service/domains/data/routers/gathas.py`). It resolves a plain
+   integer to a Gatha, **compound-aware**: single-identifier shastras →
+   `{nk}:गाथा:{n}`; compound shastras → scan and numeric-match the verse-number
+   component. That component is chosen via
+   `jain_kb_common.shastra_identifiers.gatha_component_field()`, which matches a
+   field's canonical segment name against `GATHA_ENTITY_KEYWORDS`
+   (गाथा/श्लोक/सूत्र/दोहक/वार्तिक — mirrors `reference.entity_keywords.gatha` in
+   `parser_configs/jainkosh.yaml`), sourced from
+   `parser_configs/_manual_configs/shastra.json`. Verified live for समयसार
+   (गाथा), परमात्मप्रकाश (अधिकार+गाथा) and तत्त्वार्थसूत्र (अध्याय+सूत्र).
+
+   The chat client (`cataloguesearch-chat/service/src/kb_api/client.js`,
+   `gathaDetail`) calls this route and flattens the nested detail into the
+   `want`-projectable fields (prakrit, sanskrit, anyavaarth, bhaavarth, teeka).
+
+Tests added: `tests/services/query/test_subworkflow_cypher.py` (Cypher prop +
+param-type regression) and `gatha_component_field` cases in
+`tests/jain_kb_common/test_shastra_identifiers.py`.
+
+**Follow-up — per-chapter disambiguation.** Compound shastras number verses
+per-chapter (e.g. तत्त्वार्थसूत्र has a सूत्र 10 in every अध्याय), so an integer
+alone is ambiguous. `GET /v1/shastras/{nk}/gathas/by-number/{n}` now accepts an
+optional `?adhikaar={a}` query param; when present, the resolver additionally
+matches the leading section field (अधिकार/अध्याय) so "अध्याय 6 सूत्र 10" maps to
+`तत्त्वार्थसूत्र:अध्याय:6:सूत्र:10`. The chat side carries this as a new
+`adhikaar_number` field on the `direct_retrieval` sub-workflow (Step1 schema +
+prompt), and the Step2 synthesis prompt now treats the
+`### KB Sub-workflow Results` block as authoritative canonical text.

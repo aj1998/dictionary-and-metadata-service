@@ -8,11 +8,25 @@ from jain_kb_common.shastra_identifiers import (
     get_identifier_fields,
     canonical_segment_name,
     build_compound_suffix,
+    gatha_component_field,
 )
 
 # NFC-normalised shastra names used throughout.
 _PP = unicodedata.normalize("NFC", "परमात्मप्रकाश")
 _SS = unicodedata.normalize("NFC", "समयसार")
+_TS = unicodedata.normalize("NFC", "तत्त्वार्थसूत्र")
+
+
+def test_gatha_component_field_single_returns_none():
+    assert gatha_component_field(_SS) is None
+
+
+def test_gatha_component_field_picks_गाथा_keyword():
+    assert gatha_component_field(_PP) == "परमात्मप्रकाशगाथा"
+
+
+def test_gatha_component_field_picks_सूत्र_keyword():
+    assert gatha_component_field(_TS) == "तत्त्वार्थसूत्रसूत्र"
 
 
 def test_get_entry_परमात्मप्रकाश_present():

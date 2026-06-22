@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 # Cypher: topics mentioned in a specific gatha
 # ---------------------------------------------------------------------------
 _TOPICS_IN_GATHA_CYPHER = """
-MATCH (s:Shastra {natural_key: $shastra_nk})<-[:IN_SHASTRA]-(g:Gatha {number: $gatha_n})
+MATCH (s:Shastra {natural_key: $shastra_nk})<-[:IN_SHASTRA]-(g:Gatha {gatha_number: $gatha_n})
 MATCH (g)-[:MENTIONS_TOPIC]->(t:Topic)
 RETURN t.natural_key AS topic_nk,
        t.display_text_hi AS display_text_hi,
@@ -39,12 +39,12 @@ LIMIT $limit
 _SHASTRAS_FOR_TOPIC_CYPHER = """
 MATCH (t:Topic {natural_key: $topic_nk})<-[:MENTIONS_TOPIC]-(g:Gatha)-[:IN_SHASTRA]->(s:Shastra)
 WITH s,
-     collect({number: g.number, page_number: g.page_number}) AS all_gathas,
+     collect({number: g.gatha_number}) AS all_gathas,
      count(g) AS total_mentions
 ORDER BY total_mentions DESC
 LIMIT $limit_shastras
 RETURN s.natural_key AS shastra_nk,
-       s.name_hi     AS name_hi,
+       s.title_hi    AS name_hi,
        total_mentions,
        all_gathas[0..$limit_gpp] AS gathas
 """
@@ -76,7 +76,9 @@ async def fetch_topics_in_shastra(
     """Run Neo4j Cypher to get topics mentioned in a shastra (or a single gatha)."""
     if gatha_number is not None:
         cypher = _TOPICS_IN_GATHA_CYPHER
-        params: dict = {"shastra_nk": shastra_nk, "gatha_n": gatha_number, "limit": limit}
+        # Neo4j stores Gatha.gatha_number as a string ("15"), so coerce the
+        # incoming integer before matching.
+        params: dict = {"shastra_nk": shastra_nk, "gatha_n": str(gatha_number), "limit": limit}
     else:
         cypher = _TOPICS_IN_SHASTRA_CYPHER
         params = {"shastra_nk": shastra_nk, "limit": limit}

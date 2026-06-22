@@ -39,6 +39,34 @@ def get_shastra_entry(shastra_name: str, *, path: str | None = None) -> dict | N
     return None
 
 
+# Canonical entity keywords identifying the verse-number component of a gatha
+# identifier. Mirrors `reference.entity_keywords.gatha` in
+# parser_configs/jainkosh.yaml (and GATHA_ENTITY_KEYWORDS in the UI's
+# src/lib/gatha-content.ts). The value is matched against a field's canonical
+# segment name (i.e. after the appended shastra-name prefix is stripped).
+GATHA_ENTITY_KEYWORDS: tuple[str, ...] = (
+    "गाथा", "श्लोक", "सूत्र", "दोहक", "वार्तिक",
+)
+
+
+def gatha_component_field(
+    shastra_name: str, *, path: str | None = None,
+) -> str | None:
+    """Return the gatha identifier field that names the verse number.
+
+    Picks the declared field whose canonical segment name is a known gatha
+    entity keyword (गाथा/श्लोक/सूत्र/दोहक/वार्तिक); falls back to the last
+    declared field. Returns None for single-identifier shastras.
+    """
+    fields = get_identifier_fields(shastra_name, "gatha", path=path)
+    if not fields:
+        return None
+    for f in fields:
+        if canonical_segment_name(shastra_name, f) in GATHA_ENTITY_KEYWORDS:
+            return f
+    return fields[-1]
+
+
 def get_identifier_fields(
     shastra_name: str, kind: str = "gatha", *, path: str | None = None,
 ) -> list[str] | None:

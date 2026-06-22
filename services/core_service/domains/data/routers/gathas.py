@@ -272,34 +272,15 @@ async def get_adjacent_gatha(
     }
 
 
-@router.get("/shastras/{shastra_nk}/gathas/{raw_id}")
-async def get_gatha_by_path(
+async def _render_gatha_detail(
+    session: AsyncSession,
+    mongo: AsyncIOMotorDatabase,
+    gatha,
     shastra_nk: str,
-    raw_id: str,
-    response: Response,
-    include: str | None = Query(None),
-    session: AsyncSession = Depends(get_session),
-    mongo: AsyncIOMotorDatabase = Depends(get_mongo_db),
+    inc: set[str],
 ) -> dict:
-    """Fetch a gatha by shastra NK + compact path segment (e.g. '1,2' or '8')."""
-    full_nk = gatha_nk_for_request(shastra_nk, raw_id)
-
-    gatha = await svc.get_by_ident(session, full_nk)
-    if gatha is None:
-        # Fallback: user may have typed values without zero-padding (e.g. "1,9"
-        # while NK is stored as "अधिकार:1:गाथा:009"). Scan gathas in this shastra
-        # and match by numeric equality of identifier values.
-        gatha = await _find_compound_gatha_fuzzy(session, shastra_nk, raw_id)
-    if gatha is None:
-        raise HTTPException(
-            404,
-            detail={"code": "not_found", "message": f"Gatha '{full_nk}' not found"},
-        )
-
-    inc = _parse_include(include)
+    """Assemble the full gatha-detail response payload for a resolved Gatha."""
     detail = await svc.get_detail(session, mongo, gatha, inc)
-    response.headers["Cache-Control"] = _CACHE_CONTROL
-
     shastra = detail["shastra"]
     out: dict = {
         "id": str(gatha.id),
@@ -328,3 +309,119 @@ async def get_gatha_by_path(
         out["kalashas"] = detail.get("kalashas", [])
 
     return out
+
+
+async def _resolve_gatha_by_number(
+    session: AsyncSession, shastra_nk: str, number: int, adhikaar: int | None = None,
+):
+    """Resolve an integer gatha number to a Gatha, compound-aware.
+
+    For single-identifier shastras the NK is simply `{nk}:गाथा:{number}`. For
+    compound shastras (e.g. परमात्मप्रकाश = अधिकार + गाथा, तत्त्वार्थसूत्र = अध्याय +
+    सूत्र) an integer alone is ambiguous across sections, so we scan the
+    shastra's gathas and match the गाथा-identifier value against `number`. When
+    `adhikaar` is given (the chapter/अधिकार/अध्याय the user named), the leading
+    section field must also match — this disambiguates e.g. "अध्याय 6 सूत्र 10".
+    Without `adhikaar` the first numeric match wins (ordered by natural_key).
+    The identifier scheme is read from shastra.json.
+    """
+    from jain_kb_common.shastra_identifiers import (
+        extract_identifier_values_from_suffix,
+        gatha_component_field,
+        get_identifier_fields,
+    )
+    from jain_kb_common.db.postgres.gathas import Gatha
+    from jain_kb_common.db.postgres.shastras import Shastra
+    from sqlalchemy import select as sa_select
+
+    # Locate the verse-number field (गाथा/श्लोक/सूत्र/दोहक/वार्तिक) from the
+    # shastra's compound identifier scheme. None → single-identifier shastra.
+    gatha_field = gatha_component_field(shastra_nk)
+    if gatha_field is None:
+        return await svc.get_by_ident(session, f"{shastra_nk}:गाथा:{number}")
+
+    fields = get_identifier_fields(shastra_nk, "gatha") or []
+    # The section field is the first declared field that is not the verse field
+    # (e.g. अधिकार / अध्याय). Used only when `adhikaar` is supplied.
+    section_field = next((f for f in fields if f != gatha_field), None)
+
+    shastra_row = await session.execute(
+        sa_select(Shastra).where(Shastra.natural_key == shastra_nk)
+    )
+    shastra = shastra_row.scalar_one_or_none()
+    if shastra is None:
+        return None
+
+    rows = await session.execute(
+        sa_select(Gatha).where(Gatha.shastra_id == shastra.id).order_by(Gatha.natural_key)
+    )
+    for g in rows.scalars():
+        suffix = g.natural_key[len(shastra_nk) + 1:]
+        vals = extract_identifier_values_from_suffix(shastra_nk, suffix)
+        if not vals:
+            continue
+        try:
+            if int(vals.get(gatha_field, "")) != number:
+                continue
+            if adhikaar is not None and section_field is not None:
+                if int(vals.get(section_field, "")) != adhikaar:
+                    continue
+        except ValueError:
+            continue
+        return g
+    return None
+
+
+@router.get("/shastras/{shastra_nk}/gathas/by-number/{number}")
+async def get_gatha_by_number(
+    shastra_nk: str,
+    number: int,
+    response: Response,
+    adhikaar: int | None = Query(None),
+    include: str | None = Query(None),
+    session: AsyncSession = Depends(get_session),
+    mongo: AsyncIOMotorDatabase = Depends(get_mongo_db),
+) -> dict:
+    """Fetch a gatha by shastra NK + a plain integer gatha number.
+
+    Backs the chat `direct_retrieval` sub-workflow, which knows
+    `(shastra, gatha_number)` and optionally an `adhikaar` (chapter) for
+    compound shastras. Resolution uses shastra.json.
+    """
+    gatha = await _resolve_gatha_by_number(session, shastra_nk, number, adhikaar)
+    if gatha is None:
+        raise HTTPException(
+            404,
+            detail={"code": "not_found", "message": f"Gatha {number} not found in '{shastra_nk}'"},
+        )
+
+    response.headers["Cache-Control"] = _CACHE_CONTROL
+    return await _render_gatha_detail(session, mongo, gatha, shastra_nk, _parse_include(include))
+
+
+@router.get("/shastras/{shastra_nk}/gathas/{raw_id}")
+async def get_gatha_by_path(
+    shastra_nk: str,
+    raw_id: str,
+    response: Response,
+    include: str | None = Query(None),
+    session: AsyncSession = Depends(get_session),
+    mongo: AsyncIOMotorDatabase = Depends(get_mongo_db),
+) -> dict:
+    """Fetch a gatha by shastra NK + compact path segment (e.g. '1,2' or '8')."""
+    full_nk = gatha_nk_for_request(shastra_nk, raw_id)
+
+    gatha = await svc.get_by_ident(session, full_nk)
+    if gatha is None:
+        # Fallback: user may have typed values without zero-padding (e.g. "1,9"
+        # while NK is stored as "अधिकार:1:गाथा:009"). Scan gathas in this shastra
+        # and match by numeric equality of identifier values.
+        gatha = await _find_compound_gatha_fuzzy(session, shastra_nk, raw_id)
+    if gatha is None:
+        raise HTTPException(
+            404,
+            detail={"code": "not_found", "message": f"Gatha '{full_nk}' not found"},
+        )
+
+    response.headers["Cache-Control"] = _CACHE_CONTROL
+    return await _render_gatha_detail(session, mongo, gatha, shastra_nk, _parse_include(include))
