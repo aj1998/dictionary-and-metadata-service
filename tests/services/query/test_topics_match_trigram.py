@@ -242,6 +242,121 @@ async def test_phonetic_neighbour_not_boosted_to_full_match(client: AsyncClient)
 
 
 @pytest.mark.asyncio
+async def test_token_coverage_guard_drops_missing_distinctive_token(
+    client: AsyncClient,
+) -> None:
+    """For 'सत् द्रव्य भेद', a topic that shares only द्रव्य/भेद but lacks सत्
+    must be dropped by the coverage guard, while a topic containing all three
+    survives and ranks on top. Reproduces the reported relevance bug."""
+    factory = client.state  # type: ignore[attr-defined]
+    # Contains सत् + द्रव्य + भेद (भेदाभेद) → full coverage.
+    await _insert_topic(
+        factory, "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद", "सत् व द्रव्य में कथंचित् भेदाभेद", is_leaf=True
+    )
+    # Shares only द्रव्य (1/3) → below 0.5 guard, must be dropped.
+    await _insert_topic(
+        factory, "अकारण:स्वतंत्र:केवल-द्रव्य-विषय", "केवल द्रव्य विषय", is_leaf=True
+    )
+
+    resp = await client.post(URL, json={
+        "phrase": "सत् द्रव्य भेद",
+        "min_token_coverage": 0.5,
+        "content_only": False,
+        "include_extracts": False,
+        "include_references": False,
+        "limit": 10,
+    })
+    assert resp.status_code == 200
+    nks = [m["topic_natural_key"] for m in resp.json()["matches"]]
+    assert "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद" in nks
+    assert "अकारण:स्वतंत्र:केवल-द्रव्य-विषय" not in nks
+
+
+@pytest.mark.asyncio
+async def test_full_coverage_outranks_partial_via_score(client: AsyncClient) -> None:
+    """A full-coverage topic must score above a partial-coverage one even when
+    the partial one has a higher raw trigram similarity (coverage weights score)."""
+    factory = client.state  # type: ignore[attr-defined]
+    # Full coverage (सत्+द्रव्य+भेद) but deep path → lower raw similarity.
+    await _insert_topic(
+        factory,
+        "द्रव्य:सत्-व-द्रव्य-में-कथंचित्-भेदाभेद:काल-की-अपेक्षा-कथंचित्-भेद-पक्ष-में-युक्ति",
+        "कथंचित् भेद पक्ष में युक्ति", is_leaf=True,
+    )
+    # Partial coverage (द्रव्य+भेद, no सत्) but shorter path → higher similarity.
+    await _insert_topic(
+        factory, "द्रव्य:द्रव्य-के-भेद-व-लक्षण:स्व-व-पर-द्रव्य-के-लक्षण", "स्व व पर द्रव्य के लक्षण", is_leaf=True
+    )
+
+    resp = await client.post(URL, json={
+        "phrase": "सत् द्रव्य भेद",
+        "content_only": False,
+        "include_extracts": False,
+        "include_references": False,
+        "limit": 10,
+    })
+    assert resp.status_code == 200
+    matches = resp.json()["matches"]
+    full = next(m for m in matches if m["topic_natural_key"].endswith("कथंचित्-भेद-पक्ष-में-युक्ति"))
+    partial = next(m for m in matches if m["topic_natural_key"].endswith("स्व-व-पर-द्रव्य-के-लक्षण"))
+    # Partial may have the higher raw similarity …
+    # … but full coverage must win on score (the field used for ranking).
+    assert full["score"] > partial["score"]
+
+
+@pytest.mark.asyncio
+async def test_coverage_matches_word_prefix_not_mid_substring(client: AsyncClient) -> None:
+    """Coverage is word-boundary aware: `सत्` must NOT match the middle of
+    `पंचास्तिकाय` (पंचा-स्ति-काय), so a topic that only *looks* like it contains
+    `सत्` scores below one that genuinely has `सत्` as a word — even if the
+    spurious one has a marginally higher raw trigram similarity."""
+    factory = client.state  # type: ignore[attr-defined]
+    # Genuine सत् as a word + द्रव्य + भेद → full coverage.
+    await _insert_topic(
+        factory, "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-सत्-तथा-उत्पादव्ययध्रौव्य",
+        "द्रव्य का लक्षण सत् तथा उत्पादव्ययध्रौव्य", is_leaf=True,
+    )
+    # Has द्रव्य + भेद but only a spurious 'सत' inside पंचास्तिकाय → 2/3 coverage.
+    await _insert_topic(
+        factory, "द्रव्य:द्रव्य-के-भेद-व-लक्षण:पंचास्तिकाय", "पंचास्तिकाय", is_leaf=True
+    )
+
+    resp = await client.post(URL, json={
+        "phrase": "सत् द्रव्य भेद",
+        "content_only": False,
+        "include_extracts": False,
+        "include_references": False,
+        "limit": 10,
+    })
+    assert resp.status_code == 200
+    matches = {m["topic_natural_key"]: m for m in resp.json()["matches"]}
+    genuine = matches["द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-सत्-तथा-उत्पादव्ययध्रौव्य"]
+    panch = matches.get("द्रव्य:द्रव्य-के-भेद-व-लक्षण:पंचास्तिकाय")
+    # Genuine सत् topic (full coverage) must rank above पंचास्तिकाय (partial).
+    assert panch is None or genuine["similarity"] > panch["similarity"]
+
+
+@pytest.mark.asyncio
+async def test_coverage_guard_disabled_keeps_low_coverage(client: AsyncClient) -> None:
+    """min_token_coverage=0.0 restores legacy behaviour (no coverage filter)."""
+    factory = client.state  # type: ignore[attr-defined]
+    await _insert_topic(
+        factory, "द्रव्य:द्रव्य-के-भेद-व-लक्षण:स्व-व-पर-द्रव्य-के-लक्षण", "स्व व पर द्रव्य के लक्षण", is_leaf=True
+    )
+
+    resp = await client.post(URL, json={
+        "phrase": "सत् द्रव्य भेद",
+        "min_token_coverage": 0.0,
+        "content_only": False,
+        "include_extracts": False,
+        "include_references": False,
+    })
+    assert resp.status_code == 200
+    nks = [m["topic_natural_key"] for m in resp.json()["matches"]]
+    assert "द्रव्य:द्रव्य-के-भेद-व-लक्षण:स्व-व-पर-द्रव्य-के-लक्षण" in nks
+
+
+@pytest.mark.asyncio
 async def test_container_topic_scored_lower(client: AsyncClient) -> None:
     """Container topics should have a lower score than leaf topics at same similarity."""
     factory = client.state  # type: ignore[attr-defined]

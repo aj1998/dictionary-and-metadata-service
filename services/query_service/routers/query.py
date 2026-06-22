@@ -160,6 +160,8 @@ async def topics_match(
         limit=fetch_limit,
         min_similarity=body.min_similarity,
         leaf_only=body.leaf_only,
+        coverage_tokens=tm_pipeline.build_coverage_tokens(body.coverage_tokens),
+        min_token_coverage=body.min_token_coverage,
     )
 
     extracts_map: dict[str, list[dict]] = {}
@@ -367,6 +369,8 @@ async def shastras_for_topic(
             limit=1,
             min_similarity=0.3,
             leaf_only=True,
+            coverage_tokens=tm_pipeline.build_coverage_tokens(body.keywords or []),
+            min_token_coverage=0.5,
         )
         if not hits:
             logger.info(

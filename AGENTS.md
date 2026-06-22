@@ -22,6 +22,25 @@ This file provides guidance to Agents like claude-code and codex when working wi
 9. **Manual Testing Steps/Docs**: Provide the user a set of verification commands/steps so that the change can be manually tested.
 10. **Pausing the implementation**: Whenever you detect that the implementation will be a long one and you require a subagent to do this, stop there. Instead of the implementation, only create phase-wise plan docs for other agents to implement including all the steps along with testing and instructions which were given to you.
 
+### Database Safety (CRITICAL — read before running any SQL or tests)
+- **`jain_kb_dev` is a LIVE database with real data — NEVER run destructive
+  statements against it.** This includes `TRUNCATE`, `DROP TABLE`/`DROP ... CASCADE`,
+  `DELETE`, schema `drop_all`, or anything that removes/overwrites rows. There are
+  no automatic backups; a truncate is unrecoverable without a manual re-ingest.
+- **Tests MUST run against `jain_kb_test`, never `jain_kb_dev`.** The test
+  conftest falls back to `DATABASE_URL` when `TEST_DATABASE_URL` is unset, and the
+  shell's default `DATABASE_URL` points at `jain_kb_dev` — so **always** run the
+  suite with an explicit override:
+  ```bash
+  DATABASE_URL="postgresql+asyncpg://$(whoami)@localhost/jain_kb_test" \
+    python -m pytest tests/ -q
+  ```
+- If a test run fails with duplicate-key / leftover-row errors, the cause is
+  almost always that it ran against `jain_kb_dev`. Fix the target DB — do **not**
+  truncate to "clean up".
+- Any destructive DB action requires **explicit user confirmation first**, even
+  during debugging, even on `_dev`/`_test` databases.
+
 ### Coding Conventions
 - **Pattern**: Functional components with named exports.
 - **Safety**: Do not modify database schemas or auth flows without an explicit approvals (if not asked by user in the start).

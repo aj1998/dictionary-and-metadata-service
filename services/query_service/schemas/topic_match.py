@@ -14,6 +14,16 @@ class TopicsMatchRequest(BaseModel):
     include_references: bool = True
     leaf_only: bool = False
     content_only: bool = True
+    # Token-coverage guard: a candidate topic must contain (normalized
+    # substring, anywhere in its natural_key path) at least this fraction of the
+    # query's meaningful tokens, otherwise it is dropped. Coverage ALSO weights
+    # the final score, so topics covering more query words always rank above
+    # those sharing only an incidental token — even within the surviving set.
+    # Default 0.5 keeps relevant child/sub-topics (which usually cover most
+    # tokens via their ancestor path) while dropping topics that match on a
+    # single common word. Raise to 1.0 to require every word; 0.0 disables the
+    # guard entirely (legacy behaviour).
+    min_token_coverage: float = 0.5
 
     @model_validator(mode="after")
     def require_keywords_or_phrase(self) -> "TopicsMatchRequest":
@@ -26,6 +36,17 @@ class TopicsMatchRequest(BaseModel):
         if self.phrase:
             return self.phrase
         return " ".join(self.keywords or [])
+
+    @property
+    def coverage_tokens(self) -> list[str]:
+        """Raw tokens used for the token-coverage guard.
+
+        Prefer the explicit ``keywords`` list (already meaningful units);
+        otherwise fall back to whitespace-splitting the phrase.
+        """
+        if self.keywords:
+            return list(self.keywords)
+        return (self.phrase or "").split()
 
 
 class ResolvedFieldOut(BaseModel):
