@@ -19,7 +19,7 @@
     "shastra_name": "अनगारधर्मामृत",
     "short_form": "अन.ध.",
     "format": [
-      "अधिकार/श्लोक/पृष्ठ"
+      "अधिकार/अनगारधर्मामृतश्लोक/पृष्ठ"
     ],
     "author": "पं. खूबचन्द, शोलापुर",
     "date_format": "ई.",
@@ -29,7 +29,10 @@
     "edition": "",
     "type": "publication",
     "alternate_name": "",
-    "public_url": ""
+    "public_url": "",
+    "gatha_identifier": "अधिकार,अनगारधर्मामृतश्लोक",
+    "link_not_found": true,
+    "optional_link": "https://www.vitragvani.com/files/document.ashx?path=uploads/pdfs/B/Anagaar%20Dharmaamrut_H.pdf"
   },
   {
     "shastra_name": "आत्मानुशासन",
@@ -770,10 +773,10 @@
     "public_url": ""
   },
   {
-    "shastra_name": "पद्मनन्दि पंचविंशतिका",
+    "shastra_name": "पद्मनन्दिपंचविंशतिका",
     "short_form": "पं.वि.",
     "format": [
-      "अधिकार/श्लोक"
+      "अधिकार/पद्मनन्दिपंचविंशतिकाश्लोक"
     ],
     "author": "",
     "date_format": "ई.",
@@ -783,7 +786,10 @@
     "edition": "",
     "type": "publication",
     "alternate_name": "",
-    "public_url": ""
+    "public_url": "https://jainworld.jainworld.com/JWHindi/Books/Padmanandi+Panchvinshati.pdf",
+    "pdf_filename": "padmanandi_panchvinshatika",
+    "pdf_page_offset": 44,
+    "gatha_identifier": "अधिकार,पद्मनन्दिपंचविंशतिकाश्लोक"
   },
   {
     "shastra_name": "पंचसंग्रह/प्राकृत",
@@ -1492,10 +1498,10 @@
     "public_url": ""
   },
   {
-    "shastra_name": "सागर धर्मामृत",
+    "shastra_name": "सागरधर्मामृत",
     "short_form": "सा.ध.",
     "format": [
-      "अधिकार/श्लोक"
+      "अधिकार/सागरधर्मामृतश्लोक"
     ],
     "author": "",
     "date_format": "",
@@ -1505,7 +1511,8 @@
     "edition": "",
     "type": "shastra",
     "alternate_name": "",
-    "public_url": ""
+    "public_url": "",
+    "gatha_identifier": "अधिकार,सागरधर्मामृतश्लोक"
   },
   {
     "shastra_name": "सामायिक पाठ",
@@ -1588,10 +1595,10 @@
     "public_url": ""
   },
   {
-    "shastra_name": "हरिवंश पुराण",
+    "shastra_name": "हरिवंशपुराण",
     "short_form": "ह.पु.",
     "format": [
-      "सर्ग/श्लोक"
+      "सर्ग/हरिवंशपुराणश्लोक"
     ],
     "author": "",
     "date_format": "",
@@ -1601,7 +1608,8 @@
     "edition": "",
     "type": "publication",
     "alternate_name": "",
-    "public_url": ""
+    "public_url": "https://archive.org/details/in.ernet.dli.2015.325950/page/n3/mode/2up",
+    "gatha_identifier": "सर्ग,हरिवंशपुराणश्लोक"
   },
   {
     "shastra_name": "जैन सिद्धांत प्रवेशिका",
