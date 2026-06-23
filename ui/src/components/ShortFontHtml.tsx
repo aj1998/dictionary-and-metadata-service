@@ -34,8 +34,18 @@ export function ShortFontHtml({ html, entries, className }: ShortFontHtmlProps) 
       if (target.closest('[data-sf-idx]')) return;
       setPopover(null);
     };
+    // The popover is fixed-positioned from a one-time getBoundingClientRect, so it
+    // would drift away from its anchor on scroll. Dismiss it instead of letting it
+    // float over unrelated text. Capture phase catches nested scroll containers.
+    const close = () => setPopover(null);
     document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
+    window.addEventListener('scroll', close, true);
+    window.addEventListener('resize', close);
+    return () => {
+      document.removeEventListener('mousedown', handler);
+      window.removeEventListener('scroll', close, true);
+      window.removeEventListener('resize', close);
+    };
   }, [popover]);
 
   // After mount, measure actual popover height and flip/clamp to viewport.
