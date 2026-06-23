@@ -55,6 +55,11 @@ _COLLECTION_LANG: dict[str, str] = {
 _GATHA_VERSE_COLLECTIONS: frozenset[str] = frozenset({"gatha_prakrit", "gatha_sanskrit"})
 _TEEKA_GATHA_MAPPING = "teeka_gatha_mapping"
 
+# Sanskrit-teeka collection whose source block (sanskrit_text) also carries a
+# Hindi भावार्थ worth matching the block's `hindi_translation` against.
+_GATHA_TEEKA_SANSKRIT = "gatha_teeka_sanskrit"
+_GATHA_TEEKA_BHAAVARTH_HINDI = "gatha_teeka_bhaavarth_hindi"
+
 
 @dataclass
 class Target:
@@ -349,7 +354,75 @@ RETURN
             if anvayartha is not None:
                 targets.append(anvayartha)
 
+        # Second target: the gatha's Hindi भावार्थ (bhaavarth panel). A
+        # `sanskrit_text` block carries the Sanskrit teeka in `text_devanagari`
+        # (matched above against `gatha_teeka_sanskrit`) and its Hindi
+        # translation — which IS the published भावार्थ — in `hindi_translation`.
+        # Mirror the अन्वयार्थ pattern: when the primary target is a Sanskrit
+        # teeka and the block has a Hindi translation, also match that
+        # translation against the gatha's `gatha_teeka_bhaavarth_hindi` doc so
+        # the भावार्थ panel highlights alongside the teeka.
+        if (
+            stub_label == "GathaTeeka"
+            and collection == _GATHA_TEEKA_SANSKRIT
+            and source.hindi_translation
+        ):
+            # Strip the `:टीका:san` suffix to recover the teeka_gatha key
+            # (`{teeka_nk}:{gseg}`), which the bhaavarth doc stores as
+            # `gatha_teeka_natural_key`.
+            gatha_teeka_nk = mongo_nk
+            for suffix in (f":{_TEEKA}:san", f":{_TEEKA}:hi"):
+                if gatha_teeka_nk.endswith(suffix):
+                    gatha_teeka_nk = gatha_teeka_nk[: -len(suffix)]
+                    break
+            bhaavarth = await _resolve_bhaavarth_target(
+                mongo, gatha_teeka_nk, gatha_nk, shastra_nk
+            )
+            if bhaavarth is not None:
+                targets.append(bhaavarth)
+
     return targets
+
+
+async def _resolve_bhaavarth_target(
+    mongo,
+    gatha_teeka_nk: str,
+    gatha_nk: str | None,
+    shastra_nk: str | None,
+) -> Target | None:
+    """Build a `gatha_teeka_bhaavarth_hindi` (भावार्थ) target for a sanskrit teeka.
+
+    The bhaavarth doc is keyed independently of the teeka (it carries a
+    publication index, e.g. `…:0:96:भावार्थ:hi`), but stores the owning teeka's
+    `gatha_teeka_natural_key` (`{teeka_nk}:{gseg}`), so we look it up by that
+    field rather than re-deriving the publication-prefixed NK. Returns None when
+    no bhaavarth doc exists (so we don't emit a noisy `target_missing` for teekas
+    that simply have no भावार्थ). The matched text is the doc's first `text`
+    entry — exactly what the भावार्थ panel renders and highlights against.
+    """
+    doc = await mongo[_GATHA_TEEKA_BHAAVARTH_HINDI].find_one(
+        {"gatha_teeka_natural_key": gatha_teeka_nk}
+    )
+    if doc is None:
+        return None
+    text_list = doc.get("text", [])
+    text = None
+    if text_list and isinstance(text_list, list) and text_list[0]:
+        text = text_list[0].get("text") if isinstance(text_list[0], dict) else None
+    if not text:
+        return None
+    return Target(
+        collection=_GATHA_TEEKA_BHAAVARTH_HINDI,
+        natural_key=doc["natural_key"],
+        stub_label="GathaTeekaBhaavarth",
+        shastra_natural_key=shastra_nk,
+        gatha_natural_key=gatha_nk,
+        lang=_COLLECTION_LANG.get(_GATHA_TEEKA_BHAAVARTH_HINDI),
+        text=text,
+        status_hint=None,
+        source_text_kind="hindi_translation",
+        match_block_kind="hindi_text",
+    )
 
 
 async def _resolve_anvayartha_target(

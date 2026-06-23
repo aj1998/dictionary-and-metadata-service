@@ -87,6 +87,27 @@ both panels at once. Implemented via `Target.source_text_kind` /
 [target_resolver.py](../../../workers/matching/target_resolver.py). No mapping
 doc → no row (we don't emit a noisy `target_missing` for anvayartha-less gathas).
 
+### Bhaavarth (भावार्थ) second target
+
+A `sanskrit_text` block resolves to a `GathaTeeka` stub and matches the Sanskrit
+teeka (`gatha_teeka_sanskrit`) on `text_devanagari`. But such a block's
+`hindi_translation` **is** the published Hindi भावार्थ — the same text the
+reading page renders in the bhaavarth panel. So, exactly mirroring the
+अन्वयार्थ pattern above, when the primary target is a Sanskrit teeka **and** the
+source block carries a `hindi_translation`, the resolver emits a *second* target
+against the gatha's `gatha_teeka_bhaavarth_hindi` doc, matched on the block's
+`hindi_translation` (not `text_devanagari`) with the `hindi_text` threshold.
+The bhaavarth doc is keyed with a publication index
+(`प्रवचनसार:तत्त्वप्रदीपिका:0:96:भावार्थ:hi`) that the `GathaTeeka` stub does not
+carry, so `_resolve_bhaavarth_target` looks it up by the doc's
+`gatha_teeka_natural_key` field (`{teeka_nk}:{gseg}`, recovered by stripping the
+`:टीका:san` suffix from the teeka Mongo NK) rather than re-deriving the prefixed
+NK. No bhaavarth doc → no row (we don't emit a noisy `target_missing`). So one
+`sanskrit_text` block fans out to both the Sanskrit-teeka match and the भावार्थ
+match, and the UI highlights both panels at once. Implemented via
+`_resolve_bhaavarth_target` in
+[target_resolver.py](../../../workers/matching/target_resolver.py).
+
 ### Compound-identifier shastras (परमात्मप्रकाश and similar)
 
 For shastras declared with a `gatha_identifier` in
@@ -467,6 +488,7 @@ At minimum, also review:
 
 | Date | Change |
 |---|---|
+| 2026-06-24 | **Bhaavarth (भावार्थ) second target.** A `sanskrit_text` block resolving to a `GathaTeeka` (Sanskrit teeka) whose `hindi_translation` is the published Hindi भावार्थ now also emits a `gatha_teeka_bhaavarth_hindi` target matched against that translation (`source_text_kind="hindi_translation"`, threshold `hindi_text`), so the भावार्थ panel highlights alongside the Sanskrit teeka. Previously only the Sanskrit teeka matched and the भावार्थ panel never highlighted (e.g. द्रव्य → प्रवचनसार/तत्त्वप्रदीपिका गाथा 96). The bhaavarth doc is looked up by its `gatha_teeka_natural_key` field (`{teeka_nk}:{gseg}`), recovered by stripping `:टीका:san` from the teeka Mongo NK, because the `GathaTeeka` stub lacks the publication-prefixed NK. No UI change needed — the reading page already keys the bhaavarth panel highlight by `bh.natural_key`, and `useMatchEntries` groups the teeka + bhaavarth matches as same-gatha siblings into one repeated-`?match=` deep-link. Files: `workers/matching/target_resolver.py`, `tests/workers/matching/test_target_resolver.py`. |
 | 2026-06-24 | **Anvayartha (शब्दार्थ) second target + multi-highlight.** A `Gatha` verse target whose source block has a `hindi_translation` now also emits a `teeka_gatha_mapping` (अन्वयार्थ) target matched against that translation (`Target.source_text_kind="hindi_translation"`, threshold `hindi_text`), so the शब्दार्थ panel highlights alongside the verse. UI: `buildGathaHref` accepts sibling match keys → repeated `?match=` params; the gatha reading page accepts `match: string \| string[]`, highlights every matched panel, and `HighlightScrollIntoView` pulses all of them. Files: `workers/matching/{source_iter,target_resolver,orchestrator,apply_match}.py`, `ui/src/lib/gatha-content.ts`, `ui/src/components/{ViewInShastraButton,ShabdaArthSection,HighlightScrollIntoView}.tsx`, `ui/src/app/.../gathas/[number]/page.tsx`. |
 | 2026-06-24 | **`(Gatha, sanskrit_text)` routing.** Root "shastra"-type shastras whose primary verse is Sanskrit (e.g. तत्त्वार्थसूत्र) are extracted by JainKosh as a `sanskrit_text` block, but `reference_edges._emit_gatha` emits a `Gatha` stub for *every* block kind under a `shastra`-type shastra (the sutra **is** the gatha). The matcher's `_ROUTING` lacked `(Gatha, sanskrit_text)`, so the resolver dropped the edge — no `extract_matches` row at all, hence no "View in Shastra" link on e.g. द्रव्य → तत्त्वार्थसूत्र 5/29 (`सत् द्रव्यलक्षणम्`). Added `(Gatha, sanskrit_text) → gatha_sanskrit` and the matching `_derive_mongo_nk` branch (`{stub_nk}:sanskrit`). Files: `workers/matching/target_resolver.py`, `tests/workers/matching/test_target_resolver.py`. |
 | 2026-06-16 | **Compound-identifier support in `target_resolver`.** Two fixes for compound shastras (परमात्मप्रकाश etc.): (a) `GathaTeeka` / `GathaTeekaBhaavarth` Mongo NK now uses the full compound suffix (`अधिकार:1:गाथा:001`) via the new `_mongo_seg_from_gatha_nk` helper, mirroring `envelope._gatha_mongo_segment` — previously `gatha_nk.split(":")[-1]` dropped the prefix and silently produced `target_missing` for every compound teeka/bhaavarth. (b) `_padded_variant_nk` zero-padding fallback retries the Mongo lookup with the alternate padding of the last numeric segment so JainKosh's raw citation NKs (`…:गाथा:12`) hit NJ's zero-padded docs (`…:गाथा:012`). Mirrors the `_find_compound_gatha_fuzzy` server-side fallback. Files: `workers/matching/target_resolver.py`, `tests/workers/matching/test_target_resolver.py`. |

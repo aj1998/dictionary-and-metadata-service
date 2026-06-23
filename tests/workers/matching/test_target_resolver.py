@@ -256,6 +256,102 @@ async def test_gatha_stub_no_anvayartha_target_without_hindi_translation():
 
 
 @pytest.mark.asyncio
+async def test_gatha_teeka_stub_emits_bhaavarth_target_from_hindi_translation():
+    """A GathaTeeka (sanskrit teeka) target + a block with hindi_translation also
+    yields a gatha_teeka_bhaavarth_hindi (भावार्थ) target matched against the
+    Hindi side, looked up by gatha_teeka_natural_key."""
+    records = [
+        _make_neo4j_record(
+            stub_nk="प्रवचनसार:तत्त्वप्रदीपिका:गाथा:टीका:96",
+            stub_labels=["GathaTeeka"],
+            teeka_natural_key="प्रवचनसार:तत्त्वप्रदीपिका",
+            gatha_natural_key="प्रवचनसार:गाथा:96",
+            shastra_natural_key="प्रवचनसार",
+        )
+    ]
+    driver = _make_driver(records)
+    mongo = _make_mongo({
+        "gatha_teeka_sanskrit": {
+            "natural_key": "प्रवचनसार:तत्त्वप्रदीपिका:96:टीका:san",
+            "text": [{"lang": "san", "text": "अस्तित्वं हि किल द्रव्यस्य स्वभाव:"}],
+        },
+        "gatha_teeka_bhaavarth_hindi": {
+            "natural_key": "प्रवचनसार:तत्त्वप्रदीपिका:0:96:भावार्थ:hi",
+            "gatha_teeka_natural_key": "प्रवचनसार:तत्त्वप्रदीपिका:96",
+            "text": [{"lang": "hin", "text": "अस्तित्व वास्तव में द्रव्य का स्वभाव है।"}],
+        },
+    })
+
+    source = SourceBlock(
+        kind="topic_extract",
+        parent_natural_key="द्रव्य:...:द्रव्य-का-लक्षण",
+        section_index=None,
+        definition_index=None,
+        block_index=3,
+        block_kind="sanskrit_text",
+        text_devanagari="अस्तित्वं हि किल द्रव्यस्य स्वभाव:",
+        reference_text="प्रवचनसार/96",
+        references=[],
+        hindi_translation="अस्तित्व वास्तव में द्रव्य का स्वभाव है।",
+    )
+
+    targets = await resolve_targets(driver, mongo, source)
+    assert len(targets) == 2
+    teeka, bhaav = targets
+    assert teeka.collection == "gatha_teeka_sanskrit"
+    assert teeka.source_text_kind == "devanagari"
+
+    assert bhaav.collection == "gatha_teeka_bhaavarth_hindi"
+    assert bhaav.natural_key == "प्रवचनसार:तत्त्वप्रदीपिका:0:96:भावार्थ:hi"
+    assert bhaav.gatha_natural_key == "प्रवचनसार:गाथा:96"
+    assert bhaav.lang == "hin"
+    assert bhaav.text == "अस्तित्व वास्तव में द्रव्य का स्वभाव है।"
+    assert bhaav.source_text_kind == "hindi_translation"
+    assert bhaav.match_block_kind == "hindi_text"
+
+
+@pytest.mark.asyncio
+async def test_gatha_teeka_stub_no_bhaavarth_target_without_hindi_translation():
+    """No bhaavarth target when the sanskrit_text block has no hindi_translation."""
+    records = [
+        _make_neo4j_record(
+            stub_nk="समयसार:amritchandra:गाथा:टीका:1",
+            stub_labels=["GathaTeeka"],
+            teeka_natural_key="समयसार:amritchandra",
+            gatha_natural_key="समयसार:गाथा:1",
+            shastra_natural_key="समयसार",
+        )
+    ]
+    driver = _make_driver(records)
+    mongo = _make_mongo({
+        "gatha_teeka_sanskrit": {
+            "natural_key": "समयसार:amritchandra:1:टीका:san",
+            "text": [{"lang": "san", "text": "अथ तत्त्वार्थ"}],
+        },
+        "gatha_teeka_bhaavarth_hindi": {
+            "natural_key": "समयसार:amritchandra:0:1:भावार्थ:hi",
+            "gatha_teeka_natural_key": "समयसार:amritchandra:1",
+            "text": [{"lang": "hin", "text": "..."}],
+        },
+    })
+    source = SourceBlock(
+        kind="keyword_definition",
+        parent_natural_key="आत्मा",
+        section_index=0,
+        definition_index=0,
+        block_index=1,
+        block_kind="sanskrit_text",
+        text_devanagari="अथ तत्त्वार्थ",
+        reference_text="समयसार टीका 1",
+        references=[],
+        hindi_translation=None,
+    )
+    targets = await resolve_targets(driver, mongo, source)
+    assert len(targets) == 1
+    assert targets[0].collection == "gatha_teeka_sanskrit"
+
+
+@pytest.mark.asyncio
 async def test_gatha_teeka_stub_routes_to_teeka_sanskrit():
     """GathaTeeka stub + sanskrit_text → gatha_teeka_sanskrit collection."""
     records = [

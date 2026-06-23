@@ -7,6 +7,12 @@ const SF_SEP = '\x03';
 const SF_CLOSE = '\x02/sf\x03';
 const SF_SENTINEL_RE = /\x02sf:(\d+)\x03([\s\S]*?)\x02\/sf\x03/g;
 
+/** Opening shortfont sentinel for a given entry index (exposed so other
+ * formatters can interleave shortfont + highlight sentinels in one pass). */
+export const shortFontOpenToken = (entryIdx: number): string => `${SF_OPEN}${entryIdx}${SF_SEP}`;
+/** Closing shortfont sentinel. */
+export const SHORTFONT_CLOSE_TOKEN = SF_CLOSE;
+
 export interface SegmentShortFontEntry {
   entry: BhaavarthShortFontEntry;
   entryIdx: number;

@@ -4,6 +4,7 @@ import { splitHighlight } from '@/lib/highlight';
 import type { HighlightRange } from '@/lib/highlight';
 import { teekaMarkdownToHtml } from '@/lib/format/teeka-markdown';
 import { parseBhaavarthSegments } from '@/lib/format/bhaavarth-segments';
+import { injectHighlightAndShortFont, postProcessHighlightHtml } from '@/lib/format/bhaavarth-highlight';
 import {
   getSegmentEntries,
   injectShortFontSentinels,
@@ -90,25 +91,43 @@ export function BhaavarthPanel({ label, text, naturalKey, highlight, className, 
               && highlight.start < segment.end
               && highlight.end > segment.start;
 
-            if (overlapsHighlight) {
-              const localStart = Math.max(0, highlight.start - segment.start);
-              const localEnd = Math.min(segment.text.length, highlight.end - segment.start);
-              const localSplit = splitHighlight(segment.text, { start: localStart, end: localEnd });
-
-              if (localSplit) {
-                return (
-                  <p key={`highlight-${index}`} className="whitespace-pre-wrap font-serif-hindi text-[length:var(--font-size-body)] leading-[1.85] text-foreground">
-                    {localSplit.before}
-                    <mark className="rounded bg-[var(--accent-soft)] text-[var(--accent)]">{localSplit.matched}</mark>
-                    {localSplit.after}
-                  </p>
-                );
-              }
-            }
-
             const sfEntries = shortFontEntries?.length
               ? getSegmentEntries(shortFontEntries, segment.start, segment.end)
               : [];
+
+            if (overlapsHighlight) {
+              const localStart = Math.max(0, highlight.start - segment.start);
+              const localEnd = Math.min(segment.text.length, highlight.end - segment.start);
+              // Splice the highlight sentinel — and any shortfont sentinels — into
+              // the RAW markdown text, then run markdown→HTML so the matched span
+              // stays formatted (italic glosses, emphasis) instead of leaking raw
+              // markers like `*((…))*`, AND keeps its clickable shortfont anchors.
+              const injected = injectHighlightAndShortFont(
+                segment.text,
+                sfEntries.map((e) => ({ localStart: e.localStart, localEnd: e.localEnd, entryIdx: e.entryIdx })),
+                localStart,
+                localEnd,
+              );
+              const rendered = teekaMarkdownToHtml(injected);
+              const html = postProcessHighlightHtml(postProcessShortFontHtml(rendered));
+              if (sfEntries.length > 0) {
+                return (
+                  <ShortFontHtml
+                    key={`highlight-${index}`}
+                    html={html}
+                    entries={shortFontEntries!}
+                    className="font-serif-hindi text-[length:var(--font-size-body)] leading-[1.85] text-foreground teeka-content"
+                  />
+                );
+              }
+              return (
+                <div
+                  key={`highlight-${index}`}
+                  className="font-serif-hindi text-[length:var(--font-size-body)] leading-[1.85] text-foreground teeka-content"
+                  dangerouslySetInnerHTML={{ __html: html }}
+                />
+              );
+            }
 
             if (sfEntries.length > 0) {
               const injected = injectShortFontSentinels(segment.text, sfEntries);
