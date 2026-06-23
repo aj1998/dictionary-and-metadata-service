@@ -114,9 +114,13 @@ export function extractGathaNumberFromTargetNk(naturalKey: string): string {
 
 /**
  * Builds the deep-link URL for a gatha reading page with the match highlighted.
- * Returns /shastras/<shastra-nk>/gathas/<gatha-number>?match=<match.natural_key>
+ * Returns /shastras/<shastra-nk>/gathas/<gatha-number>?match=<key>[&match=<key>…]
+ *
+ * `extraMatchKeys` carries sibling match natural-keys that target other panels
+ * of the *same* gatha (e.g. the verse match plus the अन्वयार्थ/शब्दार्थ match),
+ * so the reading page can highlight all of them at once.
  */
-export function buildGathaHref(match: ExtractMatch): string {
+export function buildGathaHref(match: ExtractMatch, extraMatchKeys: string[] = []): string {
   const targetNk = match.target.natural_key;
   // shastra natural key is the first segment before the first ":"
   const shastraNk = match.target.shastra_natural_key ?? targetNk.split(':')[0] ?? '';
@@ -126,8 +130,10 @@ export function buildGathaHref(match: ExtractMatch): string {
   // populate `gatha_natural_key`.
   const gathaNkOrNumber =
     match.target.gatha_natural_key ?? extractGathaNumberFromTargetNk(targetNk);
+  const keys = [match.natural_key, ...extraMatchKeys.filter((k) => k !== match.natural_key)];
+  const query = keys.map((k) => `match=${encodeURIComponent(k)}`).join('&');
   return (
     `/shastras/${encodeURIComponent(shastraNk)}/gathas/${encodeURIComponent(gathaNkOrNumber)}` +
-    `?match=${encodeURIComponent(match.natural_key)}`
+    `?${query}`
   );
 }

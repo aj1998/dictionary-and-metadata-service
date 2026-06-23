@@ -44,8 +44,8 @@ selectors:
   secondary_teeka_select: "select#select-native-1"
   gatha_title_div: "div.title[id^='gatha-']"
   gatha_heading_link: "div.title > span > a"
-  gatha_prakrit: "div.gatha"
-  gatha_sanskrit: "div.gathaS"
+  gatha_prakrit: null
+  gatha_sanskrit: "div.gatha"
   gatha_hindi_chhand_body: "div.gadya"
   anyavartha_para: "div.paragraph"
   anyavartha_marker: "अन्वयार्थ"

@@ -118,6 +118,144 @@ async def test_gatha_stub_routes_to_gatha_prakrit():
 
 
 @pytest.mark.asyncio
+async def test_gatha_stub_sanskrit_text_routes_to_gatha_sanskrit():
+    """Gatha stub + sanskrit_text → gatha_sanskrit collection.
+
+    For root "shastra"-type shastras whose primary verse is Sanskrit (e.g.
+    तत्त्वार्थसूत्र), JainKosh extracts the sutra as a ``sanskrit_text`` block but
+    emits a ``Gatha`` stub (the sutra *is* the gatha). The Sanskrit body lives
+    in ``gatha_sanskrit``, so this combo must route there — not be dropped.
+    """
+    records = [
+        _make_neo4j_record(
+            stub_nk="तत्त्वार्थसूत्र:अध्याय:5:सूत्र:29",
+            stub_labels=["Gatha"],
+            shastra_natural_key="तत्त्वार्थसूत्र",
+        )
+    ]
+    driver = _make_driver(records)
+    expected_mongo_nk = "तत्त्वार्थसूत्र:अध्याय:5:सूत्र:29:sanskrit"
+    mongo = _make_mongo({
+        "gatha_sanskrit": {
+            "natural_key": expected_mongo_nk,
+            "text": [{"lang": "san", "text": "सत् द्रव्य-लक्षणम्"}],
+        }
+    })
+
+    source = SourceBlock(
+        kind="topic_extract",
+        parent_natural_key="द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-सत्-तथा-उत्पादव्ययध्रौव्य",
+        section_index=None,
+        definition_index=None,
+        block_index=0,
+        block_kind="sanskrit_text",
+        text_devanagari="सत् द्रव्यलक्षणम्।29।",
+        reference_text="तत्त्वार्थसूत्र/5/29",
+        references=[],
+    )
+
+    targets = await resolve_targets(driver, mongo, source)
+    assert len(targets) == 1
+    t = targets[0]
+    assert t.collection == "gatha_sanskrit"
+    assert t.natural_key == expected_mongo_nk
+    assert t.lang == "san"
+    assert t.stub_label == "Gatha"
+    assert t.gatha_natural_key == "तत्त्वार्थसूत्र:अध्याय:5:सूत्र:29"
+    assert t.text == "सत् द्रव्य-लक्षणम्"
+
+
+@pytest.mark.asyncio
+async def test_gatha_stub_emits_anvayartha_target_from_hindi_translation():
+    """A Gatha verse target + a block with hindi_translation also yields a
+    teeka_gatha_mapping (अन्वयार्थ) target matched against the Hindi side."""
+    records = [
+        _make_neo4j_record(
+            stub_nk="तत्त्वार्थसूत्र:अध्याय:5:सूत्र:29",
+            stub_labels=["Gatha"],
+            shastra_natural_key="तत्त्वार्थसूत्र",
+        )
+    ]
+    driver = _make_driver(records)
+    mongo = _make_mongo({
+        "gatha_sanskrit": {
+            "natural_key": "तत्त्वार्थसूत्र:अध्याय:5:सूत्र:29:sanskrit",
+            "text": [{"lang": "san", "text": "सत् द्रव्य-लक्षणम्"}],
+        },
+        "teeka_gatha_mapping": {
+            "natural_key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:अध्याय:5:सूत्र:29",
+            "gatha_natural_key": "तत्त्वार्थसूत्र:अध्याय:5:सूत्र:29",
+            "full_anyavaarth": "द्रव्य का लक्षण सत् है ॥२९॥",
+        },
+    })
+
+    source = SourceBlock(
+        kind="topic_extract",
+        parent_natural_key="द्रव्य:...:द्रव्य-का-लक्षण-सत्",
+        section_index=None,
+        definition_index=None,
+        block_index=0,
+        block_kind="sanskrit_text",
+        text_devanagari="सत् द्रव्यलक्षणम्।29।",
+        reference_text="तत्त्वार्थसूत्र/5/29",
+        references=[],
+        hindi_translation="द्रव्य का लक्षण सत् है।",
+    )
+
+    targets = await resolve_targets(driver, mongo, source)
+    assert len(targets) == 2
+    verse, anvay = targets
+    assert verse.collection == "gatha_sanskrit"
+    assert verse.source_text_kind == "devanagari"
+
+    assert anvay.collection == "teeka_gatha_mapping"
+    assert anvay.natural_key == "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:अध्याय:5:सूत्र:29"
+    assert anvay.gatha_natural_key == "तत्त्वार्थसूत्र:अध्याय:5:सूत्र:29"
+    assert anvay.lang == "hin"
+    assert anvay.text == "द्रव्य का लक्षण सत् है ॥२९॥"
+    assert anvay.source_text_kind == "hindi_translation"
+    assert anvay.match_block_kind == "hindi_text"
+
+
+@pytest.mark.asyncio
+async def test_gatha_stub_no_anvayartha_target_without_hindi_translation():
+    """No teeka_gatha_mapping target when the block has no hindi_translation."""
+    records = [
+        _make_neo4j_record(
+            stub_nk="समयसार:गाथा:1",
+            stub_labels=["Gatha"],
+            shastra_natural_key="समयसार",
+        )
+    ]
+    driver = _make_driver(records)
+    mongo = _make_mongo({
+        "gatha_prakrit": {
+            "natural_key": "समयसार:गाथा:1:prakrit",
+            "text": [{"lang": "pra", "text": "णमो अरिहंताणं"}],
+        },
+        "teeka_gatha_mapping": {
+            "natural_key": "समयसार:आत्मख्याति:1",
+            "full_anyavaarth": "...",
+        },
+    })
+    source = SourceBlock(
+        kind="topic_extract",
+        parent_natural_key="आत्मा",
+        section_index=None,
+        definition_index=None,
+        block_index=0,
+        block_kind="prakrit_gatha",
+        text_devanagari="णमो अरिहंताणं",
+        reference_text="समयसार गाथा 1",
+        references=[],
+        hindi_translation=None,
+    )
+    targets = await resolve_targets(driver, mongo, source)
+    assert len(targets) == 1
+    assert targets[0].collection == "gatha_prakrit"
+
+
+@pytest.mark.asyncio
 async def test_gatha_teeka_stub_routes_to_teeka_sanskrit():
     """GathaTeeka stub + sanskrit_text → gatha_teeka_sanskrit collection."""
     records = [

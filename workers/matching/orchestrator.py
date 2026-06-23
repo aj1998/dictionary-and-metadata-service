@@ -50,12 +50,21 @@ async def _process_block(
         stats.edges_attempted += 1
         result = None
 
+        # The anvayartha target matches the block's Hindi translation instead of
+        # its source-language verse; everything else uses text_devanagari.
+        src_text = (
+            source.hindi_translation
+            if target.source_text_kind == "hindi_translation"
+            else source.text_devanagari
+        )
+        block_kind_for_threshold = target.match_block_kind or source.block_kind
+
         if target.status_hint == "target_missing":
             stats.target_missing += 1
-        elif target.text and source.text_devanagari:
-            src_norm = normalize(source.text_devanagari)
+        elif target.text and src_text:
+            src_norm = normalize(src_text)
             tgt_norm = normalize(target.text)
-            threshold = threshold_for(source.block_kind)  # type: ignore[arg-type]
+            threshold = threshold_for(block_kind_for_threshold)  # type: ignore[arg-type]
             result = locate(src_norm, tgt_norm, threshold=threshold)
             if result.matched:
                 stats.matched += 1

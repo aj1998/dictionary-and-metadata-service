@@ -23,6 +23,11 @@ _ROUTING: dict[tuple[str, str], str] = {
     ("Gatha", "prakrit_gatha"): "gatha_prakrit",
     ("Gatha", "prakrit_text"): "gatha_prakrit",
     ("Gatha", "sanskrit_gatha"): "gatha_sanskrit",
+    # Root "shastra"-type shastras whose primary verse is Sanskrit (e.g.
+    # तत्त्वार्थसूत्र) are extracted by JainKosh as a `sanskrit_text` block but
+    # emit a `Gatha` stub — the sutra *is* the gatha. Its Sanskrit body lives in
+    # `gatha_sanskrit`, so route there rather than dropping the edge.
+    ("Gatha", "sanskrit_text"): "gatha_sanskrit",
     ("GathaTeeka", "sanskrit_text"): "gatha_teeka_sanskrit",
     ("GathaTeekaBhaavarth", "hindi_text"): "gatha_teeka_bhaavarth_hindi",
     ("Kalash", "sanskrit_gatha"): "kalash_sanskrit",
@@ -42,7 +47,13 @@ _COLLECTION_LANG: dict[str, str] = {
     "kalash_sanskrit": "san",
     "kalash_hindi": "hin",
     "kalash_bhaavarth_hindi": "hin",
+    "teeka_gatha_mapping": "hin",
 }
+
+# Gatha-verse collections whose Gatha stub also carries a Hindi अन्वयार्थ
+# (शब्दार्थ panel) worth matching the block's `hindi_translation` against.
+_GATHA_VERSE_COLLECTIONS: frozenset[str] = frozenset({"gatha_prakrit", "gatha_sanskrit"})
+_TEEKA_GATHA_MAPPING = "teeka_gatha_mapping"
 
 
 @dataclass
@@ -55,6 +66,14 @@ class Target:
     lang: str | None
     text: str | None            # extracted from Mongo doc; None if target_missing
     status_hint: str | None     # "target_missing" when Mongo doc absent
+    # Which source-block field to match against this target's text. "devanagari"
+    # uses the source-language verse (`text_devanagari`); "hindi_translation"
+    # uses the block's absorbed Hindi translation (for the अन्वयार्थ/शब्दार्थ
+    # panel). Drives both the source text and the score threshold.
+    source_text_kind: str = "devanagari"
+    # Block kind used to pick the matching threshold; defaults to the source
+    # block's own kind when None.
+    match_block_kind: str | None = None
 
 
 def _padded_variant_nk(nk: str, width: int = 3) -> str | None:
@@ -116,7 +135,7 @@ def _derive_mongo_nk(
     if stub_label == "Gatha":
         if block_kind in ("prakrit_gatha", "prakrit_text"):
             return f"{stub_nk}:prakrit"
-        if block_kind == "sanskrit_gatha":
+        if block_kind in ("sanskrit_gatha", "sanskrit_text"):
             return f"{stub_nk}:sanskrit"
 
     if stub_label == "GathaTeeka":
@@ -312,7 +331,62 @@ RETURN
             status_hint=status_hint,
         ))
 
+        # Second target: the gatha's Hindi अन्वयार्थ (शब्दार्थ panel). When the
+        # primary verse target is a Gatha and the source block carries an
+        # absorbed Hindi translation, also match that translation against the
+        # gatha's first teeka_gatha_mapping doc (mirrors the reading page's
+        # `primaryMapping = teekaMapping[0]`), so the अन्वयार्थ panel highlights
+        # alongside the verse.
+        if (
+            stub_label == "Gatha"
+            and collection in _GATHA_VERSE_COLLECTIONS
+            and source.hindi_translation
+            and gatha_nk
+        ):
+            anvayartha = await _resolve_anvayartha_target(
+                mongo, gatha_nk, shastra_nk
+            )
+            if anvayartha is not None:
+                targets.append(anvayartha)
+
     return targets
+
+
+async def _resolve_anvayartha_target(
+    mongo,
+    gatha_nk: str,
+    shastra_nk: str | None,
+) -> Target | None:
+    """Build a teeka_gatha_mapping (अन्वयार्थ) target for a gatha.
+
+    Mirrors core_service's `primaryMapping = teekaMapping[0]`: the first
+    teeka_gatha_mapping doc for the gatha. Returns None when no mapping doc
+    exists (so we don't emit a noisy target_missing row for gathas that simply
+    have no anvayartha). The matched text is the doc's `full_anyavaarth`, which
+    is exactly what the शब्दार्थ panel renders and highlights against.
+    """
+    doc = await mongo[_TEEKA_GATHA_MAPPING].find_one({"gatha_natural_key": gatha_nk})
+    if doc is None:
+        return None
+    text = doc.get("full_anyavaarth")
+    if not text:
+        anv = doc.get("anvayartha") or []
+        if anv and isinstance(anv[0], dict):
+            text = anv[0].get("text")
+    if not text:
+        return None
+    return Target(
+        collection=_TEEKA_GATHA_MAPPING,
+        natural_key=doc["natural_key"],
+        stub_label="Gatha",
+        shastra_natural_key=shastra_nk,
+        gatha_natural_key=gatha_nk,
+        lang=_COLLECTION_LANG.get(_TEEKA_GATHA_MAPPING),
+        text=text,
+        status_hint=None,
+        source_text_kind="hindi_translation",
+        match_block_kind="hindi_text",
+    )
 
 
 async def resolve_targets_for_shastra(

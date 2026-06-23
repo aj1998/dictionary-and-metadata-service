@@ -115,6 +115,8 @@ _COMMENT_NUM_RE = re.compile(r"\(\s*([\d०-९]+)\s*\)")
 
 
 def _extract_primary_comment_number(soup: BeautifulSoup, cfg: NJConfig) -> str | None:
+    if not cfg.selectors.gatha_prakrit:
+        return None
     gatha_div = soup.select_one(cfg.selectors.gatha_prakrit)
     if not gatha_div:
         return None
@@ -216,7 +218,7 @@ def _parse_body_fields(
         text = _TRAILING_VERSE_RE.sub("", text)
         return _clean_preserve_newlines(text)
 
-    gatha_div = soup.select_one(cfg.selectors.gatha_prakrit)
+    gatha_div = soup.select_one(cfg.selectors.gatha_prakrit) if cfg.selectors.gatha_prakrit else None
     raw_prakrit = gatha_div.get_text("\n", strip=False) if gatha_div else None
     # Capture ALL ॥N॥ / ||N|| markers in source order, BEFORE _clean_verse_text strips
     # the trailing one. For single-gatha pages there is one; for combined pages (e.g.
@@ -231,7 +233,7 @@ def _parse_body_fields(
     prakrit_text = _clean_verse_text(raw_prakrit) if raw_prakrit is not None else None
     prakrit_text = prakrit_text or None  # keep None if empty string
 
-    gatha_s_div = soup.select_one(cfg.selectors.gatha_sanskrit)
+    gatha_s_div = soup.select_one(cfg.selectors.gatha_sanskrit) if cfg.selectors.gatha_sanskrit else None
     sanskrit_text = _clean_verse_text(gatha_s_div.get_text("\n", strip=False)) if gatha_s_div else None
     sanskrit_text = sanskrit_text or None
 

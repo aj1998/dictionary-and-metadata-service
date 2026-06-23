@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { teekaMarkdownToHtml } from '@/lib/format/teeka-markdown';
+import type { HighlightRange } from '@/lib/highlight';
 
 function renderInlineHtml(raw: string): string {
   return teekaMarkdownToHtml(raw).replace(/^<p[^>]*>/, '').replace(/<\/p>$/, '');
@@ -19,9 +20,14 @@ export interface ShabdaArthEntry {
 interface ShabdaArthSectionProps {
   entries: ShabdaArthEntry[];
   anvayarth: string;
+  // When the matcher landed an extract on this gatha's अन्वयार्थ, this is the
+  // char range (against NFC-normalized `anvayarth`) to highlight by default.
+  matchHighlight?: HighlightRange | null;
+  // teeka_gatha_mapping natural_key — drives the pulse/scroll target wiring.
+  naturalKey?: string;
 }
 
-export function ShabdaArthSection({ entries, anvayarth }: ShabdaArthSectionProps) {
+export function ShabdaArthSection({ entries, anvayarth, matchHighlight = null, naturalKey }: ShabdaArthSectionProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const activeMeaning = activeIndex !== null ? entries[activeIndex]?.meaning ?? null : null;
@@ -30,8 +36,25 @@ export function ShabdaArthSection({ entries, anvayarth }: ShabdaArthSectionProps
     setActiveIndex((prev) => (prev === index ? null : index));
   }
 
+  function renderMatchHighlighted() {
+    const nfc = anvayarth.normalize('NFC');
+    const { start, end } = matchHighlight!;
+    if (start < 0 || end > nfc.length || start >= end) {
+      return <span dangerouslySetInnerHTML={{ __html: renderInlineHtml(anvayarth) }} />;
+    }
+    const combined =
+      renderInlineHtml(nfc.slice(0, start)) +
+      '<mark class="rounded bg-[var(--accent-soft)] text-[var(--accent)]">' +
+      renderInlineHtml(nfc.slice(start, end)) +
+      '</mark>' +
+      renderInlineHtml(nfc.slice(end));
+    return <span dangerouslySetInnerHTML={{ __html: combined }} />;
+  }
+
   function renderAnvayarth() {
     if (!activeMeaning || activeIndex === null) {
+      // No word-meaning selected: show the matcher highlight if present.
+      if (matchHighlight) return renderMatchHighlighted();
       return <span dangerouslySetInnerHTML={{ __html: renderInlineHtml(anvayarth) }} />;
     }
     const active = entries[activeIndex];
@@ -97,7 +120,7 @@ export function ShabdaArthSection({ entries, anvayarth }: ShabdaArthSectionProps
           </button>
         ))}
       </div>
-      <div className="mt-4 border-t border-border pt-4">
+      <div className="mt-4 border-t border-border pt-4" data-match-target={naturalKey}>
         <p className="mb-1 text-xs font-medium text-foreground-muted">अन्वयार्थ</p>
         <div className="font-serif-hindi text-sm leading-8 text-foreground teeka-content">
           {renderAnvayarth()}

@@ -69,8 +69,8 @@ class SelectorsConfig(BaseModel):
     secondary_teeka_select: Optional[str] = None
     gatha_title_div: str = "div.title[id^='gatha-']"
     gatha_heading_link: str = "div.title > span > a"
-    gatha_prakrit: str = "div.gatha"
-    gatha_sanskrit: str = "div.gathaS"
+    gatha_prakrit: Optional[str] = "div.gatha"
+    gatha_sanskrit: Optional[str] = "div.gathaS"
     gatha_hindi_chhand_body: str = "div.gadya"
     anyavartha_para: str = "div.paragraph"
     anyavartha_marker: str = "अन्वयार्थ"

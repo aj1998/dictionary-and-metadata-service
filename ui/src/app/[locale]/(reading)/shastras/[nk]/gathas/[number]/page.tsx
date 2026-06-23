@@ -35,42 +35,53 @@ import type { ExtractMatch, GathaKalash } from '@/lib/types';
 
 export const revalidate = 60;
 
-type PageProps = { params: Promise<{ nk: string; number: string }>; searchParams: Promise<{ match?: string }> };
+type PageProps = { params: Promise<{ nk: string; number: string }>; searchParams: Promise<{ match?: string | string[] }> };
 
 function joinedLangText(rows: Array<{ lang: string; text: string }> | undefined): string {
   if (!rows || rows.length === 0) return '';
   return rows.map((row) => row.text).join('\n');
 }
 
+// Returns the highlight range for the first matched extract-match whose target
+// equals `targetNk`. Supports multiple simultaneous matches (e.g. the verse +
+// its अन्वयार्थ/शब्दार्थ), each highlighting a different panel.
 function highlightFor(
-  match: ExtractMatch | null,
+  matches: ExtractMatch[],
   targetNk: string,
   text: string
 ): HighlightRange | undefined {
-  if (
-    !match ||
-    match.match.status !== 'matched' ||
-    match.target.natural_key !== targetNk ||
-    match.match.char_start == null ||
-    match.match.char_end == null
-  ) {
-    return undefined;
-  }
   const nfcLen = normalizeNFC(text).length;
-  if (match.match.char_end > nfcLen) {
-    console.warn('[GathaPage] highlight char_end out of bounds', {
-      targetNk,
-      char_end: match.match.char_end,
-      textLen: nfcLen,
-    });
-    return undefined;
+  for (const match of matches) {
+    if (
+      match.match.status !== 'matched' ||
+      match.target.natural_key !== targetNk ||
+      match.match.char_start == null ||
+      match.match.char_end == null
+    ) {
+      continue;
+    }
+    if (match.match.char_end > nfcLen) {
+      console.warn('[GathaPage] highlight char_end out of bounds', {
+        targetNk,
+        char_end: match.match.char_end,
+        textLen: nfcLen,
+      });
+      continue;
+    }
+    return { start: match.match.char_start, end: match.match.char_end };
   }
-  return { start: match.match.char_start, end: match.match.char_end };
+  return undefined;
 }
 
 export default async function GathaDetailPage({ params, searchParams }: PageProps) {
   const { nk: rawNk, number: rawNumber } = await params;
-  const { match: matchNk } = await searchParams;
+  const { match: matchParam } = await searchParams;
+  // A gatha page may carry multiple ?match= keys (verse + अन्वयार्थ etc.).
+  const matchNks: string[] = Array.isArray(matchParam)
+    ? matchParam
+    : matchParam
+      ? [matchParam]
+      : [];
   const nk = decodeURIComponent(rawNk);
   const number = decodeURIComponent(rawNumber);
 
@@ -110,11 +121,9 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
     ? await getGathaAdjacent(nk, routeNumber).catch(() => null)
     : null;
 
-  const [topicsResult, extractMatch, tR, tS, locale] = await Promise.all([
+  const [topicsResult, extractMatches, tR, tS, locale] = await Promise.all([
     getKeywordTopics(gathaNk).catch(() => ({ keyword_natural_key: gathaNk, topics: [] })),
-    matchNk
-      ? getExtractMatch(matchNk).catch(() => null)
-      : Promise.resolve(null),
+    Promise.all(matchNks.map((mk) => getExtractMatch(mk).catch(() => null))),
     getTranslations('reader'),
     getTranslations('shastras'),
     getLocale(),
@@ -157,8 +166,23 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
 
   const shastraNk = gatha.shastra.natural_key;
 
-  const match = extractMatch as ExtractMatch | null;
-  const matchedTargetNk = match?.target.natural_key;
+  const matches = (extractMatches as (ExtractMatch | null)[]).filter(
+    (m): m is ExtractMatch => m !== null,
+  );
+  const matchedTargetNks = new Set(
+    matches
+      .filter((m) => m.match.status === 'matched')
+      .map((m) => m.target.natural_key),
+  );
+
+  // अन्वयार्थ (शब्दार्थ panel) highlight — the matcher may match a block's Hindi
+  // translation against the primary teeka mapping's full_anyavaarth.
+  const anvayarthText = primaryMapping
+    ? primaryMapping.full_anyavaarth ?? primaryMapping.tagged_terms.map((t) => t.meaning).join(' ')
+    : '';
+  const anvayarthHighlight = primaryMapping
+    ? highlightFor(matches, primaryMapping.natural_key, anvayarthText) ?? null
+    : null;
 
   // Combined-page notice — shown in shared-content panels when this gatha was ingested
   // from a multi-gatha page (e.g. 020-021-022.html). `is_related` holds the sibling numbers.
@@ -210,18 +234,18 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
     const sanskritText = joinedLangText(g.sanskrit?.text);
     return {
       number: num,
-      prakrit: g.prakrit
+      prakrit: g.prakrit && prakritText
         ? {
             text: prakritText,
             naturalKey: g.prakrit.natural_key,
-            highlight: highlightFor(match, g.prakrit.natural_key, prakritText),
+            highlight: highlightFor(matches,g.prakrit.natural_key, prakritText),
           }
         : undefined,
       sanskrit: g.sanskrit
         ? {
             text: sanskritText,
             naturalKey: g.sanskrit.natural_key,
-            highlight: highlightFor(match, g.sanskrit.natural_key, sanskritText),
+            highlight: highlightFor(matches,g.sanskrit.natural_key, sanskritText),
           }
         : undefined,
       hindiHarigeet: { text: joinedLangText(g.hindi_chhand?.[0]?.text) },
@@ -271,7 +295,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
       naturalKey: ts.natural_key,
       // Canonical Neo4j GathaTeeka nk used by the panel actions menu.
       actionsSourceNk: gathaTeekaNeo4jNk(ts.teeka_natural_key),
-      highlight: highlightFor(match, ts.natural_key, content),
+      highlight: highlightFor(matches,ts.natural_key, content),
     };
   });
 
@@ -284,7 +308,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
     return {
       key: bh.natural_key,
       label: bh.publication_natural_key ?? bh.natural_key,
-      hasMatch: !!matchedTargetNk && matchedTargetNk === bh.natural_key,
+      hasMatch: matchedTargetNks.has(bh.natural_key),
       actionsSourceNk: gathaTeekaBhaavarthNeo4jNk(bh),
       actionsSourceLabel: bh.publication_natural_key ?? bh.natural_key,
       notice: noticeByTeeka.get(teekaNk),
@@ -292,7 +316,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
         <BhaavarthPanel
           text={bText}
           naturalKey={bh.natural_key}
-          highlight={highlightFor(match, bh.natural_key, bText)}
+          highlight={highlightFor(matches,bh.natural_key, bText)}
           className="border-0 p-0 shadow-none"
           shortFontEntries={bh.shortfont_entries}
         />
@@ -346,7 +370,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
       kalash.hindi?.natural_key,
       ...kalash.bhaavarth.map((b) => b.natural_key),
     ].filter((v): v is string => !!v);
-    const hasMatch = !!matchedTargetNk && kalashNks.includes(matchedTargetNk);
+    const hasMatch = kalashNks.some((k) => matchedTargetNks.has(k));
     return {
     key: kalash.natural_key,
     label,
@@ -363,7 +387,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
                 variant="verse"
                 text={joinedLangText(kalash.prakrit.text)}
                 naturalKey={kalash.prakrit.natural_key}
-                highlight={highlightFor(match, kalash.prakrit.natural_key, joinedLangText(kalash.prakrit.text))}
+                highlight={highlightFor(matches,kalash.prakrit.natural_key, joinedLangText(kalash.prakrit.text))}
                 className="border-l-4 border-l-green-600"
               />
             )}
@@ -373,7 +397,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
                 variant="verse"
                 text={joinedLangText(kalash.sanskrit.text)}
                 naturalKey={kalash.sanskrit.natural_key}
-                highlight={highlightFor(match, kalash.sanskrit.natural_key, joinedLangText(kalash.sanskrit.text))}
+                highlight={highlightFor(matches,kalash.sanskrit.natural_key, joinedLangText(kalash.sanskrit.text))}
               />
             )}
             {kalash.word_meanings && (kalash.word_meanings.entries.length > 0 || !!kalash.word_meanings.full_anyavaarth) && (
@@ -406,7 +430,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
                 variant="verse"
                 text={joinedLangText(kalash.sanskrit.text)}
                 naturalKey={kalash.sanskrit.natural_key}
-                highlight={highlightFor(match, kalash.sanskrit.natural_key, joinedLangText(kalash.sanskrit.text))}
+                highlight={highlightFor(matches,kalash.sanskrit.natural_key, joinedLangText(kalash.sanskrit.text))}
                 className="border-l-4"
                 style={{ borderLeftColor: 'var(--cat-teeka)' }}
               />
@@ -417,7 +441,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
                 variant="verse"
                 text={joinedLangText(kalash.hindi.text)}
                 naturalKey={kalash.hindi.natural_key}
-                highlight={highlightFor(match, kalash.hindi.natural_key, joinedLangText(kalash.hindi.text))}
+                highlight={highlightFor(matches,kalash.hindi.natural_key, joinedLangText(kalash.hindi.text))}
                 className="border-l-4"
                 style={{ borderLeftColor: 'var(--cat-bhaavarth)' }}
               />
@@ -450,7 +474,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
               notice={secondaryKalashBhaavarthNotice(kalash, bText)}
               text={bText}
               naturalKey={bh.natural_key}
-              highlight={highlightFor(match, bh.natural_key, bText)}
+              highlight={highlightFor(matches,bh.natural_key, bText)}
               shortFontEntries={bh.shortfont_entries}
             />
           );
@@ -460,9 +484,11 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
     };
   });
 
-  // Determine scroll target natural key if we have a matched highlight
-  const scrollTargetNk =
-    match?.match.status === 'matched' ? match.target.natural_key : null;
+  // Targets to pulse — every matched panel. HighlightScrollIntoView scrolls to
+  // the first one that resolves to a DOM node and pulses the rest in place.
+  const scrollTargetNks = matches
+    .filter((m) => m.match.status === 'matched')
+    .map((m) => m.target.natural_key);
 
   // Breadcrumb leaf for compound shastras: one chip per identifier field.
   // For legacy shastras: "गाथा N (teeka)" format unchanged.
@@ -565,12 +591,29 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
                   startOffset: t.start_offset,
                   endOffset: t.end_offset,
                 }))}
-                anvayarth={primaryMapping.full_anyavaarth ?? primaryMapping.tagged_terms.map((t) => t.meaning).join(' ')}
+                anvayarth={anvayarthText}
+                matchHighlight={anvayarthHighlight}
+                naturalKey={primaryMapping.natural_key}
               />
             ) : primaryMapping?.full_anyavaarth ? (
-              <div>
+              <div data-match-target={primaryMapping.natural_key}>
                 <p className="mb-1 text-xs font-medium text-foreground-muted">{tR('anvayarth')}</p>
-                <p className="font-serif-hindi text-sm leading-8 text-foreground">{primaryMapping.full_anyavaarth}</p>
+                <p className="font-serif-hindi text-sm leading-8 text-foreground">
+                  {anvayarthHighlight
+                    ? (() => {
+                        const nfc = primaryMapping.full_anyavaarth.normalize('NFC');
+                        const { start, end } = anvayarthHighlight;
+                        if (start < 0 || end > nfc.length || start >= end) return primaryMapping.full_anyavaarth;
+                        return (
+                          <>
+                            {nfc.slice(0, start)}
+                            <mark className="rounded bg-[var(--accent-soft)] text-[var(--accent)]">{nfc.slice(start, end)}</mark>
+                            {nfc.slice(end)}
+                          </>
+                        );
+                      })()
+                    : primaryMapping.full_anyavaarth}
+                </p>
               </div>
             ) : (
               <p className="text-sm text-foreground-muted">{tR('shabdarth_unavailable')}</p>
@@ -640,7 +683,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
 
   return (
     <>
-      {scrollTargetNk && <HighlightScrollIntoView naturalKey={scrollTargetNk} />}
+      {scrollTargetNks.length > 0 && <HighlightScrollIntoView naturalKeys={scrollTargetNks} />}
       <GathaVerseStateProvider initialNumber={gathaNumStr}>
         <GathaReaderLayout main={mainColumn} sidebar={sidebar} />
       </GathaVerseStateProvider>

@@ -38,7 +38,7 @@ async def apply_match(
 ) -> None:
     """Upsert one extract_matches document. Skips write when dry_run=True."""
     nk = _build_natural_key(source, target.natural_key)
-    threshold = threshold_for(source.block_kind)  # type: ignore[arg-type]
+    threshold = threshold_for(target.match_block_kind or source.block_kind)  # type: ignore[arg-type]
 
     if target.status_hint == "target_missing":
         match_status = "target_missing"
@@ -67,6 +67,11 @@ async def apply_match(
         "text_devanagari": source.text_devanagari,
         "reference_text": source.reference_text,
     }
+    # Record which source field was matched so downstream/debugging can tell the
+    # verse match (text_devanagari) from the anvayartha match (hindi_translation).
+    if target.source_text_kind == "hindi_translation":
+        source_doc["source_text_kind"] = "hindi_translation"
+        source_doc["hindi_translation"] = source.hindi_translation
     if source.kind == "keyword_definition":
         source_doc["section_index"] = source.section_index
         source_doc["definition_index"] = source.definition_index

@@ -757,9 +757,22 @@ Supported highlighted targets today:
 - sanskrit gatha
 - sanskrit teeka
 - hindi bhaavarth
+- hindi anvayartha (शब्दार्थ panel — `ShabdaArthSection`, target collection `teeka_gatha_mapping`)
 - kalash sanskrit
 - kalash hindi
 - kalash bhaavarth
+
+### Multiple simultaneous highlights
+
+One block can match several panels of the **same gatha** at once (e.g. the verse
+plus its अन्वयार्थ). `buildGathaHref(match, extraMatchKeys)` emits repeated
+`?match=` params; `useMatchEntries` groups matched keys by
+`target.gatha_natural_key` so every ref link carries all sibling keys. The gatha
+page's `searchParams.match` is typed `string | string[]`, all match docs are
+fetched, and `highlightFor(matches, …)` is evaluated per panel. `ShabdaArthSection`
+takes a `matchHighlight` range (offsets against NFC `full_anyavaarth`) and emits
+`data-match-target`; `HighlightScrollIntoView` accepts `naturalKeys: string[]`,
+scrolls to the first and pulses all matched panels.
 
 ---
 

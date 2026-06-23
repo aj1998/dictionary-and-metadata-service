@@ -79,15 +79,32 @@ export function useMatchEntries(match_natural_keys: string[] | undefined): UseMa
       try {
         const matches = await Promise.all(match_natural_keys.map((nk) => getExtractMatch(nk)));
         if (cancelled) return;
+        // Group matched targets by gatha so sibling panels of the same gatha
+        // (e.g. the verse match + the अन्वयार्थ/शब्दार्थ match) all highlight
+        // from a single link.
+        const matchedKeysByGatha = new Map<string, string[]>();
+        for (const m of matches) {
+          if (m.match.status !== 'matched') continue;
+          const g = gathaNkOf(m);
+          if (!g) continue;
+          const list = matchedKeysByGatha.get(g) ?? [];
+          list.push(m.natural_key);
+          matchedKeysByGatha.set(g, list);
+        }
         setEntries(
-          matches.map((m) => ({
-            natural_key: m.natural_key,
-            shastra_nk: shastraNkOf(m),
-            gatha_nk: gathaNkOf(m),
-            status: m.match.status,
-            href: buildGathaHref(m),
-            label: buildLabel(m),
-          })),
+          matches.map((m) => {
+            const siblings = (matchedKeysByGatha.get(gathaNkOf(m)) ?? []).filter(
+              (k) => k !== m.natural_key,
+            );
+            return {
+              natural_key: m.natural_key,
+              shastra_nk: shastraNkOf(m),
+              gatha_nk: gathaNkOf(m),
+              status: m.match.status,
+              href: buildGathaHref(m, siblings),
+              label: buildLabel(m),
+            };
+          }),
         );
       } catch {
         if (!cancelled) setError(true);

@@ -24,6 +24,9 @@ class SourceBlock:
     text_devanagari: str | None
     reference_text: str | None
     references: list[dict]
+    # Absorbed Hindi translation of the block, if any. Used to match the gatha's
+    # Hindi anvayartha (शब्दार्थ panel) in addition to the source-language verse.
+    hindi_translation: str | None = None
 
 
 async def iter_keyword_blocks(
@@ -64,6 +67,7 @@ async def iter_keyword_blocks(
                         text_devanagari=block.get("text_devanagari"),
                         reference_text=shown[0].get("text") if shown else None,
                         references=refs,
+                        hindi_translation=block.get("hindi_translation"),
                     )
 
 
@@ -101,4 +105,5 @@ async def iter_topic_extract_blocks(
                 text_devanagari=block.get("text_devanagari"),
                 reference_text=shown[0].get("text") if shown else None,
                 references=refs,
+                hindi_translation=block.get("hindi_translation"),
             )

@@ -186,7 +186,7 @@ function RefListItem({ ref, matchEntry, loading, ingestedShastras }: { ref: Defi
   return (
     <li className="flex items-baseline gap-2 font-serif-hindi text-xs text-foreground">
       <span className="mt-0.5 shrink-0 text-foreground-subtle">•</span>
-      <span className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+      <span className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
         {sourceLabel && (
           <>
             <span className={cn('font-semibold', ref.is_teeka ? 'text-amber-700' : 'text-foreground-muted')}>
@@ -201,17 +201,17 @@ function RefListItem({ ref, matchEntry, loading, ingestedShastras }: { ref: Defi
           const isGathaField = f.field === primaryGathaField;
           const isPrishtha = f.field === 'पृष्ठ';
           return (
-            <span key={fi} className="inline-flex items-end gap-0.5">
+            <span key={fi} className="inline-flex items-baseline gap-0.5">
               {fi > 0 && <span className="opacity-30 self-center">·</span>}
               <span className="italic text-foreground-muted">{displayFieldLabel(f.field)}:</span>
               <span className="text-[10px] font-medium text-foreground-muted">{f.value}</span>
               {isGathaField && (
-                <span className="[&_svg]:size-3 leading-none">
+                <span className="[&_svg]:size-3 leading-none relative top-[2px]">
                   <RefMatchLink ref={ref} matchEntry={matchEntry} loading={loading} ingestedShastras={ingestedShastras} />
                 </span>
               )}
               {isPrishtha && originalInfo && pdfShastraNk && (
-                <span className="[&_svg]:size-3 leading-none">
+                <span className="[&_svg]:size-3 leading-none relative top-[2px]">
                   <OriginalShastraLink
                     shastraNk={pdfShastraNk}
                     pustak={originalInfo.pustak}
@@ -429,7 +429,7 @@ function MultiRefGroupListItem({ group, entries, loading, ingestedShastras }: {
     <li className="flex flex-col gap-1.5 font-serif-hindi text-xs text-foreground">
       <span className="flex items-baseline gap-2">
         <span className="mt-0.5 shrink-0 text-foreground-subtle">•</span>
-        <span className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+        <span className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
           {group.sourceLabel && (
             <span className={cn('font-semibold', group.isTeeka ? 'text-amber-700' : 'text-foreground-muted')}>
               {group.sourceLabel}
@@ -438,13 +438,13 @@ function MultiRefGroupListItem({ group, entries, loading, ingestedShastras }: {
           {group.commonFields.map((f, fi) => {
             const isPrishtha = f.field === 'पृष्ठ';
             return (
-              <span key={fi} className="flex items-end gap-0.5">
+              <span key={fi} className="flex items-baseline gap-0.5">
                 {fi === 0 && group.sourceLabel && <span className="opacity-30 self-center mr-0.5">|</span>}
                 {fi > 0 && <span className="opacity-30 self-center">·</span>}
                 <span className="italic text-foreground-muted">{displayFieldLabel(f.field)}:</span>
                 <span className="text-[10px] font-medium text-foreground-muted">{f.value}</span>
                 {isPrishtha && firstRefOriginalInfo && firstRefPdfShastraNk && (
-                  <span className="[&_svg]:size-3 leading-none">
+                  <span className="[&_svg]:size-3 leading-none relative top-[2px]">
                     <OriginalShastraLink
                       shastraNk={firstRefPdfShastraNk}
                       pustak={firstRefOriginalInfo.pustak}
@@ -469,22 +469,22 @@ function MultiRefGroupListItem({ group, entries, loading, ingestedShastras }: {
           return (
             <li key={ri} className="flex items-center gap-1.5">
               <span className="shrink-0 text-[10px] text-foreground-subtle">–</span>
-              <span className="flex flex-wrap items-center gap-x-1 gap-y-0.5">
+              <span className="flex flex-wrap items-baseline gap-x-1 gap-y-0.5">
                 {diffFields.map((f, fi) => {
                   const isGathaField = f.field === primaryGathaField;
                   const isPrishtha = f.field === 'पृष्ठ';
                   return (
-                    <span key={fi} className="inline-flex items-end gap-0.5">
+                    <span key={fi} className="inline-flex items-baseline gap-0.5">
                       {fi > 0 && <span className="opacity-30 self-center">·</span>}
                       <span className="italic text-foreground-muted">{displayFieldLabel(f.field)}:</span>
                       <span className="text-[10px] font-medium text-foreground-muted">{f.value}</span>
                       {isGathaField && (
-                        <span className="[&_svg]:size-3 leading-none">
+                        <span className="[&_svg]:size-3 leading-none relative top-[2px]">
                           <RefMatchLink ref={ref} matchEntry={findMatchForRef(ref, entries)} loading={loading} ingestedShastras={ingestedShastras} />
                         </span>
                       )}
                       {isPrishtha && originalInfo && refPdfShastraNk && (
-                        <span className="[&_svg]:size-3 leading-none">
+                        <span className="[&_svg]:size-3 leading-none relative top-[2px]">
                           <OriginalShastraLink
                             shastraNk={refPdfShastraNk}
                             pustak={originalInfo.pustak}

@@ -64,12 +64,28 @@ Current stub-to-collection routing:
 | Stub label | Source block kind(s) | Target collection |
 |---|---|---|
 | `Gatha` | `prakrit_gatha`, `prakrit_text` | `gatha_prakrit` |
-| `Gatha` | `sanskrit_gatha` | `gatha_sanskrit` |
+| `Gatha` | `sanskrit_gatha`, `sanskrit_text` | `gatha_sanskrit` |
 | `GathaTeeka` | `sanskrit_text` | `gatha_teeka_sanskrit` |
 | `GathaTeekaBhaavarth` | `hindi_text` | `gatha_teeka_bhaavarth_hindi` |
 | `Kalash` | `sanskrit_gatha`, `sanskrit_text` | `kalash_sanskrit` |
 | `Kalash` | `hindi_gatha`, `hindi_text` | `kalash_hindi` |
 | `KalashBhaavarth` | `hindi_text` | `kalash_bhaavarth_hindi` |
+
+### Anvayartha (शब्दार्थ) second target
+
+When a `Gatha` stub resolves to a verse collection (`gatha_prakrit` /
+`gatha_sanskrit`) **and** the source block carries an absorbed
+`hindi_translation`, the resolver emits a *second* target against the gatha's
+Hindi अन्वयार्थ: the first `teeka_gatha_mapping` doc for that gatha (mirrors the
+reading page's `primaryMapping = teekaMapping[0]`). This target is matched
+against the block's `hindi_translation` (not `text_devanagari`) using the
+`hindi_text` threshold, and its `char_start/end` are stored against the doc's
+`full_anyavaarth` — exactly what the शब्दार्थ panel renders. So one source block
+fans out to both the verse match and the अन्वयार्थ match, and the UI highlights
+both panels at once. Implemented via `Target.source_text_kind` /
+`Target.match_block_kind` and `_resolve_anvayartha_target` in
+[target_resolver.py](../../../workers/matching/target_resolver.py). No mapping
+doc → no row (we don't emit a noisy `target_missing` for anvayartha-less gathas).
 
 ### Compound-identifier shastras (परमात्मप्रकाश and similar)
 
@@ -367,9 +383,22 @@ The same reading page supports highlights for:
 - sanskrit gatha
 - sanskrit teeka
 - hindi bhaavarth
+- hindi anvayartha (शब्दार्थ panel — `teeka_gatha_mapping`)
 - kalash sanskrit
 - kalash hindi
 - kalash bhaavarth
+
+#### Multiple simultaneous highlights
+
+A single block can produce several matched rows on the **same gatha** (e.g. the
+verse + its अन्वयार्थ). The deep-link therefore carries **repeated** `?match=`
+params, one per matched target (`buildGathaHref(match, extraMatchKeys)` in
+[gatha-content.ts](../../../ui/src/lib/gatha-content.ts); `useMatchEntries`
+groups matched keys by `target.gatha_natural_key`). The reading page accepts
+`match?: string | string[]`, fetches all match docs, and `highlightFor` is
+applied per panel, so every matched panel highlights and pulses.
+`HighlightScrollIntoView` takes `naturalKeys: string[]`, scrolls to the first
+resolved panel, and pulses all of them.
 
 ## 10. Important Invariants
 
@@ -438,6 +467,8 @@ At minimum, also review:
 
 | Date | Change |
 |---|---|
+| 2026-06-24 | **Anvayartha (शब्दार्थ) second target + multi-highlight.** A `Gatha` verse target whose source block has a `hindi_translation` now also emits a `teeka_gatha_mapping` (अन्वयार्थ) target matched against that translation (`Target.source_text_kind="hindi_translation"`, threshold `hindi_text`), so the शब्दार्थ panel highlights alongside the verse. UI: `buildGathaHref` accepts sibling match keys → repeated `?match=` params; the gatha reading page accepts `match: string \| string[]`, highlights every matched panel, and `HighlightScrollIntoView` pulses all of them. Files: `workers/matching/{source_iter,target_resolver,orchestrator,apply_match}.py`, `ui/src/lib/gatha-content.ts`, `ui/src/components/{ViewInShastraButton,ShabdaArthSection,HighlightScrollIntoView}.tsx`, `ui/src/app/.../gathas/[number]/page.tsx`. |
+| 2026-06-24 | **`(Gatha, sanskrit_text)` routing.** Root "shastra"-type shastras whose primary verse is Sanskrit (e.g. तत्त्वार्थसूत्र) are extracted by JainKosh as a `sanskrit_text` block, but `reference_edges._emit_gatha` emits a `Gatha` stub for *every* block kind under a `shastra`-type shastra (the sutra **is** the gatha). The matcher's `_ROUTING` lacked `(Gatha, sanskrit_text)`, so the resolver dropped the edge — no `extract_matches` row at all, hence no "View in Shastra" link on e.g. द्रव्य → तत्त्वार्थसूत्र 5/29 (`सत् द्रव्यलक्षणम्`). Added `(Gatha, sanskrit_text) → gatha_sanskrit` and the matching `_derive_mongo_nk` branch (`{stub_nk}:sanskrit`). Files: `workers/matching/target_resolver.py`, `tests/workers/matching/test_target_resolver.py`. |
 | 2026-06-16 | **Compound-identifier support in `target_resolver`.** Two fixes for compound shastras (परमात्मप्रकाश etc.): (a) `GathaTeeka` / `GathaTeekaBhaavarth` Mongo NK now uses the full compound suffix (`अधिकार:1:गाथा:001`) via the new `_mongo_seg_from_gatha_nk` helper, mirroring `envelope._gatha_mongo_segment` — previously `gatha_nk.split(":")[-1]` dropped the prefix and silently produced `target_missing` for every compound teeka/bhaavarth. (b) `_padded_variant_nk` zero-padding fallback retries the Mongo lookup with the alternate padding of the last numeric segment so JainKosh's raw citation NKs (`…:गाथा:12`) hit NJ's zero-padded docs (`…:गाथा:012`). Mirrors the `_find_compound_gatha_fuzzy` server-side fallback. Files: `workers/matching/target_resolver.py`, `tests/workers/matching/test_target_resolver.py`. |
 | 2026-06-16 | **Chandrabindu (U+0901) stripped.** Apabhramsha-era OCR (परमात्मप्रकाश) emits chandrabindu inconsistently — e.g. target `सण्णाणेँ` vs JainKosh extract `सण्णाणे`. `_is_strip_char` rule 8b now strips chandrabindu the same way visarga / avagraha are stripped, so the two forms collapse identically. Files: `normalize.py`, `tests/test_normalize.py`. |
 | 2026-06-15 | **`र्`-gemination collapse.** `normalize()` collapses the old Sanskrit orthographic doubling of a consonant after `र्` (पर्य्याय → पर्याय, धर्म्म → धर्म, कर्म्म → कर्म). Scoped to "after `र्`" so unrelated same-consonant conjuncts (क्क in मक्का, real म्य in अभ्युपगम्य) are untouched. Files: `normalize.py`, `tests/test_normalize.py`. |

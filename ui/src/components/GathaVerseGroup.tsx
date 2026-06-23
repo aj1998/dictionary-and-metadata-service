@@ -94,15 +94,13 @@ export function GathaVerseGroup({ entries }: GathaVerseGroupProps) {
         </div>
       )}
 
-      {current.prakrit ? (
+      {current.prakrit && (
         <GathaPanel
           lang="prakrit"
-          text={current.prakrit.text || '—'}
+          text={current.prakrit.text}
           naturalKey={current.prakrit.naturalKey}
           highlight={current.prakrit.highlight}
         />
-      ) : (
-        <GathaPanel lang="prakrit" text="—" />
       )}
 
       {current.sanskrit && (

@@ -3,26 +3,42 @@
 import { useEffect } from 'react';
 
 interface HighlightScrollIntoViewProps {
-  naturalKey: string;
+  // Panels to pulse (one per matched target). The first one that resolves to a
+  // DOM node is also scrolled into view.
+  naturalKeys: string[];
 }
 
-export function HighlightScrollIntoView({ naturalKey }: HighlightScrollIntoViewProps) {
+export function HighlightScrollIntoView({ naturalKeys }: HighlightScrollIntoViewProps) {
+  const key = naturalKeys.join('|');
   useEffect(() => {
-    const el = document.querySelector(`[data-match-target="${CSS.escape(naturalKey)}"]`);
-    if (!el) return;
-    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    // Pulse the enclosing panel (or the element itself) so the user can spot
-    // which window the matcher landed in. The class drives a 3-cycle CSS
-    // animation defined in globals.css; we strip it afterwards so the pulse
-    // doesn't fire again on every re-render.
-    const panel = (el.closest('section') ?? el) as HTMLElement;
-    panel.classList.add('match-pulse');
-    const tid = window.setTimeout(() => panel.classList.remove('match-pulse'), 4200);
+    const panels: HTMLElement[] = [];
+    let scrolled = false;
+    for (const nk of naturalKeys) {
+      const el = document.querySelector(`[data-match-target="${CSS.escape(nk)}"]`);
+      if (!el) continue;
+      if (!scrolled) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        scrolled = true;
+      }
+      // Pulse the enclosing panel (or the element itself) so the user can spot
+      // which window the matcher landed in. The class drives a 3-cycle CSS
+      // animation defined in globals.css; we strip it afterwards so the pulse
+      // doesn't fire again on every re-render.
+      const panel = (el.closest('section') ?? el) as HTMLElement;
+      panel.classList.add('match-pulse');
+      panels.push(panel);
+    }
+    if (panels.length === 0) return;
+    const tid = window.setTimeout(
+      () => panels.forEach((p) => p.classList.remove('match-pulse')),
+      4200,
+    );
     return () => {
       window.clearTimeout(tid);
-      panel.classList.remove('match-pulse');
+      panels.forEach((p) => p.classList.remove('match-pulse'));
     };
-  }, [naturalKey]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
 
   return null;
 }

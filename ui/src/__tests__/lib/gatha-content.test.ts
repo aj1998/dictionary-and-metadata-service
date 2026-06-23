@@ -74,6 +74,17 @@ describe('buildGathaHref', () => {
     const href = buildGathaHref(makeMatch('pravachansaar:teeka:गाथा:5:hindi', 'mk'));
     expect(href).toContain('/shastras/pravachansaar/');
   });
+
+  it('appends sibling match keys as repeated match params', () => {
+    const href = buildGathaHref(
+      makeMatch('samaysaar:गाथा:42:sanskrit', 'match:verse'),
+      ['match:anvayartha', 'match:verse'], // dup of primary is de-duped
+    );
+    expect(href).toContain('?match=match%3Averse');
+    expect(href).toContain('&match=match%3Aanvayartha');
+    // primary key only once
+    expect(href.match(/match%3Averse/g)?.length).toBe(1);
+  });
 });
 
 describe('GATHA_ENTITY_KEYWORDS', () => {
