@@ -46,6 +46,31 @@ def test_parse_primary_page_single_and_anyavartha(nj_cfg):
     assert delta == 0
 
 
+def test_secondary_teeka_in_teeka0_when_primary_absent(nj_cfg):
+    """Some gathas have no primary teeka: the secondary teeka (जयसेनाचार्य) sits in
+    div#teeka0 with no div#teeka1. The secondary content must still be captured, not
+    dropped. Regression: पंचास्तिकाय gatha 24."""
+    html = """
+<div class="title" id="gatha-024"><span><a>शीर्षक</a></span></div>
+<div class="gatha">गाथा पाठ ॥ 24 ॥</div>
+<div id="teeka0">
+  <div class="steeka" id="steeka0">संस्कृत टीका<hr class="type_7"/></div>
+  <b><font color="darkgreen">जयसेनाचार्य :</font></b>
+  <div>यह जयसेनाचार्य का भावार्थ है ।</div>
+</div>
+""".strip()
+    soup = BeautifulSoup(html, "lxml")
+    gathas, delta = parse_primary_page(soup, _idx("024.html", "024"), nj_cfg, global_kalash_start=1)
+    assert len(gathas) == 1
+    g = gathas[0]
+    assert g.primary_teeka is None
+    assert g.secondary_teeka is not None
+    assert g.secondary_teeka.gatha_teeka_san == "संस्कृत टीका"
+    assert g.secondary_teeka.gatha_teeka_bhaavarth_md
+    assert "जयसेनाचार्य का भावार्थ" in g.secondary_teeka.gatha_teeka_bhaavarth_md
+    assert delta == 0
+
+
 def test_parse_primary_page_strips_paren_line_numbers_single_gatha(nj_cfg):
     """(N) mid-verse markers must be removed even for non-combined single gathas."""
     html = """

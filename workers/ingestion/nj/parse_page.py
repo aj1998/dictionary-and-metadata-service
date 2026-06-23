@@ -265,27 +265,43 @@ def _parse_body_fields(
     return prakrit_text, sanskrit_text, hindi_chhands, anyavartha, prakrit_verse_markers
 
 
-def _is_primary_page(teeka0_div: Tag | None, cfg: NJConfig) -> bool:
+def _teeka0_label_role(teeka0_div: Tag | None, cfg: NJConfig) -> str | None:
+    """Classify the darkgreen label at the top of div#teeka0.
+
+    Returns "primary" when it matches `primary_teeka_label`, "secondary" when it
+    matches `secondary_teeka_label`, and None when there is no darkgreen label.
+    A label that matches neither is treated as None and surfaced as a warning
+    (genuine config drift). Some gathas (e.g. पंचास्तिकाय gatha 24) have **no**
+    primary teeka at all — the secondary teeka (जयसेनाचार्य / तात्पर्यवृत्ति) sits
+    in teeka0 with no teeka1 — so "secondary" is an expected, non-warning outcome.
+    """
     if teeka0_div is None:
-        return False
+        return None
     label = teeka0_div.select_one("font[color='darkgreen'], font[color='DarkGreen']")
     if not label:
-        return False
+        return None
     label_text = _clean(label.get_text())
     if cfg.selectors.primary_teeka_label in label_text:
-        return True
-    # Config drift guard: teeka0 with a darkgreen label exists, but the configured
-    # `primary_teeka_label` substring doesn't appear in it. The whole teeka payload
-    # is silently skipped in this case (no gatha_teeka_sanskrit / gatha_teeka_bhaavarth_hindi
-    # docs are written), so surface it loudly to the ingestion logs.
+        return "primary"
+    secondary_label = cfg.selectors.secondary_teeka_label
+    if secondary_label and secondary_label in label_text:
+        return "secondary"
+    # Config drift guard: teeka0 with a darkgreen label exists, but it matches
+    # neither the primary nor the secondary configured label. The teeka payload
+    # is skipped in this case, so surface it loudly to the ingestion logs.
     logger.warning(
-        "nj.primary_teeka_label.mismatch shastra=%s configured_label=%r html_label=%r — "
-        "teeka skipped for this page; update primary_teeka_label in the shastra YAML",
+        "nj.teeka0_label.unrecognized shastra=%s primary_label=%r secondary_label=%r "
+        "html_label=%r — teeka skipped for this page; update teeka labels in the shastra YAML",
         cfg.shastra.natural_key,
         cfg.selectors.primary_teeka_label,
+        secondary_label,
         label_text,
     )
-    return False
+    return None
+
+
+def _is_primary_page(teeka0_div: Tag | None, cfg: NJConfig) -> bool:
+    return _teeka0_label_role(teeka0_div, cfg) == "primary"
 
 
 def parse_primary_page(
@@ -312,10 +328,12 @@ def parse_primary_page(
 
     teeka0_div = soup.select_one(cfg.selectors.teeka0_div)
     teeka1_div = soup.select_one(cfg.selectors.teeka1_div)
+    teeka0_role = _teeka0_label_role(teeka0_div, cfg)
+    source_ref = f"{cfg.shastra.natural_key}/{idx_entry.html_filename} गाथा {idx_entry.gatha_number}"
 
     primary_teeka = None
     kalash_delta = 0
-    if _is_primary_page(teeka0_div, cfg):
+    if teeka0_role == "primary":
         primary_cfg = cfg.shastra.primary_teeka
         primary_pub_nk = primary_cfg.publication_natural_key if primary_cfg else ""
         try:
@@ -329,6 +347,7 @@ def parse_primary_page(
         primary_teeka, kalash_delta = parse_primary_teeka(
             teeka0_div, cfg, global_kalash_start,
             parent_bhaavarth_nk=primary_bhaavarth_nk,
+            source_ref=source_ref,
         )
 
     secondary_cfg = cfg.shastra.secondary_teekas[0] if cfg.shastra.secondary_teekas else None
@@ -340,10 +359,26 @@ def parse_primary_page(
         f"{secondary_cfg.publication_natural_key}:गाथा:टीका:भावार्थ:{norm_gatha_sec}"
         if secondary_cfg else None
     )
-    secondary_teeka = (
-        parse_secondary_teeka(teeka1_div, cfg, parent_bhaavarth_nk=secondary_bhaavarth_nk)
-        if isinstance(teeka1_div, Tag) else None
-    )
+    if isinstance(teeka1_div, Tag):
+        secondary_teeka = parse_secondary_teeka(
+            teeka1_div, cfg, parent_bhaavarth_nk=secondary_bhaavarth_nk,
+            source_ref=source_ref,
+        )
+    elif teeka0_role == "secondary" and isinstance(teeka0_div, Tag):
+        # No primary teeka for this gatha and no div#teeka1: the secondary teeka
+        # (e.g. जयसेनाचार्य / तात्पर्यवृत्ति) lives in div#teeka0. Parse it as the
+        # secondary teeka so its content is not silently dropped (पंचास्तिकाय gatha 24).
+        logger.info(
+            "nj.secondary_teeka_in_teeka0 shastra=%s gatha=%s — parsing teeka0 as secondary teeka",
+            cfg.shastra.natural_key,
+            idx_entry.gatha_number,
+        )
+        secondary_teeka = parse_secondary_teeka(
+            teeka0_div, cfg, parent_bhaavarth_nk=secondary_bhaavarth_nk,
+            source_ref=source_ref,
+        )
+    else:
+        secondary_teeka = None
 
     base = GathaExtract(
         shastra_natural_key=cfg.shastra.natural_key,
@@ -450,7 +485,10 @@ def parse_secondary_kalash_page(
         if kalash_sec_cfg else None
     )
     secondary_teeka = (
-        parse_secondary_teeka(teeka0_div, cfg, parent_bhaavarth_nk=kalash_bhaavarth_nk)
+        parse_secondary_teeka(
+            teeka0_div, cfg, parent_bhaavarth_nk=kalash_bhaavarth_nk,
+            source_ref=f"{cfg.shastra.natural_key}/{filename} कलश {raw_gatha_number}",
+        )
         if isinstance(teeka0_div, Tag) else None
     )
 

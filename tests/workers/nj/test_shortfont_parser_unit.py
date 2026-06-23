@@ -352,6 +352,70 @@ def test_inline_bracket_headers_split_onto_own_lines():
     assert lines[2].startswith("**[") and "सुद्धं" in lines[2]
 
 
+def test_leading_dash_in_definition_anchor_stripped():
+    """A glossary line like `<sup>3</sup> – आग्रह = …` has a leading dash before the
+    headword; the body word is just `आग्रह`. The dash must be stripped so the anchor
+    matches the body and the offset round-trips. Regression: nikkyjain 097.html."""
+    html = (
+        "जहाँ <sup>३</sup>आग्रह नहीं है ।"
+        "<span class=shortFont>"
+        "<sup>३</sup>  – आग्रह = पकड़; ग्रहण; लगे रहना वह ।"
+        "</span>"
+    )
+    cleaned_md, entries = extract_shortfont(_nodes(html))
+
+    assert len(entries) == 1
+    e = entries[0]
+    assert e.anchor_text == "आग्रह"
+    assert e.is_definition is True
+    assert e.occurrences and cleaned_md[
+        e.occurrences[0].start_offset:e.occurrences[0].end_offset
+    ] == "आग्रह"
+
+
+def test_definition_headword_falls_back_to_body_word():
+    """When the glossary headword is a lemma that differs from the inflected body
+    word (e.g. असहायगुणवाला vs body असहायगुणात्मक), the offset falls back to the
+    annotated body token so the round-trip holds. Regression: nikkyjain 136.html."""
+    html = (
+        "जीव <sup>२</sup>असहायगुणात्मक है ।"
+        "<span class=shortFont>"
+        "<sup>२</sup>असहायगुणवाला = जिसे किसी की सहायता नहीं है ऐसे गुणवाला ।"
+        "</span>"
+    )
+    warnings: list[str] = []
+    cleaned_md, entries = extract_shortfont(_nodes(html), warnings=warnings)
+
+    assert len(entries) == 1
+    e = entries[0]
+    assert "असहायगुणवाला" in e.meaning or e.meaning  # meaning retained
+    assert e.anchor_text == "असहायगुणात्मक"
+    assert e.occurrences and cleaned_md[
+        e.occurrences[0].start_offset:e.occurrences[0].end_offset
+    ] == "असहायगुणात्मक"
+    assert not any("anchor_not_found" in w for w in warnings)
+
+
+def test_anchor_before_cursor_recovered_via_retry():
+    """Glossary order can advance the cursor past a later marker's body word that
+    appears earlier in the text; the retry-from-start fallback recovers it."""
+    html = (
+        "<sup>२</sup>द्विअणुक छोटा है और <sup>१</sup>विस्तारसामान्यसमुदाय बड़ा है ।"
+        "<span class=shortFont>"
+        "<sup>१</sup>विस्तारसामान्यसमुदाय = विस्तार रूप समुदाय ।<br>"
+        "<sup>२</sup>द्विअणुक = दो अणु ।"
+        "</span>"
+    )
+    warnings: list[str] = []
+    cleaned_md, entries = extract_shortfont(_nodes(html), warnings=warnings)
+
+    by = {e.marker_number: e for e in entries}
+    assert by[2].occurrences and cleaned_md[
+        by[2].occurrences[0].start_offset:by[2].occurrences[0].end_offset
+    ] == "द्विअणुक"
+    assert not any("anchor_not_found" in w for w in warnings)
+
+
 def test_plain_prose_paragraphs_stay_intact():
     """A panchaastikaya-style paragraph with `<span class=notes>` and `<sup>`
     in the middle must stay on a single line (not split per inline element)."""

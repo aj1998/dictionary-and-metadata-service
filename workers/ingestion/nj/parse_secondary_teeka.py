@@ -51,6 +51,7 @@ def parse_secondary_teeka(
     cfg: NJConfig,
     *,
     parent_bhaavarth_nk: str | None = None,
+    source_ref: str = "",
 ) -> SecondaryTeeka:
     """Parse either div#teeka1 (regular page) or div#teeka0 (secondary-only page)."""
     steeka = teeka_div.select_one("div.steeka")
@@ -88,7 +89,9 @@ def parse_secondary_teeka(
             source_url=None,
         )
 
-    cleaned_bhaavarth_md, shortfont_entries = extract_shortfont(bhaavarth_nodes)
+    cleaned_bhaavarth_md, shortfont_entries = extract_shortfont(
+        bhaavarth_nodes, source_ref=source_ref
+    )
 
     return SecondaryTeeka(
         gatha_teeka_san=gatha_teeka_san,

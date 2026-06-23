@@ -203,6 +203,7 @@ Test files:
 | Shared chhand marker followed by multiple verses | Some pages (e.g. samaysaar `104.html` अनुष्टुभ्) have one `(कलश-X)` marker followed by **two consecutive verses** (`॥६१॥` then `॥६२॥`) without a second marker. `_split_kalash_verses` walks the collected chunk, splits on each `॥N॥`/`||N||` boundary, and emits one `KalashSanskritEntry` per verse — all inheriting the same `chhand_type`. Without this, verses 61+62 merged into one entry, undercounting kalashes and shifting subsequent kalashes (hindi side got orphaned onto the wrong gatha). |
 | Bare `॥` / `||` verse-end (no digits) | Source occasionally ends a verse with a bare `॥` (e.g. samaysaar `123-125.html` gathas 119, 120). `_VERSE_END_MARKER_RE`, `_ANY_VERSE_MARKER_RE`, and `_TRAILING_VERSE_RE` accept either `॥N॥` or bare `॥`; alternation order keeps `॥N॥` preferred so digit markers still match as one unit. This unblocks multi-gatha splitting on pages where only a subset of verses have numbered end markers. |
 | Hindi side has extra translation verses (e.g. `(हरिगीत)`) before the `(कलश)` block | `parse_primary_teeka` builds `san_by_verse = {kalash_san[i].verse_number → entry}` and, when walking `nodes_after`, only accepts a `b>div.gadya` as a Hindi kalash if its trailing ॥N॥ number matches a Sanskrit kalash's `verse_number`. Non-matching blocks (translations of preceding Prakrit gathas) fall through into `bhaavarth_nodes`. Matching entries inherit the Sanskrit kalash's `local_kalash_index` / `global_kalash_index` so pairing in `envelope.py` (`san_map`/`hi_map` keyed by `global_kalash_index`) lines up correctly. Without this, extra `(हरिगीत)` blocks on pages like samaysaar `014.html` shifted `hindi_counter` and the wrong Hindi entry paired with each Sanskrit kalash. |
+| Gatha with **no** primary teeka (secondary in `teeka0`) | Some gathas have no primary teeka at all — the secondary teeka (e.g. पंचास्तिकाय gatha 24: जयसेनाचार्य / तात्पर्यवृत्ति) sits in `div#teeka0` with **no** `div#teeka1`. `_teeka0_label_role` classifies the `teeka0` darkgreen label as `primary` / `secondary` / unknown. When it is `secondary` and `teeka1` is absent, `parse_primary_page` parses `teeka0` via `parse_secondary_teeka` so the content is not silently dropped. Previously `_is_primary_page` logged `nj.primary_teeka_label.mismatch` and discarded the whole teeka. Only a label matching *neither* configured teeka label now warns (`nj.teeka0_label.unrecognized` — genuine config drift). |
 | Secondary-only multi-gatha pages | Pages absent from the primary index but present in the secondary index with a hyphenated `gatha_number` (e.g. `131-133.html` → `"131-133"`) are now expanded by `parse_secondary_kalash_page`: it returns `list[KalashExtract]`, one per gatha number, splitting the prakrit text via `_split_combined_text_by_markers`. The shared `secondary_teeka` is copied to every entry. The orchestrator uses `secondary_kalashes.extend(...)` and passes `secondary_entry=secondary_index.get(filename)`. |
 
 ---
@@ -242,9 +243,37 @@ New module `workers/ingestion/nj/shortfont_parser.py` extracts `<span class=shor
 - Top-level `<sup>` siblings (e.g. panchaastikaya) handled by wrapping nodes into a single `<div>` before `find_all("sup")` — avoids missing sups that are direct siblings rather than nested children.
 - Inline `**[word]**` shabdaarth headers are forced onto their own line via a `re.sub(r"(?<!\n)[ \t]*(\*\*\[)", r"\n\1", cleaned_md)` pass. Source HTML for some teekas (e.g. samaysaar gatha 9 jayasenacharya) emits multiple `<b>[word]</b> meaning … <b>[word]</b> meaning …` inline within a single paragraph; without the per-`[word]` line break, the UI `bhaavarth-segments` parser only detects the first as a compact entry and the shabdaarth chip component never renders. Plain prose paragraphs (e.g. panchaastikaya 005) contain no `**[` and are unaffected — `<br><br>` → `\n\n` continues to be the only paragraph break, and inline `<span class=notes>` / `<sup>` stay on the same line.
 
+### Anchor matching robustness (2026-06-24)
+
+`extract_shortfont` step 7 was hardened to cut `shortfont_anchor_not_found` warnings
+from ~92 to ~10 across all 8 NJ shastras:
+
+1. **Leading-dash headwords.** Source glossary lines sometimes prefix the headword with
+   a dash, e.g. `<sup>3</sup> – आग्रह = पकड़ …` (nikkyjain `097.html`). `_parse_glossary_lines`
+   strips a leading `-`/`–`/`—` (+ space) via `_LEADING_DASH_RE` so the anchor (`आग्रह`)
+   matches the body word.
+2. **Headword ≠ inflected body word.** A definition headword is often a lemma that
+   differs from the word the `<sup>` annotates (e.g. glossary `असहायगुणवाला` vs body
+   `असहायगुणात्मक`, `136.html`). When the headword is not present verbatim in the body,
+   the anchor falls back to the annotated body following-token so the offset round-trip
+   (`cleaned_md[s:e] == anchor_text`) holds. The glossary meaning is retained.
+3. **Anchor before the cursor.** Because glossary headwords can be longer compounds than
+   their body word, an earlier marker's match can advance the shared cursor past a later
+   marker's (earlier) body word. The offset search now retries from the start when the
+   forward search fails, skipping a hit that would merely re-point at an offset already
+   recorded for the same entry (the collapsed duplicate-marker case).
+
+**Residual (expected) warnings.** The remaining `shortfont_anchor_not_found` (~10),
+`shortfont_missing_glossary` (~41), and `shortfont_orphan_glossary` (~17) are genuine
+source-data inconsistencies — the body and the glossary disagree on which footnote
+numbers exist (e.g. `090.html`: body marker `1`, glossary `1,2,3`; `110.html`: body
+`1–9`, glossary `1–12`), or one footnote number is reused for several different body
+words on a multi-section page. The parser degrades gracefully (entry retained, no
+offset, exit 0); these are logged for data-quality auditing and are not parser bugs.
+
 ### Tests
 
-New file `tests/workers/nj/test_shortfont_parser_unit.py` — covers: definition entries, bare-narrative footnotes, repeated markers, orphan handling (both directions), offset round-trip, `<span class=notes>` parentheticals left untouched, top-level sup siblings, asterisk markers, inline `**[word]**` line-splitting, and plain-prose paragraph preservation.
+New file `tests/workers/nj/test_shortfont_parser_unit.py` — covers: definition entries, bare-narrative footnotes, repeated markers, orphan handling (both directions), offset round-trip, `<span class=notes>` parentheticals left untouched, top-level sup siblings, asterisk markers, inline `**[word]**` line-splitting, plain-prose paragraph preservation, leading-dash headword stripping, headword→body-word fallback, and anchor-before-cursor retry recovery.
 
 Full NJ suite: **105 tests green**.
 

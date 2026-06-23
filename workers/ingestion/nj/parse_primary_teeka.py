@@ -332,6 +332,7 @@ def parse_primary_teeka(
     global_kalash_start: int,
     *,
     parent_bhaavarth_nk: str | None = None,
+    source_ref: str = "",
 ) -> tuple[PrimaryTeeka, int]:
     """Parse div#teeka0 for primary teeka data; return (parsed, kalash_delta)."""
     steeka0 = teeka0_div.select_one(cfg.selectors.steeka0_div)
@@ -471,7 +472,9 @@ def parse_primary_teeka(
             source_url=None,
         )
 
-    cleaned_bhaavarth_md, shortfont_entries = extract_shortfont(bhaavarth_nodes)
+    cleaned_bhaavarth_md, shortfont_entries = extract_shortfont(
+        bhaavarth_nodes, source_ref=source_ref
+    )
 
     result = PrimaryTeeka(
         kalash_san=kalash_san_entries,

@@ -21,6 +21,9 @@ _DEV_DIGIT_MAP: dict[str, int] = {
 _ASCII_TO_DEV = str.maketrans("0123456789", "०१२३४५६७८९")
 # Contiguous Devanagari + hyphen token (anchor candidate)
 _DEV_TOKEN_RE = re.compile(r"[ऀ-ॿ\-]+")
+# Leading dash variants (ASCII hyphen, en-dash, em-dash) + surrounding space that
+# some glossary lines prefix to the headword, e.g. "<sup>3</sup> – आग्रह = …".
+_LEADING_DASH_RE = re.compile(r"^[\s\-–—]+")
 
 
 def _dev_to_int(text: str) -> int | None:
@@ -123,7 +126,8 @@ def _parse_glossary_lines(sf_node: Tag) -> list[tuple[int, str, str, bool]]:
 
         if "=" in full_text:
             eq_idx = full_text.index("=")
-            anchor_text = _clean(full_text[:eq_idx])
+            # Strip a leading dash ("– आग्रह = …") so the headword matches the body word.
+            anchor_text = _clean(_LEADING_DASH_RE.sub("", _clean(full_text[:eq_idx])))
             meaning = _clean(full_text[eq_idx + 1:])
             results.append((marker_num, anchor_text, meaning, True))
         else:
@@ -149,14 +153,20 @@ def _get_following_token(sup: Tag) -> str:
 def extract_shortfont(
     nodes: list[NavigableString | Tag],
     warnings: list[str] | None = None,
+    *,
+    source_ref: str = "",
 ) -> tuple[str, list[ShortFontEntry]]:
     """Extract shortFont glossary from a list of bhaavarth nodes.
 
     Returns (cleaned_md, entries) where cleaned_md has sup digits and the
     shortFont block stripped, and entries carry per-marker meanings + offsets.
+
+    `source_ref` (e.g. an HTML filename + gatha number) is prefixed onto every
+    warning so they can be traced back to the source page during manual debugging.
     """
     if warnings is None:
         warnings = []
+    ref = f"[{source_ref}] " if source_ref else ""
 
     # Wrap nodes in a shared parent BEFORE deep-copying so sibling relationships
     # (used by `_get_following_token`) survive the copy. Deep-copying each node
@@ -196,12 +206,12 @@ def extract_shortfont(
     body_markers = {mn for mn, _ in body_anchors}
 
     for mn in sorted(body_markers - glossary_markers):
-        msg = f"shortfont_missing_glossary: marker {mn}"
+        msg = f"{ref}shortfont_missing_glossary: marker {mn}"
         warnings.append(msg)
         logger.warning(msg)
 
     for mn in sorted(glossary_markers - body_markers):
-        msg = f"shortfont_orphan_glossary: marker {mn}"
+        msg = f"{ref}shortfont_orphan_glossary: marker {mn}"
         warnings.append(msg)
         logger.warning(msg)
 
@@ -231,31 +241,55 @@ def extract_shortfont(
     # next `**[` already comes from the same rule on the next match.)
     cleaned_md = unicodedata.normalize("NFC", cleaned_md).strip()
 
-    # 7. Backfill bare-footnote anchor_text and compute offsets (cursor-based)
+    # 7. Resolve each marker's effective anchor, then compute offsets (cursor-based).
+    # First body following-token per marker (the word the <sup> annotates).
+    body_candidate_by_marker: dict[int, str] = {}
+    for marker_num, body_candidate in body_anchors:
+        if body_candidate and marker_num not in body_candidate_by_marker:
+            body_candidate_by_marker[marker_num] = body_candidate
+
+    for entry in glossary.values():
+        bc = body_candidate_by_marker.get(entry.marker_number)
+        # Bare footnotes: anchor comes from the body token.
+        if not entry.is_definition and not entry.anchor_text and bc:
+            entry.anchor_text = bc
+        # Definition headwords are sometimes a lemma that differs from the inflected
+        # body word (e.g. असहायगुणवाला vs body असहायगुणात्मक). When the headword is not
+        # present verbatim, fall back to the annotated body word so the offset can be
+        # located and the round-trip invariant (cleaned_md[s:e] == anchor_text) holds.
+        if entry.anchor_text and entry.anchor_text not in cleaned_md and bc and bc in cleaned_md:
+            entry.anchor_text = bc
+
     cursor = 0
     for marker_num, body_candidate in body_anchors:
         entry = glossary.get(marker_num)
         if entry is None:
             continue
 
-        # For bare footnotes anchor comes from body; backfill if not yet set
-        if not entry.is_definition and not entry.anchor_text and body_candidate:
-            entry.anchor_text = body_candidate
-
         anchor_text = entry.anchor_text
         if not anchor_text:
             logger.debug("shortfont: skipping offset for marker %d (no anchor_text)", marker_num)
             continue
 
-        try:
-            start = cleaned_md.index(anchor_text, cursor)
-            end = start + len(anchor_text)
-            entry.occurrences.append(ShortFontAnchor(start_offset=start, end_offset=end))
-            cursor = end
-        except ValueError:
-            msg = f"shortfont_anchor_not_found: marker {marker_num}, anchor={anchor_text!r}"
+        start = cleaned_md.find(anchor_text, cursor)
+        if start == -1:
+            # Anchor exists but lies *before* the cursor: glossary headwords are
+            # sometimes longer compounds than the body word, so an earlier marker's
+            # match can advance the cursor past a later marker's (earlier) body word.
+            # Retry from the start, but skip a hit that merely re-points at an offset
+            # already recorded for this entry (the collapsed duplicate-marker case,
+            # where one body word serves several same-numbered footnotes).
+            retry = cleaned_md.find(anchor_text)
+            if retry != -1 and not any(o.start_offset == retry for o in entry.occurrences):
+                start = retry
+        if start == -1:
+            msg = f"{ref}shortfont_anchor_not_found: marker {marker_num}, anchor={anchor_text!r}"
             warnings.append(msg)
             logger.warning(msg)
+            continue
+        end = start + len(anchor_text)
+        entry.occurrences.append(ShortFontAnchor(start_offset=start, end_offset=end))
+        cursor = max(cursor, end)
 
     entries = list(glossary.values())
     return cleaned_md, entries
