@@ -92,8 +92,12 @@ def _canonicalize_anusvara(nfc: str) -> str:
     """Replace each anusvara `ं` followed by a Devanagari consonant with the
     sandhi-class nasal + halant + consonant. Anusvara without a following
     consonant (word-final, before vowel, etc.) is left as-is and gets stripped
-    later if not significant. ZWJ/ZWNJ between anusvara and the consonant is
-    tolerated.
+    later if not significant. ZWJ/ZWNJ — and any char that the strip pass would
+    later remove anyway (whitespace, danda, pipe, hyphens, ASCII punctuation) —
+    between the anusvara and the consonant is tolerated, so a sandhi nasal that
+    one recension writes solid (`भूदंतु`) and another writes with an intervening
+    space/danda (`भूदं तु`) canonicalize to the same form instead of diverging
+    on whether the anusvara happened to abut the consonant.
     """
     if _ANUSVARA not in nfc:
         return nfc
@@ -104,7 +108,7 @@ def _canonicalize_anusvara(nfc: str) -> str:
         ch = nfc[i]
         if ch == _ANUSVARA:
             j = i + 1
-            while j < n and nfc[j] in ("‌", "‍"):
+            while j < n and (nfc[j] in ("‌", "‍") or _is_strip_char(nfc[j])):
                 j += 1
             if j < n and _is_devanagari_consonant(nfc[j]):
                 nas = _nasal_for_class(ord(nfc[j]))
