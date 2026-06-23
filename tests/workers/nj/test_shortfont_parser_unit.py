@@ -431,3 +431,32 @@ def test_plain_prose_paragraphs_stay_intact():
     # First paragraph stays as one line — no splits at notes or sup
     assert "\n" not in paras[0]
     assert "अपनापन" in paras[0] and "व्यतिरेकी" in paras[0]
+
+
+def test_unclosed_notes_span_does_not_swallow_following_markers():
+    """An unclosed `<span class=notes>` in one glossary line nests every following
+    marker inside it. Splitting by `<sup>` (document order) instead of top-level
+    `<br>` must still recover each marker, and the swallowed markers' digits must
+    not leak into the preceding entry's meaning. Regression: nikkyjain 108.html
+    (प्रवचनसार gatha 98)."""
+    html = (
+        "द्रव्य <sup>५</sup>युतसिद्ध है और <sup>६</sup>प्रादेशिक भी ।"
+        "<span class=shortFont>"
+        # marker 5 opens a notes span and never closes it -> 6 & 7 nest inside
+        "<sup>५</sup>युतसिद्ध = जुड़कर सिद्ध । <span class=notes>(जैसे लाठी ।<br>"
+        "<sup>६</sup>प्रादेशिक भेद नहीं है ।<br>"
+        "<sup>७</sup>अताद् = तद्रूप न होना ।"
+        "</span>"
+    )
+    warnings: list[str] = []
+    cleaned_md, entries = extract_shortfont(_nodes(html), warnings=warnings)
+
+    by = {e.marker_number: e for e in entries}
+    assert set(by) >= {5, 6, 7}, f"missing markers: {set(by)}"
+    # marker 5's meaning must not contain the swallowed 6/7 digits or text
+    assert "६" not in by[5].meaning and "७" not in by[5].meaning
+    assert "प्रादेशिक" not in by[5].meaning
+    # marker 6 (bare footnote) meaning must not start with its own digit
+    assert not by[6].meaning.startswith("६")
+    assert by[6].meaning.startswith("प्रादेशिक")
+    assert not any("missing_glossary" in w for w in warnings)

@@ -263,6 +263,17 @@ from ~92 to ~10 across all 8 NJ shastras:
    forward search fails, skipping a hit that would merely re-point at an offset already
    recorded for the same entry (the collapsed duplicate-marker case).
 
+4. **Sup-based glossary splitting (unclosed-span robustness).** `_parse_glossary_lines`
+   now splits the shortFont block by `<sup>` markers in document order (`find_all`/
+   `next_elements`) instead of by top-level `<br>` lines. Source HTML frequently leaves a
+   `<span class=notes>` unclosed inside one glossary line (e.g. `108.html`, प्रवचनसार gatha 98:
+   marker `5`'s line opens a notes span that never closes), which nests **every** following
+   marker inside it. The old `<br>`-grouping then dropped markers `6–10` entirely (emitting
+   `shortfont_missing_glossary`) and their `<sup>` digits leaked into marker `5`'s meaning
+   (`… युतसिद्धता नहीं है ।६द्रव्य …७द्रव्य …`). Walking from each `<sup>` to the next is immune to
+   the nesting; the `<sup>`'s own digit child is skipped (`if sup in elem.parents`) so the
+   marker number never leaks into the entry text.
+
 **Residual (expected) warnings.** The remaining `shortfont_anchor_not_found` (~10),
 `shortfont_missing_glossary` (~41), and `shortfont_orphan_glossary` (~17) are genuine
 source-data inconsistencies — the body and the glossary disagree on which footnote
@@ -273,7 +284,7 @@ offset, exit 0); these are logged for data-quality auditing and are not parser b
 
 ### Tests
 
-New file `tests/workers/nj/test_shortfont_parser_unit.py` — covers: definition entries, bare-narrative footnotes, repeated markers, orphan handling (both directions), offset round-trip, `<span class=notes>` parentheticals left untouched, top-level sup siblings, asterisk markers, inline `**[word]**` line-splitting, plain-prose paragraph preservation, leading-dash headword stripping, headword→body-word fallback, and anchor-before-cursor retry recovery.
+New file `tests/workers/nj/test_shortfont_parser_unit.py` — covers: definition entries, bare-narrative footnotes, repeated markers, orphan handling (both directions), offset round-trip, `<span class=notes>` parentheticals left untouched, top-level sup siblings, asterisk markers, inline `**[word]**` line-splitting, plain-prose paragraph preservation, leading-dash headword stripping, headword→body-word fallback, anchor-before-cursor retry recovery, and unclosed-`<span class=notes>` markers not being swallowed (`test_unclosed_notes_span_does_not_swallow_following_markers`).
 
 Full NJ suite: **105 tests green**.
 

@@ -73,52 +73,38 @@ def _find_and_remove_shortfont(wrapper: Tag) -> Tag | None:
 
 
 def _parse_glossary_lines(sf_node: Tag) -> list[tuple[int, str, str, bool]]:
-    """Parse shortFont block into (marker_number, anchor_text, meaning, is_definition) tuples."""
-    # Group children into lines, splitting on <br> tags
-    line_groups: list[list[NavigableString | Tag]] = []
-    current: list[NavigableString | Tag] = []
-    for child in sf_node.children:
-        if isinstance(child, Tag) and child.name == "br":
-            if current:
-                line_groups.append(current)
-            current = []
-        else:
-            current.append(child)
-    if current:
-        line_groups.append(current)
+    """Parse shortFont block into (marker_number, anchor_text, meaning, is_definition) tuples.
+
+    Splits by `<sup>` markers found anywhere in the block (document order) rather
+    than by top-level `<br>` lines. Source HTML is frequently malformed — an
+    unclosed `<span class=notes>` in one glossary line nests every following
+    marker inside it, so `<br>`-based line grouping silently drops them (and their
+    `<sup>` numbers leak into the preceding entry's text). Walking from each
+    `<sup>` to the next and collecting the text in between is robust to that
+    nesting because `find_all`/`next_elements` traverse the whole tree.
+    """
+    sups = sf_node.find_all("sup")
 
     results: list[tuple[int, str, str, bool]] = []
-    for group in line_groups:
-        sup_node: Tag | None = None
-        remaining: list[NavigableString | Tag] = []
-        found_sup = False
-
-        for node in group:
-            if not found_sup:
-                if isinstance(node, Tag) and node.name == "sup":
-                    sup_node = node
-                    found_sup = True
-                elif isinstance(node, NavigableString) and not _clean(str(node)):
-                    continue  # skip leading whitespace
-                else:
-                    # Non-sup, non-whitespace first — line has no leading marker; skip
-                    break
-            else:
-                remaining.append(node)
-
-        if sup_node is None:
-            continue
-
-        marker_num = _dev_to_int(_clean(sup_node.get_text()))
+    for idx, sup in enumerate(sups):
+        marker_num = _dev_to_int(_clean(sup.get_text()))
         if marker_num is None:
             continue
 
+        next_sup = sups[idx + 1] if idx + 1 < len(sups) else None
+
+        # Collect all text between this <sup> and the next one (document order),
+        # regardless of how deeply it is nested by malformed/unclosed tags.
         text_parts: list[str] = []
-        for node in remaining:
-            if isinstance(node, NavigableString):
-                text_parts.append(str(node))
-            elif isinstance(node, Tag):
-                text_parts.append(node.get_text())
+        for elem in sup.next_elements:
+            if elem is next_sup:
+                break
+            if isinstance(elem, NavigableString):
+                # `next_elements` yields the <sup>'s own digit child first; skip
+                # anything still inside this marker so the number doesn't leak in.
+                if sup in elem.parents:
+                    continue
+                text_parts.append(str(elem))
 
         full_text = _clean("".join(text_parts)).rstrip("।").strip()
         if not full_text:
