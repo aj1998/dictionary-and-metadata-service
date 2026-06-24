@@ -1218,7 +1218,7 @@
                     "hindi_translation": "गुणों का समुदाय द्रव्य होता है।",
                     "references": [
                       {
-                        "text": "सर्वार्थसिद्धि/5/2/267/4",
+                        "text": "सर्वार्थसिद्धि/5/2/267/4,27",
                         "inline_reference": false,
                         "needs_manual_match": false,
                         "is_teeka": true,
@@ -1240,7 +1240,7 @@
                           },
                           {
                             "field": "पंक्ति",
-                            "value": "4"
+                            "value": "4,27"
                           }
                         ]
                       }
@@ -1262,11 +1262,11 @@
                     "hindi_translation": "वास्तव में द्रव्य गुणों का समुदाय है।",
                     "references": [
                       {
-                        "text": "पंचास्तिकाय/44",
+                        "text": "पंचास्तिकाय/तत्त्वप्रदीपिका/44",
                         "inline_reference": false,
                         "needs_manual_match": false,
-                        "is_teeka": false,
-                        "teeka_name": "",
+                        "is_teeka": true,
+                        "teeka_name": "तत्त्वप्रदीपिका",
                         "shastra_name": "पंचास्तिकाय",
                         "match_method": "shastra_name",
                         "resolved_fields": [
@@ -1794,7 +1794,7 @@
                     "hindi_translation": "एक द्रव्य में अतीत अनागत और ‘अपि’ शब्द से वर्तमान पर्यायरूप जितनी अर्थपर्याय और व्यंजनपर्याय हैं, तत्प्रमाण वह द्रव्य होता है।",
                     "references": [
                       {
-                        "text": "धवला 1/1,1,136/ गाथा 199/388",
+                        "text": "धवला 1/1,1,136/ गाथा 199/388/3,16",
                         "inline_reference": false,
                         "needs_manual_match": false,
                         "is_teeka": false,
@@ -1825,11 +1825,15 @@
                           {
                             "field": "पृष्ठ",
                             "value": 388
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": "3,16"
                           }
                         ]
                       },
                       {
-                        "text": "( धवला 3/1,2,1/ गाथा 4/6)",
+                        "text": "( धवला 3/1,2,1/ गाथा 4/6/1,13)",
                         "inline_reference": true,
                         "needs_manual_match": false,
                         "is_teeka": false,
@@ -1860,11 +1864,15 @@
                           {
                             "field": "पृष्ठ",
                             "value": 6
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": "1,13"
                           }
                         ]
                       },
                       {
-                        "text": "( धवला 9/4,1,45/ गाथा 67/183)",
+                        "text": "( धवला 9/4,1,45/ गाथा 63/183/3,13)",
                         "inline_reference": true,
                         "needs_manual_match": false,
                         "is_teeka": false,
@@ -1890,18 +1898,22 @@
                           },
                           {
                             "field": "धवलागाथा",
-                            "value": 67
+                            "value": 63
                           },
                           {
                             "field": "पृष्ठ",
                             "value": 183
+                          },
+                          {
+                            "field": "पंक्ति",
+                            "value": "3,13"
                           }
                         ]
                       },
                       {
-                        "text": "( कषायपाहुड़ 1/1,14/ गाथा 108/253)",
+                        "text": "( कषायपाहुड़ 1/13,14/108/253)",
                         "inline_reference": true,
-                        "needs_manual_match": true,
+                        "needs_manual_match": false,
                         "is_teeka": false,
                         "teeka_name": "",
                         "shastra_name": "कषायपाहुड़",
@@ -1913,7 +1925,7 @@
                           },
                           {
                             "field": "कषायपाहुड़-गाथा",
-                            "value": "1,14"
+                            "value": "13,14"
                           },
                           {
                             "field": "प्रकरण",
@@ -1922,10 +1934,6 @@
                           {
                             "field": "पृष्ठ",
                             "value": 253
-                          },
-                          {
-                            "field": "गाथा",
-                            "value": 108
                           }
                         ]
                       },
@@ -10656,7 +10664,7 @@
       "next": "/wiki/%E0%A4%A6%E0%A5%8D%E0%A4%B0%E0%A4%B5%E0%A5%8D%E0%A4%AF_%E0%A4%86%E0%A4%B8%E0%A5%8D%E0%A4%B0%E0%A4%B5"
     },
     "parser_version": "jainkosh.rules/1.11.24",
-    "parsed_at": "2026-06-23T21:23:26.236557",
+    "parsed_at": "2026-06-24T21:10:56.547218",
     "warnings": []
   },
   "would_write": {
@@ -13115,7 +13123,7 @@
               "hindi_translation": "गुणों का समुदाय द्रव्य होता है।",
               "references": [
                 {
-                  "text": "सर्वार्थसिद्धि/5/2/267/4",
+                  "text": "सर्वार्थसिद्धि/5/2/267/4,27",
                   "inline_reference": false,
                   "needs_manual_match": false,
                   "is_teeka": true,
@@ -13137,7 +13145,7 @@
                     },
                     {
                       "field": "पंक्ति",
-                      "value": "4"
+                      "value": "4,27"
                     }
                   ]
                 }
@@ -13159,11 +13167,11 @@
               "hindi_translation": "वास्तव में द्रव्य गुणों का समुदाय है।",
               "references": [
                 {
-                  "text": "पंचास्तिकाय/44",
+                  "text": "पंचास्तिकाय/तत्त्वप्रदीपिका/44",
                   "inline_reference": false,
                   "needs_manual_match": false,
-                  "is_teeka": false,
-                  "teeka_name": "",
+                  "is_teeka": true,
+                  "teeka_name": "तत्त्वप्रदीपिका",
                   "shastra_name": "पंचास्तिकाय",
                   "match_method": "shastra_name",
                   "resolved_fields": [
@@ -13694,7 +13702,7 @@
               "hindi_translation": "एक द्रव्य में अतीत अनागत और ‘अपि’ शब्द से वर्तमान पर्यायरूप जितनी अर्थपर्याय और व्यंजनपर्याय हैं, तत्प्रमाण वह द्रव्य होता है।",
               "references": [
                 {
-                  "text": "धवला 1/1,1,136/ गाथा 199/388",
+                  "text": "धवला 1/1,1,136/ गाथा 199/388/3,16",
                   "inline_reference": false,
                   "needs_manual_match": false,
                   "is_teeka": false,
@@ -13725,11 +13733,15 @@
                     {
                       "field": "पृष्ठ",
                       "value": 388
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": "3,16"
                     }
                   ]
                 },
                 {
-                  "text": "( धवला 3/1,2,1/ गाथा 4/6)",
+                  "text": "( धवला 3/1,2,1/ गाथा 4/6/1,13)",
                   "inline_reference": true,
                   "needs_manual_match": false,
                   "is_teeka": false,
@@ -13760,11 +13772,15 @@
                     {
                       "field": "पृष्ठ",
                       "value": 6
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": "1,13"
                     }
                   ]
                 },
                 {
-                  "text": "( धवला 9/4,1,45/ गाथा 67/183)",
+                  "text": "( धवला 9/4,1,45/ गाथा 63/183/3,13)",
                   "inline_reference": true,
                   "needs_manual_match": false,
                   "is_teeka": false,
@@ -13790,18 +13806,22 @@
                     },
                     {
                       "field": "धवलागाथा",
-                      "value": 67
+                      "value": 63
                     },
                     {
                       "field": "पृष्ठ",
                       "value": 183
+                    },
+                    {
+                      "field": "पंक्ति",
+                      "value": "3,13"
                     }
                   ]
                 },
                 {
-                  "text": "( कषायपाहुड़ 1/1,14/ गाथा 108/253)",
+                  "text": "( कषायपाहुड़ 1/13,14/108/253)",
                   "inline_reference": true,
-                  "needs_manual_match": true,
+                  "needs_manual_match": false,
                   "is_teeka": false,
                   "teeka_name": "",
                   "shastra_name": "कषायपाहुड़",
@@ -13813,7 +13833,7 @@
                     },
                     {
                       "field": "कषायपाहुड़-गाथा",
-                      "value": "1,14"
+                      "value": "13,14"
                     },
                     {
                       "field": "प्रकरण",
@@ -13822,10 +13842,6 @@
                     {
                       "field": "पृष्ठ",
                       "value": 253
-                    },
-                    {
-                      "field": "गाथा",
-                      "value": 108
                     }
                   ]
                 },
@@ -23325,10 +23341,10 @@
         },
         {
           "label": "GathaTeeka",
-          "key": "पंचास्तिकाय:टीका:गाथा:टीका:44",
+          "key": "पंचास्तिकाय:तत्त्वप्रदीपिका:गाथा:टीका:44",
           "props": {
             "shastra_natural_key": "पंचास्तिकाय",
-            "teeka_natural_key": "पंचास्तिकाय:टीका",
+            "teeka_natural_key": "पंचास्तिकाय:तत्त्वप्रदीपिका",
             "gatha_number": "44"
           },
           "lazy": true
@@ -23557,15 +23573,6 @@
             "publisher_id": "8",
             "page_number": "183",
             "pustak_number": "9"
-          },
-          "lazy": true
-        },
-        {
-          "label": "Gatha",
-          "key": "कषायपाहुड़:गाथा:108",
-          "props": {
-            "shastra_natural_key": "कषायपाहुड़",
-            "gatha_number": "108"
           },
           "lazy": true
         },
@@ -27256,7 +27263,7 @@
           "type": "MENTIONS_TOPIC",
           "from": {
             "label": "GathaTeeka",
-            "key": "पंचास्तिकाय:टीका:गाथा:टीका:44"
+            "key": "पंचास्तिकाय:तत्त्वप्रदीपिका:गाथा:टीका:44"
           },
           "to": {
             "label": "Topic",
@@ -27806,24 +27813,6 @@
           "from": {
             "label": "Page",
             "key": "धवला:टीका:8:पुस्तक:9:पृष्ठ:183"
-          },
-          "to": {
-            "label": "Topic",
-            "key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-त्रिकाली-पर्यायों-का-पिंड"
-          },
-          "props": {
-            "weight": 1.0,
-            "source": "jainkosh",
-            "block_index": 0,
-            "mention_path": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-त्रिकाली-पर्यायों-का-पिंड/0",
-            "source_natural_key": "द्रव्य:द्रव्य-के-भेद-व-लक्षण:द्रव्य-का-लक्षण-त्रिकाली-पर्यायों-का-पिंड"
-          }
-        },
-        {
-          "type": "MENTIONS_TOPIC",
-          "from": {
-            "label": "Gatha",
-            "key": "कषायपाहुड़:गाथा:108"
           },
           "to": {
             "label": "Topic",

@@ -8,6 +8,7 @@
 import type { DefinitionReference } from '@/lib/types';
 import { toDevanagariNumerals } from '@/lib/format/devanagari';
 
+
 // Field-name suffixes/values that are NOT part of the compound identifier and
 // should be skipped when building the compact form from a ref's resolved_fields.
 // Mirrors `reference.entity_keywords.{page,kalash,pankti}` in jainkosh.yaml.
@@ -55,21 +56,23 @@ export function gathaCompactFromNk(shastraNk: string, gathaNk: string): string {
 }
 
 // Human label for a gatha in a tile/card. For compound gathas, returns
-// "अधिकार १, गाथा १" (Devanagari numerals when numeric). For legacy gathas,
-// returns the bare gatha number.
+// "अधिकार १, गाथा १" (Devanagari numerals when isHi=true) or "अधिकार 1, गाथा 1"
+// (Latin when isHi=false). For legacy gathas, returns the bare gatha number.
 export function gathaTileLabel(
   shastraNk: string,
   gathaNk: string,
   gathaNumber: string,
+  isHi = true,
 ): string {
   if (!gathaNk.startsWith(`${shastraNk}:`)) return gathaNumber || gathaNk;
   const suffix = gathaNk.slice(shastraNk.length + 1);
   const parsed = parseGathaSuffix(suffix);
   if (!parsed.isCompound) return gathaNumber;
+  const fmtNum = (n: number) => isHi ? toDevanagariNumerals(n) : String(n);
   return parsed.segments
     .map((s) => {
       const n = parseInt(s.value, 10);
-      const v = Number.isNaN(n) ? s.value : toDevanagariNumerals(n);
+      const v = Number.isNaN(n) ? s.value : fmtNum(n);
       return `${s.name} ${v}`;
     })
     .join(', ');

@@ -8,11 +8,55 @@ from jain_kb_common.matching.normalize import normalize
 # ── helpers ──────────────────────────────────────────────────────────────────
 
 def roundtrip_holds(text: str) -> bool:
-    """Every char in normalized must equal original[n2o[i]]."""
+    """`n2o` must map each normalized char back into the RAW NFC `original`.
+
+    Since some normalization steps rewrite characters in place (anusvara `ं` →
+    class-nasal/`म्`, र्-gemination collapse), a transformed normalized char no
+    longer equals `original[n2o[i]]` literally. The invariant the matcher relies
+    on instead: n2o is non-decreasing and in-bounds, and re-normalizing the
+    spanned slice of the RAW original reproduces the normalized string — i.e. the
+    offsets point into the same coordinate space the UI renders (plain NFC).
+    """
     r = normalize(text)
     if len(r.normalized) != len(r.n2o):
         return False
-    return all(r.original[r.n2o[i]] == r.normalized[i] for i in range(len(r.normalized)))
+    for i, idx in enumerate(r.n2o):
+        if not (0 <= idx < len(r.original)):
+            return False
+        if i > 0 and idx < r.n2o[i - 1]:
+            return False
+    if r.normalized:
+        span = r.original[r.n2o[0] : r.n2o[-1] + 1]
+        return normalize(span).normalized == r.normalized
+    return True
+
+
+def test_original_is_raw_nfc_not_transformed():
+    """`original` must be the raw NFC text (UI coordinate space), so offsets into
+    it land correctly. Regression for the highlight-shift bug: anusvara/gemination
+    transforms changed `original`'s length, shifting char offsets vs the plain-NFC
+    text the UI highlights."""
+    import unicodedata
+
+    text = "कहा भी है द्रव्यं इति वचनात्"
+    r = normalize(text)
+    assert r.original == unicodedata.normalize("NFC", text)
+
+
+def test_n2o_maps_into_raw_nfc_for_word_final_anusvara():
+    # The match span recovered from raw `original` via n2o must equal the input
+    # substring — even though `द्रव्यं` is canonicalized to `द्रव्यम्` internally.
+    import unicodedata
+
+    text = "अथ द्रव्यं इति"
+    r = normalize(text)
+    target = normalize("द्रव्यम्").normalized  # canonical form of द्रव्यं
+    pos = r.normalized.find(target)
+    assert pos >= 0
+    char_start = r.n2o[pos]
+    char_end = r.n2o[pos + len(target) - 1] + 1
+    raw = unicodedata.normalize("NFC", text)
+    assert raw[char_start:char_end] == "द्रव्यं"
 
 
 # ── identity (no stripping needed) ───────────────────────────────────────────
@@ -150,7 +194,7 @@ def test_slash_stripped():
     assert "/" not in r.normalized
 
 
-# ── rule 6: digit runs surrounded by stripped chars ──────────────────────────
+# ── rule 6: all digits stripped unconditionally ──────────────────────────────
 
 def test_digit_run_between_dandas_stripped():
     # ।39। — digits bounded by dandas (stripped chars)
@@ -169,22 +213,23 @@ def test_digit_at_string_boundary_stripped():
     assert r.normalized == ""
 
 
-def test_digit_standalone_inside_word_kept():
-    # digit not surrounded by stripped chars on BOTH sides
-    # 'अ' (left) and 'ब' (right) are NOT stripped → digit stays
+def test_digit_inside_word_stripped():
+    # digits are stripped unconditionally, even glued to letters on both sides
     r = normalize("अ3ब")
-    assert "3" in r.normalized
+    assert "3" not in r.normalized
+    assert r.normalized == "अब"
 
 
-def test_digit_with_only_left_boundary_kept():
-    # digit has stripped char on left but NOT on right
+def test_digit_with_only_left_boundary_stripped():
     r = normalize("।3ब")
-    assert "3" in r.normalized
+    assert "3" not in r.normalized
+    assert r.normalized == "ब"
 
 
-def test_digit_with_only_right_boundary_kept():
+def test_digit_with_only_right_boundary_stripped():
     r = normalize("अ3।")
-    assert "3" in r.normalized
+    assert "3" not in r.normalized
+    assert r.normalized == "अ"
 
 
 def test_digit_verse_marker_pattern():
@@ -306,3 +351,38 @@ def test_ra_gemination_in_full_extract():
     # After collapse, अर्थपर्याय appears identically in both sides.
     assert "अर्थपर्याय" in s
     assert "अर्थपर्याय" in t
+
+
+# ── Rule 10b: word-final anusvara ≡ म् ───────────────────────────────────────
+
+
+def test_word_final_anusvara_before_vowel_becomes_m():
+    # In Sanskrit/Prakrit a word-final anusvara represents म् — `द्रव्यं इति`
+    # (anusvara, followed by a space + vowel) must collapse identically to the
+    # spelled-out `द्रव्यम् इति`.
+    a = normalize("द्रव्यं इति").normalized
+    b = normalize("द्रव्यम् इति").normalized
+    assert a == b
+
+
+def test_word_final_anusvara_at_string_end_becomes_m():
+    assert normalize("अहं").normalized == normalize("अहम्").normalized
+
+
+def test_word_final_anusvara_full_quote_matches_teeka():
+    # द्रव्य → प्रवचनसार/तत्त्वप्रदीपिका गाथा 23: the JainKosh extract writes the
+    # quote with a word-final anusvara (`द्रव्यं इति`), while the Sanskrit टीका
+    # spells it out (`द्रव्यम्’ इति`). After normalize the extract must be an
+    # exact substring of the टीका so the matcher clears threshold.
+    source = normalize("समगुणपर्यायं द्रव्यं इति वचनात्।")
+    target = normalize("आत्मा हि ‘समगुणपर्यायं द्रव्यम्’ इति वचनात् ज्ञानेन सह")
+    assert source.normalized in target.normalized
+
+
+def test_anusvara_before_consonant_still_class_nasal():
+    # Regression guard: an anusvara *before* a consonant must still canonicalize
+    # to the sandhi-class nasal (न् before त), not म्.
+    a = normalize("भूदं तु").normalized
+    b = normalize("भूदन्तु").normalized
+    assert a == b
+    assert "म्" not in a

@@ -23,11 +23,12 @@ import { getHindiText } from '@/lib/content-listing';
 import { normalizeNFC, toDevanagariNumerals } from '@/lib/format/devanagari';
 import { gathaCompactFromNk, isFullGathaNk, parseGathaSuffix } from '@/lib/format/gatha-id';
 
-const formatGathaRange = (nums: number[]): string => {
+const formatGathaRange = (nums: number[], isHi: boolean): string => {
+  const fmt = (n: number) => isHi ? toDevanagariNumerals(n) : String(n);
   if (nums.length > 2) {
-    return `${toDevanagariNumerals(nums[0])}-${toDevanagariNumerals(nums[nums.length - 1])}`;
+    return `${fmt(nums[0])}-${fmt(nums[nums.length - 1])}`;
   }
-  return nums.map((n) => toDevanagariNumerals(n)).join(', ');
+  return nums.map(fmt).join(', ');
 };
 import { getLocale, getTranslations } from 'next-intl/server';
 import type { HighlightRange } from '@/lib/highlight';
@@ -129,6 +130,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
     getLocale(),
   ]);
   const isHi = locale === 'hi';
+  const fmtNum = (n: number) => isHi ? toDevanagariNumerals(n) : String(n);
   const gathaLbl = isHi ? 'गाथा' : tS('gatha_label');
 
   const shastraPrefix = gatha.shastra.natural_key;
@@ -256,7 +258,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
       .map((n) => parseInt(n, 10))
       .filter((n) => !isNaN(n))
       .sort((a, b) => a - b);
-    const devList = formatGathaRange(allNums);
+    const devList = formatGathaRange(allNums, isHi);
     const chip = (postposition: 'का' | 'की') => (
       <span key={`combined-${postposition}`} className="inline-flex items-center gap-1 rounded-full border border-border bg-surface-muted px-2.5 py-0.5 font-serif-hindi text-[11px] text-foreground-muted">
         गाथा {devList} {postposition} संयुक्त
@@ -275,7 +277,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
       .map((n) => parseInt(n, 10))
       .filter((n) => !isNaN(n))
       .sort((a, b) => a - b);
-    const devList = formatGathaRange(allNums);
+    const devList = formatGathaRange(allNums, isHi);
     const prefix = idx === 0 ? '' : `${teekaShortName(m.teeka_natural_key)} `;
     noticeByTeeka.set(
       m.teeka_natural_key,
@@ -349,7 +351,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
       .map((n) => parseInt(n, 10))
       .filter((n) => !isNaN(n))
       .sort((a, b) => a - b);
-    const devList = formatGathaRange(allNums);
+    const devList = formatGathaRange(allNums, isHi);
     const tn = teekaShortName(kalash.teeka_natural_key);
     return (
       <span className="inline-flex items-center gap-1 rounded-full border border-border bg-surface-muted px-2.5 py-0.5 font-serif-hindi text-[11px] text-foreground-muted">
@@ -499,11 +501,11 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
   if (identifier?.is_compound) {
     // Compound: build per-field chips, e.g. "अधिकार १ › गाथा २"
     breadcrumbExtraSegments = identifier.fields.map((f) => ({
-      label: `${f.label} ${toDevanagariNumerals(parseInt(f.value, 10)) || f.value}`,
+      label: `${f.label} ${fmtNum(parseInt(f.value, 10)) || f.value}`,
     }));
     gathaLeafLabel = breadcrumbExtraSegments.map((s) => s.label).join(' › ');
   } else {
-    const canonicalGathaDev = toDevanagariNumerals(parseInt(gatha.gatha_number, 10));
+    const canonicalGathaDev = fmtNum(parseInt(gatha.gatha_number, 10));
     const primaryTeekaName = primaryMapping
       ? teekaShortName(primaryMapping.teeka_natural_key)
       : null;
@@ -522,7 +524,7 @@ export default async function GathaDetailPage({ params, searchParams }: PageProp
     const secondaryTeekaNk =
       secondaryTeekaCandidates.find((k): k is string => !!k && k !== primaryTeekaNk) ?? null;
     const markerDev = gatha.prakrit_verse_marker
-      ? toDevanagariNumerals(parseInt(gatha.prakrit_verse_marker, 10))
+      ? fmtNum(parseInt(gatha.prakrit_verse_marker, 10))
       : null;
     const primarySegment = [
       `${gathaLbl} ${canonicalGathaDev}`,

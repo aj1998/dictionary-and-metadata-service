@@ -1,3 +1,6 @@
+'use client';
+
+import { useLocale } from 'next-intl';
 import { cn } from "@/lib/utils";
 import { toDevanagariNumerals } from "@/lib/format/devanagari";
 
@@ -8,6 +11,8 @@ export interface StatTileProps {
 }
 
 export function StatTile({ count, label, className }: StatTileProps) {
+  const locale = useLocale();
+  const displayCount = locale === 'hi' ? toDevanagariNumerals(count) : String(count);
   return (
     <div
       className={cn(
@@ -18,7 +23,7 @@ export function StatTile({ count, label, className }: StatTileProps) {
       <span
         className="font-serif-hindi text-[length:var(--font-size-h1)] font-semibold leading-[var(--line-height-h1)] text-foreground"
       >
-        {toDevanagariNumerals(count)}
+        {displayCount}
       </span>
       <span
         className="mt-0.5 font-sans text-[length:var(--font-size-xs)] font-medium uppercase tracking-widest text-foreground-muted"

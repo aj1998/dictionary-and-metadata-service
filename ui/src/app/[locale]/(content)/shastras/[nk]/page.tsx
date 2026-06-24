@@ -6,7 +6,7 @@ import { getShastra, getShastraTeekas } from '@/lib/api/metadata';
 import { getGathasByShastraId } from '@/lib/api/data';
 import { getHindiText } from '@/lib/content-listing';
 import { gathaCompactFromNk, gathaTileLabel, uniqueLeadingIdValues } from '@/lib/format/gatha-id';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import type { AuthorSummary } from '@/lib/types';
 
 export const revalidate = 60;
@@ -23,7 +23,8 @@ export default async function ShastraDetailPage({ params }: PageProps) {
   const { nk: rawNk } = await params;
   const nk = decodeURIComponent(rawNk);
 
-  const [shastra, t] = await Promise.all([getShastra(nk), getTranslations('shastras')]);
+  const [shastra, t, locale] = await Promise.all([getShastra(nk), getTranslations('shastras'), getLocale()]);
+  const isHi = locale === 'hi';
 
   const [teekas, gathas] = await Promise.all([
     getShastraTeekas(nk).catch((error) => {
@@ -98,7 +99,7 @@ export default async function ShastraDetailPage({ params }: PageProps) {
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
             {gathas.items.map((gatha) => {
               const compact = gathaCompactFromNk(shastra.natural_key, gatha.natural_key);
-              const compoundLabel = gathaTileLabel(shastra.natural_key, gatha.natural_key, gatha.gatha_number);
+              const compoundLabel = gathaTileLabel(shastra.natural_key, gatha.natural_key, gatha.gatha_number, isHi);
               const isCompound = compact.includes(',');
               return (
                 <GathaTile

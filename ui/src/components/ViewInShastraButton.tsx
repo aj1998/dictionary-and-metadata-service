@@ -48,12 +48,21 @@ export function findMatchForRef(
     (e) => e.status !== 'target_missing' && e.shastra_nk === ref.shastra_name,
   );
   if (candidates.length === 0) return undefined;
+  // Prefer a `matched` candidate over an `unmatched` one. A single block can
+  // emit several targets for the same gatha (e.g. the matched टीका plus an
+  // unmatched भावार्थ/अन्वयार्थ sibling); without this the first-found entry
+  // could be the unmatched sibling, rendering a grey book for a ref that does
+  // in fact have a live highlight.
+  const preferMatched = (list: MatchEntry[]): MatchEntry | undefined =>
+    list.find((e) => e.status === 'matched') ?? list[0];
   const refGatha = ref.resolved_fields.find((f) => f.field === 'गाथा')?.value;
   if (refGatha) {
-    const byGatha = candidates.find((e) => e.gatha_nk.endsWith(`:${refGatha}`) || e.gatha_nk === refGatha);
-    if (byGatha) return byGatha;
+    const byGatha = candidates.filter(
+      (e) => e.gatha_nk.endsWith(`:${refGatha}`) || e.gatha_nk === refGatha,
+    );
+    if (byGatha.length) return preferMatched(byGatha);
   }
-  return candidates[0];
+  return preferMatched(candidates);
 }
 
 interface UseMatchEntriesResult {

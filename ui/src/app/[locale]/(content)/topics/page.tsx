@@ -181,7 +181,7 @@ export default async function TopicsPage({ searchParams }: PageProps) {
             <h2 className="font-serif-hindi text-[length:var(--font-size-h3)] font-semibold">{getHindiText(item.display_text, item.natural_key)}</h2>
             <div className="mt-2 flex items-center justify-between">
               <span className="rounded-full bg-accent-soft px-2 py-1 text-xs text-accent">{item.parent_keyword?.display_text ?? '—'}</span>
-              <span className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold text-foreground-muted">{toDevanagariNumerals(item.extract_count ?? 0)}</span>
+              <span className={`font-serif-hindi font-semibold text-foreground-muted ${isHi ? 'text-[length:var(--font-size-h2)]' : 'text-[length:var(--font-size-h3)]'}`}>{num(item.extract_count ?? 0)}</span>
             </div>
             <div className="mt-4 flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">

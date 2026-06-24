@@ -66,6 +66,14 @@ def _make_mongo(docs: dict[str, dict | None]) -> MagicMock:
         async def find_one(self, query):
             return docs.get(self._name)
 
+        def find(self, query):
+            # Default helper yields nothing; tests needing fan-out over `.find()`
+            # (e.g. Gatha-primary भावार्थ) supply a bespoke mongo mock instead.
+            async def _gen():
+                if False:
+                    yield None
+            return _gen()
+
     class _DB:
         def __getitem__(self, name):
             return _Col(name)
@@ -253,6 +261,100 @@ async def test_gatha_stub_no_anvayartha_target_without_hindi_translation():
     targets = await resolve_targets(driver, mongo, source)
     assert len(targets) == 1
     assert targets[0].collection == "gatha_prakrit"
+
+
+@pytest.mark.asyncio
+async def test_gatha_stub_emits_bhaavarth_targets_for_each_publication():
+    """A Gatha verse (e.g. तत्त्वार्थसूत्र — a shastra-type root with NO Sanskrit
+    टीका, so it emits a `Gatha` stub, not `GathaTeeka`) whose block carries a
+    hindi_translation must still match its published भावार्थ.
+
+    The भावार्थ lives in `gatha_teeka_bhaavarth_hindi`, keyed per publication
+    (सर्वार्थसिद्धि + राजवार्तिक) under `gatha_teeka_natural_key`
+    (`{shastra}:{publication}:{gseg}`). The resolver fans out one target per
+    publication bhaavarth doc for the gatha. (Bhaavarth docs have no
+    `gatha_natural_key`, so the lookup is a regex over `gatha_teeka_natural_key`.)
+    """
+    gatha_nk = "तत्त्वार्थसूत्र:अध्याय:5:सूत्र:38"
+    records = [
+        _make_neo4j_record(
+            stub_nk=gatha_nk,
+            stub_labels=["Gatha"],
+            shastra_natural_key="तत्त्वार्थसूत्र",
+        )
+    ]
+    driver = _make_driver(records)
+
+    bhaav_docs = [
+        {
+            "natural_key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:0:अध्याय:5:सूत्र:38:भावार्थ:hi",
+            "gatha_teeka_natural_key": "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:अध्याय:5:सूत्र:38",
+            "text": [{"lang": "hin", "text": "सर्वार्थसिद्धि भावार्थ"}],
+        },
+        {
+            "natural_key": "तत्त्वार्थसूत्र:राजवार्तिक:0:अध्याय:5:सूत्र:38:भावार्थ:hi",
+            "gatha_teeka_natural_key": "तत्त्वार्थसूत्र:राजवार्तिक:अध्याय:5:सूत्र:38",
+            "text": [{"lang": "hin", "text": "राजवार्तिक भावार्थ"}],
+        },
+    ]
+
+    class _Mongo:
+        def __getitem__(self, name):
+            if name == "gatha_sanskrit":
+                class _GCol:
+                    async def find_one(self, query):
+                        return {
+                            "natural_key": f"{gatha_nk}:sanskrit",
+                            "text": [{"lang": "san", "text": "गुणपर्ययवद् द्रव्यम्"}],
+                        }
+                return _GCol()
+            if name == "teeka_gatha_mapping":
+                class _MCol:
+                    async def find_one(self, query):
+                        return None
+                return _MCol()
+            if name == "gatha_teeka_bhaavarth_hindi":
+                class _BCol:
+                    def find(self, query):
+                        async def _gen():
+                            for d in bhaav_docs:
+                                yield d
+                        return _gen()
+                    async def find_one(self, query):
+                        return None
+                return _BCol()
+            class _Empty:
+                async def find_one(self, query):
+                    return None
+            return _Empty()
+
+    source = SourceBlock(
+        kind="topic_extract",
+        parent_natural_key="द्रव्य:...:द्रव्य-का-लक्षण-गुणपर्यायवान्",
+        section_index=None,
+        definition_index=None,
+        block_index=1,
+        block_kind="sanskrit_text",
+        text_devanagari="गुणपर्ययवद्द्रव्यम्।38।",
+        reference_text="तत्त्वार्थसूत्र/5/38",
+        references=[],
+        hindi_translation="गुण और पर्यायों वाला द्रव्य है।",
+    )
+
+    targets = await resolve_targets(driver, _Mongo(), source)
+    cols = [t.collection for t in targets]
+    assert cols.count("gatha_teeka_bhaavarth_hindi") == 2
+    bhaavs = [t for t in targets if t.collection == "gatha_teeka_bhaavarth_hindi"]
+    for b in bhaavs:
+        assert b.gatha_natural_key == gatha_nk
+        assert b.source_text_kind == "hindi_translation"
+        assert b.match_block_kind == "hindi_text"
+        assert b.lang == "hin"
+        assert b.status_hint is None
+    assert {b.natural_key for b in bhaavs} == {
+        "तत्त्वार्थसूत्र:सर्वार्थसिद्धि:0:अध्याय:5:सूत्र:38:भावार्थ:hi",
+        "तत्त्वार्थसूत्र:राजवार्तिक:0:अध्याय:5:सूत्र:38:भावार्थ:hi",
+    }
 
 
 @pytest.mark.asyncio
@@ -525,6 +627,63 @@ async def test_compound_gatha_zero_pad_fuzzy_fallback():
     assert targets[0].natural_key == padded_mongo_nk
     assert targets[0].status_hint is None
     assert targets[0].text == "अप्पा"
+
+
+@pytest.mark.asyncio
+async def test_gatha_width_agnostic_padding_fallback():
+    """NJ pads the gatha/sutra number to a chapter-dependent width — e.g.
+    तत्त्वार्थसूत्र अध्याय 5 stores `सूत्र:01` (2 digits). The stub NK is unpadded
+    (`सूत्र:1`) and the fixed-width fallback only tries 3 digits (`सूत्र:001`),
+    so the width-agnostic regex fallback must resolve the 2-digit doc."""
+    import re as _re
+
+    shastra = "तत्त्वार्थसूत्र"
+    stub_nk = f"{shastra}:अध्याय:5:सूत्र:1"
+    stored_mongo_nk = f"{shastra}:अध्याय:5:सूत्र:01:sanskrit"
+    records = [
+        _make_neo4j_record(
+            stub_nk=stub_nk,
+            stub_labels=["Gatha"],
+            shastra_natural_key=shastra,
+        )
+    ]
+    driver = _make_driver(records)
+
+    class _RegexAware:
+        def __getitem__(self, name):
+            class _Col:
+                async def find_one(self, query):
+                    nk = query.get("natural_key")
+                    if isinstance(nk, dict) and "$regex" in nk:
+                        if _re.search(nk["$regex"], stored_mongo_nk):
+                            return {"natural_key": stored_mongo_nk,
+                                    "text": [{"lang": "san", "text": "अजीवकाया"}]}
+                        return None
+                    if nk == stored_mongo_nk:
+                        return {"natural_key": stored_mongo_nk,
+                                "text": [{"lang": "san", "text": "अजीवकाया"}]}
+                    return None
+            return _Col()
+    mongo = _RegexAware()
+
+    source = SourceBlock(
+        kind="topic_extract",
+        parent_natural_key=f"{shastra}:विषय:1",
+        section_index=None,
+        definition_index=None,
+        block_index=0,
+        block_kind="sanskrit_text",
+        text_devanagari="अजीवकाया",
+        reference_text=None,
+        references=[],
+    )
+
+    targets = await resolve_targets(driver, mongo, source)
+    assert len(targets) == 1
+    assert targets[0].natural_key == stored_mongo_nk
+    assert targets[0].status_hint is None
+    # metadata gatha_nk aligned to the doc's padding (doc NK minus :lang)
+    assert targets[0].gatha_natural_key == f"{shastra}:अध्याय:5:सूत्र:01"
 
 
 @pytest.mark.asyncio

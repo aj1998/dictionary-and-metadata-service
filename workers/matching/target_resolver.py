@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import re
 from dataclasses import dataclass
 
 from neo4j import AsyncDriver
@@ -108,6 +109,30 @@ def _padded_variant_nk(nk: str, width: int = 3) -> str | None:
                 return None
             parts[i] = new_seg
             return ":".join(parts)
+    return None
+
+
+def _numeric_variant_regex(nk: str) -> str | None:
+    """Return an anchored regex matching `nk` with the last numeric colon-segment
+    allowed *any* zero-padding width.
+
+    `_padded_variant_nk` only tries one fixed width (3), but NJ ingestion pads
+    gatha/sutra numbers to a chapter-dependent width — e.g. तत्त्वार्थसूत्र
+    अध्याय 5 stores `सूत्र:01` (2 digits) while a longer chapter would use 3.
+    A single-width fallback misses those, so when both the exact and fixed-width
+    lookups fail we match the trailing number by *value* (`0*{n}`) regardless of
+    how many leading zeros it carries. Walks right-to-left so trailing suffixes
+    (`:sanskrit`, `:टीका:san`, …) are skipped.
+    """
+    if not nk:
+        return None
+    parts = nk.split(":")
+    for i in range(len(parts) - 1, -1, -1):
+        if parts[i].isdigit():
+            value = str(int(parts[i]))
+            escaped = [re.escape(p) for p in parts]
+            escaped[i] = f"0*{value}"
+            return "^" + ":".join(escaped) + "$"
     return None
 
 
@@ -312,6 +337,28 @@ RETURN
                     # actually lives under, so UI deep-links resolve.
                     if stub_label == "Gatha" and gatha_nk:
                         gatha_nk = _padded_variant_nk(gatha_nk) or gatha_nk
+            if mongo_doc is None:
+                # Width-agnostic fallback: NJ pads the gatha/sutra number to a
+                # chapter-dependent width (e.g. `सूत्र:01`), which the single
+                # fixed-width `_padded_variant_nk` above can miss. Match the
+                # trailing number by value regardless of zero-padding width.
+                rgx = _numeric_variant_regex(mongo_nk)
+                if rgx is not None:
+                    mongo_doc = await mongo[collection].find_one(
+                        {"natural_key": {"$regex": rgx}}
+                    )
+                    if mongo_doc is not None:
+                        resolved_nk = mongo_doc.get("natural_key", mongo_nk)
+                        logger.info(
+                            "fuzzy width-agnostic match: %s → %s",
+                            mongo_nk, resolved_nk,
+                        )
+                        # Align metadata gatha_nk to the padding the doc actually
+                        # lives under so UI deep-links resolve. For a Gatha stub
+                        # the gatha NK is the doc NK minus its `:lang` suffix.
+                        if stub_label == "Gatha" and gatha_nk:
+                            gatha_nk = resolved_nk.rsplit(":", 1)[0]
+                        mongo_nk = resolved_nk
         text: str | None = None
         status_hint: str | None = None
 
@@ -353,6 +400,18 @@ RETURN
             )
             if anvayartha is not None:
                 targets.append(anvayartha)
+
+            # Second target(s): the gatha's Hindi भावार्थ (bhaavarth panel).
+            # Shastra-type roots like तत्त्वार्थसूत्र have no Sanskrit टीका, so
+            # their blocks emit a `Gatha` stub (never `GathaTeeka`) and never
+            # reach `_resolve_bhaavarth_target`. But their published भावार्थ
+            # (सर्वार्थसिद्धि / राजवार्तिक, …) lives in
+            # `gatha_teeka_bhaavarth_hindi` and IS the block's hindi_translation.
+            # Fan out one target per publication bhaavarth doc for the gatha so
+            # the भावार्थ panel highlights alongside the verse.
+            targets.extend(
+                await _resolve_gatha_bhaavarth_targets(mongo, gatha_nk, shastra_nk)
+            )
 
         # Second target: the gatha's Hindi भावार्थ (bhaavarth panel). A
         # `sanskrit_text` block carries the Sanskrit teeka in `text_devanagari`
@@ -423,6 +482,76 @@ async def _resolve_bhaavarth_target(
         source_text_kind="hindi_translation",
         match_block_kind="hindi_text",
     )
+
+
+async def _resolve_gatha_bhaavarth_targets(
+    mongo,
+    gatha_nk: str,
+    shastra_nk: str | None,
+) -> list[Target]:
+    """Build `gatha_teeka_bhaavarth_hindi` (भावार्थ) targets for a Gatha verse.
+
+    For shastra-type roots (तत्त्वार्थसूत्र etc.) whose primary verse emits a
+    `Gatha` stub (no Sanskrit टीका, so the `GathaTeeka` bhaavarth path in
+    `_resolve_bhaavarth_target` never fires), the published भावार्थ still lives
+    in `gatha_teeka_bhaavarth_hindi`, keyed per publication
+    (सर्वार्थसिद्धि / राजवार्तिक / …) under `gatha_teeka_natural_key`
+    (`{shastra}:{publication}:{gseg}`). Bhaavarth docs carry no
+    `gatha_natural_key`, so look them up with a regex over
+    `gatha_teeka_natural_key`: shastra prefix, then a single publication
+    segment, then the per-gatha segment (`_mongo_seg_from_gatha_nk`).
+
+    Fans out one target per matching publication doc (mirrors the chosen
+    "all publications" behavior); the matcher scores each independently, so only
+    the publication actually containing the quote clears threshold. Returns []
+    when no bhaavarth docs exist (no noisy `target_missing`). The zero-padding
+    alternate of the gatha segment is also tried so raw-citation and NJ-padded
+    forms both resolve.
+    """
+    gseg = _mongo_seg_from_gatha_nk(gatha_nk, shastra_nk)
+    if not shastra_nk or not gseg:
+        return []
+    segs = [gseg]
+    alt = _padded_variant_nk(gseg)
+    if alt and alt != gseg:
+        segs.append(alt)
+
+    targets: list[Target] = []
+    seen: set[str] = set()
+    for seg in segs:
+        pattern = f"^{re.escape(shastra_nk)}:[^:]+:{re.escape(seg)}$"
+        cursor = mongo[_GATHA_TEEKA_BHAAVARTH_HINDI].find(
+            {"gatha_teeka_natural_key": {"$regex": pattern}}
+        )
+        async for doc in cursor:
+            nk = doc.get("natural_key")
+            if not nk or nk in seen:
+                continue
+            text_list = doc.get("text", [])
+            text = None
+            if text_list and isinstance(text_list, list) and text_list[0]:
+                text = text_list[0].get("text") if isinstance(text_list[0], dict) else None
+            if not text:
+                continue
+            seen.add(nk)
+            targets.append(Target(
+                collection=_GATHA_TEEKA_BHAAVARTH_HINDI,
+                natural_key=nk,
+                stub_label="GathaTeekaBhaavarth",
+                shastra_natural_key=shastra_nk,
+                gatha_natural_key=gatha_nk,
+                lang=_COLLECTION_LANG.get(_GATHA_TEEKA_BHAAVARTH_HINDI),
+                text=text,
+                status_hint=None,
+                source_text_kind="hindi_translation",
+                match_block_kind="hindi_text",
+            ))
+    if targets:
+        logger.info(
+            "gatha bhaavarth fan-out: gatha=%s → %d publication target(s)",
+            gatha_nk, len(targets),
+        )
+    return targets
 
 
 async def _resolve_anvayartha_target(

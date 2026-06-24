@@ -86,7 +86,7 @@ export default async function ShastrasPage({ searchParams }: PageProps) {
               ))}
             </div>
             <div className="mt-4 flex items-center justify-between">
-              <span className="font-serif-hindi text-[length:var(--font-size-h2)] font-semibold text-accent">
+              <span className={`font-serif-hindi font-semibold text-accent ${isHi ? 'text-[length:var(--font-size-h2)]' : 'text-[length:var(--font-size-h3)]'}`}>
                 {num(gathaCounts[i] ?? 0)}
                 <span className="ml-2 text-xs font-normal text-foreground-muted">{tS('gathas')}</span>
               </span>

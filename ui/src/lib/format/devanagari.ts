@@ -8,6 +8,11 @@ export function toDevanagariNumerals(n: number): string {
   return String(n).replace(/[0-9]/g, (d) => ASCII_TO_DEVANAGARI[d]);
 }
 
+/** Replaces every ASCII digit in an arbitrary string with its Devanagari equivalent. */
+export function toDevanagariDigitsInString(s: string): string {
+  return s.replace(/[0-9]/g, (d) => ASCII_TO_DEVANAGARI[d]);
+}
+
 /** NFC-normalizes a string (Devanagari-safe Unicode normalization). */
 export function normalizeNFC(s: string): string {
   return s.normalize("NFC");

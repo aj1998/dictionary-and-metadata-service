@@ -87,6 +87,23 @@ both panels at once. Implemented via `Target.source_text_kind` /
 [target_resolver.py](../../../workers/matching/target_resolver.py). No mapping
 doc → no row (we don't emit a noisy `target_missing` for anvayartha-less gathas).
 
+### Bhaavarth (भावार्थ) for `Gatha`-primary verses (shastra-type roots)
+
+The `GathaTeeka` bhaavarth path below only fires for shastras that *have* a
+Sanskrit टीका. Shastra-type roots like **तत्त्वार्थसूत्र** have no टीका ("टीका
+उपलब्ध नहीं है"): the sutra *is* the gatha, so JainKosh emits a `Gatha` stub, not
+`GathaTeeka`. Their published भावार्थ (सर्वार्थसिद्धि / राजवार्तिक / …) nonetheless
+lives in `gatha_teeka_bhaavarth_hindi`, and a quoting block's `hindi_translation`
+*is* that भावार्थ. So when a `Gatha` verse target's block carries a
+`hindi_translation`, `_resolve_gatha_bhaavarth_targets` also emits a भावार्थ
+target — **fanning out one target per publication** bhaavarth doc for the gatha.
+Because bhaavarth docs carry no `gatha_natural_key`, the lookup is a regex over
+`gatha_teeka_natural_key` (`^{shastra}:[^:]+:{gseg}$`, with the zero-pad
+alternate of `gseg` also tried). Each publication is scored independently, so
+only the one actually containing the quote clears threshold. No bhaavarth doc →
+no row. This mirrors the अन्वयार्थ second target and runs alongside it for every
+`Gatha` verse with a Hindi translation.
+
 ### Bhaavarth (भावार्थ) second target
 
 A `sanskrit_text` block resolves to a `GathaTeeka` stub and matches the Sanskrit
@@ -127,7 +144,7 @@ previously they used `gatha_nk.split(":")[-1]`, which dropped the
 `अधिकार:N:गाथा:` prefix for compound shastras and silently produced
 `target_missing` for every compound teeka/bhaavarth row.
 
-#### Zero-padding fallback
+#### Zero-padding fallback (width-agnostic)
 
 JainKosh's reference parser builds Neo4j Gatha stub NKs from raw citation
 values (`…:गाथा:12`), but NJ ingestion zero-pads the trailing numeric to
@@ -139,6 +156,16 @@ This mirrors the `_find_compound_gatha_fuzzy` server-side fallback in
 to any Mongo NK shape, so it also covers compound teeka/bhaavarth lookups
 where the trailing number lives mid-NK (e.g. `…:गाथा:012:टीका:san`). Successful
 fallbacks emit `INFO target_resolver fuzzy zero-pad match: <unpadded> → <padded>`.
+
+`_padded_variant_nk` only tries **one** fixed width (3). But NJ pads the
+gatha/sutra number to a *chapter-dependent* width — e.g. तत्त्वार्थसूत्र अध्याय 5
+stores `सूत्र:01` (2 digits, the chapter's max sutra count), so neither the
+exact (`सूत्र:1`) nor the 3-pad (`सूत्र:001`) lookup hit it. When both miss,
+`_numeric_variant_regex` matches the trailing number by **value** regardless of
+zero-padding width (`^…:सूत्र:0*1:sanskrit$`), and the resolved doc's NK (minus
+its `:lang` suffix) is adopted as the metadata `gatha_natural_key` so UI
+deep-links land on the stored padding. Emits `INFO target_resolver fuzzy
+width-agnostic match: <derived> → <resolved>`.
 
 Current non-goal:
 
@@ -159,9 +186,18 @@ Key files:
 
 `normalize(text)` returns:
 
-- `original`: NFC-normalized source text
-- `normalized`: stripped text used for matching
-- `n2o`: normalized-index to original-index map
+- `original`: the **raw NFC** text — exactly the coordinate space the UI renders
+  (it applies `normalizeNFC(text)` then slices by char offset). The
+  length-changing canonicalizations (anusvara `ं` → class-nasal/`म्`, र्-gemination
+  collapse) are **not** reflected in `original`; they happen on an internal
+  working buffer whose per-character raw-NFC offsets are threaded into `n2o`.
+- `normalized`: stripped + canonicalized text used for matching
+- `n2o`: normalized-index → **raw-NFC**-index map. Because a single anusvara may
+  expand to two characters (`ं` → `म` + `्`), `n2o` is non-decreasing (not
+  strictly increasing): both injected chars share the anusvara's raw offset. This
+  guarantees `char_start`/`char_end` from `locate()` land on the un-transformed
+  text the UI highlights — a mismatch here drifts the highlight forward by one
+  char per edit before the match.
 
 Stripping rules currently remove:
 
@@ -170,12 +206,24 @@ Stripping rules currently remove:
 - danda / double danda / pipe
 - hyphens, dashes, underscore, tilde
 - ASCII punctuation
-- bounded digit runs
+- all digits (ASCII + Devanagari), unconditionally — verse markers like `।1।` /
+  `|1|` and digits glued to a word (`गाथा9`) are always stripped on both sides
 - Devanagari avagraha
 - Devanagari visarga
 - Devanagari chandrabindu (`ँ` U+0901) — Apabhramsha-era prints (e.g.
   परमात्मप्रकाश) emit chandrabindu inconsistently, so stripping it makes
   `सण्णाणेँ` and `सण्णाणे` collapse identically.
+
+- **Word-final anusvara → `म्`.** In Sanskrit/Prakrit a word-final anusvara
+  represents `म्` (e.g. `द्रव्यं` ≡ `द्रव्यम्`, `अहं` ≡ `अहम्`). The anusvara pass
+  therefore canonicalizes any `ं` *not* followed by a consonant (string end,
+  before a vowel, etc.) to `म्` + halant, space-tolerantly (`द्रव्यं इति` collapses
+  to the same form as `द्रव्यम् इति`). This is the complement of the
+  before-a-consonant rule below.
+- **Unicode curly quotation marks stripped** (U+2018/U+2019 single, U+201C/U+201D
+  double). The corpus wraps embedded quotes in these (e.g. a टीका writes
+  `‘समगुणपर्यायं द्रव्यम्’`) while JainKosh extracts drop them; they are stripped
+  like the ASCII quotes in strip rule 5.
 
 A third **preprocess** pass also runs alongside the Tiryak and anusvara passes:
 
@@ -488,6 +536,10 @@ At minimum, also review:
 
 | Date | Change |
 |---|---|
+| 2026-06-25 | **Width-agnostic zero-padding fallback.** `तत्त्वार्थसूत्र` अध्याय 5 सूत्र 1 (`अजीव-काया-धर्माधर्माकाश-पुद्गला:`) was `target_missing` — the resolver derived `सूत्र:1:sanskrit` and the fixed-width `_padded_variant_nk` only tried `सूत्र:001`, but NJ pads to the chapter's max width (`सूत्र:01`, 2 digits). New `_numeric_variant_regex` matches the trailing number by value (`0*{n}`) regardless of padding width when both exact + 3-pad lookups miss; the resolved doc's NK (minus `:lang`) becomes the metadata `gatha_natural_key`. Files: `workers/matching/target_resolver.py`, `tests/workers/matching/test_target_resolver.py`. |
+| 2026-06-25 | **Digit stripping is now unconditional.** Rule 6 previously stripped a digit run only when *both* sides were strip-chars/edges, so a digit glued to a letter (`गाथा9`, or a number abutting a word with no separating danda) survived and could break matching. `normalize()` now strips every ASCII/Devanagari digit regardless of neighbors — verse markers like `।1।` / `\|1\|` always collapse out on both source and target. Re-run the matcher to recompute stored offsets. Files: `packages/jain_kb_common/jain_kb_common/matching/normalize.py`, `packages/jain_kb_common/jain_kb_common/matching/tests/test_normalize.py`. |
+| 2026-06-24 | **Highlight-offset coordinate fix + grey/brown icon for matched siblings.** Follow-up to the same गुणपर्यायवान् references. (1) **Offsets now in raw-NFC space.** `normalize()` previously reported `n2o` against the *transformed* `original` (after anusvara `ं`→`म्`/class-nasal and र्-gemination collapse, both length-changing), but the UI highlights `normalizeNFC(text)` (plain NFC). Each transform before a match shifted the rendered highlight forward by one char — visible as the भावार्थ highlight starting mid-word. `original` is now the raw NFC text and `n2o` threads each char's raw-NFC offset through the transforms (the injected `म`+`्` share the anusvara's offset, so `n2o` is non-decreasing). Re-run the matcher to recompute stored `char_start`/`char_end`. (2) **`findMatchForRef` prefers `matched`.** A block can emit several same-gatha targets (matched टीका + unmatched भावार्थ/अन्वयार्थ sibling); the modal picked the first by gatha regardless of status, rendering a grey book for a ref that does highlight. Now prefers a `matched` candidate. Files: `packages/jain_kb_common/jain_kb_common/matching/normalize.py`, `ui/src/components/ViewInShastraButton.tsx`, plus tests in `test_normalize.py` and `ui/src/__tests__/components/ViewInShastraButton.test.ts`. |
+| 2026-06-24 | **Bhaavarth (भावार्थ) for `Gatha`-primary verses + two normalization fixes.** Two adjacent गुणपर्यायवान् references on द्रव्य had no working link/highlight. (1) **`Gatha`-primary भावार्थ fan-out.** Shastra-type roots (तत्त्वार्थसूत्र) emit a `Gatha` stub (no Sanskrit टीका), so the `GathaTeeka` bhaavarth path never fired and the सर्वार्थसिद्धि भावार्थ was never matched. New `_resolve_gatha_bhaavarth_targets` emits a भावार्थ target per publication bhaavarth doc for any `Gatha` verse whose block has a `hindi_translation`, looked up by regex over `gatha_teeka_natural_key` (bhaavarth docs lack `gatha_natural_key`). (2) **Word-final anusvara → `म्`.** `समगुणपर्यायं द्रव्यं इति` (extract) vs `समगुणपर्यायं द्रव्यम्’ इति` (टीका) scored 0.69 because a word-final `ं` wasn't canonicalized; `normalize()` now maps any `ं` not followed by a consonant to `म्`. (3) **Curly quotes stripped** (U+2018/U+2019/U+201C/U+201D) — the same टीका wraps the quote in `‘…’`. After (2)+(3) the quote is an exact substring (score 1.0). Files: `workers/matching/target_resolver.py`, `packages/jain_kb_common/jain_kb_common/matching/normalize.py`, plus tests in `tests/workers/matching/test_target_resolver.py` and `packages/jain_kb_common/jain_kb_common/matching/tests/test_normalize.py`. |
 | 2026-06-24 | **Bhaavarth (भावार्थ) second target.** A `sanskrit_text` block resolving to a `GathaTeeka` (Sanskrit teeka) whose `hindi_translation` is the published Hindi भावार्थ now also emits a `gatha_teeka_bhaavarth_hindi` target matched against that translation (`source_text_kind="hindi_translation"`, threshold `hindi_text`), so the भावार्थ panel highlights alongside the Sanskrit teeka. Previously only the Sanskrit teeka matched and the भावार्थ panel never highlighted (e.g. द्रव्य → प्रवचनसार/तत्त्वप्रदीपिका गाथा 96). The bhaavarth doc is looked up by its `gatha_teeka_natural_key` field (`{teeka_nk}:{gseg}`), recovered by stripping `:टीका:san` from the teeka Mongo NK, because the `GathaTeeka` stub lacks the publication-prefixed NK. No UI change needed — the reading page already keys the bhaavarth panel highlight by `bh.natural_key`, and `useMatchEntries` groups the teeka + bhaavarth matches as same-gatha siblings into one repeated-`?match=` deep-link. Files: `workers/matching/target_resolver.py`, `tests/workers/matching/test_target_resolver.py`. |
 | 2026-06-24 | **Anvayartha (शब्दार्थ) second target + multi-highlight.** A `Gatha` verse target whose source block has a `hindi_translation` now also emits a `teeka_gatha_mapping` (अन्वयार्थ) target matched against that translation (`Target.source_text_kind="hindi_translation"`, threshold `hindi_text`), so the शब्दार्थ panel highlights alongside the verse. UI: `buildGathaHref` accepts sibling match keys → repeated `?match=` params; the gatha reading page accepts `match: string \| string[]`, highlights every matched panel, and `HighlightScrollIntoView` pulses all of them. Files: `workers/matching/{source_iter,target_resolver,orchestrator,apply_match}.py`, `ui/src/lib/gatha-content.ts`, `ui/src/components/{ViewInShastraButton,ShabdaArthSection,HighlightScrollIntoView}.tsx`, `ui/src/app/.../gathas/[number]/page.tsx`. |
 | 2026-06-24 | **`(Gatha, sanskrit_text)` routing.** Root "shastra"-type shastras whose primary verse is Sanskrit (e.g. तत्त्वार्थसूत्र) are extracted by JainKosh as a `sanskrit_text` block, but `reference_edges._emit_gatha` emits a `Gatha` stub for *every* block kind under a `shastra`-type shastra (the sutra **is** the gatha). The matcher's `_ROUTING` lacked `(Gatha, sanskrit_text)`, so the resolver dropped the edge — no `extract_matches` row at all, hence no "View in Shastra" link on e.g. द्रव्य → तत्त्वार्थसूत्र 5/29 (`सत् द्रव्यलक्षणम्`). Added `(Gatha, sanskrit_text) → gatha_sanskrit` and the matching `_derive_mongo_nk` branch (`{stub_nk}:sanskrit`). Files: `workers/matching/target_resolver.py`, `tests/workers/matching/test_target_resolver.py`. |

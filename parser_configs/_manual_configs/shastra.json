@@ -283,7 +283,9 @@
     "edition": "",
     "type": "publication",
     "alternate_name": "गोम्मटसार जीवकांड",
-    "public_url": ""
+    "public_url": "",
+    "pdf_filename": "gommatsaar_jeevkaand",
+    "pdf_page_offset": 98
   },
   {
     "shastra_name": "ज्ञानार्णव",

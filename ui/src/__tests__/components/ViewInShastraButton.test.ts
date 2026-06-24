@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { planRefLink, type MatchEntry } from '@/components/ViewInShastraButton';
+import { planRefLink, findMatchForRef, type MatchEntry } from '@/components/ViewInShastraButton';
 import type { DefinitionReference } from '@/lib/types';
 
 function makeRef(overrides: Partial<DefinitionReference> = {}): DefinitionReference {
@@ -109,5 +109,40 @@ describe('planRefLink', () => {
   it('returns none when no match entry and no resolved fields', () => {
     const ref = makeRef({ shastra_name: 'samaysaar' });
     expect(planRefLink(ref, undefined, INGESTED).kind).toBe('none');
+  });
+});
+
+describe('findMatchForRef', () => {
+  it('prefers a matched entry over an unmatched sibling for the same gatha', () => {
+    // A single block emits two targets for प्रवचनसार गाथा 23: the matched टीका
+    // and an unmatched भावार्थ sibling that happens to appear first.
+    const ref = makeRef({
+      shastra_name: 'प्रवचनसार',
+      resolved_fields: [{ field: 'गाथा', value: '23' }],
+    });
+    const entries: MatchEntry[] = [
+      makeEntry({
+        natural_key: 'bh:1',
+        shastra_nk: 'प्रवचनसार',
+        gatha_nk: 'प्रवचनसार:गाथा:23',
+        status: 'unmatched',
+      }),
+      makeEntry({
+        natural_key: 'teeka:1',
+        shastra_nk: 'प्रवचनसार',
+        gatha_nk: 'प्रवचनसार:गाथा:23',
+        status: 'matched',
+      }),
+    ];
+    expect(findMatchForRef(ref, entries)?.natural_key).toBe('teeka:1');
+  });
+
+  it('prefers a matched candidate even without a gatha field', () => {
+    const ref = makeRef({ shastra_name: 'प्रवचनसार' });
+    const entries: MatchEntry[] = [
+      makeEntry({ natural_key: 'a', shastra_nk: 'प्रवचनसार', status: 'unmatched' }),
+      makeEntry({ natural_key: 'b', shastra_nk: 'प्रवचनसार', status: 'matched' }),
+    ];
+    expect(findMatchForRef(ref, entries)?.natural_key).toBe('b');
   });
 });

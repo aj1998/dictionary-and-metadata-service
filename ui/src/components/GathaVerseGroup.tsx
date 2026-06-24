@@ -4,7 +4,8 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { GathaPanel } from '@/components/GathaPanel';
 import { Link } from '@/i18n/navigation';
-import { toDevanagariNumerals } from '@/lib/format/devanagari';
+import { useLocale } from 'next-intl';
+import { toDevanagariNumerals, toDevanagariDigitsInString } from '@/lib/format/devanagari';
 import type { HighlightRange } from '@/lib/highlight';
 
 export interface GathaVerseEntry {
@@ -50,6 +51,9 @@ export interface GathaVerseGroupProps {
 
 export function GathaVerseGroup({ entries }: GathaVerseGroupProps) {
   const { currentNumber, setCurrentNumber } = useGathaVerseState();
+  const locale = useLocale();
+  const isHi = locale === 'hi';
+  const fmtNum = (n: number) => isHi ? toDevanagariNumerals(n) : String(n);
   const idx = Math.max(
     0,
     entries.findIndex((e) => e.number === currentNumber),
@@ -79,7 +83,7 @@ export function GathaVerseGroup({ entries }: GathaVerseGroupProps) {
             </button>
           )}
           <span className="font-serif-hindi text-xs text-foreground-muted">
-            गाथा {toDevanagariNumerals(parseInt(current.number, 10))} ({toDevanagariNumerals(idx + 1)}/{toDevanagariNumerals(total)})
+            गाथा {fmtNum(parseInt(current.number, 10))} ({fmtNum(idx + 1)}/{fmtNum(total)})
           </span>
           {hasNext && (
             <button
@@ -138,6 +142,14 @@ export function GathaPageBottomNav({
   adjacentLinks?: AdjacentLinks;
 }) {
   const { currentNumber } = useGathaVerseState();
+  const locale = useLocale();
+  const isHi = locale === 'hi';
+
+  const formatLabel = (label: string) =>
+    isHi ? toDevanagariDigitsInString(label) : label;
+
+  const formatNum = (n: number) =>
+    isHi ? toDevanagariNumerals(n) : String(n);
 
   // Compound shastras: use server-fetched adjacent links instead of arithmetic.
   if (adjacentLinks) {
@@ -149,7 +161,7 @@ export function GathaPageBottomNav({
             href={`/shastras/${shastraDisplayNk}/gathas/${encodeURIComponent(prev)}`}
             className="flex items-center gap-1 rounded-[var(--radius-md)] border border-border bg-surface px-4 py-2 text-sm hover:border-accent hover:text-accent"
           >
-            ← {gathaLabel} {prevLabel ?? prev}
+            ← {gathaLabel} {formatLabel(prevLabel ?? prev)}
           </Link>
         ) : (
           <span />
@@ -159,7 +171,7 @@ export function GathaPageBottomNav({
             href={`/shastras/${shastraDisplayNk}/gathas/${encodeURIComponent(next)}`}
             className="flex items-center gap-1 rounded-[var(--radius-md)] border border-border bg-surface px-4 py-2 text-sm hover:border-accent hover:text-accent"
           >
-            {gathaLabel} {nextLabel ?? next} →
+            {gathaLabel} {formatLabel(nextLabel ?? next)} →
           </Link>
         ) : (
           <span />
@@ -180,7 +192,7 @@ export function GathaPageBottomNav({
           href={`/shastras/${shastraDisplayNk}/gathas/${encodeURIComponent(prevNk)}`}
           className="flex items-center gap-1 rounded-[var(--radius-md)] border border-border bg-surface px-4 py-2 text-sm hover:border-accent hover:text-accent"
         >
-          ← {gathaLabel} {toDevanagariNumerals(num - 1)}
+          ← {gathaLabel} {formatNum(num - 1)}
         </Link>
       ) : (
         <span />
@@ -189,7 +201,7 @@ export function GathaPageBottomNav({
         href={`/shastras/${shastraDisplayNk}/gathas/${encodeURIComponent(nextNk)}`}
         className="flex items-center gap-1 rounded-[var(--radius-md)] border border-border bg-surface px-4 py-2 text-sm hover:border-accent hover:text-accent"
       >
-        {gathaLabel} {toDevanagariNumerals(num + 1)} →
+        {gathaLabel} {formatNum(num + 1)} →
       </Link>
     </div>
   );

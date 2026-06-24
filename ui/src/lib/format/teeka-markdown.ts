@@ -4,6 +4,8 @@
 // into <ul>. HTML tags already present in source (e.g. <span style="color:..">)
 // are preserved verbatim because the output is rendered via dangerouslySetInnerHTML.
 export function teekaMarkdownToHtml(text: string): string {
+  // Strip leading BOM (U+FEFF) — present in some NJ-sourced bhaavarth docs.
+  text = text.replace(/^﻿/, '');
   // Collapse 3+ consecutive newlines to 2 to remove excessive blank lines in source.
   text = text.replace(/\n{3,}/g, '\n\n');
   const parenLike = String.raw`\*{0,2}\(+[^()\n]+\)+\*{0,2}`;
@@ -27,6 +29,9 @@ export function teekaMarkdownToHtml(text: string): string {
       .replace(/(?<!\*)\*([^*\n]+)\*(?!\*)/g, '<em>$1</em>')
       .replace(/\(\(([^)]+)\)\)/g, '<span class="teeka-paren">($1)</span>');
 
+  // Numbered section prefix: "1.", "3-4." etc. at the start of a paragraph.
+  const SECTION_NUM_RE = /^(\d+(?:-\d+)?)\.\s+/;
+
   return inlined
     .split(/\n\n+/)
     .map((para) => {
@@ -44,6 +49,18 @@ export function teekaMarkdownToHtml(text: string): string {
         for (const t of textBuf) {
           const trimmed = t.trim();
           if (!trimmed) continue;
+          const numMatch = trimmed.match(SECTION_NUM_RE);
+          if (numMatch) {
+            const numLabel = `${numMatch[1]}.`;
+            const rest = trimmed.slice(numMatch[0].length);
+            out.push(`<div class="teeka-section-break"><span class="teeka-section-num">${numLabel}</span></div>`);
+            if (rest) {
+              const isDerivation = /[:्]\s*$/.test(rest);
+              const cls = isDerivation ? ' class="teeka-derivation"' : '';
+              out.push(`<p${cls}>${formatInline(rest)}</p>`);
+            }
+            continue;
+          }
           const isDerivation = /[:्]\s*$/.test(trimmed);
           const cls = isDerivation ? ' class="teeka-derivation"' : '';
           out.push(`<p${cls}>${formatInline(t)}</p>`);
